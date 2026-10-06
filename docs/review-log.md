@@ -49,6 +49,28 @@
 
 Exact final test/check/PR/merge timestamps are recorded in `data/three-pass-review.json` and GitHub receipts.
 
+## H47-B footprint audit and current-main reconciliation — three focused passes
+
+### Pass 1 — preserve current main and identify the supplemental artifact
+
+- Resolved the merge with `origin/main` by retaining the newer C1, H47-QC, H48, Session 3, source-feed, current-submission and site content as the baseline; no current C1/H47-QC artifact or gate was replaced.
+- Kept the unique H47-B single-scale NaN-outside TIFF and its all-finite encoding diagnostic separate from the main C1 download. Added an H47-B audit page and artifact-register entries rather than reviving an older H47-B homepage.
+- Checked both exact TIFF paths, sizes and SHA-256 values against the branch evidence before publishing links.
+
+### Pass 2 — recheck science, format assumptions and claims
+
+- Rechecked H47-B's negative locked-test comparison: pooled catalogue-mask proxy DTI 0.02563947 versus 0.02755344 for H47-B cross-scale and 0.03715911 for fixed-seed random. No leaderboard or missing-fault claim is made.
+- Rechecked nominal rank 6/6 = 6/7 ≈ 85.7% conformal arithmetic, its unverified block-score exchangeability assumption, two empty calibration blocks, and clipped lower floor 0.0. No private/global guarantee follows.
+- Reconciled the explicit mirrored sample-template mask with the feature-derived mask: 5,167,373 versus 5,165,852 valid cells, 1,540 feature-valid cells outside, 3,061 sample/label cells invalid in features. The official footprint and historical portal-error cause remain unknown; the finite diagnostic is not asserted to explain the old error.
+
+### Pass 3 — integration and final release checks
+
+- Added cross-links from current homepage, executive summary, irregularity page, README and complete artifact register while keeping C1 as the prominent current download.
+- Synchronized the machine-readable irregularity registry copies and added regression coverage for current-download separation, H47-B links and the exact artifact digest.
+- Final post-current-main-merge local run: pytest **242 passed, 1 skipped, 2 subtests passed**; the CI exclusion profile has **230 passed, 13 deselected, 2 subtests passed**; unittest **81 tests passed**; Ruff **PASS**. Site-link/asset checks are included in the suite. JSON/CSV parsing, both irregularity registry copies, and the two H47-B manifest hashes **PASS** (21 manifest rows). One upstream Rasterio `PendingDeprecationWarning` remains.
+- Reopened the exact H47-B TIFF: explicit mirrored sample-template mask **PASS** (5,167,373 valid cells, 0 invalid inside, 0 non-NaN outside, SHA matches); feature-derived mask **fails as expected** (1,540 invalid inside, 3,061 non-NaN outside). This reproduces the local discrepancy, not organizer acceptance. `git diff --cached origin/main --check` **PASS**. No competition slot was used.
+- Remote branch CI and PR state are pending observation; this review log must not describe them as green or merged until GitHub reports those results.
+
 ## Older corrections still in force
 
 Retired annulus .34912 / .34837 private floor is withdrawn; adaptive nested history is not exchangeable

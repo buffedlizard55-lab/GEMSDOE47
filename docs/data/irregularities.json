@@ -257,6 +257,14 @@
       "why_it_matters": "two assertions referenced page text that the committed docs/index.html no longer contained, and one required exactly one TIFF link while the page offered three",
       "what_was_done": "tests reconciled with the intended contract (one prominent download + docs/all-downloads.html register); suite green (59 unittest, 106 pytest)",
       "human_page": "docs/irregularities.md"
+    },
+    {
+      "id": "IR-47-021",
+      "severity": "HIGH",
+      "what": "The H47-B single-scale TIFF's strict local format pass depends on the mirrored sample-template footprint; the feature-derived mask disagrees.",
+      "why_it_matters": "The sample and label masks each have 5,167,373 cells; the feature-derived mask has 5,165,852, with 1,540 feature-valid cells outside and 3,061 sample/label cells invalid in features. Official footprint semantics and the historical portal-error cause remain unknown.",
+      "what_was_done": "Published the exact artifact hash, mask-source-specific validation, and footprint comparison; kept the artifact research-only with no slot authorized.",
+      "human_page": "docs/irregularities.html#ir-47-021"
     }
   ]
 }

@@ -1,10 +1,10 @@
 # H47-B public-catalogue screen — 2026-10-06
 
-> **Decision: NOT PROMOTED. No submission slot is recommended.** The artifact linked on the site is provided solely for research review and is explicitly named `research-not-submittable`. A valid GeoTIFF profile does not rescue the failed holdout/control gate.
+> **Decision: NOT PROMOTED. No submission slot is recommended.** This document describes the earlier H47-B cross-scale experiment, not the later single-scale control. The cross-scale TIFF is retained under `docs/downloads/superseded/`; the single-scale artifact, its footprint-mask discrepancy and exact format audit are documented separately in the [H47-B mask audit](h47b-mask-audit-20261006.html). A valid GeoTIFF profile does not rescue the failed holdout/control gate.
 
 ## Executive result
 
-H47-B ranked a rank-encoded `TMI_up150` magnetic edge-persistence field at 2, 4, and 8 pixels on the 100 m grid. Spacing was selected on five preregistered blocks, evaluated on six calibration blocks, then assessed on five locked blocks. The candidate beat a tuned single-scale edge baseline by a small margin on the pooled locked-test DTI, but **lost to a fixed-seed random control**. Its mechanically computed, assumption-conditional conformal lower floor was **zero**. Five of the 16 blocks contained no catalogue truth, including two locked-test and two calibration blocks.
+H47-B ranked a rank-encoded `TMI_up150` magnetic edge-persistence field at 2, 4, and 8 pixels on the 100 m grid. Spacing was selected on five preregistered blocks, evaluated on six calibration blocks, then assessed on five locked blocks. The candidate beat a tuned single-scale edge baseline by a small margin on the pooled locked-test DTI, but **lost to a fixed-seed random control**. Its mechanically computed, assumption-conditional conformal lower floor was **zero**. Five of the 16 blocks contained no known-catalogue mask pixels, including two locked-test and two calibration blocks.
 
 | Locked-test measure | H47-B | Single-scale baseline | Fixed-seed random |
 |---|---:|---:|---:|
@@ -12,13 +12,13 @@ H47-B ranked a rank-encoded `TMI_up150` magnetic edge-persistence field at 2, 4,
 | Unweighted mean of five block DTIs | 0.01197844 | 0.01099731 | **0.02181179** |
 | Promotion condition | beat baseline | — | **H47-B lost** |
 
-These values are **public-catalogue screening results**, not a DrivenData private score, not evidence of private-fault discovery, and not a score attributed to any historical TIFF. The input catalogue and template came from a public group-hosted GitHub mirror, not a direct authenticated organizer download. See [the frozen protocol](preregistered-h2.md), the [machine-readable screen report](h47b-screen-report-20261006.json), and the [full artifact comparison record](h47b-uniqueness-audit-20261006.json).
+These values are **public-catalogue screening results**, not a DrivenData private score and not a score attributed to any historical TIFF. Crucially, `labels.tif == 1` marks known USGS/INGENIOUS fault pixels, which the organizer says are masked from the actual off-catalogue target ([staff clarification](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516)). This experiment scored against those known-fault pixels as a diagnostic resemblance proxy; it is **not a spatial holdout of missing-fault labels** and cannot validate private-fault discovery. The input catalogue and template came from a public group-hosted GitHub mirror, not a direct authenticated organizer download. See [the frozen protocol](preregistered-h2.md), the [machine-readable screen report](h47b-screen-report-20261006.json), and the [full artifact comparison record](h47b-uniqueness-audit-20261006.json).
 
 ## Protocol and inputs
 
-- The protocol and input hashes in [`preregistered-h2.md`](preregistered-h2.md) were frozen before H47-B scoring. The source-code implementation is `gemsdoe47/magnetic.py` and `scripts/run_h2_experiment.py`.
+- The input hashes and original protocol were frozen before H47-B scoring. The protocol document now includes a post-score target-semantics clarification only; the original frozen SHA-256 and current clarification-document SHA-256 are both recorded in the machine-readable report. The source-code implementation is `gemsdoe47/magnetic.py` and `scripts/run_h2_experiment.py`.
 - The feature is `TMI_up150` from a `uint8` rank-encoded GeoDAWN mirror. It is **not physical magnetic units**, raw total magnetic intensity, a tilt-angle solution, or a physical source-depth estimate.
-- Public catalogue labels were used only for the evaluation; the acquisition-block raster was used only for descriptive subgroup checks.
+- The known-fault catalogue mask (`labels.tif == 1`) was used as a diagnostic evaluation proxy; it is not the hidden off-catalogue target. The acquisition-block raster was used only for descriptive subgroup checks.
 - DTI was computed with this repository's implementation, [`src/gems47_metric.py`](../src/gems47_metric.py), transcribed from the official [DrivenData metric description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/). This is a local formula implementation, not an organizer-run scorer or an official private-score receipt.
 - The 4 × 4 grid used disjoint block cores with a 3-pixel/300 m edge guard. The selection, calibration, and locked-test assignment was fixed before scoring. The guard prevents direct kernel overlap across block edges; it **does not establish statistical independence**.
 
@@ -38,15 +38,15 @@ The preregistered selection rule selects 5 px for H47-B and 5 px for the baselin
 
 ### Locked blocks and label coverage
 
-The locked blocks were IDs 2, 5, 8, 11, and 14. Only IDs 2, 5, and 14 contained catalogue pixels: 6,091; 10,600; and 5,342 respectively. IDs 8 and 11 had zero truth and scored zero for all methods. The candidate beat the single-scale baseline in each of the three labeled locked blocks, but the random control scored higher than H47-B in each of those blocks. Pooled results therefore do not support promotion.
+The locked blocks were IDs 2, 5, 8, 11, and 14. Only IDs 2, 5, and 14 contained known-catalogue mask pixels: 6,091; 10,600; and 5,342 respectively. IDs 8 and 11 had zero mask pixels and scored zero for all methods. The candidate beat the single-scale baseline in each of the three nonempty proxy blocks, but the random control scored higher than H47-B in each. This is a negative resemblance-proxy screen, not evidence about missing-fault labels.
 
-Across all 16 blocks, five were empty of catalogue truth: selection block 7; locked-test blocks 8 and 11; calibration blocks 12 and 15. An empty block's score of zero is not evidence that a method failed to find a fault there; it is also not evidence of success.
+Across all 16 blocks, five were empty of known-catalogue mask pixels: selection block 7; locked-test blocks 8 and 11; calibration blocks 12 and 15. An empty proxy block's score of zero says nothing about whether a missing fault is present there.
 
 ## Conformal calculation — not a positive floor
 
 At selected spacing 5 px, selection mean DTI was `μ = 0.04860422299678556`. The six calibration DTI values were approximately `[0.04322934, 0.02420100, 0.03694814, 0.07157694, 0, 0]`. The one-sided residuals were `μ − DTIᵢ`; the preregistered order statistic was rank 6 of 6 at nominal `6/7 ≈ 85.7%` coverage **conditional on marginal block-score exchangeability**.
 
-The resulting quantile is `0.04860422299678556` and the clipped lower bound is **0.0**. Spatial dependence makes the exchangeability assumption unverified, and two calibration blocks have no catalogue truth. The nominal number is therefore only an assumption-conditional calculation; it is **not** a usable positive performance floor or a guarantee about private labels or leaderboard score. The older claimed `0.34837` floor is separately retired (see [analysis](analysis.md)).
+The resulting quantile is `0.04860422299678556` and the clipped lower bound is **0.0**. Spatial dependence makes exchangeability unverified, and two calibration blocks have no known-catalogue mask pixels. The nominal number is an assumption-conditional calculation for the catalogue-mask proxy only; it is **not** a missing-fault performance floor or a guarantee about private labels or leaderboard score. The older claimed `0.34837` floor is separately retired (see [analysis](analysis.md)).
 
 ## File audit and accessible-artifact comparison
 

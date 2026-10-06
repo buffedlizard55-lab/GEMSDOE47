@@ -15,6 +15,8 @@ GitHub Pages serves this directory. The C1 landing page is primary and keeps its
 | `irregularities.html` | Current irregularity and limitation ledger |
 | `prior-results.csv` | Owner-reported participant-score rows; raster associations are not organizer-authenticated |
 | `prior-output-manifest.csv` | Current and retired TIFF outputs with SHA-256, byte-size, out-of-footprint convention, and status records |
+| `all-downloads.html` | Download register for current and historical prediction rasters, hashes and gate results |
+| `h47b-mask-audit-20261006.html` / `.md` | Supplemental H47-B negative result, exact artifact metadata and unresolved footprint-mask discrepancy |
 | `downloads/` | C1 and historical/research-only GeoTIFFs, plus identification notes and single-TIFF ZIP |
 
 The committed downloads are intentional: the artifact must be reachable from the live site with one click. This directory is not a submission-eligibility list. A valid GeoTIFF or unique visible mask does not establish scientific performance, organizer acceptance, or a score-to-file mapping. Large restored inputs stay in ignored `.cache/`; see `data/README.md`.

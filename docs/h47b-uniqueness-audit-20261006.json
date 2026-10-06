@@ -8355,7 +8355,7 @@
     "Two blobs were read but excluded because their grids did not match exactly; reasons and observed grids are listed above.",
     "The comparison measures binary positive support, not raster-value equality, geological validity, label quality, or score.",
     "No public participant leaderboard row was mapped to any artifact or upload receipt by this audit.",
-    "A uniqueness result does not promote H47-B; it failed the preregistered public-catalogue holdout gate and is not for submission."
+    "A uniqueness result does not promote H47-B; its diagnostic screen against the known-fault catalogue-mask proxy failed, and this proxy is not the hidden missing-fault target; the TIFF is not for submission."
   ],
   "observation_date": "2026-10-06",
   "observation_time_utc": null,

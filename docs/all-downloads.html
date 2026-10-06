@@ -15,7 +15,7 @@
   failed promotion gates; no slot is authorized. This register lists every GeoTIFF currently published
   under <code>downloads/</code>, including superseded files, with exact hashes and status.</p>
   <nav><a href="index.html">Home</a> <a href="executive-summary.html">Executive summary</a>
-  <a href="h48.json">H48 receipt (JSON)</a> <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h48_apex_build.json">Full build receipt</a></nav>
+  <a href="h48.json">H48 receipt (JSON)</a> <a href="h47b-mask-audit-20261006.html">H47-B mask audit</a> <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h48_apex_build.json">Full build receipt</a></nav>
 </div></header>
 <main class="wrap">
 <table>
@@ -77,8 +77,18 @@
   </tr>
   <tr>
     <td><a href="downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif" download>gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif</a></td>
-    <td>H47-B</td><td>18,524</td><td>float32 all-finite</td><td>1,521,667 B</td>
+    <td>H47-B cross-scale</td><td>18,524</td><td>float32, NaN outside</td><td>1,521,667 B</td>
     <td><code>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</code></td><td>Falsified against a fixed-seed random control. Evidence only.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif" download>gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif</a></td>
+    <td>H47-B single-scale follow-up</td><td>18,524</td><td>float32, NaN outside</td><td>309,530 B</td>
+    <td><code>dc71c807fbca2cd398f394bcd91b10ecec6b46fe89c2d61f5b1c058fef672811</code></td><td>Research only. Strict local PASS uses explicit mirrored sample-template mask; feature-derived footprint fails. Lost to random proxy control; zero clipped floor. <a href="h47b-mask-audit-20261006.html">Full audit</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-allfinite.tif" download>gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-allfinite.tif</a></td>
+    <td>H47-B same-mask encoding diagnostic</td><td>18,524</td><td>float32, zeros outside</td><td>257,898 B</td>
+    <td><code>c640b71c7c57066dd77bbd42fcb6c436d0a8c201de6b0ec1d88ab25976089501</code></td><td>Same positive mask; fails strict NaN-outside validation. Diagnostic only; historical portal-error cause unknown.</td>
   </tr>
   <tr>
     <td><a href="downloads/superseded/gems47-dcat20-annulus-flankprune-n18524-20261006.tif" download>gems47-dcat20-annulus-flankprune-n18524-20261006.tif</a></td>
@@ -88,7 +98,10 @@
 </table>
 <p class="small">All rasters are single-band float32 on the same 3292 × 3730, EPSG:32611, 100 m grid.
 The current C1 and H47-QC TIFFs contain only finite [0,1] samples; some older explicitly named NaN-outside
-variants contain NaNs outside the footprint. In a bounded scan, NaN variants failed a NaN-intolerant
+variants contain NaNs outside the footprint. The H47-B single-scale strict local pass uses an explicit
+mask from the mirrored sample template; the feature-derived mask differs by 1,540 feature-valid cells
+outside and 3,061 sample/label cells invalid in features. Official mask semantics remain unresolved. Its
+all-finite companion is only an encoding diagnostic. In a bounded scan, NaN variants failed a NaN-intolerant
 range check and all-finite variants passed. The original rejected TIFF is unavailable, so this does not
 diagnose the cause of that specific rejection. Local format checks do not establish organizer acceptance.</p>
 <p class="small"><b>Nothing here is recommended for a scored slot.</b> The promotion gate and the reason

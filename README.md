@@ -391,6 +391,12 @@ cells: 244. These all_touched pixel counts are not fault counts or expert-new tr
 USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
 GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.
 
+### Preserved H47-B follow-up — supplemental, not the current download
+
+The later single-scale H47-B control remains available as a [separate audit page and research-only TIFF](docs/h47b-mask-audit-20261006.html); it does **not** replace H47-C1 as the site’s current primary artifact. The single-scale locked pooled known-catalogue-mask proxy DTI was 0.02563947, below H47-B cross-scale (0.02755344) and fixed-seed random (0.03715911). The nominal 6/7 (~85.7%) split-conformal calculation assumes unverified block-score exchangeability and clips to a zero lower floor; it is not missing-fault or private-score coverage.
+
+Its local strict format pass uses the explicit mirrored sample-template mask. That mask differs from the feature-derived footprint by 1,540 feature-valid cells outside and 3,061 sample/label cells invalid in features; official footprint semantics and portal acceptance remain unknown. The historical range-error cause is not proved. The paired all-finite TIFF is only an encoding diagnostic. See [IR-23](docs/irregularities.md) and the [complete artifact register](docs/all-downloads.html).
+
 ## Publication receipt
 
 PR **#12 merged** at 2026-10-06 22:08:36 UTC, commit `04d49a321b146e13fb2b6e718ea73dfb02534fbc`,
