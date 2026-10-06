@@ -45,12 +45,12 @@ import rasterio
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47 import emitter as E       # noqa: E402
-from gems47 import features as FEAT   # noqa: E402
-from gems47 import grid as G          # noqa: E402
-from gems47 import hypotheses as HY   # noqa: E402
-from gems47 import lati, metric as M  # noqa: E402
-from gems47.scripts_common import rank_u8_inplace  # noqa: E402
+from gems47 import emitter as E
+from gems47 import features as FEAT
+from gems47 import grid as G
+from gems47 import lati
+from gems47 import metric as M
+from gems47.scripts_common import rank_u8_inplace
 
 L2, BMAX, KLO, KHI = 1e-5, 12.0, 2_000.0, 120_000.0
 LEVELS = {1: 256, 2: 64, 3: 32, 4: 20, 5: 14, 6: 12}

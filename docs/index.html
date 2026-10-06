@@ -10,9 +10,12 @@
 <body>
 
 <header class="top"><div class="wrap">
-  <h1>GEMSDOE47 <span class="badge b-info">UNSCORED</span></h1>
+  <h1>GEMSDOE47 <span class="badge b-info">UNSCORED</span>
+    <span class="badge b-bad">GATE CLOSED — NO SUBMISSION RECOMMENDED</span></h1>
   <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition 306 ·
-     Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)</p>
+     Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Public leaderboard, one-time read 2026-10-06: rank 1 <b>0.3774</b> · DARD <b>0.3195</b> at #7 ·
+     <code>extradr19</code> <b>0.2778</b> at #13 — see <a href="leaderboard.html">leaderboard.html</a></p>
   <nav>
     <a class="on" href="index.html">Home</a>
     <a href="executive-summary.html">Executive summary &amp; how to submit</a>
@@ -20,6 +23,14 @@
     <a href="method.html">LATI method</a>
     <a href="evidence.html">Every number</a>
     <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
     <a href="../README.md">README / brief</a>
   </nav>
 </div></header>
@@ -28,15 +39,23 @@
 
 <!-- ==================================================================== -->
 <div class="dl">
-  <p class="kicker">Step 1 — download the submission</p>
-  <h2>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif</h2>
+  <p class="kicker">Research artifact — download for review</p>
+  <h2>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif
+      <span class="badge b-bad">RESEARCH ONLY — NOT FOR SUBMISSION</span></h2>
+  <p class="small" style="margin:0 0 10px">
+    <b>NOT PROMOTED · NO SLOT.</b> This file is format-valid and unique, and it is
+    published so that every claim on this site can be checked against real bytes.
+    It is <b>not</b> slot-eligible: it failed its validation gate (cross-fitted
+    spatial holdout −0.0611 and −0.0450 against the incumbent, and it loses on all
+    five truth frames). A format pass is not a scientific promotion. Do not upload
+    it to a scarce weekly slot.</p>
   <div class="btnrow">
     <a class="btn" href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif"
        download>⬇&nbsp; DOWNLOAD THE SUBMISSION (.tif, 240 KB)</a>
     <a class="btn ghost" href="executive-summary.html">How to submit it →</a>
   </div>
   <p class="small" style="margin:0">
-    This is the <b>all-finite</b> variant and it is the one to upload. Every one of its
+    This is the <b>all-finite</b> variant and it is the one that clears the format gate. Every one of its
     12,279,160 pixels is finite and inside [0,&nbsp;1], so it passes even a NaN-intolerant
     range check — that is the exact defect that produced
     <code>"Predicted values must be in range [0, 1]"</code> (see
@@ -297,6 +316,29 @@ python3 scripts/ship.py                       # build, evaluate, write and verif
 <p class="small">Built under 2 vCPU, 3 GB RAM, 19 GB disk, and a network that reaches only
 <code>pypi.org</code>, <code>github.com</code>, <code>api.github.com</code> and
 <code>codeload.github.com</code> from a shell.</p>
+
+<h2>The earlier session’s pages</h2>
+<p class="small">This repository merges two independent sessions on the same brief. The earlier one
+(commits <code>13a845b</code>, <code>9582f34</code>) built its own detector, its own preregistered
+promotion gate and its own site, and reached the same verdict by a different route: <b>H47-B
+(cross-scale <code>TMI_up150</code> magnetic-edge persistence) was NOT PROMOTED</b> — locked-test
+pooled DTI 0.02755 against a fixed-seed random control at <b>0.03716</b>, i.e. the candidate lost to
+random noise. Its pages are preserved and linked, not overwritten.</p>
+<table>
+<tr><th>Earlier session</th><th>This session</th></tr>
+<tr><td><a href="leaderboard.html">leaderboard.html</a> — the 2026-10-06 public read</td>
+    <td><a href="method.html">method.html</a> — LATI</td></tr>
+<tr><td><a href="analysis.html">analysis.html</a> / <a href="analysis.md">analysis.md</a> — score and source attribution</td>
+    <td><a href="hypotheses.html">hypotheses.html</a> — the five ranked hypotheses</td></tr>
+<tr><td><a href="validation-protocol.md">validation-protocol.md</a> — the preregistered gate</td>
+    <td><a href="evidence.html">evidence.html</a> — every number with its file</td></tr>
+<tr><td><a href="validation-h47b-20261006.md">validation-h47b-20261006.md</a> — H47-B’s failure in detail</td>
+    <td><a href="irregularities.html">irregularities.html</a> — IR-47-001…015</td></tr>
+<tr><td><a href="portal-checklist.html">portal-checklist.html</a> · <a href="submit.html">submit.html</a> · <a href="sources.html">sources.html</a></td>
+    <td><a href="executive-summary.html">executive-summary.html</a> — how to submit</td></tr>
+<tr><td><a href="review-log.md">review-log.md</a> · <a href="next-session.md">next-session.md</a> · <a href="prior-results.md">prior-results.md</a> · <a href="irregularities.md">irregularities.md</a></td>
+    <td><a href="prev-session/README.md">prev-session/</a> — the three superseded landing pages, verbatim</td></tr>
+</table>
 
 <h2>Site map</h2>
 <div class="toc">

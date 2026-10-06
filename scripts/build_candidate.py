@@ -38,12 +38,13 @@ import rasterio
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47 import features as FEAT   # noqa: E402
-from gems47 import grid as G          # noqa: E402
-from gems47 import lati, metric as M  # noqa: E402
-from gems47 import emitter as E       # noqa: E402
-from gems47.scripts_common import rank_u8_inplace  # noqa: E402
-from gems47.submission import write_submission, validate_submission  # noqa: E402
+from gems47 import emitter as E
+from gems47 import features as FEAT
+from gems47 import grid as G
+from gems47 import lati
+from gems47 import metric as M
+from gems47.scripts_common import rank_u8_inplace
+from gems47.submission import validate_submission, write_submission
 
 K_LO, K_HI, BMAX, L2 = 2_000.0, 120_000.0, 12.0, 1e-5
 
@@ -193,7 +194,6 @@ def main() -> int:
         res = E.emit_greedy(q, allowed, budget=args.budget, dti_start=0.26, verbose=True)
         dots = res.dots
         p = np.where(ev & dots, 1.0, 0.0)
-        sc = M.score(p, (q > 0), ev)  # not the truth; use the q-weighted estimate below
         T = float((E.credit_field(dots.astype(np.float64)) * q).sum())
         a = np.zeros(shape)
         for dy, dx, k in zip(M.OFF_DY, M.OFF_DX, M.OFF_K):
@@ -216,7 +216,6 @@ def main() -> int:
 
         # matched-budget variant for an apples-to-apples comparison
         mb = E.emit_topk(q, allowed, args.matched)
-        p2 = np.where(ev & mb, 1.0, 0.0)
         T2 = float((E.credit_field(mb.astype(np.float64)) * q).sum())
         a2 = np.zeros(shape)
         for dy, dx, k in zip(M.OFF_DY, M.OFF_DX, M.OFF_K):

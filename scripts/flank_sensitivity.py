@@ -30,11 +30,12 @@ import rasterio
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47 import features as FEAT   # noqa: E402
-from gems47 import grid as G          # noqa: E402
-from gems47 import hypotheses as HY   # noqa: E402
-from gems47 import lati, metric as M  # noqa: E402
-from gems47.scripts_common import rank_u8_inplace  # noqa: E402
+from gems47 import features as FEAT
+from gems47 import grid as G
+from gems47 import hypotheses as HY
+from gems47 import lati
+from gems47 import metric as M
+from gems47.scripts_common import rank_u8_inplace
 
 H33 = Path("/home/user/refs/GEMSDOE32/docs/downloads/"
            "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif")
@@ -84,7 +85,7 @@ def main() -> int:
     ev, shape = t.evaluated, t.shape
     obs12 = lati.load_observations(verbose=False)
     st = FEAT.build_stack(verbose=False)
-    ev_idx, U, names = st["ev_idx"], st["U"], list(st["names"])
+    ev_idx = st["ev_idx"]   # the 59-layer matrix is not needed here
     HL = HY.build_layers(t)
 
     def prox(oid, cap=40.0):

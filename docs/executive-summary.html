@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Executive summary &amp; how to submit — GEMSDOE47</title>
+<meta name="description" content="Exactly how to submit to DrivenData competition 306, the promotion-gate verdict on the GEMSDOE47 candidate, why 0.2778 won, and what would be needed to reach 0.3195.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
@@ -23,8 +24,13 @@
 <div class="wrap">
 
 <div class="dl">
-  <p class="kicker">The file to upload</p>
-  <h2>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif</h2>
+  <p class="kicker">The artifact — research only</p>
+  <h2>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif
+      <span class="badge b-bad">NOT FOR SUBMISSION</span></h2>
+  <p class="small" style="margin:0 0 10px"><b>Do not upload this to a scarce weekly slot.</b>
+    It is published for review because it failed its promotion gate: the cross-fitted spatial
+    holdout returned −0.0611 and −0.0450 against the incumbent, and it loses on all five truth
+    frames. Format-valid is not the same as scientifically validated.</p>
   <div class="btnrow">
     <a class="btn" href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif"
        download>⬇&nbsp; DOWNLOAD (.tif, 240 KB)</a>
@@ -37,7 +43,38 @@
   </div>
 </div>
 
+<h2 id="gate">The promotion gate</h2>
+<p>This repository inherits a hard rule from the earlier session, and this candidate does not pass it:</p>
+<div class="callout bad">
+<b>Do not use a submission slot for an idea that has not beaten the current spatially blocked holdout
+best under a preregistered rule.</b> Ties, unstable folds, missing labels, failed controls, or a
+zero/unsupported lower floor keep the gate closed. See
+<a href="validation-protocol.md">validation-protocol.md</a> and
+<a href="preregistered-h2.md">preregistered-h2.md</a>.
+</div>
+<table>
+<tr><th>Gate condition</th><th>H47-GSA</th><th>Result</th></tr>
+<tr><td>Beats the incumbent on a spatially blocked holdout, preregistered</td>
+    <td>Cross-fitted LATI: <b>−0.0611</b> and <b>−0.0450</b> out of fold</td>
+    <td><span class="badge b-bad">FAIL</span></td></tr>
+<tr><td>Beats a nontrivial control</td>
+    <td>Earlier session’s H47-B scored 0.02755 against a fixed-seed random control at
+        <b>0.03716</b> — it lost to noise. H47-GSA has no comparable control win.</td>
+    <td><span class="badge b-bad">FAIL</span></td></tr>
+<tr><td>Unique against accessible prior artifacts</td>
+    <td>max Jaccard <b>0.0457</b> against all 13 restored scored rasters</td>
+    <td><span class="badge b-good">PASS</span></td></tr>
+<tr><td>Valid output bytes, read back after writing</td>
+    <td>21/21 checks, 0 hard failures, passes the NaN-intolerant range check</td>
+    <td><span class="badge b-good">PASS</span></td></tr>
+<tr><td colspan="2"><b>Gate</b></td><td><span class="badge b-bad">CLOSED — NOT PROMOTED, NO SLOT</span></td></tr>
+</table>
+
 <h2>How to submit — nine steps</h2>
+<p class="small">Written out in full because the brief asks for it, and because steps 1–2 are exactly
+where the reported <code>"Predicted values must be in range [0, 1]"</code> rejection is caught. They
+apply to <i>any</i> artifact you upload, including a future promoted candidate — not to this one,
+which the gate above keeps out of the portal.</p>
 <ol class="steps">
 <li><b>Download the file above.</b> Take the <code>-allfinite.tif</code> one. Do not take the
     <code>-nan.tif</code> one unless the portal explicitly rejects the all-finite file.</li>
@@ -107,13 +144,18 @@ it with a belief fitted on the <i>other</i> half — returned <b>−0.0611</b> a
 in-fold advantage of ≈+0.30 DTI was entirely optimizer’s curse and pool-selection bias.</p>
 </div>
 
-<div class="callout good">
-<b>Do submit it in the Final Prize Round.</b> That round (3 Sep – 16 Oct) has <b>unlimited</b>
-submissions, so an unvalidated, high-variance arm costs nothing and a single informative return is
-worth more than the slot. This arm is also the only genuinely distinct raster in the collection
-(max Jaccard <b>0.0457</b> against all thirteen prior scored rasters) and it tests a geology —
-actively straining, hydrothermally altered, thermally discharging ground — that no sibling repository
-emitted as a primary field.
+<div class="callout warn">
+<b>The only context in which uploading it is arguable.</b> If — and only if — a round with
+<b>unlimited</b> submissions is open (the Final Prize Round was recorded as 3 Sep – 16 Oct; that date
+is <span class="badge b-warn">NOT RE-VERIFIED</span> this session), then an unvalidated, high-variance
+arm costs nothing and a single informative return is worth more than the slot. This arm is also the
+only genuinely distinct raster in the collection (max Jaccard <b>0.0457</b> against all thirteen prior
+scored rasters) and it tests a geology — actively straining, hydrothermally altered, thermally
+discharging ground — that no sibling repository emitted as a primary field.
+<br><br>
+<b>That is an argument, not a recommendation.</b> The promotion gate in this repository is closed, and
+the earlier session closed the identical gate on its own artifact for the identical reason. Treat any
+upload as an <b>experiment that buys a measurement</b>, not as a bid for rank.
 </div>
 
 <h2>Why 0.2778 won — the short version</h2>

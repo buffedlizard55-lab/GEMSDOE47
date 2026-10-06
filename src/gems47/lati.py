@@ -52,7 +52,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -316,7 +315,7 @@ class Binned:
     """
 
     def __init__(self, U: np.ndarray, rows: np.ndarray, obs: list[Obs], L: int):
-        self.rows = list(int(r) for r in rows)
+        self.rows = [int(r) for r in rows]
         self.L = int(L)
         self.r = len(self.rows)
         n = U.shape[1]

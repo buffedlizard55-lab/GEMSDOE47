@@ -40,13 +40,14 @@ import rasterio
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47 import emitter as E       # noqa: E402
-from gems47 import features as FEAT   # noqa: E402
-from gems47 import grid as G          # noqa: E402
-from gems47 import hypotheses as HY   # noqa: E402
-from gems47 import lati, metric as M  # noqa: E402
-from gems47.scripts_common import rank_u8_inplace  # noqa: E402
-from gems47.submission import diff_report, validate_submission, write_submission  # noqa: E402
+from gems47 import emitter as E
+from gems47 import features as FEAT
+from gems47 import grid as G
+from gems47 import hypotheses as HY
+from gems47 import lati
+from gems47 import metric as M
+from gems47.scripts_common import rank_u8_inplace
+from gems47.submission import diff_report, validate_submission, write_submission
 
 K_LO, K_HI, BMAX, L2 = 2_000.0, 120_000.0, 12.0, 1e-5
 
@@ -105,7 +106,7 @@ def main() -> int:
     ev, shape = t.evaluated, t.shape
     obs = lati.load_observations(verbose=False)
     st = FEAT.build_stack(verbose=False)
-    U, names, ev_idx = st["U"], list(st["names"]), st["ev_idx"]
+    ev_idx = st["ev_idx"]   # this exploratory build derives its layers from hypotheses.py
     HL = HY.build_layers(t)
     d_cat = HL["_diag_d_catalogue"]
     halo3 = ev & (d_cat > 0) & (d_cat <= M.RANGE_PX)
@@ -113,7 +114,6 @@ def main() -> int:
 
     u_prox = prox_layer(obs, "d2.8", ev_idx, shape)
     u_flank = rank_u8_inplace(HL["flank_halo_0_3"].ravel()[ev_idx].astype(np.float32))
-    u_sgmc = U[names.index("sgmc_offcat_prox")]
 
     # ---- F1: LOO-best belief model ----------------------------------------
     f1, w1 = fit_model([u_prox, u_flank], obs)

@@ -17,7 +17,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from gems47 import metric as M  # noqa: E402
+from gems47 import metric as M
 
 
 def test_kernel_offsets_and_levels():

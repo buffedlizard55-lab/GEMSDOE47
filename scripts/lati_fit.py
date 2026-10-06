@@ -33,9 +33,9 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47 import features as FEAT   # noqa: E402
-from gems47 import grid as G          # noqa: E402
-from gems47 import lati, metric as M  # noqa: E402
+from gems47 import features as FEAT
+from gems47 import lati
+from gems47 import metric as M
 
 LEVELS_BY_R = {0: 1, 1: 256, 2: 64, 3: 32, 4: 20, 5: 14, 6: 12}
 K_LO, K_HI = 2_000.0, 60_000.0
@@ -223,7 +223,7 @@ def main() -> int:
             continue
     B = np.array(boots)
     out["bootstrap"] = {
-        "n": int(len(B)),
+        "n": len(B),
         "K": {"mean": float(B[:, 0].mean()), "sd": float(B[:, 0].std()),
               "p2.5": float(np.percentile(B[:, 0], 2.5)),
               "p50": float(np.percentile(B[:, 0], 50)),

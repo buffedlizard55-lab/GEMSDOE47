@@ -166,7 +166,6 @@ def emit_poisson_thin(field: np.ndarray, min_dist_px: float, rank_order: bool = 
     Reproduces the *family* of the incumbent (a raster-order thin at d = 2.8 px)
     so that emission rules can be compared at matched budget.
     """
-    from scipy import ndimage
     ys, xs = np.nonzero(field > 0)
     if ys.size == 0:
         return np.zeros(field.shape, bool)

@@ -1,19 +1,36 @@
-name: tests
+name: Tests
 
 on:
   push:
-    branches: [main, "arena/**"]
   pull_request:
 
 jobs:
-  unit:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.11" }
-      - run: pip install numpy scipy rasterio pytest
-      # The metric algebra, the writer and the inversion are tested without the
-      # 1.2 GB of restored rasters; scripts/verify_grid.py needs them and is
-      # therefore run only when the cache is present.
-      - run: PYTHONPATH=src pytest tests -q -m "not needs_data"
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Install project dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Run lint
+        run: python -m ruff check .
+      # Two suites coexist in this repository after the 2026-10-06 merge:
+      #   * the earlier session's unittest suite (gemsdoe47/, src/gems47_*.py, site integrity)
+      #   * the later session's pytest suite   (src/gems47/, metric algebra, writer, LATI)
+      # PYTHONPATH=src lets the pytest modules import gems47 without conftest.py, so
+      # unittest discovery can import them without error even though it collects none
+      # of their tests (they define no TestCase subclasses).
+      - name: Run unit and site-integrity tests (unittest suite)
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests -v
+      - name: Run metric / writer / inversion tests (pytest suite, no data needed)
+        env:
+          PYTHONPATH: src
+        run: python -m pytest tests/test_metric.py tests/test_lati.py tests/test_submission.py -q
+      # tests/test_shipped.py is marked needs_data: it re-verifies the shipped GeoTIFFs
+      # against the real 3730x3292 competition grid, which requires the ~507 MB of
+      # restored bytes. Run it locally after `scripts/restore_data.py --group all`.

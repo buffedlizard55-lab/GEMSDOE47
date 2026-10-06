@@ -36,10 +36,11 @@ import rasterio
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47 import features as FEAT   # noqa: E402
-from gems47 import grid as G          # noqa: E402
-from gems47 import lati, metric as M  # noqa: E402
-from gems47.scripts_common import rank_u8_inplace  # noqa: E402
+from gems47 import features as FEAT
+from gems47 import grid as G
+from gems47 import lati
+from gems47 import metric as M
+from gems47.scripts_common import rank_u8_inplace
 
 K_LO, K_HI, BMAX, L2 = 2_000.0, 120_000.0, 12.0, 1e-5
 

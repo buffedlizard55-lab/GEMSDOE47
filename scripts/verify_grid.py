@@ -18,7 +18,7 @@ import rasterio
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47 import grid as G  # noqa: E402
+from gems47 import grid as G
 
 
 def main() -> int:

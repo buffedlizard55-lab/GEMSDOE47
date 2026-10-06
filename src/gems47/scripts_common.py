@@ -1,5 +1,6 @@
 """Small helpers shared by the scripts."""
 from __future__ import annotations
+
 import numpy as np
 
 

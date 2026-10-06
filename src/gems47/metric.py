@@ -35,7 +35,6 @@ disjoint from the catalogue by definition (thread 11536, chrisk-dd, 2026-09-23:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Iterable, Sequence
 
 import numpy as np
 

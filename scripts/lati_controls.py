@@ -31,8 +31,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47 import features as FEAT   # noqa: E402
-from gems47 import lati, metric as M  # noqa: E402
+from gems47 import features as FEAT
+from gems47 import lati
 
 LEVELS = 256
 K_LO, K_HI, BMAX = 2_000.0, 60_000.0, 12.0

@@ -108,7 +108,6 @@ def build_layers(template: G.Template, data=None) -> dict[str, np.ndarray]:
     dtip = ndimage.distance_transform_edt(~tips).astype(np.float32) if tips.any() else np.full(cat.shape, 99.0, np.float32)
 
     L: dict[str, np.ndarray] = {}
-    z = np.zeros(cat.shape, np.float32)
 
     # 1. isotropic halo (the layer LATI ranked first among public layers)
     L["flank_halo_0_3"] = np.where(halo, 1.0 - d / (R + 1e-9), 0.0).astype(np.float32)
@@ -146,7 +145,6 @@ def build_layers(template: G.Template, data=None) -> dict[str, np.ndarray]:
 
 
 if __name__ == "__main__":
-    import json
     t = G.load_template()
     L = build_layers(t)
     for k, v in L.items():

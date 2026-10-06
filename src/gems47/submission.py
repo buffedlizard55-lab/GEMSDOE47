@@ -42,7 +42,6 @@ import rasterio
 from rasterio.transform import Affine
 
 from . import grid as G
-from . import metric as M
 
 
 def write_submission(values: np.ndarray, path: Path | str, mode: str = "zeros",
