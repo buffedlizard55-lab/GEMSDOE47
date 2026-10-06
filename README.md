@@ -21,7 +21,7 @@ repository.”* That was true when it was written. It is no longer:
 | site with one-click download | `docs/index.html` (+ `submit.html`, `analysis.html`, `hypotheses.html`, `sources.html`) | served and link-checked |
 | ranked hypotheses | `notes/HYPOTHESES.md` | 5 candidates, none implemented yet |
 | knowledge base | `notes/KNOWLEDGE.md` | official sources, each fetched and dated |
-| tests / verifier | `tests/test_emit.py`, `src/gems47_*.py` | 32 + 6 checks, all passing |
+| tests / verifier | `tests/`, `src/gems47_*.py` | 53 unit tests (2 skipped without `data/`), 8 metric self-checks, full format verifier — all passing in the 2026-10-06 clean sandbox |
 
 ## What was measured (the basis of the submission)
 
@@ -75,8 +75,12 @@ from that branch. Flagged here so the deviation is visible rather than accidenta
 > treat it as the source of truth for what "done" means.** Everything below the rule is the
 > user's brief; everything above it is status.
 
-**Status (2026-10-06):** submission built and verified — `docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif`
-(18,524 px, sha256 `32c76c92…`, modelled DTI **0.34912**, split-conformal floor **0.34837 at 75 % confidence**).
+**Status (2026-10-06, re-verified in a clean sandbox the same day):** submission built and verified — `docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif`
+(18,524 px, sha256 `0d8ba64c…`, modelled DTI **0.34912**, split-conformal floor **0.34837 at 75 % confidence**).
+The rebuild (`src/make_submission.py`) reproduces this file **byte-for-byte** from public sibling-repo
+bytes, and the two scored ladder rungs re-derived from `labels.tif` are **pixel-for-pixel identical**
+to the published `gems28-h27-4-r1-solo-d2-8` (0.2708) and `gems32-h33-2-b2` (0.2778) artifacts — the
+ladder is now byte-verified, not just documented. Verification record: `docs/review-log.md` addendum.
 Nothing has been uploaded; there is no automated upload path in this repo by design.
 Read `notes/SUBMISSION_NOTE.md` before submitting. Site: `docs/index.html` (published via GitHub Pages),
 submission how-to on `docs/submit.html`, results analysis on `docs/analysis.html`.
@@ -187,10 +191,14 @@ soon as Pages is enabled.
 ## Next session — remaining work, in priority order
 
 1. **A fully independent emission.** The one real weakness of the current submission is that all
-   18,524 pixels are a subset of a published artifact. Take hypothesis H1 or H2 from
-   `notes/HYPOTHESES.md`, run it through the blocked-holdout *sanity* filter (not the futile promotion
-   gate — see the flagged irregularity in that file), and package the first mask whose pixels are
-   ours end to end. That removes the lineage caveat and is the highest-value work left.
+   18,524 pixels are a subset of a published artifact. **Progress (2026-10-06 second pass):** the
+   pipeline now exists end to end (`scripts/build_h1_candidate.py`, strict-validated, receipts,
+   all inputs sha-pinned via the GitHub mirrors) and H1's first implementation was screened and
+   **failed the mechanism test** — at matched mass its full-domain catalogue alignment is 2.4× worse
+   than chance (`docs/irregularities.md` IR-14). Next: H2 (tilt-depth on the magnetic bands — the
+   organizer's float grids are not mirrored but GeoDAWN originals are) and H3 (QFFD attribute table,
+   `gdr_qfaults_traces.csv`, mirrored), each through the same screen; only a mask that beats chance
+   offline proceeds to packaging. That removes the lineage caveat and is the highest-value work left.
 2. **Raise the conformal ceiling.** Score more rungs of this family; 4 calibration rungs buy 80 %
    confidence, 9 buy 90 %. Every scored prune also pins the decay rate of `T`, which is the single
    assumption the current submission rests on. A score below 0.2778 is worth more to this project

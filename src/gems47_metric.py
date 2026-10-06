@@ -141,5 +141,17 @@ if __name__ == "__main__":                       # self-test: python3 src/gems47
         _ok &= abs(_r["dti"] - _r["dti_identity"]) < 1e-6
     _check("dti == 5*TPw/(TPw + FPw + 4*Ng) to machine precision", _ok)
 
+    # organizer's worked example, transcribed from
+    # https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/ (fetched
+    # 2026-10-06): TP_w = 3.00, FP_w = 1.89, FN_w = 2.00, page reports "0.60";
+    # 3/(3+0.2*1.89+0.8*2) = 0.602651…, the "0.6027" quoted in this repo's notes.
+    # The page's pixel rasters are images (gems_metric_1.png / gems_metric_2.png), not
+    # machine-readable, so the check is at the formula level on the official components.
+    _tp, _fp, _fn = 3.00, 1.89, 2.00
+    _ti = _tp / (_tp + 0.2 * _fp + 0.8 * _fn)
+    _check("organizer worked example = 0.602651… (page's 0.60)", abs(_ti - 0.602651) < 1e-5, f"{_ti:.6f}")
+    _check("worked example under identity: N_g = TP+FN = 5 → 5*3/(3+1.89+20) identical",
+           abs(5 * _tp / (_tp + _fp + 4 * (_tp + _fn)) - _ti) < 1e-12)
+
     print(f"\n{_pass} passed, {_fail} failed")
     raise SystemExit(1 if _fail else 0)

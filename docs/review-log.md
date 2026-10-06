@@ -49,3 +49,40 @@
 2. Exact target/overlap coverage, current local incumbent, block configuration on actual labels, model scoring, and private-label performance remain unknown.
 3. No actual submission TIFF or usable download can be delivered until authorized inputs are present and a candidate passes the locked spatial holdout. Do not submit, spend a slot, or edit the site to imply otherwise.
 4. A passing synthetic test or format validator establishes software behavior, not geologic validity, leaderboard score, discovery of unmapped faults, or entrant eligibility.
+
+---
+
+# Addendum — same-day verification pass in a clean sandbox (2026-10-06)
+
+A later session re-ran the entire audit trail from a fresh checkout with **no cached reference data**,
+downloading every input independently from GitHub. Results (all reproducible with the commands below):
+
+| check | result |
+|---|---|
+| `python3 src/gems47_metric.py` | 8/8 self-tests pass, incl. a **new regression test on the organizer's worked example** (TP 3.00, FP 1.89, FN 2.00 → 0.602651, the page's "0.60") |
+| `python3 -m unittest discover -s tests` | 53 tests, all pass (2 skipped: need `data/`) |
+| base artifact sha256 vs GEMSDOE33 receipt | identical (`c5e07fad…`) |
+| `labels.tif` vs `existing_faults.tif` | byte-identical, sha256 `7ba308cc…`, confirming `KNOWLEDGE.md` A2 |
+| grid: labels / sample_submission / ours | 3730×3292, EPSG:32611, transform (243350, 100, 0, 4508550, 0, −100), float32, nodata NaN — identical |
+| recompute `base ∧ d_cat > {0,1,2,20}` | 44,090 / 40,199 / 37,654 / 18,524 — all ladder claims reproduced from bytes |
+| **rung identity** | re-derived B=1 mask ≡ published `gems28-h27-4-r1-solo-d2-8`; re-derived B=2 mask ≡ `gems32-h33-2-b2` — pixel-for-pixel |
+| subset chain | our 18,524 ⊆ B=2 ⊆ B=1 ⊆ base, 0 violations; also ⊆ GEMSDOE30 d28-poisson and h32-1-prethin |
+| uniqueness | vs 10 sibling rasters: max Jaccard 0.4920 (vs the superset 0.2778 artifact), next 0.4608; byte-unique to all |
+| `python3 src/make_submission.py` | rebuilds `notes/results.json` and the GeoTIFF **byte-identically** (sha256 `0d8ba64c…`, 1,552,154 bytes) |
+| `python3 src/gems47_verify_submission.py` | 19/19 PASS with reference data present |
+| fit-space of (T, N_g) | varies with loss space; modelled score moves 0.34905–0.34925; conformal q exact at 0.000755; recorded floor 0.34837 inside the band (disclosed in `notes/SUBMISSION_NOTE.md` §3) |
+
+Corrections made this pass: README status sha (`32c76c92…` was the superseded `nodata=None` variant; the
+live file is `0d8ba64c…`); `SUBMISSION_NOTE` nodata sentence said "`None`" (text not synced with the
+rebuild — the raster has carried NaN since the rebuild and the table in the same file said so).
+`docs/review-log.md` above describes the pre-submission state of a parallel session ("gate closed, no
+TIFF") and is kept as a historical record; this addendum supersedes its status section.
+
+Network reality for future sessions (verified, not assumed): `www.dropbox.com`, `gdr.openei.org`, and
+`www.sciencebase.gov` are **unreachable from this sandbox** (curl exit 35 / empty reply), while
+`api.github.com` works. All external data must therefore be acquired through GitHub-hosted mirrors,
+e.g. `buffedlizard55-lab/GEMSDOE24`: `data/bridge/{labels,existing_faults,sample_submission}.tif` and
+`data/external/{geodawn_rad_u8.tif (26.6 MB), geodawn_extensions_u8.tif (27.1 MB),
+lidar_scarp_features_u8.tif (36.9 MB), gdr_qfaults_traces.csv, derived_sgmc_faults_100m_u8.tif,
+2m_temperature_probe_INGENIOUS_regional_data.zip, paleo_geothermal_regional.zip}` — the full input
+stack for hypotheses H1–H5 is fetchable here without any new external source.
