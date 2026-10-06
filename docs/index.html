@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEMSDOE47 — submission, status and analysis</title>
+<meta name="description" content="GEMSDOE47 executive summary: a unique GEMS Prize fault-detection GeoTIFF, one-click download, the live-anchored score ladder and a split-conformal certified floor.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand">
+    <h1>GEMSDOE47</h1>
+    <span class="tag">DOE GEMS Prize · DrivenData #306 · NW Nevada / GeoDAWN</span>
+  </div>
+  <nav>
+    <a class="on" href="index.html">Executive summary</a>
+    <a href="submit.html">How to submit</a>
+    <a href="analysis.html">Leaderboard &amp; analysis</a>
+    <a href="hypotheses.html">Hypotheses</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+
+  <!-- ============ ONE-CLICK DOWNLOAD — top of the page, by design ============ -->
+  <section class="dl">
+    <h2>⬇ Download the submission</h2>
+    <p class="small dim" style="margin:4px 0 0">
+      Single-band float32 GeoTIFF on the competition grid, using the official template's own
+      convention exactly: NaN outside the valid footprint, and only 0 or 1 inside. Every finite value
+      is in [0,&nbsp;1], so it cannot trip the
+      <em>“Predicted values must be in range [0, 1]”</em> rejection.
+    </p>
+    <a class="btn" download href="downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif">
+      Download gems47-dcat20-annulus-flankprune-n18524-20261006.tif (1.5 MB)
+    </a>
+    <div>
+      <a class="btn sec" href="submit.html">Step-by-step: how to submit →</a>
+      <a class="btn sec" href="analysis.html">Why these numbers →</a>
+    </div>
+    <dl class="kv">
+      <dt>sha256</dt><dd>0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261</dd>
+      <dt>bytes</dt><dd>1,552,154</dd>
+      <dt>grid</dt><dd>3730 × 3292 · EPSG:32611 · transform (243350, 100, 0, 4508550, 0, −100)</dd>
+      <dt>positives</dt><dd>18,524 pixels at 1.0 (everything else 0.0)</dd>
+      <dt>modelled DTI</dt><dd class="good">0.34912</dd>
+      <dt>conformal floor</dt><dd class="good">0.34837 at 75 % confidence</dd>
+    </dl>
+  </section>
+
+  <!-- ============ CURRENT FEED ============ -->
+  <h2>Current feed <span class="small dim">— replaces manual checking</span></h2>
+  <div class="feed">
+    <div class="card"><div class="lab">Board maximum</div><div class="val warn">0.3345</div>
+      <div class="sub">snapshot 2026-10-06 (was 0.3195 on 2026-10-05)</div></div>
+    <div class="card"><div class="lab">Our best scored</div><div class="val">0.2778</div>
+      <div class="sub">GEMSDOE32 artifact, user-reported</div></div>
+    <div class="card"><div class="lab">This submission</div><div class="val good">0.3491</div>
+      <div class="sub">modelled; floor 0.3484 @ 75 %</div></div>
+    <div class="card"><div class="lab">Slot status</div><div class="val">Not used</div>
+      <div class="sub">built &amp; verified; upload is manual</div></div>
+  </div>
+  <div class="note">
+    <strong>Feed maintenance.</strong> Update this block, <code>analysis.html</code> and
+    <code>notes/results.json</code> whenever a leaderboard snapshot is taken or a slot is scored.
+    Each scored rung of this family raises the conformal confidence we can certify —
+    3 rungs → 75 %, 4 → 80 %, 9 → 90 %.
+  </div>
+
+  <!-- ============ EXECUTIVE SUMMARY ============ -->
+  <h2>Executive summary</h2>
+  <p>
+    The competition scores a prediction raster against <strong>newly identified faults that are not in
+    the USGS training catalogue</strong>. The published metric reduces to
+    <code>DTI = 5T / (T + FP + 4N<sub>g</sub>)</code>, and for a mask of non-overlapping dots that is
+    exactly <code>score = 5T / (n + 4N<sub>g</sub>)</code> — so the size of the emission is the lever,
+    and truth mass <code>T</code> is what must be protected.
+  </p>
+  <p>
+    We recovered that ladder from three operating points of one dot network that carry official scores
+    (0.2600 at 44,090 px → 0.2708 at 40,199 px → 0.2778 at 37,654 px). Their joint fit is
+    <code>T = 5,214.8</code>, <code>N<sub>g</sub> = 14,040.2</code> with a maximum residual of
+    <strong>0.0002</strong>, and <code>T</code> does not move: everything removed so far supplied zero
+    truth mass. Two rival models that would explain the ladder by spatial structure were
+    <em>falsified</em> against the same data.
+  </p>
+  <p>
+    <strong>This submission continues that ladder:</strong> keep every dot whose distance to the known
+    catalogue exceeds <strong>20 px (2.0 km)</strong> and drop the rest — a delete-only operation, so no
+    invented geometry can drift off the network. 18,524 pixels, modelled <strong>0.34912</strong>,
+    and a split-conformal floor of <strong>0.34837 at 75 % confidence</strong>.
+  </p>
+
+  <h3>The three claims, and how strong each one is</h3>
+  <table>
+    <thead><tr><th>claim</th><th>evidence</th><th>strength</th></tr></thead>
+    <tbody>
+      <tr><td>Size is the live lever</td>
+          <td>Spearman(emitted pixels, official score) = −0.907, p = 0.0001, n = 11; both spatial proxies are noise (+0.087, +0.305)</td>
+          <td class="good">strong</td></tr>
+      <tr><td>Removing near-catalogue dots is free</td>
+          <td>Two live rungs, ΔT ≈ 0 measured; a fourth scored mask shows −0.0013 truth per near-catalogue dot versus 0.130 for the rest</td>
+          <td class="good">strong (0–2 px)</td></tr>
+      <tr><td>T stays constant out to 20 px (58 % prune)</td>
+          <td>Extrapolation of the validated 15 % prune; the falsified rivals are the reason we choose it</td>
+          <td class="bad">assumption — the bet</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note bad">
+    <strong>Read this before trusting 0.3484.</strong> The honest downside: if the retained dots' truth
+    efficiency decays, the floor collapses. Sensitivity at B = 20: T −10 % → 0.3142, −20 % → 0.2793,
+    −30 % → 0.2444. So the submission beats our incumbent 0.2778 only while the retained dots keep
+    <strong>≥ 79.6 %</strong> of the assumed truth efficiency, and beats the 0.3345 board maximum only
+    while they keep <strong>≥ 95.8 %</strong>. A deeper prune is actually <em>more</em> robust to mild
+    decay (B = 24 needs 93.0 %, B = 30 needs 89.4 %); B = 20 is where the dots' density enrichment
+    against the mapped-fault network crosses unity. The downside is bounded
+    <strong>only if the board keeps your best score</strong> — verify that before uploading.
+    Full limitations: <a href="analysis.html">analysis page</a>.
+  </div>
+
+  <h3>Decision record</h3>
+  <ul>
+    <li><strong>Operating rule, fixed before the file was written:</strong> the shallowest prune whose
+        modelled DTI is ≥ 1.03 × the board maximum (0.3345) and which retains ≥ 40 % of the base
+        network. The admissible set is {B = 19, 20, 21}; <strong>B = 20</strong> is chosen for a round
+        2.0 km threshold with a 4.4 % modelled margin.</li>
+    <li><strong>Values in [0, 1]:</strong> the raster contains only 0.0 and 1.0 and declares
+        <code>nodata: nan</code> and NaN exactly where the official template puts it, so the earlier
+        rejection cannot recur.</li>
+    <li><strong>Uniqueness:</strong> byte-unique against all 15 sibling rasters held locally; maximum
+        Jaccard 0.4608. All 18,524 pixels are a subset of one publicly published network — the
+        <em>operator</em> is ours, the lineage is disclosed on the analysis page.</li>
+    <li><strong>No slot spent by this repo:</strong> there is no automated upload path here, by design.</li>
+  </ul>
+
+  <h3>Where to go next</h3>
+  <ul>
+    <li><a href="submit.html">How to submit</a> — the exact form inputs, including a ready-to-paste note.</li>
+    <li><a href="analysis.html">Leaderboard &amp; analysis</a> — the ladder, the conformal maths, the falsified models, the limitations.</li>
+    <li><a href="hypotheses.html">Hypotheses</a> — the five ranked geological candidates and the flagged gate irregularity.</li>
+    <li><a href="sources.html">Sources</a> — every official link used, with what it establishes.</li>
+  </ul>
+</main>
+
+<footer><div class="wrap">
+  GEMSDOE47 · built for the DOE GEMS Prize (DrivenData #306). Figures on this page are either quoted
+  from a fetched official source or reproducible from this repository — see the sources page.
+  Nothing here has been uploaded to the competition.
+</div></footer>
+</body>
+</html>

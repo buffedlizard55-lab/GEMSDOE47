@@ -79,11 +79,24 @@ class SiteTests(unittest.TestCase):
             self.assertTrue(parser.title_text, page.name)
             self.assertEqual(parser.descriptions, 1, page.name)
 
-    def test_homepage_is_fail_closed_until_real_artifact_exists(self):
+    def test_homepage_offers_the_audited_artifact_with_its_caveat(self):
+        """The homepage gate was fail-closed while no artifact existed. One now does, and it is
+        byte-audited, so the gate must offer it — with the caveat that the blocked-holdout
+        requirement is NOT met, and the sha256 that makes the file auditable."""
+        text = (ROOT / "index.html").read_text(encoding="utf-8")
         parser = _PageParser()
-        parser.feed((ROOT / "index.html").read_text(encoding="utf-8"))
-        self.assertTrue(parser.disabled_tiff_button)
-        self.assertEqual(parser.tiff_links, [])
+        parser.feed(text)
+        self.assertFalse(parser.disabled_tiff_button, "the disabled placeholder button is gone")
+        self.assertEqual(len(parser.tiff_links), 1, "exactly one TIFF download is offered")
+        target = (ROOT / urlparse(parser.tiff_links[0]).path.lstrip("./")).resolve()
+        self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
+        self.assertGreater(target.stat().st_size, 1_000_000)
+        lower = text.lower()
+        self.assertIn("blocked-holdout", lower, "the unmet holdout requirement must remain visible")
+        self.assertIn("not met", lower)
+        self.assertIn("0d8ba64c", text, "the sha256 of the offered artifact must be on the page")
+        self.assertIn("been uploaded", lower)
+        self.assertIn("drivendata", lower)
 
 
 if __name__ == "__main__":

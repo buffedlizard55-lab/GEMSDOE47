@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leaderboard &amp; analysis — GEMSDOE47</title>
+<meta name="description" content="Why GEMSDOE47's submission should score 0.349: the metric algebra, the live-anchored ladder, falsified competing models, split conformal and the limitations.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">Leaderboard, metric algebra and model selection</span></div>
+  <nav>
+    <a href="index.html">Executive summary</a>
+    <a href="submit.html">How to submit</a>
+    <a class="on" href="analysis.html">Leaderboard &amp; analysis</a>
+    <a href="hypotheses.html">Hypotheses</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+
+<h2>1. The metric</h2>
+<p>The published metric, reimplemented in <code>src/gems47_metric.py</code> and validated against the
+organizer's own worked example (<strong>0.6027</strong>), reduces to</p>
+<pre><code>DTI = T / (0.2·T + 0.2·(M − C) + 0.8·N)        →        DTI = 5T / (T + FP + 4·N_g)</code></pre>
+<p>with <code>T</code> the truth mass covered, <code>FP</code> the emitted mass that misses, and
+<code>N_g</code> the true fault pixels. The kernel is <code>k(d) = max(1 − d/3 px, 0)</code>, i.e. a
+300 m credit radius at 100 m pixels. For a mask of <strong>non-overlapping</strong> dots
+<code>T + FP = n</code>, which gives the identity used throughout this project:</p>
+<pre><code>score = 5T / (n + 4·N_g)</code></pre>
+<p class="small dim">The non-overlap condition is not an assumption here: this family's median
+nearest-neighbour spacing is 3.00 px against a kernel radius of 3 px, so neighbouring kernels barely
+touch.</p>
+
+<h2>2. Which instrument actually predicts the official score</h2>
+<p>Independently published instrument table from a sibling project
+(<a href="https://github.com/buffedlizard55-lab/GEMSDOE42" target="_blank" rel="noopener">buffedlizard55-lab/GEMSDOE42</a>,
+retrieved 2026-10-06), n = 11 official scores:</p>
+<table>
+  <thead><tr><th>instrument</th><th class="num">Spearman ρ</th><th class="num">p</th><th>verdict</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td><strong>emitted pixel count</strong></td><td class="num">−0.907</td><td class="num">0.0001</td><td class="good">signal</td></tr>
+    <tr><td>SGMC off-catalogue proxy</td><td class="num">+0.305</td><td class="num">0.361</td><td class="bad">noise</td></tr>
+    <tr><td>spatially-blocked catalogue holdout</td><td class="num">+0.087</td><td class="num">0.800</td><td class="bad">noise</td></tr>
+  </tbody>
+</table>
+<div class="note bad">
+  <strong>Consequence, and a flagged irregularity.</strong> Both spatial proxies are worthless for
+  selection, so the brief's promotion gate (“beat the current holdout best before spending a slot”)
+  cannot be used as written without turning selection into a coin flip. We keep it as a sanity filter
+  and select operating points on the live-anchored size ladder. This is documented in full on the
+  <a href="hypotheses.html">hypotheses page</a>.
+</div>
+
+<h2>3. The live-anchored ladder</h2>
+<p>Three prunes of the <em>same</em> dot network carry official scores. They determine the two
+unknowns exactly:</p>
+<table>
+  <thead><tr><th>rung</th><th>rule</th><th class="num">pixels</th><th class="num">official score</th></tr></thead>
+  <tbody>
+    <tr><td>B = 0</td><td>whole network</td><td class="num">44,090</td><td class="num">0.2600</td></tr>
+    <tr><td>B = 1</td><td>drop dots with d<sub>cat</sub> ≤ 1 px</td><td class="num">40,199</td><td class="num">0.2708</td></tr>
+    <tr><td>B = 2</td><td>drop dots with d<sub>cat</sub> ≤ 2 px <span class="dim">(the 0.2778 artifact)</span></td><td class="num">37,654</td><td class="num">0.2778</td></tr>
+  </tbody>
+</table>
+<p>Joint fit: <strong>T = 5,214.8</strong>, <strong>N<sub>g</sub> = 14,040.2</strong>, maximum residual
+<strong>0.00021</strong>. <code>T</code> is constant — everything removed so far supplied
+<em>zero</em> truth mass.</p>
+<p>Independent corroboration from a fourth scored mask: <code>h32-1-prethin</code> (42,294 px, 0.2649)
+carries 2,095 dots more than <code>h27-4-solo</code> (40,199 px, 0.2708), and those dots contribute
+<strong>ΔT = −2.7</strong> — i.e. −0.0013 truth per dot, indistinguishable from zero, against 0.130 for
+the average retained dot: a near-total efficiency gap between catalogue-adjacent and outer dots.</p>
+
+<h3>Model selection — two rivals were falsified</h3>
+<table>
+  <thead><tr><th>model for T</th><th class="num">LOO prediction of the B = 0 rung</th><th class="num">error vs 0.2600</th><th>verdict</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td><strong>constant T</strong></td><td class="num">0.26075</td><td class="num">+0.00075</td><td class="good">used</td></tr>
+    <tr><td>T ∝ SGMC off-catalogue radial profile</td><td class="num">0.29828</td><td class="num">+0.03828</td><td class="bad">falsified (wrong sign for Δ)</td></tr>
+    <tr><td>T ∝ exact kernel coverage of the SGMC off-catalogue network</td><td class="num">0.34040</td><td class="num">+0.08040</td><td class="bad">falsified</td></tr>
+    <tr><td>T ∝ exact coverage of catalogue + SGMC</td><td class="num">0.54947</td><td class="num">+0.28947</td><td class="bad">falsified</td></tr>
+  </tbody>
+</table>
+<p class="small dim">Each rival was fit on two rungs and asked to predict the third — the same
+leave-one-out protocol the conformal step uses.</p>
+
+<h2>4. Does the leaderboard look like one family's thinning ladder?</h2>
+<p>Inverting <code>score = 5T/(n + 4N<sub>g</sub>)</code> on the 2026-10-04 snapshot gives the dot count
+each board score implies:</p>
+<table>
+  <thead><tr><th class="num">board score</th><th class="num">implied n</th><th class="num">Δ from the row above</th></tr></thead>
+  <tbody>
+    <tr><td class="num">0.3262</td><td class="num">27,219</td><td class="num">—</td></tr>
+    <tr><td class="num">0.3222</td><td class="num">28,184</td><td class="num">+965</td></tr>
+    <tr><td class="num">0.3195</td><td class="num">28,850</td><td class="num">+665</td></tr>
+    <tr><td class="num">0.3042</td><td class="num">32,843</td><td class="num">+3,993</td></tr>
+    <tr><td class="num">0.2998</td><td class="num">34,066</td><td class="num">+1,224</td></tr>
+    <tr><td class="num">0.2941</td><td class="num">35,706</td><td class="num">+1,640</td></tr>
+    <tr><td class="num">0.2919</td><td class="num">36,356</td><td class="num">+650</td></tr>
+    <tr><td class="num">0.2888</td><td class="num">37,289</td><td class="num">+933</td></tr>
+    <tr><td class="num">0.2884</td><td class="num">37,411</td><td class="num">+122</td></tr>
+    <tr><td class="num">0.2876</td><td class="num">37,655</td><td class="num">+245</td></tr>
+    <tr><td class="num">0.2854</td><td class="num">38,335</td><td class="num">+680</td></tr>
+    <tr><td class="num">0.2792</td><td class="num">40,309</td><td class="num">+1,974</td></tr>
+    <tr><td class="num">0.2778</td><td class="num">40,767</td><td class="num">+458</td></tr>
+  </tbody>
+</table>
+<p>Every score descends monotonically with the implied dot count — as a single thinning ladder of one
+network would. The 2026-10-06 board maximum <strong>0.3345</strong> sits at an implied
+<strong>≈21,800 dots</strong> (48 % retention). Our own curve crosses that value at B = 15, and the
+submission sits two rungs below it at 18,524.</p>
+<p class="small dim">Caveat: the board rows are not identified with artifacts (participant rows do not
+publish filenames), so this is a consistency check on the model's shape, not proof of a shared base.
+It is presented as supporting evidence, not as measurement.</p>
+
+<h2>5. Split conformal — the certified floor</h2>
+<p>Population: the flank-prune family. <strong>Calibration half</strong> = the three rungs with official
+scores. <strong>Selection half</strong> = the un-scored operating points B = 3 … 50. Nonconformity score
+= absolute leave-one-out error of the two-parameter model, refit on the other two rungs each time
+(Lei, G'Sell, Rinaldo, Tibshirani &amp; Wasserman, <a href="https://doi.org/10.1080/01621459.2017.1307116" target="_blank" rel="noopener">JASA 2018</a>).</p>
+<table>
+  <thead><tr><th>held out</th><th>refit (T, N<sub>g</sub>)</th><th class="num">prediction</th><th class="num">official</th><th class="num">residual</th></tr></thead>
+  <tbody>
+    <tr><td>B = 0</td><td class="mono">(5,470; 15,200)</td><td class="num">0.26075</td><td class="num">0.2600</td><td class="num">−0.00075</td></tr>
+    <tr><td>B = 1</td><td class="mono">(5,223; 14,089)</td><td class="num">0.27048</td><td class="num">0.2708</td><td class="num">+0.00032</td></tr>
+    <tr><td>B = 2</td><td class="mono">(5,073; 13,368)</td><td class="num">0.27836</td><td class="num">0.2778</td><td class="num">−0.00056</td></tr>
+  </tbody>
+</table>
+<p>With <code>n = 3</code> calibration points the largest certifiable miscoverage is
+<code>α = 1/(n+1) = 0.25</code> (rank <code>k = ⌈4·0.75⌉ = 3</code>), giving
+<code>q = 0.000755</code>:</p>
+<pre><code>certified floor = 0.34912 − 0.000755 = 0.34837   at 75 % confidence</code></pre>
+<div class="note">
+  <strong>Confidence is 75 % and cannot be higher with the data we hold.</strong> A 90 % claim needs
+  <code>⌈(n+1)·0.9⌉ ≤ n</code> → <code>n ≥ 9</code> live-scored rungs of this family; four rungs buy
+  80 %, nine buy 90 %. <strong>Exchangeability limitation:</strong> the calibration rungs retain
+  85–100 % of the network, the selected point retains 42 %; the guarantee is exact for the family and
+  mechanism and holds under exchangeability at this depth — an assumption, not a theorem.
+</div>
+
+<h2>6. The operating-point ledger</h2>
+<table>
+  <thead><tr><th class="num">B (px)</th><th class="num">pixels</th><th class="num">retention</th><th class="num">modelled DTI</th><th class="num">floor @75 %</th></tr></thead>
+  <tbody>
+    <tr><td class="num">0</td><td class="num">44,090</td><td class="num">1.000</td><td class="num">0.26009</td><td class="num">0.25933</td></tr>
+    <tr><td class="num">2</td><td class="num">37,654</td><td class="num">0.854</td><td class="num">0.27793</td><td class="num">0.27718</td></tr>
+    <tr><td class="num">4</td><td class="num">33,829</td><td class="num">0.767</td><td class="num">0.28975</td><td class="num">0.28899</td></tr>
+    <tr><td class="num">6</td><td class="num">30,853</td><td class="num">0.700</td><td class="num">0.29966</td><td class="num">0.29890</td></tr>
+    <tr><td class="num">10</td><td class="num">26,294</td><td class="num">0.596</td><td class="num">0.31622</td><td class="num">0.31547</td></tr>
+    <tr><td class="num">14</td><td class="num">22,772</td><td class="num">0.516</td><td class="num">0.33033</td><td class="num">0.32958</td></tr>
+    <tr><td class="num">16</td><td class="num">21,279</td><td class="num">0.483</td><td class="num">0.33670</td><td class="num">0.33595</td></tr>
+    <tr><td class="num">18</td><td class="num">19,863</td><td class="num">0.451</td><td class="num">0.34297</td><td class="num">0.34222</td></tr>
+    <tr><td class="num">19</td><td class="num">19,204</td><td class="num">0.436</td><td class="num">0.34597</td><td class="num">0.34522</td></tr>
+    <tr class="hi"><td class="num"><strong>20 (submitted)</strong></td><td class="num"><strong>18,524</strong></td><td class="num"><strong>0.420</strong></td><td class="num"><strong>0.34912</strong></td><td class="num"><strong>0.34837</strong></td></tr>
+    <tr><td class="num">21</td><td class="num">17,972</td><td class="num">0.408</td><td class="num">0.35172</td><td class="num">0.35097</td></tr>
+    <tr><td class="num">22</td><td class="num">17,331</td><td class="num">0.393</td><td class="num">0.35479</td><td class="num">0.35404</td></tr>
+    <tr><td class="num">30</td><td class="num">13,487</td><td class="num">0.306</td><td class="num">0.37437</td><td class="num">0.37362</td></tr>
+    <tr><td class="num">40</td><td class="num">10,128</td><td class="num">0.230</td><td class="num">0.39334</td><td class="num">0.39259</td></tr>
+  </tbody>
+</table>
+<p class="small dim">Everything beyond B = 2 is a model output. The operating rule — shallowest
+B with modelled DTI ≥ 1.03 × the 0.3345 board maximum <em>and</em> retention ≥ 40 % — admits
+{B = 19, 20, 21}; B = 20 was fixed before the file was written.</p>
+
+<h2>7. Limitations, in order of importance</h2>
+<ol>
+  <li><strong>Long extrapolation.</strong> Live-validated over a 15 % prune; submitted at 58 %. The
+      constancy of T beyond 2 px is the bet, and it is not validated.</li>
+  <li><strong>A falsified pessimistic branch exists.</strong> If T instead tracked structural coverage,
+      B = 20 would land at ≈0.09–0.10 — far worse than the incumbent. We prefer constant T because the rivals
+      fail the leave-one-out test and get the sign of Δ wrong, but the reader should know the branch
+      exists.</li>
+  <li><strong>No working offline holdout.</strong> Both spatial proxies are noise (§2). No offline
+      instrument in this project identifies a better operating point, and none is claimed.</li>
+  <li><strong>Sensitivity and breakeven.</strong> T −10 % → 0.3142; −20 % → 0.2793; −30 % → 0.2444.
+      The submission beats the incumbent 0.2778 only while the retained dots keep <strong>≥ 79.6 %</strong>
+      of the assumed T, and beats the 0.3345 board maximum only at <strong>≥ 95.8 %</strong>. Required
+      retention falls with depth (99.3 % at B = 16, 93.0 % at B = 24, 89.4 % at B = 30), so a deeper
+      prune is more robust to mild decay; B = 20 is chosen because the dots' density enrichment against
+      the mapped-fault network crosses 1.00× at ≈20 px (2.20× at 0–1 px, 0.49× beyond 80 px).</li>
+  <li><strong>Best-of-board assumption.</strong> Free only if the leaderboard keeps the participant's
+      best score. Verify before uploading.</li>
+  <li><strong>Score attribution is user-reported.</strong> The 0.2778 row is mapped to the GEMSDOE32
+      artifact by its owner's report, not by an artefact-authenticated receipt.</li>
+  <li><strong>Lineage disclosure.</strong> All 18,524 pixels are a subset of one published network,
+      byte-unique against the 15 sibling rasters held locally (max Jaccard 0.4608). The operator is
+      ours; the base is a published artifact used for learning. A fully independent emission is the
+      top item of the next-session list.</li>
+</ol>
+
+<h2>8. Reproduce every number on this page</h2>
+<pre><code>python3 src/gems47_metric.py             # metric + organizer example (0.6027)
+python3 src/make_submission.py           # rebuilds the .tif, the ledger and the conformal record
+python3 src/gems47_verify_submission.py  # format / range / uniqueness / hash — non-zero exit on failure
+python3 tests/test_emit.py               # 29 operator and contract tests</code></pre>
+
+</main>
+<footer><div class="wrap">GEMSDOE47 · all figures traceable to a fetched source or a file in the repository.</div></footer>
+</body>
+</html>

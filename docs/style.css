@@ -1,0 +1,73 @@
+:root{
+  --bg:#0e1116; --panel:#161b23; --panel2:#1c2330; --line:#26303f;
+  --fg:#e8eef7; --dim:#9aa8bd; --accent:#ffb703; --accent2:#39d98a;
+  --bad:#ff6b6b; --blue:#5aa9ff; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--blue)} a:hover{color:var(--accent)}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#141a24,#0e1116)}
+header .wrap{padding:22px 20px 26px}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand h1{margin:0;font-size:22px;letter-spacing:.2px}
+.brand .tag{color:var(--dim);font-size:13px}
+nav{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+nav a{font-size:14px;text-decoration:none;padding:6px 12px;border:1px solid var(--line);
+  border-radius:999px;color:var(--fg);background:var(--panel)}
+nav a:hover{border-color:var(--accent);color:var(--accent)}
+nav a.on{background:var(--accent);color:#1a1200;border-color:var(--accent);font-weight:600}
+main{padding:26px 0 60px}
+h2{font-size:20px;margin:34px 0 10px}
+h2:first-child{margin-top:6px}
+h3{font-size:16px;margin:22px 0 6px;color:var(--fg)}
+p,li{color:#d5deea}
+ul{padding-left:22px}
+.dim{color:var(--dim)}
+.small{font-size:13.5px}
+.mono{font-family:var(--mono);font-size:13px}
+
+/* the download block — deliberately the most prominent thing on the site */
+.dl{background:linear-gradient(135deg,#1d2634,#141b26);border:1px solid var(--accent);
+  border-radius:14px;padding:22px;margin:8px 0 6px;box-shadow:0 0 0 1px #000 inset}
+.dl h2{margin:0 0 6px;font-size:18px}
+.btn{display:inline-block;background:var(--accent);color:#1a1200;text-decoration:none;
+  font-weight:700;font-size:18px;padding:14px 22px;border-radius:10px;margin:10px 0 4px}
+.btn:hover{background:#ffc93c;color:#1a1200}
+.btn.sec{background:var(--panel2);color:var(--fg);border:1px solid var(--line);font-size:15px;
+  font-weight:600;padding:10px 16px}
+.btn.sec:hover{border-color:var(--accent);color:var(--accent)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 16px;margin-top:10px;font-size:14px}
+.kv dt{color:var(--dim)}
+.kv dd{margin:0;font-family:var(--mono);font-size:13px;word-break:break-all}
+
+/* status feed */
+.feed{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card .lab{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.card .val{font-size:22px;font-weight:700;margin-top:4px}
+.card .sub{color:var(--dim);font-size:13px;margin-top:2px}
+.good{color:var(--accent2)} .warn{color:var(--accent)} .bad{color:var(--bad)}
+
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em}
+tbody tr:hover{background:#141a24}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:13px}
+.hi{background:#1d2a1f !important}
+.note{background:var(--panel);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;
+  padding:12px 16px;margin:16px 0}
+.note.bad{border-left-color:var(--bad)}
+.note.ok{border-left-color:var(--accent2)}
+code{background:#0b0f15;border:1px solid var(--line);border-radius:5px;padding:1px 6px;
+  font-family:var(--mono);font-size:13px}
+pre{background:#0b0f15;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto}
+pre code{border:0;background:none;padding:0}
+footer{border-top:1px solid var(--line);color:var(--dim);font-size:13px;padding:20px 0 40px}
+.steps{counter-reset:s;list-style:none;padding-left:0}
+.steps li{counter-increment:s;position:relative;padding-left:44px;margin:14px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;
+  border-radius:50%;background:var(--accent);color:#1a1200;font-weight:700;display:grid;
+  place-items:center;font-size:15px}

@@ -1,9 +1,12 @@
-# Locally authorized competition inputs and derived outputs are never committed by default.
+# Large local datasets and derived rasters — deliberately NOT versioned (see README)
 /data/
 /artifacts/
 /outputs/
-/.venv/
-venv/
+work/
+*.npz
+*.npy
+*.tiff
+# python
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -11,4 +14,6 @@ __pycache__/
 .ruff_cache/
 .coverage
 htmlcov/
+.venv/
+venv/
 .DS_Store

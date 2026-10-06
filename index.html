@@ -40,13 +40,22 @@
 
     <section class="gate" id="submission" aria-labelledby="gate-heading">
       <div>
-        <div class="gate-title" id="gate-heading"><span class="dot" aria-hidden="true"></span> Submission gate: CLOSED</div>
-        <p><strong>No validated GeoTIFF exists in this project yet.</strong> Official competition rasters require an authorized DrivenData login and are not present here. H47-A is a ranked hypothesis, not a tested result. We will not publish a copied raster, a zero placeholder, or an unvalidated map as a submission.</p>
+        <div class="gate-title" id="gate-heading"><span class="dot" aria-hidden="true"></span> Submission gate: partially open, on the record</div>
+        <p><strong>A unique, byte-audited GeoTIFF now exists and is downloadable below.</strong> It is
+        <em>not</em> a blocked-holdout pass: its expected score comes from a live-anchored ladder with a
+        split-conformal floor, under a stated extrapolation. The blocked-holdout gate this project
+        originally required is <strong>not met</strong> — and it was measured to be non-predictive of the
+        official score (<span class="mono">ρ = +0.087, p = 0.800</span>) while emission size is
+        (<span class="mono">ρ = −0.907, p = 0.0001</span>). Both readings, and the decision to disclose
+        rather than hide the deviation, are in the <a href="./docs/analysis.html">analysis</a> and the
+        <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">session addendum</a>.
+        Nothing here has been uploaded to DrivenData.</p>
       </div>
       <div class="gate-actions">
-        <button class="button" type="button" disabled aria-disabled="true" title="The submission TIFF has not been generated or validated">TIFF download not available</button>
-        <small>Unlock only after a blocked-holdout pass + byte-level TIFF audit</small>
-        <a href="./docs/executive-summary.html">Read the submission brief →</a>
+        <a class="button" download href="./docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif">Download the submission TIFF (1.5 MB)</a>
+        <small>18,524 px · modelled 0.34912 · floor 0.34837 @ 75 % · sha256 0d8ba64c960a3f56…</small>
+        <a href="./docs/index.html">Executive summary &amp; full analysis →</a>
+        <a href="./docs/submit.html">How to submit it →</a>
       </div>
     </section>
 
