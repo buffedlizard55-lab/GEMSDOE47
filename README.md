@@ -1,10 +1,19 @@
 # GEMSDOE47 — standing charter, current status, and two independent negative results
 
 > **Decision as of 2026-10-06 UTC: no submission is eligible and no slot is recommended.**
-> This repository now contains the work of **two independent sessions on the same brief**. Both built a
-> detector, both preregistered a gate, and **both closed the gate**. The two downloadable artifacts are
-> format-valid, unique, and marked **RESEARCH ONLY — NOT FOR SUBMISSION**. A format pass is not a
-> scientific promotion.
+> This repository now contains the work of **three independent sessions on the same brief**. The first
+> two each built a detector, preregistered a gate, and **closed the gate**; their two downloadable
+> artifacts are format-valid, unique, and marked **RESEARCH ONLY — NOT FOR SUBMISSION**. A format
+> pass is not a scientific promotion.
+>
+> **The third session (merged 2026-10-06, PR #8) does not change that decision.** It built a
+> different detector, ran the random/shifted control whose absence closed the first two gates, and
+> **passed it** — but it has not been through cross-fitted LATI, and its own holdout shows the
+> optimizer's-curse signature. Its artifact is marked **CONTROL-PASSED · NOT LATI-VALIDATED · NO
+> SLOT RECOMMENDED YET**. Its code is namespaced to `src/gems47s3/` and its pages to
+> `docs/session3.html`, so nothing of the first two sessions is overwritten
+> (`scripts/build_site_s3.py --check` asserts all 44 of their `docs/` files are byte-identical, and
+> that the one change to `docs/index.html` is additive).
 >
 > **Core values:** **Maximize P(Win)** · **Own the Outcome**. Preserve the slot until a genuinely new,
 > unique prediction beats the current spatially blocked holdout best under a preregistered, adequately
@@ -18,12 +27,18 @@
 | **H47-B** — cross-scale `TMI_up150` magnetic-edge persistence *(earlier session)* | Locked-test pooled DTI **0.02755**; tuned single-scale baseline **0.02564**; fixed-seed random control **0.03716**. The candidate **lost to random noise**. Assumption-conditional conformal lower floor **0.0**. | **NOT PROMOTED**; do not spend a slot. |
 | H47-SAF — strike-aligned catalogue-flank re-occupation *(later session)* | **+55.7 %** LOO on 12 observations (67.1 % of fitted `K` within 150 m of a mapped fault, ×19.5 enrichment, all 14 layers beat their permutation nulls 10/10 at z = +122…+1562) — then **FALSIFIED** by the 13th: the flank-*pruned* 0.2778 raster. β collapsed **+6.18 → +1.42**, LOO gain **+55.7 % → −64.0 %**, and the layer became the **worst of 65**. Break-even **0.2200**. | **FALSIFIED**; not built into an artifact. |
 | H47-SGMC — state geologic-map catalogue-difference transfer | Adding it **worsened** LOO (0.008124 → 0.009279); the fitted truth puts **0.5 %** of `K` there. | **FALSIFIED**. |
-| Downloadable artifacts | `gems47-h47gsa-…-allfinite.tif` — 1 band, float32, EPSG:32611, 3292 × 3730, 100 m, 37,654 positive pixels, values {0,1}, **0** on masked catalogue pixels, **0** outside the footprint, SHA-256 `7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146`, 21/21 checks, 0 hard failures. Earlier session: `gems47-h47b-tmiup150-…-research-not-submittable-20261006.tif`, SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`, 18,524 positive pixels. | Published for transparent review. **Not slot-eligible.** |
-| Uniqueness | Later session: max Jaccard **0.0457** against all 13 restored scored rasters. Earlier session: **zero** exact positive-mask matches against **334** exact-grid TIFFs in 55 visible `buffedlizard55-lab` GEMSDOE repositories; maximum equal-mass Jaccard **0.01119**. | Supports uniqueness against accessible artifacts. **Not a global uniqueness proof** and not a performance result. |
+| Downloadable artifacts | **Third session:** `gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif` — 1 band, float32, EPSG:32611, 3292 × 3730, 100 m, **37,612** positive pixels, values {0,1}, all 12,279,160 cells finite and in [0,1], **no nodata tag**, SHA-256 `f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291`, 15/15 format checks, `strongest_range_guarantee=True`. `gems47-h47gsa-…-allfinite.tif` — 1 band, float32, EPSG:32611, 3292 × 3730, 100 m, 37,654 positive pixels, values {0,1}, **0** on masked catalogue pixels, **0** outside the footprint, SHA-256 `7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146`, 21/21 checks, 0 hard failures. Earlier session: `gems47-h47b-tmiup150-…-research-not-submittable-20261006.tif`, SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`, 18,524 positive pixels. | Published for transparent review. **Not slot-eligible.** |
+| **Session-3 candidate** — across-strike step in `det_elev_slope`, persisted **1.9 km along strike** (`scarp(det_elev_slope, r=9)`) × `curv(2.5)` × `detrend(2.5)` × `slope_var(5)`, rank-scaled, weighted geometric mean *(third session)* | **Passes the control that closed both gates above.** At matched mass, spacing and flank buffer on identical folds it beats a uniform random field through the identical emitter by **6.02× / 6.17× / 6.61×** on the three prevalence-matched frames and **4.75×** on the isolated-component frame, and beats a translated copy of itself (density and clustering preserved, alignment destroyed) by the same margins; A > B on **87 of 94** blocks (`evidence/control/controls.json`). Precision-at-40k against expert-mapped fault **0.5049** vs **0.0861** random; at 10k **0.6543**. **But:** not cross-fitted-LATI validated, and its holdout shows calibration mean **0.0968** → selection mean **0.0606**, a **37 %** out-of-fold drop — the same signature that exposed H47-GSA's `+0.30` as optimizer's curse, here positive rather than sign-flipped. | **CONTROL-PASSED · NOT LATI-VALIDATED**; do not spend a slot on it yet. Run it through cross-fitted LATI on all five truth frames first. |
+| Uniqueness | Third session: max Jaccard **0.0144** and max containment **0.0277** against all **18** reference artifacts. Later session: max Jaccard **0.0457** against all 13 restored scored rasters. Earlier session: **zero** exact positive-mask matches against **334** exact-grid TIFFs in 55 visible `buffedlizard55-lab` GEMSDOE repositories; maximum equal-mass Jaccard **0.01119**. | Supports uniqueness against accessible artifacts. **Not a global uniqueness proof** and not a performance result. |
 | Public leaderboard | One-time read 2026-10-06: rank 1 **0.3774** (participant name not preserved), DARD **0.3195 at #7**, `extradr19` **0.2778 at #13**. An earlier same-date read gave rank 1 = 0.3345 and DARD at #5; the later observation supersedes it. | Participant scores do **not** identify TIFFs or receipts. No TIFF-to-score mapping is authenticated (IR-47-002). |
 | The reported `"Predicted values must be in range [0, 1]"` rejection | **Diagnosed and fixed.** 29 sibling GeoTIFFs scanned: **12/12** `-nan` variants fail `np.all((v>=0)&(v<=1))` because NaN fails both comparisons; **17/17** all-finite variants pass; **no file anywhere** has a value outside [0, 1]. | The primary artifact convention here is **all-finite** (zeros outside the footprint, nodata unset). `src/gems47/submission.py` runs every plausible reading separately. |
 
-Details: [H47-B validation report](docs/validation-h47b-20261006.md) ·
+Details: [session-3 front page](docs/session3.html) ·
+[session-3 controls](evidence/control/controls.json) ·
+[session-3 conformal selection](evidence/conformal/selection.json) ·
+[session-3 remaining work](docs/REMAINING_WORK.html) ·
+[session-3 compliance check](docs/COMPLIANCE.html) ·
+[H47-B validation report](docs/validation-h47b-20261006.md) ·
 [uniqueness audit](docs/h47b-uniqueness-audit-20261006.json) ·
 [LATI method](docs/method.html) · [cross-fitted validation](evidence/crossfit_validation.json) ·
 [flank sensitivity](evidence/flank_sensitivity.json) ·
