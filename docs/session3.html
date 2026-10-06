@@ -12,7 +12,7 @@
   <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
   <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
      306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
-     Generated 2026-10-06 20:00 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+     Generated 2026-10-06 20:13 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
   <nav>
     <a href="index.html">Home</a>
     <a href="executive-summary.html">Executive summary &amp; how to submit</a>
@@ -44,7 +44,7 @@
 <div class="wrap">
 <article>
 <h1 id="gemsdoe47-doe-gems-prize-drivendata-306-nw-nevada-geodawn">GEMSDOE47 · DOE GEMS Prize (DrivenData #306) · NW Nevada / GeoDAWN</h1>
-<p><em>Generated 2026-10-06 19:58 UTC by <code>scripts/build_site.py</code> from committed JSON receipts. No number on this site is hand-typed.</em></p>
+<p><em>Generated 2026-10-06 20:13 UTC by <code>scripts/build_site.py</code> from committed JSON receipts. No number on this site is hand-typed.</em></p>
 <hr />
 <h2 id="download-the-submission">⬇️ DOWNLOAD THE SUBMISSION</h2>
 <h3 id="gemsdoe47-scarp9-persistence-s28-d737-b2tif"><a href="downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif"><strong>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</strong></a></h3>
@@ -124,6 +124,68 @@
 
 </details>
 
+<hr />
+<h2 id="status-under-this-repositorys-own-promotion-gate">Status under this repository's own promotion gate</h2>
+<blockquote>
+<p><strong>CONTROL-PASSED · NOT LATI-VALIDATED · NO SLOT RECOMMENDED YET.</strong> This repository's <code>main</code> branch carries the record of two earlier sessions on the same brief; both built a detector, both preregistered a gate, and <strong>both closed it</strong> (H47-B lost to a random control, 0.02755 vs 0.03716; H47-GSA showed +0.30 in-fold and −0.0611 / −0.0450 paired out-of-fold). The charter's decision — <em>no submission is eligible and no slot is recommended</em> — is <strong>unchanged</strong> by this session.</p>
+</blockquote>
+<p>What session 3 adds is the control whose absence closed those gates, run at matched mass, matched spacing and matched flank buffer on identical folds (<code>scripts/control_random_and_shifted.py</code> → <code>evidence/control/controls.json</code>):</p>
+<table>
+<thead>
+<tr>
+<th>frame</th>
+<th>A: shipped dots</th>
+<th>B: random field, identical emitter</th>
+<th>C: A translated 45–60 px</th>
+<th>D: same mass, wrong places</th>
+<th>A ÷ B</th>
+<th>blocks A &gt; B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PM0112</code></td>
+<td><strong>0.009079</strong></td>
+<td>0.001508 (sd 0.001064)</td>
+<td>0.001255</td>
+<td>0.001952</td>
+<td><strong>6.0217×</strong></td>
+<td>23/24</td>
+</tr>
+<tr>
+<td><code>PM0200</code></td>
+<td><strong>0.013801</strong></td>
+<td>0.002237 (sd 0.001312)</td>
+<td>0.00193</td>
+<td>0.00212</td>
+<td><strong>6.169×</strong></td>
+<td>24/25</td>
+</tr>
+<tr>
+<td><code>PM0294</code></td>
+<td><strong>0.014975</strong></td>
+<td>0.002265 (sd 0.001148)</td>
+<td>0.002103</td>
+<td>0.002346</td>
+<td><strong>6.6113×</strong></td>
+<td>23/25</td>
+</tr>
+<tr>
+<td><code>A1</code></td>
+<td><strong>0.008568</strong></td>
+<td>0.001804 (sd 0.00093)</td>
+<td>0.001225</td>
+<td>0.001854</td>
+<td><strong>4.7502×</strong></td>
+<td>17/20</td>
+</tr>
+</tbody>
+</table>
+<p>Verdict recorded by the script — beats random <em>and</em> shifted on every prevalence frame: <strong>True</strong>.</p>
+<p>Arm <strong>C</strong> is the one that matters: it preserves the candidate's density and clustering and destroys only its <em>alignment</em> with the geology, so A ≫ C means the placement is doing work and not merely the dot count. Arm <strong>D</strong> places the same mass on emittable pixels the candidate rejected. <code>A1</code> is the cleanest frame — isolated components are by construction more than 3 px from the rest of the catalogue, so the flank prune cannot be anti-correlated with the truth there.</p>
+<p><strong>IR-47-CODE-09 — the first run of this control reported the opposite result, and it was wrong.</strong> It pruned the controls against the <em>visible</em> catalogue while the shipped raster had been pruned against the <em>full</em> catalogue, so the controls could place dots within 2 px of the fold truth and the candidate structurally could not. It reported A/B = 0.28–0.31 — <em>loses to random by 3.5×</em> — which is exactly the signature that killed H47-B. Fixing the asymmetry reversed the verdict to the table above. Both runs are recorded, because a reviewer seeing only one of them would reach the opposite conclusion about the same bytes.</p>
+<p><strong>Why no slot is recommended anyway.</strong> The candidate has not been through this repository's promotion instrument: cross-fitted LATI with paired out-of-fold deltas against the incumbent, on all five truth frames. Its own holdout shows the optimizer's-curse signature — calibration mean 0.0968 against a selection mean of 0.0606, a 37 % out-of-fold drop (visible in the table below). It stays positive, which H47-GSA did not, but a positive drop is not a promotion. It also inherits the ceiling the charter records: same 100 m layers that forty-four repositories converged on at 0.26–0.28, and a 0.5–3 m scarp averaged into a 100 m pixel is below the noise floor of the resampled product.</p>
+<p><strong>Corrections adopted from the charter.</strong> Public leaderboard rank 1 is <strong>0.3774</strong> (a later same-date read), not the 0.3345 this session started from; both are recorded. And <code>IR-47-002</code> stands: the attribution of 0.2778 to a specific TIFF is <strong>unverified</strong>, so the nesting arithmetic below (40,199 − 2,545 = 37,654) is a fact about bytes, not proof of which bytes earned which score.</p>
 <hr />
 <h2 id="the-conformal-guarantee-next-to-the-chosen-spacing">The conformal guarantee, next to the chosen spacing</h2>
 <p><strong>Chosen operating point: <code>R2_scarp9_topo</code> at <code>s2.8_d7.37_b2</code></strong></p>

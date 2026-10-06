@@ -6,7 +6,7 @@ nav_order: 1
 
 # GEMSDOE47 · DOE GEMS Prize (DrivenData #306) · NW Nevada / GeoDAWN
 
-*Generated 2026-10-06 19:58 UTC by `scripts/build_site.py` from committed JSON receipts. No number on this site is hand-typed.*
+*Generated 2026-10-06 20:13 UTC by `scripts/build_site.py` from committed JSON receipts. No number on this site is hand-typed.*
 
 ---
 
@@ -61,6 +61,31 @@ Asserted against all 18 reference artifacts in `data/reference/` by Jaccard dist
 | `qfaults_prior_u8.tif` | 138,416 | 0 | 0.0 |
 
 </details>
+
+---
+
+## Status under this repository's own promotion gate
+
+> **CONTROL-PASSED · NOT LATI-VALIDATED · NO SLOT RECOMMENDED YET.** This repository's `main` branch carries the record of two earlier sessions on the same brief; both built a detector, both preregistered a gate, and **both closed it** (H47-B lost to a random control, 0.02755 vs 0.03716; H47-GSA showed +0.30 in-fold and −0.0611 / −0.0450 paired out-of-fold). The charter's decision — *no submission is eligible and no slot is recommended* — is **unchanged** by this session.
+
+What session 3 adds is the control whose absence closed those gates, run at matched mass, matched spacing and matched flank buffer on identical folds (`scripts/control_random_and_shifted.py` → `evidence/control/controls.json`):
+
+| frame | A: shipped dots | B: random field, identical emitter | C: A translated 45–60 px | D: same mass, wrong places | A ÷ B | blocks A > B |
+|---|---|---|---|---|---|---|
+| `PM0112` | **0.009079** | 0.001508 (sd 0.001064) | 0.001255 | 0.001952 | **6.0217×** | 23/24 |
+| `PM0200` | **0.013801** | 0.002237 (sd 0.001312) | 0.00193 | 0.00212 | **6.169×** | 24/25 |
+| `PM0294` | **0.014975** | 0.002265 (sd 0.001148) | 0.002103 | 0.002346 | **6.6113×** | 23/25 |
+| `A1` | **0.008568** | 0.001804 (sd 0.00093) | 0.001225 | 0.001854 | **4.7502×** | 17/20 |
+
+Verdict recorded by the script — beats random *and* shifted on every prevalence frame: **True**.
+
+Arm **C** is the one that matters: it preserves the candidate's density and clustering and destroys only its *alignment* with the geology, so A ≫ C means the placement is doing work and not merely the dot count. Arm **D** places the same mass on emittable pixels the candidate rejected. `A1` is the cleanest frame — isolated components are by construction more than 3 px from the rest of the catalogue, so the flank prune cannot be anti-correlated with the truth there.
+
+**IR-47-CODE-09 — the first run of this control reported the opposite result, and it was wrong.** It pruned the controls against the *visible* catalogue while the shipped raster had been pruned against the *full* catalogue, so the controls could place dots within 2 px of the fold truth and the candidate structurally could not. It reported A/B = 0.28–0.31 — *loses to random by 3.5×* — which is exactly the signature that killed H47-B. Fixing the asymmetry reversed the verdict to the table above. Both runs are recorded, because a reviewer seeing only one of them would reach the opposite conclusion about the same bytes.
+
+**Why no slot is recommended anyway.** The candidate has not been through this repository's promotion instrument: cross-fitted LATI with paired out-of-fold deltas against the incumbent, on all five truth frames. Its own holdout shows the optimizer's-curse signature — calibration mean 0.0968 against a selection mean of 0.0606, a 37 % out-of-fold drop (visible in the table below). It stays positive, which H47-GSA did not, but a positive drop is not a promotion. It also inherits the ceiling the charter records: same 100 m layers that forty-four repositories converged on at 0.26–0.28, and a 0.5–3 m scarp averaged into a 100 m pixel is below the noise floor of the resampled product.
+
+**Corrections adopted from the charter.** Public leaderboard rank 1 is **0.3774** (a later same-date read), not the 0.3345 this session started from; both are recorded. And `IR-47-002` stands: the attribution of 0.2778 to a specific TIFF is **unverified**, so the nesting arithmetic below (40,199 − 2,545 = 37,654) is a fact about bytes, not proof of which bytes earned which score.
 
 ---
 

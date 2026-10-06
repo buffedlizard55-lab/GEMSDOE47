@@ -73,6 +73,34 @@
   <p><a href="docs/index.html"><strong>→ The later session’s full site: LATI method, the five ranked
      hypotheses, every number, and IR-47-001…015</strong></a></p>
 
+  <!-- Session 3, merged 2026-10-06 (PR #8/#9). ADDITIVE: nothing above was changed, the slot
+       decision above still stands, and deliberately NO second .tif download link is added here
+       because tests/test_site.py asserts this page offers exactly one. -->
+  <h2>A third session merged — the gate is still closed</h2>
+  <p>A third session worked the same brief independently. It built a different detector: an
+     <strong>across-strike step in <code>det_elev_slope</code>, persisted 1.9&nbsp;km along
+     strike</strong> (<code>scarp(det_elev_slope, r=9)</code>), emitted at 2.8&nbsp;px spacing,
+     7.37 dots per 1000 scored px and a 2&nbsp;px catalogue-flank buffer — 37,612 positive pixels,
+     binary {0,1}, all-finite, no nodata tag.</p>
+  <p>It ran the control whose absence closed both gates above and <strong>passed it</strong>: at
+     matched mass, spacing and flank buffer on identical folds it beats a uniform random field put
+     through the identical emitter by <strong>6.02× / 6.17× / 6.61×</strong> on the three
+     prevalence-matched frames and <strong>4.75×</strong> on the isolated-component frame, and beats
+     a translated copy of itself — same density and clustering, alignment destroyed — by the same
+     margins, on 87 of 94 blocks. H47-B <em>lost</em> that comparison.</p>
+  <p><strong>It is still not promoted, and no slot is recommended.</strong> It has not been through
+     cross-fitted LATI on all five truth frames, and its own holdout shows the optimizer's-curse
+     signature: calibration mean 0.0968 against a selection mean of 0.0606, a 37% out-of-fold drop.
+     It stays positive, which H47-GSA did not — but a positive drop is not a promotion. Its first
+     control run reported the <em>opposite</em> verdict (A/B = 0.28) because of an asymmetry in how
+     the arms were pruned; both runs are recorded as <code>IR-47-CODE-09</code>. Its code is
+     namespaced to <code>src/gems47s3/</code>, and <code>scripts/build_site_s3.py --check</code>
+     asserts that all 44 of the earlier sessions' <code>docs/</code> files are byte-identical.</p>
+  <p><a href="docs/session3.html"><strong>→ The third session's front page: the artifact and its
+     SHA-256, the uniqueness assertion against all 18 reference rasters, the controls, the
+     split-conformal floor quoted next to the chosen spacing, and the algebraic mass
+     ceiling</strong></a></p>
+
   <h2>What happens next</h2>
   <ol class="steps">
     <li>Keep the submission slot unused. Do not treat the research download as a portal-ready file.</li>
