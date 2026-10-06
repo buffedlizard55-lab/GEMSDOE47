@@ -55,8 +55,8 @@ restored layers available.</p>
     <td class="n">LOO worsens<br>(0.008124 → 0.009279)</td><td class="n">Very low</td>
     <td><span class="badge b-bad">FALSIFIED — 0.5 % of fitted K</span></td></tr>
 <tr><td>4</td><td><b>H47-4 DMC</b> — deep-source magnetic continuity (TMI-UC150)</td>
-    <td class="n">not estimated</td><td class="n">Medium</td>
-    <td><span class="badge b-info">SPECIFIED, data restored, UNBUILT</span></td></tr>
+    <td class="n">measured by the earlier session</td><td class="n">already paid</td>
+    <td><span class="badge b-bad">ALREADY TESTED as H47-B — lost to a random control</span></td></tr>
 <tr><td>5</td><td><b>H47-5 λ-probe</b> — three designed submissions recover T, F, K in closed form</td>
     <td class="n">exact, not statistical</td><td class="n">3 slots</td>
     <td><span class="badge b-info">DESIGNED, NOT SPENT</span></td></tr>
@@ -157,7 +157,7 @@ scores 0.2499 — better than the live-0.2600 incumbent’s 0.0942 — because t
 coverage, not skill. <b>Not shipped.</b></p>
 </div>
 
-<h2 id="h47-4">H47-4 · DMC — deep-source magnetic continuity <span class="badge b-info">UNBUILT</span></h2>
+<h2 id="h47-4">H47-4 · DMC — deep-source magnetic continuity <span class="badge b-bad">ALREADY TESTED — FAILED</span></h2>
 <div class="panel">
 <p><b>Layers.</b> <code>TMI_up150</code> (band 4 of <code>geodawn_extensions_u8.tif</code>, total
 magnetic intensity upward-continued 150 m) against the supplied 100 m <code>tmi_hg</code>,
@@ -178,8 +178,29 @@ leaderboard rather than from the physics.</p>
 upward continuation as a <b>depth filter</b>, and none combined it with the vertical-gradient band as a
 contrast pair. <code>H61-3</code> (tilt-angle zero crossings) is the nearest relative and is a
 single-scale edge detector.</p>
-<p><b>Status.</b> The data is restored and hash-verified; the layer is one gradient-magnitude and one
-ratio away. Not built because the project’s validation rule blocked shipping anything ahead of it.</p>
+<div class="callout bad">
+<b>This hypothesis is not new, and it has already been tested and rejected.</b> While merging the two
+GEMSDOE47 sessions it emerged that the <b>earlier</b> session built exactly this idea as
+<b>H47-B</b> — cross-scale persistence of <code>TMI_up150</code> magnetic edges — and ran it through a
+preregistered gate with a locked test block and nontrivial controls. Result
+(<a href="validation-h47b-20261006.md">validation-h47b-20261006.md</a>,
+<a href="h47b-screen-report-20261006.json">screen report</a>):
+<table style="margin:10px 0">
+<tr><th>Arm</th><th class="n">Locked-test pooled DTI</th></tr>
+<tr><td>H47-B candidate (selected spacing 5 px / 500 m)</td><td class="n">0.02755</td></tr>
+<tr><td>Tuned single-scale baseline</td><td class="n">0.02564</td></tr>
+<tr><td><b>Fixed-seed random control</b></td><td class="n"><b>0.03716</b></td></tr>
+</table>
+The candidate <b>lost to random noise</b>, and its assumption-conditional conformal lower floor was
+<b>0.0</b>. Verdict: <b>NOT PROMOTED</b>. Its research-only GeoTIFF is still published at
+<a href="downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">docs/downloads/</a>
+for review, marked not-for-submission.
+<br><br>
+The physics argument above is still sound and the LATI coefficients (<code>tmi_hg</code> β = +8.55 with
+<code>tmi_vg</code> β = −9.63) still point the same way — but a sound physical story that loses to a
+random control on a locked test block is a rejected hypothesis, not an unbuilt one. Recorded here so the
+next session does not pay to learn it twice.
+</div>
 </div>
 
 <h2 id="h47-5">H47-5 · λ-probe — exact identification of T, F and K <span class="badge b-info">NOT SPENT</span></h2>

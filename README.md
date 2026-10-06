@@ -229,7 +229,10 @@ Built under 2 vCPU, 3 GB RAM, ~19 GB disk, and a network that reaches only `pypi
 4. **Resolve the 0.2778 attribution** (IR-47-002). The leaderboard row belongs to participant
    `extradr19`; the board does not identify TIFFs, so the file-level attribution is still an inference,
    and it alone decides the flank verdict.
-5. **Attack precision, not coverage.** The family’s whole gain from 0.1922 to 0.2778 came from cutting
+5. **Do not re-test H47-4 / H47-B.** Deep-source magnetic continuity via `TMI_up150` was independently
+   proposed by both sessions; the earlier one built it, preregistered a gate, and it **lost to a
+   fixed-seed random control** (0.02755 vs 0.03716) with a conformal lower floor of 0.0. Closed.
+6. **Attack precision, not coverage.** The family’s whole gain from 0.1922 to 0.2778 came from cutting
    emitted mass. Rank every dot by marginal credit and delete the tail below `α·DTI`.
 
 ## 6. Honest limitations
