@@ -50,7 +50,7 @@ The resulting quantile is `0.04860422299678556` and the clipped lower bound is *
 
 ## File audit and accessible-artifact comparison
 
-The research TIFF is [`downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif`](downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif), SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`.
+The research TIFF is [`downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif`](downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif), SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`.
 
 - One-band float32; 3292 × 3730; EPSG:32611; 100 m pixels.
 - GDAL-order transform `(243350, 100, 0, 4508550, 0, -100)`.

@@ -18,22 +18,25 @@
 </div></header>
 <main class="wrap">
   <section class="dl" aria-labelledby="download-heading">
-    <h2 id="download-heading">Research GeoTIFF download — <span class="bad">NOT FOR SUBMISSION</span></h2>
-    <p><strong>H47-B failed its preregistered promotion gate.</strong> This file is shared for transparent research review only; do not upload it or spend a competition slot. A format-valid raster is not a validated prediction.</p>
-    <a class="btn" download href="docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download research-only H47-B GeoTIFF (1.5 MB)</a>
+    <h2 id="download-heading">research geotiff download — <span class="bad">not for submission</span></h2>
+    <p><strong>h48-apex failed its promotion gate, and this page says so before you click.</strong>
+       the file is shared for research only; do not upload it or spend a competition slot on it.
+       a format-valid raster is not a validated prediction.</p>
+    <a class="btn" download href="docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif">Download research-only GeoTIFF — H48-APEX, 28,124 px (176 KB)</a>
     <dl class="kv">
-      <dt>Decision</dt><dd class="bad">NOT PROMOTED · NO SLOT RECOMMENDED</dd>
-      <dt>SHA-256</dt><dd>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</dd>
-      <dt>Locked-test DTI</dt><dd>H47-B 0.027553 · single-scale 0.025639 · random 0.037159</dd>
-      <dt>Conformal floor</dt><dd>0.0; block exchangeability unverified</dd>
-      <dt>Format</dt><dd>float32, one band, EPSG:32611, 3292 × 3730, 100 m; in-footprint [0,1], NaN outside</dd>
+      <dt>decision</dt><dd class="bad">not promoted · no slot recommended</dd>
+      <dt>sha-256</dt><dd>8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5</dd>
+      <dt>split-conformal floor</dt><dd>0.1149 at level 46.15% (cross-conformal n=12, family m=7, k=6); 92.3% if the operating point is treated as pre-declared</dd>
+      <dt>uniqueness</dt><dd>max equal-mass Jaccard 0.0095 against all 13 prior rasters — the project record</dd>
+      <dt>format</dt><dd>float32, one band, epsg:32611, 3730 × 3292, 100 m; every pixel finite and inside [0, 1]</dd>
+      <dt>why closed</dt><dd>loses the sgmc-off-catalogue blocked frame (0.0878 vs incumbent 0.0989) and its certified floor is below the live 0.2600 incumbent</dd>
     </dl>
-    <p class="small dim">The bounded uniqueness check found no exact mask match among 334 accessible, comparable TIFFs in 55 visible sibling repositories. That is not a global uniqueness proof and does not override the failed holdout.</p>
-    <a class="btn sec" href="docs/validation-h47b-20261006.md">Read the full validation and uniqueness report →</a>
+    <p class="small dim">the bounded uniqueness check found no exact mask match among 334 accessible, comparable tiffs in 55 visible sibling repositories. that is not a global uniqueness proof and does not override the failed holdout. <a href="docs/all-downloads.html">every artifact, every hash, every status →</a></p>
+    <a class="btn sec" href="docs/executive-summary.html#h48">read the full certification and validation report →</a>
   </section>
 
   <h2>Current decision: evidence before upload</h2>
-  <p>The goal remains a scientifically defensible, unique prediction of faults absent from existing catalogues. H47-B is a negative screen, not a submission candidate. The old d-cat/annulus TIFF is a delete-only subset of a published mask, and the previous modeled score and claimed conformal floor have been retired.</p>
+  <p>The goal remains a scientifically defensible, unique prediction of faults absent from existing catalogues. H48-APEX is the newest and most novel artifact (max Jaccard 0.0095 against all 13 prior rasters) and it failed its promotion gate; H47-B is a negative screen. Neither is a submission candidate yet. The old d-cat/annulus TIFF is a delete-only subset of a published mask, and the previous modeled score and claimed conformal floor have been retired.</p>
   <div class="feed">
     <article class="card"><div class="lab">Latest saved public board read</div><div class="val">0.3774</div><div class="sub">Rank 1; participant name not retained.</div></article>
     <article class="card"><div class="lab">DARD</div><div class="val">0.3195</div><div class="sub">Rank 7 in the same saved read.</div></article>

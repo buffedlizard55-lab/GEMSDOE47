@@ -1,5 +1,33 @@
 # Next-session plan — continue from the verified state
 
+> **Session 2026-10-06 (H48) — state at hand-off.** H48 is implemented, runs end to end
+> (`PYTHONPATH=src ./venv47/bin/python scripts/build_h48.py --stage all [--source apex]`, 117–160 s) and
+> produced the project's **most novel artifact so far** —
+> `docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif`, 28,124 px,
+> max equal-mass Jaccard **0.0095** against all 13 prior rasters (previous record 0.0457), format
+> **21/21**. **The gate is closed**: it loses the SGMC-off-catalogue blocked frame (0.0878 vs 0.0989)
+> and its split-conformal floor is **0.1149 at level 46.15 %** (cross-conformal, n=12, family m=7,
+> k=6), below the live 0.2600 incumbent. Receipts: `evidence/h48_apex_build.json`,
+> `evidence/h48_build.json`; site: `docs/index.html`, `docs/executive-summary.html#h48`,
+> `docs/all-downloads.html`.
+>
+> **Ordered next actions for the H48 line.** (1) Do **not** spend a slot on the apex arm until either
+> the frame disagreement or the certificate changes; if a slot is spent anywhere, spend it on the
+> λ-probe (three scores recover T, F, K exactly by inverting `1/DTI(λ) = (alpha + beta*K/T)/lambda + ...`),
+> which is strictly more informative per slot. (2) If the apex arm is to be certified rather than
+> probed, **pre-declare the operating point** — a family of 1 is worth 92.31 % at n = 12 against
+> 46.15 % for a family of 7 (IR-47-019). (3) The SGMC loss says the apex set is *not yet* a
+> catalogue-adjacent mapper; the cheapest honest fix is an emission that keeps the lineage's proven
+> coverage and adds apex dots only where the lineage has nothing within 300 m — but measure its
+> Jaccard against the priors first, because that is the trap IR-47-017 documents. (4) Do not re-tune
+> the belief model to make the apex arm look better: it is a similarity regressor (IR-47-016) and
+> re-tuning it only re-selects the incumbent.
+>
+> **Known limitations carried forward.** Nothing has been scored (no portal credentials). The 12-13
+> returned scalars are the only truth and they are partly nested thinnings of one field. The two local
+> truth frames disagree. The 3DEP 1 m DEM remains unreachable from this sandbox.
+
+
 > **Current state (2026-10-06 UTC): no eligible submission and no slot recommendation.** H47-B is a research-only TIFF; it lost to the fixed-seed random control on locked spatial blocks, and its assumption-conditional conformal lower floor was 0.0. The legacy d-cat/annulus TIFF is a delete-only subset of a published mask. Old 0.34912/0.34837 performance claims and the earlier 0.3345 rank-1 board snapshot are superseded. Do not repeat those claims.
 
 ## Ordered actions

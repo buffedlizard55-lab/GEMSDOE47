@@ -22,7 +22,27 @@ from .spec import (
 )
 
 ROOT = Path(__file__).resolve().parents[2]
-DATA = ROOT / "data"
+
+
+def _default_data_dir() -> Path:
+    """The directory holding the hash-pinned competition bytes.
+
+    This module was written against a ``data/`` layout; the canonical restore path
+    used by the rest of the repository is ``gems47.grid.data_dir()`` (which honours
+    ``GEMS47_DATA`` and falls back to ``.cache/gems_data``).  Resolve in that order
+    so a checkout does not need two copies of the same 506 MB of rasters.
+    """
+    local = ROOT / "data"
+    if (local / "sample_submission.tif").is_file():
+        return local
+    try:
+        from gems47.grid import data_dir  # canonical convention
+        return Path(data_dir())
+    except Exception:  # pragma: no cover - fall back to the historical default
+        return local
+
+
+DATA = _default_data_dir()
 STRUCT8 = np.ones((3, 3), bool)
 
 

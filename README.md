@@ -23,13 +23,17 @@
 
 | Item | Current evidence | Decision |
 |---|---|---|
+| **H48-APEX** — multi-scale curvature lineament consensus (MSCL), catalogue-clear apex emission *(this session)* | 5 bands × 3 apertures structure-tensor curvature transform → cross-domain consensus rank; emitted set = 3×3 local maxima of the consensus at rank ≥ 192, 2.5 px separation, 28,124 px. **Unique**: max equal-mass Jaccard **0.0095** vs all 13 prior rasters (previous project record 0.0457). Format gate **21/21**. Split-conformal certified floor **0.1149 at level 46.15%** (cross-conformal n=12, family m=7 Bonferroni, k=6; m=1 channel 92.31% but floor −0.1403; split-half n=6 level **0.000** — no non-vacuous family guarantee exists at n=6). Blocked holdout: `catalogue` **0.0335** vs incumbent **0.0067** (win), `sgmc_offcatalogue` **0.0878** vs **0.0989** (loss). | **NOT PROMOTED**; gate closed on two grounds (SGMC frame; floor < 0.2600). Artifact published as the primary download, labelled RESEARCH ONLY. |
+| **H48 repack** — incumbent field one-to-one snapped onto the consensus ridge, +15 % new ground *(this session)* | Wins **both** blocked holdout frames vs the incumbent (0.0404 / 0.1081 vs 0.0067 / 0.0989) and passes format 21/21, but **re-issues a prior submission**: 59.2 % of its pixels are the 0.2600 field's and 66.9 % of the reported-0.2778 field's → max equal-mass Jaccard **0.4400**. | **REJECTED on the standing brief's uniqueness rule.** Moved to `docs/downloads/superseded/` as evidence. |
+| **IR-47-016 — the belief model is a similarity regressor** *(this session)* | `control_prox_d2.8` (a distance-rank to the 0.2600 incumbent field) carries β = 3.229 of the M2 fit vs β = 1.289 for the new MSCL layer and β = 0.635 for shear rate. The model therefore scores any incumbent-shaped field 0.18–0.20 and the genuinely novel apex set 0.086 **regardless of geology**. Certificates built on it are upper-bounded by how similar a candidate is to a prior submission. | Documented; the apex verdict is reported as *assumption-conditional* and the local blocked frames are quoted alongside. |
 | **H47-GSA** — geodetic strain × hydrothermal alteration × thermal discharge *(later session)* | Cross-fitted LATI: paired out-of-fold deltas **−0.0611** and **−0.0450** vs the incumbent. Loses on **all five** truth frames, including the exact, model-free covered 300 m kernel integral (**99,916** vs **341,261**). In-fold advantage was **+0.30** — pure optimizer’s curse. | **NOT PROMOTED**; do not spend a slot. |
 | **H47-B** — cross-scale `TMI_up150` magnetic-edge persistence *(earlier session)* | Locked-test pooled DTI **0.02755**; tuned single-scale baseline **0.02564**; fixed-seed random control **0.03716**. The candidate **lost to random noise**. Assumption-conditional conformal lower floor **0.0**. | **NOT PROMOTED**; do not spend a slot. |
 | H47-SAF — strike-aligned catalogue-flank re-occupation *(later session)* | **+55.7 %** LOO on 12 observations (67.1 % of fitted `K` within 150 m of a mapped fault, ×19.5 enrichment, all 14 layers beat their permutation nulls 10/10 at z = +122…+1562) — then **FALSIFIED** by the 13th: the flank-*pruned* 0.2778 raster. β collapsed **+6.18 → +1.42**, LOO gain **+55.7 % → −64.0 %**, and the layer became the **worst of 65**. Break-even **0.2200**. | **FALSIFIED**; not built into an artifact. |
 | H47-SGMC — state geologic-map catalogue-difference transfer | Adding it **worsened** LOO (0.008124 → 0.009279); the fitted truth puts **0.5 %** of `K` there. | **FALSIFIED**. |
-| Downloadable artifacts | **Third session:** `gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif` — 1 band, float32, EPSG:32611, 3292 × 3730, 100 m, **37,612** positive pixels, values {0,1}, all 12,279,160 cells finite and in [0,1], **no nodata tag**, SHA-256 `f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291`, 15/15 format checks, `strongest_range_guarantee=True`. `gems47-h47gsa-…-allfinite.tif` — 1 band, float32, EPSG:32611, 3292 × 3730, 100 m, 37,654 positive pixels, values {0,1}, **0** on masked catalogue pixels, **0** outside the footprint, SHA-256 `7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146`, 21/21 checks, 0 hard failures. Earlier session: `gems47-h47b-tmiup150-…-research-not-submittable-20261006.tif`, SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`, 18,524 positive pixels. | Published for transparent review. **Not slot-eligible.** |
-| **Session-3 candidate** — across-strike step in `det_elev_slope`, persisted **1.9 km along strike** (`scarp(det_elev_slope, r=9)`) × `curv(2.5)` × `detrend(2.5)` × `slope_var(5)`, rank-scaled, weighted geometric mean *(third session)* | **Passes the control that closed both gates above.** At matched mass, spacing and flank buffer on identical folds it beats a uniform random field through the identical emitter by **6.02× / 6.17× / 6.61×** on the three prevalence-matched frames and **4.75×** on the isolated-component frame, and beats a translated copy of itself (density and clustering preserved, alignment destroyed) by the same margins; A > B on **87 of 94** blocks (`evidence/control/controls.json`). Precision-at-40k against expert-mapped fault **0.5049** vs **0.0861** random; at 10k **0.6543**. **But:** not cross-fitted-LATI validated, and its holdout shows calibration mean **0.0968** → selection mean **0.0606**, a **37 %** out-of-fold drop — the same signature that exposed H47-GSA's `+0.30` as optimizer's curse, here positive rather than sign-flipped. | **CONTROL-PASSED · NOT LATI-VALIDATED**; do not spend a slot on it yet. Run it through cross-fitted LATI on all five truth frames first. |
-| Uniqueness | Third session: max Jaccard **0.0144** and max containment **0.0277** against all **18** reference artifacts. Later session: max Jaccard **0.0457** against all 13 restored scored rasters. Earlier session: **zero** exact positive-mask matches against **334** exact-grid TIFFs in 55 visible `buffedlizard55-lab` GEMSDOE repositories; maximum equal-mass Jaccard **0.01119**. | Supports uniqueness against accessible artifacts. **Not a global uniqueness proof** and not a performance result. |
+| Downloadable artifacts | **This session (H48): `gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif`** — 1 band, float32, EPSG:32611, 3730 × 3292, 100 m, 28,124 positive pixels, values {0,1}, **0** on masked catalogue pixels, **0** outside the footprint, every pixel finite and in [0,1], SHA-256 `8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5`, 176,159 B, 21/21 checks. **Third session:** `gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif` — 1 band, float32, EPSG:32611, 3292 × 3730, 100 m, **37,612** positive pixels, values {0,1}, all 12,279,160 cells finite and in [0,1], **no nodata tag**, SHA-256 `f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291`, 15/15 format checks, `strongest_range_guarantee=True`. `gems47-h47gsa-…-allfinite.tif` — 37,654 px, SHA-256 `7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146`, 21/21. Earlier session: `gems47-h47b-tmiup150-…`, SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`, 18,524 px. | Published for transparent review. **Not slot-eligible.** The complete register with hashes and statuses is [`docs/all-downloads.html`](docs/all-downloads.html). |
+| **Session-3 candidate** — across-strike step in `det_elev_slope`, persisted **1.9 km along strike** (`scarp(det_elev_slope, r=9)`) × `curv(2.5)` × `detrend(2.5)` × `slope_var(5)`, rank-scaled, weighted geometric mean *(third session)* | **Passes the control that closed both gates above.** At matched mass, spacing and flank buffer on identical folds it beats a uniform random field through the identical emitter by **6.02× / 6.17× / 6.61×** on the three prevalence-matched frames and **4.75×** on the isolated-component frame; A > B on **87 of 94** blocks (`evidence/control/controls.json`). Precision-at-40k against expert-mapped fault **0.5049** vs **0.0861** random. **But:** not cross-fitted-LATI validated, and its holdout shows calibration mean **0.0968** → selection mean **0.0606**, a **37 %** out-of-fold drop. | **CONTROL-PASSED · NOT LATI-VALIDATED**; do not spend a slot on it yet. |
+| Uniqueness | **H48-APEX (this session): max equal-mass Jaccard 0.0095 against all 13 prior scored rasters — the best novelty figure recorded in this repository.** Third session: max Jaccard **0.0144**, max containment **0.0277**, against **18** reference artifacts. Later session: **0.0457** against the 13. Earlier session: **zero** exact positive-mask matches against **334** exact-grid TIFFs in 55 visible `buffedlizard55-lab` GEMSDOE repositories; max equal-mass Jaccard **0.01119**. | Supports uniqueness against accessible artifacts. **Not a global uniqueness proof** and not a performance result. |
+
 | Public leaderboard | One-time read 2026-10-06: rank 1 **0.3774** (participant name not preserved), DARD **0.3195 at #7**, `extradr19` **0.2778 at #13**. An earlier same-date read gave rank 1 = 0.3345 and DARD at #5; the later observation supersedes it. | Participant scores do **not** identify TIFFs or receipts. No TIFF-to-score mapping is authenticated (IR-47-002). |
 | The reported `"Predicted values must be in range [0, 1]"` rejection | **Diagnosed and fixed.** 29 sibling GeoTIFFs scanned: **12/12** `-nan` variants fail `np.all((v>=0)&(v<=1))` because NaN fails both comparisons; **17/17** all-finite variants pass; **no file anywhere** has a value outside [0, 1]. | The primary artifact convention here is **all-finite** (zeros outside the footprint, nodata unset). `src/gems47/submission.py` runs every plausible reading separately. |
 
@@ -232,22 +236,30 @@ Built under 2 vCPU, 3 GB RAM, ~19 GB disk, and a network that reaches only `pypi
 
 ## 5. Remaining work
 
-1. **Use the 1 m DEM.** The competition supplies links to 716 USGS 3DEP 1 m tiles; only pre-derived
+1. **Re-open the H48-APEX gate with one scored slot, or do not spend one.** The apex field is the only
+   artifact here that is both unique (0.0095) and derived from this project's own detector; its DTI is
+   *unknown*, because the belief model cannot score it (IR-47-016). Two honest options: (a) spend one
+   weekly slot on it as an information-gathering probe and use the returned scalar to calibrate, or
+   (b) spend the slot on the λ-probe first, which is strictly more informative per slot.
+2. **Certify with m = 1, not by fitting more.** With n=12 returns, a family of 7 costs the certificate
+   46.15% level; a single pre-registered operating point would be certified at 92.31%. The lever is a
+   pre-registered operating point, not a bigger sweep.
+3. **Use the 1 m DEM.** The competition supplies links to 716 USGS 3DEP 1 m tiles; only pre-derived
    100 m LiDAR scarp rasters were reachable. Every LiDAR-derived layer ranked poorly here
    (`lidar_coh100`, `lidar_strike`, `lidar_valid` among the worst of 72), which is exactly what
    resampling metre-scale scarps to 100 m should do. Largest untested lever.
-2. **Spend three slots on the λ-probe.** `1/DTI(λ)` is linear in `1/λ`, so an anchor, a λ = 0.5 scaling
+4. **Spend three slots on the λ-probe.** `1/DTI(λ)` is linear in `1/λ`, so an anchor, a λ = 0.5 scaling
    and a null-addition recover `T`, `F`, `K` **exactly** — conditioning 56×–1380× better than reading
    four decimals. It would also settle whether scoring is restricted to a public chunk (IR-47-011).
-3. **Retrieve the staff answer in forum thread 11527** — which data the experts used. Retry via
+5. **Retrieve the staff answer in forum thread 11527** — which data the experts used. Retry via
    `…/11527/10` or `…/11527?print=true` (IR-47-006).
-4. **Resolve the 0.2778 attribution** (IR-47-002). The leaderboard row belongs to participant
+6. **Resolve the 0.2778 attribution** (IR-47-002). The leaderboard row belongs to participant
    `extradr19`; the board does not identify TIFFs, so the file-level attribution is still an inference,
    and it alone decides the flank verdict.
-5. **Do not re-test H47-4 / H47-B.** Deep-source magnetic continuity via `TMI_up150` was independently
+7. **Do not re-test H47-4 / H47-B.** Deep-source magnetic continuity via `TMI_up150` was independently
    proposed by both sessions; the earlier one built it, preregistered a gate, and it **lost to a
    fixed-seed random control** (0.02755 vs 0.03716) with a conformal lower floor of 0.0. Closed.
-6. **Attack precision, not coverage.** The family’s whole gain from 0.1922 to 0.2778 came from cutting
+8. **Attack precision, not coverage.** The family’s whole gain from 0.1922 to 0.2778 came from cutting
    emitted mass. Rank every dot by marginal credit and delete the tail below `α·DTI`.
 
 ## 6. Honest limitations
@@ -263,6 +275,13 @@ Built under 2 vCPU, 3 GB RAM, ~19 GB disk, and a network that reaches only `pypi
    reportedly the family best. No local instrument settles this.
 5. **Optimizer’s curse is ≈0.30 DTI** and was measured. Every in-fold number in this repository is
    decorative.
-6. **The two sessions used different gates** (five truth frames + cross-fitting, vs a preregistered
+6. **The H48 certificate is assumption-conditional, and the assumption is known to be weak.** The 13
+   calibration returns are partly nested thinnings of one field (h33-2-b2 ⊂ d2.8, containment 1.000), so
+   exchangeability with a *new* candidate is an assumption, not a property. The bound is a bound on the
+   public-test DTI of a probe raster, not on the private expert label set.
+7. **The apex arm has no measured truth frame that supports it.** It wins the weak `catalogue` frame 5×
+   and loses the independent `sgmc_offcatalogue` frame by 11%. Nothing local resolves that, which is
+   exactly why it is not promoted.
+8. **The two sessions used different gates** (five truth frames + cross-fitting, vs a preregistered
    locked-test / random-control / conformal-floor protocol). They agree on the verdict, but the
    protocols are not yet unified — see `docs/next-session.md`.
