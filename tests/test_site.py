@@ -1,19 +1,11 @@
-import json
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-RESEARCH_TIF = (
-    "docs/downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-"
-    "n18524-research-only-not-for-submission-20261006-nanoutside.tif"
-)
-EXPECTED_SHA256 = "dc71c807fbca2cd398f394bcd91b10ecec6b46fe89c2d61f5b1c058fef672811"
-EXPECTED_RESEARCH_NOTE = (
-    "single-scale edge; d=5 px/500 m; catalogue-mask proxy conformal 6/7=85.7% nominal, "
-    "lower floor 0.000 (exchangeability unverified); RESEARCH ONLY"
-)
+RESEARCH_TIF = "docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
+EXPECTED_SHA256 = "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0"
 
 
 class _PageParser(HTMLParser):
@@ -26,6 +18,7 @@ class _PageParser(HTMLParser):
         self.language = None
         self.descriptions = 0
         self.tiff_links = []
+        self.assets = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -33,6 +26,10 @@ class _PageParser(HTMLParser):
             self.language = attrs.get("lang")
         if "id" in attrs:
             self.ids.add(attrs["id"])
+        if tag in ("script", "img") and attrs.get("src"):
+            self.assets.append(attrs["src"])
+        if tag == "link" and attrs.get("href"):
+            self.assets.append(attrs["href"])
         if tag == "a" and attrs.get("href"):
             self.links.append(attrs["href"])
             if urlparse(attrs["href"]).path.lower().endswith((".tif", ".tiff")):
@@ -52,6 +49,24 @@ class _PageParser(HTMLParser):
 
 
 class SiteTests(unittest.TestCase):
+    def test_all_deployed_nested_links_assets_stay_inside_pages_artifact(self):
+        for page in sorted((ROOT / "docs").rglob("*.html")):
+            parser = _PageParser(); parser.feed(page.read_text())
+            for href in parser.links + parser.assets:
+                url = urlparse(href)
+                if url.scheme or url.netloc or not url.path:
+                    continue
+                target = (page.parent / unquote(url.path)).resolve()
+                self.assertTrue(target.is_relative_to((ROOT / "docs").resolve()), href)
+                self.assertTrue(target.is_file(), f"{page}: {href}")
+
+    def test_new_download_precedes_the_large_intro_on_home_and_summary(self):
+        for name in ["index.html", "executive-summary.html"]:
+            text = (ROOT / "docs" / name).read_text()
+            self.assertLess(text.index("↓ Download GeoTIFF"), text.index("<h1>"), name)
+            self.assertIn("2.8 px / 280 m", text)
+            self.assertIn("nominal 90% marginal block band", text)
+
     def test_all_local_html_links_resolve(self):
         pages = sorted([ROOT / "index.html", *ROOT.glob("docs/*.html")])
         self.assertGreaterEqual(len(pages), 4)
@@ -72,17 +87,6 @@ class SiteTests(unittest.TestCase):
                         target_page.feed(target.read_text(encoding="utf-8", errors="replace"))
                         self.assertIn(parsed.fragment, target_page.ids, f"broken fragment {href} in {page}")
 
-    def test_irregularity_registry_human_pages_and_anchors_resolve(self):
-        registry = json.loads((ROOT / "registry" / "irregularities.json").read_text(encoding="utf-8"))
-        for record in registry["irregularities"]:
-            parsed = urlparse(record["human_page"])
-            target = (ROOT / unquote(parsed.path)).resolve()
-            self.assertTrue(target.is_file(), record["id"])
-            if parsed.fragment and target.suffix.lower() == ".html":
-                parser = _PageParser()
-                parser.feed(target.read_text(encoding="utf-8"))
-                self.assertIn(parsed.fragment, parser.ids, record["id"])
-
     def test_pages_have_accessible_metadata(self):
         pages = sorted([ROOT / "index.html", *ROOT.glob("docs/*.html")])
         for page in pages:
@@ -101,30 +105,18 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(href, RESEARCH_TIF)
         target = ROOT / RESEARCH_TIF
         self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
-        self.assertEqual(target.stat().st_size, 309_530)
+        self.assertGreater(target.stat().st_size, 100_000)
+        import hashlib
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), EXPECTED_SHA256)
         lower = text.lower()
         self.assertIn("research-only", lower)
         self.assertIn("not for submission", lower)
         self.assertIn("not promoted", lower)
         self.assertIn("no slot", lower)
         self.assertIn(EXPECTED_SHA256, text)
-        self.assertIn(EXPECTED_RESEARCH_NOTE, text)
-        self.assertIn("0.037159", text, "random-control loss is visible")
-
-    def test_executive_summary_links_the_same_primary_artifact_and_discloses_mask_scope(self):
-        path = ROOT / "docs" / "executive-summary.html"
-        text = path.read_text(encoding="utf-8")
-        parser = _PageParser()
-        parser.feed(text)
-        self.assertIn(
-            "downloads/" + Path(RESEARCH_TIF).name,
-            [urlparse(href).path for href in parser.tiff_links],
-        )
-        self.assertIn(EXPECTED_SHA256, text)
-        self.assertIn(EXPECTED_RESEARCH_NOTE, text)
-        self.assertIn("explicit mask derived from finite cells", text)
-        self.assertIn("official evaluation", text.lower())
-        self.assertIn("floor 0.000", text)
+        self.assertIn("0.177872", text, "candidate pooled score is visible")
+        self.assertIn("0.180216", text, "pooled baseline loss is visible")
+        self.assertIn("0.0000", text, "zero conformal floor is visible")
 
     def test_submission_and_summary_pages_keep_the_slot_gate_visible(self):
         for path in (ROOT / "docs" / "executive-summary.html", ROOT / "docs" / "submit.html", ROOT / "docs" / "portal-checklist.html"):

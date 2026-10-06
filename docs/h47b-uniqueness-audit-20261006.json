@@ -4112,9 +4112,11 @@
       "height": 3730,
       "width": 3292
     },
-    "path": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+    "path": "docs/downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
     "positive_pixels": 18524,
-    "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b"
+    "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
+    "original_audit_path": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+    "relocation_note": "Main PR11 moved unchanged bytes to superseded; SHA/results unchanged."
   },
   "caveat": "This checks pixel masks against visible GitHub artifacts only; it does not prove global uniqueness or any score-to-file attribution.",
   "comparison": {

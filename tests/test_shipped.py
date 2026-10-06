@@ -54,7 +54,11 @@ def test_sample_submission_footprint_and_ones(tmpl):
     assert not (ones & ~tmpl.catalogue).any()      # IR-47-003: the "sample" is not all-zero
 
 
-def test_training_nodata_is_float32_min_not_nan():
+def test_training_nodata_is_float32_min_not_nan(tmpl):
+    # `tmpl` is not used for its value: it is the module's data-availability guard.  Without it
+    # this test raised RasterioIOError instead of skipping when the restored bytes were absent,
+    # which made a full `pytest tests/` run report a failure in a data-less checkout while CI --
+    # which names its test files explicitly -- never saw it.  Found while merging session 3.
     with rasterio.open(G.data_dir() / "training_features.tif") as s:
         assert s.count == 19
         b = s.read(1)

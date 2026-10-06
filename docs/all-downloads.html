@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Every GEMSDOE47 prediction GeoTIFF and companion package, its SHA-256, format status and promotion verdict.">
+<title>GEMSDOE47 — prediction files and their status</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <p class="eyebrow">GEMSDOE47 · artifact register</p>
+  <h1>Every prediction raster, every hash, every status</h1>
+  <p class="lede">The homepage offers the current H47-C1 research download on purpose. This page is the
+  complete register of project prediction rasters and companion packages, including the files that were
+  <b>rejected</b> — a rejected file that is not shown is a rejected file someone may eventually submit by mistake.</p>
+  <nav><a href="index.html">Home</a> <a href="executive-summary.html">Executive summary</a>
+  <a href="h48.json">H48 receipt (JSON)</a> <a href="h47b-mask-audit-20261006.html">H47-B mask audit</a> <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h48_apex_build.json">Full build receipt</a></nav>
+</div></header>
+<main class="wrap">
+<table>
+  <tr><th>File</th><th>Role</th><th>Pixels</th><th>Format</th><th>Bytes</th><th>SHA-256</th><th>Status</th></tr>
+  <tr>
+    <td><a href="downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif" download>gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif</a></td>
+    <td>H47-C1 current primary research artifact</td><td>37,654</td><td>float32 finite [0,1] + internal footprint mask</td><td>152,396 B</td>
+    <td><code>e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0</code></td><td>Research only — pooled blocked proxy 0.177872 loses to baseline 0.180216; conformal floor 0.0000. No slot authorized.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif" download>gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif</a></td>
+    <td>H48-APEX (separate concurrent research; not promoted)</td><td>28,124</td><td>float32 all-finite, zeros outside the footprint</td><td>176,159 B</td>
+    <td><code>8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5</code></td><td>Research only — gate closed. Unique (max Jaccard 0.0095); format 21/21; split-conformal floor 0.1149 at level 46.15%; loses the SGMC-off-catalogue blocked frame.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif" download>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</a></td>
+    <td>Session 3 scarp persistence</td><td>37,612</td><td>float32 all-finite, no nodata tag</td><td>316,497 B</td>
+    <td><code>f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291</code></td><td>Research only. Matched-mass controls passed, but the separate LATI promotion screen is incomplete; no slot recommended. Its conformal floor depends on block exchangeability and is not a private/global guarantee.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif" download>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif</a></td>
+    <td>H47-GSA (previous candidate)</td><td>37,654</td><td>float32 all-finite</td><td>245,652 B</td>
+    <td><code>7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146</code></td><td>Research only. Failed cross-fitted validation (out-of-fold −0.0611 / −0.0450).</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif" download>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif</a></td>
+    <td>H47-GSA, NaN outside footprint</td><td>37,654</td><td>float32, NaN outside</td><td>296,722 B</td>
+    <td><code>c11744b1c4c5694c6485a287f7c6391b2da2ddaf2a90df70a63998c8aee57893</code></td><td>Fails a NaN-intolerant range check; matches the organiser template convention.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif" download>gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif</a></td>
+    <td>H47-MAXCOV</td><td>37,654</td><td>float32 all-finite</td><td>304,376 B</td>
+    <td><code>fe434e1c784c7f8b21be7933bb89ee289908521c330030218ae77be4c72edb02</code></td><td>Matched-budget re-emission; research only.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif" download>gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif</a></td>
+    <td>H47-MAXCOV, NaN outside footprint</td><td>37,654</td><td>float32, NaN outside</td><td>355,846 B</td>
+    <td><code>1c6ff54bbc046371648ce04a7f219c3d47799d0f6137da1284d2708d4348c80a</code></td><td>Research only.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/superseded/gems47-h48-mscl-conf-r1p5-44838px-20261006T201749Z-allfinite.tif" download>gems47-h48-mscl-conf-r1p5-44838px-20261006T201749Z-allfinite.tif</a><br><a href="downloads/superseded/gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif" download>gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif</a></td>
+    <td>H48 repack and pre-novelty copy</td><td>44,838</td><td>float32 all-finite</td><td>249,431 B each; identical SHA</td>
+    <td><code>4b06a5cc617d187000ec2cd9e682bb79b36df762f6d34c29b388385772b128f8</code></td><td>REJECTED for novelty: max Jaccard 0.4400 — re-issues a prior submission. Both paths are byte-identical; evidence only.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/superseded/gems47-h48-mscl-conf-r2p5-8176px-20261006T201338Z-allfinite.tif" download>gems47-h48-mscl-conf-r2p5-8176px-20261006T201338Z-allfinite.tif</a></td>
+    <td>H48 first build (buggy)</td><td>8,176</td><td>float32 all-finite</td><td>95,223 B</td>
+    <td><code>a2513d169be10adf985fcc93d0b8a0dd9937b4e12f029e4db94f47fc5f18d44c</code></td><td>BUGGY: the snap step collapsed 44,090 base dots to 2,689. Its sweep numbers are artifacts. Do not quote.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif" download>gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif</a></td>
+    <td>H47-B</td><td>18,524</td><td>float32 all-finite</td><td>1,521,667 B</td>
+    <td><code>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</code></td><td>Falsified against a fixed-seed random control. Evidence only.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif" download>gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif</a></td>
+    <td>H47-B single-scale follow-up</td><td>18,524</td><td>float32, NaN outside</td><td>309,530 B</td>
+    <td><code>dc71c807fbca2cd398f394bcd91b10ecec6b46fe89c2d61f5b1c058fef672811</code></td><td>Historical diagnostic only. Strict local PASS uses explicit mirrored sample-template mask; feature-derived footprint fails. Lost to random proxy control; zero clipped floor. <a href="h47b-mask-audit-20261006.html">Full audit</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-allfinite.tif" download>gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-allfinite.tif</a></td>
+    <td>H47-B same-mask encoding diagnostic</td><td>18,524</td><td>float32, zeros outside</td><td>257,898 B</td>
+    <td><code>c640b71c7c57066dd77bbd42fcb6c436d0a8c201de6b0ec1d88ab25976089501</code></td><td>Same positive mask; fails strict NaN-outside validation. Retained only to compare encodings; portal-error cause unknown.</td>
+  </tr>
+  <tr>
+    <td><a href="downloads/superseded/gems47-dcat20-annulus-flankprune-n18524-20261006.tif" download>gems47-dcat20-annulus-flankprune-n18524-20261006.tif</a></td>
+    <td>H47-SAF</td><td>18,524</td><td>float32 all-finite</td><td>1,552,154 B</td>
+    <td><code>0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261</code></td><td>Falsified by the 13th leaderboard return. Evidence only.</td>
+  </tr>
+</table>
+<h2>Current H47-C1 package and metadata</h2>
+<p>The companion <a href="downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.zip" download>single-TIFF ZIP</a> is 108,457 bytes (SHA-256 <code>5a8eb75401daa713559297fc25198a3f31d6b7e7594118b111ec5160e7803b27</code>); it contains the byte-identical C1 TIFF and no sidecar. The <a href="downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.json">validation receipt</a> and <a href="downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.txt">short portal note</a> are metadata, not additional prediction rasters. C1 remains research-only and is not authorized for upload.</p>
+<p class="small">Grid and encoding details vary by artifact; each row’s hash, byte count, and status apply to
+that exact file. The H47-B NaN-outside single-scale file passes its strict local value/range check only
+with an explicit mask derived from the mirrored sample template; the feature-derived footprint fails.
+The paired all-finite diagnostic uses zeros outside and fails strict NaN-outside validation. It illustrates
+only a possible NaN-intolerant-check hazard. The original rejected bytes and parser receipt are unavailable,
+so the historical portal error cause and organizer acceptance are unknown.</p>
+<p class="small"><b>Nothing here is recommended for a scored slot.</b> The promotion gate and the reason
+each arm failed it are on the <a href="index.html">homepage</a> and the
+<a href="executive-summary.html">executive summary</a>.</p>
+</main>
+</body>
+</html>

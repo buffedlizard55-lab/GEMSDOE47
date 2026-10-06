@@ -1,82 +1,10 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>New geological hypotheses — GEMSDOE47</title>
-  <meta name="description" content="Four unbuilt geological hypotheses ranked by qualitative expected DTI improvement and implementation cost, with layers, physical signatures, missing-fault rationale, source access, and limits.">
-  <link rel="stylesheet" href="assets/site.css">
-</head>
-<body>
-<header class="top"><div class="wrap">
-  <h1>Four new, unbuilt geological hypotheses</h1>
-  <p class="sub">Ranked prospectively · not performance claims · all validation gates remain closed</p>
-  <nav aria-label="Main navigation">
-    <a href="index.html">Research home</a><a href="executive-summary.html">Executive summary</a>
-    <a class="on" href="hypotheses.html">Hypotheses</a><a href="method.html">Method</a>
-    <a href="analysis.html">Results</a><a href="sources.html">Sources</a>
-  </nav>
-</div></header>
-<main class="wrap">
-  <div class="callout bad"><b>No numeric DTI forecast is defensible.</b> Historical score/file evidence is tiny, nested, owner-reported, and includes one contested attribution. The ranking below is a qualitative prior on signal potential and cost, not a prediction of private or public score. “Untried” means not implemented as this operator in this checkout or inspected visible sibling artifacts; it is not worldwide novelty. None is authorized for a slot.</div>
-
-  <h2>Ranked shortlist</h2>
-  <table>
-    <thead><tr><th>#</th><th>Hypothesis</th><th>Expected DTI improvement<br><span class="small">qualitative prior</span></th><th>Cost / availability</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td><b>H47-C</b> · Native-resolution 3DEP scarp and channel-offset coherence</td><td>Medium, high uncertainty</td><td>High; free official 3DEP, but footprint tiles not fetched/verified</td></tr>
-      <tr><td>2</td><td><b>H47-D</b> · ASTER alteration mineralogy × independent structure</td><td>Low–medium, high variance</td><td>High; official maps listed, archive and footprint coverage not obtained</td></tr>
-      <tr><td>3</td><td><b>H47-E</b> · Active-strain and magnetic-edge concordance</td><td>Low–medium; components previously struggled</td><td>Medium; band mirrors exist, official raster access not authenticated</td></tr>
-      <tr><td>4</td><td><b>H47-F</b> · Time-normalized thermal / geochemical station residuals</td><td>Low–medium, very high uncertainty</td><td>Medium–high; repeated dates and point coverage not audited</td></tr>
-    </tbody>
-  </table>
-
-  <section class="panel" id="h47-c">
-    <h2>1 · H47-C — Native-resolution 3DEP scarp and channel coherence</h2>
-    <p><b>Layers and operator.</b> USGS 3DEP 1 m bare-earth DEM; native-grid slope, multi-azimuth hillshade, local relief, plan/profile curvature, and cross-profile elevation steps. Derive connected linear scarp candidates at native resolution, then aggregate candidate evidence to the 100 m output grid. Add channel-centerline offsets/knickpoints only if a hydrography layer can be independently sourced and validated.</p>
-    <p><b>Physical signature.</b> A repeated linear break in slope or small vertical offset, ideally accompanied by drainage deflection across several channels. Cross-profile geometry and line continuity can reject isolated roughness; explicitly remove roads, canals, terrace margins, and tile seams.</p>
-    <p><b>Why it may find missing faults.</b> An unmapped Quaternary trace may have a metre-scale surface rupture absent from the current catalogue. This only targets surface-expressed faults; no scarp does not rule out a blind structure.</p>
-    <p><b>Difference from previous work.</b> Prior LiDAR features were pre-derived on a 100 m grid and screened poorly. No inspected candidate detects scarps on 1 m samples before resampling, and this operator does not grow a prediction from catalogue distance or known trace tips.</p>
-    <p><b>Source / limitation.</b> USGS <a href="https://www.usgs.gov/core-science-systems/ngp/3dep/about-3dep-products-services" rel="noopener">3DEP products and services</a> are free, and the competition page references 1 m tiles. The exact footprint tile list, downloads, vertical datum, and gap mosaic were not validated here. Do not call the layer available until fetched and hashed.</p>
-  </section>
-
-  <section class="panel" id="h47-d">
-    <h2>2 · H47-D — ASTER alteration mineralogy × independent structure</h2>
-    <p><b>Layers and operator.</b> USGS ASTER surface-mineral classes from <a href="https://mrdata.usgs.gov/surficial-mineralogy/ofr-2013-1139/" rel="noopener">MRData Open-File Report 2013–1139</a>, emphasizing mapped silicic/argillic and iron-oxide alteration classes. Intersect with an independently derived structural corridor such as a 3DEP lineament or geophysical edge; do not use catalogue distance as the candidate field itself.</p>
-    <p><b>Physical signature.</b> Hydrothermal fluids may leave silica/clay/iron alteration along faults. A multi-pixel alteration boundary aligned with independent structure may signal an unmapped conduit. ASTER is a surface-mineral mapper, not a direct subsurface fault detector.</p>
-    <p><b>Why it may find missing faults.</b> Alteration may reveal an unregistered trace or extension beyond the mapped geometry. It cannot find buried faults with no exposed alteration and may instead map unrelated lithology or mineralization.</p>
-    <p><b>Difference from previous work.</b> H47-GSA used a quantized Th/K ratio and spring/well proximity. This idea uses categorical ASTER mineral products plus an explicit independent-structure interaction, with exposure and lithology controls—not another Th/K threshold or thermal buffer.</p>
-    <p><b>Source / limitation.</b> The official USGS page lists class maps and downloadable data, but acquisition and target-footprint intersection were not completed. Verify coordinates, classes, validity masks, coverage, and attribution before implementation.</p>
-  </section>
-
-  <section class="panel" id="h47-e">
-    <h2>3 · H47-E — Active-strain / magnetic-edge concordance</h2>
-    <p><b>Layers and operator.</b> `geod_shearrate`, `geod_dilaterate`, `tmi_hg`, `tmi_vg`, or GeoDAWN `TMI_up150`. Compute directional coherence separately, then score spatial and orientation agreement at a fixed tolerance. Compare against each component alone and randomized alignment controls.</p>
-    <p><b>Physical signature.</b> A reactivated fault may localize present deformation along a basement contact. Agreement between independent kinematic and geophysical fields is more specific than an isolated magnetic edge or broad strain hotspot.</p>
-    <p><b>Why it may find missing faults.</b> A blind or weakly expressed structure can lack a mapped Quaternary scarp while retaining a deformation and basement-contrast signature. The intersection prioritizes off-catalogue lineaments instead of every magnetic contact.</p>
-    <p><b>Difference from previous work.</b> H47-B screened magnetic persistence alone; H47-GSA combined strain with Th/K and thermal points. Neither preregistered this explicit directional strain–magnetic interaction. Previous component screens were negative, so this idea has a lower prior and needs strict ablation/null controls.</p>
-    <p><b>Source / limitation.</b> Band names appear in the hash-pinned public mirror; verify them against official metadata. The DrivenData feature page requires participant access and the mirror is not organizer-authenticated. No direct portal raster was obtained.</p>
-  </section>
-
-  <section class="panel" id="h47-f">
-    <h2>4 · H47-F — Time-normalized thermal / geochemical station residuals</h2>
-    <p><b>Layers and operator.</b> Dated well/spring temperature and chemistry records listed through DOE's <a href="https://gdr.openei.org/submissions/1391" rel="noopener">INGENIOUS GDR compilation</a>, DOI <a href="https://doi.org/10.15121/1881483" rel="noopener">10.15121/1881483</a>. Only if repeated observations exist, derive station-level robust anomalies after de-duplication and correction for season, elevation, measurement method, and parameter units. Interpolate conservatively; do not make point density the score field.</p>
-    <p><b>Physical signature.</b> Sustained warm discharge or coherent fluid chemistry can indicate a permeable fault conduit. Repeated observations may distinguish persistent hydrothermal signal from a one-off measurement or seasonal effect.</p>
-    <p><b>Why it may find missing faults.</b> A spring/well anomaly may reveal a conduit along a fault segment not yet mapped as Quaternary geometry. It is supporting evidence, not itself a fault trace; broad geothermal systems may be unrelated to a specific fault.</p>
-    <p><b>Difference from previous work.</b> H47-GSA used static proximity to GDR points. H47-F tests repeat-measurement stability and covariate-adjusted station residuals, and requires proof of incremental signal beyond the static baseline.</p>
-    <p><b>Source / limitation.</b> GDR is a public compilation, but repeated dates and footprint coverage are unverified. If records are mostly single observations or their geolocation/units are inconsistent, reject this hypothesis before rasterizing.</p>
-  </section>
-
-  <h2>Previously tested, not in the untried shortlist</h2>
-  <ul>
-    <li><b>H47-B magnetic edge persistence:</b> selected d=5 px; locked pooled DTI against the known-fault catalogue-mask proxy was 0.027553 versus 0.025639 single-scale and 0.037159 random. This proxy is not the hidden missing-fault target. Conformal lower bound 0.000. Not promoted.</li>
-    <li><b>H47-GSA strain / Th-K / thermal model:</b> negative cross-fitted results. Not promoted.</li>
-    <li><b>H47-SAF catalogue-flank continuation:</b> the apparent 12-to-13-observation reversal depends on the contested H33-2-B2/0.2778 pairing; do not call it a definitive falsification without a file-level score receipt.</li>
-    <li><b>SGMC catalogue-difference transfer:</b> negative under its local score reconstruction; this does not make state geological maps uninformative in general.</li>
-  </ul>
-  <h2>Validation before any slot</h2>
-  <p>For each unbuilt idea, freeze code, input hashes, blocks, mask semantics, emission mass, and controls before examining holdout results. Require a guarded spatial test, ablation of every feature, random/spatial-permutation/domain controls, fold-level results, and adequate label coverage. Split conformal requires an explicit exchangeability unit and target; the present six-block calibration gives a zero lower bound and has unverified spatial exchangeability. <b>No hypothesis here is a submission recommendation.</b></p>
-  <p class="small">Full written shortlist and availability caveats: <a href="hypotheses.md">hypotheses.md</a>. Current results: <a href="analysis.html">results analysis</a>. Official sources: <a href="sources.html">verified sources</a>.</p>
-</main>
-<footer><div class="wrap">GEMSDOE47 · hypothesis ranking is a qualitative prior, not a performance claim · <a href="../README.md">standing brief</a></div></footer>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Five preregistered hypotheses · GEMSDOE47</title><meta name="description" content="Ranked physical hypotheses, precise layers and signatures, competing explanations, costs and feasibility.">
+<meta name="theme-color" content="#173d38"><link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body data-site-version="h47c" data-base=""><a class="skip" href="#main">Skip to evidence</a>
+<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+<nav aria-label="Main navigation"><a href="executive-summary.html" aria-current="false">Summary</a><a href="hypotheses.html" aria-current="page">Hypotheses</a><a href="evidence.html" aria-current="false">Evidence</a><a href="sources.html" aria-current="false">Sources &amp; feed</a><a href="submit.html" aria-current="false">Submission guide</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>Research-only · NOT PROMOTED</strong><span>No slot authorized. Do not upload this run.</span></div>
+<main id="main"><section class="page-heading"><span class="eyebrow">Geology before optimization</span><h1>Five hypotheses.<br>One frozen first test.</h1><p class="lede">Qualitative expected-value ranks, not invented DTI forecasts. The top detector was preregistered before implementation and test scoring.</p></section><section><div class="table-scroll"><table><thead><tr><th scope="col">Rank / hypothesis</th><th scope="col">Inputs and derived signature</th><th scope="col">Missing-catalogue rationale / difference</th><th scope="col">Expected value / cost</th><th scope="col">Status</th></tr></thead><tbody><tr><td>1 · C1 odd step vs even channel</td><td>Band 12 detrended elevation; band 13 gravity. Affine-detrended erf step versus Gaussian channel; four cross-directions, widths 1/2 sampling steps; along-strike continuity; gravity-normal agreement.</td><td>A persistent signed topographic offset differs from a valley/ridge edge. Does not use catalogue distance, historical masks or leaderboard-derived features.</td><td>Best first information/cost trade-off; modest plausible improvement, no numerical DTI forecast. About 4 min on 2 CPU cores for the fixed screen.</td><td>Implemented; failed promotion. 100 m data cannot date metre-scale scarps.</td></tr><tr><td>2 · C2 geophysical lag</td><td>TMI horizontal/vertical slopes, isostatic gravity and conductivity. Signed normal-profile change points at 100–400 m cross-layer lags, not same-pixel product.</td><td>Buried faults may produce laterally displaced contrasts; require consistent direction/lag, unlike prior edge-strength or TMI persistence rankings.</td><td>Plausible medium value; moderate CPU cost, uncertain transfer.</td><td>Not implemented. Existing raw arrays available as mirrors; official meaning of tc is unresolved.</td></tr><tr><td>3 · C3 contact rejection</td><td>GeoDAWN K/Th/U ratios and magnetic/terrain edges. Penalize broad lithologic/radiometric contacts without a local signed step or strain support.</td><td>Discriminates non-fault contacts rather than promoting all geophysical edges. Radiometry is not itself fault truth.</td><td>Potential precision gain; low/moderate compute; may reject real faults at contacts.</td><td>Not implemented. Extension rasters restored; official source/license listed, contractor semantics not authenticated.</td></tr><tr><td>4 · C4 displaced drainage / paleodischarge</td><td>Detrended terrain and official GDR paleogeothermal/well-spring vectors. Drainage-segment offsets, saddle continuity and localized discharge support, not proximity alone.</td><td>Fault-controlled drainage/discharge can persist without a catalogue trace. Requires explicit non-tectonic drainage controls.</td><td>Uncertain expected value; moderate geometric work, source coverage first.</td><td>Not implemented. Official-byte/coverage probe recorded separately; never used in C1.</td></tr><tr><td>5 · C5 raw 1 m occupancy/connectivity</td><td>Official 3DEP DEM tiles; detrended multiscale scarp templates, channel/road confounder controls, aggregate oriented segment occupancy/connectivity to the 100 m grid.</td><td>Preserves narrow landforms erased by 100 m averaging; materially different from mirrored 12-band quantized lidar descriptors.</td><td>Potentially highest physical upside; highest storage/I/O cost. No claim hidden faults or leaders use it.</td><td>Not yet feasible end to end: official tile-link CSV, exact coverage and bytes not acquired. 3DEP is free; source listing is not a tile download.</td></tr></tbody></table></div><p><a href="research/h47c-hypotheses-preregistered.md" >Original immutable preregistration</a> · <a href="research/h47c-review-notes.md" >Technical correction and three-pass review notes</a></p><h2>Controls and confounders</h2><p>Ordinary terrain gradients and raw-band supervision are controls, not novelty. Channels, lithologic contacts, roads, erosional scarps, resampling artifacts and survey boundaries can imitate faults. A low-overlap mask is not proof that any prediction is a geological discovery. Staff explicitly withholds hidden test sources/types/coverage.</p><p>The template idea is informed by <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JB016886" >Sare et al. (2019)</a>, which used ≤2 m topography. This four-direction 100 m adaptation is not a replication, a morphologic age estimator or a claim of scientific invention.</p></section><div class="notice"><strong>DO NOT UPLOAD · no slot</strong><p>The locked holdout gate failed: pooled DTI 0.177872 is below the frozen baseline’s 0.180216; only 11/22 truth-bearing blocks improve (required 15). The lower floor is zero. Local format validity is not scientific promotion or organizer acceptance.</p></div><section class="session-history"><h2>Preserved concurrent research</h2><p><a href="session3.html">Session 3 scarp persistence</a> · <a href="research.html">H48 curvature consensus</a> · <a href="all-downloads.html">All historical research files</a>. Different proxy frames; no cross-task/private guarantee. Every submission slot gate remains closed.</p></section></main><footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="irregularities.html" >Limitations &amp; corrections</a><br><a href="method.html" >Reproduce this screen</a> · <a href="leaderboard.html" >Dated public board</a><br>Reviewed 6 October 2026 · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" >Official competition 306 ↗</a></div></footer></body></html>

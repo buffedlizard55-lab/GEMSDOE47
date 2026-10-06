@@ -1,0 +1,31 @@
+{
+  "pr": {
+    "mergeCommit": {
+      "oid": "04d49a321b146e13fb2b6e718ea73dfb02534fbc"
+    },
+    "mergedAt": "2026-10-06T22:08:36Z",
+    "number": 12,
+    "state": "MERGED",
+    "url": "https://github.com/buffedlizard55-lab/GEMSDOE47/pull/12"
+  },
+  "final_branch_ci_green_runs": [
+    37538373309,
+    37538368535
+  ],
+  "main_ci_green_run": 37538674597,
+  "main_pages_legacy_deployment": {
+    "run_id": 37538673782,
+    "conclusion": "success",
+    "site_url": "https://buffedlizard55-lab.github.io/GEMSDOE47/"
+  },
+  "repo_pages_source": {
+    "build_type": "legacy",
+    "branch": "main",
+    "path": "/"
+  },
+  "admin_permission_boundary": "GitHub integration lacks Pages settings/cancel administration permission; no credentials requested or scope bypass. Existing successful root publication retained.",
+  "feed_solution": "Scheduled permitted-source job publishes API-readable Checks JSON on fixed working branch; browser consumes it with dated same-origin fallback. No Pages admin change or main push needed.",
+  "scientific_status": "RESEARCH_ONLY_NOT_PROMOTED",
+  "slot_authorized": false,
+  "heldout_goal_achieved": false
+}

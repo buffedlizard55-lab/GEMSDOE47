@@ -1,0 +1,264 @@
+{
+  "source": "SHA-256-pinned GEMSDOE24 training_features.tif mirror",
+  "file_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "bands": [
+    {
+      "band": 1,
+      "literal_description": "mag_anom - Magnetic anomaly - deviation from expected Earth's magnetic field",
+      "literal_tags": {
+        "band_name": "mag_anom",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Magnetic anomaly - deviation from expected Earth's magnetic field"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 2,
+      "literal_description": "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+      "literal_tags": {
+        "band_name": "rtp",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 3,
+      "literal_description": "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+      "literal_tags": {
+        "band_name": "tmi_hg",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Total magnetic intensity horizontal gradient - rate of change in horizontal direction"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 4,
+      "literal_description": "geod_2ndinv - Geodetic second invariant - measure of strain rate tensor magnitude",
+      "literal_tags": {
+        "band_name": "geod_2ndinv",
+        "data_category": "geodetic_strain",
+        "data_type": "numeric",
+        "description": "Geodetic second invariant - measure of strain rate tensor magnitude"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 5,
+      "literal_description": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+      "literal_tags": {
+        "band_name": "iso_grav_anom_slope",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly slope - gradient of gravity after isostatic correction"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 6,
+      "literal_description": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+      "literal_tags": {
+        "band_name": "tc",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Tilt angle or total curvature - magnetic field derivative for edge detection"
+      },
+      "dtype": "float32",
+      "semantic_status": "DISPUTED_NOT_REINTERPRETED"
+    },
+    {
+      "band": 7,
+      "literal_description": "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+      "literal_tags": {
+        "band_name": "geod_shearrate",
+        "data_category": "geodetic_strain",
+        "data_type": "numeric",
+        "description": "Geodetic shear rate - rate of angular deformation from GPS/InSAR"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 8,
+      "literal_description": "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+      "literal_tags": {
+        "band_name": "geod_dilaterate",
+        "data_category": "geodetic_strain",
+        "data_type": "numeric",
+        "description": "Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 9,
+      "literal_description": "tmi_vg - Total magnetic intensity vertical gradient - rate of change in vertical direction",
+      "literal_tags": {
+        "band_name": "tmi_vg",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Total magnetic intensity vertical gradient - rate of change in vertical direction"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 10,
+      "literal_description": "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+      "literal_tags": {
+        "band_name": "deq_n100a15",
+        "data_category": "seismic",
+        "data_type": "numeric",
+        "description": "Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 11,
+      "literal_description": "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+      "literal_tags": {
+        "band_name": "iso_grav_anom_vg",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly vertical gradient - vertical rate of change"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 12,
+      "literal_description": "det_elev - Detrended elevation - topography with regional trends removed",
+      "literal_tags": {
+        "band_name": "det_elev",
+        "data_category": "topographic",
+        "data_type": "numeric",
+        "description": "Detrended elevation - topography with regional trends removed"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 13,
+      "literal_description": "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+      "literal_tags": {
+        "band_name": "iso_grav_anom",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly - gravity after compensating for topographic mass"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 14,
+      "literal_description": "tmi - Total magnetic intensity - total strength of magnetic field",
+      "literal_tags": {
+        "band_name": "tmi",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Total magnetic intensity - total strength of magnetic field"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 15,
+      "literal_description": "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+      "literal_tags": {
+        "band_name": "depth_to_base_surf",
+        "data_category": "subsurface",
+        "data_type": "numeric",
+        "description": "Depth to basement surface - thickness of sedimentary cover"
+      },
+      "dtype": "float32",
+      "semantic_status": "DISPUTED_NOT_REINTERPRETED"
+    },
+    {
+      "band": 16,
+      "literal_description": "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+      "literal_tags": {
+        "band_name": "ieq_n100a15",
+        "data_category": "seismic",
+        "data_type": "numeric",
+        "description": "Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 17,
+      "literal_description": "cond_surf - Conductivity surface - electrical conductivity of subsurface",
+      "literal_tags": {
+        "band_name": "cond_surf",
+        "data_category": "subsurface",
+        "data_type": "numeric",
+        "description": "Conductivity surface - electrical conductivity of subsurface"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 18,
+      "literal_description": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+      "literal_tags": {
+        "band_name": "iso_grav_anom_hg",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly horizontal gradient - horizontal rate of change"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    },
+    {
+      "band": 19,
+      "literal_description": "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending",
+      "literal_tags": {
+        "band_name": "det_elev_slope",
+        "data_category": "topographic",
+        "data_type": "numeric",
+        "description": "Detrended elevation slope - gradient of elevation after detrending"
+      },
+      "dtype": "float32",
+      "semantic_status": "MIRROR_METADATA_NOT_ORGANIZER_AUTHENTICATION"
+    }
+  ],
+  "official_overview": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "ambiguities": {
+    "6": "Mirror tc curvature description versus official radiometric-count visualization; no contractor-grid bytes independently correlated here.",
+    "15": "Mirror basement description versus official depth-to-conductive-base language; preserve raw column without claiming equivalence."
+  },
+  "c1_physically_interpreted_bands": [
+    12,
+    13
+  ],
+  "c1_raw_numerical_columns": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ]
+}

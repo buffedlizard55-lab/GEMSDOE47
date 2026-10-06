@@ -1,61 +1,20 @@
-# Ranked new geological hypotheses — GEMSDOE47
+# Current hypothesis ledger
 
-**Status:** the only newly generated TIFF in this review is a single-scale control, not a promoted detector. H47-B's cross-scale magnetic-edge hypothesis failed its locked diagnostic screen against the known-fault catalogue-mask resemblance proxy; this is not validation against the competition's hidden missing-fault target. The four ideas below are the next *unbuilt* hypotheses in this checkout; they are ranked prospectively and have not been scored or used to authorize a competition submission.
+The five current candidates, ranked **before implementation**, are in
+[immutable H47-C preregistration](research/h47c-hypotheses-preregistered.md) and the
+[readable table](hypotheses.html): C1 odd-step versus channel; C2 displaced cross-geophysical change points;
+C3 lithologic/radiometric-contact rejection; C4 drainage/paleodischarge displacement; C5 raw 1 m oriented
+occupancy/connectivity. Layers, physical signatures, missing-catalogue rationale, confounders, novelty,
+qualitative expected-value/cost ranking and source feasibility are explicit. No numerical DTI forecast.
 
-“Not yet tried” is bounded to this repository and the visible sibling artifacts inventoried for the current review. It is not a claim of worldwide novelty. We do not provide numeric expected-DTI gains: the historical score/file sample is tiny, nested, owner-reported, and includes one contested attribution, so numeric forecasts would be false precision. The qualitative ranks below reflect mechanism, likely signal-to-noise, and implementation cost—not measured improvement.
+C1 is implemented and **not promoted**: pooled .177872 vs .180216 ordinary-terrain, 11/22 block wins versus
+15 required, zero nominal-90% marginal block floor. Selected 2.8px/280m. All test/spacing results are known;
+future modifications require an honestly fresh validation design.
 
-## What the contest target means
+C2–C5 are not implemented. Official GDR trace and paleogeothermal ZIPs were acquired on a GitHub runner;
+footprint raster coverage was measured. Those point/line cells are not newly discovered fault ground truth
+and were not used to train C1. USGS GIS byte/coverage status is in the actual receipt. C5 raw DEM CSV/tiles
+remain unavailable here, so it is conditional rather than a declared viable detector.
 
-The official [competition description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) describes prediction of new faults in the Nevada Great Basin. DrivenData staff explain that a “new fault” may be newly mapped geometry of an existing system ([thread 11536](https://community.drivendata.org/t/where-do-you-draw-the-line/11536)) and that known USGS/INGENIOUS fault pixels are masked from evaluation ([thread 11516](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516)). This supports focusing on genuinely off-catalogue geometry, but the organizer's private target and present-day evaluation procedure cannot be recovered from public mirror data alone.
-
-## Ranked, untried shortlist
-
-| Rank | Hypothesis | Expected DTI improvement (qualitative prior only) | Implementation cost / data status | Why ranked here |
-|---:|---|---|---|---|
-| 1 | **H47-C — native-resolution 3DEP scarp and channel-offset coherence** | **Medium, high uncertainty.** Most directly adds spatial detail absent from every 100 m derivative screen, but only finds faults with surface expression. | **High.** USGS 3DEP is free and the contest page links 1 m DEM tiles, but this session did not retrieve/validate the complete tile set for the footprint. | Greatest plausible gain if missing faults are expressed as metre-scale scarps; expensive native-resolution processing, roads/terraces can mimic faults, and blind faults will be missed. |
-| 2 | **H47-D — ASTER alteration mineralogy intersected with independent structure** | **Low–medium, high variance.** Surface hydrothermal alteration may be a useful independent cue, but lithology and exposure can dominate. | **High.** The official USGS MRData OFR page lists class-specific ASTER mineral maps and downloadable data; archive acquisition and footprint coverage were not completed here. | Independent spectral-mineral evidence differs from the existing Th/K ratio and spring-proximity model, but the mapping is incomplete and may be sparse. |
-| 3 | **H47-E — strain–magnetic edge concordance** | **Low–medium.** A spatially aligned active-strain anomaly plus magnetic contact is more specific than either alone; prior component screens were negative. | **Medium.** Named bands exist in the restored feature mirror, but the authorized organizer raster is not present; derive directional coherence, tune no threshold on test blocks, and run strong nulls. | New joint operator, not a repeat of H47-B's magnetic persistence or H47-GSA's strain/radiometric/thermal model. Existing component failures lower the prior. |
-| 4 | **H47-F — repeated thermal/chemistry residuals at wells and springs** | **Low–medium, very high uncertainty.** Persistent anomalies could mark permeable conduits; point coverage, duplication, and time series may be inadequate. | **Medium–high.** DOE INGENIOUS/GDR lists well, spring, temperature, and chemistry sources; first verify repeated dates, parameter quality, geolocation, and coverage in the target footprint. | Existing GSA used static point proximity. This tests a quality-controlled temporal/station residual field rather than another static buffer; it is viable only if real repeat observations exist. |
-
-### H47-C · Native-resolution fault-scarp and drainage-coherence screen
-
-- **Layers/operators:** official USGS 3DEP 1 m bare-earth DEM; native-grid slope, multi-azimuth hillshade, local relief, profile/plan curvature, and cross-profile elevation steps. Add channel-centerline offsets/knickpoints only where a hydrography layer can be independently sourced and validated. Detect connected, linear scarp candidates at native resolution first; aggregate the *candidate evidence* to the 100 m output grid only after detection. Never average the 1 m DEM to 100 m before finding a 1–3 m scarp.
-- **Physical signature:** a repeated, linear break in slope or small vertical offset, ideally accompanied by aligned drainage deflection/knickpoints across several channels. Use cross-profile geometry and line continuity to distinguish a fault trace from isolated roughness; mask roads, canals, terrace margins, and tile seams.
-- **Why it could find missing geometry:** an unmapped Quaternary trace can have a metre-scale surface rupture but be absent from the current catalogue, especially where mapping is incomplete. The inference applies only to surface-expressed faults; no scarp does not rule out a blind fault.
-- **Difference from prior work:** all LiDAR-derived layers screened previously were pre-derived on the 100 m grid and performed poorly. No current candidate detects scarp geometry on the original 1 m elevation samples before resampling, and this operator does not grow a buffer from known catalogue traces.
-- **Availability caveat:** USGS [3DEP products and services](https://www.usgs.gov/core-science-systems/ngp/3dep/about-3dep-products-services) are free; the official competition page references 1 m tiles. The exact footprint tile list, downloads, vertical datum consistency, and gap mosaic were not verified in this session. Do not treat this as an available dataset until the tiles are fetched and hashed.
-
-### H47-D · ASTER alteration mineralogy × independent structure
-
-- **Layers/operators:** USGS ASTER surface-mineral classes from [MRData Open-File Report 2013–1139](https://mrdata.usgs.gov/surficial-mineralogy/ofr-2013-1139/), emphasizing mapped silicic/argillic and iron-oxide alteration classes; intersect with an independently derived structural corridor (e.g. 3DEP lineament or geophysical edge), not with catalogue distance as the output itself.
-- **Physical signature:** hydrothermal fluid pathways may leave silica/clay/iron alteration where fluids migrate along faults. A multi-pixel alteration boundary aligned with a separate structure may indicate an unmapped conduit; ASTER is a surface mineral mapper, not a direct subsurface fault detector.
-- **Why it could find missing geometry:** an altered corridor can exist beyond the mapped trace or reveal an unregistered segment that was not incorporated into USGS/INGENIOUS. It cannot infer buried structures with no exposed alteration and may instead map unrelated lithology/mineralization.
-- **Difference from prior work:** H47-GSA used a quantized Th/K ratio plus point proximity to springs/wells. This hypothesis uses categorical ASTER mineral products and an explicit independent-structure interaction, with exposure/lithology controls; it does not simply add another Th/K threshold or thermal buffer.
-- **Availability caveat:** the official USGS MRData page lists downloadable class maps and an archive, but the archive and local footprint intersection were not obtained. Confirm coordinate system, class definitions, valid-area mask, and licensing/attribution before implementation.
-
-### H47-E · Active-strain and magnetic-edge concordance
-
-- **Layers/operators:** `geod_shearrate` and `geod_dilaterate` from the competition feature set, plus `tmi_hg` and `tmi_vg` or the GeoDAWN `TMI_up150` surface. Compute directional coherence on strain and on magnetic gradients, then score their spatial/orientation agreement at a fixed tolerance; keep the interaction sparse and compare against each component and randomized alignments.
-- **Physical signature:** an actively reactivated fault may localize present-day deformation along a basement contact. Concordant orientation and location across an independent kinematic field and a geophysical boundary is more diagnostic than an isolated magnetic edge or broad strain hotspot.
-- **Why it could find missing geometry:** blind or weakly expressed structures can lack a mapped Quaternary scarp but still produce deformation and a basement contrast. The intersection can prioritize an off-catalogue lineament rather than rewarding every magnetic contact.
-- **Difference from prior work:** H47-B tested magnetic edge persistence alone; H47-GSA used strain with Th/K and thermal-point features. Neither preregistered this explicit strain–magnetic orientation-concordance operator as a joint candidate. Because the components have already struggled against controls, this remains low priority without a strong ablation/null test.
-- **Availability caveat:** band names are in the hash-pinned public mirror and should be checked against official metadata. The DrivenData data page requires participant access; the mirror is not organizer-authenticated. No direct portal data were obtained.
-
-### H47-F · Time-normalized thermal and geochemical station residuals
-
-- **Layers/operators:** dated well/spring temperature and chemistry records listed through DOE's [INGENIOUS GDR compilation](https://gdr.openei.org/submissions/1391), DOI [10.15121/1881483](https://doi.org/10.15121/1881483). Only if repeated observations exist, derive station-level robust anomalies after de-duplication and adjustment for season, elevation, measurement method, and parameter units. Interpolate station residuals conservatively; avoid one global point-density kernel.
-- **Physical signature:** sustained warm discharge or chemically coherent fluid alteration may indicate a permeable fault conduit. Time consistency can distinguish a persistent hydrothermal signal from a one-off measurement or seasonal weather effect.
-- **Why it could find missing geometry:** a spring/well anomaly may expose a conduit along a fault segment not yet mapped as Quaternary geometry. It is supportive evidence, not a fault trace; broad geothermal systems can be unrelated to a particular fault.
-- **Difference from prior work:** the existing GSA screen used static proximity to GDR spring/well points. H47-F would first test repeat-measurement stability and covariate-adjusted station residuals, and would require the station-level temporal feature to add information beyond that static baseline.
-- **Availability caveat:** GDR INGENIOUS is a public data compilation, but repeated measurement dates and footprint coverage have not been audited here. If most records are single observations, or if geolocation/parameter semantics are inconsistent, reject this idea before rasterizing it.
-
-## Previously tried hypotheses (not part of the untried shortlist)
-
-- **H47-B cross-scale magnetic-edge persistence:** tested at spacings 2–6 px. Selected d=5 px; locked pooled DTI against `labels.tif == 1` (known-fault catalogue-mask proxy) was 0.027553 versus 0.025639 single-scale and 0.037159 random. The proxy is not the hidden missing-fault target; conformal lower bound is 0.000. **Not promoted.**
-- **H47-GSA strain × Th/K × thermal point model:** cross-fitted gains were negative and it lost across the retained public truth frames. **Not promoted.**
-- **H47-SAF strike-aligned catalogue-flank continuation:** the 12-observation screen was sensitive to the contested H33-2-B2/0.2778 score mapping. It is not an established falsification unless that pairing is verified.
-- **SGMC map-difference transfer:** a prior screen was negative under its local score reconstruction. Treat it as a negative screen, not a statement that the official state map is geologically uninformative.
-
-## Validation rule before any slot
-
-Each idea needs a written, hash-pinned protocol before looking at holdout scores; a spatially blocked split with a guard consistent with the 300 m metric kernel; matched emission mass or a justified alternative; ablations for every component; random, spatial-permutation, and domain controls; fold-level results; and a review of label coverage and empty blocks. Apply split conformal only with an explicit exchangeability unit and target. The current six-block calibration has a zero clipped floor and spatial exchangeability is unverified; it cannot green-light any idea. No slot is recommended until a genuinely new detector beats the current reproducible holdout best and meaningful controls.
+H47-B magnetic persistence, H47-GSA LATI and the delete-only annulus are historical non-promoted arms,
+not fallbacks for an unlimited final round. No hypothesis here authorizes a weekly submission slot.

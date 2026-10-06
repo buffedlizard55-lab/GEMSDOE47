@@ -1,0 +1,1813 @@
+{
+  "blocks": [
+    {
+      "block_id": 1,
+      "bounds_rc": [
+        20,
+        213,
+        225,
+        391
+      ],
+      "support_pixels": 820,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 0,
+      "budget": 6
+    },
+    {
+      "block_id": 2,
+      "bounds_rc": [
+        20,
+        213,
+        431,
+        597
+      ],
+      "support_pixels": 17149,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 0,
+      "budget": 135
+    },
+    {
+      "block_id": 3,
+      "bounds_rc": [
+        20,
+        213,
+        637,
+        803
+      ],
+      "support_pixels": 32029,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 324,
+      "budget": 251
+    },
+    {
+      "block_id": 4,
+      "bounds_rc": [
+        20,
+        213,
+        843,
+        1008
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 295,
+      "budget": 250
+    },
+    {
+      "block_id": 5,
+      "bounds_rc": [
+        20,
+        213,
+        1048,
+        1214
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 76,
+      "budget": 251
+    },
+    {
+      "block_id": 6,
+      "bounds_rc": [
+        20,
+        213,
+        1254,
+        1420
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 95,
+      "budget": 251
+    },
+    {
+      "block_id": 7,
+      "bounds_rc": [
+        20,
+        213,
+        1460,
+        1626
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 297,
+      "budget": 251
+    },
+    {
+      "block_id": 8,
+      "bounds_rc": [
+        20,
+        213,
+        1666,
+        1831
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 278,
+      "budget": 250
+    },
+    {
+      "block_id": 9,
+      "bounds_rc": [
+        20,
+        213,
+        1871,
+        2037
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 288,
+      "budget": 251
+    },
+    {
+      "block_id": 10,
+      "bounds_rc": [
+        20,
+        213,
+        2077,
+        2243
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 392,
+      "budget": 251
+    },
+    {
+      "block_id": 11,
+      "bounds_rc": [
+        20,
+        213,
+        2283,
+        2449
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 433,
+      "budget": 251
+    },
+    {
+      "block_id": 12,
+      "bounds_rc": [
+        20,
+        213,
+        2489,
+        2654
+      ],
+      "support_pixels": 25555,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 92,
+      "budget": 200
+    },
+    {
+      "block_id": 13,
+      "bounds_rc": [
+        20,
+        213,
+        2694,
+        2860
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 651,
+      "budget": 251
+    },
+    {
+      "block_id": 14,
+      "bounds_rc": [
+        20,
+        213,
+        2900,
+        3066
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 97,
+      "budget": 251
+    },
+    {
+      "block_id": 15,
+      "bounds_rc": [
+        20,
+        213,
+        3106,
+        3272
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 203,
+      "budget": 251
+    },
+    {
+      "block_id": 17,
+      "bounds_rc": [
+        253,
+        446,
+        225,
+        391
+      ],
+      "support_pixels": 17630,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 214,
+      "budget": 138
+    },
+    {
+      "block_id": 18,
+      "bounds_rc": [
+        253,
+        446,
+        431,
+        597
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 264,
+      "budget": 251
+    },
+    {
+      "block_id": 19,
+      "bounds_rc": [
+        253,
+        446,
+        637,
+        803
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 668,
+      "budget": 251
+    },
+    {
+      "block_id": 20,
+      "bounds_rc": [
+        253,
+        446,
+        843,
+        1008
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 398,
+      "budget": 250
+    },
+    {
+      "block_id": 21,
+      "bounds_rc": [
+        253,
+        446,
+        1048,
+        1214
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 564,
+      "budget": 251
+    },
+    {
+      "block_id": 22,
+      "bounds_rc": [
+        253,
+        446,
+        1254,
+        1420
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 17,
+      "budget": 251
+    },
+    {
+      "block_id": 23,
+      "bounds_rc": [
+        253,
+        446,
+        1460,
+        1626
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 393,
+      "budget": 251
+    },
+    {
+      "block_id": 24,
+      "bounds_rc": [
+        253,
+        446,
+        1666,
+        1831
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 158,
+      "budget": 250
+    },
+    {
+      "block_id": 25,
+      "bounds_rc": [
+        253,
+        446,
+        1871,
+        2037
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 0,
+      "budget": 251
+    },
+    {
+      "block_id": 26,
+      "bounds_rc": [
+        253,
+        446,
+        2077,
+        2243
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 654,
+      "budget": 251
+    },
+    {
+      "block_id": 27,
+      "bounds_rc": [
+        253,
+        446,
+        2283,
+        2449
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 121,
+      "budget": 251
+    },
+    {
+      "block_id": 28,
+      "bounds_rc": [
+        253,
+        446,
+        2489,
+        2654
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 363,
+      "budget": 250
+    },
+    {
+      "block_id": 29,
+      "bounds_rc": [
+        253,
+        446,
+        2694,
+        2860
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 147,
+      "budget": 251
+    },
+    {
+      "block_id": 30,
+      "bounds_rc": [
+        253,
+        446,
+        2900,
+        3066
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 336,
+      "budget": 251
+    },
+    {
+      "block_id": 31,
+      "bounds_rc": [
+        253,
+        446,
+        3106,
+        3272
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 303,
+      "budget": 251
+    },
+    {
+      "block_id": 33,
+      "bounds_rc": [
+        486,
+        679,
+        225,
+        391
+      ],
+      "support_pixels": 30728,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 327,
+      "budget": 241
+    },
+    {
+      "block_id": 34,
+      "bounds_rc": [
+        486,
+        679,
+        431,
+        597
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 181,
+      "budget": 251
+    },
+    {
+      "block_id": 35,
+      "bounds_rc": [
+        486,
+        679,
+        637,
+        803
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 447,
+      "budget": 251
+    },
+    {
+      "block_id": 36,
+      "bounds_rc": [
+        486,
+        679,
+        843,
+        1008
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 56,
+      "budget": 250
+    },
+    {
+      "block_id": 37,
+      "bounds_rc": [
+        486,
+        679,
+        1048,
+        1214
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 682,
+      "budget": 251
+    },
+    {
+      "block_id": 38,
+      "bounds_rc": [
+        486,
+        679,
+        1254,
+        1420
+      ],
+      "support_pixels": 30190,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 137,
+      "budget": 237
+    },
+    {
+      "block_id": 39,
+      "bounds_rc": [
+        486,
+        679,
+        1460,
+        1626
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 175,
+      "budget": 251
+    },
+    {
+      "block_id": 40,
+      "bounds_rc": [
+        486,
+        679,
+        1666,
+        1831
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 142,
+      "budget": 250
+    },
+    {
+      "block_id": 41,
+      "bounds_rc": [
+        486,
+        679,
+        1871,
+        2037
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 643,
+      "budget": 251
+    },
+    {
+      "block_id": 42,
+      "bounds_rc": [
+        486,
+        679,
+        2077,
+        2243
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 244,
+      "budget": 251
+    },
+    {
+      "block_id": 43,
+      "bounds_rc": [
+        486,
+        679,
+        2283,
+        2449
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 337,
+      "budget": 251
+    },
+    {
+      "block_id": 44,
+      "bounds_rc": [
+        486,
+        679,
+        2489,
+        2654
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 235,
+      "budget": 250
+    },
+    {
+      "block_id": 45,
+      "bounds_rc": [
+        486,
+        679,
+        2694,
+        2860
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 237,
+      "budget": 251
+    },
+    {
+      "block_id": 46,
+      "bounds_rc": [
+        486,
+        679,
+        2900,
+        3066
+      ],
+      "support_pixels": 28464,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 220,
+      "budget": 223
+    },
+    {
+      "block_id": 47,
+      "bounds_rc": [
+        486,
+        679,
+        3106,
+        3272
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 102,
+      "budget": 251
+    },
+    {
+      "block_id": 48,
+      "bounds_rc": [
+        719,
+        912,
+        20,
+        185
+      ],
+      "support_pixels": 5928,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 144,
+      "budget": 47
+    },
+    {
+      "block_id": 49,
+      "bounds_rc": [
+        719,
+        912,
+        225,
+        391
+      ],
+      "support_pixels": 23939,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 82,
+      "budget": 188
+    },
+    {
+      "block_id": 50,
+      "bounds_rc": [
+        719,
+        912,
+        431,
+        597
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 148,
+      "budget": 251
+    },
+    {
+      "block_id": 51,
+      "bounds_rc": [
+        719,
+        912,
+        637,
+        803
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 191,
+      "budget": 251
+    },
+    {
+      "block_id": 52,
+      "bounds_rc": [
+        719,
+        912,
+        843,
+        1008
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 514,
+      "budget": 250
+    },
+    {
+      "block_id": 53,
+      "bounds_rc": [
+        719,
+        912,
+        1048,
+        1214
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 261,
+      "budget": 251
+    },
+    {
+      "block_id": 54,
+      "bounds_rc": [
+        719,
+        912,
+        1254,
+        1420
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 100,
+      "budget": 251
+    },
+    {
+      "block_id": 55,
+      "bounds_rc": [
+        719,
+        912,
+        1460,
+        1626
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 38,
+      "budget": 251
+    },
+    {
+      "block_id": 56,
+      "bounds_rc": [
+        719,
+        912,
+        1666,
+        1831
+      ],
+      "support_pixels": 23130,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 108,
+      "budget": 181
+    },
+    {
+      "block_id": 57,
+      "bounds_rc": [
+        719,
+        912,
+        1871,
+        2037
+      ],
+      "support_pixels": 3451,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 20,
+      "budget": 27
+    },
+    {
+      "block_id": 58,
+      "bounds_rc": [
+        719,
+        912,
+        2077,
+        2243
+      ],
+      "support_pixels": 5644,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 85,
+      "budget": 44
+    },
+    {
+      "block_id": 59,
+      "bounds_rc": [
+        719,
+        912,
+        2283,
+        2449
+      ],
+      "support_pixels": 5644,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 30,
+      "budget": 44
+    },
+    {
+      "block_id": 60,
+      "bounds_rc": [
+        719,
+        912,
+        2489,
+        2654
+      ],
+      "support_pixels": 5610,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 84,
+      "budget": 44
+    },
+    {
+      "block_id": 61,
+      "bounds_rc": [
+        719,
+        912,
+        2694,
+        2860
+      ],
+      "support_pixels": 5644,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 67,
+      "budget": 44
+    },
+    {
+      "block_id": 62,
+      "bounds_rc": [
+        719,
+        912,
+        2900,
+        3066
+      ],
+      "support_pixels": 5644,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 88,
+      "budget": 44
+    },
+    {
+      "block_id": 63,
+      "bounds_rc": [
+        719,
+        912,
+        3106,
+        3272
+      ],
+      "support_pixels": 5644,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 41,
+      "budget": 44
+    },
+    {
+      "block_id": 64,
+      "bounds_rc": [
+        952,
+        1145,
+        20,
+        185
+      ],
+      "support_pixels": 4672,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 137,
+      "budget": 37
+    },
+    {
+      "block_id": 65,
+      "bounds_rc": [
+        952,
+        1145,
+        225,
+        391
+      ],
+      "support_pixels": 23264,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 366,
+      "budget": 182
+    },
+    {
+      "block_id": 66,
+      "bounds_rc": [
+        952,
+        1145,
+        431,
+        597
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 702,
+      "budget": 251
+    },
+    {
+      "block_id": 67,
+      "bounds_rc": [
+        952,
+        1145,
+        637,
+        803
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 698,
+      "budget": 251
+    },
+    {
+      "block_id": 68,
+      "bounds_rc": [
+        952,
+        1145,
+        843,
+        1008
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 564,
+      "budget": 250
+    },
+    {
+      "block_id": 69,
+      "bounds_rc": [
+        952,
+        1145,
+        1048,
+        1214
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 489,
+      "budget": 251
+    },
+    {
+      "block_id": 70,
+      "bounds_rc": [
+        952,
+        1145,
+        1254,
+        1420
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 807,
+      "budget": 251
+    },
+    {
+      "block_id": 71,
+      "bounds_rc": [
+        952,
+        1145,
+        1460,
+        1626
+      ],
+      "support_pixels": 30725,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 599,
+      "budget": 241
+    },
+    {
+      "block_id": 72,
+      "bounds_rc": [
+        952,
+        1145,
+        1666,
+        1831
+      ],
+      "support_pixels": 540,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 0,
+      "budget": 4
+    },
+    {
+      "block_id": 81,
+      "bounds_rc": [
+        1185,
+        1378,
+        225,
+        391
+      ],
+      "support_pixels": 18755,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 264,
+      "budget": 147
+    },
+    {
+      "block_id": 82,
+      "bounds_rc": [
+        1185,
+        1378,
+        431,
+        597
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 383,
+      "budget": 251
+    },
+    {
+      "block_id": 83,
+      "bounds_rc": [
+        1185,
+        1378,
+        637,
+        803
+      ],
+      "support_pixels": 30357,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 477,
+      "budget": 238
+    },
+    {
+      "block_id": 84,
+      "bounds_rc": [
+        1185,
+        1378,
+        843,
+        1008
+      ],
+      "support_pixels": 31278,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 159,
+      "budget": 245
+    },
+    {
+      "block_id": 85,
+      "bounds_rc": [
+        1185,
+        1378,
+        1048,
+        1214
+      ],
+      "support_pixels": 13498,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 153,
+      "budget": 106
+    },
+    {
+      "block_id": 86,
+      "bounds_rc": [
+        1185,
+        1378,
+        1254,
+        1420
+      ],
+      "support_pixels": 31500,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 450,
+      "budget": 247
+    },
+    {
+      "block_id": 87,
+      "bounds_rc": [
+        1185,
+        1378,
+        1460,
+        1626
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 421,
+      "budget": 251
+    },
+    {
+      "block_id": 88,
+      "bounds_rc": [
+        1185,
+        1378,
+        1666,
+        1831
+      ],
+      "support_pixels": 13049,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 251,
+      "budget": 102
+    },
+    {
+      "block_id": 97,
+      "bounds_rc": [
+        1418,
+        1611,
+        225,
+        391
+      ],
+      "support_pixels": 1404,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 0,
+      "budget": 11
+    },
+    {
+      "block_id": 98,
+      "bounds_rc": [
+        1418,
+        1611,
+        431,
+        597
+      ],
+      "support_pixels": 26467,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 772,
+      "budget": 208
+    },
+    {
+      "block_id": 99,
+      "bounds_rc": [
+        1418,
+        1611,
+        637,
+        803
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 406,
+      "budget": 251
+    },
+    {
+      "block_id": 100,
+      "bounds_rc": [
+        1418,
+        1611,
+        843,
+        1008
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 354,
+      "budget": 250
+    },
+    {
+      "block_id": 101,
+      "bounds_rc": [
+        1418,
+        1611,
+        1048,
+        1214
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 192,
+      "budget": 251
+    },
+    {
+      "block_id": 102,
+      "bounds_rc": [
+        1418,
+        1611,
+        1254,
+        1420
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 457,
+      "budget": 251
+    },
+    {
+      "block_id": 103,
+      "bounds_rc": [
+        1418,
+        1611,
+        1460,
+        1626
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 1181,
+      "budget": 251
+    },
+    {
+      "block_id": 104,
+      "bounds_rc": [
+        1418,
+        1611,
+        1666,
+        1831
+      ],
+      "support_pixels": 11206,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 104,
+      "budget": 88
+    },
+    {
+      "block_id": 114,
+      "bounds_rc": [
+        1651,
+        1845,
+        431,
+        597
+      ],
+      "support_pixels": 120,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 11,
+      "budget": 1
+    },
+    {
+      "block_id": 115,
+      "bounds_rc": [
+        1651,
+        1845,
+        637,
+        803
+      ],
+      "support_pixels": 17268,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 180,
+      "budget": 135
+    },
+    {
+      "block_id": 116,
+      "bounds_rc": [
+        1651,
+        1845,
+        843,
+        1008
+      ],
+      "support_pixels": 32010,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 483,
+      "budget": 251
+    },
+    {
+      "block_id": 117,
+      "bounds_rc": [
+        1651,
+        1845,
+        1048,
+        1214
+      ],
+      "support_pixels": 32204,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 208,
+      "budget": 253
+    },
+    {
+      "block_id": 118,
+      "bounds_rc": [
+        1651,
+        1845,
+        1254,
+        1420
+      ],
+      "support_pixels": 32204,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 556,
+      "budget": 253
+    },
+    {
+      "block_id": 119,
+      "bounds_rc": [
+        1651,
+        1845,
+        1460,
+        1626
+      ],
+      "support_pixels": 32204,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 660,
+      "budget": 253
+    },
+    {
+      "block_id": 120,
+      "bounds_rc": [
+        1651,
+        1845,
+        1666,
+        1831
+      ],
+      "support_pixels": 1091,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 17,
+      "budget": 9
+    },
+    {
+      "block_id": 132,
+      "bounds_rc": [
+        1885,
+        2078,
+        843,
+        1008
+      ],
+      "support_pixels": 8706,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 212,
+      "budget": 68
+    },
+    {
+      "block_id": 133,
+      "bounds_rc": [
+        1885,
+        2078,
+        1048,
+        1214
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 303,
+      "budget": 251
+    },
+    {
+      "block_id": 134,
+      "bounds_rc": [
+        1885,
+        2078,
+        1254,
+        1420
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 146,
+      "budget": 251
+    },
+    {
+      "block_id": 135,
+      "bounds_rc": [
+        1885,
+        2078,
+        1460,
+        1626
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 696,
+      "budget": 251
+    },
+    {
+      "block_id": 136,
+      "bounds_rc": [
+        1885,
+        2078,
+        1666,
+        1831
+      ],
+      "support_pixels": 18440,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 156,
+      "budget": 145
+    },
+    {
+      "block_id": 149,
+      "bounds_rc": [
+        2118,
+        2311,
+        1048,
+        1214
+      ],
+      "support_pixels": 27512,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 72,
+      "budget": 216
+    },
+    {
+      "block_id": 150,
+      "bounds_rc": [
+        2118,
+        2311,
+        1254,
+        1420
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 516,
+      "budget": 251
+    },
+    {
+      "block_id": 151,
+      "bounds_rc": [
+        2118,
+        2311,
+        1460,
+        1626
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 656,
+      "budget": 251
+    },
+    {
+      "block_id": 152,
+      "bounds_rc": [
+        2118,
+        2311,
+        1666,
+        1831
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 460,
+      "budget": 250
+    },
+    {
+      "block_id": 153,
+      "bounds_rc": [
+        2118,
+        2311,
+        1871,
+        2037
+      ],
+      "support_pixels": 3795,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 0,
+      "budget": 30
+    },
+    {
+      "block_id": 165,
+      "bounds_rc": [
+        2351,
+        2544,
+        1048,
+        1214
+      ],
+      "support_pixels": 16301,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 19,
+      "budget": 128
+    },
+    {
+      "block_id": 166,
+      "bounds_rc": [
+        2351,
+        2544,
+        1254,
+        1420
+      ],
+      "support_pixels": 31208,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 503,
+      "budget": 245
+    },
+    {
+      "block_id": 167,
+      "bounds_rc": [
+        2351,
+        2544,
+        1460,
+        1626
+      ],
+      "support_pixels": 31289,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 403,
+      "budget": 245
+    },
+    {
+      "block_id": 168,
+      "bounds_rc": [
+        2351,
+        2544,
+        1666,
+        1831
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 1163,
+      "budget": 250
+    },
+    {
+      "block_id": 169,
+      "bounds_rc": [
+        2351,
+        2544,
+        1871,
+        2037
+      ],
+      "support_pixels": 25610,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 112,
+      "budget": 201
+    },
+    {
+      "block_id": 184,
+      "bounds_rc": [
+        2584,
+        2777,
+        1666,
+        1831
+      ],
+      "support_pixels": 31024,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 380,
+      "budget": 243
+    },
+    {
+      "block_id": 185,
+      "bounds_rc": [
+        2584,
+        2777,
+        1871,
+        2037
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 19,
+      "budget": 251
+    },
+    {
+      "block_id": 186,
+      "bounds_rc": [
+        2584,
+        2777,
+        2077,
+        2243
+      ],
+      "support_pixels": 5433,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 0,
+      "budget": 43
+    },
+    {
+      "block_id": 197,
+      "bounds_rc": [
+        2817,
+        3010,
+        1048,
+        1214
+      ],
+      "support_pixels": 1437,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 134,
+      "budget": 11
+    },
+    {
+      "block_id": 198,
+      "bounds_rc": [
+        2817,
+        3010,
+        1254,
+        1420
+      ],
+      "support_pixels": 9540,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 739,
+      "budget": 75
+    },
+    {
+      "block_id": 199,
+      "bounds_rc": [
+        2817,
+        3010,
+        1460,
+        1626
+      ],
+      "support_pixels": 9321,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 123,
+      "budget": 73
+    },
+    {
+      "block_id": 200,
+      "bounds_rc": [
+        2817,
+        3010,
+        1666,
+        1831
+      ],
+      "support_pixels": 30353,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 292,
+      "budget": 238
+    },
+    {
+      "block_id": 201,
+      "bounds_rc": [
+        2817,
+        3010,
+        1871,
+        2037
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 117,
+      "budget": 251
+    },
+    {
+      "block_id": 202,
+      "bounds_rc": [
+        2817,
+        3010,
+        2077,
+        2243
+      ],
+      "support_pixels": 19391,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 452,
+      "budget": 152
+    },
+    {
+      "block_id": 214,
+      "bounds_rc": [
+        3050,
+        3243,
+        1254,
+        1420
+      ],
+      "support_pixels": 8389,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 172,
+      "budget": 66
+    },
+    {
+      "block_id": 215,
+      "bounds_rc": [
+        3050,
+        3243,
+        1460,
+        1626
+      ],
+      "support_pixels": 27410,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 261,
+      "budget": 215
+    },
+    {
+      "block_id": 216,
+      "bounds_rc": [
+        3050,
+        3243,
+        1666,
+        1831
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 600,
+      "budget": 250
+    },
+    {
+      "block_id": 217,
+      "bounds_rc": [
+        3050,
+        3243,
+        1871,
+        2037
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "selection",
+      "catalogue_truth_pixels": 181,
+      "budget": 251
+    },
+    {
+      "block_id": 218,
+      "bounds_rc": [
+        3050,
+        3243,
+        2077,
+        2243
+      ],
+      "support_pixels": 31238,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 303,
+      "budget": 245
+    },
+    {
+      "block_id": 231,
+      "bounds_rc": [
+        3283,
+        3476,
+        1460,
+        1626
+      ],
+      "support_pixels": 4327,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 46,
+      "budget": 34
+    },
+    {
+      "block_id": 232,
+      "bounds_rc": [
+        3283,
+        3476,
+        1666,
+        1831
+      ],
+      "support_pixels": 31845,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 134,
+      "budget": 250
+    },
+    {
+      "block_id": 233,
+      "bounds_rc": [
+        3283,
+        3476,
+        1871,
+        2037
+      ],
+      "support_pixels": 32038,
+      "guard_px": 20,
+      "role": "test",
+      "catalogue_truth_pixels": 175,
+      "budget": 251
+    },
+    {
+      "block_id": 234,
+      "bounds_rc": [
+        3283,
+        3476,
+        2077,
+        2243
+      ],
+      "support_pixels": 26130,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 793,
+      "budget": 205
+    },
+    {
+      "block_id": 248,
+      "bounds_rc": [
+        3516,
+        3710,
+        1666,
+        1831
+      ],
+      "support_pixels": 10427,
+      "guard_px": 20,
+      "role": "train",
+      "catalogue_truth_pixels": 16,
+      "budget": 82
+    },
+    {
+      "block_id": 249,
+      "bounds_rc": [
+        3516,
+        3710,
+        1871,
+        2037
+      ],
+      "support_pixels": 25074,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 11,
+      "budget": 197
+    },
+    {
+      "block_id": 250,
+      "bounds_rc": [
+        3516,
+        3710,
+        2077,
+        2243
+      ],
+      "support_pixels": 529,
+      "guard_px": 20,
+      "role": "calibration",
+      "catalogue_truth_pixels": 10,
+      "budget": 4
+    }
+  ],
+  "seed": 470610,
+  "protocol_sha256": "2514b50fe12e090cb838c96e1aa1005736d5d504a7b65cee7d270c65ad2dfc93",
+  "assigned_without_truth_stratification": true
+}

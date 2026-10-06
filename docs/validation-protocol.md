@@ -1,30 +1,36 @@
-# Spatial holdout, validation, and promotion protocol
+# Current validation and promotion boundary
 
-## Current state
+The current experiment is [H47-C1](research/h47c-hypotheses-preregistered.md), frozen before fitting/scoring.
+Its [complete receipt](data/profile-screen.json) and [all spacing/block components](data/profile-spacing-history.csv)
+are deployed. H47-B remains a separate historical negative experiment, not the current pipeline.
 
-The frozen H47-B diagnostic screen has run; it is not a future plan. It used 4 × 4 disjoint block cores with a 3-pixel/300 m guard, five selection blocks, six calibration blocks, and five locked-test blocks. DTI was computed against `labels.tif == 1`, the known-fault catalogue mask, as a resemblance proxy—not against the missing-fault target; the organizer's [staff masking clarification](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516) explains this target distinction. H47-B scored 0.027553 pooled on locked proxy blocks, versus 0.025639 for the tuned single-scale baseline and 0.037159 for the fixed-seed random control. Its proxy-target split-conformal lower bound was 0.0. Five blocks had no catalogue-mask pixels. **The diagnostic gate failed; no candidate is promoted and no slot is authorized.** See [`validation-h47b-20261006.md`](validation-h47b-20261006.md) and the frozen [`preregistered-h2.md`](preregistered-h2.md).
+## Fixed C1 rule and result
 
-The experiment used group-hosted mirrors, not authenticated organizer downloads. The local DTI implementation was transcribed from the official [problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/); it is not an organizer-run private scorer. A public-label score cannot establish performance on expert-private labels.
+Same mass/domain/truth across profile, selection-only best raw/terrain baseline, and fixed-seed random.
+Require pooled and mean wins over both controls, at least 10 truth-bearing test blocks, wins in at least
+2/3 of those blocks, and positive supported conformal proxy floor. C1 fails pooled baseline, fold wins and
+floor. **Not promoted; no slot.** Mirror-only data, unverified exchangeability and private-label mismatch
+are additional boundaries, not solved by a positive mean.
 
-## Requirements before the next candidate is scored
+Selection 21 blocks and calibration 21 are disjoint roles; test 23 is not a tuning set. Max-residual band is
+simultaneous over 5 settings at nominal 90%, rank 20. It predicts one exchangeable catalogue-block vector,
+not pooled map/private DTI. Every floor is 0.0000. No adaptive history or difficult-block deletion.
 
-1. **Authorized provenance.** Obtain available competition inputs through an authorized route. Record each exact file hash, metadata, label semantics, source URL, license/terms and any differences from group-hosted mirrors. Do not bypass login or use credentials not authorized for this project.
-2. **Current holdout best.** Establish a reproducible, scientifically defensible spatially blocked baseline using the same target, footprint, metric implementation and comparable spatial test areas. Store code/input hashes and per-fold outputs. Historical participant scores and the old d-cat/annulus TIFF are not incumbents.
-3. **New preregistration.** Before calculating held-out results, freeze the distinct physical hypothesis, inputs, code revision, feature transforms, emission mass, spatial fold assignment, guard, matching rules, random/domain controls, metric, selection rule, conformal design (if defensible), and promotion criteria. Do not reuse H47-B's locked blocks to tune H47-B and then call them an independent test.
-4. **Spatial separation and label coverage.** Use projected coordinates in metres. Reserve geographically distinct blocks and purge at least 300 m around held-out boundaries for this 100 m grid, so the official 300 m kernel cannot transfer direct credit between folds. Record positive truth counts and prediction mass per block before interpreting block scores. Empty blocks are uninformative about geological discovery and cannot count as positive evidence.
-5. **Comparable evaluation.** Score the incumbent and candidate on the same disjoint held-out cores with matched emitted mass (or a preregistered justified alternative), pooled metric components and per-block DTI. Include a fixed-seed random/spatially matched control and relevant domain/ablation controls. Report both pooled and unweighted block summaries; neither should conceal an adverse result.
-6. **Conformal restraint.** If split conformal is used, define the exchangeability unit and target before scoring, use independent calibration blocks, report sample count, rank, raw residuals, nominal coverage, clipped floor, label coverage and all assumptions. Spatial dependence means exchangeability is not established merely by separating blocks. A zero floor, empty/degenerate calibration blocks, or an indefensible assumption does not satisfy a positive-floor gate.
-7. **Promotion rule.** Require the new candidate to beat the current spatially blocked holdout best and the preregistered controls under the fixed rule, with adequate label coverage and a scientifically meaningful result. The comparison must not depend on leaderboard feedback. A tie, failed control, unstable fold pattern, failed/zero lower floor where required, changed hash, or missing receipt closes the slot gate.
-8. **New unique raster.** Only after promotion, generate a new prediction (not a copy/prune), compare it against accessible prior TIFF artifacts, save exact-match and similarity results plus search scope, then write to the current official sample-submission profile and re-open/audit the exact bytes.
-9. **Manual portal action.** Only an authorized team member may submit manually after checking current rules, limits and form instructions. Save an organizer receipt that ties submission ID, uploaded SHA-256 and score. Never infer a file's score from the participant leaderboard.
+A documented control-flow bug first overwrote locked 2.8px with 5.8px. The original record is retracted;
+correction changed no trained predictions or per-setting scores, proved byte-for-byte. It is not a second
+independent model experiment and no new parameter was chosen using test results.
 
-## Existing implementation boundaries
+## Requirements for a future hypothesis
 
-- `scripts/package_submission.py` is a fail-closed packager for the older H47-A report schema. It does not score a holdout, authenticate a report, or validate H47-B; a package script is not scientific approval.
-- `scripts/run_h2_experiment.py` is permanently research-only because H47-B used public-mirror labels and features; it always records `slot_eligible: false` and has no non-research publication option. `--publish-research-only` is the only way it can copy a TIFF to `docs/downloads/`, and it uses an unmistakable research-only filename/status. A separate, authorized-input hypothesis requires a new protocol and candidate identity.
-- `scripts/validate_submission.py` checks raster profile/value conditions against provided local files. It cannot authenticate official provenance or guarantee organizer acceptance.
-- `docs/promotion-report.schema.json` is a data-shape aid for the legacy packager, not evidence that the current candidate passed.
+1. Source/license/byte/coverage feasibility and authorized input provenance; no login bypass.
+2. Novel physical signal and competing explanations, preregistered before scoring.
+3. Fresh, guarded evaluation design; known C1 results cannot be reused as untouched validation for tuning.
+4. Comparable, same-mass/domain controls; all folds, zero cases, exact components and hashes.
+5. Statistical target/unit/rank/coverage clearly scoped; exchangeability not assumed proved by a guard.
+6. Strict actual TIFF/ZIP read-back and bounded prior-art audit. A research file can be published with a
+   prominent closed gate; only a scientifically promoted/eligible file can be recommended for a slot.
+7. Entrant checks rules/eligibility and uses an authorized portal. Retain the exact uploaded SHA, submission
+   ID, score and organizer receipt. A public participant row is not a file-to-score receipt.
 
-## Interpretation
-
-A gain on spatially held-out public catalogue traces can screen for spatial overfit, but the public catalogue is not the hidden expert target. A format-valid TIFF, a unique mask, or a public leaderboard row is not by itself evidence of future/private performance. The slot stays unused until the entire chain is supported by reproducible evidence.
+The repository does not upload automatically. DrivenData monitoring is disabled without recorded written
+permission; the permitted-source Pages feed never converts owner projections into verified scores.

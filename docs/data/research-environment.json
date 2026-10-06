@@ -1,0 +1,16 @@
+{
+  "python": "3.11.2 (main, Apr  8 2026, 01:58:00) [GCC 12.2.0]",
+  "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+  "packages": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "rasterio": "1.4.4",
+    "sklearn": "1.9.1",
+    "requests": "2.34.2",
+    "bs4": "4.15.0",
+    "shapefile": "3.1.6"
+  },
+  "gdal": "3.10.3",
+  "omp_num_threads": 2,
+  "deterministic_fields_checked_twice": true
+}

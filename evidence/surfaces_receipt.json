@@ -1,0 +1,324 @@
+{
+  "generated_utc": "2026-10-06T10:19:38Z",
+  "scales": [
+    1.0,
+    2.0,
+    3.0
+  ],
+  "seconds": 219.3,
+  "valid_all_bands_finite": 5164300,
+  "surfaces": {
+    "A_catalogue_density.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 5164920,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 0.44655147194862366,
+      "positive": 2581925
+    },
+    "A_physics_density.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 5164920,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 0.5190744996070862,
+      "positive": 2582007
+    },
+    "B_braid.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 5202710
+    },
+    "B_braid_count.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 5.0,
+      "positive": 5202710
+    },
+    "C_drain_asym.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.4999999701976776,
+      "max": 1.0,
+      "positive": 9222456
+    },
+    "C_drain_mag.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 5223267
+    },
+    "D_ratio.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 5.595023822024814e-08,
+      "p50": 0.5670102834701538,
+      "max": 29279398.0,
+      "positive": 12279160
+    },
+    "D_strain.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 2582108
+    },
+    "E_basement.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 2582150
+    },
+    "E_persistence.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 5259342
+    },
+    "E_signflip.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 2041538
+    },
+    "catalogue.npy": {
+      "dtype": "bool",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 60988
+    },
+    "coherence.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 0.4999849200248718,
+      "positive": 5378192
+    },
+    "corr_count.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 5.0,
+      "positive": 238616
+    },
+    "corr_max.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 5162743
+    },
+    "corr_mean.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 0.9054586291313171,
+      "positive": 5162743
+    },
+    "d_catalogue.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 120.93386840820312,
+      "max": 1369.6846923828125,
+      "positive": 12218172
+    },
+    "fam_elec.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 3902880
+    },
+    "fam_grav.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 4719220
+    },
+    "fam_mag.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 4773800
+    },
+    "fam_strain.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 3762701
+    },
+    "fam_topo.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 3301925
+    },
+    "footprint.npy": {
+      "dtype": "bool",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 5167373
+    },
+    "scored.npy": {
+      "dtype": "bool",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 5106385
+    },
+    "theta.npy": {
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": -1.5707956552505493,
+      "p50": 0.0,
+      "max": 1.5707961320877075,
+      "positive": 2665523
+    },
+    "valid.npy": {
+      "dtype": "bool",
+      "shape": [
+        3730,
+        3292
+      ],
+      "finite": 12279160,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 1.0,
+      "positive": 5164300
+    }
+  }
+}

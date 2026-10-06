@@ -1,0 +1,1460 @@
+{
+ "generated_utc": "20261006T203209Z",
+ "pipeline": "H48-MSCL split-conformal emission sweep",
+ "hypothesis": "H48 multi-scale curvature lineament consensus (MSCL)",
+ "alpha_target": 0.125,
+ "spacings_px": [
+  1.5,
+  2.0,
+  2.5,
+  3.0,
+  3.5,
+  4.5,
+  6.0
+ ],
+ "split": {
+  "fit_half": [
+   "d1.5",
+   "h19-4",
+   "h28-ridge",
+   "ens12",
+   "r13-lattice",
+   "placeholder"
+  ],
+  "holdout_half": [
+   "d2.8",
+   "tgc-v2",
+   "h19-5",
+   "h16-1",
+   "h25-ctx",
+   "hedge-v2"
+  ],
+  "rule": "alternating by ascending emitted mass S, fixed before scoring"
+ },
+ "model_family": {
+  "M0_prox": [
+   "control_prox_d2.8"
+  ],
+  "M1_prox_mscl": [
+   "control_prox_d2.8",
+   "h48_mscl"
+  ],
+  "M2_prox_mscl_shear": [
+   "control_prox_d2.8",
+   "h48_mscl",
+   "geod_shearrate"
+  ],
+  "M3_screen_survivors": [
+   "control_prox_d2.8",
+   "geod_shearrate",
+   "rad_ThK_low",
+   "tmi_hg",
+   "geod_dilaterate"
+  ],
+  "M4_prox_mscl_wide": [
+   "control_prox_d2.8",
+   "h48_mscl",
+   "geod_shearrate",
+   "rad_ThK_low",
+   "thermal_warm_prox"
+  ]
+ },
+ "fits": {
+  "M0_prox": {
+   "layers": [
+    "control_prox_d2.8"
+   ],
+   "rows": [
+    59
+   ],
+   "theta": [
+    31624.69732887115,
+    3.6540853581097563
+   ],
+   "L": 256,
+   "K": 31624.69732887115,
+   "ssr_fit": 0.014670958657336496,
+   "max_abs_resid_fit": 0.08629686011073097,
+   "at_bound": false,
+   "ids_all": [
+    "d2.8",
+    "d1.5",
+    "tgc-v2",
+    "h19-5",
+    "h19-4",
+    "h16-1",
+    "h28-ridge",
+    "hedge-v2",
+    "ens12",
+    "h25-ctx",
+    "r13-lattice",
+    "placeholder"
+   ]
+  },
+  "M1_prox_mscl": {
+   "layers": [
+    "control_prox_d2.8",
+    "h48_mscl"
+   ],
+   "rows": [
+    59,
+    60
+   ],
+   "theta": [
+    30668.067332565282,
+    3.2642446144338932,
+    1.3295075504441571
+   ],
+   "L": 64,
+   "K": 30668.067332565282,
+   "ssr_fit": 0.013000505405733382,
+   "max_abs_resid_fit": 0.08244550062419063,
+   "at_bound": false,
+   "ids_all": [
+    "d2.8",
+    "d1.5",
+    "tgc-v2",
+    "h19-5",
+    "h19-4",
+    "h16-1",
+    "h28-ridge",
+    "hedge-v2",
+    "ens12",
+    "h25-ctx",
+    "r13-lattice",
+    "placeholder"
+   ]
+  },
+  "M2_prox_mscl_shear": {
+   "layers": [
+    "control_prox_d2.8",
+    "h48_mscl",
+    "geod_shearrate"
+   ],
+   "rows": [
+    59,
+    60,
+    7
+   ],
+   "theta": [
+    30288.471507562936,
+    3.2287138137632603,
+    1.2892924214704273,
+    0.6346581336122626
+   ],
+   "L": 32,
+   "K": 30288.471507562936,
+   "ssr_fit": 0.012199318930567419,
+   "max_abs_resid_fit": 0.08107394333853325,
+   "at_bound": false,
+   "ids_all": [
+    "d2.8",
+    "d1.5",
+    "tgc-v2",
+    "h19-5",
+    "h19-4",
+    "h16-1",
+    "h28-ridge",
+    "hedge-v2",
+    "ens12",
+    "h25-ctx",
+    "r13-lattice",
+    "placeholder"
+   ]
+  },
+  "M3_screen_survivors": {
+   "layers": [
+    "control_prox_d2.8",
+    "geod_shearrate",
+    "rad_ThK_low",
+    "tmi_hg",
+    "geod_dilaterate"
+   ],
+   "rows": [
+    59,
+    7,
+    63,
+    3,
+    8
+   ],
+   "theta": [
+    31035.380913682562,
+    3.5240602375020518,
+    0.6347599430923132,
+    0.45054212943539673,
+    0.5617845220586379,
+    0.32980645130581726
+   ],
+   "L": 14,
+   "K": 31035.380913682562,
+   "ssr_fit": 0.013330364505274151,
+   "max_abs_resid_fit": 0.08423658334776758,
+   "at_bound": false,
+   "ids_all": [
+    "d2.8",
+    "d1.5",
+    "tgc-v2",
+    "h19-5",
+    "h19-4",
+    "h16-1",
+    "h28-ridge",
+    "hedge-v2",
+    "ens12",
+    "h25-ctx",
+    "r13-lattice",
+    "placeholder"
+   ]
+  },
+  "M4_prox_mscl_wide": {
+   "layers": [
+    "control_prox_d2.8",
+    "h48_mscl",
+    "geod_shearrate",
+    "rad_ThK_low",
+    "thermal_warm_prox"
+   ],
+   "rows": [
+    59,
+    60,
+    7,
+    63,
+    57
+   ],
+   "theta": [
+    30364.24728657404,
+    3.2118287117267754,
+    1.308869507104305,
+    0.6076629772107733,
+    0.4938719738385969,
+    0.09709701033669328
+   ],
+   "L": 14,
+   "K": 30364.24728657404,
+   "ssr_fit": 0.012266553795451269,
+   "max_abs_resid_fit": 0.08138679024185437,
+   "at_bound": false,
+   "ids_all": [
+    "d2.8",
+    "d1.5",
+    "tgc-v2",
+    "h19-5",
+    "h19-4",
+    "h16-1",
+    "h28-ridge",
+    "hedge-v2",
+    "ens12",
+    "h25-ctx",
+    "r13-lattice",
+    "placeholder"
+   ]
+  }
+ },
+ "model_selection": {
+  "M0_prox": {
+   "loo_ssr_fit_half": 0.037846103993576845,
+   "loo_max_abs": 0.15948200204241303,
+   "signed_loo_residuals_obs_minus_pred": [
+    -0.08218074053424582,
+    -0.022890093445180282,
+    -0.05011345457797434,
+    -0.04766193807845717,
+    0.15948200204241303,
+    0.018733548897662294
+   ],
+   "ids": [
+    "d1.5",
+    "h19-4",
+    "h28-ridge",
+    "ens12",
+    "r13-lattice",
+    "placeholder"
+   ]
+  },
+  "M1_prox_mscl": {
+   "loo_ssr_fit_half": 0.0360055359607619,
+   "loo_max_abs": 0.1589613484894884,
+   "signed_loo_residuals_obs_minus_pred": [
+    -0.0772525290893297,
+    -0.017491339175873172,
+    -0.046148883649928446,
+    -0.044941454997245125,
+    0.1589613484894884,
+    0.01770512950808635
+   ],
+   "ids": [
+    "d1.5",
+    "h19-4",
+    "h28-ridge",
+    "ens12",
+    "r13-lattice",
+    "placeholder"
+   ]
+  },
+  "M2_prox_mscl_shear": {
+   "loo_ssr_fit_half": 0.035758971484521986,
+   "loo_max_abs": 0.15894700956474916,
+   "signed_loo_residuals_obs_minus_pred": [
+    -0.07871014279506341,
+    -0.018964166404563304,
+    -0.04331548907428162,
+    -0.04197649752476458,
+    0.15894700956474916,
+    0.0173676570243515
+   ],
+   "ids": [
+    "d1.5",
+    "h19-4",
+    "h28-ridge",
+    "ens12",
+    "r13-lattice",
+    "placeholder"
+   ]
+  },
+  "M3_screen_survivors": {
+   "loo_ssr_fit_half": 0.03757064294417498,
+   "loo_max_abs": 0.15947273239039483,
+   "signed_loo_residuals_obs_minus_pred": [
+    -0.08656161363080542,
+    -0.0273380377432684,
+    -0.04395403605083806,
+    -0.040277484635126246,
+    0.15947273239039483,
+    0.018562765214377108
+   ],
+   "ids": [
+    "d1.5",
+    "h19-4",
+    "h28-ridge",
+    "ens12",
+    "r13-lattice",
+    "placeholder"
+   ]
+  },
+  "M4_prox_mscl_wide": {
+   "loo_ssr_fit_half": 0.03599363981436758,
+   "loo_max_abs": 0.1589674258678372,
+   "signed_loo_residuals_obs_minus_pred": [
+    -0.08081766662282275,
+    -0.020994533111466512,
+    -0.04238501683594062,
+    -0.040484020106134416,
+    0.1589674258678372,
+    0.017756298382777418
+   ],
+   "ids": [
+    "d1.5",
+    "h19-4",
+    "h28-ridge",
+    "ens12",
+    "r13-lattice",
+    "placeholder"
+   ]
+  }
+ },
+ "chosen_model": "M2_prox_mscl_shear",
+ "theta": [
+  30288.471507562936,
+  3.2287138137632603,
+  1.2892924214704273,
+  0.6346581336122626
+ ],
+ "K_hat": 30288.472208127336,
+ "observations": [
+  {
+   "id": "d2.8",
+   "dti": 0.26,
+   "S": 44090.0,
+   "site": "GEMSDOE25"
+  },
+  {
+   "id": "d1.5",
+   "dti": 0.2477,
+   "S": 60069.0,
+   "site": "GEMSDOE24"
+  },
+  {
+   "id": "tgc-v2",
+   "dti": 0.2449,
+   "S": 61328.0,
+   "site": "GEMSDOE27"
+  },
+  {
+   "id": "h19-5",
+   "dti": 0.1922,
+   "S": 121131.0,
+   "site": "19GEMSDOE"
+  },
+  {
+   "id": "h19-4",
+   "dti": 0.1894,
+   "S": 123779.0,
+   "site": "19GEMSDOE"
+  },
+  {
+   "id": "h16-1",
+   "dti": 0.1855,
+   "S": 123939.0,
+   "site": "16GEMSDOE"
+  },
+  {
+   "id": "h28-ridge",
+   "dti": 0.1839,
+   "S": 65236.0,
+   "site": "GEMSDOE10"
+  },
+  {
+   "id": "hedge-v2",
+   "dti": 0.1563,
+   "S": 166519.0,
+   "site": "8GEMSDOE"
+  },
+  {
+   "id": "ens12",
+   "dti": 0.1563,
+   "S": 166519.0,
+   "site": "GEMSDOE"
+  },
+  {
+   "id": "h25-ctx",
+   "dti": 0.128,
+   "S": 161366.0,
+   "site": "GEMSDOE10"
+  },
+  {
+   "id": "r13-lattice",
+   "dti": 0.0904,
+   "S": 204504.0,
+   "site": "13GEMSDOE"
+  },
+  {
+   "id": "placeholder",
+   "dti": 0.0107,
+   "S": 145610.0,
+   "site": "GEMSDOE9"
+  }
+ ],
+ "residuals": {
+  "split_half": [
+   0.06432765776028276,
+   0.047828236215070874,
+   0.014109035521761043,
+   0.011245836944654142,
+   0.0003881879693641288,
+   0.034254338741476806
+  ],
+  "split_half_ids": [
+   "d2.8",
+   "tgc-v2",
+   "h19-5",
+   "h16-1",
+   "h25-ctx",
+   "hedge-v2"
+  ],
+  "cross_conformal": [
+   0.05118312883394885,
+   0.03388312341624242,
+   0.030926897978891504,
+   -0.007806631000619624,
+   -0.009043510391213927,
+   -0.008905081227232381,
+   0.032077672334709706,
+   0.02907830864985861,
+   0.02907830864985861,
+   -0.009226813944674839,
+   -0.14026182885627853,
+   -0.017598845944786494
+  ],
+  "cross_conformal_ids": [
+   "d2.8",
+   "d1.5",
+   "tgc-v2",
+   "h19-5",
+   "h19-4",
+   "h16-1",
+   "h28-ridge",
+   "hedge-v2",
+   "ens12",
+   "h25-ctx",
+   "r13-lattice",
+   "placeholder"
+  ]
+ },
+ "certificates": {
+  "split_half|family_7": {
+   "alpha_family": 1.0,
+   "n_candidates": 7,
+   "alpha_used": 1.0,
+   "level_used": 0.0,
+   "level_used_pct": 0.0,
+   "one_sided": true,
+   "n_calibration": 6,
+   "n_selection": 6,
+   "max_attainable_level": 0.8571428571428572,
+   "min_alpha_for_this_family": 1.0,
+   "conformal_rank_k": 0,
+   "quantile": null,
+   "certified": false,
+   "calibration_ids": [],
+   "selection_ids": [],
+   "calibration_residuals": [
+    0.06432765776028276,
+    0.047828236215070874,
+    0.014109035521761043,
+    0.011245836944654142,
+    0.0003881879693641288,
+    0.034254338741476806
+   ],
+   "selection_residuals": [
+    0.06432765776028276,
+    0.047828236215070874,
+    0.014109035521761043,
+    0.011245836944654142,
+    0.0003881879693641288,
+    0.034254338741476806
+   ],
+   "assumption": "Exchangeability of the calibration scores and the candidate's score. The calibration observations are previous submissions, several of them nested thinnings of one field, so this is an ASSUMPTION-CONDITIONAL bound on the public-test DTI of a probe raster - not a distribution-free guarantee for the private test set, the Final Prize Round label set, or a leaderboard rank.",
+   "method_citation": "Lei, G'Sell, Rinaldo, Tibshirani & Wasserman (2018), 'Distribution-Free Predictive Inference for Regression', JASA 113(523):1094-1111, doi:10.1080/01621459.2017.1307116 (arXiv:1604.04173), eq. (2.6)."
+  },
+  "split_half|single_predeclared": {
+   "alpha_family": 0.14285714285714285,
+   "n_candidates": 1,
+   "alpha_used": 0.14285714285714285,
+   "level_used": 0.8571428571428572,
+   "level_used_pct": 85.714,
+   "one_sided": true,
+   "n_calibration": 6,
+   "n_selection": 6,
+   "max_attainable_level": 0.8571428571428572,
+   "min_alpha_for_this_family": 0.14285714285714285,
+   "conformal_rank_k": 6,
+   "quantile": 0.0003881879693641288,
+   "certified": true,
+   "calibration_ids": [
+    "d2.8",
+    "tgc-v2",
+    "h19-5",
+    "h16-1",
+    "h25-ctx",
+    "hedge-v2"
+   ],
+   "selection_ids": [
+    "d1.5",
+    "h19-4",
+    "h28-ridge",
+    "ens12",
+    "r13-lattice",
+    "placeholder"
+   ],
+   "calibration_residuals": [
+    0.06432765776028276,
+    0.047828236215070874,
+    0.014109035521761043,
+    0.011245836944654142,
+    0.0003881879693641288,
+    0.034254338741476806
+   ],
+   "selection_residuals": [
+    0.06432765776028276,
+    0.047828236215070874,
+    0.014109035521761043,
+    0.011245836944654142,
+    0.0003881879693641288,
+    0.034254338741476806
+   ],
+   "assumption": "Exchangeability of the calibration scores and the candidate's score. The calibration observations are previous submissions, several of them nested thinnings of one field, so this is an ASSUMPTION-CONDITIONAL bound on the public-test DTI of a probe raster - not a distribution-free guarantee for the private test set, the Final Prize Round label set, or a leaderboard rank.",
+   "method_citation": "Lei, G'Sell, Rinaldo, Tibshirani & Wasserman (2018), 'Distribution-Free Predictive Inference for Regression', JASA 113(523):1094-1111, doi:10.1080/01621459.2017.1307116 (arXiv:1604.04173), eq. (2.6)."
+  },
+  "cross_conformal_all_returns|family_7": {
+   "alpha_family": 0.5384615384615384,
+   "n_candidates": 7,
+   "alpha_used": 0.5384615384615384,
+   "level_used": 0.46153846153846156,
+   "level_used_pct": 46.154,
+   "one_sided": true,
+   "n_calibration": 12,
+   "n_selection": 6,
+   "max_attainable_level": 0.9230769230769231,
+   "min_alpha_for_this_family": 0.5384615384615384,
+   "conformal_rank_k": 6,
+   "quantile": 0.02907830864985861,
+   "certified": true,
+   "calibration_ids": [
+    "d2.8",
+    "tgc-v2",
+    "h19-5",
+    "h16-1",
+    "h25-ctx",
+    "hedge-v2"
+   ],
+   "selection_ids": [
+    "d1.5",
+    "h19-4",
+    "h28-ridge",
+    "ens12",
+    "r13-lattice",
+    "placeholder"
+   ],
+   "calibration_residuals": [
+    0.05118312883394885,
+    0.03388312341624242,
+    0.030926897978891504,
+    -0.007806631000619624,
+    -0.009043510391213927,
+    -0.008905081227232381,
+    0.032077672334709706,
+    0.02907830864985861,
+    0.02907830864985861,
+    -0.009226813944674839,
+    -0.14026182885627853,
+    -0.017598845944786494
+   ],
+   "selection_residuals": [
+    0.06432765776028276,
+    0.047828236215070874,
+    0.014109035521761043,
+    0.011245836944654142,
+    0.0003881879693641288,
+    0.034254338741476806
+   ],
+   "assumption": "Exchangeability of the calibration scores and the candidate's score. The calibration observations are previous submissions, several of them nested thinnings of one field, so this is an ASSUMPTION-CONDITIONAL bound on the public-test DTI of a probe raster - not a distribution-free guarantee for the private test set, the Final Prize Round label set, or a leaderboard rank.",
+   "method_citation": "Lei, G'Sell, Rinaldo, Tibshirani & Wasserman (2018), 'Distribution-Free Predictive Inference for Regression', JASA 113(523):1094-1111, doi:10.1080/01621459.2017.1307116 (arXiv:1604.04173), eq. (2.6)."
+  },
+  "cross_conformal_all_returns|single_predeclared": {
+   "alpha_family": 0.07692307692307693,
+   "n_candidates": 1,
+   "alpha_used": 0.07692307692307693,
+   "level_used": 0.9230769230769231,
+   "level_used_pct": 92.308,
+   "one_sided": true,
+   "n_calibration": 12,
+   "n_selection": 6,
+   "max_attainable_level": 0.9230769230769231,
+   "min_alpha_for_this_family": 0.07692307692307693,
+   "conformal_rank_k": 12,
+   "quantile": -0.14026182885627853,
+   "certified": true,
+   "calibration_ids": [
+    "d2.8",
+    "tgc-v2",
+    "h19-5",
+    "h16-1",
+    "h25-ctx",
+    "hedge-v2"
+   ],
+   "selection_ids": [
+    "d1.5",
+    "h19-4",
+    "h28-ridge",
+    "ens12",
+    "r13-lattice",
+    "placeholder"
+   ],
+   "calibration_residuals": [
+    0.05118312883394885,
+    0.03388312341624242,
+    0.030926897978891504,
+    -0.007806631000619624,
+    -0.009043510391213927,
+    -0.008905081227232381,
+    0.032077672334709706,
+    0.02907830864985861,
+    0.02907830864985861,
+    -0.009226813944674839,
+    -0.14026182885627853,
+    -0.017598845944786494
+   ],
+   "selection_residuals": [
+    0.06432765776028276,
+    0.047828236215070874,
+    0.014109035521761043,
+    0.011245836944654142,
+    0.0003881879693641288,
+    0.034254338741476806
+   ],
+   "assumption": "Exchangeability of the calibration scores and the candidate's score. The calibration observations are previous submissions, several of them nested thinnings of one field, so this is an ASSUMPTION-CONDITIONAL bound on the public-test DTI of a probe raster - not a distribution-free guarantee for the private test set, the Final Prize Round label set, or a leaderboard rank.",
+   "method_citation": "Lei, G'Sell, Rinaldo, Tibshirani & Wasserman (2018), 'Distribution-Free Predictive Inference for Regression', JASA 113(523):1094-1111, doi:10.1080/01621459.2017.1307116 (arXiv:1604.04173), eq. (2.6)."
+  }
+ },
+ "sweep": [
+  {
+   "spacing_px": 1.5,
+   "n_dots": 44838,
+   "n_kept": 38988,
+   "n_added": 5850,
+   "S": 44838.0,
+   "T_hat": 6043.442520352015,
+   "F_hat": 36834.57233614958,
+   "Phi_hat": 8003.4276638504225,
+   "K_hat": 30288.472208127336,
+   "predicted_dti": 0.18421546005494802
+  },
+  {
+   "spacing_px": 2.0,
+   "n_dots": 44838,
+   "n_kept": 38988,
+   "n_added": 5850,
+   "S": 44838.0,
+   "T_hat": 6043.442520352015,
+   "F_hat": 36834.57233614958,
+   "Phi_hat": 8003.4276638504225,
+   "K_hat": 30288.472208127336,
+   "predicted_dti": 0.18421546005494802
+  },
+  {
+   "spacing_px": 2.5,
+   "n_dots": 39644,
+   "n_kept": 38533,
+   "n_added": 1111,
+   "S": 39644.0,
+   "T_hat": 5764.803044926781,
+   "F_hat": 32897.552618068694,
+   "Phi_hat": 6746.447381931306,
+   "K_hat": 30288.472208127336,
+   "predicted_dti": 0.18035723036555673
+  },
+  {
+   "spacing_px": 3.0,
+   "n_dots": 35885,
+   "n_kept": 35071,
+   "n_added": 814,
+   "S": 35885.0,
+   "T_hat": 5466.312842067155,
+   "F_hat": 29714.90913861322,
+   "Phi_hat": 6170.09086138678,
+   "K_hat": 30288.472208127336,
+   "predicted_dti": 0.17482678118925704
+  },
+  {
+   "spacing_px": 3.5,
+   "n_dots": 29254,
+   "n_kept": 28789,
+   "n_added": 465,
+   "S": 29254.0,
+   "T_hat": 4827.027623348708,
+   "F_hat": 24148.444887649897,
+   "Phi_hat": 5105.555112350103,
+   "K_hat": 30288.472208127336,
+   "predicted_dti": 0.16076227794988365
+  },
+  {
+   "spacing_px": 4.5,
+   "n_dots": 22870,
+   "n_kept": 22602,
+   "n_added": 268,
+   "S": 22870.0,
+   "T_hat": 3938.635959843085,
+   "F_hat": 18923.404560332885,
+   "Phi_hat": 3946.595439667117,
+   "K_hat": 30288.472208127336,
+   "predicted_dti": 0.13674306646307266
+  },
+  {
+   "spacing_px": 6.0,
+   "n_dots": 18560,
+   "n_kept": 18377,
+   "n_added": 183,
+   "S": 18560.0,
+   "T_hat": 3185.784646541559,
+   "F_hat": 15374.215353458441,
+   "Phi_hat": 3185.784646541559,
+   "K_hat": 30288.472208127336,
+   "predicted_dti": 0.11401102185197619
+  }
+ ],
+ "candidates": [
+  {
+   "name": "r=1.5",
+   "predicted_dti": 0.1859592882613959,
+   "certified_lower_bound": 0.2150375969112545,
+   "n_dots": 44838,
+   "n_kept": 38988,
+   "n_added": 5850,
+   "S": 44838.0,
+   "T_hat": 6043.442520352015,
+   "F_hat": 36834.57233614958,
+   "Phi_hat": 8003.4276638504225,
+   "K_hat": 30288.472208127336,
+   "marginal_bar": 0.05556,
+   "surrogate_dti": 0.18421546005494802,
+   "lcb_single_predeclared": 0.04569745940511738,
+   "lcb_split_half": 0.18634747623076003
+  },
+  {
+   "name": "r=2.0",
+   "predicted_dti": 0.1859592882613959,
+   "certified_lower_bound": 0.2150375969112545,
+   "n_dots": 44838,
+   "n_kept": 38988,
+   "n_added": 5850,
+   "S": 44838.0,
+   "T_hat": 6043.442520352015,
+   "F_hat": 36834.57233614958,
+   "Phi_hat": 8003.4276638504225,
+   "K_hat": 30288.472208127336,
+   "marginal_bar": 0.05556,
+   "surrogate_dti": 0.18421546005494802,
+   "lcb_single_predeclared": 0.04569745940511738,
+   "lcb_split_half": 0.18634747623076003
+  },
+  {
+   "name": "r=2.5",
+   "predicted_dti": 0.18208871290867573,
+   "certified_lower_bound": 0.21116702155853434,
+   "n_dots": 39644,
+   "n_kept": 38533,
+   "n_added": 1111,
+   "S": 39644.0,
+   "T_hat": 5764.803044926781,
+   "F_hat": 32897.552618068694,
+   "Phi_hat": 6746.447381931306,
+   "K_hat": 30288.472208127336,
+   "marginal_bar": 0.05556,
+   "surrogate_dti": 0.18035723036555673,
+   "lcb_single_predeclared": 0.041826884052397206,
+   "lcb_split_half": 0.18247690087803986
+  },
+  {
+   "name": "r=3.0",
+   "predicted_dti": 0.17651930750887532,
+   "certified_lower_bound": 0.20559761615873393,
+   "n_dots": 35885,
+   "n_kept": 35071,
+   "n_added": 814,
+   "S": 35885.0,
+   "T_hat": 5466.312842067155,
+   "F_hat": 29714.90913861322,
+   "Phi_hat": 6170.09086138678,
+   "K_hat": 30288.472208127336,
+   "marginal_bar": 0.05556,
+   "surrogate_dti": 0.17482678118925704,
+   "lcb_single_predeclared": 0.03625747865259679,
+   "lcb_split_half": 0.17690749547823945
+  },
+  {
+   "name": "r=3.5",
+   "predicted_dti": 0.16233574158411132,
+   "certified_lower_bound": 0.19141405023396993,
+   "n_dots": 29254,
+   "n_kept": 28789,
+   "n_added": 465,
+   "S": 29254.0,
+   "T_hat": 4827.027623348708,
+   "F_hat": 24148.444887649897,
+   "Phi_hat": 5105.555112350103,
+   "K_hat": 30288.472208127336,
+   "marginal_bar": 0.05556,
+   "surrogate_dti": 0.16076227794988365,
+   "lcb_single_predeclared": 0.022073912727832795,
+   "lcb_split_half": 0.16272392955347545
+  },
+  {
+   "name": "r=4.5",
+   "predicted_dti": 0.1380951365124,
+   "certified_lower_bound": 0.1671734451622586,
+   "n_dots": 22870,
+   "n_kept": 22602,
+   "n_added": 268,
+   "S": 22870.0,
+   "T_hat": 3938.635959843085,
+   "F_hat": 18923.404560332885,
+   "Phi_hat": 3946.595439667117,
+   "K_hat": 30288.472208127336,
+   "marginal_bar": 0.05556,
+   "surrogate_dti": 0.13674306646307266,
+   "lcb_single_predeclared": -0.0021666923438785346,
+   "lcb_split_half": 0.13848332448176412
+  },
+  {
+   "name": "r=6.0",
+   "predicted_dti": 0.11513746007558856,
+   "certified_lower_bound": 0.14421576872544717,
+   "n_dots": 18560,
+   "n_kept": 18377,
+   "n_added": 183,
+   "S": 18560.0,
+   "T_hat": 3185.784646541559,
+   "F_hat": 15374.215353458441,
+   "Phi_hat": 3185.784646541559,
+   "K_hat": 30288.472208127336,
+   "marginal_bar": 0.05556,
+   "surrogate_dti": 0.11401102185197619,
+   "lcb_single_predeclared": -0.025124368780689965,
+   "lcb_split_half": 0.11552564804495269
+  }
+ ],
+ "chosen": {
+  "name": "r=1.5",
+  "predicted_dti": 0.1859592882613959,
+  "certified_lower_bound": 0.2150375969112545,
+  "n_dots": 44838,
+  "n_kept": 38988,
+  "n_added": 5850,
+  "S": 44838.0,
+  "T_hat": 6043.442520352015,
+  "F_hat": 36834.57233614958,
+  "Phi_hat": 8003.4276638504225,
+  "K_hat": 30288.472208127336,
+  "marginal_bar": 0.05556,
+  "surrogate_dti": 0.18421546005494802,
+  "lcb_single_predeclared": 0.04569745940511738,
+  "lcb_split_half": 0.18634747623076003
+ },
+ "incumbent_reference": {
+  "id": "d2.8",
+  "observed_dti": 0.26,
+  "predicted_dti": 0.19567234223971725,
+  "certified_lower_bound": 0.22475065088957585,
+  "note": "the same certificate applied to the measured family-best field, for a like-for-like comparison"
+ },
+ "mscl": {
+  "sigmas_px": [
+   1.2,
+   2.5,
+   5.0
+  ],
+  "topo_bands": [
+   "det_elev"
+  ],
+  "geophys_bands": [
+   "tmi",
+   "mag_anom",
+   "iso_grav_anom",
+   "rad_TC"
+  ],
+  "topk_geophys": 2
+ },
+ "seconds": 151.1,
+ "spatially_blocked_holdout": {
+  "catalogue": {
+   "candidate": {
+    "pooled_DTI": 0.04035697068812599,
+    "per_block": [
+     {
+      "row": 0,
+      "col": 0,
+      "K": 4955,
+      "T": 285.8303521140972,
+      "F": 5369.613215882545,
+      "DTI": 0.05609919045201035
+     },
+     {
+      "row": 0,
+      "col": 1,
+      "K": 6138,
+      "T": 213.16367175675447,
+      "F": 5523.406585156567,
+      "DTI": 0.03518879728370476
+     },
+     {
+      "row": 0,
+      "col": 2,
+      "K": 6151,
+      "T": 228.36426781946238,
+      "F": 5273.211002241133,
+      "DTI": 0.03792723868767361
+     },
+     {
+      "row": 0,
+      "col": 3,
+      "K": 5349,
+      "T": 160.73684392965515,
+      "F": 4126.737817481785,
+      "DTI": 0.031291880489043966
+     },
+     {
+      "row": 1,
+      "col": 0,
+      "K": 7471,
+      "T": 268.84724799888875,
+      "F": 5824.93172365143,
+      "DTI": 0.03736295787056982
+     },
+     {
+      "row": 1,
+      "col": 1,
+      "K": 10755,
+      "T": 309.7869243181019,
+      "F": 5093.2640183786725,
+      "DTI": 0.031987547075947344
+     },
+     {
+      "row": 1,
+      "col": 2,
+      "K": 1096,
+      "T": 79.65352134042709,
+      "F": 546.6215791219777,
+      "DTI": 0.07949016744916439
+     },
+     {
+      "row": 2,
+      "col": 0,
+      "K": 0,
+      "T": 0.0,
+      "F": 12.0,
+      "DTI": 0.0
+     },
+     {
+      "row": 2,
+      "col": 1,
+      "K": 5587,
+      "T": 267.79589491646266,
+      "F": 4649.786451812912,
+      "DTI": 0.04910877961654574
+     },
+     {
+      "row": 2,
+      "col": 2,
+      "K": 4242,
+      "T": 184.9822693742313,
+      "F": 2588.857850685593,
+      "DTI": 0.0468503108750915
+     },
+     {
+      "row": 3,
+      "col": 1,
+      "K": 3886,
+      "T": 157.55272968767014,
+      "F": 1862.8254910966552,
+      "DTI": 0.04485007317288193
+     },
+     {
+      "row": 3,
+      "col": 2,
+      "K": 5358,
+      "T": 187.72178069190113,
+      "F": 3294.583799120536,
+      "DTI": 0.03767349246209943
+     }
+    ],
+    "mean_block_DTI": 0.04065253628622774,
+    "min_block_DTI": 0.0,
+    "n_blocks_scored": 12
+   },
+   "incumbent_h33_2_b2": {
+    "pooled_DTI": 0.006698424894897517,
+    "per_block": [
+     {
+      "row": 0,
+      "col": 0,
+      "K": 4955,
+      "T": 36.57862336617561,
+      "F": 4481.130432583394,
+      "DTI": 0.007514804142428853
+     },
+     {
+      "row": 0,
+      "col": 1,
+      "K": 6138,
+      "T": 50.83868778617954,
+      "F": 5404.007293852571,
+      "DTI": 0.008471181512593465
+     },
+     {
+      "row": 0,
+      "col": 2,
+      "K": 6151,
+      "T": 49.29580478887337,
+      "F": 5116.658717491302,
+      "DTI": 0.008279455843975143
+     },
+     {
+      "row": 0,
+      "col": 3,
+      "K": 5349,
+      "T": 47.40977604105959,
+      "F": 4028.404484148452,
+      "DTI": 0.009306321009720423
+     },
+     {
+      "row": 1,
+      "col": 0,
+      "K": 7471,
+      "T": 31.074545285726078,
+      "F": 4168.59923213691,
+      "DTI": 0.0045585674667368405
+     },
+     {
+      "row": 1,
+      "col": 1,
+      "K": 10755,
+      "T": 47.81427048076831,
+      "F": 4125.600063664468,
+      "DTI": 0.005065777837372308
+     },
+     {
+      "row": 1,
+      "col": 2,
+      "K": 1096,
+      "T": 6.1849389707034845,
+      "F": 439.06783150372985,
+      "DTI": 0.006403619011741921
+     },
+     {
+      "row": 2,
+      "col": 0,
+      "K": 0,
+      "T": 0.0,
+      "F": 4.0,
+      "DTI": 0.0
+     },
+     {
+      "row": 2,
+      "col": 1,
+      "K": 5587,
+      "T": 45.173898051998776,
+      "F": 3462.4765040707366,
+      "DTI": 0.00873578837689769
+     },
+     {
+      "row": 2,
+      "col": 2,
+      "K": 4242,
+      "T": 20.40953487533463,
+      "F": 2218.0632324205253,
+      "DTI": 0.005313191839702941
+     },
+     {
+      "row": 3,
+      "col": 1,
+      "K": 3886,
+      "T": 19.156764400901313,
+      "F": 1325.908362042205,
+      "DTI": 0.005671351332202422
+     },
+     {
+      "row": 3,
+      "col": 2,
+      "K": 5358,
+      "T": 24.06305272334316,
+      "F": 3051.891248880622,
+      "DTI": 0.004909233228366252
+     }
+    ],
+    "mean_block_DTI": 0.006185774300144855,
+    "min_block_DTI": 0.0,
+    "n_blocks_scored": 12
+   }
+  },
+  "sgmc_offcatalogue": {
+   "candidate": {
+    "pooled_DTI": 0.10814783680700624,
+    "per_block": [
+     {
+      "row": 0,
+      "col": 0,
+      "K": 7084,
+      "T": 807.6318910536964,
+      "F": 5095.277557465466,
+      "DTI": 0.11794065641431034
+     },
+     {
+      "row": 0,
+      "col": 1,
+      "K": 6714,
+      "T": 638.8237064134831,
+      "F": 5331.727898172425,
+      "DTI": 0.09730289585523182
+     },
+     {
+      "row": 0,
+      "col": 2,
+      "K": 10868,
+      "T": 1040.5875691234064,
+      "F": 4931.116428348247,
+      "DTI": 0.10522953227539525
+     },
+     {
+      "row": 0,
+      "col": 3,
+      "K": 13899,
+      "T": 1444.1133697399005,
+      "F": 3585.1048424913533,
+      "DTI": 0.11910170489485741
+     },
+     {
+      "row": 1,
+      "col": 0,
+      "K": 6537,
+      "T": 961.4105519467154,
+      "F": 5436.5912727632885,
+      "DTI": 0.14770025472326692
+     },
+     {
+      "row": 1,
+      "col": 1,
+      "K": 6110,
+      "T": 649.4526863732181,
+      "F": 4919.818280247337,
+      "DTI": 0.10820867442858027
+     },
+     {
+      "row": 1,
+      "col": 2,
+      "K": 819,
+      "T": 35.15727855831832,
+      "F": 563.5246277368648,
+      "DTI": 0.04536795459415443
+     },
+     {
+      "row": 2,
+      "col": 0,
+      "K": 0,
+      "T": 0.0,
+      "F": 12.0,
+      "DTI": 0.0
+     },
+     {
+      "row": 2,
+      "col": 1,
+      "K": 1944,
+      "T": 315.2843156259096,
+      "F": 4617.006866190826,
+      "DTI": 0.12404669955824758
+     },
+     {
+      "row": 2,
+      "col": 2,
+      "K": 2665,
+      "T": 244.54792003351292,
+      "F": 2545.889051178577,
+      "DTI": 0.0909070540075827
+     },
+     {
+      "row": 3,
+      "col": 1,
+      "K": 1023,
+      "T": 142.4190299223692,
+      "F": 1862.7014105466692,
+      "DTI": 0.11679204250015864
+     },
+     {
+      "row": 3,
+      "col": 2,
+      "K": 11700,
+      "T": 781.1946161621428,
+      "F": 3020.4682444170703,
+      "DTI": 0.07719060718563121
+     }
+    ],
+    "mean_block_DTI": 0.09581567303645139,
+    "min_block_DTI": 0.0,
+    "n_blocks_scored": 12
+   },
+   "incumbent_h33_2_b2": {
+    "pooled_DTI": 0.09893469496140979,
+    "per_block": [
+     {
+      "row": 0,
+      "col": 0,
+      "K": 7084,
+      "T": 674.6516091825549,
+      "F": 4209.922532376859,
+      "DTI": 0.10154123259696407
+     },
+     {
+      "row": 0,
+      "col": 1,
+      "K": 6714,
+      "T": 589.3537647611092,
+      "F": 5178.485257485305,
+      "DTI": 0.0903256303403203
+     },
+     {
+      "row": 0,
+      "col": 2,
+      "K": 10868,
+      "T": 953.3362615173901,
+      "F": 4745.416577363923,
+      "DTI": 0.09694139366151297
+     },
+     {
+      "row": 0,
+      "col": 3,
+      "K": 13899,
+      "T": 1387.7228454481492,
+      "F": 3471.023230828105,
+      "DTI": 0.11477368904148962
+     },
+     {
+      "row": 1,
+      "col": 0,
+      "K": 6537,
+      "T": 812.9444745439182,
+      "F": 3840.264629323018,
+      "DTI": 0.13196632505602793
+     },
+     {
+      "row": 1,
+      "col": 1,
+      "K": 6110,
+      "T": 539.5037084878278,
+      "F": 3926.5974518983535,
+      "DTI": 0.09332004089627634
+     },
+     {
+      "row": 1,
+      "col": 2,
+      "K": 819,
+      "T": 32.117204160902716,
+      "F": 428.1883720661164,
+      "DTI": 0.0429798948528926
+     },
+     {
+      "row": 2,
+      "col": 0,
+      "K": 0,
+      "T": 0.0,
+      "F": 4.0,
+      "DTI": 0.0
+     },
+     {
+      "row": 2,
+      "col": 1,
+      "K": 1944,
+      "T": 244.72336055776276,
+      "F": 3382.047161264452,
+      "DTI": 0.10730872821189374
+     },
+     {
+      "row": 2,
+      "col": 2,
+      "K": 2665,
+      "T": 186.8520367915341,
+      "F": 2148.2485820558786,
+      "DTI": 0.07189326280418855
+     },
+     {
+      "row": 3,
+      "col": 1,
+      "K": 1023,
+      "T": 137.56617869337347,
+      "F": 1276.891876822063,
+      "DTI": 0.12491349003883083
+     },
+     {
+      "row": 3,
+      "col": 2,
+      "K": 11700,
+      "T": 755.8972893905327,
+      "F": 2755.424102183962,
+      "DTI": 0.07512198730653105
+     }
+    ],
+    "mean_block_DTI": 0.08759047290057732,
+    "min_block_DTI": 0.0,
+    "n_blocks_scored": 12
+   }
+  }
+ },
+ "holdout_note": "Proxy populations only. 'catalogue' is the given USGS/INGENIOUS catalogue, which the organiser masks out of scoring, so it rewards catalogue skill (IR-47-005). 'sgmc_offcatalogue' is state-geologic-map fault geometry >1.5 cells off the catalogue. Neither frame is the private expert label set.",
+ "artifact": {
+  "path": "docs/downloads/gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif",
+  "n_positive": 44838,
+  "filename": "gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif",
+  "audit": {
+   "meta": {
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "shape": [
+     3730,
+     3292
+    ],
+    "nodata": null,
+    "transform": [
+     100.0,
+     0.0,
+     243350.0,
+     0.0,
+     -100.0,
+     4508550.0
+    ]
+   },
+   "checks": {
+    "single_band": true,
+    "float32": true,
+    "crs_epsg32611": true,
+    "shape_3730x3292": true,
+    "transform_matches": true,
+    "all_finite": true,
+    "values_in_0_1": true,
+    "zero_outside_footprint": true,
+    "zero_on_catalogue": true,
+    "unique_values_within_0_1": true
+   },
+   "all_pass": true,
+   "n_positive": 44838,
+   "sha256": "4b06a5cc617d187000ec2cd9e682bb79b36df762f6d34c29b388385772b128f8"
+  },
+  "uniqueness": {
+   "n_compared": 13,
+   "exact_matches": 0,
+   "max_jaccard": 0.440003,
+   "rows": [
+    {
+     "file": "h33-2-b2-zeros.tif",
+     "n_pos": 37654,
+     "jaccard": 0.440003,
+     "equal_mass_exact": false
+    },
+    {
+     "file": "gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+     "n_pos": 44090,
+     "jaccard": 0.415735,
+     "equal_mass_exact": false
+    },
+    {
+     "file": "gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+     "n_pos": 60069,
+     "jaccard": 0.227183,
+     "equal_mass_exact": false
+    },
+    {
+     "file": "gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+     "n_pos": 61328,
+     "jaccard": 0.223886,
+     "equal_mass_exact": false
+    },
+    {
+     "file": "gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan.tif",
+     "n_pos": 121131,
+     "jaccard": 0.217746,
+     "equal_mass_exact": false
+    },
+    {
+     "file": "gems19-h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan.tif",
+     "n_pos": 123779,
+     "jaccard": 0.18524,
+     "equal_mass_exact": false
+    }
+   ]
+  }
+ },
+ "certificate_channel_used_for_selection": {
+  "name": "cross_conformal_all_returns|family_7",
+  "level": 0.46153846153846156,
+  "level_pct": 46.154,
+  "n_calibration": 12,
+  "conformal_rank_k": 6,
+  "quantile": 0.02907830864985861,
+  "m_candidates": 7,
+  "assumption": "Exchangeability of the calibration scores and the candidate's score. The calibration observations are previous submissions, several of them nested thinnings of one field, so this is an ASSUMPTION-CONDITIONAL bound on the public-test DTI of a probe raster - not a distribution-free guarantee for the private test set, the Final Prize Round label set, or a leaderboard rank.",
+  "m1_reference_level": 0.9230769230769231,
+  "m1_reference_quantile": -0.14026182885627853,
+  "split_half_family_level": 0.8571428571428572
+ },
+ "emission_source": "prior",
+ "selected_by": "the rank threshold is the detector's own confidence axis; the spacing is held at the family's measured-best 2.5 px",
+ "prediction_channel": "lati.BinnedSoftmax M2 extended with the candidate emissions as observations, so candidate predictions and calibration residuals share one estimator and one scale",
+ "promotion": {
+  "unique": false,
+  "beats_incumbent_both_holdout_frames": true,
+  "certified_floor_above_live_incumbent": false,
+  "shippable": false,
+  "reasons": [
+   "max equal-mass Jaccard 0.4400 > novelty bar 0.0457 (the field overlaps a prior submission)",
+   "certified floor 0.2150 < live incumbent 0.26"
+  ],
+  "note": "'shippable' means: unique against every prior artefact, ahead of the reported 0.2778 field on both blocked holdout frames, and certified above the live 0.2600 incumbent by the split-conformal floor. It is NOT a claim about the private expert label set."
+ }
+}

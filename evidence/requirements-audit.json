@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "reviewed_utc": "2026-10-06T21:50:43Z",
+  "candidate_status": "RESEARCH_ONLY_NOT_PROMOTED",
+  "slot_authorized": false,
+  "requirements": [
+    {
+      "id": "R01",
+      "requirement": "Unique prediction",
+      "status": "PASS_BOUNDED",
+      "evidence": "New independent profile inference; 561 comparisons/54 public inventories, 0 exact matches; global uniqueness not claimed."
+    },
+    {
+      "id": "R02",
+      "requirement": "Beginning/summary download",
+      "status": "PASS",
+      "evidence": "Actual new TIFF/ZIP above the large intro on both pages; independent ordering regression."
+    },
+    {
+      "id": "R03",
+      "requirement": "Range/grid contract",
+      "status": "LOCAL_PASS_PORTAL_UNKNOWN",
+      "evidence": "15 checks; finite raw [0,1], internal exact null mask, float32/one band/full grid. Historical rejection cause/portal acceptance unknown."
+    },
+    {
+      "id": "R04",
+      "requirement": "Unique name/short Note",
+      "status": "PASS",
+      "evidence": "Exporter-derived name and short research-only note; no projected score."
+    },
+    {
+      "id": "R05",
+      "requirement": "Clean organized Pages",
+      "status": "PASS_LOCAL",
+      "evidence": "12 current pages, source/evidence tables, responsive local assets, nested link/asset checks; actual preview download SHA verified."
+    },
+    {
+      "id": "R06",
+      "requirement": "Submission sequence",
+      "status": "PASS_WITH_CLOSED_GATE",
+      "evidence": "Official overview steps; ZIP conditional, eligibility/rules/receipts; current file explicitly must not upload."
+    },
+    {
+      "id": "R07",
+      "requirement": "Explain reported .2778",
+      "status": "PASS_WITH_ATTRIBUTION_LIMIT",
+      "evidence": "Pruning mechanism derived exactly; no authenticated file-score mapping or latent-mass claim."
+    },
+    {
+      "id": "R08",
+      "requirement": "Surpass .3195 / leader",
+      "status": "NOT_ACHIEVED",
+      "evidence": "No organizer score; C1 loses pooled control. No fake win or private floor."
+    },
+    {
+      "id": "R09",
+      "requirement": "3\u20135 hypotheses before implementation",
+      "status": "PASS",
+      "evidence": "Five ranked hypotheses, specific inputs/signatures/novelty/confounders/cost; frozen cc14ad8 before fit."
+    },
+    {
+      "id": "R10",
+      "requirement": "Spatial holdout before slot",
+      "status": "PASS_FAILED_GATE",
+      "evidence": "64/21/21/23 roles, training-label isolation, paired mass, 11/22 wins vs 15; no slot spent."
+    },
+    {
+      "id": "R11",
+      "requirement": "Conformal sweep and confidence",
+      "status": "PASS_SCOPED_ZERO_FLOOR",
+      "evidence": "Five settings, selection/calibration 21/21, rank20, nominal90%; all L=0; private/global/pooled target unsupported."
+    },
+    {
+      "id": "R12",
+      "requirement": "External-data feasibility",
+      "status": "VERIFIED_ARCHIVES_RAW_DEM_DEFERRED",
+      "evidence": "All 3 USGS/GDR official archives acquired and coverage verified on runner; raw 1m CSV/tiles not acquired. No probe vector trains C1."
+    },
+    {
+      "id": "R13",
+      "requirement": "Autonomous data/train/infer/validate",
+      "status": "PASS_MIRROR_RESEARCH",
+      "evidence": "23/23 digest+size verified, full fits/inference/scoring/export completed; no manual data placement."
+    },
+    {
+      "id": "R14",
+      "requirement": "Reusable official knowledge",
+      "status": "PASS_WITH_SOURCE_CLASSES",
+      "evidence": "Three current knowledge files; explicit official/owner/mirror/proxy distinctions and irregularities."
+    },
+    {
+      "id": "R15",
+      "requirement": "Automatic auditable feed",
+      "status": "PASS_PERMITTED_SCOPE",
+      "evidence": "Daily permitted-source Checks API feed with static fallback, compatible with existing legacy-root Pages mode; DD bot traffic disabled. No main push/admin setting change."
+    },
+    {
+      "id": "R16",
+      "requirement": "Save full prompt/read each session",
+      "status": "PARTIAL_AVAILABLE_BRIEF",
+      "evidence": "Structured standing brief + available score history/65 URLs retained in README; unavailable original verbatim chat not fabricated."
+    },
+    {
+      "id": "R17",
+      "requirement": "Three explicit reviews",
+      "status": "PASS_LOCAL",
+      "evidence": "Implementation/test; bug and assumption corrections; full brief, actual artifacts and source-policy audit."
+    },
+    {
+      "id": "R18",
+      "requirement": "PR then merge main",
+      "status": "PASS_PR12_MERGED",
+      "evidence": "PR12 merged 2026-10-06T22:08:36Z as 04d49a321b146e13fb2b6e718ea73dfb02534fbc after green branch CI; main CI and legacy root Pages deployment succeeded."
+    },
+    {
+      "id": "R19",
+      "requirement": "No copying previous outputs",
+      "status": "PASS",
+      "evidence": "No prior prediction/catalogue-distance feature; H33 used only for diagnostic comparison; default retired builders cannot overwrite release."
+    },
+    {
+      "id": "R20",
+      "requirement": "Maximize P(Win) / Own the Outcome",
+      "status": "PASS_DECISION",
+      "evidence": "Preserved slot, negative result, zero floor, original erroneous run and corrective provenance."
+    }
+  ]
+}

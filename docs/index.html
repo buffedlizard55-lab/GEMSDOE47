@@ -1,79 +1,10 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>GEMSDOE47 — evidence before upload</title>
-  <meta name="description" content="GEMSDOE47 evidence record: unique research-only GeoTIFF, split-conformal spacing audit, locked spatial test, and no-slot decision.">
-  <link rel="stylesheet" href="assets/site.css">
-</head>
-<body>
-<header class="top"><div class="wrap">
-  <h1>GEMSDOE47 <span class="badge b-bad">GATE CLOSED · NO SUBMISSION RECOMMENDED</span></h1>
-  <p class="sub">Geologic Enhanced Mapping System · DrivenData competition 306 · Nevada Great Basin · research record</p>
-  <nav aria-label="Main navigation">
-    <a class="on" href="index.html">Research home</a>
-    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
-    <a href="hypotheses.html">Hypotheses</a>
-    <a href="method.html">Method</a>
-    <a href="analysis.html">Results analysis</a>
-    <a href="evidence.html">Evidence</a>
-    <a href="irregularities.html">Irregularities</a>
-    <a href="sources.html">Sources</a>
-    <a href="submit.html">Future submission guide</a>
-    <a href="../README.md">README / standing brief</a>
-  </nav>
-</div></header>
-<main class="wrap">
-  <section class="dl" aria-labelledby="download-heading">
-    <p class="kicker">Unique research artifact · not a submission recommendation</p>
-    <h2 id="download-heading">Single-scale TMI-up150 edge control <span class="badge b-bad">RESEARCH ONLY — NOT FOR SUBMISSION</span></h2>
-    <p><strong>One-click download:</strong> this NaN-outside TIFF is a new prediction mask, not a renamed or copied prior artifact. Strict local validation passes only with an explicit binary footprint derived from finite cells in the mirrored sample template; the training-features-derived footprint disagrees, so the official footprint remains unresolved. It has bounded uniqueness evidence, but loses to H47-B and random control on a known-fault catalogue-mask proxy, not the missing-fault target. Its conformal lower bound is zero. <strong>Research only; do not upload or spend a slot.</strong></p>
-    <div class="btnrow">
-      <a class="btn" download href="downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif">⬇ Download unique research-only TIFF (.tif)</a>
-      <a class="btn ghost" href="executive-summary.html">Executive summary &amp; instructions →</a>
-    </div>
-    <div class="kv" style="margin-top:12px">
-      <div><b>Filename</b> gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif</div>
-      <div><b>SHA-256</b> dc71c807fbca2cd398f394bcd91b10ecec6b46fe89c2d61f5b1c058fef672811</div>
-      <div><b>Format</b> one-band float32 · EPSG:32611 · 3292 × 3730 · 100 m · 18,524 binary predictions · [0,1] inside; NaN nodata/outside · strict local pass with explicit sample-template mask only; feature mask differs and official footprint is unresolved</div>
-      <div><b>Split conformal</b> nominal 6/7 = 85.7% conditional on exchangeability; lower bound 0.000; spatial exchangeability unverified</div>
-      <div><b>Uniqueness scope</b> 0 exact matches among 334/334 sibling-site and 19/19 independent local prior TIFFs; max Jaccard 0.01290 remote, 0.02055 local; same-mask diagnostic encoding excluded; not global</div>
-      <div><b>Research note (reference only)</b> single-scale edge; d=5 px/500 m; catalogue-mask proxy conformal 6/7=85.7% nominal, lower floor 0.000 (exchangeability unverified); RESEARCH ONLY</div>
-    </div>
-  </section>
-
-  <h2>Current decision: preserve the slot</h2>
-  <table>
-    <thead><tr><th>Selected method (5 px / 500 m)</th><th>Locked proxy DTI<br><span class="small">known-fault mask</span></th><th>Decision</th></tr></thead>
-    <tbody>
-      <tr><td>H47-B cross-scale magnetic-edge persistence</td><td>0.02755344</td><td>Not promoted</td></tr>
-      <tr><td>Single-scale magnetic-edge control (download above)</td><td>0.02563947</td><td>Not promoted</td></tr>
-      <tr><td>Fixed-seed random control</td><td><strong>0.03715911</strong></td><td>Higher than both</td></tr>
-    </tbody>
-  </table>
-  <p>The controls fail the promotion gate. The public catalogue is incomplete; empty catalogue blocks are not interpreted as locations without faults. Read the <a href="analysis.html">full result analysis</a> and the <a href="../evidence/conformal_spacing_audit_20261006.json">machine-readable spacing audit</a>.</p>
-
-  <div class="callout warn">
-    <b>Conformal is conditional, not a leaderboard guarantee.</b> The calibration target is the known-fault catalogue-mask proxy, not missing-fault labels. Five blocks selected spacing, six separate blocks calibrated, and five were reserved for locked testing. Six calibration blocks yield a nominal one-sided marginal level 6/7 = 85.7% only under exchangeability. Two calibration cores have no mask pixels, spatial exchangeability is unverified, and the clipped lower bound is 0.000. This does not guarantee missing-fault coverage, private-label performance, score, or rank.
-  </div>
-
-  <h2>What is known about the public leaderboard</h2>
-  <p>A saved one-time snapshot from 2026-10-06 recorded rank 1 = 0.3774, DARD at rank 7 = 0.3195, and <code>extradr19</code> at rank 13 = 0.2778. The public board reports participant rows, not TIFF hashes or submission receipts. The alleged H33-2-B2 ↔ 0.2778 pairing is contested: its owner site labels the file unscored. We cannot verify why the H33 TIFF scored 0.2778—or that it did. The <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/" rel="noopener">official leaderboard</a> is the source of any current view; this repository does not mirror or poll it.</p>
-
-  <h2>Careful future submission path</h2>
-  <ol class="steps">
-    <li>Do not upload the research artifact. First produce a genuinely new detector that passes a preregistered spatial holdout and control gate.</li>
-    <li>Verify exact output bytes: one-band float32 GeoTIFF, EPSG:32611, 100 m, exact sample grid, [0,1], required nodata/outside-bounds convention, and a saved hash.</li>
-    <li>Compare against accessible prior TIFFs and report the search limits; uniqueness alone is not performance.</li>
-    <li>Review the current <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" rel="noopener">official description</a> and authorized participant portal immediately before acting. It states that one submission is selected across initial and final prize rounds; it does not establish unlimited uploads. Check current allowance and deadline.</li>
-    <li>Only after owner approval and promotion, upload the exact `.tif` manually, use an accurate name/note, and save the portal submission ID, file hash, timestamp, and returned score.</li>
-  </ol>
-  <p><b>Reported range-error status:</b> the rejected historical TIFF and organizer diagnostic are unavailable. NaN-containing files can fail naive local range checks, but that is only a plausible parser hazard—not a verified portal cause. The new NaN-outside file passes strict local validation against an explicit sample-template-derived mask; the features-derived footprint differs. Official footprint provenance and organizer acceptance remain unresolved.</p>
-
-  <h2>Research links</h2>
-  <p><a href="hypotheses.html">Ranked geological hypotheses</a> · <a href="method.html">LATI method and assumptions</a> · <a href="evidence.html">Evidence ledger</a> · <a href="sources.html">Official and public data sources</a> · <a href="irregularities.html">Irregularity register</a> · <a href="../README.md">Standing brief and full project record</a></p>
-  <p class="small">The official competition description states one final submission is selected for scoring across rounds. The <a href="https://www.drivendata.org/termsofuse/" rel="noopener">Terms of Use</a> restrict automated monitoring and require prior written consent for manual leaderboard monitoring/copying. No feed is implemented here.</p>
-</main>
-<footer><div class="wrap">GEMSDOE47 · research only · no organizer score or receipt is recorded · <a href="../README.md">README / standing brief</a></div></footer>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fault mapping, evidence first · GEMSDOE47</title><meta name="description" content="A genuinely new H47-C1 GeoTIFF, strict range/mask checks, blocked validation and honest zero conformal floor.">
+<meta name="theme-color" content="#173d38"><link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body data-site-version="h47c" data-base=""><a class="skip" href="#main">Skip to evidence</a>
+<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+<nav aria-label="Main navigation"><a href="executive-summary.html" aria-current="false">Summary</a><a href="hypotheses.html" aria-current="false">Hypotheses</a><a href="evidence.html" aria-current="false">Evidence</a><a href="sources.html" aria-current="false">Sources &amp; feed</a><a href="submit.html" aria-current="false">Submission guide</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>Research-only · NOT PROMOTED</strong><span>No slot authorized. Do not upload this run.</span></div>
+<main id="main"><div class="download-panel"><div><span class="eyebrow">Newly inferred · 152,396 bytes</span><h2>One file. Full official grid.</h2><p>Not a renamed prior submission. New H47-C1 inference; <strong>research-only, not for submission</strong>.</p></div><div class="actions"><a href="downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif" class="button primary" download="">↓ Download GeoTIFF</a><a href="downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.zip" class="button secondary" download="">Single-TIFF ZIP</a><a href="data/current-submission.json" class="text-link">Validation receipt</a></div><p class="filename">gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif</p><p class="export-confidence">Spacing 2.8 px / 280 m · nominal 90% marginal block band · floor 0.0000 · NOT private/global</p><p class="hash">SHA-256 <code>e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0</code></p></div><section class="hero"><div><span class="eyebrow">Geologic Enhanced Mapping System · competition 306</span><h1>New predictions.<br>Evidence before a slot.</h1><p class="lede">A geological hypothesis becomes useful only when it survives the controls. The new odd-step versus channel detector is complete, independently packaged, and honestly <em>not promoted</em>.</p></div><figure class="map-card"><img src="assets/prediction-preview.png" alt="Actual north-up GeoDAWN grid: known catalogue traces in blue and newly inferred research dots in orange." width="823" height="933"><figcaption>Actual output preview · north up · EPSG:32611<br><span class="legend blue"></span>public catalogue <span class="legend orange"></span>new research dots<br>4× downsampling; not confirmed new faults.</figcaption></figure></section><div class="stats"><div><strong>37,654</strong><span>new unit-dot predictions</span></div><div><strong>0.177872</strong><span>local public-catalogue DTI</span></div><div><strong>0.0000</strong><span>90% marginal proxy floor</span></div><div><strong>0</strong><span>competition slots spent</span></div></div><div class="notice"><strong>DO NOT UPLOAD · no slot</strong><p>The locked holdout gate failed: pooled DTI 0.177872 is below the frozen baseline’s 0.180216; only 11/22 truth-bearing blocks improve (required 15). The lower floor is zero. Local format validity is not scientific promotion or organizer acceptance.</p></div><div class="confidence"><strong>Selected spacing 2.8 px / 280 m · nominal 90% marginal block band · lower floor 0.0000</strong><p>Selection/calibration: 21/21 disjoint-role blocks, not adaptive leaderboard scores. Simultaneous over five spacings; rank 20/21. Exchangeability is assumed and unverified. <strong>No private-score, pooled-map, geographic-conditional or global-artifact guarantee.</strong></p></div><section><div class="section-head"><span class="eyebrow">The actual result</span><h2>Better than random. Not better than the control.</h2></div><div class="table-scroll"><table><thead><tr><th scope="col">Locked test comparison</th><th scope="col">Pooled DTI</th><th scope="col">Mean block DTI</th><th scope="col">Spacing</th></tr></thead><tbody><tr><td>H47-C1 profile detector</td><td><strong>0.177872</strong></td><td>0.177038</td><td>2.8 px</td></tr><tr><td>Ordinary-terrain + raw-band baseline</td><td><strong>0.180216</strong></td><td>0.176051</td><td>3.6 px</td></tr><tr><td>Fixed-seed spaced random</td><td>0.070924</td><td>0.060701</td><td>2.8 px</td></tr></tbody></table></div><p>The slight mean-block gain does not rescue the pooled loss. Selection and promotion rules were fixed before test interpretation. No leaderboard score is claimed for this TIFF.</p><a href="executive-summary.html" class="text-link">Read the executive summary →</a></section><section class="two-col"><article><span class="eyebrow">What is genuinely new</span><h2>Scarp shape, not just an edge.</h2><p>Remove affine terrain slope from cross-profiles; compare an odd step template with an even channel/ridge template. Add along-strike consistency and gravity-normal agreement to raw features. No prior submission field or catalogue-distance feature constructs the candidate.</p><a href="hypotheses.html" >Five preregistered hypotheses →</a></article><article><span class="eyebrow">What was checked</span><h2>15 / 15 local format checks.</h2><p>One float32 data band. Raw samples are finite in [0,1]; an internal TIFF validity mask marks exactly the template’s outside-footprint pixels as null. CRS, 100 m resolution, dimensions, bounds and affine transform match. No .msk sidecar.</p><a href="submit.html" >Range-error defense &amp; submission guide →</a></article></section><section><h2>A genuinely different prediction, with a bounded audit.</h2><p><strong>Bounded uniqueness:</strong> 561 prior-raster comparisons across 54 public repository inventories, plus local history; zero exact positive-mask or in-footprint value matches. Maximum mask Jaccard 0.0406. Excluded inventory objects are listed with their actual reasons in the audit (including wrong-grid/multiband or non-single-TIFF archives). Standalone H33 TIFFs were compared. Unpublished/inaccessible outputs are not covered; this is not global uniqueness or proof of geological discovery.</p><a href="data/profile-uniqueness.json" >Every comparison, source commit and blob hash →</a></section><section class="feed-card"><span class="eyebrow">Automatic source feed</span><h2>Official facts and dated observations stay separate.</h2><p id="feed-status">Last official board read: 6 October 2026. Permitted-source refresh status loads from JSON; DrivenData queries are disabled without written permission.</p><p>Saved leader <strong class="live-top-score">0.3774</strong> · user target <strong>0.3195</strong> · this TIFF <strong>UNSCORED</strong>.</p><a href="sources.html" >Open sources, hashes and availability →</a> · <a href="data/source-feed.json" >Download the deployed feed JSON</a></section><section class="session-history"><h2>Preserved concurrent research</h2><p><a href="session3.html">Session 3 scarp persistence</a> · <a href="research.html">H48 curvature consensus</a> · <a href="h47b-mask-audit-20261006.html">H47-B footprint audit (historical)</a> · <a href="all-downloads.html">All historical research files</a>. Different proxy frames; no cross-task/private guarantee. Every submission slot gate remains closed.</p></section></main><footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="irregularities.html" >Limitations &amp; corrections</a><br><a href="method.html" >Reproduce this screen</a> · <a href="leaderboard.html" >Dated public board</a><br>Reviewed 6 October 2026 · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" >Official competition 306 ↗</a></div></footer></body></html>

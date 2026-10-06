@@ -1,6 +1,6 @@
 # H47-B public-catalogue screen — 2026-10-06
 
-> **Decision: NOT PROMOTED. No submission slot is recommended.** The artifact linked on the site is provided solely for research review and is explicitly named `research-not-submittable`. A valid GeoTIFF profile does not rescue the failed holdout/control gate.
+> **Decision: NOT PROMOTED. No submission slot is recommended.** This document describes the earlier H47-B cross-scale experiment, not the later single-scale control. The cross-scale TIFF is retained under `docs/downloads/superseded/`; the single-scale artifact, its footprint-mask discrepancy and exact format audit are documented separately in the [H47-B mask audit](h47b-mask-audit-20261006.html). A valid GeoTIFF profile does not rescue the failed holdout/control gate.
 
 ## Executive result
 
@@ -50,7 +50,7 @@ The resulting quantile is `0.04860422299678556` and the clipped lower bound is *
 
 ## File audit and accessible-artifact comparison
 
-The research TIFF is [`downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif`](downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif), SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`.
+The research TIFF is [`downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif`](downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif), SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`.
 
 - One-band float32; 3292 × 3730; EPSG:32611; 100 m pixels.
 - GDAL-order transform `(243350, 100, 0, 4508550, 0, -100)`.

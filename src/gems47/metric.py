@@ -248,9 +248,11 @@ def marginal_gain(dT: float, dF: float, dti: float, alpha: float = ALPHA) -> flo
                  <=>  dT * (1/DTI - alpha) > alpha * dF                      (*)
     For the common case dT = k, dF = 1 - k this reduces to  k > alpha * DTI.
     """
-    if dti <= 0:
-        return float(dT - alpha * dF)
-    return float(dT * (1.0 / dti - alpha) - alpha * dF)
+    if not all(np.isfinite(x) for x in (dT, dF, dti, alpha)) or not 0 <= dti <= 1:
+        raise ValueError("marginal components and DTI must be finite; DTI in [0,1]")
+    # Multiply (*) by DTI to avoid a singularity at zero. Any positive credit
+    # improves a zero score, regardless of the finite false-positive increment.
+    return float(dT * (1.0 - alpha * dti) - alpha * dti * dF)
 
 
 def accept(dT: float, dF: float, dti: float, alpha: float = ALPHA) -> bool:

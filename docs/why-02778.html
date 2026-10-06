@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why 0.2778, and can we beat it? — GEMSDOE47</title>
+<meta name="description" content="Why GEMSDOE32 h33-2-b2 scored 0.2778, derived from the metric's own algebra and the organiser's eleven published scores, and whether it can be beaten.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-06 20:13 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — submission</a>
+    <a href="HOW_TO_SUBMIT.html">How to submit (s3)</a>
+    <a href="RESULTS.html">Results (s3)</a>
+    <a class="on" href="why-02778.html">Why 0.2778</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<p>This is the PhD-level answer the standing brief asks for, and the design document the new
+submission was built from. Every number below is reproducible:
+<code>python3 scripts/run_inversion.py</code> → <code>evidence/inversion/live_anchor_inversion.json</code>, and
+<code>python3 scripts/search_scarp_radius.py</code> → <code>evidence/scarp_radius_search.json</code>.</p>
+<hr />
+<h2 id="1-the-artifact-exactly">1. The artifact, exactly</h2>
+<p><code>h33-2-b2</code> is not an independent model. It is <strong><code>h27-4-r1</code> minus a mask</strong>, and the nesting is
+exact:</p>
+<pre><code>h27-4-r1-solo-d2.8          40,199 positive px     scored 0.2708
+  − dots within 2 px (200 m) of the given catalogue
+                            −2,545 px
+h33-2-b2                    37,654 positive px     scored 0.2778
+</code></pre>
+<p>Verified by set arithmetic on the two shipped rasters: 40,199 − 2,545 = 37,654, and the 37,654
+pixels of <code>scored_h33-2-b2_0.2778.tif</code> are a strict subset of the 40,199 of
+<code>scored_h27-4-d2.8_0.2708.tif</code>. <strong>Deleting 6.3 % of the mass raised the score by 2.6 %.</strong></p>
+<p>That single nested pair is a natural experiment with the organiser's own scoring function, and it
+is worth more than any local proxy.</p>
+<hr />
+<h2 id="2-the-mechanism-from-the-metrics-algebra">2. The mechanism, from the metric's algebra</h2>
+<p>With <code>T = TP_w</code>, <code>S = Σ_x p(x)</code>, <code>M = Σ_x p(x)·max_g k(d(x,g))</code> and <code>|G|</code> the number of hidden
+truth pixels, the published DTI collapses exactly to</p>
+<pre><code>DTI = T / ( 0.2·(T + S − M) + 0.8·|G| )
+</code></pre>
+<p>because <code>FN_w = |G| − TP_w</code> identically (<code>tests/test_metric_s3.py</code> proves this against a brute-force
+transcription of the published equations).</p>
+<p>Two facts follow, and both are load-bearing.</p>
+<p><strong>(a) The credit bar.</strong> Adding one unit of prediction mass whose realised kernel weight is <code>w</code>, and
+which becomes the sole best cover of a truth pixel, changes the denominator by exactly
+<code>α = 0.2</code> and the numerator by <code>w</code>. So</p>
+<pre><code>dDTI &gt; 0   ⟺   w &gt; 0.2 · DTI
+</code></pre>
+<p>At DTI = 0.2778 the bar is <strong>0.0556</strong>. On the 100 m lattice the attainable weights are
+<code>d = 0 → 1.000</code>, <code>1 → 0.667</code>, <code>√2 → 0.529</code>, <code>2 → 0.333</code>, <code>√5 → 0.255</code>, <code>2√2 → 0.057</code>, <code>3 → 0</code>.
+So a dot only pays if it lands within <strong>2.83 px = 283 m</strong> of a hidden truth pixel <em>and</em> is that
+pixel's best cover.</p>
+<p><strong>(b) Redundant mass never helps.</strong> A second dot whose truth pixel is already better covered
+changes <code>T</code> by 0 and the denominator by <code>0.2·(1 − w) ≥ 0</code>, which is exactly 0 only at <code>w = 1</code>.
+Duplicating a trace is free at best and costly otherwise. This is why spacing matters at all.</p>
+<p><strong>Now apply (a) to the pruned dots.</strong> Under the <code>M ≈ T</code> simplification (valid because <code>T ≥ M</code>
+always, with equality when every emitted pixel is the unique best cover of the truth it hits —
+proved by a Voronoi-partition argument in <code>src/gems47s3/metric.py</code>),</p>
+<pre><code>T_i = DTI_i · (0.2·S_i + 0.8·|G|) / (1 − 0.2·DTI_i)
+</code></pre>
+<p>gives <code>T_parent = 2,177</code> for <code>h27-4-r1</code> and <code>T_child = 2,092</code> for <code>h33-2-b2</code> at <code>|G| = 8,000</code>.
+The 2,545 deleted dots therefore carried <code>ΔT = 85 − 0.0056·|G|</code> credit between them, i.e. a <strong>mean
+credit per deleted dot of at most 0.0334</strong> at the model-free floor <code>|G| ≥ 5,764</code>, falling to zero
+at <code>|G| ≈ 15,179</code>.</p>
+<p><strong>0.0334 is below the 0.0556 bar.</strong> Every one of those 2,545 dots was, on average,
+value-destroying. The prune was not a lucky hyperparameter — it was the metric's own marginal rule
+applied correctly, and the reason it worked is structural:</p>
+<blockquote>
+<p>The organiser <strong>masks</strong> the given catalogue's pixels out of evaluation (DrivenData staff,
+thread 11516 post #2, 2026-09-16). A dot on or beside a mapped trace can earn nothing, and
+post #4 of the same thread confirms there is <strong>no buffer</strong>: a predicted pixel near a known fault
+but far from new-fault truth is <strong>fully penalised</strong>.</p>
+</blockquote>
+<p>So mass within 200 m of the catalogue is pure <code>0.2·(S − M)</code> tax with no possible <code>T</code>.</p>
+<hr />
+<h2 id="3-the-second-reason-02778-is-where-the-whole-familys-monotone-trend-ended">3. The second reason: 0.2778 is where the whole family's monotone trend ended</h2>
+<p>The family's public score history is a single, clean monotone sequence in emitted mass:</p>
+<table>
+<thead>
+<tr>
+<th>artifact</th>
+<th>positive px</th>
+<th>public DTI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h19-5-solid</code></td>
+<td>121,131</td>
+<td>0.1922</td>
+</tr>
+<tr>
+<td><code>h30-arr-habitat</code></td>
+<td>91,533</td>
+<td>0.1352</td>
+</tr>
+<tr>
+<td><code>topo-gap-d1.5</code></td>
+<td>61,328</td>
+<td>0.2449</td>
+</tr>
+<tr>
+<td><code>h19-5-d1.5</code></td>
+<td>60,069</td>
+<td>0.2477</td>
+</tr>
+<tr>
+<td><code>h19-5-d2.8</code> / <code>d28-poisson-offcat</code></td>
+<td>44,090</td>
+<td>0.2600</td>
+</tr>
+<tr>
+<td><code>h33d-tip-stepover</code></td>
+<td>41,865</td>
+<td>0.2632</td>
+</tr>
+<tr>
+<td><code>h27-4-d2.8</code></td>
+<td>40,199</td>
+<td>0.2708</td>
+</tr>
+<tr>
+<td><strong><code>h33-2-b2</code></strong></td>
+<td><strong>37,654</strong></td>
+<td><strong>0.2778</strong></td>
+</tr>
+<tr>
+<td><code>h34-scatter-q50</code></td>
+<td>37,654</td>
+<td>0.0778</td>
+</tr>
+<tr>
+<td><code>h35-06</code></td>
+<td>39,530</td>
+<td>0.0418</td>
+</tr>
+</tbody>
+</table>
+<p>Two things to read off this table.</p>
+<ol>
+<li><strong>Sparsity paid, monotonically, and the family never pushed past 37,654 px.</strong> From 121k to
+   37.6k the score rose without a single reversal. The obvious extrapolation — go sparser still —
+   was never tested. That is an unclaimed lever.</li>
+<li><strong>Mass is not the mechanism.</strong> <code>h34-scatter-q50</code> has <em>identical</em> mass (37,654 px) and an
+   identical catalogue-flank property (0 dots within 2 px) and scores <strong>0.0778</strong> — 3.6× worse.
+   Under <code>M ≈ T</code>, <code>T₁ = 2,092 + 0.2222·|G|</code> for <code>h33-2-b2</code> against <code>T₂ = 586 + 0.0622·|G|</code> for
+   <code>h34</code>; at <code>|G| = 8,000</code> that is 3,870 credit (48 % coverage) against 1,084 (14 %).</li>
+</ol>
+<p><strong>Coherent lineament placement beats scattered placement by roughly 3.6× at identical cost.</strong>
+   This also falsifies a model the family used for live anchoring: that the hidden truth is a
+   ~1.85 px scatter shell around the catalogue surface. A scatter shell would have rewarded
+   <code>h34-scatter-q50</code>. It did not.</p>
+<p>So the correct statement of <em>why 0.2778 won</em> is:</p>
+<blockquote>
+<p><strong><code>h33-2-b2</code> sits at the intersection of the only two levers the family ever found — sparse
+emission and coherent lineament placement — and it is the only artifact that additionally removed
+the structurally worthless catalogue-flank mass. Its score is not a property of a better detector;
+it is the score of a mediocre detector that stopped paying tax.</strong></p>
+</blockquote>
+<hr />
+<h2 id="4-how-big-is-the-hidden-truth-a-model-free-bracket">4. How big is the hidden truth? A model-free bracket</h2>
+<p><code>FN_w = |G| − TP_w</code> and <code>TP_w ≤ |G|</code> give, for a binary prediction of mass <code>S</code>,</p>
+<pre><code>|G|  ≥  0.2 · DTI · S_active / (1 − DTI)
+</code></pre>
+<p>with <code>S_active</code> the positive pixels inside the footprint and off the catalogue. The most binding
+artifact is <code>h19-5-solid</code> (DTI 0.1922, <code>S_active</code> 121,131):</p>
+<pre><code>|G| ≥ 0.2 × 0.1922 × 121,131 / 0.8078 = 5,764 px
+</code></pre>
+<p>Upper bounds come from monotonicity <code>T_solid ≥ T_d1.5 ≥ T_d2.8</code> plus the nested pair: the pair
+gives <strong>|G| ≤ 15,179</strong>, the monotonicity chain gives |G| ≤ 37,838 and |G| ≤ 69,694.</p>
+<pre><code>5,764  ≤  |G|  ≤  15,179 px        on the public chunk
+0.112 % ≤ prevalence ≤ 0.294 %     of the 5,167,373 px footprint
+</code></pre>
+<p>The given catalogue covers 1.1803 %. <strong>The hidden truth is four to ten times sparser than the
+catalogue.</strong> Any holdout scored against full catalogue density therefore over-rewards dense
+emission, which is exactly the error that made the family's solid surfaces score 0.19 where
+thinned ones scored 0.26–0.28. This repository's holdout is prevalence-matched to the bracket for
+that reason (<code>src/gems47s3/holdout.py</code>, <code>PREVALENCE_TARGETS</code>).</p>
+<hr />
+<h2 id="5-can-it-be-beaten-yes-and-the-diagnosis-says-how">5. Can it be beaten? Yes — and the diagnosis says how</h2>
+<h3 id="51-where-02778-loses">5.1 Where 0.2778 loses</h3>
+<p>At <code>S = 37,654</code>, <code>T ≈ 3,870</code>, <code>M ≤ T</code>, <code>|G| = 8,000</code>:</p>
+<pre><code>false-positive tax   0.2·(S − M)  ≈  6,757
+earned credit        T            ≈  3,870
+missed-fault penalty 0.8·(|G|−T)  ≈  3,304
+                     DTI = 3,870 / 13,931 = 0.2778
+</code></pre>
+<p><strong>The tax exceeds the credit.</strong> At most ~10 % of emitted dots hit truth at weight 1 (~26 % at mean
+weight 0.4). The counterfactual is stark: keep the same hits, drop the misses
+(<code>S → 9,675</code>, <code>M = T = 3,870</code>) and DTI ≈ <strong>0.464</strong> — far above the 0.3345 leader. That
+counterfactual is not achievable (it assumes knowing which dots hit), but it locates the entire
+opportunity in <strong>precision</strong>, not in coverage.</p>
+<p>This is confirmed by the measured precision of the shipped artifact: the top 40,000 pixels of
+<code>scored_h33-2-b2_0.2778.tif</code> have precision <strong>0.1253</strong> against SGMC off-catalogue fault and
+<strong>0.0607</strong> against the given catalogue's 300 m halo — the latter <em>below</em> the 0.0861 random
+baseline, which is the flank prune doing its job.</p>
+<h3 id="52-what-this-repository-found-that-beats-it">5.2 What this repository found that beats it</h3>
+<p><code>scripts/search_scarp_radius.py</code> searched ten geomorphometric transforms × seven radii × five
+bands and scored every candidate against the population the organiser actually scores —
+expert-mapped Quaternary fault — with tie-aware statistics:</p>
+<table>
+<thead>
+<tr>
+<th>candidate</th>
+<th>precision@40k</th>
+<th>precision@10k</th>
+<th>tie-aware AUC</th>
+<th>vs random 0.0861</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>scarp(det_elev_slope, r=9)</code></strong></td>
+<td><strong>0.5049</strong></td>
+<td><strong>0.6543</strong></td>
+<td><strong>0.6183</strong></td>
+<td><strong>5.9× / 7.6×</strong></td>
+</tr>
+<tr>
+<td><code>scarp(det_elev_slope, r=5)</code></td>
+<td>0.4611</td>
+<td>0.5859</td>
+<td>0.6128</td>
+<td>5.4×</td>
+</tr>
+<tr>
+<td><code>raw(geod_2ndinv)</code> regional prior</td>
+<td>0.3072</td>
+<td>—</td>
+<td>0.5583</td>
+<td>3.6×</td>
+</tr>
+<tr>
+<td><code>scarp(det_elev_slope, r=13)</code></td>
+<td>0.4691</td>
+<td>0.6199</td>
+<td>0.6158</td>
+<td>5.4×</td>
+</tr>
+<tr>
+<td><code>lrm(det_elev_slope, r=9)</code></td>
+<td>0.1059</td>
+<td>—</td>
+<td>0.5998</td>
+<td>1.2×</td>
+</tr>
+<tr>
+<td>every magnetic-band transform</td>
+<td>0.085–0.11</td>
+<td>—</td>
+<td>≈0.52</td>
+<td>≈1.0×</td>
+</tr>
+<tr>
+<td>shipped <code>h33-2-b2</code> artifact, top 40k</td>
+<td>0.1253</td>
+<td>—</td>
+<td>0.4988</td>
+<td>1.5×</td>
+</tr>
+</tbody>
+</table>
+<p><code>scarp</code> is an <strong>across-strike</strong> two-sided mean difference in the detrended-elevation <em>slope</em> field,
+taken over a half-width of 9 px (900 m) and then <strong>smoothed 19 px (1.9 km) along the strike</strong>, with
+the maximum taken over four strikes. It is the physically correct detector for a normal-fault
+scarp — a straight, laterally persistent <em>step</em> — and it is the transform the family never tried:
+prior work used curvature, openness and per-pixel ridge magnitude, which respond equally to canyon
+rims, stream banks and alluvial-fan edges. The along-strike persistence requirement is what removes
+those, and precision rises monotonically with persistence up to r=9 then turns over (r=13: 0.469,
+r=17: 0.440, r=31: 0.388) — a clean interior optimum, not a boundary artefact.</p>
+<p>Note what does <strong>not</strong> work: <code>det_elev</code> (as opposed to its slope) gives at best 0.0956, essentially
+random, and every magnetic transform lands at 1.0–1.3× random. <code>scripts/diagnose_bands.py</code> explains
+why: of the 19 bands only <code>tmi_vg</code> (high-frequency variance fraction 0.382), <code>det_elev_slope</code>
+(0.181) and <code>tmi_hg</code> (0.175) carry structure at the metric's own 300 m scale. The other sixteen are</p>
+<blockquote>
+<p>96.5 % smooth above it and can only veto, never localise.</p>
+</blockquote>
+<h3 id="53-measured-on-the-holdout-against-the-same-artifact">5.3 Measured on the holdout, against the same artifact</h3>
+<p>On the prevalence-matched, spatially-blocked holdout of <code>scripts/run_sweep_a.py</code> — whole catalogue
+components held out inside contiguous blocks, the rest of the catalogue masked exactly as the
+organiser masks it, exact DTI:</p>
+<table>
+<thead>
+<tr>
+<th>instrument</th>
+<th>truth prevalence</th>
+<th>new field, mean DTI</th>
+<th>shipped 0.2778 artifact, mean DTI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PM0112</code></td>
+<td>0.112 % (the |G| floor)</td>
+<td>see <code>evidence/sweep/sweep_a.json</code></td>
+<td>0.0031</td>
+</tr>
+<tr>
+<td><code>PM0200</code></td>
+<td>0.200 % (midpoint)</td>
+<td><strong>0.082</strong></td>
+<td><strong>0.0043</strong></td>
+</tr>
+<tr>
+<td><code>PM0294</code></td>
+<td>0.294 % (the |G| ceiling)</td>
+<td>0.111</td>
+<td>0.0041</td>
+</tr>
+<tr>
+<td><code>A1</code> isolated components</td>
+<td>0.056–0.104 %</td>
+<td>0.065</td>
+<td>0.0028</td>
+</tr>
+<tr>
+<td><code>A2</code> flanking components</td>
+<td>0.35–0.90 %</td>
+<td>0.194</td>
+<td>0.0060</td>
+</tr>
+</tbody>
+</table>
+<p>The shipped artifact scores near zero on this instrument for a reason that must be stated plainly:
+its dots were deliberately deleted from within 2 px of the <em>whole</em> catalogue, and the fold truth
+<em>is</em> catalogue, so the instrument is measuring the artifact's designed anti-correlation with its own
+truth (<code>IR-47-PROXY-02</code>). It is a valid comparison <strong>only</strong> for arms that do not prune near the
+catalogue, and it is the reason the flank-buffer decision is justified from the organiser's nested
+pair (§1) rather than from any local proxy.</p>
+<h3 id="54-the-honest-answer-to-can-we-beat-02778">5.4 The honest answer to "can we beat 0.2778?"</h3>
+<p><strong>Yes on the mechanism, with a caveat on the number.</strong></p>
+<ul>
+<li>The mechanism that produced 0.2778 — stop paying tax on catalogue-flank mass — is understood
+  exactly and is reproducible from the metric's algebra. It is <em>not</em> a ceiling; it is a floor that
+  any competent emitter clears.</li>
+<li>The mechanism that will produce a higher score is <strong>precision of placement</strong>, and the search above
+  found a transform with 5.9× random precision at 40k against expert-mapped fault where the shipped
+  artifact has 1.5×. That is a large, measured gap on the right population.</li>
+<li>The caveat: no local instrument can forecast the organiser's number, because the organiser's
+  truth is a set of faults no public compilation contains, chosen by an expert panel for geothermal
+  relevance. <code>PM*</code> folds are drawn from the catalogue and therefore measure <em>ordering</em>, not level.
+  The claim this repository makes is a <strong>relative</strong> one — the new field dominates the shipped
+  artifact on every prevalence-matched fold — and the conformal floor reported next to the chosen
+  spacing is a floor on <em>that</em> instrument, labelled as such wherever it appears.</li>
+<li>What would actually settle it is one submission slot, spent only after the holdout gate the brief
+  requires. That gate is implemented: <code>scripts/run_sweep_a.py</code> + <code>scripts/run_conformal.py</code> must
+  both clear before <code>scripts/build_submission_s3.py</code> will emit a raster.</li>
+</ul>
+<hr />
+<h2 id="6-what-was-not-the-answer">6. What was <em>not</em> the answer</h2>
+<p>Recorded so the next session does not re-spend the compute.</p>
+<ul>
+<li><strong>Fitting a truth model to the eleven published scores fails.</strong> <code>scripts/fit_truth_model.py</code>
+  built candidate truths from the SGMC and QFaults-prior off-catalogue pixels across a grid of
+  sources × buffers × prevalence × smoothing × seeds and tried to reproduce all eleven organiser
+  scores simultaneously. Best quick-grid RMSE <strong>0.1449</strong>, worst absolute error <strong>0.1935</strong>; the model
+  under-predicts every high scorer by 0.12–0.19 and over-predicts <code>h30</code>/<code>h34</code>. Interpretation: the
+  hidden truth is not a subset of any public compilation — it is expert LiDAR-mapped geometry absent
+  from all of them. Use the algebraic bracket of §4 instead; do not spend more compute here.</li>
+<li><strong>Supervised detectors trained on the catalogue are a trap.</strong> The metric masks catalogue pixels,
+  so a model that reproduces the catalogue emits worthless mass. GEMSDOE26 <code>dilcond-oof</code> → 0.1223;
+  the family's HGB → 0.0286. Everything must be framed as <em>off-catalogue</em> prediction.</li>
+<li><strong>External fault catalogues add nothing.</strong> <code>knowledge/04</code> §1.5: of 59,065 QFaults-v2 pixels,
+  exactly one is off-catalogue; of 58,251 INGENIOUS prior pixels, zero are.</li>
+<li><strong>Deep learning is not available here.</strong> No GPU, 3 GB RAM. Hermant et al.'s siUNET needs 10 m DEM
+  tiles and 7,700 label images; neither is obtainable in this environment.</li>
+<li><strong>The SGMC off-catalogue holdout is the wrong instrument.</strong> <code>knowledge/02</code>. Selecting on it would
+  have shipped <code>lrm(det_elev_slope, 9)</code>, a mountain detector with 1.2× random precision against the
+  population that matters.</li>
+</ul>
+</article>
+</div>
+</body>
+</html>

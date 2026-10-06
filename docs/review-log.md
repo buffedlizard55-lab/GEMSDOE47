@@ -1,69 +1,82 @@
-# Review log and correction history
+# Three-pass review and correction history
 
-All dates are UTC. This log preserves the audit trail; a historical claim shown in a correction block is not current evidence.
+## C1 pass 1 — complete implementation and verify
 
-## Superseding correction — 2026-10-06
+- Five geological hypotheses ranked/preregistered before implementation; protocol and first tested screen
+  committed at cc14ad84fbace93bdd0c2a7bc8b520170e082bb3 before fitting/scoring.
+- All 23 pinned mirrors restored and verified; exact grid checks; three fixed HGB controls/features;
+  training-only labels, deterministic guarded roles, same mass and all five spacings.
+- Synthetic step/channel/slope, label-isolation, rational-rank, sparse-DTI and empty-truth tests executed.
+- Full fit/inference/selection/calibration/test completed. No competition upload.
 
-An earlier project addendum incorrectly recommended the historical d-cat/annulus TIFF using a modeled score of 0.34912 and a claimed 0.34837 “75% conformal floor.” It treated three selected rungs from a monotone deletion family as exchangeable calibration examples and relied on unauthenticated participant-score-to-file mappings, including the alleged 0.2778 H33-2-B2 association. **Those performance and guarantee claims are withdrawn.** The TIFF is a delete-only subset of a published sibling network, not an independent detector. It is retained for historical review only and must not be uploaded.
+## C1 pass 2 — audit bugs, assumptions, edge cases; fix
 
-An earlier in-repository leaderboard copy recorded 0.3345 as rank 1 and DARD at rank 5. The latest saved one-time observation in this session records rank 1 at 0.3774 (name not retained), DARD at 0.3195/#7, and `extradr19` at 0.2778/#13. No participant row authenticates a TIFF filename or hash. No automated leaderboard monitor is implemented.
+- Found spacing-loop overwrite: pre-test lock 2.8px versus final erroneous 5.8px. Preserved and retracted
+  first run; committed correction 7aa938e before rerun; asserted lock/selection again in exporter.
+  Every trained field and full spacing history is byte-identical. No model/feature/seed/split/grid tuning.
+- Corrected empty-truth EDT phantom credit, tensor half-angle/XY geometry, zero-DTI marginal rule,
+  portable crossfit reference, skipped-large verification, failure receipts and legacy data paths.
+- Strict interior input rejection before float32; atomic no-overwrite TIFF; one self-contained mask;
+  actual serialized reopen and deterministic one-TIFF ZIP. Original range cause/portal acceptance unknown.
+- Retired LATI builders require explicit educational opt-in, write ignored cache, never delete or replace
+  the current public download. Fitted hidden mass and universal-ceiling claims withdrawn.
+- Reviewed all-score/fold coverage: zero calibration results retained; all floors zero; 11/22 wins;
+  candidate pooled loses to ordinary terrain. Slight mean gain is not cherry-picked into promotion.
 
-## Initial H47-B implementation review — 2026-10-06
+## C1 pass 3 — original brief, scientific scope, release, CI
 
-### Pass 1 — implement and verify
+- New research TIFF/ZIP, actual pixel/hash/grid/mask/range checks and 561 bounded historical comparisons.
+  No exact match, max Jaccard .0406165, 54 public inventories; 3 non-comparable objects explained.
+- Downloads precede the large introduction on both home and summary; confidence/floor adjacent to spacing.
+  Root/deployed/nested HTML, local assets and JSON receipts checked inside docs-only Pages artifact.
+  Archived pages get a warning and repaired links, not current recommendations.
+- CI now collects all new function tests, excludes only explicitly data-dependent grid tests, and reopens
+  the actual new TIFF. Initial expanded-CI data-path failure was reproduced/fixed; later Tests workflow green.
+- Source feed failures preserve last observation. DrivenData Terms prohibit robot/spider access: no written
+  permission recorded, so automatic DrivenData traffic is disabled. Permitted official/owner feed remains
+  scheduled; no fake live leaderboard. Source-policy tests prevent accidental requests.
+- Official GDR trace/paleogeothermal bytes + coverage verified on GitHub-hosted runner; authenticated core
+  data and raw 1 m DEM CSV/tiles remain unavailable. API-readable neutral receipts avoid inaccessible
+  redirect-host artifact logs; neutral/green workflow does not imply every source download succeeded.
+- Structured standing brief, available score identifiers/history and all source URLs preserved in README.
+  Missing original verbatim chat wording is explicitly not fabricated. Winning goal remains unmet.
 
-- H47-B implementation, preregistration, experiment report, and ten focused tests are recorded in `gemsdoe47/magnetic.py`, `scripts/run_h2_experiment.py`, `tests/test_magnetic.py`, and `docs/preregistered-h2.md`.
-- The experiment selected 5 px / 500 m and compared H47-B, a single-scale baseline, and a fixed-seed random control on the frozen 4 × 4 block split with 300 m guards.
-- Locked-test pooled DTI against `labels.tif == 1` (the known-fault catalogue-mask resemblance proxy) was 0.027553 (H47-B), 0.025639 (baseline), and 0.037159 (random). These are diagnostic proxy values, not missing-fault target scores; H47-B failed the random comparison. The six-proxy-block conformal calculation had a zero clipped floor and unverified spatial exchangeability.
-- The TIFF passed a local format/range audit and was copied to `docs/downloads/` only through `--publish-research-only`, with `research-not-submittable` in the filename and a machine-readable `RESEARCH_ONLY_NOT_FOR_PORTAL` status. No promoted/submission TIFF was published.
-- The accessible-artifact audit compared 334 exact-grid rasters from 55 visible sibling repositories: zero exact positive-mask matches, max equal-mass Jaccard 0.01119. The tracked `docs/h47b-uniqueness-audit-20261006.json` now records all comparison rows, inventory paths/blob IDs, and the two grid-mismatch exclusions; scope remains bounded, not global.
+Exact final test/check/PR/merge timestamps are recorded in `data/three-pass-review.json` and GitHub receipts.
 
-### Pass 2 — bug, assumption, and attribution review
+## H47-B footprint audit and current-main reconciliation — three focused passes
 
-- **Gate result preserved:** no submission slot recommendation. A modest win over the single-scale baseline is insufficient because H47-B lost to random and its lower floor was zero; the public-mirror screen cannot confer slot eligibility under any outcome.
-- **Research-only publication hardening:** removed H47-B's former non-research publication path. Its runner now always sets `slot_eligible: false`, exposes only `--publish-research-only`, uses a filename containing `research-not-submittable`, and refuses to overwrite that tracked file with different bytes. Added CLI/report tests.
-- **Conformal review:** corrected the interpretation. The nominal 6/7 level is only for a future comparable block-level DTI against the known-catalogue-mask proxy and is conditional on unverified spatial exchangeability; two of six calibration blocks have no catalogue-mask pixels. It provides no missing-fault or leaderboard coverage claim, and no positive proxy floor is claimed.
-- **Post-score target-semantics correction:** `labels.tif == 1` is the known USGS/INGENIOUS fault-catalogue mask excluded from actual off-catalogue evaluation. The local DTI and conformal result are resemblance-proxy diagnostics, not missing-fault validation/coverage. No data, block assignments, formulas, or scores changed. The original frozen preregistration SHA-256 is retained in `docs/h47b-screen-report-20261006.json`, alongside the hash of the clarified document.
-- **Source review:** H47-B feature/label/template files are group-hosted mirrors, not authenticated organizer downloads. Local DTI code is a formula implementation of the public problem description, not an organizer-run scorer.
-- **Score review:** no mapping from participant leaderboard rows to TIFF hashes is available. The 0.2778/H33-2-B2 relationship remains unverified and the owner page marks that candidate unscored.
-- **Uniqueness review:** low similarity to the searched artifacts does not prove global uniqueness or scientific value. The historical d-cat TIFF's lineage makes it ineligible under the no-copy requirement despite byte uniqueness.
-- **Site review:** the top download and executive-summary page use unmistakable “RESEARCH ONLY / DO NOT SUBMIT” language; submission instructions are future-candidate-only and manual. Prior modeled/conformal claims and stale board values are removed from current-facing pages and preserved only as retired history.
-- **Legacy packager review:** `scripts/package_submission.py` remains H47-A-only and does not authorize H47-B. Its schema is now version 2 and names a pinned local formula implementation rather than implying an organizer-run scorer; it remains a human-reviewed packaging aid, not scientific approval.
+### Pass 1 — preserve current main and identify the supplemental artifact
 
-### Pass 3 — full brief and release check
+- Resolved the merge with `origin/main` by retaining the newer C1, H48, Session 3, source-feed, current-submission and site content as the baseline; no current C1 artifact or gate was replaced.
+- Kept the unique H47-B single-scale NaN-outside TIFF and its all-finite encoding diagnostic separate from the main C1 download. Added an H47-B audit page and artifact-register entries rather than reviving an older H47-B homepage.
+- Checked both exact TIFF paths, sizes and SHA-256 values against the branch evidence before publishing links.
 
-Local review is complete; remote checks and the requested PR merge are pending.
+### Pass 2 — recheck science, format assumptions and claims
 
-- `.venv/bin/python -m unittest discover -s tests -v`: **68 tests passed**. This includes restored synthetic DTI tests, site/link/metadata checks, the research-only H47-B publication guard, the bounded uniqueness-record consistency check, and fail-closed retired-entrypoint checks.
-- `.venv/bin/python -m ruff check .` and `git diff --check`: passed.
-- `src/gems47_metric.py` self-test: 8/8 passed. The exact tracked H47-B research TIFF was reopened against the local mirrored template/footprint: PASS, SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`.
-- Parsed the JSON ledgers/reports and checked the full uniqueness audit invariants: 55 repositories, 425 tracked paths, 336 unique blobs, 334 exact-grid comparisons, 2 disclosed grid mismatches, zero exact positive-mask matches. All HTML local-link/accessibility checks passed in the unit suite.
-- The H47-B spatial experiment was **not rerun** after the already-observed locked result; subsequent edits harden publication/status wording and non-scoring formatting only. No new scientific result is claimed.
-- PR **#5** was opened from the fixed branch `arena/ff217a74-gemsdoe47` to `main`; its initial required GitHub `test` check passed. This review-log follow-up must also pass checks before merge. The GitHub PR history is the authoritative record of final-head checks and merge state; neither merge nor format validity changes H47-B's `NOT_PROMOTED` scientific status.
+- Rechecked H47-B's negative locked-test comparison: pooled catalogue-mask proxy DTI 0.02563947 versus 0.02755344 for H47-B cross-scale and 0.03715911 for fixed-seed random. No leaderboard or missing-fault claim is made.
+- Rechecked nominal rank 6/6 = 6/7 ≈ 85.7% conformal arithmetic, its unverified block-score exchangeability assumption, two empty calibration blocks, and clipped lower floor 0.0. No private/global guarantee follows.
+- Reconciled the explicit mirrored sample-template mask with the feature-derived mask: 5,167,373 versus 5,165,852 valid cells, 1,540 feature-valid cells outside, 3,061 sample/label cells invalid in features. The official footprint and historical portal-error cause remain unknown; the finite diagnostic is not asserted to explain the old error.
 
-## NaN-outside artifact and footprint-scope follow-up — 2026-10-06
+### Pass 3 — integration and final release checks
 
-### Pass 1 — implement and verify
+- Added cross-links from current homepage, executive summary, irregularity page, README and complete artifact register while keeping C1 as the prominent current download.
+- Synchronized the machine-readable irregularity registry copies and added regression coverage for current-download separation, H47-B links and the exact artifact digest.
+- Final local run: pytest **237 passed, 1 skipped, 2 subtests passed**; the CI exclusion profile has **225 passed, 13 deselected, 2 subtests passed**; unittest **81 tests passed**; Ruff and JSON/registry consistency **PASS**. Site-link/asset checks are included in the suite. One upstream Rasterio `PendingDeprecationWarning` remains.
+- Reopened the exact H47-B TIFF: explicit mirrored sample-template mask **PASS** (5,167,373 valid cells, 0 invalid inside, 0 non-NaN outside, SHA matches); feature-derived mask **fails as expected** (1,540 invalid inside, 3,061 non-NaN outside). This reproduces the local discrepancy, not organizer acceptance. `git diff --cached origin/main --check` **PASS**. No competition slot was used.
+- Remote branch CI and PR state are pending observation; this review log must not describe them as green or merged until GitHub reports those results.
 
-- Generated a new single-scale d=5 research TIFF at `docs/downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif`: 309,530 bytes, SHA-256 `dc71c807fbca2cd398f394bcd91b10ecec6b46fe89c2d61f5b1c058fef672811`; one-band float32, EPSG:32611, 100 m, exact sample-template grid, NaN nodata/outside, `[0,1]` in-footprint, 18,524 positive cells.
-- `scripts/validate_submission.py` passes when given a binary footprint mask built from finite, unmasked cells in the mirrored sample template. The strict validator records 5,167,373 valid and 7,111,787 outside pixels, zero invalid-inside cells, zero non-NaN outside cells, and no range violations.
-- Added `scripts/build_footprint_mask.py` and tests. It emits a one-band uint8 mask, preserves the template grid, hashes both inputs/outputs, and explicitly disclaims provenance/organizer semantics.
+## Older corrections still in force
 
-### Pass 2 — bug, assumption, and edge-case review
+Retired annulus .34912 / .34837 private floor is withdrawn; adaptive nested history is not exchangeable
+calibration, and deleting a prior mask is not a new detector. Saved .3345 rank-1 board is superseded by dated
+.3774. H33 .2778 filename/hash association is user/owner-reported, not an organizer receipt. No unlimited
+final-round or three-slot lambda probe advice. One selected file for both rounds; up to three scored slots/week.
 
-- Windowed comparison found that the local sample and label footprints each contain 5,167,373 pixels, while the 19-band feature-valid footprint contains 5,165,852. There are 1,540 feature-valid cells outside the sample/label footprint and 3,061 sample/label cells invalid or masked in features. Validation against the feature-derived footprint therefore fails in both directions; the report records the exact 1,540/3,061 validator messages. IR-25 and IR-47-020 flag the mismatch. Neither mirror-derived footprint is claimed as the authenticated official evaluation footprint.
-- Kept the paired all-finite TIFF only as a non-primary diagnostic (SHA-256 `c640b71c7c57066dd77bbd42fcb6c436d0a8c201de6b0ec1d88ab25976089501`); it has the same positive mask but fails strict validation because its nodata tag is unset. The NaN-intolerant range probe is described as a plausible parser hazard only; the historical portal rejection cause remains unknown.
-- Updated the uniqueness evidence for the NaN-outside primary against 19 independent local prior TIFFs and retained the prior 334-artifact remote mask comparison only after verifying the paired all-finite diagnostic has the identical positive mask on the candidate grid. There are zero exact matches; max equal-mass Jaccard is 0.012905 remote and 0.020550 local. This remains a bounded inventory result, not global uniqueness or a performance claim.
-- Corrected the root and docs landing pages, executive summary, analysis, submission guide, download manifest, and irregularity records so the primary download, exact SHA-256, explicit-mask audit scope, no-slot decision, and uncertainty are consistent. Future instructions now demonstrate the mask-builder and validator commands conditionally on authorized instructions.
 
-### Pass 3 — whole-brief and release review
+### Official-source receipt update after additive reconciliation
 
-- Rechecked the result against the standing brief: the reported 0.2778 score remains unattributed; four prospective hypotheses remain unbuilt and ranked; split conformal is limited to a known-catalogue-mask proxy with six calibration blocks, rank 6/6, nominal 6/7 under unverified exchangeability, and zero clipped lower floor; the tested candidate still loses to H47-B and random control. No competition slot is recommended.
-- Verification: 79 unittest tests passed with 2 skips; pytest reports 113 passed, 2 skipped, and 2 passing subtests. Ruff, `git diff --check`, and JSON parsing passed. The research TIFF passed the strict CLI validator only when supplied the generated sample-template mask; the feature-derived mask failure is captured in the JSON report.
-- Pull request creation and merge are the remaining release actions; final PR checks and merge state will be recorded after the remote operation.
-
-## Historical negative screens retained
-
-- H1 radiometric-halo first screen: full-domain matched-mass catalogue DTI 0.0156 vs 0.0369 seeded uniform control; negative screening evidence, not a spatial holdout.
-- H47-A acquisition-invariant edge screen: implementation exists, but no authorized aligned acquisition pair or valid spatial holdout result is recorded.
-- H47-B: negative result above; do not retune against the same locked blocks and call it independent.
+Runner 37536709561 verified all three public archives and coverage. USGS national traces: 82,841
+footprint cells (58,800 exact-catalogue); GDR traces: 82,871 (58,876 exact-catalogue); paleo point
+cells: 244. These all_touched pixel counts are not fault counts or expert-new truth. The earlier
+USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
+GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.
