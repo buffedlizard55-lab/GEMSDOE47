@@ -1,0 +1,2825 @@
+{
+ "generated_utc": "20261006T153105Z",
+ "budget": 37654,
+ "budget2": 44090,
+ "n_observations": 13,
+ "belief_models": {
+  "arm1": {
+   "name": "H47-MAXCOV",
+   "layers": [
+    "prox_d2.8"
+   ],
+   "theta": [
+    20068.56363663914,
+    6.85030799839766
+   ],
+   "K": 20068.56363663914,
+   "ssr": 0.009662887552081044,
+   "loo": 0.01440148676771598,
+   "loo_residuals": [
+    0.008321444258884203,
+    0.008328579343142656,
+    0.009710070169079321,
+    0.02455704194540642,
+    0.020658389981811742,
+    0.015869303185948508,
+    -0.042373396783741496,
+    -0.05056293436719882,
+    -0.05056293436719882,
+    -0.014946637373759564,
+    0.06404149220366846,
+    0.011733829378986359,
+    -0.03893346381014806
+   ]
+  },
+  "arm2": {
+   "name": "H47-GSA",
+   "layers": [
+    "prox_d2.8",
+    "geod_shearrate",
+    "rad_ThK",
+    "thermal_warm_prox",
+    "geod_dilaterate"
+   ],
+   "theta": [
+    15638.474014833464,
+    8.150996829950302,
+    4.055673880880329,
+    -5.737774567129704,
+    4.269919396146027,
+    -3.822641584761226
+   ],
+   "K": 15638.474014833464,
+   "ssr": 0.0011066693864750766,
+   "loo": 0.0019547099277784285,
+   "loo_residuals": [
+    0.0074107173241438895,
+    0.002160129195980909,
+    0.003252255294584061,
+    0.008152674678724992,
+    0.004518960972291708,
+    0.0028403751425565837,
+    -0.008155956082902954,
+    -0.014929295550768967,
+    -0.014929295550768967,
+    0.00374857379237592,
+    0.02433625730607461,
+    0.005270594502899696,
+    -0.025361807659744884
+   ]
+  },
+  "uniform_K": 12348.0,
+  "uniform_K_provenance": "model-free solve from the r13-lattice diffuse probe (its 300 m halo averages the whole footprint)"
+ },
+ "frames": {
+  "F1": "13-observation LATI q, ARM 1 belief (incumbent-field proximity only)",
+  "F2": "13-observation LATI q, ARM 2 belief (H47-GSA forward selection)",
+  "F3": "uniform q at the model-free K=12,348 (adversarial to any concentration)",
+  "F4": "USGS SGMC faults >300 m off the given catalogue (official, independent)",
+  "F5": "4-quadrant blocked holdout on the given catalogue, scored unmasked (contaminated)",
+  "coverage": "covered 300 m kernel integral over the evaluated footprint - exact, needs no truth model at all"
+ },
+ "results": [
+  {
+   "arm": "GEMSDOE47 arm1_maxcov_37654",
+   "n_dots": 37654,
+   "reported_live_dti": null,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 3135,
+   "flank_0_300m_pct": 8.33,
+   "annulus_300m_2500m": 19811,
+   "annulus_pct": 52.61,
+   "on_sgmc_offcat": 797,
+   "covered_kernel_integral": 219259.3,
+   "covered_evaluated_px": 504976,
+   "F1_arm1_belief": {
+    "T": 4317.530236,
+    "Phi": 6111.927998,
+    "S": 37654.0,
+    "F": 31542.072002,
+    "K": 20068.563637,
+    "DTI": 0.185886,
+    "weighted_recall": 0.215139,
+    "credit_per_dot": 0.114663,
+    "fp_fraction": 0.837682
+   },
+   "F2_arm2_belief": {
+    "T": 4851.916714,
+    "Phi": 3036.901051,
+    "S": 37654.0,
+    "F": 34617.098949,
+    "K": 15638.474015,
+    "DTI": 0.237786,
+    "weighted_recall": 0.310255,
+    "credit_per_dot": 0.128855,
+    "fp_fraction": 0.919347
+   },
+   "F3_uniform": {
+    "T": 530.201751,
+    "Phi": 836.424682,
+    "S": 37654.0,
+    "F": 36817.575318,
+    "K": 12348.0,
+    "DTI": 0.030563,
+    "weighted_recall": 0.042938,
+    "credit_per_dot": 0.014081,
+    "fp_fraction": 0.977787
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 3997.130169,
+    "FP_w": 35092.753052,
+    "FN_w": 58124.869831,
+    "|G|": 62122,
+    "S": 37654.0,
+    "Phi": 2561.246948,
+    "DTI": 0.069496,
+    "credit_per_unit_mass": 0.106154,
+    "weighted_recall": 0.064343,
+    "F_over_T": 8.779487,
+    "inv_dti": 14.389218
+   },
+   "F5_catq_blocked": {
+    "NW": 0.005622,
+    "NE": 0.004036,
+    "SW": 0.012464,
+    "SE": 0.012619
+   },
+   "F5_catq_mean": 0.008685,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 11528,
+     "jaccard": 0.164179,
+     "frac_of_candidate": 0.306156
+    },
+    "scored_d1.5": {
+     "intersection": 13755,
+     "jaccard": 0.163812,
+     "frac_of_candidate": 0.3653
+    },
+    "scored_tgc-v2": {
+     "intersection": 13755,
+     "jaccard": 0.161393,
+     "frac_of_candidate": 0.3653
+    },
+    "scored_h19-5": {
+     "intersection": 25907,
+     "jaccard": 0.194968,
+     "frac_of_candidate": 0.688028
+    },
+    "scored_h19-4": {
+     "intersection": 23976,
+     "jaccard": 0.174425,
+     "frac_of_candidate": 0.636745
+    },
+    "scored_h16-1": {
+     "intersection": 21197,
+     "jaccard": 0.15098,
+     "frac_of_candidate": 0.562942
+    },
+    "scored_h28-ridge": {
+     "intersection": 1924,
+     "jaccard": 0.019056,
+     "frac_of_candidate": 0.051097
+    },
+    "scored_hedge-v2": {
+     "intersection": 5806,
+     "jaccard": 0.029269,
+     "frac_of_candidate": 0.154193
+    },
+    "scored_ens12": {
+     "intersection": 5806,
+     "jaccard": 0.029269,
+     "frac_of_candidate": 0.154193
+    },
+    "scored_h25-ctx": {
+     "intersection": 5678,
+     "jaccard": 0.029368,
+     "frac_of_candidate": 0.150794
+    },
+    "scored_r13-lattice": {
+     "intersection": 1514,
+     "jaccard": 0.006291,
+     "frac_of_candidate": 0.040208
+    },
+    "scored_placeholder": {
+     "intersection": 1150,
+     "jaccard": 0.006315,
+     "frac_of_candidate": 0.030541
+    },
+    "scored_h33-2-b2": {
+     "intersection": 11347,
+     "jaccard": 0.177405,
+     "frac_of_candidate": 0.301349
+    }
+   },
+   "max_jaccard_vs_any_prior": 0.194968,
+   "max_frac_overlap_vs_any_prior": 0.688028,
+   "distinct_from_every_prior": true,
+   "emission_stopped_by": "budget"
+  },
+  {
+   "arm": "GEMSDOE47 arm2_h47gsa_37654",
+   "n_dots": 37654,
+   "reported_live_dti": null,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 4458,
+   "flank_0_300m_pct": 11.84,
+   "annulus_300m_2500m": 24326,
+   "annulus_pct": 64.6,
+   "on_sgmc_offcat": 658,
+   "covered_kernel_integral": 99916.2,
+   "covered_evaluated_px": 165563,
+   "F1_arm1_belief": {
+    "T": 1273.664954,
+    "Phi": 4481.71773,
+    "S": 37654.0,
+    "F": 33172.28227,
+    "K": 20068.563637,
+    "DTI": 0.055512,
+    "weighted_recall": 0.063466,
+    "credit_per_dot": 0.033825,
+    "fp_fraction": 0.880976
+   },
+   "F2_arm2_belief": {
+    "T": 11195.938282,
+    "Phi": 19345.637723,
+    "S": 37654.0,
+    "F": 18308.362277,
+    "K": 15638.474015,
+    "DTI": 0.60809,
+    "weighted_recall": 0.715923,
+    "credit_per_dot": 0.297337,
+    "fp_fraction": 0.486226
+   },
+   "F3_uniform": {
+    "T": 241.61227,
+    "Phi": 827.779316,
+    "S": 37654.0,
+    "F": 36826.220684,
+    "K": 12348.0,
+    "DTI": 0.013973,
+    "weighted_recall": 0.019567,
+    "credit_per_dot": 0.006417,
+    "fp_fraction": 0.978016
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 1750.303809,
+    "FP_w": 35373.612276,
+    "FN_w": 60371.696191,
+    "|G|": 62122,
+    "S": 37654.0,
+    "Phi": 2280.387724,
+    "DTI": 0.030641,
+    "credit_per_unit_mass": 0.046484,
+    "weighted_recall": 0.028175,
+    "F_over_T": 20.209984,
+    "inv_dti": 32.635696
+   },
+   "F5_catq_blocked": {
+    "NW": 0.03708,
+    "NE": 1.9e-05,
+    "SW": 0.007021,
+    "SE": 0.015104
+   },
+   "F5_catq_mean": 0.014806,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 2979,
+     "jaccard": 0.037821,
+     "frac_of_candidate": 0.079115
+    },
+    "scored_d1.5": {
+     "intersection": 3577,
+     "jaccard": 0.037994,
+     "frac_of_candidate": 0.094997
+    },
+    "scored_tgc-v2": {
+     "intersection": 3585,
+     "jaccard": 0.03758,
+     "frac_of_candidate": 0.095209
+    },
+    "scored_h19-5": {
+     "intersection": 6944,
+     "jaccard": 0.045732,
+     "frac_of_candidate": 0.184416
+    },
+    "scored_h19-4": {
+     "intersection": 6741,
+     "jaccard": 0.043577,
+     "frac_of_candidate": 0.179025
+    },
+    "scored_h16-1": {
+     "intersection": 6387,
+     "jaccard": 0.041152,
+     "frac_of_candidate": 0.169623
+    },
+    "scored_h28-ridge": {
+     "intersection": 1550,
+     "jaccard": 0.015295,
+     "frac_of_candidate": 0.041164
+    },
+    "scored_hedge-v2": {
+     "intersection": 5347,
+     "jaccard": 0.026893,
+     "frac_of_candidate": 0.142004
+    },
+    "scored_ens12": {
+     "intersection": 5347,
+     "jaccard": 0.026893,
+     "frac_of_candidate": 0.142004
+    },
+    "scored_h25-ctx": {
+     "intersection": 4297,
+     "jaccard": 0.022067,
+     "frac_of_candidate": 0.114118
+    },
+    "scored_r13-lattice": {
+     "intersection": 1494,
+     "jaccard": 0.006208,
+     "frac_of_candidate": 0.039677
+    },
+    "scored_placeholder": {
+     "intersection": 968,
+     "jaccard": 0.00531,
+     "frac_of_candidate": 0.025708
+    },
+    "scored_h33-2-b2": {
+     "intersection": 2689,
+     "jaccard": 0.037029,
+     "frac_of_candidate": 0.071413
+    }
+   },
+   "max_jaccard_vs_any_prior": 0.045732,
+   "max_frac_overlap_vs_any_prior": 0.184416,
+   "distinct_from_every_prior": true,
+   "emission_stopped_by": "budget"
+  },
+  {
+   "arm": "GEMSDOE47 arm1_maxcov_44090",
+   "n_dots": 44090,
+   "reported_live_dti": null,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 4086,
+   "flank_0_300m_pct": 9.27,
+   "annulus_300m_2500m": 22677,
+   "annulus_pct": 51.43,
+   "on_sgmc_offcat": 896,
+   "covered_kernel_integral": 258661.0,
+   "covered_evaluated_px": 593361,
+   "F1_arm1_belief": {
+    "T": 5020.396495,
+    "Phi": 7065.692861,
+    "S": 44090.0,
+    "F": 37024.307139,
+    "K": 20068.563637,
+    "DTI": 0.205217,
+    "weighted_recall": 0.250162,
+    "credit_per_dot": 0.113867,
+    "fp_fraction": 0.839744
+   },
+   "F2_arm2_belief": {
+    "T": 4957.921372,
+    "Phi": 3124.265833,
+    "S": 44090.0,
+    "F": 40965.734167,
+    "K": 15638.474015,
+    "DTI": 0.228523,
+    "weighted_recall": 0.317034,
+    "credit_per_dot": 0.11245,
+    "fp_fraction": 0.929139
+   },
+   "F3_uniform": {
+    "T": 625.480837,
+    "Phi": 978.593051,
+    "S": 44090.0,
+    "F": 43111.406949,
+    "K": 12348.0,
+    "DTI": 0.033581,
+    "weighted_recall": 0.050654,
+    "credit_per_dot": 0.014186,
+    "fp_fraction": 0.977805
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 4606.522949,
+    "FP_w": 41167.454539,
+    "FN_w": 57515.477051,
+    "|G|": 62122,
+    "S": 44090.0,
+    "Phi": 2922.545461,
+    "DTI": 0.078272,
+    "credit_per_unit_mass": 0.10448,
+    "weighted_recall": 0.074153,
+    "F_over_T": 8.936774,
+    "inv_dti": 12.775882
+   },
+   "F5_catq_blocked": {
+    "NW": 0.009478,
+    "NE": 0.007726,
+    "SW": 0.01672,
+    "SE": 0.016533
+   },
+   "F5_catq_mean": 0.012614,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 14133,
+     "jaccard": 0.190865,
+     "frac_of_candidate": 0.320549
+    },
+    "scored_d1.5": {
+     "intersection": 16619,
+     "jaccard": 0.189845,
+     "frac_of_candidate": 0.376934
+    },
+    "scored_tgc-v2": {
+     "intersection": 16619,
+     "jaccard": 0.187153,
+     "frac_of_candidate": 0.376934
+    },
+    "scored_h19-5": {
+     "intersection": 30418,
+     "jaccard": 0.225648,
+     "frac_of_candidate": 0.689907
+    },
+    "scored_h19-4": {
+     "intersection": 28126,
+     "jaccard": 0.201269,
+     "frac_of_candidate": 0.637922
+    },
+    "scored_h16-1": {
+     "intersection": 24834,
+     "jaccard": 0.173428,
+     "frac_of_candidate": 0.563257
+    },
+    "scored_h28-ridge": {
+     "intersection": 2182,
+     "jaccard": 0.020365,
+     "frac_of_candidate": 0.04949
+    },
+    "scored_hedge-v2": {
+     "intersection": 6584,
+     "jaccard": 0.032271,
+     "frac_of_candidate": 0.149331
+    },
+    "scored_ens12": {
+     "intersection": 6584,
+     "jaccard": 0.032271,
+     "frac_of_candidate": 0.149331
+    },
+    "scored_h25-ctx": {
+     "intersection": 6395,
+     "jaccard": 0.032126,
+     "frac_of_candidate": 0.145044
+    },
+    "scored_r13-lattice": {
+     "intersection": 1764,
+     "jaccard": 0.007147,
+     "frac_of_candidate": 0.040009
+    },
+    "scored_placeholder": {
+     "intersection": 1345,
+     "jaccard": 0.007141,
+     "frac_of_candidate": 0.030506
+    },
+    "scored_h33-2-b2": {
+     "intersection": 13821,
+     "jaccard": 0.20348,
+     "frac_of_candidate": 0.313472
+    }
+   },
+   "max_jaccard_vs_any_prior": 0.225648,
+   "max_frac_overlap_vs_any_prior": 0.689907,
+   "distinct_from_every_prior": true,
+   "emission_stopped_by": "budget"
+  },
+  {
+   "arm": "GEMSDOE47 arm2_h47gsa_44090",
+   "n_dots": 40000,
+   "reported_live_dti": null,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 4713,
+   "flank_0_300m_pct": 11.78,
+   "annulus_300m_2500m": 25839,
+   "annulus_pct": 64.6,
+   "on_sgmc_offcat": 686,
+   "covered_kernel_integral": 105501.3,
+   "covered_evaluated_px": 174057,
+   "F1_arm1_belief": {
+    "T": 1334.787841,
+    "Phi": 4729.59828,
+    "S": 40000.0,
+    "F": 35270.40172,
+    "K": 20068.563637,
+    "DTI": 0.057101,
+    "weighted_recall": 0.066511,
+    "credit_per_dot": 0.03337,
+    "fp_fraction": 0.88176
+   },
+   "F2_arm2_belief": {
+    "T": 11371.94524,
+    "Phi": 20209.878043,
+    "S": 40000.0,
+    "F": 19790.121957,
+    "K": 15638.474015,
+    "DTI": 0.606724,
+    "weighted_recall": 0.727177,
+    "credit_per_dot": 0.284299,
+    "fp_fraction": 0.494753
+   },
+   "F3_uniform": {
+    "T": 255.117888,
+    "Phi": 879.290578,
+    "S": 40000.0,
+    "F": 39120.709422,
+    "K": 12348.0,
+    "DTI": 0.01437,
+    "weighted_recall": 0.020661,
+    "credit_per_dot": 0.006378,
+    "fp_fraction": 0.978018
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 1829.593,
+    "FP_w": 37605.567699,
+    "FN_w": 60292.407,
+    "|G|": 62122,
+    "S": 40000.0,
+    "Phi": 2394.432301,
+    "DTI": 0.031772,
+    "credit_per_unit_mass": 0.04574,
+    "weighted_recall": 0.029452,
+    "F_over_T": 20.554062,
+    "inv_dti": 31.474012
+   },
+   "F5_catq_blocked": {
+    "NW": 0.037955,
+    "NE": 5.1e-05,
+    "SW": 0.007422,
+    "SE": 0.015775
+   },
+   "F5_catq_mean": 0.015301,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 3104,
+     "jaccard": 0.038328,
+     "frac_of_candidate": 0.0776
+    },
+    "scored_d1.5": {
+     "intersection": 3742,
+     "jaccard": 0.038847,
+     "frac_of_candidate": 0.09355
+    },
+    "scored_tgc-v2": {
+     "intersection": 3750,
+     "jaccard": 0.038431,
+     "frac_of_candidate": 0.09375
+    },
+    "scored_h19-5": {
+     "intersection": 7254,
+     "jaccard": 0.047142,
+     "frac_of_candidate": 0.18135
+    },
+    "scored_h19-4": {
+     "intersection": 7043,
+     "jaccard": 0.044935,
+     "frac_of_candidate": 0.176075
+    },
+    "scored_h16-1": {
+     "intersection": 6672,
+     "jaccard": 0.042425,
+     "frac_of_candidate": 0.1668
+    },
+    "scored_h28-ridge": {
+     "intersection": 1634,
+     "jaccard": 0.015772,
+     "frac_of_candidate": 0.04085
+    },
+    "scored_hedge-v2": {
+     "intersection": 5654,
+     "jaccard": 0.028148,
+     "frac_of_candidate": 0.14135
+    },
+    "scored_ens12": {
+     "intersection": 5654,
+     "jaccard": 0.028148,
+     "frac_of_candidate": 0.14135
+    },
+    "scored_h25-ctx": {
+     "intersection": 4503,
+     "jaccard": 0.022874,
+     "frac_of_candidate": 0.112575
+    },
+    "scored_r13-lattice": {
+     "intersection": 1581,
+     "jaccard": 0.006508,
+     "frac_of_candidate": 0.039525
+    },
+    "scored_placeholder": {
+     "intersection": 1051,
+     "jaccard": 0.005695,
+     "frac_of_candidate": 0.026275
+    },
+    "scored_h33-2-b2": {
+     "intersection": 2805,
+     "jaccard": 0.037475,
+     "frac_of_candidate": 0.070125
+    }
+   },
+   "max_jaccard_vs_any_prior": 0.047142,
+   "max_frac_overlap_vs_any_prior": 0.18135,
+   "distinct_from_every_prior": true,
+   "emission_stopped_by": "dti_argmax_reached_at_n=40000"
+  },
+  {
+   "arm": "REFERENCE d2.8",
+   "n_dots": 44090,
+   "reported_live_dti": 0.26,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 8607,
+   "flank_0_300m_pct": 19.52,
+   "annulus_300m_2500m": 19766,
+   "annulus_pct": 44.83,
+   "on_sgmc_offcat": 748,
+   "covered_kernel_integral": 341260.9,
+   "covered_evaluated_px": 787603,
+   "F1_arm1_belief": {
+    "T": 6580.739676,
+    "Phi": 6776.198915,
+    "S": 44090.0,
+    "F": 37313.801085,
+    "K": 20068.563637,
+    "DTI": 0.264992,
+    "weighted_recall": 0.327913,
+    "credit_per_dot": 0.149257,
+    "fp_fraction": 0.84631
+   },
+   "F2_arm2_belief": {
+    "T": 5821.747258,
+    "Phi": 2749.116707,
+    "S": 44090.0,
+    "F": 41340.883293,
+    "K": 15638.474015,
+    "DTI": 0.265309,
+    "weighted_recall": 0.372271,
+    "credit_per_dot": 0.132042,
+    "fp_fraction": 0.937648
+   },
+   "F3_uniform": {
+    "T": 825.219828,
+    "Phi": 954.180371,
+    "S": 44090.0,
+    "F": 43135.819629,
+    "K": 12348.0,
+    "DTI": 0.044199,
+    "weighted_recall": 0.06683,
+    "credit_per_dot": 0.018717,
+    "fp_fraction": 0.978358
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 5568.529642,
+    "FP_w": 41593.239169,
+    "FN_w": 56553.470358,
+    "|G|": 62122,
+    "S": 44090.0,
+    "Phi": 2496.760831,
+    "DTI": 0.094174,
+    "credit_per_unit_mass": 0.126299,
+    "weighted_recall": 0.089639,
+    "F_over_T": 7.46934,
+    "inv_dti": 10.618594
+   },
+   "F5_catq_blocked": {
+    "NW": 0.119787,
+    "NE": 0.133001,
+    "SW": 0.093935,
+    "SE": 0.088113
+   },
+   "F5_catq_mean": 0.108709,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 44090,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_d1.5": {
+     "intersection": 29849,
+     "jaccard": 0.401682,
+     "frac_of_candidate": 0.677002
+    },
+    "scored_tgc-v2": {
+     "intersection": 29849,
+     "jaccard": 0.39499,
+     "frac_of_candidate": 0.677002
+    },
+    "scored_h19-5": {
+     "intersection": 44090,
+     "jaccard": 0.363986,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h19-4": {
+     "intersection": 38484,
+     "jaccard": 0.297438,
+     "frac_of_candidate": 0.872851
+    },
+    "scored_h16-1": {
+     "intersection": 32164,
+     "jaccard": 0.236735,
+     "frac_of_candidate": 0.729508
+    },
+    "scored_h28-ridge": {
+     "intersection": 2356,
+     "jaccard": 0.022025,
+     "frac_of_candidate": 0.053436
+    },
+    "scored_hedge-v2": {
+     "intersection": 6241,
+     "jaccard": 0.030538,
+     "frac_of_candidate": 0.141551
+    },
+    "scored_ens12": {
+     "intersection": 6241,
+     "jaccard": 0.030538,
+     "frac_of_candidate": 0.141551
+    },
+    "scored_h25-ctx": {
+     "intersection": 6659,
+     "jaccard": 0.033496,
+     "frac_of_candidate": 0.151032
+    },
+    "scored_r13-lattice": {
+     "intersection": 1776,
+     "jaccard": 0.007196,
+     "frac_of_candidate": 0.040281
+    },
+    "scored_placeholder": {
+     "intersection": 1341,
+     "jaccard": 0.007119,
+     "frac_of_candidate": 0.030415
+    },
+    "scored_h33-2-b2": {
+     "intersection": 37654,
+     "jaccard": 0.854026,
+     "frac_of_candidate": 0.854026
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE d1.5",
+   "n_dots": 60069,
+   "reported_live_dti": 0.2477,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 11938,
+   "flank_0_300m_pct": 19.87,
+   "annulus_300m_2500m": 26828,
+   "annulus_pct": 44.66,
+   "on_sgmc_offcat": 981,
+   "covered_kernel_integral": 383645.2,
+   "covered_evaluated_px": 838495,
+   "F1_arm1_belief": {
+    "T": 7006.891214,
+    "Phi": 8935.786532,
+    "S": 60069.0,
+    "F": 51133.213468,
+    "K": 20068.563637,
+    "DTI": 0.253113,
+    "weighted_recall": 0.349148,
+    "credit_per_dot": 0.116647,
+    "fp_fraction": 0.851241
+   },
+   "F2_arm2_belief": {
+    "T": 6155.706361,
+    "Phi": 3613.36352,
+    "S": 60069.0,
+    "F": 56455.63648,
+    "K": 15638.474015,
+    "DTI": 0.245903,
+    "weighted_recall": 0.393626,
+    "credit_per_dot": 0.102477,
+    "fp_fraction": 0.939846
+   },
+   "F3_uniform": {
+    "T": 927.711302,
+    "Phi": 1300.106405,
+    "S": 60069.0,
+    "F": 58768.893595,
+    "K": 12348.0,
+    "DTI": 0.042521,
+    "weighted_recall": 0.07513,
+    "credit_per_dot": 0.015444,
+    "fp_fraction": 0.978356
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 6221.831895,
+    "FP_w": 56657.793556,
+    "FN_w": 55900.168105,
+    "|G|": 62122,
+    "S": 60069.0,
+    "Phi": 3411.206444,
+    "DTI": 0.099911,
+    "credit_per_unit_mass": 0.103578,
+    "weighted_recall": 0.100155,
+    "F_over_T": 9.106288,
+    "inv_dti": 10.008873
+   },
+   "F5_catq_blocked": {
+    "NW": 0.122535,
+    "NE": 0.127455,
+    "SW": 0.088378,
+    "SE": 0.082475
+   },
+   "F5_catq_mean": 0.105211,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 29849,
+     "jaccard": 0.401682,
+     "frac_of_candidate": 0.496912
+    },
+    "scored_d1.5": {
+     "intersection": 60069,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_tgc-v2": {
+     "intersection": 60069,
+     "jaccard": 0.979471,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h19-5": {
+     "intersection": 60069,
+     "jaccard": 0.495901,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h19-4": {
+     "intersection": 52359,
+     "jaccard": 0.398201,
+     "frac_of_candidate": 0.871648
+    },
+    "scored_h16-1": {
+     "intersection": 43847,
+     "jaccard": 0.312833,
+     "frac_of_candidate": 0.729944
+    },
+    "scored_h28-ridge": {
+     "intersection": 3213,
+     "jaccard": 0.026316,
+     "frac_of_candidate": 0.053488
+    },
+    "scored_hedge-v2": {
+     "intersection": 8748,
+     "jaccard": 0.040158,
+     "frac_of_candidate": 0.145633
+    },
+    "scored_ens12": {
+     "intersection": 8748,
+     "jaccard": 0.040158,
+     "frac_of_candidate": 0.145633
+    },
+    "scored_h25-ctx": {
+     "intersection": 9226,
+     "jaccard": 0.043476,
+     "frac_of_candidate": 0.15359
+    },
+    "scored_r13-lattice": {
+     "intersection": 2445,
+     "jaccard": 0.009328,
+     "frac_of_candidate": 0.040703
+    },
+    "scored_placeholder": {
+     "intersection": 1834,
+     "jaccard": 0.008997,
+     "frac_of_candidate": 0.030532
+    },
+    "scored_h33-2-b2": {
+     "intersection": 25517,
+     "jaccard": 0.353392,
+     "frac_of_candidate": 0.424795
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE tgc-v2",
+   "n_dots": 61328,
+   "reported_live_dti": 0.2449,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 12187,
+   "flank_0_300m_pct": 19.87,
+   "annulus_300m_2500m": 27838,
+   "annulus_pct": 45.39,
+   "on_sgmc_offcat": 999,
+   "covered_kernel_integral": 393042.2,
+   "covered_evaluated_px": 859099,
+   "F1_arm1_belief": {
+    "T": 7026.680376,
+    "Phi": 8962.949759,
+    "S": 61328.0,
+    "F": 52365.050241,
+    "K": 20068.563637,
+    "DTI": 0.251553,
+    "weighted_recall": 0.350134,
+    "credit_per_dot": 0.114575,
+    "fp_fraction": 0.853852
+   },
+   "F2_arm2_belief": {
+    "T": 6172.816348,
+    "Phi": 3633.418657,
+    "S": 61328.0,
+    "F": 57694.581343,
+    "K": 15638.474015,
+    "DTI": 0.244137,
+    "weighted_recall": 0.39472,
+    "credit_per_dot": 0.100652,
+    "fp_fraction": 0.940754
+   },
+   "F3_uniform": {
+    "T": 950.434706,
+    "Phi": 1327.878628,
+    "S": 61328.0,
+    "F": 60000.121372,
+    "K": 12348.0,
+    "DTI": 0.043067,
+    "weighted_recall": 0.076971,
+    "credit_per_dot": 0.015498,
+    "fp_fraction": 0.978348
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 6326.217523,
+    "FP_w": 57859.204947,
+    "FN_w": 55795.782477,
+    "|G|": 62122,
+    "S": 61328.0,
+    "Phi": 3468.795053,
+    "DTI": 0.101163,
+    "credit_per_unit_mass": 0.103154,
+    "weighted_recall": 0.101835,
+    "F_over_T": 9.14594,
+    "inv_dti": 9.885004
+   },
+   "F5_catq_blocked": {
+    "NW": 0.12305,
+    "NE": 0.12719,
+    "SW": 0.087691,
+    "SE": 0.081929
+   },
+   "F5_catq_mean": 0.104965,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 29849,
+     "jaccard": 0.39499,
+     "frac_of_candidate": 0.486711
+    },
+    "scored_d1.5": {
+     "intersection": 60069,
+     "jaccard": 0.979471,
+     "frac_of_candidate": 0.979471
+    },
+    "scored_tgc-v2": {
+     "intersection": 61328,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h19-5": {
+     "intersection": 60069,
+     "jaccard": 0.4908,
+     "frac_of_candidate": 0.979471
+    },
+    "scored_h19-4": {
+     "intersection": 52359,
+     "jaccard": 0.394424,
+     "frac_of_candidate": 0.853754
+    },
+    "scored_h16-1": {
+     "intersection": 43850,
+     "jaccard": 0.310076,
+     "frac_of_candidate": 0.715008
+    },
+    "scored_h28-ridge": {
+     "intersection": 3260,
+     "jaccard": 0.026439,
+     "frac_of_candidate": 0.053157
+    },
+    "scored_hedge-v2": {
+     "intersection": 8792,
+     "jaccard": 0.040136,
+     "frac_of_candidate": 0.14336
+    },
+    "scored_ens12": {
+     "intersection": 8792,
+     "jaccard": 0.040136,
+     "frac_of_candidate": 0.14336
+    },
+    "scored_h25-ctx": {
+     "intersection": 9363,
+     "jaccard": 0.04389,
+     "frac_of_candidate": 0.152671
+    },
+    "scored_r13-lattice": {
+     "intersection": 2486,
+     "jaccard": 0.00944,
+     "frac_of_candidate": 0.040536
+    },
+    "scored_placeholder": {
+     "intersection": 1878,
+     "jaccard": 0.009158,
+     "frac_of_candidate": 0.030622
+    },
+    "scored_h33-2-b2": {
+     "intersection": 25517,
+     "jaccard": 0.347335,
+     "frac_of_candidate": 0.416074
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE h19-5",
+   "n_dots": 121131,
+   "reported_live_dti": 0.1922,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 24167,
+   "flank_0_300m_pct": 19.95,
+   "annulus_300m_2500m": 54194,
+   "annulus_pct": 44.74,
+   "on_sgmc_offcat": 2083,
+   "covered_kernel_integral": 449692.7,
+   "covered_evaluated_px": 899826,
+   "F1_arm1_belief": {
+    "T": 8070.456781,
+    "Phi": 18118.882916,
+    "S": 121131.0,
+    "F": 103012.117084,
+    "K": 20068.563637,
+    "DTI": 0.210875,
+    "weighted_recall": 0.402144,
+    "credit_per_dot": 0.066626,
+    "fp_fraction": 0.850419
+   },
+   "F2_arm2_belief": {
+    "T": 7085.749214,
+    "Phi": 7304.720495,
+    "S": 121131.0,
+    "F": 113826.279505,
+    "K": 15638.474015,
+    "DTI": 0.193108,
+    "weighted_recall": 0.453097,
+    "credit_per_dot": 0.058497,
+    "fp_fraction": 0.939696
+   },
+   "F3_uniform": {
+    "T": 1087.423899,
+    "Phi": 2626.247627,
+    "S": 121131.0,
+    "F": 118504.752373,
+    "K": 12348.0,
+    "DTI": 0.032175,
+    "weighted_recall": 0.088065,
+    "credit_per_dot": 0.008977,
+    "fp_fraction": 0.978319
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 7334.024959,
+    "FP_w": 113957.942951,
+    "FN_w": 54787.975041,
+    "|G|": 62122,
+    "S": 121131.0,
+    "Phi": 7173.057049,
+    "DTI": 0.099167,
+    "credit_per_unit_mass": 0.060546,
+    "weighted_recall": 0.118058,
+    "F_over_T": 15.538254,
+    "inv_dti": 10.083957
+   },
+   "F5_catq_blocked": {
+    "NW": 0.104525,
+    "NE": 0.096885,
+    "SW": 0.06265,
+    "SE": 0.058721
+   },
+   "F5_catq_mean": 0.080695,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 44090,
+     "jaccard": 0.363986,
+     "frac_of_candidate": 0.363986
+    },
+    "scored_d1.5": {
+     "intersection": 60069,
+     "jaccard": 0.495901,
+     "frac_of_candidate": 0.495901
+    },
+    "scored_tgc-v2": {
+     "intersection": 60069,
+     "jaccard": 0.4908,
+     "frac_of_candidate": 0.495901
+    },
+    "scored_h19-5": {
+     "intersection": 121131,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h19-4": {
+     "intersection": 107106,
+     "jaccard": 0.777234,
+     "frac_of_candidate": 0.884216
+    },
+    "scored_h16-1": {
+     "intersection": 91107,
+     "jaccard": 0.591746,
+     "frac_of_candidate": 0.752136
+    },
+    "scored_h28-ridge": {
+     "intersection": 6564,
+     "jaccard": 0.036507,
+     "frac_of_candidate": 0.054189
+    },
+    "scored_hedge-v2": {
+     "intersection": 18887,
+     "jaccard": 0.070274,
+     "frac_of_candidate": 0.155922
+    },
+    "scored_ens12": {
+     "intersection": 18887,
+     "jaccard": 0.070274,
+     "frac_of_candidate": 0.155922
+    },
+    "scored_h25-ctx": {
+     "intersection": 19789,
+     "jaccard": 0.075327,
+     "frac_of_candidate": 0.163369
+    },
+    "scored_r13-lattice": {
+     "intersection": 4878,
+     "jaccard": 0.015208,
+     "frac_of_candidate": 0.04027
+    },
+    "scored_placeholder": {
+     "intersection": 3641,
+     "jaccard": 0.013839,
+     "frac_of_candidate": 0.030058
+    },
+    "scored_h33-2-b2": {
+     "intersection": 37654,
+     "jaccard": 0.310854,
+     "frac_of_candidate": 0.310854
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE h19-4",
+   "n_dots": 123779,
+   "reported_live_dti": 0.1894,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 24496,
+   "flank_0_300m_pct": 19.79,
+   "annulus_300m_2500m": 55307,
+   "annulus_pct": 44.68,
+   "on_sgmc_offcat": 2173,
+   "covered_kernel_integral": 465798.9,
+   "covered_evaluated_px": 934980,
+   "F1_arm1_belief": {
+    "T": 7951.328991,
+    "Phi": 18035.737607,
+    "S": 123779.0,
+    "F": 105743.262393,
+    "K": 20068.563637,
+    "DTI": 0.204964,
+    "weighted_recall": 0.396208,
+    "credit_per_dot": 0.064238,
+    "fp_fraction": 0.854291
+   },
+   "F2_arm2_belief": {
+    "T": 6970.984537,
+    "Phi": 7269.357351,
+    "S": 123779.0,
+    "F": 116509.642649,
+    "K": 15638.474015,
+    "DTI": 0.187357,
+    "weighted_recall": 0.445759,
+    "credit_per_dot": 0.056318,
+    "fp_fraction": 0.941271
+   },
+   "F3_uniform": {
+    "T": 1126.371114,
+    "Phi": 2684.410954,
+    "S": 123779.0,
+    "F": 121094.589046,
+    "K": 12348.0,
+    "DTI": 0.032817,
+    "weighted_recall": 0.091219,
+    "credit_per_dot": 0.0091,
+    "fp_fraction": 0.978313
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 7836.539512,
+    "FP_w": 116289.015234,
+    "FN_w": 54285.460488,
+    "|G|": 62122,
+    "S": 123779.0,
+    "Phi": 7489.984766,
+    "DTI": 0.105156,
+    "credit_per_unit_mass": 0.063311,
+    "weighted_recall": 0.126148,
+    "F_over_T": 14.839332,
+    "inv_dti": 9.509645
+   },
+   "F5_catq_blocked": {
+    "NW": 0.105589,
+    "NE": 0.094887,
+    "SW": 0.062636,
+    "SE": 0.059346
+   },
+   "F5_catq_mean": 0.080615,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 38484,
+     "jaccard": 0.297438,
+     "frac_of_candidate": 0.310909
+    },
+    "scored_d1.5": {
+     "intersection": 52359,
+     "jaccard": 0.398201,
+     "frac_of_candidate": 0.423004
+    },
+    "scored_tgc-v2": {
+     "intersection": 52359,
+     "jaccard": 0.394424,
+     "frac_of_candidate": 0.423004
+    },
+    "scored_h19-5": {
+     "intersection": 107106,
+     "jaccard": 0.777234,
+     "frac_of_candidate": 0.8653
+    },
+    "scored_h19-4": {
+     "intersection": 123779,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h16-1": {
+     "intersection": 103626,
+     "jaccard": 0.719166,
+     "frac_of_candidate": 0.837186
+    },
+    "scored_h28-ridge": {
+     "intersection": 6442,
+     "jaccard": 0.035285,
+     "frac_of_candidate": 0.052044
+    },
+    "scored_hedge-v2": {
+     "intersection": 18885,
+     "jaccard": 0.06958,
+     "frac_of_candidate": 0.15257
+    },
+    "scored_ens12": {
+     "intersection": 18885,
+     "jaccard": 0.06958,
+     "frac_of_candidate": 0.15257
+    },
+    "scored_h25-ctx": {
+     "intersection": 19400,
+     "jaccard": 0.073002,
+     "frac_of_candidate": 0.156731
+    },
+    "scored_r13-lattice": {
+     "intersection": 4979,
+     "jaccard": 0.0154,
+     "frac_of_candidate": 0.040225
+    },
+    "scored_placeholder": {
+     "intersection": 3630,
+     "jaccard": 0.013659,
+     "frac_of_candidate": 0.029326
+    },
+    "scored_h33-2-b2": {
+     "intersection": 32760,
+     "jaccard": 0.254599,
+     "frac_of_candidate": 0.264665
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE h16-1",
+   "n_dots": 123939,
+   "reported_live_dti": 0.1855,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 24393,
+   "flank_0_300m_pct": 19.68,
+   "annulus_300m_2500m": 55582,
+   "annulus_pct": 44.85,
+   "on_sgmc_offcat": 2200,
+   "covered_kernel_integral": 475647.0,
+   "covered_evaluated_px": 959146,
+   "F1_arm1_belief": {
+    "T": 7673.738827,
+    "Phi": 17403.499718,
+    "S": 123939.0,
+    "F": 106535.500282,
+    "K": 20068.563637,
+    "DTI": 0.197285,
+    "weighted_recall": 0.382376,
+    "credit_per_dot": 0.061915,
+    "fp_fraction": 0.85958
+   },
+   "F2_arm2_belief": {
+    "T": 6783.751749,
+    "Phi": 7101.062101,
+    "S": 123939.0,
+    "F": 116837.937899,
+    "K": 15638.474015,
+    "DTI": 0.182187,
+    "weighted_recall": 0.433786,
+    "credit_per_dot": 0.054735,
+    "fp_fraction": 0.942705
+   },
+   "F3_uniform": {
+    "T": 1150.185299,
+    "Phi": 2688.548097,
+    "S": 123939.0,
+    "F": 121250.451903,
+    "K": 12348.0,
+    "DTI": 0.033476,
+    "weighted_recall": 0.093147,
+    "credit_per_dot": 0.00928,
+    "fp_fraction": 0.978307
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 8305.710812,
+    "FP_w": 116275.890832,
+    "FN_w": 53816.289188,
+    "|G|": 62122,
+    "S": 123939.0,
+    "Phi": 7663.109168,
+    "DTI": 0.111316,
+    "credit_per_unit_mass": 0.067015,
+    "weighted_recall": 0.1337,
+    "F_over_T": 13.999511,
+    "inv_dti": 8.983448
+   },
+   "F5_catq_blocked": {
+    "NW": 0.104712,
+    "NE": 0.094478,
+    "SW": 0.06306,
+    "SE": 0.059182
+   },
+   "F5_catq_mean": 0.080358,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 32164,
+     "jaccard": 0.236735,
+     "frac_of_candidate": 0.259515
+    },
+    "scored_d1.5": {
+     "intersection": 43847,
+     "jaccard": 0.312833,
+     "frac_of_candidate": 0.353779
+    },
+    "scored_tgc-v2": {
+     "intersection": 43850,
+     "jaccard": 0.310076,
+     "frac_of_candidate": 0.353803
+    },
+    "scored_h19-5": {
+     "intersection": 91107,
+     "jaccard": 0.591746,
+     "frac_of_candidate": 0.735095
+    },
+    "scored_h19-4": {
+     "intersection": 103626,
+     "jaccard": 0.719166,
+     "frac_of_candidate": 0.836105
+    },
+    "scored_h16-1": {
+     "intersection": 123939,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h28-ridge": {
+     "intersection": 6182,
+     "jaccard": 0.033783,
+     "frac_of_candidate": 0.049879
+    },
+    "scored_hedge-v2": {
+     "intersection": 18490,
+     "jaccard": 0.067986,
+     "frac_of_candidate": 0.149186
+    },
+    "scored_ens12": {
+     "intersection": 18490,
+     "jaccard": 0.067986,
+     "frac_of_candidate": 0.149186
+    },
+    "scored_h25-ctx": {
+     "intersection": 18513,
+     "jaccard": 0.069391,
+     "frac_of_candidate": 0.149372
+    },
+    "scored_r13-lattice": {
+     "intersection": 4964,
+     "jaccard": 0.015346,
+     "frac_of_candidate": 0.040052
+    },
+    "scored_placeholder": {
+     "intersection": 3635,
+     "jaccard": 0.01367,
+     "frac_of_candidate": 0.029329
+    },
+    "scored_h33-2-b2": {
+     "intersection": 27266,
+     "jaccard": 0.202982,
+     "frac_of_candidate": 0.219995
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE h28-ridge",
+   "n_dots": 65236,
+   "reported_live_dti": 0.1839,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 14457,
+   "flank_0_300m_pct": 22.16,
+   "annulus_300m_2500m": 39054,
+   "annulus_pct": 59.87,
+   "on_sgmc_offcat": 713,
+   "covered_kernel_integral": 520383.9,
+   "covered_evaluated_px": 1202127,
+   "F1_arm1_belief": {
+    "T": 4165.866726,
+    "Phi": 4312.191418,
+    "S": 65236.0,
+    "F": 60923.808582,
+    "K": 20068.563637,
+    "DTI": 0.143291,
+    "weighted_recall": 0.207582,
+    "credit_per_dot": 0.063858,
+    "fp_fraction": 0.933899
+   },
+   "F2_arm2_belief": {
+    "T": 4522.375598,
+    "Phi": 2398.149314,
+    "S": 65236.0,
+    "F": 62837.850686,
+    "K": 15638.474015,
+    "DTI": 0.174053,
+    "weighted_recall": 0.289183,
+    "credit_per_dot": 0.069323,
+    "fp_fraction": 0.963239
+   },
+   "F3_uniform": {
+    "T": 1258.365944,
+    "Phi": 1405.112235,
+    "S": 65236.0,
+    "F": 63830.887765,
+    "K": 12348.0,
+    "DTI": 0.054959,
+    "weighted_recall": 0.101908,
+    "credit_per_dot": 0.019289,
+    "fp_fraction": 0.978461
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 5745.298339,
+    "FP_w": 62710.820957,
+    "FN_w": 56376.701661,
+    "|G|": 62122,
+    "S": 65236.0,
+    "Phi": 2525.179043,
+    "DTI": 0.090636,
+    "credit_per_unit_mass": 0.088069,
+    "weighted_recall": 0.092484,
+    "F_over_T": 10.915155,
+    "inv_dti": 11.033165
+   },
+   "F5_catq_blocked": {
+    "NW": 0.189833,
+    "NE": 0.137346,
+    "SW": 0.116094,
+    "SE": 0.106387
+   },
+   "F5_catq_mean": 0.137415,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 2356,
+     "jaccard": 0.022025,
+     "frac_of_candidate": 0.036115
+    },
+    "scored_d1.5": {
+     "intersection": 3213,
+     "jaccard": 0.026316,
+     "frac_of_candidate": 0.049252
+    },
+    "scored_tgc-v2": {
+     "intersection": 3260,
+     "jaccard": 0.026439,
+     "frac_of_candidate": 0.049972
+    },
+    "scored_h19-5": {
+     "intersection": 6564,
+     "jaccard": 0.036507,
+     "frac_of_candidate": 0.100619
+    },
+    "scored_h19-4": {
+     "intersection": 6442,
+     "jaccard": 0.035285,
+     "frac_of_candidate": 0.098749
+    },
+    "scored_h16-1": {
+     "intersection": 6182,
+     "jaccard": 0.033783,
+     "frac_of_candidate": 0.094764
+    },
+    "scored_h28-ridge": {
+     "intersection": 65236,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_hedge-v2": {
+     "intersection": 6273,
+     "jaccard": 0.02782,
+     "frac_of_candidate": 0.096159
+    },
+    "scored_ens12": {
+     "intersection": 6273,
+     "jaccard": 0.02782,
+     "frac_of_candidate": 0.096159
+    },
+    "scored_h25-ctx": {
+     "intersection": 52226,
+     "jaccard": 0.299502,
+     "frac_of_candidate": 0.80057
+    },
+    "scored_r13-lattice": {
+     "intersection": 2639,
+     "jaccard": 0.00988,
+     "frac_of_candidate": 0.040453
+    },
+    "scored_placeholder": {
+     "intersection": 2138,
+     "jaccard": 0.010244,
+     "frac_of_candidate": 0.032773
+    },
+    "scored_h33-2-b2": {
+     "intersection": 1898,
+     "jaccard": 0.018794,
+     "frac_of_candidate": 0.029094
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE hedge-v2",
+   "n_dots": 166519,
+   "reported_live_dti": 0.1563,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 30859,
+   "flank_0_300m_pct": 18.53,
+   "annulus_300m_2500m": 84686,
+   "annulus_pct": 50.86,
+   "on_sgmc_offcat": 2519,
+   "covered_kernel_integral": 570552.9,
+   "covered_evaluated_px": 1098802,
+   "F1_arm1_belief": {
+    "T": 5259.492258,
+    "Phi": 13103.576816,
+    "S": 166519.0,
+    "F": 153415.423184,
+    "K": 20068.563637,
+    "DTI": 0.110055,
+    "weighted_recall": 0.262076,
+    "credit_per_dot": 0.031585,
+    "fp_fraction": 0.921309
+   },
+   "F2_arm2_belief": {
+    "T": 6313.601518,
+    "Phi": 8184.209748,
+    "S": 166519.0,
+    "F": 158334.790252,
+    "K": 15638.474015,
+    "DTI": 0.138942,
+    "weighted_recall": 0.403722,
+    "credit_per_dot": 0.037915,
+    "fp_fraction": 0.950851
+   },
+   "F3_uniform": {
+    "T": 1379.68201,
+    "Phi": 3619.57777,
+    "S": 166519.0,
+    "F": 162899.42223,
+    "K": 12348.0,
+    "DTI": 0.032285,
+    "weighted_recall": 0.111733,
+    "credit_per_dot": 0.008285,
+    "fp_fraction": 0.978263
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 8500.28505,
+    "FP_w": 157891.789176,
+    "FN_w": 53621.71495,
+    "|G|": 62122,
+    "S": 166519.0,
+    "Phi": 8627.210824,
+    "DTI": 0.102443,
+    "credit_per_unit_mass": 0.051047,
+    "weighted_recall": 0.136832,
+    "F_over_T": 18.574882,
+    "inv_dti": 9.761557
+   },
+   "F5_catq_blocked": {
+    "NW": 0.122776,
+    "NE": 0.075856,
+    "SW": 0.06311,
+    "SE": 0.060436
+   },
+   "F5_catq_mean": 0.080545,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 6241,
+     "jaccard": 0.030538,
+     "frac_of_candidate": 0.037479
+    },
+    "scored_d1.5": {
+     "intersection": 8748,
+     "jaccard": 0.040158,
+     "frac_of_candidate": 0.052535
+    },
+    "scored_tgc-v2": {
+     "intersection": 8792,
+     "jaccard": 0.040136,
+     "frac_of_candidate": 0.052799
+    },
+    "scored_h19-5": {
+     "intersection": 18887,
+     "jaccard": 0.070274,
+     "frac_of_candidate": 0.113422
+    },
+    "scored_h19-4": {
+     "intersection": 18885,
+     "jaccard": 0.06958,
+     "frac_of_candidate": 0.11341
+    },
+    "scored_h16-1": {
+     "intersection": 18490,
+     "jaccard": 0.067986,
+     "frac_of_candidate": 0.111038
+    },
+    "scored_h28-ridge": {
+     "intersection": 6273,
+     "jaccard": 0.02782,
+     "frac_of_candidate": 0.037671
+    },
+    "scored_hedge-v2": {
+     "intersection": 166519,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_ens12": {
+     "intersection": 166519,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h25-ctx": {
+     "intersection": 18369,
+     "jaccard": 0.059347,
+     "frac_of_candidate": 0.110312
+    },
+    "scored_r13-lattice": {
+     "intersection": 6660,
+     "jaccard": 0.018278,
+     "frac_of_candidate": 0.039995
+    },
+    "scored_placeholder": {
+     "intersection": 5405,
+     "jaccard": 0.017622,
+     "frac_of_candidate": 0.032459
+    },
+    "scored_h33-2-b2": {
+     "intersection": 4814,
+     "jaccard": 0.024147,
+     "frac_of_candidate": 0.02891
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE ens12",
+   "n_dots": 166519,
+   "reported_live_dti": 0.1563,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 30859,
+   "flank_0_300m_pct": 18.53,
+   "annulus_300m_2500m": 84686,
+   "annulus_pct": 50.86,
+   "on_sgmc_offcat": 2519,
+   "covered_kernel_integral": 570552.9,
+   "covered_evaluated_px": 1098802,
+   "F1_arm1_belief": {
+    "T": 5259.492258,
+    "Phi": 13103.576816,
+    "S": 166519.0,
+    "F": 153415.423184,
+    "K": 20068.563637,
+    "DTI": 0.110055,
+    "weighted_recall": 0.262076,
+    "credit_per_dot": 0.031585,
+    "fp_fraction": 0.921309
+   },
+   "F2_arm2_belief": {
+    "T": 6313.601518,
+    "Phi": 8184.209748,
+    "S": 166519.0,
+    "F": 158334.790252,
+    "K": 15638.474015,
+    "DTI": 0.138942,
+    "weighted_recall": 0.403722,
+    "credit_per_dot": 0.037915,
+    "fp_fraction": 0.950851
+   },
+   "F3_uniform": {
+    "T": 1379.68201,
+    "Phi": 3619.57777,
+    "S": 166519.0,
+    "F": 162899.42223,
+    "K": 12348.0,
+    "DTI": 0.032285,
+    "weighted_recall": 0.111733,
+    "credit_per_dot": 0.008285,
+    "fp_fraction": 0.978263
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 8500.28505,
+    "FP_w": 157891.789176,
+    "FN_w": 53621.71495,
+    "|G|": 62122,
+    "S": 166519.0,
+    "Phi": 8627.210824,
+    "DTI": 0.102443,
+    "credit_per_unit_mass": 0.051047,
+    "weighted_recall": 0.136832,
+    "F_over_T": 18.574882,
+    "inv_dti": 9.761557
+   },
+   "F5_catq_blocked": {
+    "NW": 0.122776,
+    "NE": 0.075856,
+    "SW": 0.06311,
+    "SE": 0.060436
+   },
+   "F5_catq_mean": 0.080545,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 6241,
+     "jaccard": 0.030538,
+     "frac_of_candidate": 0.037479
+    },
+    "scored_d1.5": {
+     "intersection": 8748,
+     "jaccard": 0.040158,
+     "frac_of_candidate": 0.052535
+    },
+    "scored_tgc-v2": {
+     "intersection": 8792,
+     "jaccard": 0.040136,
+     "frac_of_candidate": 0.052799
+    },
+    "scored_h19-5": {
+     "intersection": 18887,
+     "jaccard": 0.070274,
+     "frac_of_candidate": 0.113422
+    },
+    "scored_h19-4": {
+     "intersection": 18885,
+     "jaccard": 0.06958,
+     "frac_of_candidate": 0.11341
+    },
+    "scored_h16-1": {
+     "intersection": 18490,
+     "jaccard": 0.067986,
+     "frac_of_candidate": 0.111038
+    },
+    "scored_h28-ridge": {
+     "intersection": 6273,
+     "jaccard": 0.02782,
+     "frac_of_candidate": 0.037671
+    },
+    "scored_hedge-v2": {
+     "intersection": 166519,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_ens12": {
+     "intersection": 166519,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h25-ctx": {
+     "intersection": 18369,
+     "jaccard": 0.059347,
+     "frac_of_candidate": 0.110312
+    },
+    "scored_r13-lattice": {
+     "intersection": 6660,
+     "jaccard": 0.018278,
+     "frac_of_candidate": 0.039995
+    },
+    "scored_placeholder": {
+     "intersection": 5405,
+     "jaccard": 0.017622,
+     "frac_of_candidate": 0.032459
+    },
+    "scored_h33-2-b2": {
+     "intersection": 4814,
+     "jaccard": 0.024147,
+     "frac_of_candidate": 0.02891
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE h25-ctx",
+   "n_dots": 161366,
+   "reported_live_dti": 0.128,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 44810,
+   "flank_0_300m_pct": 27.77,
+   "annulus_300m_2500m": 93742,
+   "annulus_pct": 58.09,
+   "on_sgmc_offcat": 1805,
+   "covered_kernel_integral": 630567.1,
+   "covered_evaluated_px": 1204047,
+   "F1_arm1_belief": {
+    "T": 5364.600439,
+    "Phi": 11854.727585,
+    "S": 161366.0,
+    "F": 149511.272415,
+    "K": 20068.563637,
+    "DTI": 0.114068,
+    "weighted_recall": 0.267314,
+    "credit_per_dot": 0.033245,
+    "fp_fraction": 0.926535
+   },
+   "F2_arm2_belief": {
+    "T": 5652.378904,
+    "Phi": 6459.94774,
+    "S": 161366.0,
+    "F": 154906.05226,
+    "K": 15638.474015,
+    "DTI": 0.126671,
+    "weighted_recall": 0.361441,
+    "credit_per_dot": 0.035028,
+    "fp_fraction": 0.959967
+   },
+   "F3_uniform": {
+    "T": 1524.805237,
+    "Phi": 3449.563633,
+    "S": 161366.0,
+    "F": 157916.436367,
+    "K": 12348.0,
+    "DTI": 0.036508,
+    "weighted_recall": 0.123486,
+    "credit_per_dot": 0.009449,
+    "fp_fraction": 0.978623
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 6938.24634,
+    "FP_w": 154821.593971,
+    "FN_w": 55183.75366,
+    "|G|": 62122,
+    "S": 161366.0,
+    "Phi": 6544.406029,
+    "DTI": 0.084562,
+    "credit_per_unit_mass": 0.042997,
+    "weighted_recall": 0.111687,
+    "F_over_T": 22.314226,
+    "inv_dti": 11.825693
+   },
+   "F5_catq_blocked": {
+    "NW": 0.205693,
+    "NE": 0.128903,
+    "SW": 0.104447,
+    "SE": 0.095907
+   },
+   "F5_catq_mean": 0.133738,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 6659,
+     "jaccard": 0.033496,
+     "frac_of_candidate": 0.041266
+    },
+    "scored_d1.5": {
+     "intersection": 9226,
+     "jaccard": 0.043476,
+     "frac_of_candidate": 0.057174
+    },
+    "scored_tgc-v2": {
+     "intersection": 9363,
+     "jaccard": 0.04389,
+     "frac_of_candidate": 0.058023
+    },
+    "scored_h19-5": {
+     "intersection": 19789,
+     "jaccard": 0.075327,
+     "frac_of_candidate": 0.122634
+    },
+    "scored_h19-4": {
+     "intersection": 19400,
+     "jaccard": 0.073002,
+     "frac_of_candidate": 0.120224
+    },
+    "scored_h16-1": {
+     "intersection": 18513,
+     "jaccard": 0.069391,
+     "frac_of_candidate": 0.114727
+    },
+    "scored_h28-ridge": {
+     "intersection": 52226,
+     "jaccard": 0.299502,
+     "frac_of_candidate": 0.323649
+    },
+    "scored_hedge-v2": {
+     "intersection": 18369,
+     "jaccard": 0.059347,
+     "frac_of_candidate": 0.113834
+    },
+    "scored_ens12": {
+     "intersection": 18369,
+     "jaccard": 0.059347,
+     "frac_of_candidate": 0.113834
+    },
+    "scored_h25-ctx": {
+     "intersection": 161366,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_r13-lattice": {
+     "intersection": 6548,
+     "jaccard": 0.018223,
+     "frac_of_candidate": 0.040579
+    },
+    "scored_placeholder": {
+     "intersection": 5532,
+     "jaccard": 0.018352,
+     "frac_of_candidate": 0.034282
+    },
+    "scored_h33-2-b2": {
+     "intersection": 5057,
+     "jaccard": 0.026072,
+     "frac_of_candidate": 0.031339
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE r13-lattice",
+   "n_dots": 204504,
+   "reported_live_dti": 0.0904,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 15368,
+   "flank_0_300m_pct": 7.51,
+   "annulus_300m_2500m": 91420,
+   "annulus_pct": 44.7,
+   "on_sgmc_offcat": 2481,
+   "covered_kernel_integral": 1898313.8,
+   "covered_evaluated_px": 5051751,
+   "F1_arm1_belief": {
+    "T": 7400.546072,
+    "Phi": 6792.930953,
+    "S": 204504.0,
+    "F": 197711.069047,
+    "K": 20068.563637,
+    "DTI": 0.129659,
+    "weighted_recall": 0.368763,
+    "credit_per_dot": 0.036188,
+    "fp_fraction": 0.966783
+   },
+   "F2_arm2_belief": {
+    "T": 5800.089903,
+    "Phi": 2937.759136,
+    "S": 204504.0,
+    "F": 201566.240864,
+    "K": 15638.474015,
+    "DTI": 0.107441,
+    "weighted_recall": 0.370886,
+    "credit_per_dot": 0.028362,
+    "fp_fraction": 0.985635
+   },
+   "F3_uniform": {
+    "T": 4590.405657,
+    "Phi": 4505.89843,
+    "S": 204504.0,
+    "F": 199998.10157,
+    "K": 12348.0,
+    "DTI": 0.090369,
+    "weighted_recall": 0.371753,
+    "credit_per_dot": 0.022447,
+    "fp_fraction": 0.977967
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 23393.468881,
+    "FP_w": 196202.496286,
+    "FN_w": 38728.531119,
+    "|G|": 62122,
+    "S": 204504.0,
+    "Phi": 8301.503714,
+    "DTI": 0.249885,
+    "credit_per_unit_mass": 0.114391,
+    "weighted_recall": 0.376573,
+    "F_over_T": 8.387063,
+    "inv_dti": 4.001835
+   },
+   "F5_catq_blocked": {
+    "NW": 0.118477,
+    "NE": 0.065687,
+    "SW": 0.050893,
+    "SE": 0.051204
+   },
+   "F5_catq_mean": 0.071565,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 1776,
+     "jaccard": 0.007196,
+     "frac_of_candidate": 0.008684
+    },
+    "scored_d1.5": {
+     "intersection": 2445,
+     "jaccard": 0.009328,
+     "frac_of_candidate": 0.011956
+    },
+    "scored_tgc-v2": {
+     "intersection": 2486,
+     "jaccard": 0.00944,
+     "frac_of_candidate": 0.012156
+    },
+    "scored_h19-5": {
+     "intersection": 4878,
+     "jaccard": 0.015208,
+     "frac_of_candidate": 0.023853
+    },
+    "scored_h19-4": {
+     "intersection": 4979,
+     "jaccard": 0.0154,
+     "frac_of_candidate": 0.024347
+    },
+    "scored_h16-1": {
+     "intersection": 4964,
+     "jaccard": 0.015346,
+     "frac_of_candidate": 0.024273
+    },
+    "scored_h28-ridge": {
+     "intersection": 2639,
+     "jaccard": 0.00988,
+     "frac_of_candidate": 0.012904
+    },
+    "scored_hedge-v2": {
+     "intersection": 6660,
+     "jaccard": 0.018278,
+     "frac_of_candidate": 0.032567
+    },
+    "scored_ens12": {
+     "intersection": 6660,
+     "jaccard": 0.018278,
+     "frac_of_candidate": 0.032567
+    },
+    "scored_h25-ctx": {
+     "intersection": 6548,
+     "jaccard": 0.018223,
+     "frac_of_candidate": 0.032019
+    },
+    "scored_r13-lattice": {
+     "intersection": 204504,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_placeholder": {
+     "intersection": 5854,
+     "jaccard": 0.017005,
+     "frac_of_candidate": 0.028625
+    },
+    "scored_h33-2-b2": {
+     "intersection": 1513,
+     "jaccard": 0.006287,
+     "frac_of_candidate": 0.007398
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE placeholder",
+   "n_dots": 145610,
+   "reported_live_dti": 0.0107,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 13093,
+   "flank_0_300m_pct": 8.99,
+   "annulus_300m_2500m": 68052,
+   "annulus_pct": 46.74,
+   "on_sgmc_offcat": 1531,
+   "covered_kernel_integral": 241964.6,
+   "covered_evaluated_px": 315159,
+   "F1_arm1_belief": {
+    "T": 989.174503,
+    "Phi": 5009.734609,
+    "S": 145610.0,
+    "F": 140600.265391,
+    "K": 20068.563637,
+    "DTI": 0.022292,
+    "weighted_recall": 0.04929,
+    "credit_per_dot": 0.006793,
+    "fp_fraction": 0.965595
+   },
+   "F2_arm2_belief": {
+    "T": 626.655182,
+    "Phi": 2038.172742,
+    "S": 145610.0,
+    "F": 143571.827258,
+    "K": 15638.474015,
+    "DTI": 0.015155,
+    "weighted_recall": 0.040071,
+    "credit_per_dot": 0.004304,
+    "fp_fraction": 0.986003
+   },
+   "F3_uniform": {
+    "T": 585.106475,
+    "Phi": 3205.061262,
+    "S": 145610.0,
+    "F": 142404.938738,
+    "K": 12348.0,
+    "DTI": 0.015207,
+    "weighted_recall": 0.047385,
+    "credit_per_dot": 0.004018,
+    "fp_fraction": 0.977989
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 2634.226324,
+    "FP_w": 140375.643131,
+    "FN_w": 59487.773676,
+    "|G|": 62122,
+    "S": 145610.0,
+    "Phi": 5234.356869,
+    "DTI": 0.033643,
+    "credit_per_unit_mass": 0.018091,
+    "weighted_recall": 0.042404,
+    "F_over_T": 53.289135,
+    "inv_dti": 29.723936
+   },
+   "F5_catq_blocked": {
+    "NW": 0.021796,
+    "NE": 0.01522,
+    "SW": 0.013281,
+    "SE": 0.013697
+   },
+   "F5_catq_mean": 0.015998,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 1341,
+     "jaccard": 0.007119,
+     "frac_of_candidate": 0.00921
+    },
+    "scored_d1.5": {
+     "intersection": 1834,
+     "jaccard": 0.008997,
+     "frac_of_candidate": 0.012595
+    },
+    "scored_tgc-v2": {
+     "intersection": 1878,
+     "jaccard": 0.009158,
+     "frac_of_candidate": 0.012897
+    },
+    "scored_h19-5": {
+     "intersection": 3641,
+     "jaccard": 0.013839,
+     "frac_of_candidate": 0.025005
+    },
+    "scored_h19-4": {
+     "intersection": 3630,
+     "jaccard": 0.013659,
+     "frac_of_candidate": 0.02493
+    },
+    "scored_h16-1": {
+     "intersection": 3635,
+     "jaccard": 0.01367,
+     "frac_of_candidate": 0.024964
+    },
+    "scored_h28-ridge": {
+     "intersection": 2138,
+     "jaccard": 0.010244,
+     "frac_of_candidate": 0.014683
+    },
+    "scored_hedge-v2": {
+     "intersection": 5405,
+     "jaccard": 0.017622,
+     "frac_of_candidate": 0.03712
+    },
+    "scored_ens12": {
+     "intersection": 5405,
+     "jaccard": 0.017622,
+     "frac_of_candidate": 0.03712
+    },
+    "scored_h25-ctx": {
+     "intersection": 5532,
+     "jaccard": 0.018352,
+     "frac_of_candidate": 0.037992
+    },
+    "scored_r13-lattice": {
+     "intersection": 5854,
+     "jaccard": 0.017005,
+     "frac_of_candidate": 0.040203
+    },
+    "scored_placeholder": {
+     "intersection": 145610,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h33-2-b2": {
+     "intersection": 1107,
+     "jaccard": 0.006077,
+     "frac_of_candidate": 0.007602
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  },
+  {
+   "arm": "REFERENCE h33-2-b2",
+   "n_dots": 37654,
+   "reported_live_dti": 0.2778,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_300m": 2171,
+   "flank_0_300m_pct": 5.77,
+   "annulus_300m_2500m": 19766,
+   "annulus_pct": 52.49,
+   "on_sgmc_offcat": 748,
+   "covered_kernel_integral": 302510.1,
+   "covered_evaluated_px": 705203,
+   "F1_arm1_belief": {
+    "T": 5820.686425,
+    "Phi": 5917.734976,
+    "S": 37654.0,
+    "F": 31736.265024,
+    "K": 20068.563637,
+    "DTI": 0.246993,
+    "weighted_recall": 0.29004,
+    "credit_per_dot": 0.154583,
+    "fp_fraction": 0.842839
+   },
+   "F2_arm2_belief": {
+    "T": 5345.247785,
+    "Phi": 2449.232626,
+    "S": 37654.0,
+    "F": 35204.767374,
+    "K": 15638.474015,
+    "DTI": 0.259217,
+    "weighted_recall": 0.341801,
+    "credit_per_dot": 0.141957,
+    "fp_fraction": 0.934954
+   },
+   "F3_uniform": {
+    "T": 731.51459,
+    "Phi": 836.63034,
+    "S": 37654.0,
+    "F": 36817.36966,
+    "K": 12348.0,
+    "DTI": 0.04207,
+    "weighted_recall": 0.059242,
+    "credit_per_dot": 0.019427,
+    "fp_fraction": 0.977781
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 5517.636703,
+    "FP_w": 35220.773526,
+    "FN_w": 56604.363297,
+    "|G|": 62122,
+    "S": 37654.0,
+    "Phi": 2433.226474,
+    "DTI": 0.095386,
+    "credit_per_unit_mass": 0.146535,
+    "weighted_recall": 0.088819,
+    "F_over_T": 6.383308,
+    "inv_dti": 10.483706
+   },
+   "F5_catq_blocked": {
+    "NW": 0.005366,
+    "NE": 0.005842,
+    "SW": 0.004257,
+    "SE": 0.002923
+   },
+   "F5_catq_mean": 0.004597,
+   "distinctness": {
+    "scored_d2.8": {
+     "intersection": 37654,
+     "jaccard": 0.854026,
+     "frac_of_candidate": 1.0
+    },
+    "scored_d1.5": {
+     "intersection": 25517,
+     "jaccard": 0.353392,
+     "frac_of_candidate": 0.67767
+    },
+    "scored_tgc-v2": {
+     "intersection": 25517,
+     "jaccard": 0.347335,
+     "frac_of_candidate": 0.67767
+    },
+    "scored_h19-5": {
+     "intersection": 37654,
+     "jaccard": 0.310854,
+     "frac_of_candidate": 1.0
+    },
+    "scored_h19-4": {
+     "intersection": 32760,
+     "jaccard": 0.254599,
+     "frac_of_candidate": 0.870027
+    },
+    "scored_h16-1": {
+     "intersection": 27266,
+     "jaccard": 0.202982,
+     "frac_of_candidate": 0.72412
+    },
+    "scored_h28-ridge": {
+     "intersection": 1898,
+     "jaccard": 0.018794,
+     "frac_of_candidate": 0.050406
+    },
+    "scored_hedge-v2": {
+     "intersection": 4814,
+     "jaccard": 0.024147,
+     "frac_of_candidate": 0.127848
+    },
+    "scored_ens12": {
+     "intersection": 4814,
+     "jaccard": 0.024147,
+     "frac_of_candidate": 0.127848
+    },
+    "scored_h25-ctx": {
+     "intersection": 5057,
+     "jaccard": 0.026072,
+     "frac_of_candidate": 0.134302
+    },
+    "scored_r13-lattice": {
+     "intersection": 1513,
+     "jaccard": 0.006287,
+     "frac_of_candidate": 0.040182
+    },
+    "scored_placeholder": {
+     "intersection": 1107,
+     "jaccard": 0.006077,
+     "frac_of_candidate": 0.029399
+    },
+    "scored_h33-2-b2": {
+     "intersection": 37654,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "distinct_from_every_prior": false
+  }
+ ],
+ "shipped": [
+  {
+   "arm": "arm1_maxcov",
+   "slug": "h47maxcov",
+   "role": "SECONDARY - conservative matched-budget re-emission of the incumbent belief",
+   "budget": 37654,
+   "mode": "allfinite",
+   "primary_download": false,
+   "filename": "gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif",
+   "name": "gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc",
+   "sha256": "fe434e1c784c7f8b21be7933bb89ee289908521c330030218ae77be4c72edb02",
+   "bytes": 304376,
+   "n_dots": 37654,
+   "submission_note": "GEMSDOE47 H47-MAXCOV-37654 | 13-observation LATI belief (incumbent-field proximity, K=20,069); exact-marginal-rule max-coverage emission at matched budget; changes the EMISSION RULE, not the geology; UNSCORED",
+   "validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif",
+    "format": {
+     "driver": "GTiff",
+     "count": 1,
+     "dtype": "float32",
+     "crs": "EPSG:32611",
+     "width": 3292,
+     "height": 3730,
+     "nodata": null,
+     "shape": [
+      3730,
+      3292
+     ],
+     "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+     ],
+     "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+     ]
+    },
+    "stats": {
+     "n_pixels": 12279160,
+     "n_finite": 12279160,
+     "n_nan": 0,
+     "n_footprint": 5167373,
+     "n_emitted": 37654,
+     "n_emitted_on_catalogue": 0,
+     "n_emitted_outside_footprint": 0,
+     "v_min": 0.0,
+     "v_max": 1.0,
+     "v_unique_count": 2,
+     "v_unique_values": [
+      0.0,
+      1.0
+     ],
+     "emitted_mass": 37654.0,
+     "band_descriptions": [
+      null
+     ]
+    },
+    "checks": {
+     "single_band": true,
+     "dtype_float32": true,
+     "crs_epsg32611": true,
+     "shape_matches_template": true,
+     "transform_matches_template": true,
+     "resolution_100m": true,
+     "bounds_match_template": true,
+     "nan_only_outside_footprint": true,
+     "all_pixels_finite": true,
+     "finite_where_footprint": true,
+     "no_nodata_sentinel_values": true,
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": true,
+     "RANGE_nan_tolerant: finite values within [0,1]": true,
+     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
+     "RANGE_min_max_reported": true,
+     "RANGE_masked_read: read(masked=True) within [0,1]": true,
+     "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "passes_nan_intolerant_range_check": true,
+    "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": true
+   },
+   "allfinite_vs_nan_identical": true
+  },
+  {
+   "arm": "arm1_maxcov",
+   "slug": "h47maxcov",
+   "role": "SECONDARY - conservative matched-budget re-emission of the incumbent belief",
+   "budget": 37654,
+   "mode": "nan",
+   "primary_download": false,
+   "filename": "gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif",
+   "name": "gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc",
+   "sha256": "1c6ff54bbc046371648ce04a7f219c3d47799d0f6137da1284d2708d4348c80a",
+   "bytes": 355846,
+   "n_dots": 37654,
+   "submission_note": "GEMSDOE47 H47-MAXCOV-37654 | 13-observation LATI belief (incumbent-field proximity, K=20,069); exact-marginal-rule max-coverage emission at matched budget; changes the EMISSION RULE, not the geology; UNSCORED",
+   "validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif",
+    "format": {
+     "driver": "GTiff",
+     "count": 1,
+     "dtype": "float32",
+     "crs": "EPSG:32611",
+     "width": 3292,
+     "height": 3730,
+     "nodata": NaN,
+     "shape": [
+      3730,
+      3292
+     ],
+     "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+     ],
+     "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+     ]
+    },
+    "stats": {
+     "n_pixels": 12279160,
+     "n_finite": 5167373,
+     "n_nan": 7111787,
+     "n_footprint": 5167373,
+     "n_emitted": 37654,
+     "n_emitted_on_catalogue": 0,
+     "n_emitted_outside_footprint": 0,
+     "v_min": 0.0,
+     "v_max": 1.0,
+     "v_unique_count": 2,
+     "v_unique_values": [
+      0.0,
+      1.0
+     ],
+     "emitted_mass": 37654.0,
+     "band_descriptions": [
+      null
+     ]
+    },
+    "checks": {
+     "single_band": true,
+     "dtype_float32": true,
+     "crs_epsg32611": true,
+     "shape_matches_template": true,
+     "transform_matches_template": true,
+     "resolution_100m": true,
+     "bounds_match_template": true,
+     "nan_only_outside_footprint": true,
+     "all_pixels_finite": false,
+     "finite_where_footprint": true,
+     "no_nodata_sentinel_values": true,
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
+     "RANGE_nan_tolerant: finite values within [0,1]": true,
+     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
+     "RANGE_min_max_reported": true,
+     "RANGE_masked_read: read(masked=True) within [0,1]": true,
+     "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "passes_nan_intolerant_range_check": false,
+    "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": false
+   },
+   "allfinite_vs_nan_identical": true
+  },
+  {
+   "arm": "arm2_h47gsa",
+   "slug": "h47gsa",
+   "role": "PRIMARY - the unique GEMSDOE47 submission (Final Prize Round has unlimited submissions)",
+   "budget": 37654,
+   "mode": "allfinite",
+   "primary_download": true,
+   "filename": "gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif",
+   "name": "gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e",
+   "sha256": "7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146",
+   "bytes": 245652,
+   "n_dots": 37654,
+   "submission_note": "GEMSDOE47 H47-GSA-37654 | LATI forward selection over an a-priori geothermal pool (geod_shearrate, rad_ThK, thermal_warm_prox, geod_dilaterate), K=15,638; FAILED cross-fitted validation (-0.061 / -0.045 out of fold); do NOT spend a weekly slot; UNSCORED",
+   "validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif",
+    "format": {
+     "driver": "GTiff",
+     "count": 1,
+     "dtype": "float32",
+     "crs": "EPSG:32611",
+     "width": 3292,
+     "height": 3730,
+     "nodata": null,
+     "shape": [
+      3730,
+      3292
+     ],
+     "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+     ],
+     "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+     ]
+    },
+    "stats": {
+     "n_pixels": 12279160,
+     "n_finite": 12279160,
+     "n_nan": 0,
+     "n_footprint": 5167373,
+     "n_emitted": 37654,
+     "n_emitted_on_catalogue": 0,
+     "n_emitted_outside_footprint": 0,
+     "v_min": 0.0,
+     "v_max": 1.0,
+     "v_unique_count": 2,
+     "v_unique_values": [
+      0.0,
+      1.0
+     ],
+     "emitted_mass": 37654.0,
+     "band_descriptions": [
+      null
+     ]
+    },
+    "checks": {
+     "single_band": true,
+     "dtype_float32": true,
+     "crs_epsg32611": true,
+     "shape_matches_template": true,
+     "transform_matches_template": true,
+     "resolution_100m": true,
+     "bounds_match_template": true,
+     "nan_only_outside_footprint": true,
+     "all_pixels_finite": true,
+     "finite_where_footprint": true,
+     "no_nodata_sentinel_values": true,
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": true,
+     "RANGE_nan_tolerant: finite values within [0,1]": true,
+     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
+     "RANGE_min_max_reported": true,
+     "RANGE_masked_read: read(masked=True) within [0,1]": true,
+     "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "passes_nan_intolerant_range_check": true,
+    "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": true
+   },
+   "allfinite_vs_nan_identical": true
+  },
+  {
+   "arm": "arm2_h47gsa",
+   "slug": "h47gsa",
+   "role": "PRIMARY - the unique GEMSDOE47 submission (Final Prize Round has unlimited submissions)",
+   "budget": 37654,
+   "mode": "nan",
+   "primary_download": false,
+   "filename": "gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif",
+   "name": "gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e",
+   "sha256": "c11744b1c4c5694c6485a287f7c6391b2da2ddaf2a90df70a63998c8aee57893",
+   "bytes": 296722,
+   "n_dots": 37654,
+   "submission_note": "GEMSDOE47 H47-GSA-37654 | LATI forward selection over an a-priori geothermal pool (geod_shearrate, rad_ThK, thermal_warm_prox, geod_dilaterate), K=15,638; FAILED cross-fitted validation (-0.061 / -0.045 out of fold); do NOT spend a weekly slot; UNSCORED",
+   "validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif",
+    "format": {
+     "driver": "GTiff",
+     "count": 1,
+     "dtype": "float32",
+     "crs": "EPSG:32611",
+     "width": 3292,
+     "height": 3730,
+     "nodata": NaN,
+     "shape": [
+      3730,
+      3292
+     ],
+     "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+     ],
+     "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+     ]
+    },
+    "stats": {
+     "n_pixels": 12279160,
+     "n_finite": 5167373,
+     "n_nan": 7111787,
+     "n_footprint": 5167373,
+     "n_emitted": 37654,
+     "n_emitted_on_catalogue": 0,
+     "n_emitted_outside_footprint": 0,
+     "v_min": 0.0,
+     "v_max": 1.0,
+     "v_unique_count": 2,
+     "v_unique_values": [
+      0.0,
+      1.0
+     ],
+     "emitted_mass": 37654.0,
+     "band_descriptions": [
+      null
+     ]
+    },
+    "checks": {
+     "single_band": true,
+     "dtype_float32": true,
+     "crs_epsg32611": true,
+     "shape_matches_template": true,
+     "transform_matches_template": true,
+     "resolution_100m": true,
+     "bounds_match_template": true,
+     "nan_only_outside_footprint": true,
+     "all_pixels_finite": false,
+     "finite_where_footprint": true,
+     "no_nodata_sentinel_values": true,
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
+     "RANGE_nan_tolerant: finite values within [0,1]": true,
+     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
+     "RANGE_min_max_reported": true,
+     "RANGE_masked_read: read(masked=True) within [0,1]": true,
+     "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "passes_nan_intolerant_range_check": false,
+    "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": false
+   },
+   "allfinite_vs_nan_identical": true
+  }
+ ],
+ "superseded_outputs_removed": [
+  {
+   "filename": "gems47-h47-saf-flank-reoccupation-2000px-20261006T105157Z-0c1c15f859-allfinite.tif",
+   "bytes": 197740,
+   "sha256": "3b3a944018929ba3fc3bd5852bd9907b2da0ea9777fc2cad69f3e682cec4226f"
+  },
+  {
+   "filename": "gems47-h47-saf-flank-reoccupation-2000px-20261006T105157Z-0c1c15f859-nan.tif",
+   "bytes": 248902,
+   "sha256": "92dbc5b97e4e4217b34705958f7925cde8ec619d6d1a4f8c59987e41cb043139"
+  },
+  {
+   "filename": "gems47-h47A-flank-reoccupation-20261006T103141Z-nan.tif",
+   "bytes": 256600,
+   "sha256": "466ddaaef8818e52f63631f5eb03814629a36c369a70f964e5bbc6f75b258343"
+  },
+  {
+   "filename": "gems47-h47A-flank-reoccupation-20261006T103141Z-zeros.tif",
+   "bytes": 205354,
+   "sha256": "c53383ef51504d3e8d15d34d2107855ef5a3ad0441f7078ac8583d12591c2eea"
+  },
+  {
+   "filename": "gems47-h47gsa-geod_shearrate-rad_ThK-thermal_warm_prox-geod_dilaterate-37654px-20261006T114205Z-b03f96ab31-allfinite.tif",
+   "bytes": 223200,
+   "sha256": "9ecbe3e39fa68c2719b17af919cc9c9b824f1e5ceb3c83c93178b1b0e628b424"
+  },
+  {
+   "filename": "gems47-h47gsa-geod_shearrate-rad_ThK-thermal_warm_prox-geod_dilaterate-37654px-20261006T114205Z-b03f96ab31-nan.tif",
+   "bytes": 273494,
+   "sha256": "7fbff85b685261f5a04ae4e0d5c76fbc089542d5dfe476775f94c810194b4105"
+  }
+ ],
+ "crossfit_validation": {
+  "paired_deltas": [
+   -0.0611062104556869,
+   -0.04504387795321116
+  ],
+  "mean_delta": -0.05307504420444903,
+  "ship": false,
+  "rule": "ship only if the candidate beats the incumbent on the mean out-of-fold predicted DTI in BOTH folds",
+  "statement": "CROSS-FIT VALIDATION FAILED - the apparent in-fold advantage does not survive out-of-fold scoring, so the a-priori geological pool does NOT support a candidate that beats the incumbent. Under the project rule ('never spend a weekly submission slot on an idea that hasn't beaten the current holdout best') the honest deliverable is the incumbent-matched re-emission with the smallest out-of-fold deficit, plus the negative result."
+ },
+ "n_priors_compared": 13,
+ "seconds": 1180.7,
+ "arm_roles": {
+  "arm2_h47gsa": "PRIMARY. The genuinely novel submission: a LATI-forward-selected geothermal-fault belief (geodetic shear strain rate, LOW Th/K hydrothermal alteration, GDR thermal-discharge proximity, dilatation rate) emitted by the exact marginal rule. Max Jaccard vs any of the 13 prior rasters = 0.0457, so it is not a copy of anything in the collection. It FAILED cross-fitted validation (-0.061 / -0.045 out of fold), which is why it is aimed at the Final Prize Round (3 Sep - 16 Oct, UNLIMITED submissions) rather than at a scarce weekly slot.",
+  "arm1_maxcov": "SECONDARY, and NOT RECOMMENDED. Its belief layer is proximity to the incumbent d2.8 raster, so the incumbent itself is the optimal emission under that belief - no re-emission can beat it, and indeed it loses on every frame including the exact, truth-model-free covered-kernel integral (219,259 / 258,661 vs the incumbent's 341,261). Kept as the low-variance control and as evidence for that argument."
+ },
+ "headline_finding": "No GEMSDOE47 arm beats the live-0.2600 incumbent on ANY of the five frames. That is the honest result of this project, and it is consistent with the family's whole history: 44 sibling repositories converged on 0.26-0.28 and none reached the community top of 0.3262, because the missing information is not in the public 100 m layers they all used.",
+ "recommendation": "Do NOT spend a weekly Development Round slot on either arm. Submit ARM 2 (H47-GSA) in the Final Prize Round, where submissions are unlimited and an unvalidated high-variance arm is free. If a weekly slot must be used, the evidence says to re-use the incumbent geometry rather than any GEMSDOE47 arm."
+}

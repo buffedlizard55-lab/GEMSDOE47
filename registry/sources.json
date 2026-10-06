@@ -1,0 +1,178 @@
+{
+ "registry": "GEMSDOE47 verified sources",
+ "generated_utc": "2026-10-06T15:46:15Z",
+ "policy": "Every item carries verified_this_session. Anything False was NOT re-fetched here and must not be quoted as confirmed.",
+ "official_competition": [
+  {
+   "id": "S-01",
+   "title": "GEMS Prize Challenge - problem description, performance metric, submission format",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+   "publisher": "DrivenData / U.S. Department of Energy",
+   "verified_this_session": true,
+   "used_for": [
+    "DTI definition",
+    "alpha=0.2 beta=0.8 R=300m",
+    "worked example TP_w 3.00 FP_w 1.89 FN_w 2.00 -> 0.60",
+    "submission format: same CRS/resolution/bounds as training data, single layer, float32, values in [0,1], outside-bounds null or nan"
+   ]
+  },
+  {
+   "id": "S-02",
+   "title": "Competition landing page",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+   "publisher": "DrivenData",
+   "verified_this_session": false,
+   "used_for": [
+    "competition identity (306)"
+   ]
+  },
+  {
+   "id": "S-03",
+   "title": "Leaderboard",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+   "publisher": "DrivenData",
+   "verified_this_session": false,
+   "used_for": [
+    "the 0.3195 and 0.3262 targets - carried over from a sibling repository's 2026-10-04 read; MUST be re-checked"
+   ]
+  },
+  {
+   "id": "S-04",
+   "title": "Rules",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/rules/",
+   "publisher": "DrivenData",
+   "verified_this_session": false,
+   "used_for": [
+    "IR-47-011 public/private split - unresolved"
+   ]
+  }
+ ],
+ "official_forum": [
+  {
+   "id": "S-05",
+   "title": "Scoring clarification: masked pixels and re-evaluation",
+   "url": "https://community.drivendata.org/t/scoring-clarification-masked-pixels-and-re-evaluation/11516",
+   "author": "chrisk-dd (DrivenData staff)",
+   "date": "2026-09-16",
+   "verified_this_session": true,
+   "quote": "Pixels corresponding to known USGS/INGENIOUS faults are masked / excluded from evaluation, so they do not count towards penalty terms. ... for scoring purposes it should not matter whether these known faults are included with predictions or not.",
+   "used_for": [
+    "mask_mode='zero' in metric.score",
+    "the claim that mass on catalogue pixels is free but useless"
+   ]
+  },
+  {
+   "id": "S-06",
+   "title": "Where do you draw the line?",
+   "url": "https://community.drivendata.org/t/where-do-you-draw-the-line/11536",
+   "author": "chrisk-dd (DrivenData staff)",
+   "date": "2026-09-23",
+   "verified_this_session": true,
+   "quote": "'new fault' means 'any fault pixel not already captured by USGS/INGENIOUS' and can include newly mapped geometry of an existing fault system.",
+   "used_for": [
+    "the target population is off-catalogue",
+    "H47-2 flank hypothesis",
+    "the F4 SGMC frame definition"
+   ]
+  },
+  {
+   "id": "S-07",
+   "title": "How were the new test faults identified? Data sources and fault types",
+   "url": "https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527",
+   "author": "jgaines (question), moongrega (reply)",
+   "date": "2026-09-18",
+   "verified_this_session": "partial",
+   "note": "IR-47-006: the thread has 9 replies; only the questions and two non-staff replies rendered. THE STAFF ANSWER WAS NOT RETRIEVED. Retry via .../11527/10 or .../11527?print=true",
+   "used_for": [
+    "nothing - deliberately not guessed at"
+   ]
+  }
+ ],
+ "official_code": [
+  {
+   "id": "S-08",
+   "title": "gems-prize-reference-solution (U-Net + Monte-Carlo CV benchmark)",
+   "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+   "author": "John Lipor (PSU) for DrivenData",
+   "verified_this_session": true,
+   "config": "MC=5, patch_size=128, test_proportion=0.5, batch_size=32, epochs=5, init_lr=1e-4, alpha=0.2, beta=0.8, smp.Unet(resnet18, imagenet, in_channels=len(good_channels), classes=1), AdamW, TverskyLoss(alpha=0.2,beta=0.8,mode='binary'), RandomResizedCrop(0.5-1.0, 0.75-1.33, bilinear)+HFlip+VFlip+RandomRotation(30)",
+   "note": "IR-47-004: the notebook contains NO DTI scorer. It optimises patch-level Tversky, which is not the leaderboard metric."
+  }
+ ],
+ "data_recovered": [
+  {
+   "id": "S-09",
+   "title": "training_features.tif / labels.tif / sample_submission.tif",
+   "provenance": "hash-pinned mirror in the owner's sibling repositories, restored via the GitHub Contents API",
+   "verified_this_session": true,
+   "verification": "SHA-256 against registry/data_manifest.json; 22/22 ALL_VERIFIED=True",
+   "upstream": "USGS GeoDAWN, INGENIOUS, 3DEP - NOT independently re-verified this session"
+  },
+  {
+   "id": "S-10",
+   "title": "lidar_scarp_features_u8.tif (12 bands derived from 706 USGS 3DEP 1 m tiles)",
+   "provenance": "owner CI derivation, mirrored",
+   "verified_this_session": true,
+   "verification": "SHA-256 pinned",
+   "upstream": "USGS 3DEP 1 m DEM",
+   "note": "IR-47-012: the 1 m DEM itself was never used; only this 100 m resample"
+  },
+  {
+   "id": "S-11",
+   "title": "geodawn_rad_u8.tif (K, Th, U, TC) and geodawn_extensions_u8.tif (ThK, UK, UTh, TMI_up150)",
+   "provenance": "owner CI derivation from GeoDAWN radiometrics, mirrored",
+   "verified_this_session": true,
+   "verification": "SHA-256 pinned",
+   "upstream": "GeoDAWN / GDR (DOI 10.5066/P93LGLVQ) - DOI NOT re-verified this session"
+  },
+  {
+   "id": "S-12",
+   "title": "derived_sgmc_faults_100m_u8.tif (83,593 px; 62,122 px more than 300 m off the given catalogue)",
+   "provenance": "owner CI derivation from the USGS State Geologic Map Compilation, mirrored",
+   "verified_this_session": true,
+   "verification": "SHA-256 pinned"
+  },
+  {
+   "id": "S-13",
+   "title": "gdr_qfaults_traces.csv (1,126 traces), gdr_wellspring_in_footprint.csv (27,092 points), gdr_volcanic_vents_in_footprint.csv (21 vents)",
+   "provenance": "owner CI derivation from the Geothermal Data Repository, mirrored",
+   "verified_this_session": true,
+   "verification": "SHA-256 pinned"
+  },
+  {
+   "id": "S-14",
+   "title": "h33-2-b2 reference raster (the reported-0.2778 flank-pruned arm)",
+   "provenance": "buffedlizard55-lab/GEMSDOE32 docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+   "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+   "verified_this_session": true,
+   "note": "IR-47-002: its reported score is attribution-conflicted"
+  }
+ ],
+ "not_verified": [
+  {
+   "id": "S-15",
+   "title": "USGS Quaternary Fault and Fold Database",
+   "url": "https://www.usgs.gov/programs/earthquake-hazards/faults",
+   "verified_this_session": false
+  },
+  {
+   "id": "S-16",
+   "title": "Geothermal Data Repository",
+   "url": "https://gdr.openei.org/",
+   "verified_this_session": false
+  },
+  {
+   "id": "S-17",
+   "title": "NLR technical report fy26osti/96647",
+   "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+   "verified_this_session": false
+  },
+  {
+   "id": "S-18",
+   "title": "USGS 3DEP 1 m DEM tiles",
+   "url": "https://prd-tnm.s3.amazonaws.com/",
+   "verified_this_session": false,
+   "note": "network-unreachable from this sandbox; the competition supplies 716 tile links in 1m_DEM_links.csv, which could not be downloaded without credentials"
+  }
+ ]
+}

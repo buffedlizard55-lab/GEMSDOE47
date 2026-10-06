@@ -1,0 +1,5 @@
+# GEMSDOE47 runtime requirements (Python >= 3.11)
+numpy>=2.0
+scipy>=1.13
+rasterio>=1.3
+pytest>=8.0

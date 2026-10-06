@@ -1,0 +1,19 @@
+name: tests
+
+on:
+  push:
+    branches: [main, "arena/**"]
+  pull_request:
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install numpy scipy rasterio pytest
+      # The metric algebra, the writer and the inversion are tested without the
+      # 1.2 GB of restored rasters; scripts/verify_grid.py needs them and is
+      # therefore run only when the cache is present.
+      - run: PYTHONPATH=src pytest tests -q -m "not needs_data"

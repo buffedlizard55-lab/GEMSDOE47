@@ -1,0 +1,920 @@
+{
+ "generated_utc": "2026-10-06T10:51:59Z",
+ "hypothesis": "H47-SAF: strike-agnostic graded catalogue-flank re-occupation",
+ "belief_model": {
+  "layers": [
+   "prox_d2.8",
+   "flank_halo_0_3"
+  ],
+  "theta": [
+   18514.481183963668,
+   5.810633533314468,
+   6.176422567607026
+  ],
+  "K": 18514.481183963668,
+  "ssr": 0.0036957310316502803,
+  "loo_ssr": 0.0065941838738693545,
+  "loo_residuals": [
+   -0.0052938567363413624,
+   -0.0023171956492973877,
+   -0.0005915447888484582,
+   0.013044342226395805,
+   0.010220310623071022,
+   0.007124483168555823,
+   -0.021328281153052686,
+   -0.03549623882608638,
+   -0.03549623882608638,
+   0.02972784870556372,
+   0.04734595778891347,
+   0.011611439785333954
+  ],
+  "alternative_model": {
+   "layers": [
+    "prox_d2.8"
+   ],
+   "theta": [
+    21477.40806593778,
+    6.297360504050989
+   ],
+   "ssr": 0.00857376757675674,
+   "loo_ssr": 0.014876395257967322
+  },
+  "uniform_model_K": 12348.0
+ },
+ "emission": {
+  "rule": "dT*(1/DTI-alpha) > alpha*dF with exact Bernoulli E[kappa]",
+  "stopped_by": "model_drift_guard (greedy marginal rule, batch=2000)",
+  "budget": 44090,
+  "mode": "greedy",
+  "dti_trace": [
+   0.26,
+   0.26
+  ]
+ },
+ "frames": {
+  "F1": "LATI LOO-best q (calibrated on 12 real returned DTIs)",
+  "F2": "LATI incumbent-field-only q (favours the incumbent)",
+  "F3": "uniform q at K=12,348 from the model-free r13-lattice diffuse probe (adversarial to any concentration)",
+  "F4": "USGS SGMC faults >300 m off the catalogue (official, independent). CAVEAT: the LOO-best LATI model puts only ~0.5% of the hidden truth here, so this frame is reported, not used to select.",
+  "F5": "4-quadrant blocked holdout on the given catalogue scored WITHOUT the organiser's mask. CAVEAT: its truth IS the catalogue, so it rewards the opposite skill; a candidate cannot even be scored on it under the organiser's stated masking (see evidence/irregularities IR-47-005)."
+ },
+ "results": [
+  {
+   "arm": "GEMSDOE47 CANDIDATE",
+   "n_dots": 2000,
+   "reported_live_dti": null,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_150m": 1059,
+   "flank_0_300m": 1993,
+   "flank_0_150m_pct": 52.95,
+   "on_sgmc_offcat": 0,
+   "F1_lati_best": {
+    "T": 439.784643,
+    "Phi": 776.827704,
+    "S": 2000.0,
+    "F": 1223.172296,
+    "K": 18514.481184,
+    "DTI": 0.02904,
+    "weighted_recall": 0.023754,
+    "credit_per_dot": 0.219892,
+    "fp_fraction": 0.611586
+   },
+   "F2_lati_incumbent": {
+    "T": 136.166296,
+    "Phi": 309.715602,
+    "S": 2000.0,
+    "F": 1690.284398,
+    "K": 21477.408066,
+    "DTI": 0.00776,
+    "weighted_recall": 0.00634,
+    "credit_per_dot": 0.068083,
+    "fp_fraction": 0.845142
+   },
+   "F3_lati_uniform": {
+    "T": 15.751384,
+    "Phi": 39.212363,
+    "S": 2000.0,
+    "F": 1960.787637,
+    "K": 12348.0,
+    "DTI": 0.001533,
+    "weighted_recall": 0.001276,
+    "credit_per_dot": 0.007876,
+    "fp_fraction": 0.980394
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 21.667298,
+    "FP_w": 1962.458456,
+    "FN_w": 62100.332702,
+    "|G|": 62122,
+    "S": 2000.0,
+    "Phi": 37.541544,
+    "DTI": 0.000433,
+    "credit_per_unit_mass": 0.010834,
+    "weighted_recall": 0.000349,
+    "F_over_T": 90.572366,
+    "inv_dti": 2311.983023
+   },
+   "F5_catq_blocked": {
+    "NW": 0.002683,
+    "NE": 0.000185,
+    "SW": 0.044308,
+    "SE": 0.067088
+   },
+   "F5_catq_mean": 0.028566,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 439,
+     "jaccard": 0.009616,
+     "frac_of_candidate": 0.2195
+    },
+    "prior_d1.5": {
+     "intersection": 545,
+     "jaccard": 0.008858,
+     "frac_of_candidate": 0.2725
+    },
+    "prior_tgc-v2": {
+     "intersection": 545,
+     "jaccard": 0.008681,
+     "frac_of_candidate": 0.2725
+    },
+    "prior_h19-5": {
+     "intersection": 1214,
+     "jaccard": 0.009958,
+     "frac_of_candidate": 0.607
+    },
+    "prior_h19-4": {
+     "intersection": 1162,
+     "jaccard": 0.009325,
+     "frac_of_candidate": 0.581
+    },
+    "prior_h16-1": {
+     "intersection": 1064,
+     "jaccard": 0.008521,
+     "frac_of_candidate": 0.532
+    },
+    "prior_h28-ridge": {
+     "intersection": 125,
+     "jaccard": 0.001863,
+     "frac_of_candidate": 0.0625
+    },
+    "prior_hedge-v2": {
+     "intersection": 455,
+     "jaccard": 0.002707,
+     "frac_of_candidate": 0.2275
+    },
+    "prior_ens12": {
+     "intersection": 455,
+     "jaccard": 0.002707,
+     "frac_of_candidate": 0.2275
+    },
+    "prior_h25-ctx": {
+     "intersection": 410,
+     "jaccard": 0.002516,
+     "frac_of_candidate": 0.205
+    },
+    "prior_r13-lattice": {
+     "intersection": 76,
+     "jaccard": 0.000368,
+     "frac_of_candidate": 0.038
+    },
+    "prior_placeholder": {
+     "intersection": 67,
+     "jaccard": 0.000454,
+     "frac_of_candidate": 0.0335
+    },
+    "prior_h33-2-b2_reported_0.2778": {
+     "intersection": 70,
+     "jaccard": 0.001768,
+     "frac_of_candidate": 0.035
+    },
+    "prior_d2.8_zeros_variant": {
+     "intersection": 439,
+     "jaccard": 0.009616,
+     "frac_of_candidate": 0.2195
+    }
+   },
+   "max_jaccard_vs_any_prior": 0.009958,
+   "max_frac_overlap_vs_any_prior": 0.607
+  },
+  {
+   "arm": "prior_d2.8",
+   "n_dots": 44090,
+   "reported_live_dti": 0.26,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_150m": 5092,
+   "flank_0_300m": 8607,
+   "flank_0_150m_pct": 11.549,
+   "on_sgmc_offcat": 748,
+   "F1_lati_best": {
+    "T": 6025.007799,
+    "Phi": 5611.122087,
+    "S": 44090.0,
+    "F": 38478.877913,
+    "K": 18514.481184,
+    "DTI": 0.254087,
+    "weighted_recall": 0.325421,
+    "credit_per_dot": 0.136652,
+    "fp_fraction": 0.872735
+   },
+   "F2_lati_incumbent": {
+    "T": 6640.820315,
+    "Phi": 6828.280262,
+    "S": 44090.0,
+    "F": 37261.719738,
+    "K": 21477.408066,
+    "DTI": 0.255786,
+    "weighted_recall": 0.3092,
+    "credit_per_dot": 0.15062,
+    "fp_fraction": 0.845129
+   },
+   "F3_lati_uniform": {
+    "T": 825.219828,
+    "Phi": 954.180371,
+    "S": 44090.0,
+    "F": 43135.819629,
+    "K": 12348.0,
+    "DTI": 0.044199,
+    "weighted_recall": 0.06683,
+    "credit_per_dot": 0.018717,
+    "fp_fraction": 0.978358
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 5568.529642,
+    "FP_w": 41593.239169,
+    "FN_w": 56553.470358,
+    "|G|": 62122,
+    "S": 44090.0,
+    "Phi": 2496.760831,
+    "DTI": 0.094174,
+    "credit_per_unit_mass": 0.126299,
+    "weighted_recall": 0.089639,
+    "F_over_T": 7.46934,
+    "inv_dti": 10.618594
+   },
+   "F5_catq_blocked": {
+    "NW": 0.119787,
+    "NE": 0.133001,
+    "SW": 0.093935,
+    "SE": 0.088113
+   },
+   "F5_catq_mean": 0.108709,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 44090,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "prior_d1.5": {
+     "intersection": 29849,
+     "jaccard": 0.401682,
+     "frac_of_candidate": 0.677002
+    },
+    "prior_tgc-v2": {
+     "intersection": 29849,
+     "jaccard": 0.39499,
+     "frac_of_candidate": 0.677002
+    },
+    "prior_h19-5": {
+     "intersection": 44090,
+     "jaccard": 0.363986,
+     "frac_of_candidate": 1.0
+    },
+    "prior_h19-4": {
+     "intersection": 38484,
+     "jaccard": 0.297438,
+     "frac_of_candidate": 0.872851
+    },
+    "prior_h16-1": {
+     "intersection": 32164,
+     "jaccard": 0.236735,
+     "frac_of_candidate": 0.729508
+    },
+    "prior_h28-ridge": {
+     "intersection": 2356,
+     "jaccard": 0.022025,
+     "frac_of_candidate": 0.053436
+    },
+    "prior_hedge-v2": {
+     "intersection": 6241,
+     "jaccard": 0.030538,
+     "frac_of_candidate": 0.141551
+    },
+    "prior_ens12": {
+     "intersection": 6241,
+     "jaccard": 0.030538,
+     "frac_of_candidate": 0.141551
+    },
+    "prior_h25-ctx": {
+     "intersection": 6659,
+     "jaccard": 0.033496,
+     "frac_of_candidate": 0.151032
+    },
+    "prior_r13-lattice": {
+     "intersection": 1776,
+     "jaccard": 0.007196,
+     "frac_of_candidate": 0.040281
+    },
+    "prior_placeholder": {
+     "intersection": 1341,
+     "jaccard": 0.007119,
+     "frac_of_candidate": 0.030415
+    },
+    "prior_h33-2-b2_reported_0.2778": {
+     "intersection": 37654,
+     "jaccard": 0.854026,
+     "frac_of_candidate": 0.854026
+    },
+    "prior_d2.8_zeros_variant": {
+     "intersection": 44090,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0
+  },
+  {
+   "arm": "prior_h33-2-b2_reported_0.2778",
+   "n_dots": 37654,
+   "reported_live_dti": 0.2778,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_150m": 0,
+   "flank_0_300m": 2171,
+   "flank_0_150m_pct": 0.0,
+   "on_sgmc_offcat": 748,
+   "F1_lati_best": {
+    "T": 3617.766146,
+    "Phi": 3416.847107,
+    "S": 37654.0,
+    "F": 34237.152893,
+    "K": 18514.481184,
+    "DTI": 0.161633,
+    "weighted_recall": 0.195402,
+    "credit_per_dot": 0.096079,
+    "fp_fraction": 0.909257
+   },
+   "F2_lati_incumbent": {
+    "T": 5874.932679,
+    "Phi": 5963.627032,
+    "S": 37654.0,
+    "F": 31690.372968,
+    "K": 21477.408066,
+    "DTI": 0.2379,
+    "weighted_recall": 0.27354,
+    "credit_per_dot": 0.156024,
+    "fp_fraction": 0.84162
+   },
+   "F3_lati_uniform": {
+    "T": 731.51459,
+    "Phi": 836.63034,
+    "S": 37654.0,
+    "F": 36817.36966,
+    "K": 12348.0,
+    "DTI": 0.04207,
+    "weighted_recall": 0.059242,
+    "credit_per_dot": 0.019427,
+    "fp_fraction": 0.977781
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 5517.636703,
+    "FP_w": 35220.773526,
+    "FN_w": 56604.363297,
+    "|G|": 62122,
+    "S": 37654.0,
+    "Phi": 2433.226474,
+    "DTI": 0.095386,
+    "credit_per_unit_mass": 0.146535,
+    "weighted_recall": 0.088819,
+    "F_over_T": 6.383308,
+    "inv_dti": 10.483706
+   },
+   "F5_catq_blocked": {
+    "NW": 0.005366,
+    "NE": 0.005842,
+    "SW": 0.004257,
+    "SE": 0.002923
+   },
+   "F5_catq_mean": 0.004597,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 37654,
+     "jaccard": 0.854026,
+     "frac_of_candidate": 1.0
+    },
+    "prior_d1.5": {
+     "intersection": 25517,
+     "jaccard": 0.353392,
+     "frac_of_candidate": 0.67767
+    },
+    "prior_tgc-v2": {
+     "intersection": 25517,
+     "jaccard": 0.347335,
+     "frac_of_candidate": 0.67767
+    },
+    "prior_h19-5": {
+     "intersection": 37654,
+     "jaccard": 0.310854,
+     "frac_of_candidate": 1.0
+    },
+    "prior_h19-4": {
+     "intersection": 32760,
+     "jaccard": 0.254599,
+     "frac_of_candidate": 0.870027
+    },
+    "prior_h16-1": {
+     "intersection": 27266,
+     "jaccard": 0.202982,
+     "frac_of_candidate": 0.72412
+    },
+    "prior_h28-ridge": {
+     "intersection": 1898,
+     "jaccard": 0.018794,
+     "frac_of_candidate": 0.050406
+    },
+    "prior_hedge-v2": {
+     "intersection": 4814,
+     "jaccard": 0.024147,
+     "frac_of_candidate": 0.127848
+    },
+    "prior_ens12": {
+     "intersection": 4814,
+     "jaccard": 0.024147,
+     "frac_of_candidate": 0.127848
+    },
+    "prior_h25-ctx": {
+     "intersection": 5057,
+     "jaccard": 0.026072,
+     "frac_of_candidate": 0.134302
+    },
+    "prior_r13-lattice": {
+     "intersection": 1513,
+     "jaccard": 0.006287,
+     "frac_of_candidate": 0.040182
+    },
+    "prior_placeholder": {
+     "intersection": 1107,
+     "jaccard": 0.006077,
+     "frac_of_candidate": 0.029399
+    },
+    "prior_h33-2-b2_reported_0.2778": {
+     "intersection": 37654,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "prior_d2.8_zeros_variant": {
+     "intersection": 37654,
+     "jaccard": 0.854026,
+     "frac_of_candidate": 1.0
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0
+  },
+  {
+   "arm": "prior_h19-5",
+   "n_dots": 121131,
+   "reported_live_dti": 0.1922,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_150m": 13298,
+   "flank_0_300m": 24167,
+   "flank_0_150m_pct": 10.978,
+   "on_sgmc_offcat": 2083,
+   "F1_lati_best": {
+    "T": 7477.854517,
+    "Phi": 15210.415745,
+    "S": 121131.0,
+    "F": 105920.584255,
+    "K": 18514.481184,
+    "DTI": 0.199456,
+    "weighted_recall": 0.403892,
+    "credit_per_dot": 0.061734,
+    "fp_fraction": 0.87443
+   },
+   "F2_lati_incumbent": {
+    "T": 8181.327072,
+    "Phi": 18291.018038,
+    "S": 121131.0,
+    "F": 102839.981962,
+    "K": 21477.408066,
+    "DTI": 0.207721,
+    "weighted_recall": 0.380927,
+    "credit_per_dot": 0.067541,
+    "fp_fraction": 0.848998
+   },
+   "F3_lati_uniform": {
+    "T": 1087.423899,
+    "Phi": 2626.247627,
+    "S": 121131.0,
+    "F": 118504.752373,
+    "K": 12348.0,
+    "DTI": 0.032175,
+    "weighted_recall": 0.088065,
+    "credit_per_dot": 0.008977,
+    "fp_fraction": 0.978319
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 7334.024959,
+    "FP_w": 113957.942951,
+    "FN_w": 54787.975041,
+    "|G|": 62122,
+    "S": 121131.0,
+    "Phi": 7173.057049,
+    "DTI": 0.099167,
+    "credit_per_unit_mass": 0.060546,
+    "weighted_recall": 0.118058,
+    "F_over_T": 15.538254,
+    "inv_dti": 10.083957
+   },
+   "F5_catq_blocked": {
+    "NW": 0.104525,
+    "NE": 0.096885,
+    "SW": 0.06265,
+    "SE": 0.058721
+   },
+   "F5_catq_mean": 0.080695,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 44090,
+     "jaccard": 0.363986,
+     "frac_of_candidate": 0.363986
+    },
+    "prior_d1.5": {
+     "intersection": 60069,
+     "jaccard": 0.495901,
+     "frac_of_candidate": 0.495901
+    },
+    "prior_tgc-v2": {
+     "intersection": 60069,
+     "jaccard": 0.4908,
+     "frac_of_candidate": 0.495901
+    },
+    "prior_h19-5": {
+     "intersection": 121131,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "prior_h19-4": {
+     "intersection": 107106,
+     "jaccard": 0.777234,
+     "frac_of_candidate": 0.884216
+    },
+    "prior_h16-1": {
+     "intersection": 91107,
+     "jaccard": 0.591746,
+     "frac_of_candidate": 0.752136
+    },
+    "prior_h28-ridge": {
+     "intersection": 6564,
+     "jaccard": 0.036507,
+     "frac_of_candidate": 0.054189
+    },
+    "prior_hedge-v2": {
+     "intersection": 18887,
+     "jaccard": 0.070274,
+     "frac_of_candidate": 0.155922
+    },
+    "prior_ens12": {
+     "intersection": 18887,
+     "jaccard": 0.070274,
+     "frac_of_candidate": 0.155922
+    },
+    "prior_h25-ctx": {
+     "intersection": 19789,
+     "jaccard": 0.075327,
+     "frac_of_candidate": 0.163369
+    },
+    "prior_r13-lattice": {
+     "intersection": 4878,
+     "jaccard": 0.015208,
+     "frac_of_candidate": 0.04027
+    },
+    "prior_placeholder": {
+     "intersection": 3641,
+     "jaccard": 0.013839,
+     "frac_of_candidate": 0.030058
+    },
+    "prior_h33-2-b2_reported_0.2778": {
+     "intersection": 37654,
+     "jaccard": 0.310854,
+     "frac_of_candidate": 0.310854
+    },
+    "prior_d2.8_zeros_variant": {
+     "intersection": 44090,
+     "jaccard": 0.363986,
+     "frac_of_candidate": 0.363986
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0
+  },
+  {
+   "arm": "prior_r13-lattice",
+   "n_dots": 204504,
+   "reported_live_dti": 0.0904,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "flank_0_150m": 7104,
+   "flank_0_300m": 15368,
+   "flank_0_150m_pct": 3.474,
+   "on_sgmc_offcat": 2481,
+   "F1_lati_best": {
+    "T": 6483.205426,
+    "Phi": 5554.933734,
+    "S": 204504.0,
+    "F": 198949.066266,
+    "K": 18514.481184,
+    "DTI": 0.115983,
+    "weighted_recall": 0.350169,
+    "credit_per_dot": 0.031702,
+    "fp_fraction": 0.972837
+   },
+   "F2_lati_incumbent": {
+    "T": 7923.179847,
+    "Phi": 7270.772679,
+    "S": 204504.0,
+    "F": 197233.227321,
+    "K": 21477.408066,
+    "DTI": 0.136106,
+    "weighted_recall": 0.368908,
+    "credit_per_dot": 0.038743,
+    "fp_fraction": 0.964447
+   },
+   "F3_lati_uniform": {
+    "T": 4590.405657,
+    "Phi": 4505.89843,
+    "S": 204504.0,
+    "F": 199998.10157,
+    "K": 12348.0,
+    "DTI": 0.090369,
+    "weighted_recall": 0.371753,
+    "credit_per_dot": 0.022447,
+    "fp_fraction": 0.977967
+   },
+   "F4_sgmc_offcatalogue": {
+    "TP_w": 23393.468881,
+    "FP_w": 196202.496286,
+    "FN_w": 38728.531119,
+    "|G|": 62122,
+    "S": 204504.0,
+    "Phi": 8301.503714,
+    "DTI": 0.249885,
+    "credit_per_unit_mass": 0.114391,
+    "weighted_recall": 0.376573,
+    "F_over_T": 8.387063,
+    "inv_dti": 4.001835
+   },
+   "F5_catq_blocked": {
+    "NW": 0.118477,
+    "NE": 0.065687,
+    "SW": 0.050893,
+    "SE": 0.051204
+   },
+   "F5_catq_mean": 0.071565,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 1776,
+     "jaccard": 0.007196,
+     "frac_of_candidate": 0.008684
+    },
+    "prior_d1.5": {
+     "intersection": 2445,
+     "jaccard": 0.009328,
+     "frac_of_candidate": 0.011956
+    },
+    "prior_tgc-v2": {
+     "intersection": 2486,
+     "jaccard": 0.00944,
+     "frac_of_candidate": 0.012156
+    },
+    "prior_h19-5": {
+     "intersection": 4878,
+     "jaccard": 0.015208,
+     "frac_of_candidate": 0.023853
+    },
+    "prior_h19-4": {
+     "intersection": 4979,
+     "jaccard": 0.0154,
+     "frac_of_candidate": 0.024347
+    },
+    "prior_h16-1": {
+     "intersection": 4964,
+     "jaccard": 0.015346,
+     "frac_of_candidate": 0.024273
+    },
+    "prior_h28-ridge": {
+     "intersection": 2639,
+     "jaccard": 0.00988,
+     "frac_of_candidate": 0.012904
+    },
+    "prior_hedge-v2": {
+     "intersection": 6660,
+     "jaccard": 0.018278,
+     "frac_of_candidate": 0.032567
+    },
+    "prior_ens12": {
+     "intersection": 6660,
+     "jaccard": 0.018278,
+     "frac_of_candidate": 0.032567
+    },
+    "prior_h25-ctx": {
+     "intersection": 6548,
+     "jaccard": 0.018223,
+     "frac_of_candidate": 0.032019
+    },
+    "prior_r13-lattice": {
+     "intersection": 204504,
+     "jaccard": 1.0,
+     "frac_of_candidate": 1.0
+    },
+    "prior_placeholder": {
+     "intersection": 5854,
+     "jaccard": 0.017005,
+     "frac_of_candidate": 0.028625
+    },
+    "prior_h33-2-b2_reported_0.2778": {
+     "intersection": 1513,
+     "jaccard": 0.006287,
+     "frac_of_candidate": 0.007398
+    },
+    "prior_d2.8_zeros_variant": {
+     "intersection": 1776,
+     "jaccard": 0.007196,
+     "frac_of_candidate": 0.008684
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0
+  }
+ ],
+ "shipped": [
+  {
+   "mode": "allfinite",
+   "filename": "gems47-h47-saf-flank-reoccupation-2000px-20261006T105157Z-0c1c15f859-allfinite.tif",
+   "primary": true,
+   "sha256": "3b3a944018929ba3fc3bd5852bd9907b2da0ea9777fc2cad69f3e682cec4226f",
+   "bytes": 197740,
+   "validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47-saf-flank-reoccupation-2000px-20261006T105157Z-0c1c15f859-allfinite.tif",
+    "format": {
+     "driver": "GTiff",
+     "count": 1,
+     "dtype": "float32",
+     "crs": "EPSG:32611",
+     "width": 3292,
+     "height": 3730,
+     "nodata": null,
+     "shape": [
+      3730,
+      3292
+     ],
+     "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+     ],
+     "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+     ]
+    },
+    "stats": {
+     "n_pixels": 12279160,
+     "n_finite": 12279160,
+     "n_nan": 0,
+     "n_footprint": 5167373,
+     "n_emitted": 2000,
+     "n_emitted_on_catalogue": 0,
+     "n_emitted_outside_footprint": 0,
+     "v_min": 0.0,
+     "v_max": 1.0,
+     "v_unique_count": 2,
+     "v_unique_values": [
+      0.0,
+      1.0
+     ],
+     "emitted_mass": 2000.0,
+     "band_descriptions": [
+      null
+     ]
+    },
+    "checks": {
+     "single_band": true,
+     "dtype_float32": true,
+     "crs_epsg32611": true,
+     "shape_matches_template": true,
+     "transform_matches_template": true,
+     "resolution_100m": true,
+     "bounds_match_template": true,
+     "nan_only_outside_footprint": true,
+     "all_pixels_finite": true,
+     "finite_where_footprint": true,
+     "no_nodata_sentinel_values": true,
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": true,
+     "RANGE_nan_tolerant: finite values within [0,1]": true,
+     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
+     "RANGE_min_max_reported": true,
+     "RANGE_masked_read: read(masked=True) within [0,1]": true,
+     "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "passes_nan_intolerant_range_check": true,
+    "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": true
+   }
+  },
+  {
+   "mode": "nan",
+   "filename": "gems47-h47-saf-flank-reoccupation-2000px-20261006T105157Z-0c1c15f859-nan.tif",
+   "primary": false,
+   "sha256": "92dbc5b97e4e4217b34705958f7925cde8ec619d6d1a4f8c59987e41cb043139",
+   "bytes": 248902,
+   "validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47-saf-flank-reoccupation-2000px-20261006T105157Z-0c1c15f859-nan.tif",
+    "format": {
+     "driver": "GTiff",
+     "count": 1,
+     "dtype": "float32",
+     "crs": "EPSG:32611",
+     "width": 3292,
+     "height": 3730,
+     "nodata": NaN,
+     "shape": [
+      3730,
+      3292
+     ],
+     "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+     ],
+     "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+     ]
+    },
+    "stats": {
+     "n_pixels": 12279160,
+     "n_finite": 5167373,
+     "n_nan": 7111787,
+     "n_footprint": 5167373,
+     "n_emitted": 2000,
+     "n_emitted_on_catalogue": 0,
+     "n_emitted_outside_footprint": 0,
+     "v_min": 0.0,
+     "v_max": 1.0,
+     "v_unique_count": 2,
+     "v_unique_values": [
+      0.0,
+      1.0
+     ],
+     "emitted_mass": 2000.0,
+     "band_descriptions": [
+      null
+     ]
+    },
+    "checks": {
+     "single_band": true,
+     "dtype_float32": true,
+     "crs_epsg32611": true,
+     "shape_matches_template": true,
+     "transform_matches_template": true,
+     "resolution_100m": true,
+     "bounds_match_template": true,
+     "nan_only_outside_footprint": true,
+     "all_pixels_finite": false,
+     "finite_where_footprint": true,
+     "no_nodata_sentinel_values": true,
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
+     "RANGE_nan_tolerant: finite values within [0,1]": true,
+     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
+     "RANGE_min_max_reported": true,
+     "RANGE_masked_read: read(masked=True) within [0,1]": true,
+     "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "passes_nan_intolerant_range_check": false,
+    "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": false
+   }
+  }
+ ],
+ "submission_note": "GEMSDOE47 H47-SAF | LATI-inverted belief (graded 0-300 m catalogue halo x multiphysics ridge), K=18,514, exact-marginal-rule greedy emission, 2000 dots of which 1993 (53.0% in 0-150 m) re-occupy the catalogue flank the 0.2778 arm emptied; UNSCORED",
+ "allfinite_vs_nan_identical": true,
+ "seconds": 145.2
+}

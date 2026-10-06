@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Executive summary &amp; how to submit — GEMSDOE47</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>Executive summary &amp; exactly how to submit</h1>
+  <p class="sub">GEMSDOE47 · DrivenData competition 306 · Geologic Enhanced Mapping System (GEMS) Prize Challenge</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a class="on" href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+  </nav>
+</div></header>
+
+<div class="wrap">
+
+<div class="dl">
+  <p class="kicker">The file to upload</p>
+  <h2>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif</h2>
+  <div class="btnrow">
+    <a class="btn" href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif"
+       download>⬇&nbsp; DOWNLOAD (.tif, 240 KB)</a>
+  </div>
+  <div class="kv">
+    <div><b>SHA-256</b> 7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146</div>
+    <div><b>Size</b> 245,652 bytes &nbsp;·&nbsp; <b>Emitted pixels</b> 37,654 &nbsp;·&nbsp; <b>Values</b> {0.0, 1.0}</div>
+    <div><b>Grid</b> 3730 × 3292 · EPSG:32611 · 100 m · bounds 243350 / 4135550 / 572550 / 4508550</div>
+    <div><b>Format checks</b> 21 / 21 passed, 0 hard failures, no NaN, no sentinel values</div>
+  </div>
+</div>
+
+<h2>How to submit — nine steps</h2>
+<ol class="steps">
+<li><b>Download the file above.</b> Take the <code>-allfinite.tif</code> one. Do not take the
+    <code>-nan.tif</code> one unless the portal explicitly rejects the all-finite file.</li>
+<li><b>Verify it before you upload</b> (30 seconds, and it is the step that would have caught the
+    reported rejection):
+<pre>python3 - &lt;&lt;'PY'
+import numpy as np, rasterio
+p = "gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif"
+with rasterio.open(p) as s:
+    v = s.read(1)
+    print("bands", s.count, "dtype", s.dtypes[0], "crs", s.crs)
+    print("shape", s.shape, "transform", tuple(s.transform)[:6])
+print("all pixels finite      :", bool(np.isfinite(v).all()))
+print("np.all((v&gt;=0)&amp;(v&lt;=1)):", bool(np.all((v &gt;= 0) &amp; (v &lt;= 1))))
+print("min / max              :", float(v.min()), float(v.max()))
+print("emitted pixels         :", int((v &gt; 0).sum()))
+PY</pre>
+    Expected: <code>bands 1</code>, <code>dtype float32</code>, <code>crs EPSG:32611</code>,
+    <code>shape (3730, 3292)</code>, <code>transform (100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</code>,
+    both booleans <code>True</code>, min 0.0, max 1.0, emitted 37,654.
+    Or run the repository’s own validator, which checks 21 things:
+    <code>PYTHONPATH=src python3 src/gems47/submission.py &lt;file.tif&gt;</code></li>
+<li><b>Sign in to DrivenData</b> and open
+    <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">competition 306</a>.
+    You must have joined the competition and, if it is a team competition, be a member of the team.</li>
+<li><b>Go to the “Submit” page</b> —
+    <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submit/">…/submit/</a>.</li>
+<li><b>Upload the <code>.tif</code> file itself.</b> Do not zip it. The portal reads the GeoTIFF
+    directly.</li>
+<li><b>Fill in the optional “Note” field.</b> This is what distinguishes your entry on the leaderboard.
+    Paste exactly:
+    <pre>LATI-inverted geothermal-fault belief (shear strain + low Th/K + thermal discharge); 37,654 dots; exact marginal-rule emission; UNSCORED</pre>
+    The sibling repositories use this field for things like <code>clustering with k=25</code>; it is
+    free text and it is the only place your method is recorded on the board.</li>
+<li><b>Submit and wait for the score.</b> The returned number is the DTI on the public split. Record it
+    — it becomes the fourteenth observation for the next LATI fit
+    (<code>src/gems47/lati.py::OBSERVATIONS</code>).</li>
+<li><b>Check which round you are in.</b> The Development Round allows a limited number of submissions
+    per week; the <b>Final Prize Round (3 Sep – 16 Oct) allows unlimited submissions</b>. The
+    recommendation below depends entirely on which one you are in.</li>
+<li><b>If the portal rejects the file</b> with anything other than the range error, capture the exact
+    message and compare it against <a href="irregularities.html">the irregularities log</a> — the range
+    error itself is already diagnosed and fixed.</li>
+</ol>
+
+<h2>The recommendation, stated plainly</h2>
+<div class="callout bad">
+<p style="margin-top:0"><b>Do not spend a weekly Development Round slot on this file.</b></p>
+<p>The project’s own standing rule is <i>“never spend a weekly submission slot on an idea that hasn’t
+beaten the current holdout best.”</i> This arm has not. It was scored against five independent truth
+frames and the live-0.2600 incumbent beat it on all five, including on the covered 300 m kernel
+integral — a quantity that is exact and needs no truth model at all:</p>
+<table>
+<tr><th>Frame</th><th class="n">GEMSDOE47 H47-GSA</th><th class="n">incumbent d2.8</th><th class="n">Δ</th></tr>
+<tr><td>Covered 300 m kernel integral <span class="small">(exact, model-free)</span></td>
+    <td class="n">99,916</td><td class="n">341,261</td><td class="n">−241,345</td></tr>
+<tr><td>F1 · LATI, incumbent-proximity belief</td><td class="n">0.0555</td><td class="n">0.2650</td><td class="n">−0.2095</td></tr>
+<tr><td>F3 · uniform truth at model-free K = 12,348</td><td class="n">0.0140</td><td class="n">0.0442</td><td class="n">−0.0302</td></tr>
+<tr><td>F4 · USGS SGMC off-catalogue faults (official, independent)</td><td class="n">0.0306</td><td class="n">0.0942</td><td class="n">−0.0635</td></tr>
+<tr><td>F5 · blocked catalogue holdout (contaminated)</td><td class="n">0.0148</td><td class="n">0.1087</td><td class="n">−0.0939</td></tr>
+<tr><td>F2 · <b>its own</b> LATI belief — <span class="badge b-bad">DO NOT TRUST</span></td>
+    <td class="n">0.6081</td><td class="n">0.2653</td><td class="n">+0.3428</td></tr>
+</table>
+<p style="margin-bottom:0">The single frame that favours it is the frame it was optimised against. A
+cross-fitted test — fit the belief on one half of the returned scores, build the candidate, then score
+it with a belief fitted on the <i>other</i> half — returned <b>−0.0611</b> and <b>−0.0450</b>. The
+in-fold advantage of ≈+0.30 DTI was entirely optimizer’s curse and pool-selection bias.</p>
+</div>
+
+<div class="callout good">
+<b>Do submit it in the Final Prize Round.</b> That round (3 Sep – 16 Oct) has <b>unlimited</b>
+submissions, so an unvalidated, high-variance arm costs nothing and a single informative return is
+worth more than the slot. This arm is also the only genuinely distinct raster in the collection
+(max Jaccard <b>0.0457</b> against all thirteen prior scored rasters) and it tests a geology —
+actively straining, hydrothermally altered, thermally discharging ground — that no sibling repository
+emitted as a primary field.
+</div>
+
+<h2>Why 0.2778 won — the short version</h2>
+<p>The metric reduces exactly to</p>
+<pre>1/DTI = 0.2 + 0.2·(F/T) + 0.8·(K/T)</pre>
+<p>where <code>T</code> is earned credit, <code>F</code> is wasted mass and <code>K</code> is the hidden
+truth’s size. Two consequences decide everything:</p>
+<ul>
+<li><b>FN<sub>w</sub> = K − T</b> and <b>FP<sub>w</sub> = S − Φ</b> exactly, so the denominator is
+    <code>α(T + S − Φ) + βK</code>. Every unit of emitted mass raises the denominator by exactly
+    <code>α = 0.2</code> <i>regardless of where it goes</i>.</li>
+<li>A dot therefore pays for itself if and only if its marginal credit exceeds
+    <b><code>α · DTI</code></b> — 0.0520 at DTI 0.26, 0.0556 at 0.2778. Equivalently: a dot pays only
+    if it lands within roughly <b>284 m</b> of a hidden truth pixel.</li>
+</ul>
+<p>Read that way, the family’s trajectory
+<code>0.1922 → 0.2477 → 0.2600 → 0.2708 → 0.2778</code> is not a sequence of discoveries. Emitted mass
+fell <code>121,131 → 60,069 → 44,090 → 40,199 → 37,654</code> — a <b>69 %</b> cut — while earned credit
+fell far less. The 0.2778 arm’s specific move was to delete every dot within 2 px of the given
+catalogue, i.e. every dot sitting on a <b>masked</b> pixel. Masked mass cannot earn credit and still
+costs α per unit if the mask is applied only to the penalty term. Removing it is free precision.</p>
+<p>The cross-check that this is really what happened: the organiser’s masking was confirmed by a natural
+experiment in the recovered bytes. <code>Hedge-v2</code> and <code>ens12</code> are byte-identical off
+the catalogue and differ by 54,533 dots placed <i>exactly</i> on catalogue pixels — and both returned
+<b>0.1563</b>. Masked pixels are dropped before <b>both</b> sums.</p>
+<p><a href="evidence.html#why-02778">→ the full arithmetic</a></p>
+
+<h2>What would actually be needed to beat 0.3195</h2>
+<table>
+<tr><th>Target DTI</th><th class="n">Weighted recall T/K at F = 0</th><th class="n">at F = K</th>
+    <th class="n">at the incumbent’s F/K ≈ 8</th></tr>
+<tr><td>0.2600 (live anchor)</td><td class="n">21.9 %</td><td class="n">27.4 %</td><td class="n">82.4 %</td></tr>
+<tr><td>0.2778 (family best)</td><td class="n">23.5 %</td><td class="n">29.4 %</td><td class="n">88.5 %</td></tr>
+<tr><td><b>0.3195 (brief target)</b></td><td class="n">27.3 %</td><td class="n">34.1 %</td>
+    <td class="n"><b>102.7 % — impossible</b></td></tr>
+<tr><td>0.3262 (community #1)</td><td class="n">27.9 %</td><td class="n">34.9 %</td>
+    <td class="n"><b>105.0 % — impossible</b></td></tr>
+</table>
+<p>At the incumbent’s waste ratio the brief’s target is <b>arithmetically unreachable</b> — recall
+cannot exceed 100 %. Reaching 0.3195 requires <code>F/T</code> to roughly <b>halve</b>: same credit,
+half the wasted mass. That is a precision problem, not a coverage problem, and no amount of new
+detector mass solves it.</p>
+
+<h2>Remaining work</h2>
+<ol>
+<li><b>The 1 m DEM was never used.</b> The competition supplies links to 716 USGS 3DEP 1 m tiles and
+    this project could only reach the owner’s pre-derived 100 m LiDAR scarp rasters. Scarps are a
+    metre-scale phenomenon; resampling them to 100 m destroys the discriminating signal. This is the
+    single largest untested lever and the most likely explanation for why the top of the board is at
+    0.3262 while 44 sibling repositories converged on 0.26–0.28.</li>
+<li><b>Three submission slots would identify <code>T</code>, <code>F</code> and <code>K</code> exactly.</b>
+    <code>DTI(λp) = λT/(λα(T+F)+βK)</code> makes <code>1/DTI</code> linear in <code>1/λ</code>, so an
+    anchor, a λ = 0.5 scaling and a null-addition of known mass solve for all three in closed form.
+    Designed, never spent. Conditioning is 56×–1380× better than reading four decimal places.</li>
+<li><b>Thread 11527’s staff answer was never retrieved</b> — which data the NLR/USGS experts actually
+    used to identify the new faults. That single post would settle the field question directly. The
+    page renders a collapsed post list; retry via the last-post URL or the <code>?print=true</code>
+    endpoint.</li>
+<li><b>H47-4 (deep-source magnetic continuity)</b> is specified and its data is already restored
+    (<code>TMI_up150</code> in <code>geodawn_extensions_u8.tif</code>) but unbuilt.</li>
+<li><b>Whether scoring is restricted to a public chunk footprint</b> is still unresolved. If the whole
+    raster is scored but only public-chunk truth exists, mass in private chunks is pure FP. No prior
+    repository answers this either.</li>
+</ol>
+
+<h2>Limitations you should weigh before trusting anything here</h2>
+<ul>
+<li><b>Nothing was scored.</b> No DrivenData credentials exist in this environment. Every DTI in the
+    F1–F5 columns is a model output, labelled UNSCORED.</li>
+<li><b>Thirteen scalars are the entire ground truth.</b> Six of the thirteen are nested thinnings of one
+    field, so the effective sample size is well below thirteen.</li>
+<li><b>The 0.2778 attribution is contested.</b> A sibling repository records
+    <code>attribution_conflict_site_says_unscored_official_board_has_unlinked_0.2778_row</code>. That
+    one number decides the flank verdict, which is why the break-even (0.2200) is reported rather than
+    a conclusion.</li>
+<li><b>The local frames disagree with each other.</b> SGMC ranks the lattice best (0.2499) although it
+    scored 0.0904 live; the blocked catalogue holdout ranks the flank-pruned arm worst (0.0046)
+    although it reportedly scored highest. No local instrument can settle this.</li>
+<li><b>Optimizer’s curse is large and was measured</b> at ≈0.30 DTI. Any in-fold number on this site is
+    decorative.</li>
+</ul>
+
+</div>
+<footer><div class="wrap">
+  GEMSDOE47 · <a href="index.html">home</a> · <a href="evidence.html">every number</a> ·
+  <a href="irregularities.html">irregularities</a> · <a href="../README.md">README / standing brief</a>
+</div></footer>
+</body>
+</html>
