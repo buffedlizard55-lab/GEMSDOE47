@@ -49,6 +49,25 @@ This run has **not** surpassed the user target 0.3195 or the dated official lead
 are not directly comparable to those competition scores. Reported GEMSDOE32/H33 0.2778 is preserved as
 user/owner history; participant rows do not authenticate the filename/hash. [Mechanism and limits](docs/analysis.html).
 
+## Earlier H47-QC screen — research-only, separate from H47-C1
+
+[Download the H47-QC 5,000-pixel GeoTIFF](docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif) ·
+[Short identification note](docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.md) ·
+[Full screen report](docs/h47qc-screen-20261006.json) ·
+[Bounded uniqueness audit](docs/h47qc-uniqueness-audit-20261006.json)
+
+**RESEARCH ONLY · FAILED PROMOTION GATE · DO NOT UPLOAD · NO SLOT AUTHORIZED.** H47-QC's locked-test
+pooled public-catalogue DTI was **0.0131689425**, below its geochemistry-only ablation (**0.0141948068**);
+selected spacing was **6 px / 600 m**. The nominal split-conformal level was 6/7 (85.7%) only under
+unverified block-score exchangeability; its clipped lower floor was **0.0**, not a private-target or
+map-wide guarantee. The 5,000 binary float32 pixels are finite in [0,1] on the 100 m EPSG:32611 grid.
+The TIFF SHA-256 is `3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2`.
+Its bounded public-inventory audit found no exact positive-mask match among inspected artifacts, but that is
+not global uniqueness or performance evidence. A separate post-merge check against all 12 other same-grid
+TIFFs currently published in this repository also found no exact mask match (maximum positive-support
+Jaccard 0.003175 against H47-GSA; H47-QC/H47-C1 Jaccard 0.000915). H47-QC is a separate earlier experiment,
+not a replacement for or promotion of the later H47-C1 result above.
+
 ## Preregistration, correction and review
 
 Five ranked physical hypotheses were written **before implementation** in

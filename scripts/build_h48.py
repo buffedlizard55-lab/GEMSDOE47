@@ -662,7 +662,7 @@ def main() -> int:
     # ---- 6. emit + audit -----------------------------------------------------
     tag = (f"apex-{chosen.name.split('>=')[1]}" if args.source == "apex"
            else f"repack-r{chosen.name.split('=')[1].replace('.', 'p')}")
-    name = f"gems47-h48-mscl-{tag}-{chosen.payload['n_dots']}px-{UTC}-allfinite.tif" 
+    name = f"gems47-h48-mscl-{tag}-{chosen.payload['n_dots']}px-{UTC}-allfinite.tif"
     out = ROOT / "docs" / "downloads" / name
     written = write_tif(out, dots_best, frames["footprint"])
     audit = audit_tif(out, frames["footprint"], labels)

@@ -41,6 +41,12 @@
 - Structured standing brief, available score identifiers/history and all source URLs preserved in README.
   Missing original verbatim chat wording is explicitly not fabricated. Winning goal remains unmet.
 
+## Separate H47-QC screen — three-pass review
+
+1. **Implement and verify:** four new geological hypotheses were ranked in [`hypotheses-round2-20261006.md`](hypotheses-round2-20261006.md) and the H47-QC protocol frozen in [`preregistered-h47qc-20261006.md`](preregistered-h47qc-20261006.md) before implementation. The candidate-building API does not read catalogue labels. The 5,000-pixel, 6 px / 600 m run and its inputs, split, score history and format checks are recorded in [`h47qc-screen-20261006.json`](h47qc-screen-20261006.json).
+2. **Review bugs, assumptions and edge cases:** checked the held-out comparison against the matched geochemistry-only, random, H47-B-persistence and single-scale magnetic baselines. The candidate's pooled test DTI 0.0131689425 loses to the geochemistry-only 0.0141948068 ablation. The nominal split-conformal level is 6/7 (85.7%) only under unverified block-score exchangeability; the clipped lower floor is zero, not a performance guarantee.
+3. **Re-check the brief, science and release:** the binary float32 artifact is finite and in [0,1] on the specified 100 m EPSG:32611 grid, but valid format is not scientific promotion or portal acceptance. The bounded audit found no exact positive-mask match in its inspected inventory; it does not prove global uniqueness. The local geochemistry table is a derived mirror, water-type/disequilibrium and exact field definitions remain limitations, and the labels are only a public-catalogue proxy. **H47-QC is a failed research screen: do not upload it or spend a slot.** Its TIFF hash and identification note are published in `docs/downloads/`.
+
 Exact final test/check/PR/merge timestamps are recorded in `data/three-pass-review.json` and GitHub receipts.
 
 ## Older corrections still in force
