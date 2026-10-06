@@ -2,7 +2,7 @@
 
 ## User-provided score history
 
-The following entries are copied from the user prompt as **user-reported history**, not re-scored here. This checkout began with no TIFFs, data, or code, so none of the past submission rasters or scores was independently reproduced. Site-level score lists are not a substitute for an organizer receipt tying a specific TIFF hash to a specific score.
+The following entries are copied from the user prompt as **user-reported history**, not re-scored here. The checkout now contains historical and research-only TIFFs plus a public-mirror catalogue screen, but it still lacks organizer-authenticated receipts tying a prior TIFF hash to a participant score. The H47-B research experiment does not authenticate any row below. Site-level score lists are not a substitute for an organizer receipt.
 
 | User-reported submission label | User-reported public score | Source/context |
 |---|---:|---|
@@ -64,6 +64,6 @@ The prompt also listed several artifacts with no score. They remain “score not
 - GEMSDOE41's README explicitly says the H33 filename-to-0.2778 mapping remains user-reported and unauthenticated.
 - Conclusion: preserve the user's record as a claim, but do not present it as an artifact-verified score.
 
-## Current official board snapshot — 2026-10-06 UTC
+## Latest saved public board observation — 2026-10-06 UTC
 
-See [`leaderboard.html`](leaderboard.html) for the top rows and a direct link to the live official page. The top row at capture was **alexoktaba, 0.3345**. `0.3195` was DARD at rank 5, and `0.2778` appeared at rank 13 for `extradr19`. The board is a moving participant-level public score, not a per-file or private-label report.
+See [`leaderboard.html`](leaderboard.html) for the corrected observations and official link. The later saved session record has rank 1 at **0.3774** (participant name not preserved), DARD **0.3195 at rank 7**, and `extradr19` **0.2778 at rank 13**. An earlier checked-in page listed 0.3345 at rank 1 and DARD at rank 5; it has been superseded. The observation is participant-level and does not identify a TIFF or provide an artifact-to-score receipt. No automated leaderboard monitoring is used.

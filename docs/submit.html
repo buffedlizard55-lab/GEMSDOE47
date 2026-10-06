@@ -1,114 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>How to submit — GEMSDOE47</title>
-<meta name="description" content="Exact steps to submit the GEMSDOE47 GeoTIFF to the DOE GEMS Prize on DrivenData #306, with the ready-to-paste portal note and the verified format contract.">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Manual, fail-closed instructions for a future promoted GEMSDOE47 GeoTIFF submission. H47-B is explicitly not for upload.">
+  <title>How to Submit a Future Candidate · GEMSDOE47</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header><div class="wrap">
-  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">How to submit, exactly</span></div>
-  <nav>
-    <a href="index.html">Executive summary</a>
-    <a class="on" href="submit.html">How to submit</a>
-    <a href="analysis.html">Leaderboard &amp; analysis</a>
-    <a href="hypotheses.html">Hypotheses</a>
-    <a href="sources.html">Sources</a>
+  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">Manual instructions · future promoted candidates only</span></div>
+  <nav aria-label="Main navigation">
+    <a href="../index.html">Project home</a><a href="executive-summary.html">Executive summary</a>
+    <a class="on" href="submit.html">How to submit</a><a href="analysis.html">Results analysis</a>
+    <a href="leaderboard.html">Leaderboard evidence</a><a href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a>
   </nav>
 </div></header>
-
 <main class="wrap">
-
-  <div class="dl">
-    <h2>⬇ The file you are submitting</h2>
-    <a class="btn" download href="downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif">
-      Download gems47-dcat20-annulus-flankprune-n18524-20261006.tif (1.5 MB)
-    </a>
-    <dl class="kv">
-      <dt>sha256</dt><dd>0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261</dd>
-      <dt>bytes</dt><dd>1,552,154</dd>
-    </dl>
-  </div>
-
-  <h2>Submission steps</h2>
+  <div class="note bad"><strong>Current status: do not upload either repository TIFF.</strong> H47-B failed the preregistered holdout gate and is only a research artifact. The older d-cat/annulus file is derived by pruning a published mask. Neither file is eligible for a slot.</div>
+  <p>These instructions apply only after a <em>new</em> prediction has beaten the current spatially blocked holdout best under a frozen protocol and passed independent review. This site does not log in, upload, poll the leaderboard, or spend a slot.</p>
+  <h2>Gate 1 — scientific promotion (required before packaging)</h2>
   <ol class="steps">
-    <li><strong>Open the competition and go to the Submissions tab.</strong>
-      <a href="https://www.drivendata.org/competitions/306/" target="_blank" rel="noopener">drivendata.org/competitions/306/</a>
-      → sign in → <em>Submit</em> → <em>Make new submission</em> (the flow described on the
-      competition page itself).</li>
-
-    <li><strong>Upload the file above.</strong> The page accepts a single-band GeoTIFF
-      (<code>.tif</code>) or a <code>.zip</code> containing exactly one GeoTIFF. Do <em>not</em> zip
-      this one — it is already a single GeoTIFF. Do not re-save it in another tool: re-encoding can
-      rewrite the nodata tag, which is what caused an earlier rejection on this project.</li>
-
-    <li><strong>Give it a unique name / short comment</strong> so submissions can be told apart
-      (for example, “clustering with k=25” style comments are what the form expects here):
-      <pre><code>d_cat annulus flank-prune, B = 20 px (2.0 km), 18,524 px, conformal floor 0.3484 @ 75%</code></pre></li>
-
-    <li><strong>Paste the note</strong> into the optional <em>Note</em> field. This is the field the
-      brief requires the conformal confidence level to appear in, so it is already inside the text:
-      <pre><code>Method: delete-only distance-to-catalogue annulus prune of a dot network, B = 20 px
-(2.0 km). Leaves 18,524 px. Modelled DTI 0.34912; split-conformal certified floor
-0.34837 at 75% confidence (3 calibration rungs with official scores, q = 0.000755,
-Lei et al. JASA 2018 split conformal). Full note and limitations:
-github.com/buffedlizard55-lab/GEMSDOE47 (notes/SUBMISSION_NOTE.md).</code></pre>
-      The long-form note is
-      <a href="../notes/SUBMISSION_NOTE.md">notes/SUBMISSION_NOTE.md</a> in the repository.</li>
-
-    <li><strong>Before you click submit, check one thing:</strong> does the competition keep your
-      <em>best</em> score, or only the most recent submission? This file is a bet that the modelled
-      0.3491 is realised; if the board keeps only the latest submission and the bet fails, the
-      0.2778 you already hold is replaced. The rule is on the competition rules page —
-      <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/rules/" target="_blank" rel="noopener">official rules</a>.
-      Nothing in this repository uploads anything automatically.</li>
-
-    <li><strong>Record the result.</strong> When the score returns, add the rung to
-      <code>notes/results.json</code> and to the ladder table on
-      <a href="analysis.html">the analysis page</a>. If it comes back below 0.2778, that is the single
-      most valuable measurement this project can get: it pins the decay rate of <code>T</code>, which
-      is the one assumption the whole submission rests on.</li>
+    <li>Pin authorized input files, the candidate code revision, the frozen protocol and spatial block assignment by SHA-256. Distinguish official downloads from public mirrors and verify labels/grid semantics.</li>
+    <li>Show that the candidate is genuinely new—not a copied mask, pruned prior raster, or renamed artifact—and compare it to accessible prior TIFFs. Report the search coverage and what cannot be searched.</li>
+    <li>Evaluate against the current reproducible spatially blocked holdout best with disjoint guarded folds (at least 300 m for this 100 m grid), equal mass or a justified alternative, pooled and per-fold metric values, and meaningful random/domain controls.</li>
+    <li>Require the candidate to beat the holdout best and controls under the preregistered rule with adequate labelled coverage. A tie, failed control, empty/unstable evidence, or unsupported conformal floor closes the gate. Public leaderboard values do not replace this test.</li>
+    <li>Report limitations, including public-catalogue bias, spatial dependence, missing blocks, and the gap between public labels and expert-private target labels.</li>
   </ol>
-
-  <h2>Format contract — verified, not assumed</h2>
-  <p>Every line below is checked automatically by <code>src/gems47_verify_submission.py</code>
-     (non-zero exit code on any failure), and asserted by <code>tests/test_emit.py</code>.</p>
-  <table>
-    <thead><tr><th>requirement</th><th>our file</th><th>status</th></tr></thead>
-    <tbody>
-      <tr><td>single band</td><td class="mono">1</td><td class="good">pass</td></tr>
-      <tr><td>dtype</td><td class="mono">float32</td><td class="good">pass</td></tr>
-      <tr><td>CRS</td><td class="mono">EPSG:32611</td><td class="good">pass</td></tr>
-      <tr><td>shape</td><td class="mono">3730 × 3292</td><td class="good">pass</td></tr>
-      <tr><td>geotransform</td><td class="mono">(243350, 100, 0, 4508550, 0, −100)</td><td class="good">pass</td></tr>
-      <tr><td>values within [0, 1]</td><td class="mono">only 0.0 and 1.0</td><td class="good">pass</td></tr>
-      <tr><td>NaN placement</td><td class="mono">NaN on exactly the 7,111,787 pixels outside the footprint (labels == −1) — the template's convention; no NaN inside</td><td class="good">pass</td></tr>
-      <tr><td>Inf</td><td class="mono">none anywhere</td><td class="good">pass</td></tr>
-      <tr><td>nodata handling</td><td class="mono">nodata: nan, as in sample_submission.tif</td><td class="good">pass</td></tr>
-      <tr><td>uniqueness</td><td class="mono">byte-unique vs 15 sibling rasters; max Jaccard 0.4608</td><td class="good">pass</td></tr>
-    </tbody>
-  </table>
-
-  <div class="note ok">
-    <strong>Why we are confident about the format.</strong> The only submission this project has had
-    rejected failed with <em>“Predicted values must be in range [0, 1]”</em> — a nodata sentinel or an
-    out-of-range value being read as a prediction. This file eliminates both by reproducing the
-    organizer's own template convention exactly, cell for cell: NaN outside the valid footprint (where
-    <code>sample_submission.tif</code> also has NaN), 0.0 inside it, 1.0 for a prediction, and
-    <code>nodata = nan</code>. A scorer that accepted the sample accepts this.
-  </div>
-
-  <h2>Official sources for this page</h2>
-  <ul class="small">
-    <li>Competition home and submission flow — <a href="https://www.drivendata.org/competitions/306/" target="_blank" rel="noopener">drivendata.org/competitions/306/</a></li>
-    <li>Problem description, scoring and competition structure — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" target="_blank" rel="noopener">page/967/</a></li>
-    <li>Official rules (including data-use and external-data conditions) — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/rules/" target="_blank" rel="noopener">rules</a></li>
-    <li>Reference solution published by the organizers — <a href="https://github.com/drivendataorg/gems-prize-reference-solution" target="_blank" rel="noopener">github.com/drivendataorg/gems-prize-reference-solution</a></li>
-  </ul>
+  <h2>Gate 2 — verify the exact output bytes</h2>
+  <ol class="steps">
+    <li>Build a new single-band GeoTIFF from the promoted prediction using the official sample-submission profile. Do not modify a previously submitted TIFF to imitate a new model.</li>
+    <li>Run the local validator after writing, using the exact authorized template and feature-footprint files. This repository provides <code>scripts/validate_submission.py</code>; example: <code>python scripts/validate_submission.py --submission prediction.tif --template sample_submission.tif --features training_features.tif</code>.</li>
+    <li>Check width, height, CRS, transform, one-band float32 type, nodata/mask convention, and every in-footprint value in [0,1]. Reopen the final path, compute its SHA-256, and keep the validator report. A local pass is not an organizer acceptance guarantee.</li>
+    <li>Choose a unique, descriptive filename and a brief truthful note. Never state that the file has a particular public score unless an organizer receipt maps that exact hash to that score.</li>
+  </ol>
+  <h2>Gate 3 — manual portal action (authorized team member only)</h2>
+  <ol class="steps">
+    <li>Immediately before upload, review the current <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" rel="noopener">official competition page</a>, current <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" rel="noopener">problem description</a>, rules, format instructions and submission-slot limits. Do not rely on an old screenshot or this repository for current form wording.</li>
+    <li>Sign in through the team's authorized DrivenData account and open the GEMS Prize submission page. Follow its currently displayed “new submission” workflow.</li>
+    <li>Upload the verified `.tif` (or a permitted archive only if the current portal instructions explicitly allow it), enter the unique name and short note if those fields are present, and submit manually.</li>
+    <li>Wait for validation/scoring to finish. Record the organizer submission/receipt ID, timestamp, exact uploaded SHA-256, status and returned score. If rejected, preserve the message and inspect the rejected bytes; do not guess at a fix or silently substitute another file.</li>
+  </ol>
+  <div class="note"><strong>Score attribution rule.</strong> A leaderboard participant row is not a file receipt. Keep organizer confirmation that connects submission ID, uploaded file hash and score. Until that evidence exists, file-to-score associations remain unverified.</div>
+  <h2>Current artifact links (research only)</h2>
+  <p><a href="validation-h47b-20261006.md">H47-B experiment, format and bounded uniqueness report</a> · <a href="analysis.md">retired historical score/conformal claims and current attribution limits</a> · <a href="portal-checklist.html">short pre-upload checklist</a>.</p>
 </main>
-
-<footer><div class="wrap">GEMSDOE47 · nothing on this page uploads anything for you.</div></footer>
+<footer><div class="wrap">Do not upload H47-B or the historical d-cat/annulus TIFF. The submission gate remains closed.</div></footer>
 </body>
 </html>

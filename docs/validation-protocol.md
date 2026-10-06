@@ -1,27 +1,30 @@
-# Spatial holdout and promotion protocol
+# Spatial holdout, validation, and promotion protocol
 
-**Locked:** 2026-10-06 UTC, before any candidate scoring. **No holdout was run.** This is an auditable gate and helper implementation, not validation evidence.
+## Current state
 
-## Before a fold is evaluated
+The frozen H47-B public-catalogue screen has run; it is not a future plan. It used 4 × 4 disjoint block cores with a 3-pixel/300 m guard, five selection blocks, six calibration blocks, and five locked-test blocks. H47-B scored 0.027553 pooled on locked blocks, versus 0.025639 for the tuned single-scale baseline and 0.037159 for the fixed-seed random control. Its assumption-conditional split-conformal lower floor was 0.0. Five blocks had no catalogue truth. **The gate failed; no candidate is promoted and no slot is authorized.** See [`validation-h47b-20261006.md`](validation-h47b-20261006.md) and the frozen [`preregistered-h2.md`](preregistered-h2.md).
 
-- Acquire the authorized competition inputs from the official [DrivenData data page](https://www.drivendata.org/competitions/306/competition-doe-gems/data/), preserve SHA-256 hashes and grid metadata, and record label semantics.
-- Identify the incumbent using its exact code/input hashes and verified local out-of-fold report. No incumbent score exists in this checkout; do not infer one from the user's prior public scores.
-- Fix the spatial block size, coordinate origin, seed, H47-A quantile, flight-line penalty variants, prediction mass, and all controls in a dated preregistration receipt **before computing held-out metrics**.
-- Reserve at least three geographically distinct folds. The `spatial_block_folds` helper assigns complete square cells to folds and purges from training any cells whose rectangle is within the configured guard of a held-out block. Use projected coordinates in metres and guard at least **300 m**, matching the official distance kernel's support. A proposed seed/block configuration that leaves no training points after purging must fail before scoring; adjust block size or fold count during preregistration, not after inspecting candidate scores.
-- Use the official reference solution for the competition score; do not substitute an unverified clone of the scorer. Evaluate whole out-of-fold maps with the same metric version and locked valid-footprint mask.
+The experiment used group-hosted mirrors, not authenticated organizer downloads. The local DTI implementation was transcribed from the official [problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/); it is not an organizer-run private scorer. A public-label score cannot establish performance on expert-private labels.
 
-## Locked promotion rule for the package utility
+## Requirements before the next candidate is scored
 
-`scripts/package_submission.py` refuses to package unless the reviewed JSON report records all of these:
+1. **Authorized provenance.** Obtain available competition inputs through an authorized route. Record each exact file hash, metadata, label semantics, source URL, license/terms and any differences from group-hosted mirrors. Do not bypass login or use credentials not authorized for this project.
+2. **Current holdout best.** Establish a reproducible, scientifically defensible spatially blocked baseline using the same target, footprint, metric implementation and comparable spatial test areas. Store code/input hashes and per-fold outputs. Historical participant scores and the old d-cat/annulus TIFF are not incumbents.
+3. **New preregistration.** Before calculating held-out results, freeze the distinct physical hypothesis, inputs, code revision, feature transforms, emission mass, spatial fold assignment, guard, matching rules, random/domain controls, metric, selection rule, conformal design (if defensible), and promotion criteria. Do not reuse H47-B's locked blocks to tune H47-B and then call them an independent test.
+4. **Spatial separation and label coverage.** Use projected coordinates in metres. Reserve geographically distinct blocks and purge at least 300 m around held-out boundaries for this 100 m grid, so the official 300 m kernel cannot transfer direct credit between folds. Record positive truth counts and prediction mass per block before interpreting block scores. Empty blocks are uninformative about geological discovery and cannot count as positive evidence.
+5. **Comparable evaluation.** Score the incumbent and candidate on the same disjoint held-out cores with matched emitted mass (or a preregistered justified alternative), pooled metric components and per-block DTI. Include a fixed-seed random/spatially matched control and relevant domain/ablation controls. Report both pooled and unweighted block summaries; neither should conceal an adverse result.
+6. **Conformal restraint.** If split conformal is used, define the exchangeability unit and target before scoring, use independent calibration blocks, report sample count, rank, raw residuals, nominal coverage, clipped floor, label coverage and all assumptions. Spatial dependence means exchangeability is not established merely by separating blocks. A zero floor, empty/degenerate calibration blocks, or an indefensible assumption does not satisfy a positive-floor gate.
+7. **Promotion rule.** Require the new candidate to beat the current spatially blocked holdout best and the preregistered controls under the fixed rule, with adequate label coverage and a scientifically meaningful result. The comparison must not depend on leaderboard feedback. A tie, failed control, unstable fold pattern, failed/zero lower floor where required, changed hash, or missing receipt closes the slot gate.
+8. **New unique raster.** Only after promotion, generate a new prediction (not a copy/prune), compare it against accessible prior TIFF artifacts, save exact-match and similarity results plus search scope, then write to the current official sample-submission profile and re-open/audit the exact bytes.
+9. **Manual portal action.** Only an authorized team member may submit manually after checking current rules, limits and form instructions. Save an organizer receipt that ties submission ID, uploaded SHA-256 and score. Never infer a file's score from the participant leaderboard.
 
-1. authorized official inputs, preregistration before scoring, spatially blocked splits, explicit controls, and `official_dw_tversky` scoring;
-2. guard ≥300 m, at least three unique folds, and equal emitted mass for candidate/incumbent in every fold;
-3. pooled holdout score and unweighted mean fold score both strictly above the incumbent, **and** the candidate better than incumbent in at least two-thirds of folds (ceiling for fractional fold counts);
-4. SHA-256 of prediction, official template, feature raster, source-data files, preregistration and fold assignment recorded; model code revision and official scorer version pinned; and
-5. a successful byte-level audit of both the source prediction and newly packaged GeoTIFF. Packaging also requires that the current Git revision match the promoted code commit and the tracked working tree be clean.
+## Existing implementation boundaries
 
-The package script checks these claims mechanically but **does not authenticate the scientific honesty of the report**. A reviewer must inspect fold definitions, code, controls, official scorer version and receipts. The packager only creates a local artifact under ignored `artifacts/`; it does not submit a portal entry or publish a website download.
+- `scripts/package_submission.py` is a fail-closed packager for the older H47-A report schema. It does not score a holdout, authenticate a report, or validate H47-B; a package script is not scientific approval.
+- `scripts/run_h2_experiment.py` is permanently research-only because H47-B used public-mirror labels and features; it always records `slot_eligible: false` and has no non-research publication option. `--publish-research-only` is the only way it can copy a TIFF to `docs/downloads/`, and it uses an unmistakable research-only filename/status. A separate, authorized-input hypothesis requires a new protocol and candidate identity.
+- `scripts/validate_submission.py` checks raster profile/value conditions against provided local files. It cannot authenticate official provenance or guarantee organizer acceptance.
+- `docs/promotion-report.schema.json` is a data-shape aid for the legacy packager, not evidence that the current candidate passed.
 
-## Honest interpretation
+## Interpretation
 
-A gain on spatially held-out public catalogue traces is evidence against some forms of spatial overfit, not proof that the surface discovers faults absent from that catalogue. Report fold-level scores and uncertainty, null/random controls, ablations, label coverage and failure regions. A tie, unstable fold pattern, failed control or missing authorized file keeps the slot gate closed.
+A gain on spatially held-out public catalogue traces can screen for spatial overfit, but the public catalogue is not the hidden expert target. A format-valid TIFF, a unique mask, or a public leaderboard row is not by itself evidence of future/private performance. The slot stays unused until the entire chain is supported by reproducible evidence.

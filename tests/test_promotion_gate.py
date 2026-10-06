@@ -21,7 +21,7 @@ class PromotionGateTests(unittest.TestCase):
         self.template.write_bytes(b"synthetic template bytes")
         self.features.write_bytes(b"synthetic features bytes")
         self.report = {
-            "schema_version": 1,
+            "schema_version": 2,
             "hypothesis_id": "H47-A",
             "status": "promoted",
             "official_inputs_authorized": True,
@@ -30,7 +30,7 @@ class PromotionGateTests(unittest.TestCase):
             "guard_m": 300.0,
             "matched_mass": True,
             "controls_reported": True,
-            "score_metric": "official_dw_tversky",
+            "score_metric": "drivendata_distance_weighted_tversky",
             "report_id": "SYNTHETIC-UNIT-TEST-ONLY",
             "prediction_sha256": digest(self.prediction),
             "template_sha256": digest(self.template),
@@ -40,7 +40,7 @@ class PromotionGateTests(unittest.TestCase):
             "evidence": {
                 "domain_matched_random_control_reported": True,
                 "ablations_reported": True,
-                "official_scorer_version": "official reference solution commit abc123",
+                "metric_implementation": "local src/gems47_metric.py formula implementation; synthetic test only",
                 "preregistration_sha256": "a" * 64,
                 "fold_assignment_sha256": "b" * 64,
                 "source_data_sha256": {"geodawn-area1": "c" * 64},
@@ -69,6 +69,13 @@ class PromotionGateTests(unittest.TestCase):
         self.assertEqual(summary["folds"], 3)
         self.assertEqual(summary["candidate_fold_wins"], 3)
         self.assertGreater(summary["candidate_mean_dti"], summary["incumbent_mean_dti"])
+
+    def test_rejects_missing_local_metric_implementation(self):
+        report = dict(self.report)
+        report["evidence"] = dict(report["evidence"])
+        report["evidence"].pop("metric_implementation")
+        with self.assertRaisesRegex(ValueError, "pin the local DTI formula"):
+            self._check(report)
 
     def test_rejects_unpromoted_report(self):
         report = dict(self.report, status="not_promoted")
