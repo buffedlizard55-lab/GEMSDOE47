@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remaining work and limitations — GEMSDOE47</title>
+<meta name="description" content="Session-3 remaining work and limitations: the unuploaded submission, what the holdout cannot say, the coverage assumption behind the mass ceiling, and how every claim is checked.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-06 20:00 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="../README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — submission</a>
+    <a href="HOW_TO_SUBMIT.html">How to submit (s3)</a>
+    <a href="RESULTS.html">Results (s3)</a>
+    <a href="why-02778.html">Why 0.2778</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a class="on" href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="remaining-work-and-limitations">Remaining work and limitations</h1>
+<p>Written as the brief requires: after the PR, list what is left and what this cannot do.
+Nothing here is a hedge — each item is a specific, actionable gap with the reason it is open.</p>
+<hr />
+<h2 id="a-blocking-the-submission-has-not-been-uploaded">A. Blocking: the submission has not been uploaded</h2>
+<p><strong>The GitHub token in this environment is invalid</strong> (<code>gh api user</code> → <code>Bad credentials</code>;
+<code>git push</code> → <code>Invalid username or token</code>). The two commits exist on the local branch
+<code>arena/e1835de8-gemsdoe47</code> and the working tree is saved, but they could not be pushed, the pull
+request could not be opened, and it could not be merged onto <code>main</code>.</p>
+<p><strong>To finish:</strong> reconnect GitHub in Arena, then</p>
+<pre><code class="language-bash">git push -u origin arena/e1835de8-gemsdoe47
+gh pr create --base main --head arena/e1835de8-gemsdoe47 \
+             --title &quot;$(cat .github/PR_TITLE.txt)&quot; --body-file .github/PR_BODY.md
+gh pr merge --merge --delete-branch
+</code></pre>
+<p><code>.github/PR_BODY.md</code> is the finished pull-request description. GitHub Pages then needs to be pointed
+at <code>docs/</code> on <code>main</code> (repository → Settings → Pages → source: <em>Deploy from a branch</em>, folder
+<code>/docs</code>); the site will be at <code>https://buffedlizard55-lab.github.io/GEMSDOE47/</code>.</p>
+<p><strong>And the actual submission still has to be uploaded by a human</strong>, because the DrivenData
+submission form is login-gated and this environment holds no DrivenData credentials. The file,
+its SHA-256, the submission name and the ≤200-character note are all on the front page of the
+site; the click-by-click steps are in <a href="HOW_TO_SUBMIT.md">HOW_TO_SUBMIT</a>.</p>
+<hr />
+<h2 id="b-limitations-of-the-result">B. Limitations of the result</h2>
+<h3 id="b1-the-holdout-cannot-forecast-the-organisers-score-and-that-is-not-fixable-locally">B1. The holdout cannot forecast the organiser's score — and that is not fixable locally</h3>
+<p>Every DTI in <code>evidence/sweep/sweep_a.json</code> is scored against <strong>held-out components of the given
+catalogue</strong>. The organiser scores against faults that are <em>not</em> in the given catalogue, chosen by
+an expert panel for geothermal relevance, from sources it will not disclose
+(DrivenData thread 11527). So:</p>
+<ul>
+<li>the holdout is a valid <strong>ordering</strong> instrument (it ranks fields and operating points);</li>
+<li>it is <strong>not</strong> a level instrument (0.088 on <code>PM0200</code> does not mean 0.088 on the leaderboard);</li>
+<li>it is structurally invalid for arms that prune near the catalogue (<code>IR-47-PROXY-02</code>) — the
+  shipped 0.2778 artifact scores 0.004 on it, below random, because its dots were deleted from
+  exactly where the fold truth sits.</li>
+</ul>
+<p>The conformal floor is a floor <strong>on this instrument</strong> and is labelled that way everywhere it
+appears. No claim is made that 0.0134 is a floor on the public DTI.</p>
+<h3 id="b2-the-conformal-guarantee-is-conditional-on-exchangeability-which-geology-violates">B2. The conformal guarantee is conditional on exchangeability, which geology violates</h3>
+<p>The theorem is exact <em>given</em> exchangeable units. The units here are spatial blocks, and the Basin
+and Range is not i.i.d.: blocks differ in strain regime, basin-fill depth, exposure and mapping
+history. Evidence that this bites:</p>
+<ul>
+<li>On the single pre-registered split the selection half violated the 90 % floor in <strong>23 %</strong> of
+  blocks, against a nominal 10 %.</li>
+<li>Over 400 independent random splits of the same blocks the mean violation rate is <strong>8.7 %</strong>,
+  i.e. correctly calibrated.</li>
+</ul>
+<p>So the mis-coverage on the shipped split is <strong>split luck</strong>, not a failure of the theorem — but it
+is a direct measurement of how much block heterogeneity there is. The number quoted on the site is
+therefore the 5th percentile of the floor distribution over splits (0.01343) rather than the
+single-split value (0.04477). A reviewer who wants the stronger number should read it as
+conditional on one draw.</p>
+<p>At α = 0.05 the bound is <strong>vacuous</strong> (needs n ≥ 19 usable calibration blocks; 12 are available).
+No 95 % statement is made anywhere in this repository.</p>
+<h3 id="b3-the-emitted-mass-rests-on-an-assumed-coverage">B3. The emitted mass rests on an assumed coverage</h3>
+<p>The algebraic ceiling <code>S_max = G·(c/target − 0.8)/0.2</code> is model-free in <code>G</code> and <code>target</code> but
+<strong>assumes a coverage <code>c = T/|G|</code></strong>. At c = 0.60 and |G| = 8,000 the ceiling is 43,117 px and the
+shipped 37,612 px sits under it. At the coverage the incumbent <em>demonstrably</em> achieved (c = 0.48)
+the ceiling is 28,094 px — <strong>below what was shipped</strong>. If the new field's coverage is no better
+than the incumbent's, the shipped mass is past the ceiling for the stated target.</p>
+<p>This is the single largest open risk and it is quantified, not hidden: the full sensitivity table
+is on the front page and in <code>evidence/conformal/selection.json → mass_ceiling</code>. A sparser variant
+(<code>density 4.0</code> per 1000 → ≈20,400 px) is inside the ceiling at every coverage and every |G| in the
+bracket, and costs about 15 % of holdout mean DTI. It is one flag away:</p>
+<pre><code class="language-bash">python3 scripts/build_submission_s3.py --name gemsdoe47-scarp9-sparse \
+    --note &quot;...&quot; # then edit the density in the frozen selection, or re-run run_conformal.py
+</code></pre>
+<h3 id="b4-five-of-the-ten-drafted-hypotheses-were-refuted-and-one-of-the-survivors-is-unproven">B4. Five of the ten drafted hypotheses were refuted, and one of the survivors is unproven</h3>
+<p><code>knowledge/06</code> records H47-B (magnetic braid number), H47-C (drainage-azimuth asymmetry), H47-D
+as formulated (strain-partitioning Laplacian), H47-E (signed basement step) and H47-F
+(corroboration count) as <strong>refuted by measurement</strong>, with numbers. H47-A (catalogue-vacancy
+residual) survives as a weak-but-plausible gate; recipe <code>R5_scarp9_vacancy</code> tests it and it did
+<strong>not</strong> win the sweep, so it is not in the shipped field. It remains untested at other gate powers
+and scales.</p>
+<h3 id="b5-no-external-data-could-be-obtained-so-the-highest-leverage-idea-is-untested">B5. No external data could be obtained, so the highest-leverage idea is untested</h3>
+<p><code>knowledge/04</code> §1.1: the <strong>GeoDAWN EarthMRI / 3DEP LiDAR</strong> on the Open Energy Data Initiative is
+the single highest-leverage acquisition available — H47-1 is the strongest signal in the shipped
+stack <em>at 100 m on a detrended slope</em>, and Giddens &amp; Faulds (2025) mapped the same structures from
+1 m LiDAR across ~499,178 km². <code>data.openei.org</code> is unreachable from this sandbox and
+<code>1m_DEM_links.csv</code> is login-gated, so it is recorded as <strong>not viable here</strong> rather than proposed
+as if it were.</p>
+<p>Also unobtainable: the 10 m 3DEP DEM, USGS SGMC bytes, NBMG Map 167 bytes, the GDR submissions
+1391 and 1349. The six <code>derived_*</code> rasters in <code>data/reference/</code> are copies from earlier family
+repositories; <code>/tmp</code> is not persisted, so if they are lost they must be re-derived from the named
+public sources.</p>
+<h3 id="b6-band-tc-is-ambiguous-and-is-excluded-on-measurement">B6. Band <code>tc</code> is ambiguous and is excluded on measurement</h3>
+<p>The raster metadata says <em>"Tilt angle </em><em>or</em><em> total curvature"</em>; the competition data page
+describes a top-of-crustal magnetic source depth estimate. Different quantities, different units,
+different signs (<code>IR-47-01</code>). Measured tie-aware AUC against the catalogue: <strong>0.4476 — inverted</strong>.
+Excluded from every recipe. If the organiser clarifies which quantity it is, H47-B deserves a
+re-test, because a true tilt-angle product <em>is</em> an edge detector and might behave differently.</p>
+<h3 id="b7-compute-envelope">B7. Compute envelope</h3>
+<p>No GPU, ~3 GB RAM, 2 CPUs. A U-Net or FaultSEG run — the approach in the organisers' own reference
+solution, and the one Hermant et al. show beats classical methods on PR-AUC (0.595 vs 0.449) — is
+not possible here. The shipped field is entirely classical geomorphometry. That is a real ceiling
+on what this repository can reach, and it is why the reference solution's architecture is cited
+rather than reproduced.</p>
+<hr />
+<h2 id="c-remaining-work-in-priority-order">C. Remaining work, in priority order</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>task</th>
+<th>why it is next</th>
+<th>cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Upload the TIF</strong> and record the returned public DTI</td>
+<td>it is the only instrument that can forecast the real score; everything else is ordering</td>
+<td>1 submission slot</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Reconnect GitHub, push, open the PR from <code>.github/PR_BODY.md</code>, merge to <code>main</code>, enable Pages on <code>/docs</code></td>
+<td>the brief requires a merged PR and a live site</td>
+<td>minutes</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Re-run the selector with the returned public DTI as a new anchor</strong></td>
+<td>one real score collapses the |G|-and-coverage ambiguity in B3 far more than any local instrument can</td>
+<td><code>scripts/run_inversion.py</code> + <code>run_conformal.py</code>, ~10 min</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Ship the sparse variant (density 4.0 → ≈20,400 px) as the <em>second</em> slot if the first under-performs</td>
+<td>it is inside the algebraic ceiling at every coverage and every |G| in the bracket (B3)</td>
+<td>one flag</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Increase blocks to 8×8 so a 95 % bound stops being vacuous (B2)</td>
+<td>n ≥ 19 usable calibration blocks</td>
+<td>one sweep, ~50 min</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Obtain GeoDAWN EarthMRI LiDAR and re-run the transform search at 1 m/10 m (B5)</td>
+<td>largest single expected gain; H47-1 is already the best 100 m signal</td>
+<td>network access + ~1 day</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Re-test H47-A at other gate powers/scales, and H47-C on a real flow-accumulation DEM</td>
+<td>both are plausible and unrefuted-at-other-settings (B4)</td>
+<td>~1 h</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Add a <em>negative</em>-control field (shuffled ranks) to every sweep run</td>
+<td>makes the lift numbers self-auditing instead of relying on a stored random baseline</td>
+<td>~20 lines</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Ask the organiser to disambiguate band <code>tc</code> (B6) on the forum</td>
+<td>cheap, and it either restores or permanently retires a whole band family</td>
+<td>one post</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Wire <code>scripts/build_site.py</code> into a GitHub Action so the site regenerates on every push</td>
+<td>the brief asks the site to solve "manually checking everything"; a scheduled action would also refresh the leaderboard table</td>
+<td>~30 lines of YAML</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="d-what-was-verified-and-how">D. What was verified, and how</h2>
+<p>So that "verify line by line" is a checkable claim rather than an assertion:</p>
+<table>
+<thead>
+<tr>
+<th>claim</th>
+<th>how it is checked</th>
+<th>where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>the three official rasters are the official bytes</td>
+<td>SHA-256 + byte count against pins recorded from the official download</td>
+<td><code>scripts/fetch_data.py --verify-only</code>, <code>evidence/data_restoration.json</code></td>
+</tr>
+<tr>
+<td>the grid is the required grid</td>
+<td>width/height/CRS/transform/band count asserted on every read</td>
+<td><code>src/gems47s3/grid.py::Grid._assert_grid</code></td>
+</tr>
+<tr>
+<td>the metric implementation is the published metric</td>
+<td>brute-force O(|G|·|P|) transcription compared against the fast path; the published worked example reproduced to the printed 0.60</td>
+<td><code>tests/test_metric_s3.py</code></td>
+</tr>
+<tr>
+<td>the algebraic identities hold</td>
+<td>proved by test, including <code>FN_w = \|G\| − TP_w</code>, <code>T ≥ M</code>, and the credit bar</td>
+<td><code>tests/test_metric_s3.py</code></td>
+</tr>
+<tr>
+<td>binary beats soft</td>
+<td>the <code>v</code>-cancellation argument tested numerically at five values of <code>v</code></td>
+<td><code>tests/test_metric_s3.py::test_binary_is_optimal_over_soft_scaling</code></td>
+</tr>
+<tr>
+<td>the conformal quantile is the theorem's quantile</td>
+<td>Monte-Carlo coverage at three α over 4,000 draws, plus an explicit regression test for the <code>k = ceil((n+1)α)</code> error that was found and fixed</td>
+<td><code>tests/test_conformal.py</code></td>
+</tr>
+<tr>
+<td>the emitter honours its spacing</td>
+<td>pairwise distance of every emitted pair asserted at four spacings, for both the NMS and the Poisson-disk rule</td>
+<td><code>tests/test_emission_raster.py</code></td>
+</tr>
+<tr>
+<td>the scarp filter samples across strike, not along it</td>
+<td>a step in each of the two orientations must be detected by its own normal</td>
+<td><code>tests/test_emission_raster.py::test_scarp_step_samples_across_strike_not_along_it</code></td>
+</tr>
+<tr>
+<td>the shipped raster is legal</td>
+<td>re-opened from disk, 15 checks, fail-closed, receipt written</td>
+<td><code>src/gems47s3/raster.py::validate_submission</code>, <code>evidence/submission/checks-*.json</code></td>
+</tr>
+<tr>
+<td>the submission is unique</td>
+<td>Jaccard and containment against all 18 reference artifacts, plus SHA-256</td>
+<td><code>evidence/submission/bundle.json → uniqueness</code></td>
+</tr>
+<tr>
+<td>every number on the site is generated</td>
+<td>the site is built by reading <code>evidence/*.json</code>; a missing receipt prints an explicit "not yet generated" line instead of a value</td>
+<td><code>scripts/build_site.py</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>53 tests pass.</strong> <code>python3 -m pytest tests/ -q</code>.</p>
+</article>
+</div>
+</body>
+</html>
