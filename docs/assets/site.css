@@ -1,0 +1,68 @@
+:root{
+  --bg:#0f1419; --panel:#161d26; --panel2:#1c2530; --ink:#e6edf3; --muted:#9aa8b6;
+  --line:#2a3644; --accent:#4fc3f7; --good:#5ad19a; --warn:#f0b429; --bad:#f27272;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{background:linear-gradient(180deg,#101820,#0f1419);border-bottom:1px solid var(--line);
+  padding:22px 0 18px}
+h1{font-size:1.65rem;margin:0 0 4px;letter-spacing:-.01em}
+h2{font-size:1.22rem;margin:34px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:1.02rem;margin:22px 0 8px}
+.sub{color:var(--muted);font-size:.94rem;margin:0}
+nav{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+nav a{background:var(--panel);border:1px solid var(--line);border-radius:999px;
+  padding:5px 13px;font-size:.86rem;color:var(--ink)}
+nav a:hover{border-color:var(--accent);text-decoration:none}
+nav a.on{background:#123246;border-color:var(--accent)}
+
+/* the download block: first thing on the page, impossible to miss */
+.dl{background:linear-gradient(135deg,#123246,#16232f);border:2px solid var(--accent);
+  border-radius:14px;padding:22px;margin:22px 0}
+.dl h2{margin:0 0 6px;border:0;padding:0;font-size:1.3rem}
+.dl .kicker{color:var(--accent);font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  font-size:.74rem;margin:0 0 8px}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 10px}
+a.btn{display:inline-block;background:var(--accent);color:#06121a;font-weight:700;
+  padding:13px 22px;border-radius:10px;font-size:1rem;border:0}
+a.btn:hover{filter:brightness(1.12);text-decoration:none}
+a.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent);font-weight:600}
+code,pre,.mono{font-family:var(--mono)}
+code{background:#0b1118;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:.86em}
+pre{background:#0b1118;border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;
+  font-size:.83rem;line-height:1.5}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.88rem}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+td.n,th.n{text-align:right;font-family:var(--mono)}
+tr:nth-child(even) td{background:#131a23}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.badge{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.74rem;font-weight:700;
+  border:1px solid var(--line);vertical-align:middle}
+.b-good{background:#12352a;color:var(--good);border-color:#1f5c46}
+.b-warn{background:#3a2f10;color:var(--warn);border-color:#6b5518}
+.b-bad{background:#3a1a1a;color:var(--bad);border-color:#6b2b2b}
+.b-info{background:#12283a;color:var(--accent);border-color:#1f4a6b}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.small{font-size:.84rem;color:var(--muted)}
+.kv{font-family:var(--mono);font-size:.84rem}
+.kv div{padding:3px 0;border-bottom:1px dotted var(--line)}
+.kv b{color:var(--muted);font-weight:500;display:inline-block;min-width:190px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 40px;color:var(--muted);
+  font-size:.85rem}
+.callout{border-left:4px solid var(--warn);background:#20242b;padding:12px 16px;border-radius:0 8px 8px 0;
+  margin:14px 0}
+.callout.bad{border-color:var(--bad)} .callout.good{border-color:var(--good)}
+.callout.info{border-color:var(--accent)}
+ol.steps{counter-reset:s;list-style:none;padding-left:0}
+ol.steps>li{counter-increment:s;position:relative;padding:0 0 16px 46px;margin:0}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:-2px;width:30px;height:30px;
+  border-radius:50%;background:var(--accent);color:#06121a;font-weight:700;display:flex;
+  align-items:center;justify-content:center;font-size:.95rem}
+.toc{columns:2;font-size:.9rem} @media(max-width:760px){.toc{columns:1}}

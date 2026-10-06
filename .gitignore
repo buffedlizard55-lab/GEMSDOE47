@@ -1,12 +1,21 @@
-# Large local datasets and derived rasters — deliberately NOT versioned (see README)
-/data/
+# ---- large local datasets and derived rasters: deliberately NOT versioned ----
+# The restored competition bytes (~507 MB) live in .cache/ and are re-derivable in
+# ~30 s with `python3 scripts/restore_data.py --group all`, which verifies every
+# SHA-256 against registry/data_manifest.json before use.
+.cache/
+/data/*
+!/data/README.md
+!/data/restore_receipt.json
 /artifacts/
 /outputs/
 work/
 *.npz
 *.npy
 *.tiff
-# python
+*.partial
+*.assembling
+
+# ---- python ----
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -16,4 +25,5 @@ __pycache__/
 htmlcov/
 .venv/
 venv/
+venv*/
 .DS_Store

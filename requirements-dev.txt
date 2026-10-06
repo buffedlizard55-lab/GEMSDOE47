@@ -1,2 +1,6 @@
 -r requirements.txt
 ruff>=0.16,<1
+# The later session's suite (tests/test_metric.py, test_lati.py, test_submission.py,
+# test_shipped.py) is pytest-based; the earlier session's suite is unittest-based.
+# Both run in CI - see .github/workflows/tests.yml.
+pytest>=8.0

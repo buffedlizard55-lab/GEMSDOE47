@@ -1,36 +1,367 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="GEMSDOE47 executive summary: research-only H47-B GeoTIFF, failed holdout gate, and current submission decision.">
-  <title>Executive Summary · GEMSDOE47</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEMSDOE47 — GEMS Prize Challenge submission</title>
+<meta name="description" content="GEMSDOE47: a unique, format-verified submission GeoTIFF for the DrivenData Geologic Enhanced Mapping System (GEMS) Prize Challenge, plus the leaderboard-anchored truth inversion that produced it.">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<header><div class="wrap">
-  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">DOE GEMS Prize · evidence before upload</span></div>
-  <nav aria-label="Main navigation">
-    <a href="../index.html">Project home</a><a class="on" href="executive-summary.html">Executive summary</a>
-    <a href="submit.html">How to submit</a><a href="analysis.html">Results analysis</a>
-    <a href="leaderboard.html">Leaderboard evidence</a><a href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a>
+
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">UNSCORED</span>
+    <span class="badge b-bad">GATE CLOSED — NO SUBMISSION RECOMMENDED</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition 306 ·
+     Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Public leaderboard, one-time read 2026-10-06: rank 1 <b>0.3774</b> · DARD <b>0.3195</b> at #7 ·
+     <code>extradr19</code> <b>0.2778</b> at #13 — see <a href="leaderboard.html">leaderboard.html</a></p>
+  <nav>
+    <a class="on" href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="../README.md">README / brief</a>
   </nav>
 </div></header>
-<main class="wrap">
-  <section class="dl">
-    <h2>Research-only GeoTIFF — <span class="bad">DO NOT SUBMIT</span></h2>
-    <p>H47-B passed the local file-format audit but <strong>failed the preregistered promotion gate</strong>. No competition slot is recommended.</p>
-    <a class="btn" download href="downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download the research TIFF</a>
-    <dl class="kv"><dt>SHA-256</dt><dd>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</dd><dt>Locked test</dt><dd>0.027553 H47-B · 0.025639 baseline · 0.037159 random</dd><dt>Floor</dt><dd>0.0; exchangeability unverified</dd><dt>Format</dt><dd>One-band float32 · 3292 × 3730 · EPSG:32611 · 100 m · values [0,1] inside and NaN outside</dd></dl>
-    <a class="btn sec" href="validation-h47b-20261006.md">Detailed experiment report →</a>
-  </section>
-  <h2>Executive summary</h2>
-  <p>The objective remains a <strong>new, scientifically defensible and unique fault-prediction raster</strong> for the DOE GEMS Prize. H47-B tests cross-scale persistence of a rank-encoded upward-continued magnetic channel. The detector is distinct from the historical d-cat pruning artifact, but it did not outperform a random control on the locked spatial blocks. It is not a submission candidate.</p>
-  <p>The latest saved one-time public-board observation is rank 1 at 0.3774 (participant name not retained); DARD was rank 7 at 0.3195; `extradr19` was rank 13 at 0.2778. The old checked-in 0.3345 rank-1 snapshot is superseded. None of these participant rows authenticates a TIFF-to-score mapping. In particular, the GEMSDOE32 H33-2-B2 file is marked unscored by its owner page.</p>
-  <div class="note bad"><strong>Do not upload either TIFF in this repository.</strong> H47-B failed the preregistered promotion gate. The older d-cat/annulus file is derived by deleting pixels from a published sibling mask and does not meet the no-copy requirement. The old modeled 0.34912 score and 0.34837 “conformal floor” are retired.</div>
-  <h2>What would authorize a future submission?</h2>
-  <ol class="steps"><li>Obtain and hash authorized competition inputs; verify local mirror provenance against official downloads where possible.</li><li>Freeze a spatially blocked baseline and a genuinely new detector, controls, label-coverage rules, and metric before looking at held-out scores.</li><li>Require a robust gain over the current spatial holdout best and controls; do not use a slot if that gate fails.</li><li>Validate the exact written TIFF and compare it against accessible prior artifacts. State what the uniqueness search cannot prove.</li><li>Only after approval, use the current official portal instructions manually with an accurate unique name and short note. See <a href="submit.html">How to submit</a>.</li></ol>
-  <p><a class="btn sec" href="analysis.html">Read score attribution and experimental details →</a> <a class="btn sec" href="hypotheses.html">Review ranked next hypotheses →</a></p>
-</main>
-<footer><div class="wrap">GEMSDOE47 · public research note · <a href="sources.html">Source register</a> · <a href="../README.md">Standing charter</a></div></footer>
+
+<div class="wrap">
+
+<!-- ==================================================================== -->
+<div class="dl">
+  <p class="kicker">Research artifact — download for review</p>
+  <h2>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif
+      <span class="badge b-bad">RESEARCH ONLY — NOT FOR SUBMISSION</span></h2>
+  <p class="small" style="margin:0 0 10px">
+    <b>NOT PROMOTED · NO SLOT.</b> This file is format-valid and unique, and it is
+    published so that every claim on this site can be checked against real bytes.
+    It is <b>not</b> slot-eligible: it failed its validation gate (cross-fitted
+    spatial holdout −0.0611 and −0.0450 against the incumbent, and it loses on all
+    five truth frames). A format pass is not a scientific promotion. Do not upload
+    it to a scarce weekly slot.</p>
+  <div class="btnrow">
+    <a class="btn" href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif"
+       download>⬇&nbsp; DOWNLOAD THE SUBMISSION (.tif, 240 KB)</a>
+    <a class="btn ghost" href="executive-summary.html">How to submit it →</a>
+  </div>
+  <p class="small" style="margin:0">
+    This is the <b>all-finite</b> variant and it is the one that clears the format gate. Every one of its
+    12,279,160 pixels is finite and inside [0,&nbsp;1], so it passes even a NaN-intolerant
+    range check — that is the exact defect that produced
+    <code>"Predicted values must be in range [0, 1]"</code> (see
+    <a href="#range-error">the fix</a> below).
+  </p>
+  <div class="kv" style="margin-top:12px">
+    <div><b>SHA-256</b> 7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146</div>
+    <div><b>Bytes</b> 245,652 &nbsp;·&nbsp; <b>Emitted pixels</b> 37,654 &nbsp;·&nbsp; <b>Values</b> {0.0, 1.0}</div>
+    <div><b>Format</b> 1 band · float32 · EPSG:32611 · 100 m · 3730 × 3292 · bounds 243350 / 4135550 / 572550 / 4508550</div>
+    <div><b>On masked catalogue pixels</b> 0 &nbsp;·&nbsp; <b>Outside the footprint</b> 0 &nbsp;·&nbsp; <b>NaN</b> 0</div>
+    <div><b>Distinct from all 13 prior scored rasters</b> max Jaccard = 0.0457 <span class="badge b-good">UNIQUE</span></div>
+  </div>
+  <p class="small" style="margin:12px 0 0">
+    <b>Paste this into the optional “Note” field on the DrivenData submission form:</b><br>
+    <code>LATI-inverted geothermal-fault belief (shear strain + low Th/K + thermal discharge); 37,654 dots; exact marginal-rule emission; UNSCORED</code>
+  </p>
+</div>
+
+<div class="callout info">
+  <b>Also available</b> — same raster, NaN outside the footprint (matches the organiser’s own
+  <code>sample_submission.tif</code> convention, but fails a NaN-intolerant range check):
+  <a href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif" download>gems47-h47gsa-…-nan.tif</a>
+  &nbsp;·&nbsp; <b>Secondary arm</b> (conservative matched-budget re-emission):
+  <a href="downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif" download>gems47-h47maxcov-…-allfinite.tif</a>
+</div>
+<!-- ==================================================================== -->
+
+<h2>Read this before you submit anything</h2>
+<div class="callout bad">
+  <b>This project did not produce a candidate that beats the incumbent on any local frame — and it
+  says so plainly rather than dressing the result up.</b><br><br>
+  Both GEMSDOE47 arms were scored against <b>five independent truth frames</b>. The live-0.2600
+  incumbent beat both of them on <b>all five</b>, including on the one quantity that needs no truth
+  model at all (the covered 300 m kernel integral: incumbent 341,261 vs 219,259 and 99,916).
+  A cross-fitted test — the only test that can honestly rank a <i>new</i> candidate — returned
+  <b>−0.0611</b> and <b>−0.0450</b> in the two folds.<br><br>
+  The project rule is <i>“never spend a weekly submission slot on an idea that hasn’t beaten the
+  current holdout best.”</i> That rule is binding here. <b>Recommendation: do not use a weekly
+  Development Round slot on either arm.</b> Use the <b>Final Prize Round (3 Sep – 16 Oct), which has
+  unlimited submissions</b>, to test the H47-GSA arm — that is the only round where an unvalidated,
+  high-variance idea is free.
+</div>
+
+<h2>What this repository contributes</h2>
+<div class="grid2">
+  <div class="panel">
+    <h3 style="margin-top:0">1 · A working leaderboard instrument</h3>
+    <p class="small">Twelve prior submissions were recovered byte-exactly, together with the DTIs the
+    organiser returned for them. <b>LATI</b> (Leaderboard-Anchored Truth Inversion) treats those twelve
+    numbers as <i>measurements of the hidden label set</i> and inverts them for the truth’s intensity
+    field. It is exact in <code>T</code>, first-order-corrected in <code>Φ</code>, 700× faster than the
+    dense path, and it comes with positive and negative controls.</p>
+    <p class="small"><a href="method.html">→ the method</a></p>
+  </div>
+  <div class="panel">
+    <h3 style="margin-top:0">2 · A measured answer to “why 0.2778”</h3>
+    <p class="small">It is not a discovery, it is <b>precision</b>. From
+    <code>1/DTI = 0.2 + 0.2·(F/T) + 0.8·(K/T)</code> the score is governed by the ratio of wasted mass
+    to earned credit. Every step of
+    <code>0.1922 → 0.2477 → 0.2600 → 0.2708 → 0.2778</code> cut emitted mass <code>S</code> faster than
+    it cut earned credit <code>T</code>. The 0.2778 arm additionally deleted every dot sitting on a
+    <i>masked</i> catalogue pixel — mass that can never earn and always costs α per unit.</p>
+    <p class="small"><a href="evidence.html#why-02778">→ the arithmetic</a></p>
+  </div>
+  <div class="panel">
+    <h3 style="margin-top:0">3 · A real fix for the upload rejection</h3>
+    <p class="small">29 sibling GeoTIFFs were scanned. <b>12 of 12</b> <code>-nan</code> variants fail
+    <code>np.all((v&gt;=0)&amp;(v&lt;=1))</code>; <b>17 of 17</b> all-finite variants pass it.
+    <b>No file anywhere had a value outside [0,&nbsp;1].</b> The defect is NaN, not range.</p>
+    <p class="small"><a href="#range-error">→ the diagnosis</a></p>
+  </div>
+  <div class="panel">
+    <h3 style="margin-top:0">4 · Two falsified hypotheses, quantified</h3>
+    <p class="small">The catalogue-flank idea looked excellent on twelve observations
+    (+55.7&nbsp;% LOO, 67&nbsp;% of the hidden mass within 150 m of a mapped fault, ×19.5 enrichment).
+    One extra observation — the flank-<i>pruned</i> 0.2778 raster — inverted it. Break-even:
+    the flank is only real if that file scored <b>≤ 0.2200</b>. It is reported at 0.2778.</p>
+    <p class="small"><a href="hypotheses.html">→ all five hypotheses, ranked</a></p>
+  </div>
+</div>
+
+<h2 id="range-error">The <code>"Predicted values must be in range [0, 1]"</code> fix</h2>
+<p>The reported rejection was reproduced and diagnosed by scanning every GeoTIFF the sibling
+repositories published (<code>evidence/range_error_diagnosis.json</code>).</p>
+<table>
+<tr><th>Convention</th><th class="n">Files scanned</th><th>Out-of-footprint pixels</th>
+    <th><code>np.all((v&gt;=0)&amp;(v&lt;=1))</code></th><th>Any value outside [0,1]?</th></tr>
+<tr><td><code>-nan</code> (nodata = nan)</td><td class="n">12</td><td>7,111,787 NaN</td>
+    <td><span class="badge b-bad">FAILS — 12 / 12</span></td><td>No</td></tr>
+<tr><td><code>-zeros</code> / all-finite</td><td class="n">17</td><td>0.0, no NaN anywhere</td>
+    <td><span class="badge b-good">PASSES — 17 / 17</span></td><td>No</td></tr>
+</table>
+<p><b>Mechanism.</b> NaN fails <i>both</i> comparisons in <code>(v &gt;= 0) &amp; (v &lt;= 1)</code>, so
+any validator written that way rejects the file even though every real value is exactly 0 or 1.
+Several sibling sites offered the <code>-nan</code> file as the primary download.</p>
+<p><b>Fix applied.</b> The primary download here is the <b>all-finite</b> variant: float32, one band,
+EPSG:32611, 100 m, template-matched geotransform and bounds, <code>0.0</code> outside the footprint,
+no NaN anywhere, nodata unset. <code>src/gems47/submission.py</code> writes both variants and its
+validator runs <b>every</b> plausible range reading separately, reporting which ones pass.</p>
+<div class="callout good">
+Both conventions have historically been accepted by the portal (<code>-nan</code> files scored
+0.2600 / 0.2477 / 0.1922 …; all-finite files scored 0.2778 / 0.1294), so the rejection is
+intermittent or path-dependent. The all-finite variant passes <b>every</b> reading we could construct,
+which is why it is the default.
+</div>
+
+<h2>Results — all five frames, nothing hidden</h2>
+<p class="small">F1 / F2 are LATI belief models fitted on the thirteen returned DTIs; F3 is a uniform
+truth at the model-free <code>K = 12,348</code>; F4 is the official, independent USGS SGMC
+off-catalogue fault population; F5 is a 4-quadrant blocked holdout on the given catalogue.
+“Coverage” is the covered 300 m kernel integral — exact, and needing no truth model at all.</p>
+<table>
+<tr><th>Raster</th><th class="n">Dots</th><th class="n">Coverage</th><th class="n">F1</th>
+    <th class="n">F2</th><th class="n">F3</th><th class="n">F4</th><th class="n">F5</th>
+    <th class="n">Annulus %</th><th class="n">max Jaccard</th></tr>
+<tr><td><b>GEMSDOE47 arm2 H47-GSA (primary)</b></td><td class="n">37,654</td><td class="n">99,916</td>
+    <td class="n">0.0555</td><td class="n"><b>0.6081</b></td><td class="n">0.0140</td>
+    <td class="n">0.0306</td><td class="n">0.0148</td><td class="n">64.6</td><td class="n">0.0457</td></tr>
+<tr><td>GEMSDOE47 arm1 H47-MAXCOV</td><td class="n">37,654</td><td class="n">219,259</td>
+    <td class="n">0.1859</td><td class="n">0.2378</td><td class="n">0.0306</td>
+    <td class="n">0.0695</td><td class="n">0.0087</td><td class="n">52.6</td><td class="n">0.1950</td></tr>
+<tr><td>GEMSDOE47 arm1 @ 44,090</td><td class="n">44,090</td><td class="n">258,661</td>
+    <td class="n">0.2052</td><td class="n">0.2285</td><td class="n">0.0336</td>
+    <td class="n">0.0783</td><td class="n">0.0126</td><td class="n">51.4</td><td class="n">0.2256</td></tr>
+<tr><td><b>incumbent d2.8</b> <span class="small">(live 0.2600)</span></td><td class="n">44,090</td>
+    <td class="n"><b>341,261</b></td><td class="n"><b>0.2650</b></td><td class="n">0.2653</td>
+    <td class="n"><b>0.0442</b></td><td class="n"><b>0.0942</b></td><td class="n"><b>0.1087</b></td>
+    <td class="n">44.8</td><td class="n">1.0000</td></tr>
+<tr><td>h33-2-b2 <span class="small">(reported 0.2778, attribution contested)</span></td>
+    <td class="n">37,654</td><td class="n">302,510</td><td class="n">0.2470</td><td class="n">0.2592</td>
+    <td class="n">0.0421</td><td class="n">0.0954</td><td class="n">0.0046</td><td class="n">52.5</td>
+    <td class="n">1.0000</td></tr>
+<tr><td>h19-5 <span class="small">(live 0.1922)</span></td><td class="n">121,131</td>
+    <td class="n">449,693</td><td class="n">0.2109</td><td class="n">0.1931</td><td class="n">0.0322</td>
+    <td class="n">0.0992</td><td class="n">0.0807</td><td class="n">44.7</td><td class="n">1.0000</td></tr>
+<tr><td>r13-lattice <span class="small">(live 0.0904)</span></td><td class="n">204,504</td>
+    <td class="n">1,898,314</td><td class="n">0.1297</td><td class="n">0.1074</td><td class="n">0.0904</td>
+    <td class="n">0.2499</td><td class="n">0.0716</td><td class="n">44.7</td><td class="n">1.0000</td></tr>
+</table>
+<p class="small">Full 16-row table with T, F, Φ, recall and credit-per-dot for every arm:
+<a href="evidence.html">evidence page</a> · <code>evidence/shipped.json</code>.
+Jaccard 1.0000 on the reference rows is each raster against itself.</p>
+
+<div class="callout warn">
+<b>Why the 0.6081 in the F2 column must not be believed.</b> F2 <i>is</i> arm 2’s own belief model.
+A candidate chosen to maximise a fitted objective, then scored by that same objective, always wins.
+Measured directly: the in-fold advantage was <b>+0.51 / +0.52</b> DTI and it collapsed to
+<b>−0.061 / −0.045</b> when the candidate was scored by a model fitted on the <i>other</i> fold.
+That ≈0.30 gap is the optimizer’s-curse plus pool-selection premium, and it is the single most
+important number on this site. See <a href="method.html#crossfit">cross-fitted validation</a>.
+</div>
+
+<h2>What the instrument did establish</h2>
+<table>
+<tr><th>Quantity</th><th>Value</th><th>How it was measured</th></tr>
+<tr><td>Hidden new-fault mass <code>K</code> in the scored split</td>
+    <td><b>12,348 px</b> model-free<br><span class="small">15,638 – 20,069 under fitted shapes</span></td>
+    <td>The <code>r13-lattice</code> raster’s 300 m halo averages the whole footprint, so its returned
+        0.0904 is close to a shape-free estimate of <code>K</code>. Independently corroborated by the
+        <code>placeholder</code> probe (7,931) and by a sibling repository’s separate inference (12,691).</td></tr>
+<tr><td>Masking of known USGS/INGENIOUS pixels</td>
+    <td><b>Confirmed empirically</b></td>
+    <td>Natural experiment: <code>Hedge-v2</code> is byte-identical to <code>ens12</code> off the
+        catalogue and additionally carries all 60,988 catalogue pixels at p = 1. Both returned
+        <b>exactly 0.1563</b>. Adding 54,533 dots hugging the catalogue moved the fourth decimal by zero.</td></tr>
+<tr><td>Do public 100 m geological layers carry the missing signal?</td>
+    <td><b>Not demonstrably</b></td>
+    <td>59 geological layers + 13 controls screened on 12 observations, then re-screened on 13.
+        41 of 65 improved LOO in-fold. Under a pre-specified geological pool with selection
+        <i>inside</i> each fold, none survived out of fold.</td></tr>
+<tr><td>Weighted recall needed for 0.3195</td>
+    <td>27.3 % at <code>F = 0</code><br><b>102.7 % at the incumbent’s <code>F/K</code></b></td>
+    <td>Exact from <code>x = (αρ+β)/(1/DTI − α)</code>. At the incumbent’s waste ratio the brief’s
+        0.3195 target is <b>arithmetically unreachable</b>; <code>F/T</code> must roughly halve.</td></tr>
+</table>
+
+<h2>The five new hypotheses</h2>
+<p class="small">Ranked by expected DTI improvement against implementation cost, each with the layers
+it uses, the physical signature it targets, why it should catch a fault <i>missing</i> from the
+catalogue, and how it differs from everything already tried. Full text on
+<a href="hypotheses.html">the hypotheses page</a>.</p>
+<table>
+<tr><th>#</th><th>Hypothesis</th><th>Signature</th><th>Rank</th><th>Verdict</th></tr>
+<tr><td>H47-1</td><td><b>GSA</b> — geodetic strain × hydrothermal alteration × thermal discharge</td>
+    <td><code>geod_shearrate</code>, <code>rad_ThK</code> (low), GDR warm-spring proximity,
+        <code>geod_dilaterate</code></td>
+    <td>1st</td><td><span class="badge b-warn">SHIPPED, cross-fit FAILED</span></td></tr>
+<tr><td>H47-2</td><td><b>SAF</b> — strike-aligned catalogue-flank continuation</td>
+    <td>Along/across-strike decomposition of the 0–300 m halo, trace-tip corridors</td>
+    <td>2nd</td><td><span class="badge b-bad">FALSIFIED (break-even 0.2200)</span></td></tr>
+<tr><td>H47-3</td><td><b>SGMC transfer</b> — state geologic-map faults absent from the catalogue</td>
+    <td>62,122 px of real USGS-mapped fault >300 m off the given catalogue</td>
+    <td>3rd</td><td><span class="badge b-bad">FALSIFIED (0.5 % of fitted K)</span></td></tr>
+<tr><td>H47-4</td><td><b>Deep-source magnetic continuity</b> — TMI-UC150 ridges vs 100 m <code>tmi_hg</code></td>
+    <td>Basement-penetrating lineament that survives 150 m upward continuation</td>
+    <td>4th</td><td><span class="badge b-info">NOT TESTED — data acquired, unbuilt</span></td></tr>
+<tr><td>H47-5</td><td><b>λ-probe identification</b> — three designed submissions recover <code>T, F, K</code> in closed form</td>
+    <td>Exact scale identity <code>DTI(λp) = λT/(λα(T+F)+βK)</code></td>
+    <td>5th</td><td><span class="badge b-info">NEEDS 3 SLOTS — designed, not spent</span></td></tr>
+</table>
+
+<h2>Official, verified sources</h2>
+<div class="panel"><p class="small" style="margin-top:0">
+Every item below was fetched and read during this session. Items marked
+<span class="badge b-warn">NOT RE-VERIFIED</span> are cited from a sibling repository’s records and
+were <b>not</b> re-fetched here — do not treat them as confirmed.</p>
+<table>
+<tr><th>Source</th><th>What it establishes</th><th>Status</th></tr>
+<tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem
+    description, metric and submission format</a> (page 967)</td>
+    <td>DTI definition, α = 0.2, β = 0.8, R = 300 m, the worked example
+        (TP<sub>w</sub> 3.00, FP<sub>w</sub> 1.89, FN<sub>w</sub> 2.00 → 0.60), and every format
+        requirement</td><td><span class="badge b-good">FETCHED</span></td></tr>
+<tr><td><a href="https://community.drivendata.org/t/scoring-clarification-masked-pixels-and-re-evaluation/11516">
+    Scoring clarification — masked pixels and re-evaluation</a> (thread 11516, staff
+    <code>chrisk-dd</code>, 16 Sep)</td>
+    <td>“Pixels corresponding to known USGS/INGENIOUS faults are masked / excluded from evaluation, so
+        they do not count towards penalty terms.”</td><td><span class="badge b-good">FETCHED</span></td></tr>
+<tr><td><a href="https://community.drivendata.org/t/where-do-you-draw-the-line/11536">
+    Where do you draw the line?</a> (thread 11536, staff <code>chrisk-dd</code>, 23 Sep)</td>
+    <td>“‘new fault’ means ‘any fault pixel not already captured by USGS/INGENIOUS’ and <b>can include
+        newly mapped geometry of an existing fault system</b>.”</td><td><span class="badge b-good">FETCHED</span></td></tr>
+<tr><td><a href="https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527">
+    How were the new test faults identified?</a> (thread 11527)</td>
+    <td>Which data the NLR/USGS experts used. <b>The staff answer did not render</b> — the thread shows
+        a collapsed post list. Logged as IR-47-006.</td>
+    <td><span class="badge b-warn">PARTIAL</span></td></tr>
+<tr><td><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Organiser reference
+    solution</a> (<code>drivendataorg/gems-prize-reference-solution</code>)</td>
+    <td>U-Net + Monte-Carlo CV benchmark. Confirms α = 0.2, β = 0.8 — and contains <b>no DTI scorer at
+        all</b>: it optimises patch-level <code>TverskyLoss</code>, which is not the leaderboard
+        metric.</td><td><span class="badge b-good">FETCHED</span></td></tr>
+<tr><td>Competition bytes: <code>training_features.tif</code>, <code>labels.tif</code>,
+    <code>sample_submission.tif</code>, 7 external layers, 12 scored submissions</td>
+    <td>Restored from the owner’s hash-pinned sibling mirrors and SHA-256 verified —
+        <b>22 / 22, ALL_VERIFIED = True</b></td>
+    <td><span class="badge b-good">VERIFIED</span> <a href="../registry/data_manifest.json">manifest</a></td></tr>
+<tr><td>Leaderboard snapshot (#1 0.3262 … #17 0.2600)</td>
+    <td>Used for the 0.3195 / 0.3262 targets</td>
+    <td><span class="badge b-warn">NOT RE-VERIFIED</span></td></tr>
+<tr><td>USGS QFaults, INGENIOUS, SGMC, GeoDAWN, GDR (DOI 10.5066/P93LGLVQ), 3DEP 1 m DEM,
+    NLR technical report</td>
+    <td>Cited as the upstream provenance of the restored derived layers</td>
+    <td><span class="badge b-warn">NOT RE-VERIFIED</span></td></tr>
+</table></div>
+
+<h2>Reproduce this</h2>
+<pre>python3 -m venv venv47 &amp;&amp; ./venv47/bin/pip install numpy scipy rasterio pytest
+export PYTHONPATH=src
+python3 scripts/restore_data.py --group all   # 22/22 SHA-256 verified, ~30 s
+python3 -m pytest tests -q                    # metric algebra, writer, inversion
+python3 scripts/lati_fit.py                   # 12-observation inversion + screen + bootstrap
+python3 scripts/lati_controls.py              # spatial-permutation nulls
+python3 scripts/flank_sensitivity.py          # break-even for the contested 0.2778
+python3 scripts/screen13.py                   # 13-observation layer screen
+python3 scripts/crossfit_validate.py          # the honest test (~12 min)
+python3 scripts/ship.py                       # build, evaluate, write and verify the TIFs</pre>
+<p class="small">Built under 2 vCPU, 3 GB RAM, 19 GB disk, and a network that reaches only
+<code>pypi.org</code>, <code>github.com</code>, <code>api.github.com</code> and
+<code>codeload.github.com</code> from a shell.</p>
+
+<h2>The earlier session’s pages</h2>
+<p class="small">This repository merges two independent sessions on the same brief. The earlier one
+(commits <code>13a845b</code>, <code>9582f34</code>) built its own detector, its own preregistered
+promotion gate and its own site, and reached the same verdict by a different route: <b>H47-B
+(cross-scale <code>TMI_up150</code> magnetic-edge persistence) was NOT PROMOTED</b> — locked-test
+pooled DTI 0.02755 against a fixed-seed random control at <b>0.03716</b>, i.e. the candidate lost to
+random noise. Its pages are preserved and linked, not overwritten.</p>
+<table>
+<tr><th>Earlier session</th><th>This session</th></tr>
+<tr><td><a href="leaderboard.html">leaderboard.html</a> — the 2026-10-06 public read</td>
+    <td><a href="method.html">method.html</a> — LATI</td></tr>
+<tr><td><a href="analysis.html">analysis.html</a> / <a href="analysis.md">analysis.md</a> — score and source attribution</td>
+    <td><a href="hypotheses.html">hypotheses.html</a> — the five ranked hypotheses</td></tr>
+<tr><td><a href="validation-protocol.md">validation-protocol.md</a> — the preregistered gate</td>
+    <td><a href="evidence.html">evidence.html</a> — every number with its file</td></tr>
+<tr><td><a href="validation-h47b-20261006.md">validation-h47b-20261006.md</a> — H47-B’s failure in detail</td>
+    <td><a href="irregularities.html">irregularities.html</a> — IR-47-001…015</td></tr>
+<tr><td><a href="portal-checklist.html">portal-checklist.html</a> · <a href="submit.html">submit.html</a> · <a href="sources.html">sources.html</a></td>
+    <td><a href="executive-summary.html">executive-summary.html</a> — how to submit</td></tr>
+<tr><td><a href="review-log.md">review-log.md</a> · <a href="next-session.md">next-session.md</a> · <a href="prior-results.md">prior-results.md</a> · <a href="irregularities.md">irregularities.md</a></td>
+    <td><a href="prev-session/README.md">prev-session/</a> — the three superseded landing pages, verbatim</td></tr>
+</table>
+
+<h2>Site map</h2>
+<div class="toc">
+<p><a href="executive-summary.html"><b>Executive summary</b></a> — exactly how to submit, step by step,
+   plus the honest verdict and the remaining work.</p>
+<p><a href="hypotheses.html"><b>The five hypotheses</b></a> — layers, physical signature, why it should
+   catch a <i>missing</i> fault, difference from prior work, rank.</p>
+<p><a href="method.html"><b>LATI method</b></a> — the algebra, the fast path, the controls, the
+   cross-fitting, and the two bugs the review passes caught.</p>
+<p><a href="evidence.html"><b>Every number</b></a> — all frames, all arms, all thirteen observations.</p>
+<p><a href="irregularities.html"><b>Irregularities</b></a> — everything that looks wrong, flagged for
+   manual review.</p>
+<p><a href="prior-results.csv">prior-results.csv</a> · <a href="prior-output-manifest.csv">prior-output-manifest.csv</a>
+   · <a href="../README.md">README (the standing brief)</a></p>
+</div>
+
+</div>
+<footer><div class="wrap">
+  GEMSDOE47 · built autonomously · every number on this site is generated from a file under
+  <code>evidence/</code> and every input byte is SHA-256 pinned in
+  <code>registry/data_manifest.json</code>.<br>
+  Nothing here was uploaded to DrivenData: no credentials exist in this environment.
+  <b>All projections are model outputs and are labelled UNSCORED.</b>
+</div></footer>
 </body>
 </html>

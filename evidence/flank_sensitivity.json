@@ -1,0 +1,277 @@
+{
+ "generated_utc": "2026-10-06T10:59:56Z",
+ "question": "how much does the H47 flank falsification depend on the contested 0.2778?",
+ "h33_raster": {
+  "path": "/home/user/refs/GEMSDOE32/docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+  "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+  "dots": 37654,
+  "dots_in_catalogue_flank_0_300m": 2171,
+  "note": "built by DELETING every dot within 2 px of the catalogue, so it is the only direct flank ablation in the whole family"
+ },
+ "attribution_flag": "GEMSDOE42/docs/prior-results.csv: 'attribution_conflict_site_says_unscored_official_board_has_unlinked_0.2778_row'",
+ "sweep": [
+  {
+   "assumed_h33_dti": null,
+   "n_obs": 12,
+   "flank_beta": 6.176422567607026,
+   "K_base": 21477.40806593778,
+   "K_flank": 18514.481183963668,
+   "loo_base": 0.014876395257967322,
+   "loo_flank": 0.0065941838738693545,
+   "loo_gain_pct": 55.673509882458106,
+   "verdict": "flank SUPPORTED",
+   "theta_base": [
+    21477.40806593778,
+    6.297360504050989
+   ],
+   "theta_flank": [
+    18514.481183963668,
+    5.810633533314468,
+    6.176422567607026
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.18,
+   "n_obs": 13,
+   "flank_beta": 5.078342351941348,
+   "K_base": 23612.597912414123,
+   "K_flank": 18694.437312439426,
+   "loo_base": 0.02062999216805066,
+   "loo_flank": 0.0065352269402691905,
+   "loo_gain_pct": 68.32171875280596,
+   "verdict": "flank SUPPORTED",
+   "theta_base": [
+    23612.597912414123,
+    5.603946384738855
+   ],
+   "theta_flank": [
+    18694.437312439426,
+    5.964538948521619,
+    5.078342351941348
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.2,
+   "n_obs": 13,
+   "flank_beta": 4.033605014680501,
+   "K_base": 22887.547702124477,
+   "K_flank": 18844.456086371767,
+   "loo_base": 0.017238996905893398,
+   "loo_flank": 0.008254305501579254,
+   "loo_gain_pct": 52.118411838931294,
+   "verdict": "flank SUPPORTED",
+   "theta_base": [
+    22887.547702124477,
+    5.82322212900979
+   ],
+   "theta_flank": [
+    18844.456086371767,
+    6.151511112292618,
+    4.033605014680501
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.22,
+   "n_obs": 13,
+   "flank_beta": 3.1802464210967,
+   "K_base": 22161.855637638284,
+   "K_flank": 18924.084490664594,
+   "loo_base": 0.014929634415439926,
+   "loo_flank": 0.010902842580678385,
+   "loo_gain_pct": 26.971804685298352,
+   "verdict": "flank SUPPORTED",
+   "theta_base": [
+    22161.855637638284,
+    6.058632802445128
+   ],
+   "theta_flank": [
+    18924.084490664594,
+    6.350386232501751,
+    3.1802464210967
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.24,
+   "n_obs": 13,
+   "flank_beta": 2.4744132801428007,
+   "K_base": 21436.306332927667,
+   "K_flank": 18925.145793199837,
+   "loo_base": 0.013708669790977774,
+   "loo_flank": 0.014448948608733423,
+   "loo_gain_pct": -5.400077681080739,
+   "verdict": "flank NOT supported",
+   "theta_base": [
+    21436.306332927667,
+    6.312261940483653
+   ],
+   "theta_flank": [
+    18925.145793199837,
+    6.56420557798367,
+    2.4744132801428007
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.2477,
+   "n_obs": 13,
+   "flank_beta": 2.2341286878238815,
+   "K_base": 21157.185684524196,
+   "K_flank": 18903.421094306075,
+   "loo_base": 0.01353037667096944,
+   "loo_flank": 0.016052367978646474,
+   "loo_gain_pct": -18.639475965870034,
+   "verdict": "flank NOT supported",
+   "theta_base": [
+    21157.185684524196,
+    6.4152696553164805
+   ],
+   "theta_flank": [
+    18903.421094306075,
+    6.651268454051504,
+    2.2341286878238815
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.255,
+   "n_obs": 13,
+   "flank_beta": 2.019997902360228,
+   "K_base": 20892.750406626004,
+   "K_flank": 18871.262019571976,
+   "loo_base": 0.013511793092633376,
+   "loo_flank": 0.01769596256588818,
+   "loo_gain_pct": -30.966796520411567,
+   "verdict": "flank NOT supported",
+   "theta_base": [
+    20892.750406626004,
+    6.515888479161499
+   ],
+   "theta_flank": [
+    18871.262019571976,
+    6.7365320179665344,
+    2.019997902360228
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.26,
+   "n_obs": 13,
+   "flank_beta": 1.8803196326539486,
+   "K_base": 20711.760055069997,
+   "K_flank": 18842.738841426595,
+   "loo_base": 0.01358378465014816,
+   "loo_flank": 0.01889169912526502,
+   "loo_gain_pct": -39.075372672806346,
+   "verdict": "flank NOT supported",
+   "theta_base": [
+    20711.760055069997,
+    6.586542074209605
+   ],
+   "theta_flank": [
+    18842.738841426595,
+    6.796552521234589,
+    1.8803196326539486
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.27,
+   "n_obs": 13,
+   "flank_beta": 1.6163360743067938,
+   "K_base": 20350.177433123325,
+   "K_flank": 18769.92237432779,
+   "loo_base": 0.013935035616555874,
+   "loo_flank": 0.021455946333675563,
+   "loo_gain_pct": -53.97123426210895,
+   "verdict": "flank NOT supported",
+   "theta_base": [
+    20350.177433123325,
+    6.732292645147046
+   ],
+   "theta_flank": [
+    18769.92237432779,
+    6.920800127145728,
+    1.6163360743067938
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.2708,
+   "n_obs": 13,
+   "flank_beta": 1.5960406868312516,
+   "K_base": 20321.277882889026,
+   "K_flank": 18763.196260796685,
+   "loo_base": 0.013975101406297248,
+   "loo_flank": 0.021671139440210742,
+   "loo_gain_pct": -55.06963999878829,
+   "verdict": "flank NOT supported",
+   "theta_base": [
+    20321.277882889026,
+    6.74421731146002
+   ],
+   "theta_flank": [
+    18763.196260796685,
+    6.930992188478252,
+    1.5960406868312516
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.2778,
+   "n_obs": 13,
+   "flank_beta": 1.4232363978052722,
+   "K_base": 20068.56363663914,
+   "K_flank": 18698.726673935198,
+   "loo_base": 0.01440148676771598,
+   "loo_flank": 0.023618138467080378,
+   "loo_gain_pct": -63.997918048471895,
+   "verdict": "flank NOT supported",
+   "theta_base": [
+    20068.56363663914,
+    6.85030799839766
+   ],
+   "theta_flank": [
+    18698.726673935198,
+    7.021839304311714,
+    1.4232363978052722
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.29,
+   "n_obs": 13,
+   "flank_beta": 1.1408225132154877,
+   "K_base": 19629.048335986507,
+   "K_flank": 18562.757982512612,
+   "loo_base": 0.015470825926644087,
+   "loo_flank": 0.027290035801111626,
+   "loo_gain_pct": -76.39676078387205,
+   "verdict": "flank NOT supported",
+   "theta_base": [
+    19629.048335986507,
+    7.04301775113762
+   ],
+   "theta_flank": [
+    18562.757982512612,
+    7.187665556714504,
+    1.1408225132154877
+   ]
+  },
+  {
+   "assumed_h33_dti": 0.3,
+   "n_obs": 13,
+   "flank_beta": 0.9249425554443275,
+   "K_base": 19269.8293683683,
+   "K_flank": 18429.68192154753,
+   "loo_base": 0.01665792102928801,
+   "loo_flank": 0.030568467723375507,
+   "loo_gain_pct": -83.50709953318864,
+   "verdict": "flank NOT supported",
+   "theta_base": [
+    19269.8293683683,
+    7.208883562104062
+   ],
+   "theta_flank": [
+    18429.68192154753,
+    7.331194681068481,
+    0.9249425554443275
+   ]
+  }
+ ],
+ "break_even_h33_dti": 0.22,
+ "conclusion": "The flank layer is supported by the twelve flank-agnostic observations (LOO gain +55.7%, beta=+6.18) and refuted as soon as the flank-PRUNED h33-2-b2 raster is admitted at its reported 0.2778 (LOO gain -64.0%, beta collapses to +1.42). The break-even assumed score is 0.22: above it the flank is refuted, below it supported. Because the single observation that decides the question is itself attribution-conflicted, H47 flank re-occupation is NOT SHIPPED - the project rule is never to spend a submission slot on a candidate that a direct local ablation contradicts.",
+ "seconds": 67.0
+}
