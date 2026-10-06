@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "status": "RESEARCH_ONLY_NOT_PROMOTED",
+  "slot_authorized": false,
+  "hypothesis_id": "H47-C1",
+  "filename": "gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif",
+  "download_relative_to_docs": "downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif",
+  "submission_name": "GEMSDOE47-C1-D2p8-bdf4508769c8",
+  "portal_note": "H47C1 odd-step/channel; d=2.8px/280m; 90% marginal proxy L=0.0000 (assumed exch.), not private; 37654 dots; finite+mask; UNSCORED; NOT PROMOTED",
+  "portal_note_characters": 143,
+  "format_validation": {
+    "path": "downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif",
+    "sha256": "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0",
+    "bytes": 152396,
+    "format_valid": true,
+    "checks": {
+      "driver_gtiff": true,
+      "single_band": true,
+      "dtype_float32": true,
+      "crs_matches_template": true,
+      "shape_matches_template": true,
+      "transform_matches_template": true,
+      "bounds_match_template": true,
+      "raw_all_finite": true,
+      "raw_range_0_1": true,
+      "nodata_tag_unset": true,
+      "mask_matches_official_template_footprint": true,
+      "outside_raw_zero": true,
+      "one_self_contained_file": true,
+      "masked_read_null_exactly_outside": true,
+      "masked_read_range_0_1": true
+    },
+    "failed_checks": [],
+    "stats": {
+      "pixels": 12279160,
+      "positive_pixels": 37654,
+      "raw_nonfinite_pixels": 0,
+      "raw_out_of_range_pixels": 0,
+      "invalid_mask_pixels": 7111787,
+      "min": 0.0,
+      "max": 1.0,
+      "positive_on_catalogue": 0,
+      "positive_outside_footprint": 0
+    },
+    "profile": {
+      "shape": [
+        3730,
+        3292
+      ],
+      "count": 1,
+      "dtype": [
+        "float32"
+      ],
+      "crs": "EPSG:32611",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "internal_mask": true
+    },
+    "organizer_acceptance_verified": false,
+    "scientific_eligibility_not_decided_by_this_validator": true
+  },
+  "zip": {
+    "filename": "gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.zip",
+    "sha256": "5a8eb75401daa713559297fc25198a3f31d6b7e7594118b111ec5160e7803b27",
+    "bytes": 108457,
+    "members": [
+      "gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
+    ],
+    "single_geotiff_verified": true
+  },
+  "prediction_mask_sha256": "bdf4508769c843bf97f4c87231c5a14702d80ed6b338f5614f0aed07605b8da9",
+  "screen_sha256": "373ca6d2cfc9ebb8f7b7467a337ce56452dea0a666ac69a00a28b887d0e6eecc",
+  "chosen_spacing_px": 2.8,
+  "chosen_spacing_m": 280.0,
+  "conformal_nominal_coverage": 0.9,
+  "conditional_public_block_floor": 0.0,
+  "private_or_global_floor_certified": false,
+  "organizer_score": null,
+  "screen_gate": {
+    "screen_passed": false,
+    "checks": {
+      "pooled_beats_incumbent": false,
+      "pooled_beats_random": true,
+      "mean_beats_incumbent": true,
+      "mean_beats_random": true,
+      "at_least_ten_truth_bearing_blocks": true,
+      "wins_two_thirds_truth_bearing_blocks": false,
+      "positive_proxy_floor": false
+    },
+    "failures": [
+      "pooled_beats_incumbent",
+      "wins_two_thirds_truth_bearing_blocks",
+      "positive_proxy_floor"
+    ],
+    "candidate_pooled_dti": 0.17787157738763867,
+    "incumbent_pooled_dti": 0.1802164524017669,
+    "random_pooled_dti": 0.07092444081574817,
+    "candidate_mean_dti": 0.17703824478505928,
+    "incumbent_mean_dti": 0.17605064098353068,
+    "random_mean_dti": 0.060700573952969225,
+    "truth_bearing_blocks": 22,
+    "candidate_block_wins": 11,
+    "required_block_wins": 15,
+    "lower_floor": 0.0,
+    "slot_authorized": false,
+    "reason_slot_closed": "Mirror-only inputs; exchangeability unverified; no private new-fault labels."
+  },
+  "no_historical_submission_used_to_construct_prediction": true,
+  "data_authentication": "SHA-256 pinned repository mirrors, not authenticated DrivenData downloads",
+  "warning": "DO NOT UPLOAD: no eligible submission. Format success is not scientific promotion."
+}

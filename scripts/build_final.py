@@ -44,6 +44,7 @@ from gems47 import grid as G
 from gems47 import hypotheses as HY
 from gems47 import lati
 from gems47 import metric as M
+from gems47.research_policy import require_research_only
 from gems47.scripts_common import rank_u8_inplace
 from gems47.submission import diff_report, validate_submission, write_submission
 
@@ -99,6 +100,7 @@ def fit(rows_u8, obs):
 
 
 def main() -> int:
+    require_research_only()
     t0 = time.time()
     t = G.load_template()
     ev, shape = t.evaluated, t.shape
@@ -311,7 +313,7 @@ def main() -> int:
     h = hashlib.sha256(np.ascontiguousarray(dots.view(np.uint8)).tobytes()).hexdigest()
     slug = f"gems47-h47gsa-{'-'.join(c.replace('prox_d2.8','incumb') for c in sel['layers'][1:])}"[:88]
     base_name = f"{slug}-{int(dots.sum())}px-{stamp}-{h[:10]}"
-    outdir = ROOT / "docs" / "downloads"
+    outdir = ROOT / ".cache" / "retired_lati_reproduction" / "build_final"
     outdir.mkdir(parents=True, exist_ok=True)
     shipped = []
     pvals = np.where(dots, np.float32(1.0), np.float32(0.0))
@@ -353,7 +355,7 @@ def main() -> int:
                allfinite_vs_nan_identical=dr["identical"],
                n_priors_compared=len(priors),
                seconds=round(time.time() - t0, 1))
-    (ROOT / "evidence" / "final_build.json").write_text(json.dumps(out, indent=1, default=float))
+    (outdir / "final_build-educational-only.json").write_text(json.dumps(out, indent=1, default=float))
     np.save(ROOT / ".cache" / "final_dots.npy", dots)
     np.save(ROOT / ".cache" / "final_q1.npy", q1.astype(np.float32))
     print(f"\nwrote evidence/final_build.json ({time.time()-t0:.0f}s)")

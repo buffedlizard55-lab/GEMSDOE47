@@ -1,107 +1,185 @@
 {
-  "schema_version": 2,
-  "record_status": "NO_ELIGIBLE_SUBMISSION",
-  "updated_utc_date": "2026-10-06",
-  "decision": {
-    "submission_slot_eligible": false,
-    "slot_recommended": false,
-    "reason": "H47-B failed its preregistered locked-test/random-control and conformal-floor gate; no other candidate has established a comparable current spatially blocked holdout win."
+ "schema_version": 2,
+ "record_status": "NO_ELIGIBLE_SUBMISSION",
+ "updated_utc_date": "2026-10-06",
+ "decision": {
+  "submission_slot_eligible": false,
+  "slot_recommended": false,
+  "reason": "H47-B failed its preregistered locked-test/random-control and conformal-floor gate; no other candidate has established a comparable current spatially blocked holdout win."
+ },
+ "submission": null,
+ "research_artifacts": [
+  {
+   "hypothesis_id": "H47-B",
+   "file": "docs/downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+   "status": "RESEARCH_ONLY_NOT_FOR_PORTAL",
+   "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
+   "positive_pixels": 18524,
+   "grid": {
+    "dtype": "float32",
+    "bands": 1,
+    "crs": "EPSG:32611",
+    "height": 3730,
+    "width": 3292,
+    "resolution_m": 100,
+    "transform_gdal": [
+     243350.0,
+     100.0,
+     0.0,
+     4508550.0,
+     0.0,
+     -100.0
+    ],
+    "nodata": "NaN",
+    "in_footprint_range": [
+     0.0,
+     1.0
+    ],
+    "outside_footprint": "NaN"
+   },
+   "local_format_audit": "PASS; does not imply organizer acceptance or scientific promotion"
   },
-  "submission": null,
-  "research_artifacts": [
-    {
-      "hypothesis_id": "H47-B",
-      "file": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
-      "status": "RESEARCH_ONLY_NOT_FOR_PORTAL",
-      "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
-      "positive_pixels": 18524,
-      "grid": {
-        "dtype": "float32",
-        "bands": 1,
-        "crs": "EPSG:32611",
-        "height": 3730,
-        "width": 3292,
-        "resolution_m": 100,
-        "transform_gdal": [243350.0, 100.0, 0.0, 4508550.0, 0.0, -100.0],
-        "nodata": "NaN",
-        "in_footprint_range": [0.0, 1.0],
-        "outside_footprint": "NaN"
-      },
-      "local_format_audit": "PASS; does not imply organizer acceptance or scientific promotion"
-    },
-    {
-      "file": "docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
-      "status": "HISTORICAL_NOT_FOR_PORTAL",
-      "lineage": "Delete-only subset of a published sibling mask; not an independent detector."
-    }
-  ],
-  "H47_B_screen": {
-    "report": "docs/h47b-screen-report-20261006.json",
-    "detailed_report": "docs/validation-h47b-20261006.md",
-    "preregistration": "docs/preregistered-h2.md",
-    "data_provenance": "Public group-hosted GitHub mirror; not authenticated organizer downloads.",
-    "feature": "TMI_up150; uint8 rank encoded; not physical magnetic units or a physical tilt-depth result.",
-    "selected_spacing_px": 5,
-    "selected_spacing_m": 500,
-    "selection_mean_block_dti": 0.04860422299678556,
-    "locked_test": {
-      "pooled_dti_candidate": 0.02755344310252606,
-      "pooled_dti_single_scale_baseline": 0.02563946679372895,
-      "pooled_dti_fixed_seed_random": 0.03715911385648702,
-      "mean_block_dti_candidate": 0.011978435238073543,
-      "mean_block_dti_single_scale_baseline": 0.01099730895861253,
-      "mean_block_dti_fixed_seed_random": 0.02181179402839894,
-      "candidate_beats_baseline": true,
-      "candidate_beats_random": false,
-      "empty_locked_test_blocks": [8, 11]
-    },
-    "calibration": {
-      "n_blocks": 6,
-      "nominal_coverage_if_exchangeable": 0.8571428571428571,
-      "exchangeability_verified": false,
-      "empty_calibration_blocks": [12, 15],
-      "clipped_lower_bound": 0.0,
-      "interpretation": "No positive defensible performance floor; not a guarantee for private labels or leaderboard score."
-    },
-    "promotion_status": "NOT_PROMOTED"
-  },
-  "uniqueness_audit": {
-    "report": "docs/h47b-uniqueness-audit-20261006.json (tracked full comparison record)",
-    "visible_repositories": 55,
-    "tracked_tiff_paths": 425,
-    "unique_git_blobs": 336,
-    "exact_grid_comparable_rasters": 334,
-    "non_comparable_rasters": 2,
-    "fetch_or_read_failures": 0,
-    "exact_positive_mask_matches": 0,
-    "maximum_equal_mass_jaccard": 0.01119056717069709,
-    "maximum_positive_support_jaccard": 0.016857947,
-    "scope": "One-time comparison of accessible artifacts in visible buffedlizard55-lab GEMSDOE repositories only; not global uniqueness and not performance evidence."
-  },
-  "latest_saved_public_leaderboard_observation": {
-    "snapshot": "docs/leaderboard-snapshot-2026-10-06.json",
-    "rank_1": {
-      "participant": null,
-      "score": 0.3774,
-      "name_status": "not preserved in session record"
-    },
-    "DARD": {
-      "rank": 7,
-      "score": 0.3195
-    },
-    "extradr19": {
-      "rank": 13,
-      "score": 0.2778
-    },
-    "official_file_mapping": null,
-    "monitoring": "one-time manual observation; no automated feed or polling"
-  },
-  "retired_claims": {
-    "previous_modelled_dti": 0.34912,
-    "previous_claimed_conformal_floor": 0.34837,
-    "previous_claimed_confidence": 0.75,
-    "status": "WITHDRAWN_UNSUPPORTED",
-    "preserved_record": "notes/results-retired-unverified-20261006.json",
-    "reason": "Unauthenticated score-to-file mapping, non-exchangeable selected rungs, and long extrapolation; not a valid distribution-free performance guarantee."
+  {
+   "file": "docs/downloads/superseded/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
+   "status": "HISTORICAL_NOT_FOR_PORTAL",
+   "lineage": "Delete-only subset of a published sibling mask; not an independent detector."
   }
+ ],
+ "H47_B_screen": {
+  "report": "docs/h47b-screen-report-20261006.json",
+  "detailed_report": "docs/validation-h47b-20261006.md",
+  "preregistration": "docs/preregistered-h2.md",
+  "data_provenance": "Public group-hosted GitHub mirror; not authenticated organizer downloads.",
+  "feature": "TMI_up150; uint8 rank encoded; not physical magnetic units or a physical tilt-depth result.",
+  "selected_spacing_px": 5,
+  "selected_spacing_m": 500,
+  "selection_mean_block_dti": 0.04860422299678556,
+  "locked_test": {
+   "pooled_dti_candidate": 0.02755344310252606,
+   "pooled_dti_single_scale_baseline": 0.02563946679372895,
+   "pooled_dti_fixed_seed_random": 0.03715911385648702,
+   "mean_block_dti_candidate": 0.011978435238073543,
+   "mean_block_dti_single_scale_baseline": 0.01099730895861253,
+   "mean_block_dti_fixed_seed_random": 0.02181179402839894,
+   "candidate_beats_baseline": true,
+   "candidate_beats_random": false,
+   "empty_locked_test_blocks": [
+    8,
+    11
+   ]
+  },
+  "calibration": {
+   "n_blocks": 6,
+   "nominal_coverage_if_exchangeable": 0.8571428571428571,
+   "exchangeability_verified": false,
+   "empty_calibration_blocks": [
+    12,
+    15
+   ],
+   "clipped_lower_bound": 0.0,
+   "interpretation": "No positive defensible performance floor; not a guarantee for private labels or leaderboard score."
+  },
+  "promotion_status": "NOT_PROMOTED"
+ },
+ "uniqueness_audit": {
+  "report": "docs/h47b-uniqueness-audit-20261006.json (tracked full comparison record)",
+  "visible_repositories": 55,
+  "tracked_tiff_paths": 425,
+  "unique_git_blobs": 336,
+  "exact_grid_comparable_rasters": 334,
+  "non_comparable_rasters": 2,
+  "fetch_or_read_failures": 0,
+  "exact_positive_mask_matches": 0,
+  "maximum_equal_mass_jaccard": 0.01119056717069709,
+  "maximum_positive_support_jaccard": 0.016857947,
+  "scope": "One-time comparison of accessible artifacts in visible buffedlizard55-lab GEMSDOE repositories only; not global uniqueness and not performance evidence."
+ },
+ "latest_saved_public_leaderboard_observation": {
+  "snapshot": "docs/leaderboard-snapshot-2026-10-06.json",
+  "rank_1": {
+   "participant": null,
+   "score": 0.3774,
+   "name_status": "not preserved in session record"
+  },
+  "DARD": {
+   "rank": 7,
+   "score": 0.3195
+  },
+  "extradr19": {
+   "rank": 13,
+   "score": 0.2778
+  },
+  "official_file_mapping": null,
+  "monitoring": "one-time manual observation; no automated feed or polling"
+ },
+ "retired_claims": {
+  "previous_modelled_dti": 0.34912,
+  "previous_claimed_conformal_floor": 0.34837,
+  "previous_claimed_confidence": 0.75,
+  "status": "WITHDRAWN_UNSUPPORTED",
+  "preserved_record": "notes/results-retired-unverified-20261006.json",
+  "reason": "Unauthenticated score-to-file mapping, non-exchangeable selected rungs, and long extrapolation; not a valid distribution-free performance guarantee."
+ },
+ "H48": {
+  "session": "2026-10-06",
+  "pipeline": "scripts/build_h48.py --stage all [--source prior|apex]",
+  "detector": "MSCL - multi-scale curvature lineament consensus (structure tensor, 3 apertures x 5 bands, cross-domain agreement)",
+  "arms": {
+   "apex": {
+    "file": "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif",
+    "sha256": "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5",
+    "n_positive": 28124,
+    "format_checks_passed": true,
+    "max_jaccard_vs_13_priors": 0.009507,
+    "predicted_dti": 0.08578766591790139,
+    "certified_floor": 0.11486597456776,
+    "certificate_level": 0.46153846153846156,
+    "certificate_rank_k": 6,
+    "n_calibration": 12,
+    "m_candidates": 7,
+    "quantile": 0.02907830864985861,
+    "holdout": {
+     "catalogue": {
+      "candidate": 0.0335,
+      "incumbent_h33_2_b2": 0.0067
+     },
+     "sgmc_offcatalogue": {
+      "candidate": 0.0878,
+      "incumbent_h33_2_b2": 0.0989
+     }
+    },
+    "status": "NOT PROMOTED - gate closed (SGMC frame loss; floor below the live 0.2600 incumbent)"
+   },
+   "repack": {
+    "file": "docs/downloads/superseded/gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif",
+    "n_positive": 44838,
+    "format_checks_passed": true,
+    "max_jaccard_vs_13_priors": 0.440003,
+    "predicted_dti": 0.1859,
+    "certified_floor": 0.215,
+    "holdout": {
+     "catalogue": {
+      "candidate": 0.0404,
+      "incumbent_h33_2_b2": 0.0067
+     },
+     "sgmc_offcatalogue": {
+      "candidate": 0.1081,
+      "incumbent_h33_2_b2": 0.0989
+     }
+    },
+    "status": "REJECTED on novelty (re-issues a prior submission) - evidence only"
+   }
+  },
+  "receipts": [
+   "evidence/h48_apex_build.json",
+   "evidence/h48_build.json",
+   "docs/h48.json"
+  ],
+  "open_issues": [
+   "IR-47-016",
+   "IR-47-017",
+   "IR-47-018",
+   "IR-47-019"
+  ]
+ }
 }

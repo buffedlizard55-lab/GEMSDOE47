@@ -6,6 +6,10 @@
 /data/*
 !/data/README.md
 !/data/restore_receipt.json
+# session 3: provenance record for the reference corpus copied in from GEMSDOE1-46
+!/data/reference/
+/data/reference/*
+!/data/reference/README.md
 /artifacts/
 /outputs/
 work/
@@ -14,6 +18,20 @@ work/
 *.tiff
 *.partial
 *.assembling
+
+# ---- session 3 scratch: rebuilt by scripts/, never versioned ----
+/data/bridge/
+/data/surfaces/
+_preview/
+evidence/sweep/sweep_a_quick.json
+evidence/sweep/sweep_quick.json
+evidence/sweep/sweep_a_prefix.json
+evidence/sweep/sweep_a_b5.json
+scratch/
+*.log.tmp
+
+# ---- the ONE derived artifact that must be versioned: the downloadable submission ----
+!docs/downloads/*.tif
 
 # ---- python ----
 __pycache__/

@@ -4,11 +4,8 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-RESEARCH_TIF = (
-    "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-"
-    "research-not-submittable-20261006.tif"
-)
-EXPECTED_SHA256 = "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b"
+RESEARCH_TIF = "downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
+EXPECTED_SHA256 = "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0"
 
 
 class _PageParser(HTMLParser):
@@ -21,6 +18,7 @@ class _PageParser(HTMLParser):
         self.language = None
         self.descriptions = 0
         self.tiff_links = []
+        self.assets = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -28,6 +26,10 @@ class _PageParser(HTMLParser):
             self.language = attrs.get("lang")
         if "id" in attrs:
             self.ids.add(attrs["id"])
+        if tag in ("script", "img") and attrs.get("src"):
+            self.assets.append(attrs["src"])
+        if tag == "link" and attrs.get("href"):
+            self.assets.append(attrs["href"])
         if tag == "a" and attrs.get("href"):
             self.links.append(attrs["href"])
             if urlparse(attrs["href"]).path.lower().endswith((".tif", ".tiff")):
@@ -47,6 +49,24 @@ class _PageParser(HTMLParser):
 
 
 class SiteTests(unittest.TestCase):
+    def test_all_deployed_nested_links_assets_stay_inside_pages_artifact(self):
+        for page in sorted((ROOT / "docs").rglob("*.html")):
+            parser = _PageParser(); parser.feed(page.read_text())
+            for href in parser.links + parser.assets:
+                url = urlparse(href)
+                if url.scheme or url.netloc or not url.path:
+                    continue
+                target = (page.parent / unquote(url.path)).resolve()
+                self.assertTrue(target.is_relative_to((ROOT / "docs").resolve()), href)
+                self.assertTrue(target.is_file(), f"{page}: {href}")
+
+    def test_new_download_precedes_the_large_intro_on_home_and_summary(self):
+        for name in ["index.html", "executive-summary.html"]:
+            text = (ROOT / "docs" / name).read_text()
+            self.assertLess(text.index("↓ Download GeoTIFF"), text.index("<h1>"), name)
+            self.assertIn("2.8 px / 280 m", text)
+            self.assertIn("nominal 90% marginal block band", text)
+
     def test_all_local_html_links_resolve(self):
         pages = sorted([ROOT / "index.html", *ROOT.glob("docs/*.html")])
         self.assertGreaterEqual(len(pages), 4)
@@ -76,23 +96,37 @@ class SiteTests(unittest.TestCase):
             self.assertTrue(parser.title_text, page.name)
             self.assertEqual(parser.descriptions, 1, page.name)
 
-    def test_homepage_prominently_offers_only_the_research_artifact(self):
-        text = (ROOT / "index.html").read_text(encoding="utf-8")
+    def test_homepage_offers_current_artifact_and_labels_prior_screen(self):
+        text = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         parser = _PageParser()
         parser.feed(text)
-        self.assertEqual(len(parser.tiff_links), 1, "exactly one TIFF download is offered")
-        href = urlparse(parser.tiff_links[0]).path.lstrip("./")
-        self.assertEqual(href, RESEARCH_TIF)
-        target = ROOT / RESEARCH_TIF
+        offered = {urlparse(link).path.lstrip("./") for link in parser.tiff_links}
+        h47qc_tif = "downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif"
+        self.assertEqual(offered, {RESEARCH_TIF, h47qc_tif})
+        target = ROOT / "docs" / RESEARCH_TIF
         self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
-        self.assertGreater(target.stat().st_size, 1_000_000)
+        self.assertGreater(target.stat().st_size, 100_000)
+        import hashlib
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), EXPECTED_SHA256)
+        h47qc_target = ROOT / "docs" / h47qc_tif
+        self.assertTrue(h47qc_target.is_file(), f"offered TIFF does not exist: {h47qc_target}")
+        self.assertEqual(
+            hashlib.sha256(h47qc_target.read_bytes()).hexdigest(),
+            "3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2",
+        )
         lower = text.lower()
         self.assertIn("research-only", lower)
         self.assertIn("not for submission", lower)
         self.assertIn("not promoted", lower)
         self.assertIn("no slot", lower)
         self.assertIn(EXPECTED_SHA256, text)
-        self.assertIn("0.037159", text, "random-control loss is visible")
+        self.assertIn("0.177872", text, "candidate pooled score is visible")
+        self.assertIn("0.180216", text, "pooled baseline loss is visible")
+        self.assertIn("0.0000", text, "zero conformal floor is visible")
+        self.assertIn("H47-QC geothermometer screen", text)
+        self.assertIn("0.0131689425", text)
+        self.assertIn("0.0141948068", text)
+        self.assertIn("Bounded uniqueness audit", text)
 
     def test_submission_and_summary_pages_keep_the_slot_gate_visible(self):
         for path in (ROOT / "docs" / "executive-summary.html", ROOT / "docs" / "submit.html", ROOT / "docs" / "portal-checklist.html"):

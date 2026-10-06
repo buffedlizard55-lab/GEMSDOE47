@@ -27,7 +27,7 @@ Of the 5,000 selected cells, 54 coincide with known public-catalogue labels. The
 
 ## Bounded uniqueness check
 
-The exact positive mask has no match among 334 one-band rasters on the identical grid from 55 visible `buffedlizard55-lab` GEMSDOE repositories. Maximum top-5,000 equal-mass Jaccard was **0.002104**; maximum positive-support Jaccard was **0.002443**. All 336 inventoried TIFF blobs were fetched and checked against their recorded Git blob SHA-1; two were excluded for grid mismatch. This is a bounded public-inventory comparison, not proof of global uniqueness, provenance, score attribution, or model performance. Full comparisons and paths are in the [uniqueness audit](../h47qc-uniqueness-audit-20261006.json).
+The exact positive mask has no match among 334 one-band rasters on the identical grid from 55 visible `buffedlizard55-lab` GEMSDOE repositories. Maximum top-5,000 equal-mass Jaccard was **0.002104**; maximum positive-support Jaccard was **0.002443**. All 336 inventoried TIFF blobs were fetched and checked against their recorded Git blob SHA-1; two were excluded for grid mismatch. This is a bounded public-inventory comparison, not proof of global uniqueness, provenance, score attribution, or model performance. A separate post-merge check against the other 12 same-grid TIFFs published in this repository found no exact positive-mask match; the maximum positive-support Jaccard was **0.003175** (H47-GSA). The pairwise H47-QC/H47-C1 Jaccard was **0.000915**. This local check supplements, but does not broaden, the public-inventory audit. Full comparisons and paths are in the [uniqueness audit](../h47qc-uniqueness-audit-20261006.json).
 
 ## Sources and limitations
 

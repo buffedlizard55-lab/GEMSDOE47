@@ -1,0 +1,57 @@
+{
+  "path": "/home/user/GEMSDOE47/submission/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+  "sha256": "f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291",
+  "bytes": 316497,
+  "driver": "GTiff",
+  "count": 1,
+  "dtype": "float32",
+  "width": 3292,
+  "height": 3730,
+  "crs": "EPSG:32611",
+  "crs_epsg": 32611,
+  "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+  ],
+  "nodata": "None",
+  "checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "transform_exact": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_zero_nan": true,
+    "in_footprint_zero_inf": true,
+    "in_footprint_zero_sentinel": true,
+    "in_footprint_range_0_1": true,
+    "every_cell_finite_or_nan_outside": true,
+    "nodata_tag_not_out_of_range": true,
+    "validator_range_0_1_guaranteed": true,
+    "positive_pixels_present": true,
+    "footprint_matches_template": true
+  },
+  "stats": {
+    "full_grid_cells": 12279160,
+    "finite_cells": 12279160,
+    "footprint_cells": 5167373,
+    "finite_in_footprint": 5167373,
+    "min_in_footprint": 0.0,
+    "max_in_footprint": 1.0,
+    "cells_outside_0_1_in_footprint": 0,
+    "nan_in_footprint": 0,
+    "positive_cells": 37612,
+    "positive_cells_in_footprint": 37612,
+    "distinct_values": 2,
+    "positive_pixels_on_catalogue": 0
+  },
+  "all_checks_passed": true,
+  "informational_checks": [
+    "validator_range_0_1_guaranteed"
+  ],
+  "strongest_range_guarantee": true
+}

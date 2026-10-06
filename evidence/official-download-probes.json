@@ -1,0 +1,562 @@
+{
+  "generated_utc": "2026-10-06T21:51:31Z",
+  "sources": [
+    {
+      "id": "usgs_qffd",
+      "publisher": "USGS",
+      "license": "USGS public data; source attribution retained",
+      "source_page": "https://www.usgs.gov/programs/earthquake-hazards/faults",
+      "url": "https://earthquake.usgs.gov/static/lfs/nshm/qfaults/Qfaults_GIS.zip",
+      "attempt_utc": "2026-10-06T21:51:09Z",
+      "used_in_h47c_prediction": false,
+      "hidden_truth_verified": false,
+      "http_status": 200,
+      "final_url": "https://earthquake.usgs.gov/static/lfs/nshm/qfaults/Qfaults_GIS.zip",
+      "sha256": "447eadc5926256710d988c30e5996ba540604caa0154f9746c48bad637926893",
+      "bytes": 32371696,
+      "archive_members": [
+        {
+          "path": "SHP/ca_offshore.cpg",
+          "uncompressed_bytes": 5
+        },
+        {
+          "path": "SHP/ca_offshore.dbf",
+          "uncompressed_bytes": 1577713
+        },
+        {
+          "path": "SHP/ca_offshore.prj",
+          "uncompressed_bytes": 145
+        },
+        {
+          "path": "SHP/ca_offshore.sbn",
+          "uncompressed_bytes": 11052
+        },
+        {
+          "path": "SHP/ca_offshore.sbx",
+          "uncompressed_bytes": 484
+        },
+        {
+          "path": "SHP/ca_offshore.shp",
+          "uncompressed_bytes": 251068
+        },
+        {
+          "path": "SHP/ca_offshore.shp.xml",
+          "uncompressed_bytes": 24513
+        },
+        {
+          "path": "SHP/ca_offshore.shx",
+          "uncompressed_bytes": 8844
+        },
+        {
+          "path": "SHP/citations.xls",
+          "uncompressed_bytes": 2734080
+        },
+        {
+          "path": "SHP/fault_areas.cpg",
+          "uncompressed_bytes": 5
+        },
+        {
+          "path": "SHP/fault_areas.dbf",
+          "uncompressed_bytes": 25847
+        },
+        {
+          "path": "SHP/fault_areas.prj",
+          "uncompressed_bytes": 145
+        },
+        {
+          "path": "SHP/fault_areas.sbn",
+          "uncompressed_bytes": 492
+        },
+        {
+          "path": "SHP/fault_areas.sbx",
+          "uncompressed_bytes": 140
+        },
+        {
+          "path": "SHP/fault_areas.shp",
+          "uncompressed_bytes": 252024
+        },
+        {
+          "path": "SHP/fault_areas.shp.xml",
+          "uncompressed_bytes": 19414
+        },
+        {
+          "path": "SHP/fault_areas.shx",
+          "uncompressed_bytes": 396
+        },
+        {
+          "path": "SHP/fault_citation_keys.xls",
+          "uncompressed_bytes": 1569792
+        },
+        {
+          "path": "SHP/Qfaults_US_Database.cpg",
+          "uncompressed_bytes": 5
+        },
+        {
+          "path": "SHP/Qfaults_US_Database.dbf",
+          "uncompressed_bytes": 203395365
+        },
+        {
+          "path": "SHP/Qfaults_US_Database.prj",
+          "uncompressed_bytes": 145
+        },
+        {
+          "path": "SHP/Qfaults_US_Database.sbn",
+          "uncompressed_bytes": 1044060
+        },
+        {
+          "path": "SHP/Qfaults_US_Database.sbx",
+          "uncompressed_bytes": 11036
+        },
+        {
+          "path": "SHP/Qfaults_US_Database.shp",
+          "uncompressed_bytes": 22211872
+        },
+        {
+          "path": "SHP/Qfaults_US_Database.shp.xml",
+          "uncompressed_bytes": 82073
+        },
+        {
+          "path": "SHP/Qfaults_US_Database.shx",
+          "uncompressed_bytes": 902572
+        },
+        {
+          "path": "Symbology/Fault Areas.lyr",
+          "uncompressed_bytes": 13312
+        },
+        {
+          "path": "Symbology/fault_symbology.lyr",
+          "uncompressed_bytes": 16384
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000001.freelist",
+          "uncompressed_bytes": 4440
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000001.gdbindexes",
+          "uncompressed_bytes": 110
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000001.gdbtable",
+          "uncompressed_bytes": 503
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000001.gdbtablx",
+          "uncompressed_bytes": 5152
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000001.TablesByName.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000002.gdbtable",
+          "uncompressed_bytes": 2055
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000002.gdbtablx",
+          "uncompressed_bytes": 5152
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000003.gdbindexes",
+          "uncompressed_bytes": 42
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000003.gdbtable",
+          "uncompressed_bytes": 758
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000003.gdbtablx",
+          "uncompressed_bytes": 5152
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000004.CatItemsByPhysicalName.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000004.CatItemsByType.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000004.FDO_UUID.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000004.freelist",
+          "uncompressed_bytes": 37208
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000004.gdbindexes",
+          "uncompressed_bytes": 310
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000004.gdbtable",
+          "uncompressed_bytes": 354954
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000004.gdbtablx",
+          "uncompressed_bytes": 5152
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000004.horizon",
+          "uncompressed_bytes": 32
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000004.spx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000005.CatItemTypesByName.atx",
+          "uncompressed_bytes": 12310
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000005.CatItemTypesByParentTypeID.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000005.CatItemTypesByUUID.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000005.gdbindexes",
+          "uncompressed_bytes": 296
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000005.gdbtable",
+          "uncompressed_bytes": 2071
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000005.gdbtablx",
+          "uncompressed_bytes": 5152
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000006.CatRelsByDestinationID.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000006.CatRelsByOriginID.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000006.CatRelsByType.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000006.FDO_UUID.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000006.freelist",
+          "uncompressed_bytes": 4440
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000006.gdbindexes",
+          "uncompressed_bytes": 318
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000006.gdbtable",
+          "uncompressed_bytes": 993
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000006.gdbtablx",
+          "uncompressed_bytes": 5152
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000007.CatRelTypesByBackwardLabel.atx",
+          "uncompressed_bytes": 12310
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000007.CatRelTypesByDestItemTypeID.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000007.CatRelTypesByForwardLabel.atx",
+          "uncompressed_bytes": 12310
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000007.CatRelTypesByName.atx",
+          "uncompressed_bytes": 12310
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000007.CatRelTypesByOriginItemTypeID.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000007.CatRelTypesByUUID.atx",
+          "uncompressed_bytes": 4118
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000007.gdbindexes",
+          "uncompressed_bytes": 602
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000007.gdbtable",
+          "uncompressed_bytes": 3626
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000007.gdbtablx",
+          "uncompressed_bytes": 5152
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000009.GDB_3_r_num.atx",
+          "uncompressed_bytes": 57366
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000009.gdbindexes",
+          "uncompressed_bytes": 120
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000009.gdbtable",
+          "uncompressed_bytes": 1809002
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a00000009.gdbtablx",
+          "uncompressed_bytes": 35872
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a0000000a.GDB_4_ref_id.atx",
+          "uncompressed_bytes": 12283926
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a0000000a.gdbindexes",
+          "uncompressed_bytes": 174
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a0000000a.gdbtable",
+          "uncompressed_bytes": 48728409
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a0000000a.gdbtablx",
+          "uncompressed_bytes": 568352
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a0000000a.horizon",
+          "uncompressed_bytes": 32
+        },
+        {
+          "path": "GDB/Qfaults_2020_WGS84.gdb/a0000000a.spx",
+          "uncompressed_bytes": 1622038
+        }
+      ],
+      "archive_member_count": 108,
+      "layers": [
+        {
+          "layer": "SHP/ca_offshore.shp",
+          "status": "GEOMETRY_RASTERIZED",
+          "source_crs": "EPSG:4326",
+          "geometry_types": [
+            "LineString",
+            "MultiLineString"
+          ],
+          "features": 1093,
+          "rasterization": "all_touched=True, 100m grid; pixel coverage is not truth or a fault count",
+          "pixels_in_template_footprint": 0,
+          "pixels_on_supplied_catalogue": 0,
+          "pixels_off_exact_catalogue": 0,
+          "grid_bounds": [
+            243350.0,
+            4135550.0,
+            572550.0,
+            4508550.0
+          ]
+        },
+        {
+          "layer": "SHP/fault_areas.shp",
+          "status": "GEOMETRY_RASTERIZED",
+          "source_crs": "EPSG:4326",
+          "geometry_types": [
+            "MultiPolygon",
+            "Polygon"
+          ],
+          "features": 37,
+          "rasterization": "all_touched=True, 100m grid; pixel coverage is not truth or a fault count",
+          "pixels_in_template_footprint": 0,
+          "pixels_on_supplied_catalogue": 0,
+          "pixels_off_exact_catalogue": 0,
+          "grid_bounds": [
+            243350.0,
+            4135550.0,
+            572550.0,
+            4508550.0
+          ]
+        },
+        {
+          "layer": "SHP/Qfaults_US_Database.shp",
+          "status": "GEOMETRY_RASTERIZED",
+          "source_crs": "EPSG:4326",
+          "geometry_types": [
+            "LineString",
+            "MultiLineString"
+          ],
+          "features": 112809,
+          "rasterization": "all_touched=True, 100m grid; pixel coverage is not truth or a fault count",
+          "pixels_in_template_footprint": 82841,
+          "pixels_on_supplied_catalogue": 58800,
+          "pixels_off_exact_catalogue": 24041,
+          "grid_bounds": [
+            243350.0,
+            4135550.0,
+            572550.0,
+            4508550.0
+          ]
+        }
+      ],
+      "status": "BYTES_AND_COVERAGE_VERIFIED"
+    },
+    {
+      "id": "ingenious_qfaults",
+      "publisher": "DOE Geothermal Data Repository / INGENIOUS",
+      "license": "CC BY 4.0 per GDR submission 1391",
+      "source_page": "https://gdr.openei.org/submissions/1391",
+      "url": "https://gdr.openei.org/files/1391/qfaults_ingenious_nad83conus117_2023-06-27.zip",
+      "attempt_utc": "2026-10-06T21:51:26Z",
+      "used_in_h47c_prediction": false,
+      "hidden_truth_verified": false,
+      "http_status": 200,
+      "final_url": "https://gdr.openei.org/files/1391/qfaults_ingenious_nad83conus117_2023-06-27.zip",
+      "sha256": "c7b091c9ac8bca140ad89ee6bb2bd63dd3ac12e3013acbfd8373d11c9faee59d",
+      "bytes": 6131182,
+      "archive_members": [
+        {
+          "path": "qfaults_ingenious_nad83conus117_2023-06-27.cpg",
+          "uncompressed_bytes": 5
+        },
+        {
+          "path": "qfaults_ingenious_nad83conus117_2023-06-27.dbf",
+          "uncompressed_bytes": 47404846
+        },
+        {
+          "path": "qfaults_ingenious_nad83conus117_2023-06-27.prj",
+          "uncompressed_bytes": 464
+        },
+        {
+          "path": "qfaults_ingenious_nad83conus117_2023-06-27.sbn",
+          "uncompressed_bytes": 223724
+        },
+        {
+          "path": "qfaults_ingenious_nad83conus117_2023-06-27.sbx",
+          "uncompressed_bytes": 8308
+        },
+        {
+          "path": "qfaults_ingenious_nad83conus117_2023-06-27.shp",
+          "uncompressed_bytes": 8829756
+        },
+        {
+          "path": "qfaults_ingenious_nad83conus117_2023-06-27.shp.xml",
+          "uncompressed_bytes": 89729
+        },
+        {
+          "path": "qfaults_ingenious_nad83conus117_2023-06-27.shx",
+          "uncompressed_bytes": 183748
+        },
+        {
+          "path": "README_fielddefinitions_qfaults_ingenious_nad83conus117_2023-06-27.txt",
+          "uncompressed_bytes": 3982
+        }
+      ],
+      "archive_member_count": 9,
+      "layers": [
+        {
+          "layer": "qfaults_ingenious_nad83conus117_2023-06-27.shp",
+          "status": "GEOMETRY_RASTERIZED",
+          "source_crs": "PROJCS[\"NAD_1983_Contiguous_USA_Albers_117\",GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Albers_Conic_Equal_Area\"],PARAMETER[\"latitude_of_center\",23],PARAMETER[\"longitude_of_center\",-117],PARAMETER[\"standard_parallel_1\",29.5],PARAMETER[\"standard_parallel_2\",45.5],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "geometry_types": [
+            "LineString",
+            "MultiLineString"
+          ],
+          "features": 22956,
+          "rasterization": "all_touched=True, 100m grid; pixel coverage is not truth or a fault count",
+          "pixels_in_template_footprint": 82871,
+          "pixels_on_supplied_catalogue": 58876,
+          "pixels_off_exact_catalogue": 23995,
+          "grid_bounds": [
+            243350.0,
+            4135550.0,
+            572550.0,
+            4508550.0
+          ]
+        }
+      ],
+      "status": "BYTES_AND_COVERAGE_VERIFIED"
+    },
+    {
+      "id": "ingenious_paleo",
+      "publisher": "DOE Geothermal Data Repository / INGENIOUS",
+      "license": "CC BY 4.0 per GDR submission 1391",
+      "source_page": "https://gdr.openei.org/submissions/1391",
+      "url": "https://gdr.openei.org/files/1391/paleo_geothermal_regional.zip",
+      "attempt_utc": "2026-10-06T21:51:31Z",
+      "used_in_h47c_prediction": false,
+      "hidden_truth_verified": false,
+      "http_status": 200,
+      "final_url": "https://gdr.openei.org/files/1391/paleo_geothermal_regional.zip",
+      "sha256": "faffcf697f32dbbf6cbb317cd1effb3e305538ce38eb239d72d0c6fa071e91ca",
+      "bytes": 84008,
+      "archive_members": [
+        {
+          "path": "Paleo_geothermal_final.cpg",
+          "uncompressed_bytes": 5
+        },
+        {
+          "path": "Paleo_geothermal_final.csv",
+          "uncompressed_bytes": 105551
+        },
+        {
+          "path": "Paleo_geothermal_final.dbf",
+          "uncompressed_bytes": 1115579
+        },
+        {
+          "path": "Paleo_geothermal_final.prj",
+          "uncompressed_bytes": 167
+        },
+        {
+          "path": "Paleo_geothermal_final.sbn",
+          "uncompressed_bytes": 7116
+        },
+        {
+          "path": "Paleo_geothermal_final.sbx",
+          "uncompressed_bytes": 476
+        },
+        {
+          "path": "Paleo_geothermal_final.shp",
+          "uncompressed_bytes": 19952
+        },
+        {
+          "path": "Paleo_geothermal_final.shx",
+          "uncompressed_bytes": 5772
+        }
+      ],
+      "archive_member_count": 8,
+      "layers": [
+        {
+          "layer": "Paleo_geothermal_final.shp",
+          "status": "GEOMETRY_RASTERIZED",
+          "source_crs": "EPSG:4269",
+          "geometry_types": [
+            "Point"
+          ],
+          "features": 709,
+          "rasterization": "all_touched=True, 100m grid; pixel coverage is not truth or a fault count",
+          "pixels_in_template_footprint": 244,
+          "pixels_on_supplied_catalogue": 19,
+          "pixels_off_exact_catalogue": 225,
+          "grid_bounds": [
+            243350.0,
+            4135550.0,
+            572550.0,
+            4508550.0
+          ]
+        }
+      ],
+      "status": "BYTES_AND_COVERAGE_VERIFIED"
+    }
+  ],
+  "all_obtained_and_coverage_checked": true,
+  "scope": "Official public downloads, feasibility only; no inference features or private labels.",
+  "competition_core_inputs_remain_mirrors": true,
+  "runner_provenance": {
+    "run_id": 37536709561,
+    "run_url": "https://github.com/buffedlizard55-lab/GEMSDOE47/runs/112519736462",
+    "check_id": 112519736462,
+    "head_sha": "ac60413",
+    "receipt_method": "GitHub Checks API summary; direct HTTPS source bytes/coverage, not green-job inference"
+  }
+}

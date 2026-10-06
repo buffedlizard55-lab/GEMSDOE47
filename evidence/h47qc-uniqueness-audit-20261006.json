@@ -4507,5 +4507,117 @@
     "Equal-mass ranking is based on raster values and positive support; binary masks use row-major tie-breaking.",
     "The result is a bounded reproducibility/uniqueness check only and does not affect the failed promotion gate."
   ],
-  "elapsed_seconds": 31.01
+  "elapsed_seconds": 31.01,
+  "same_repository_published_tiffs_post_merge": {
+    "scope": "All other one-band GeoTIFFs currently published under this repository docs/downloads tree, exact shape/transform/CRS match only; post-merge local supplement.",
+    "candidate_path": "docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif",
+    "candidate_sha256": "3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2",
+    "candidate_positive_pixels": 5000,
+    "compared_tiff_count": 12,
+    "exact_positive_mask_matches": [],
+    "max_positive_support_jaccard": 0.0031750511536019193,
+    "max_similarity_path": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif",
+    "comparisons_sorted_by_positive_support_jaccard_descending": [
+      {
+        "path": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif",
+        "sha256": "c11744b1c4c5694c6485a287f7c6391b2da2ddaf2a90df70a63998c8aee57893",
+        "positive_pixels": 37654,
+        "intersection_pixels": 135,
+        "union_pixels": 42519,
+        "positive_support_jaccard": 0.0031750511536019193
+      },
+      {
+        "path": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif",
+        "sha256": "7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146",
+        "positive_pixels": 37654,
+        "intersection_pixels": 135,
+        "union_pixels": 42519,
+        "positive_support_jaccard": 0.0031750511536019193
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+        "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
+        "positive_pixels": 18524,
+        "intersection_pixels": 22,
+        "union_pixels": 23502,
+        "positive_support_jaccard": 0.0009360905454854906
+      },
+      {
+        "path": "docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif",
+        "sha256": "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0",
+        "positive_pixels": 37654,
+        "intersection_pixels": 39,
+        "union_pixels": 42615,
+        "positive_support_jaccard": 0.0009151707145371348
+      },
+      {
+        "path": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif",
+        "sha256": "1c6ff54bbc046371648ce04a7f219c3d47799d0f6137da1284d2708d4348c80a",
+        "positive_pixels": 37654,
+        "intersection_pixels": 29,
+        "union_pixels": 42625,
+        "positive_support_jaccard": 0.0006803519061583578
+      },
+      {
+        "path": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif",
+        "sha256": "fe434e1c784c7f8b21be7933bb89ee289908521c330030218ae77be4c72edb02",
+        "positive_pixels": 37654,
+        "intersection_pixels": 29,
+        "union_pixels": 42625,
+        "positive_support_jaccard": 0.0006803519061583578
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif",
+        "sha256": "4b06a5cc617d187000ec2cd9e682bb79b36df762f6d34c29b388385772b128f8",
+        "positive_pixels": 44838,
+        "intersection_pixels": 33,
+        "union_pixels": 49805,
+        "positive_support_jaccard": 0.0006625840779038249
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-h48-mscl-conf-r1p5-44838px-20261006T201749Z-allfinite.tif",
+        "sha256": "4b06a5cc617d187000ec2cd9e682bb79b36df762f6d34c29b388385772b128f8",
+        "positive_pixels": 44838,
+        "intersection_pixels": 33,
+        "union_pixels": 49805,
+        "positive_support_jaccard": 0.0006625840779038249
+      },
+      {
+        "path": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+        "sha256": "f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291",
+        "positive_pixels": 37612,
+        "intersection_pixels": 23,
+        "union_pixels": 42589,
+        "positive_support_jaccard": 0.0005400455516682711
+      },
+      {
+        "path": "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif",
+        "sha256": "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5",
+        "positive_pixels": 28124,
+        "intersection_pixels": 17,
+        "union_pixels": 33107,
+        "positive_support_jaccard": 0.0005134865738363488
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
+        "sha256": "0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261",
+        "positive_pixels": 18524,
+        "intersection_pixels": 12,
+        "union_pixels": 23512,
+        "positive_support_jaccard": 0.0005103776794828172
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-h48-mscl-conf-r2p5-8176px-20261006T201338Z-allfinite.tif",
+        "sha256": "a2513d169be10adf985fcc93d0b8a0dd9937b4e12f029e4db94f47fc5f18d44c",
+        "positive_pixels": 8176,
+        "intersection_pixels": 4,
+        "union_pixels": 13172,
+        "positive_support_jaccard": 0.0003036744609778318
+      }
+    ],
+    "limitations": [
+      "This local same-repository check supplements, but does not replace or enlarge, the separate 55-repository public-inventory audit.",
+      "Mask similarity is not geological novelty, source provenance, or performance evidence. Unpublished or inaccessible outputs are not covered."
+    ]
+  }
 }

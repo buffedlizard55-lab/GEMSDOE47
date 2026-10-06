@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
@@ -27,12 +28,13 @@ from src.gems47_emit import (
 )
 from src.gems47_metric import dti
 
-RESEARCH_ARTIFACT = ROOT / "docs" / "downloads" / (
+RESEARCH_ARTIFACT = ROOT / "docs" / "downloads" / "superseded" / (
     "gems47-h47b-tmiup150-xscale-persist-n18524-"
     "research-not-submittable-20261006.tif"
 )
-LABELS = ROOT / "work" / "bridge" / "labels.tif"
-TEMPLATE = ROOT / "work" / "bridge" / "sample_submission.tif"
+DATA_DIR = Path(os.environ.get("GEMS_DATA_DIR", ROOT / ".cache" / "gems_data"))
+LABELS = DATA_DIR / "labels.tif"
+TEMPLATE = DATA_DIR / "sample_submission.tif"
 RESULTS = ROOT / "notes" / "results.json"
 H47B_REPORT = ROOT / "docs" / "h47b-screen-report-20261006.json"
 UNIQUENESS_AUDIT = ROOT / "docs" / "h47b-uniqueness-audit-20261006.json"

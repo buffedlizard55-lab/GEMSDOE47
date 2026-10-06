@@ -54,8 +54,9 @@ from gems47.scripts_common import rank_u8_inplace
 
 L2, BMAX, KLO, KHI = 1e-5, 12.0, 2_000.0, 120_000.0
 LEVELS = {1: 256, 2: 64, 3: 32, 4: 20, 5: 14, 6: 12}
-H33 = Path("/home/user/refs/GEMSDOE32/docs/downloads/"
-           "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif")
+# Portable, SHA-256-pinned reference restored by scripts/restore_data.py.
+# Its reported score remains an unauthenticated file-to-score association.
+H33 = G.data_dir() / "reference" / "h33-2-b2-zeros.tif"
 
 # A PRIORI POOL - fixed from geology before any fit was run on these data.
 # "Faults indicative of geothermal resources" in the Basin and Range are, in the

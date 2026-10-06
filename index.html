@@ -1,97 +1,10 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="GEMSDOE47 research status, bounded uniqueness audit, negative spatial holdout result, and clearly labeled research-only GeoTIFF download.">
-  <title>GEMSDOE47 · Evidence before upload</title>
-  <link rel="stylesheet" href="docs/style.css">
-</head>
-<body>
-<header><div class="wrap">
-  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">DOE GEMS Prize · DrivenData #306 · research record</span></div>
-  <nav aria-label="Main navigation">
-    <a class="on" href="index.html">Project home</a><a href="docs/executive-summary.html">Executive summary</a>
-    <a href="docs/submit.html">How to submit</a><a href="docs/analysis.html">Results analysis</a>
-    <a href="docs/leaderboard.html">Leaderboard evidence</a><a href="docs/hypotheses.html">Hypotheses</a>
-    <a href="docs/sources.html">Sources</a>
-  </nav>
-</div></header>
-<main class="wrap">
-  <section class="dl" aria-labelledby="download-heading">
-    <h2 id="download-heading">Research GeoTIFF download — <span class="bad">NOT FOR SUBMISSION</span></h2>
-    <p><strong>H47-B failed its preregistered promotion gate.</strong> This file is shared for transparent research review only; do not upload it or spend a competition slot. A format-valid raster is not a validated prediction.</p>
-    <a class="btn" download href="docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download research-only H47-B GeoTIFF (1.5 MB)</a>
-    <dl class="kv">
-      <dt>Decision</dt><dd class="bad">NOT PROMOTED · NO SLOT RECOMMENDED</dd>
-      <dt>SHA-256</dt><dd>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</dd>
-      <dt>Locked-test DTI</dt><dd>H47-B 0.027553 · single-scale 0.025639 · random 0.037159</dd>
-      <dt>Conformal floor</dt><dd>0.0; block exchangeability unverified</dd>
-      <dt>Format</dt><dd>float32, one band, EPSG:32611, 3292 × 3730, 100 m; in-footprint [0,1], NaN outside</dd>
-    </dl>
-    <p class="small dim">The bounded uniqueness check found no exact mask match among 334 accessible, comparable TIFFs in 55 visible sibling repositories. That is not a global uniqueness proof and does not override the failed holdout.</p>
-    <a class="btn sec" href="docs/validation-h47b-20261006.md">Read the full validation and uniqueness report →</a>
-  </section>
-
-  <h2>Current decision: evidence before upload</h2>
-  <p>The goal remains a scientifically defensible, unique prediction of faults absent from existing catalogues. H47-B is a negative screen, not a submission candidate. The old d-cat/annulus TIFF is a delete-only subset of a published mask, and the previous modeled score and claimed conformal floor have been retired.</p>
-  <div class="feed">
-    <article class="card"><div class="lab">Latest saved public board read</div><div class="val">0.3774</div><div class="sub">Rank 1; participant name not retained.</div></article>
-    <article class="card"><div class="lab">DARD</div><div class="val">0.3195</div><div class="sub">Rank 7 in the same saved read.</div></article>
-    <article class="card"><div class="lab">extradr19</div><div class="val">0.2778</div><div class="sub">Rank 13; not mapped to a TIFF.</div></article>
-    <article class="card"><div class="lab">Slot status</div><div class="val bad">Closed</div><div class="sub">No candidate has passed the current holdout gate.</div></article>
-  </div>
-  <div class="note"><strong>Attribution caveat.</strong> The board is participant-level; it provides no TIFF filename, file hash, or upload receipt. The alleged H33-2-B2 → 0.2778 mapping remains unverified; GEMSDOE32 describes that TIFF as unscored. This site is a dated evidence record, not a live leaderboard feed.</div>
-
-  <h2>Two independent sessions, one repository — both gates closed</h2>
-  <p>This repository now holds the work of <strong>two sessions on the same brief</strong>, merged on
-     2026-10-06 (PR&nbsp;#6). Each built its own detector, preregistered its own gate, and
-     <strong>closed it</strong>. They agree on the verdict by different routes.</p>
-  <table>
-    <tr><th></th><th>Earlier session — H47-B</th><th>Later session — H47-GSA</th></tr>
-    <tr><th>Idea</th>
-        <td>Cross-scale persistence of <code>TMI_up150</code> magnetic edges</td>
-        <td>Geodetic strain rate × <em>low</em> Th/K hydrothermal alteration × GDR thermal discharge</td></tr>
-    <tr><th>Gate</th>
-        <td>Preregistered locked test block, random control, conformal floor</td>
-        <td>Five truth frames + cross-fitted leaderboard-anchored inversion</td></tr>
-    <tr><th>Result</th>
-        <td>Pooled DTI <strong>0.02755</strong> vs a fixed-seed random control at
-            <strong>0.037159</strong> — lost to noise; conformal floor 0.0</td>
-        <td>Out-of-fold paired deltas <strong>−0.0611</strong> and <strong>−0.0450</strong> vs the
-            incumbent; loses on all five frames; in-fold +0.30 was optimizer’s curse</td></tr>
-    <tr><th>Decision</th>
-        <td><strong>NOT PROMOTED</strong></td><td><strong>NOT PROMOTED</strong></td></tr>
-  </table>
-  <p>The later session also built <strong>LATI</strong>, an instrument that treats the thirteen returned
-     leaderboard DTIs as <em>measurements of the hidden label set</em>; diagnosed the reported
-     <code>"Predicted values must be in range [0, 1]"</code> rejection as a <strong>NaN</strong> problem,
-     not a range problem (12/12 <code>-nan</code> variants fail
-     <code>np.all((v&gt;=0)&amp;(v&lt;=1))</code>, 17/17 all-finite variants pass, and no file anywhere
-     has a value outside [0,1]); measured the hidden truth mass at <strong>K ≈ 12,348 px</strong>
-     model-free; and <strong>falsified</strong> its own strongest-looking idea — re-occupying the
-     catalogue flank — with a break-even of 0.2200 against a reported 0.2778.</p>
-  <p><a href="docs/index.html"><strong>→ The later session’s full site: LATI method, the five ranked
-     hypotheses, every number, and IR-47-001…015</strong></a></p>
-
-  <h2>What happens next</h2>
-  <ol class="steps">
-    <li>Keep the submission slot unused. Do not treat the research download as a portal-ready file.</li>
-    <li>Establish authorized competition input provenance and a reproducible spatially blocked incumbent.</li>
-    <li>Preregister a genuinely distinct geological detector and appropriate controls before scoring.</li>
-    <li>Promote only if it beats the current holdout best and controls with adequate label coverage; then repeat format and bounded uniqueness audits.</li>
-    <li><strong>Use the 1 m DEM.</strong> The competition links 716 USGS 3DEP 1 m tiles; only pre-derived
-        100 m LiDAR rasters were reachable. Every LiDAR-derived layer ranked poorly in the later
-        session’s 72-layer screen — exactly what resampling metre-scale scarps to 100 m should do.
-        Largest untested lever.</li>
-    <li><strong>Spend three slots on the λ-probe.</strong> <code>1/DTI(λ)</code> is linear in
-        <code>1/λ</code>, so an anchor, a λ = 0.5 scaling and a null-addition recover
-        <code>T</code>, <code>F</code>, <code>K</code> exactly — conditioning 56×–1380× better than
-        reading four decimals, and it would also settle whether scoring is chunk-restricted.</li>
-    <li><strong>Upload the all-finite convention.</strong> If a slot is ever spent, use a raster with no
-        NaN anywhere; the <code>-nan</code> convention is what produced the reported range rejection.</li>
-  </ol>
-  <p><a class="btn sec" href="docs/executive-summary.html">Executive summary &amp; future submission steps →</a> <a class="btn sec" href="docs/next-session.md">Next-session plan →</a></p>
-</main>
-<footer><div class="wrap">GEMSDOE47 · An auditable research project, not an official DOE, USGS, or DrivenData product. <a href="docs/irregularities.md">Open issues</a> · <a href="docs/irregularities.html">IR-47-001…015</a> · <a href="docs/sources.md">Sources</a> · <a href="docs/index.html">Later session’s site</a> · <a href="README.md">Standing charter</a></div></footer>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fault mapping, evidence first · GEMSDOE47</title><meta name="description" content="A genuinely new H47-C1 GeoTIFF, strict range/mask checks, blocked validation and honest zero conformal floor.">
+<meta name="theme-color" content="#173d38"><link rel="icon" href="docs/assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="docs/assets/site.css"><script src="docs/assets/site.js" defer></script></head>
+<body data-site-version="h47c" data-base="docs/"><a class="skip" href="#main">Skip to evidence</a>
+<header class="masthead"><a class="brand" href="docs/index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+<nav aria-label="Main navigation"><a href="docs/executive-summary.html" aria-current="false">Summary</a><a href="docs/hypotheses.html" aria-current="false">Hypotheses</a><a href="docs/evidence.html" aria-current="false">Evidence</a><a href="docs/sources.html" aria-current="false">Sources &amp; feed</a><a href="docs/submit.html" aria-current="false">Submission guide</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>Research-only · NOT PROMOTED</strong><span>No slot authorized. Do not upload this run.</span></div>
+<main id="main"><div class="download-panel"><div><span class="eyebrow">Newly inferred · 152,396 bytes</span><h2>One file. Full official grid.</h2><p>Not a renamed prior submission. New H47-C1 inference; <strong>research-only, not for submission</strong>.</p></div><div class="actions"><a href="docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif" class="button primary" download="">↓ Download GeoTIFF</a><a href="docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.zip" class="button secondary" download="">Single-TIFF ZIP</a><a href="docs/data/current-submission.json" class="text-link">Validation receipt</a></div><p class="filename">gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif</p><p class="export-confidence">Spacing 2.8 px / 280 m · nominal 90% marginal block band · floor 0.0000 · NOT private/global</p><p class="hash">SHA-256 <code>e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0</code></p></div><section class="notice" aria-labelledby="h47qc-title"><strong>Earlier H47-QC geothermometer screen · NOT PROMOTED · DO NOT UPLOAD</strong><h2 id="h47qc-title">Separate research artifact, separate failed gate.</h2><p>H47-QC selected 6 px / 600 m; locked pooled DTI was 0.0131689425, below the geochemistry-only ablation at 0.0141948068. Its nominal split-conformal level was 6/7 (85.7%) under unverified block-score exchangeability; the clipped lower floor is 0.0. This 5,000-point binary TIFF is not a private-target guarantee and does not replace or promote H47-C1.</p><div class="actions"><a href="docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif" class="button secondary" download="">↓ Download H47-QC GeoTIFF</a><a href="docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.md" class="text-link">Identification note</a><a href="docs/h47qc-screen-20261006.json" class="text-link">Full report</a><a href="docs/h47qc-uniqueness-audit-20261006.json" class="text-link">Bounded uniqueness audit</a></div></section><section class="hero"><div><span class="eyebrow">Geologic Enhanced Mapping System · competition 306</span><h1>New predictions.<br>Evidence before a slot.</h1><p class="lede">A geological hypothesis becomes useful only when it survives the controls. The new odd-step versus channel detector is complete, independently packaged, and honestly <em>not promoted</em>.</p></div><figure class="map-card"><img src="docs/assets/prediction-preview.png" alt="Actual north-up GeoDAWN grid: known catalogue traces in blue and newly inferred research dots in orange." width="823" height="933"><figcaption>Actual output preview · north up · EPSG:32611<br><span class="legend blue"></span>public catalogue <span class="legend orange"></span>new research dots<br>4× downsampling; not confirmed new faults.</figcaption></figure></section><div class="stats"><div><strong>37,654</strong><span>new unit-dot predictions</span></div><div><strong>0.177872</strong><span>local public-catalogue DTI</span></div><div><strong>0.0000</strong><span>90% marginal proxy floor</span></div><div><strong>0</strong><span>competition slots spent</span></div></div><div class="notice"><strong>DO NOT UPLOAD · no slot</strong><p>The locked holdout gate failed: pooled DTI 0.177872 is below the frozen baseline’s 0.180216; only 11/22 truth-bearing blocks improve (required 15). The lower floor is zero. Local format validity is not scientific promotion or organizer acceptance.</p></div><div class="confidence"><strong>Selected spacing 2.8 px / 280 m · nominal 90% marginal block band · lower floor 0.0000</strong><p>Selection/calibration: 21/21 disjoint-role blocks, not adaptive leaderboard scores. Simultaneous over five spacings; rank 20/21. Exchangeability is assumed and unverified. <strong>No private-score, pooled-map, geographic-conditional or global-artifact guarantee.</strong></p></div><section><div class="section-head"><span class="eyebrow">The actual result</span><h2>Better than random. Not better than the control.</h2></div><div class="table-scroll"><table><thead><tr><th scope="col">Locked test comparison</th><th scope="col">Pooled DTI</th><th scope="col">Mean block DTI</th><th scope="col">Spacing</th></tr></thead><tbody><tr><td>H47-C1 profile detector</td><td><strong>0.177872</strong></td><td>0.177038</td><td>2.8 px</td></tr><tr><td>Ordinary-terrain + raw-band baseline</td><td><strong>0.180216</strong></td><td>0.176051</td><td>3.6 px</td></tr><tr><td>Fixed-seed spaced random</td><td>0.070924</td><td>0.060701</td><td>2.8 px</td></tr></tbody></table></div><p>The slight mean-block gain does not rescue the pooled loss. Selection and promotion rules were fixed before test interpretation. No leaderboard score is claimed for this TIFF.</p><a href="docs/executive-summary.html" class="text-link">Read the executive summary →</a></section><section class="two-col"><article><span class="eyebrow">What is genuinely new</span><h2>Scarp shape, not just an edge.</h2><p>Remove affine terrain slope from cross-profiles; compare an odd step template with an even channel/ridge template. Add along-strike consistency and gravity-normal agreement to raw features. No prior submission field or catalogue-distance feature constructs the candidate.</p><a href="docs/hypotheses.html" >Five preregistered hypotheses →</a></article><article><span class="eyebrow">What was checked</span><h2>15 / 15 local format checks.</h2><p>One float32 data band. Raw samples are finite in [0,1]; an internal TIFF validity mask marks exactly the template’s outside-footprint pixels as null. CRS, 100 m resolution, dimensions, bounds and affine transform match. No .msk sidecar.</p><a href="docs/submit.html" >Range-error defense &amp; submission guide →</a></article></section><section><h2>A genuinely different prediction, with a bounded audit.</h2><p><strong>Bounded uniqueness:</strong> 561 prior-raster comparisons across 54 public repository inventories, plus local history; zero exact positive-mask or in-footprint value matches. Maximum mask Jaccard 0.0406. Excluded inventory objects are listed with their actual reasons in the audit (including wrong-grid/multiband or non-single-TIFF archives). Standalone H33 TIFFs were compared. Unpublished/inaccessible outputs are not covered; this is not global uniqueness or proof of geological discovery.</p><a href="docs/data/profile-uniqueness.json" >Every comparison, source commit and blob hash →</a></section><section class="feed-card"><span class="eyebrow">Automatic source feed</span><h2>Official facts and dated observations stay separate.</h2><p id="feed-status">Last official board read: 6 October 2026. Permitted-source refresh status loads from JSON; DrivenData queries are disabled without written permission.</p><p>Saved leader <strong class="live-top-score">0.3774</strong> · user target <strong>0.3195</strong> · this TIFF <strong>UNSCORED</strong>.</p><a href="docs/sources.html" >Open sources, hashes and availability →</a> · <a href="docs/data/source-feed.json" >Download the deployed feed JSON</a></section><section class="session-history"><h2>Preserved concurrent research</h2><p><a href="docs/session3.html">Session 3 scarp persistence</a> · <a href="docs/research.html">H48 curvature consensus</a> · <a href="docs/all-downloads.html">All historical research files</a>. Different proxy frames; no cross-task/private guarantee. Every submission slot gate remains closed.</p></section></main><footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="docs/irregularities.html" >Limitations &amp; corrections</a><br><a href="docs/method.html" >Reproduce this screen</a> · <a href="docs/leaderboard.html" >Dated public board</a><br>Reviewed 6 October 2026 · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" >Official competition 306 ↗</a></div></footer></body></html>

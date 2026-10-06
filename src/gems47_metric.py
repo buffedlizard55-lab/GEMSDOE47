@@ -74,8 +74,14 @@ def dti(pred, truth, mask=None, *, want_fields=False):
         g = np.where(m, np.float32(0.0), g)
     p = np.clip(p, 0.0, 1.0)
 
-    d_to_G = ndimage.distance_transform_edt(g == 0).astype(np.float32)
-    FPw = float(np.sum(p * (1.0 - kernel(d_to_G))))
+    # scipy's EDT of an all-background image measures distance to an implicit
+    # exterior pixel, not to an empty truth set. With G empty, kappa is exactly
+    # zero and every prediction is pure FP; do not invent corner credit.
+    if np.any(g):
+        d_to_G = ndimage.distance_transform_edt(g == 0).astype(np.float32)
+        FPw = float(np.sum(p * (1.0 - kernel(d_to_G)), dtype=np.float64))
+    else:
+        FPw = float(np.sum(p, dtype=np.float64))
 
     coverage = np.zeros_like(g)
     for dr, dc, dist in OFFSETS:
