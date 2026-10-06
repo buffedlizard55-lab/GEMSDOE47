@@ -1,8 +1,12 @@
 # Current validation and promotion boundary
 
-The current experiment is [H47-C1](research/h47c-hypotheses-preregistered.md), frozen before fitting/scoring.
+The current primary experiment is [H47-C1](research/h47c-hypotheses-preregistered.md), frozen before fitting/scoring.
 Its [complete receipt](data/profile-screen.json) and [all spacing/block components](data/profile-spacing-history.csv)
-are deployed. H47-B remains a separate historical negative experiment, not the current pipeline.
+are deployed. H47-B and [H47-QC](preregistered-h47qc-20261006.md) are separate historical negative experiments,
+not the current pipeline. H47-QC's full [screen report](h47qc-screen-20261006.json) records the independent
+geothermometer-consensus screen and its failed gate: pooled test DTI 0.0131689425 versus 0.0141948068 for
+the geochemistry-only ablation, at 6 px / 600 m. Its nominal split-conformal level is 6/7 under unverified
+block-score exchangeability; clipped lower floor 0.0. It remains research-only, not for upload.
 
 ## Fixed C1 rule and result
 

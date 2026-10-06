@@ -12,6 +12,9 @@ Core values: Maximize P(Win); Own the Outcome. No slot is authorized.
   unverified; band does not cover private labels, pooled DTI or the global-quota artifact.
 - C1 pooled test .177872 vs ordinary-terrain .180216 vs random .070924; 11/22 fold wins, 15 required.
   SGMC diagnostic .073537 vs random .083174. Negative result retained; no tuning or upload.
+- Earlier, separate H47-QC screen: 6 px / 600 m; pooled test DTI .0131689425 vs .0141948068 geochemistry-only.
+  Nominal split-conformal level 6/7 under unverified block-score exchangeability; clipped floor 0.0.
+  Research-only; do not upload or spend a slot. Report, preregistration and bounded uniqueness audit are saved.
 - First-run spacing-variable overwrite retracted; correction honored the original 2.8px lock. All three
   prediction-field hashes and full score-history hash byte-identical across runs.
 - New 37,654-dot TIFF: 15/15 strict local checks, finite raw [0,1] plus exact internal null footprint mask.
@@ -54,7 +57,9 @@ One selected file is scored in both rounds; up to 3 scoring submissions/week. Of
 December 3, 2026, 23:59 UTC. No unlimited final-round or 3-slot lambda-probe advice.
 
 Continue from `profile-screen.json`, full spacing CSV, `current-submission.json`, `profile-uniqueness.json`,
-`profile-control-flow-recheck.json`, preregistration and `h47c-review-notes.md`; read their limits before edits.
+`profile-control-flow-recheck.json`, C1 preregistration and `h47c-review-notes.md`; the separate H47-QC
+screen is `h47qc-screen-20261006.json` with its preregistration, shortlist, artifact note and bounded
+uniqueness audit. Read all relevant limits before edits.
 
 
 ### Official-source receipt update after additive reconciliation

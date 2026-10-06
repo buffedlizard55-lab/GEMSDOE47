@@ -4,7 +4,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-RESEARCH_TIF = "docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
+RESEARCH_TIF = "downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
 EXPECTED_SHA256 = "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0"
 
 
@@ -96,18 +96,24 @@ class SiteTests(unittest.TestCase):
             self.assertTrue(parser.title_text, page.name)
             self.assertEqual(parser.descriptions, 1, page.name)
 
-    def test_homepage_prominently_offers_only_the_research_artifact(self):
-        text = (ROOT / "index.html").read_text(encoding="utf-8")
+    def test_homepage_offers_current_artifact_and_labels_prior_screen(self):
+        text = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         parser = _PageParser()
         parser.feed(text)
-        self.assertEqual(len(parser.tiff_links), 1, "exactly one TIFF download is offered")
-        href = urlparse(parser.tiff_links[0]).path.lstrip("./")
-        self.assertEqual(href, RESEARCH_TIF)
-        target = ROOT / RESEARCH_TIF
+        offered = {urlparse(link).path.lstrip("./") for link in parser.tiff_links}
+        h47qc_tif = "downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif"
+        self.assertEqual(offered, {RESEARCH_TIF, h47qc_tif})
+        target = ROOT / "docs" / RESEARCH_TIF
         self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
         self.assertGreater(target.stat().st_size, 100_000)
         import hashlib
         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), EXPECTED_SHA256)
+        h47qc_target = ROOT / "docs" / h47qc_tif
+        self.assertTrue(h47qc_target.is_file(), f"offered TIFF does not exist: {h47qc_target}")
+        self.assertEqual(
+            hashlib.sha256(h47qc_target.read_bytes()).hexdigest(),
+            "3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2",
+        )
         lower = text.lower()
         self.assertIn("research-only", lower)
         self.assertIn("not for submission", lower)
@@ -117,6 +123,10 @@ class SiteTests(unittest.TestCase):
         self.assertIn("0.177872", text, "candidate pooled score is visible")
         self.assertIn("0.180216", text, "pooled baseline loss is visible")
         self.assertIn("0.0000", text, "zero conformal floor is visible")
+        self.assertIn("H47-QC geothermometer screen", text)
+        self.assertIn("0.0131689425", text)
+        self.assertIn("0.0141948068", text)
+        self.assertIn("Bounded uniqueness audit", text)
 
     def test_submission_and_summary_pages_keep_the_slot_gate_visible(self):
         for path in (ROOT / "docs" / "executive-summary.html", ROOT / "docs" / "submit.html", ROOT / "docs" / "portal-checklist.html"):

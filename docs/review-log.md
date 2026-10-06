@@ -41,13 +41,19 @@
 - Structured standing brief, available score identifiers/history and all source URLs preserved in README.
   Missing original verbatim chat wording is explicitly not fabricated. Winning goal remains unmet.
 
+## Separate H47-QC screen — three-pass review
+
+1. **Implement and verify:** four new geological hypotheses were ranked in [`hypotheses-round2-20261006.md`](hypotheses-round2-20261006.md) and the H47-QC protocol frozen in [`preregistered-h47qc-20261006.md`](preregistered-h47qc-20261006.md) before implementation. The candidate-building API does not read catalogue labels. The 5,000-pixel, 6 px / 600 m run and its inputs, split, score history and format checks are recorded in [`h47qc-screen-20261006.json`](h47qc-screen-20261006.json).
+2. **Review bugs, assumptions and edge cases:** checked the held-out comparison against the matched geochemistry-only, random, H47-B-persistence and single-scale magnetic baselines. The candidate's pooled test DTI 0.0131689425 loses to the geochemistry-only 0.0141948068 ablation. The nominal split-conformal level is 6/7 (85.7%) only under unverified block-score exchangeability; the clipped lower floor is zero, not a performance guarantee.
+3. **Re-check the brief, science and release:** the binary float32 artifact is finite and in [0,1] on the specified 100 m EPSG:32611 grid, but valid format is not scientific promotion or portal acceptance. The bounded audit found no exact positive-mask match in its inspected inventory; it does not prove global uniqueness. The local geochemistry table is a derived mirror, water-type/disequilibrium and exact field definitions remain limitations, and the labels are only a public-catalogue proxy. **H47-QC is a failed research screen: do not upload it or spend a slot.** Its TIFF hash and identification note are published in `docs/downloads/`.
+
 Exact final test/check/PR/merge timestamps are recorded in `data/three-pass-review.json` and GitHub receipts.
 
 ## H47-B footprint audit and current-main reconciliation — three focused passes
 
 ### Pass 1 — preserve current main and identify the supplemental artifact
 
-- Resolved the merge with `origin/main` by retaining the newer C1, H48, Session 3, source-feed, current-submission and site content as the baseline; no current C1 artifact or gate was replaced.
+- Resolved the merge with `origin/main` by retaining the newer C1, H47-QC, H48, Session 3, source-feed, current-submission and site content as the baseline; no current C1/H47-QC artifact or gate was replaced.
 - Kept the unique H47-B single-scale NaN-outside TIFF and its all-finite encoding diagnostic separate from the main C1 download. Added an H47-B audit page and artifact-register entries rather than reviving an older H47-B homepage.
 - Checked both exact TIFF paths, sizes and SHA-256 values against the branch evidence before publishing links.
 
@@ -61,7 +67,7 @@ Exact final test/check/PR/merge timestamps are recorded in `data/three-pass-revi
 
 - Added cross-links from current homepage, executive summary, irregularity page, README and complete artifact register while keeping C1 as the prominent current download.
 - Synchronized the machine-readable irregularity registry copies and added regression coverage for current-download separation, H47-B links and the exact artifact digest.
-- Final local run: pytest **237 passed, 1 skipped, 2 subtests passed**; the CI exclusion profile has **225 passed, 13 deselected, 2 subtests passed**; unittest **81 tests passed**; Ruff and JSON/registry consistency **PASS**. Site-link/asset checks are included in the suite. One upstream Rasterio `PendingDeprecationWarning` remains.
+- Final post-H47-QC-merge local run: pytest **241 passed, 1 skipped, 2 subtests passed**; the CI exclusion profile has **229 passed, 13 deselected, 2 subtests passed**; unittest **81 tests passed**; Ruff **PASS**. Site-link/asset checks are included in the suite. JSON/CSV parsing, both irregularity registry copies, and the two H47-B manifest hashes **PASS** (21 manifest rows). One upstream Rasterio `PendingDeprecationWarning` remains.
 - Reopened the exact H47-B TIFF: explicit mirrored sample-template mask **PASS** (5,167,373 valid cells, 0 invalid inside, 0 non-NaN outside, SHA matches); feature-derived mask **fails as expected** (1,540 invalid inside, 3,061 non-NaN outside). This reproduces the local discrepancy, not organizer acceptance. `git diff --cached origin/main --check` **PASS**. No competition slot was used.
 - Remote branch CI and PR state are pending observation; this review log must not describe them as green or merged until GitHub reports those results.
 

@@ -49,6 +49,25 @@ This run has **not** surpassed the user target 0.3195 or the dated official lead
 are not directly comparable to those competition scores. Reported GEMSDOE32/H33 0.2778 is preserved as
 user/owner history; participant rows do not authenticate the filename/hash. [Mechanism and limits](docs/analysis.html).
 
+## Earlier H47-QC screen — research-only, separate from H47-C1
+
+[Download the H47-QC 5,000-pixel GeoTIFF](docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif) ·
+[Short identification note](docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.md) ·
+[Full screen report](docs/h47qc-screen-20261006.json) ·
+[Bounded uniqueness audit](docs/h47qc-uniqueness-audit-20261006.json)
+
+**RESEARCH ONLY · FAILED PROMOTION GATE · DO NOT UPLOAD · NO SLOT AUTHORIZED.** H47-QC's locked-test
+pooled public-catalogue DTI was **0.0131689425**, below its geochemistry-only ablation (**0.0141948068**);
+selected spacing was **6 px / 600 m**. The nominal split-conformal level was 6/7 (85.7%) only under
+unverified block-score exchangeability; its clipped lower floor was **0.0**, not a private-target or
+map-wide guarantee. The 5,000 binary float32 pixels are finite in [0,1] on the 100 m EPSG:32611 grid.
+The TIFF SHA-256 is `3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2`.
+Its bounded public-inventory audit found no exact positive-mask match among inspected artifacts, but that is
+not global uniqueness or performance evidence. A separate post-merge check against all 12 other same-grid
+TIFFs currently published in this repository also found no exact mask match (maximum positive-support
+Jaccard 0.003175 against H47-GSA; H47-QC/H47-C1 Jaccard 0.000915). H47-QC is a separate earlier experiment,
+not a replacement for or promotion of the later H47-C1 result above.
+
 ## Preregistration, correction and review
 
 Five ranked physical hypotheses were written **before implementation** in
@@ -376,7 +395,7 @@ GDB. No vector trained C1. Sources, hashes and runner attestation are in the dep
 
 The later single-scale H47-B control remains available as a [separate audit page and research-only TIFF](docs/h47b-mask-audit-20261006.html); it does **not** replace H47-C1 as the site’s current primary artifact. The single-scale locked pooled known-catalogue-mask proxy DTI was 0.02563947, below H47-B cross-scale (0.02755344) and fixed-seed random (0.03715911). The nominal 6/7 (~85.7%) split-conformal calculation assumes unverified block-score exchangeability and clips to a zero lower floor; it is not missing-fault or private-score coverage.
 
-Its local strict format pass uses the explicit mirrored sample-template mask. That mask differs from the feature-derived footprint by 1,540 feature-valid cells outside and 3,061 sample/label cells invalid in features; official footprint semantics and portal acceptance remain unknown. The historical range-error cause is not proved. The paired all-finite TIFF is only an encoding diagnostic. See [IR-25](docs/irregularities.md) and the [complete artifact register](docs/all-downloads.html).
+Its local strict format pass uses the explicit mirrored sample-template mask. That mask differs from the feature-derived footprint by 1,540 feature-valid cells outside and 3,061 sample/label cells invalid in features; official footprint semantics and portal acceptance remain unknown. The historical range-error cause is not proved. The paired all-finite TIFF is only an encoding diagnostic. See [IR-23](docs/irregularities.md) and the [complete artifact register](docs/all-downloads.html).
 
 ## Publication receipt
 
