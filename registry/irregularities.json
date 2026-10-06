@@ -1,0 +1,126 @@
+{
+ "registry": "GEMSDOE47 irregularities",
+ "generated_utc": "2026-10-06T15:46:15Z",
+ "irregularities": [
+  {
+   "id": "IR-47-001",
+   "severity": "MEDIUM",
+   "what": "float32-min nodata sentinel in training_features.tif is not caught by np.isfinite",
+   "why_it_matters": "all 19 bands; 3,061 px inside the footprint",
+   "what_was_done": "every layer load tests v > -1e30",
+   "human_page": "docs/irregularities.html#ir-47-001"
+  },
+  {
+   "id": "IR-47-002",
+   "severity": "HIGH",
+   "what": "the reported 0.2778 attribution is contested",
+   "why_it_matters": "it is the only direct flank ablation in the collection and decides the H47-2 verdict",
+   "what_was_done": "break-even reported (0.2200) instead of a conclusion; manual review requested",
+   "human_page": "docs/irregularities.html#ir-47-002"
+  },
+  {
+   "id": "IR-47-003",
+   "severity": "LOW",
+   "what": "sample_submission.tif is not all-zero: 60,988 ones, all on labels==1",
+   "why_it_matters": "uploading it unchanged submits pure masked mass",
+   "what_was_done": "recorded and asserted in grid.load_template",
+   "human_page": "docs/irregularities.html#ir-47-003"
+  },
+  {
+   "id": "IR-47-004",
+   "severity": "MEDIUM",
+   "what": "the organiser reference solution optimises patch-level TverskyLoss, not DTI",
+   "why_it_matters": "no k(d), no 300 m buffer, no global max reduction in the notebook",
+   "what_was_done": "DTI implemented independently from the published formulas and verified",
+   "human_page": "docs/irregularities.html#ir-47-004"
+  },
+  {
+   "id": "IR-47-005",
+   "severity": "HIGH",
+   "what": "a blocked catalogue holdout cannot be scored under the organiser's masking rule (DTI == 0 identically)",
+   "why_it_matters": "sibling repos report non-zero on that frame, so their scorers do not apply the mask",
+   "what_was_done": "frame F5 scored unmasked, labelled, never used to select",
+   "human_page": "docs/irregularities.html#ir-47-005"
+  },
+  {
+   "id": "IR-47-006",
+   "severity": "HIGH",
+   "what": "the staff answer in forum thread 11527 could not be retrieved",
+   "why_it_matters": "it would state which data the experts used to find the new faults",
+   "what_was_done": "flagged; retry paths given; nothing guessed",
+   "human_page": "docs/irregularities.html#ir-47-006"
+  },
+  {
+   "id": "IR-47-007",
+   "severity": "HIGH",
+   "what": "optimizer's curse measured at ~0.30 DTI",
+   "why_it_matters": "in-fold projections across this competition family are decorative",
+   "what_was_done": "crossfit_validate.py gates shipping; verdict SHIP=False",
+   "human_page": "docs/irregularities.html#ir-47-007"
+  },
+  {
+   "id": "IR-47-008",
+   "severity": "MEDIUM",
+   "what": "a sibling truth model is self-referential (pi ~ exp(-d(H19-5)/1.85 px))",
+   "why_it_matters": "it cannot falsify the field it was built from",
+   "what_was_done": "replaced by LATI with published positive and negative controls",
+   "human_page": "docs/irregularities.html#ir-47-008"
+  },
+  {
+   "id": "IR-47-009",
+   "severity": "MEDIUM",
+   "what": "two sibling downloads verified defective (57.8% of dots off their own claimed support)",
+   "why_it_matters": "they score near zero and are still publicly downloadable",
+   "what_was_done": "rule not reproduced; support confinement enforced",
+   "human_page": "docs/irregularities.html#ir-47-009"
+  },
+  {
+   "id": "IR-47-010",
+   "severity": "MEDIUM",
+   "what": "the marginal credit bar was mis-stated as alpha*s/(1-alpha*s) in several sibling repos",
+   "why_it_matters": "5.5% too high, so emission stops too early",
+   "what_was_done": "re-derived and asserted: breakeven_k(0.26)==0.0520",
+   "human_page": "docs/irregularities.html#ir-47-010"
+  },
+  {
+   "id": "IR-47-011",
+   "severity": "HIGH",
+   "what": "whether scoring is restricted to a public-chunk footprint is unresolved",
+   "why_it_matters": "mass in private chunks may be pure FP",
+   "what_was_done": "flagged; the lambda-probe design would settle it in 3 submissions",
+   "human_page": "docs/irregularities.html#ir-47-011"
+  },
+  {
+   "id": "IR-47-012",
+   "severity": "HIGH",
+   "what": "the 1 m DEM was never used",
+   "why_it_matters": "fault scarps are a metre-scale phenomenon; the top of the board is probably using it",
+   "what_was_done": "flagged as the single largest untested lever",
+   "human_page": "docs/irregularities.html#ir-47-012"
+  },
+  {
+   "id": "IR-47-013",
+   "severity": "MEDIUM",
+   "what": "6 of 13 observations are nested thinnings of one field",
+   "why_it_matters": "effective sample size well below 13; a 3-equation solve on the nested triple had condition number 3,136",
+   "what_was_done": "reported; LOO-CV and DTI-stratified cross-fitting used",
+   "human_page": "docs/irregularities.html#ir-47-013"
+  },
+  {
+   "id": "IR-47-014",
+   "severity": "FIXED",
+   "what": "two bugs in this project's own first pass drove FP_w to -47,502 and DTI to 1.6459",
+   "why_it_matters": "impossible numbers that looked like a breakthrough",
+   "what_was_done": "exact Bernoulli E[kappa] in stable form; boundary fill corrected; assertions added; Monte-Carlo validated",
+   "human_page": "docs/irregularities.html#ir-47-014"
+  },
+  {
+   "id": "IR-47-015",
+   "severity": "MEDIUM",
+   "what": "sandbox volatility: venv, .cache (1.2 GB) and the sibling clones were lost mid-project",
+   "why_it_matters": "any result depending on non-repo state is one recycle from unreproducible",
+   "what_was_done": "restore_data.py rebuilds 22/22 in ~30 s; ship.py needs no 59-layer stack; the 13th raster is now hash-pinned in the manifest",
+   "human_page": "docs/irregularities.html#ir-47-015"
+  }
+ ]
+}

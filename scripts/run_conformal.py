@@ -38,9 +38,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3.conformal import (SweepPoint, conformal_order_statistic,  # noqa: E402
-                              conformal_quantile, dkw_epsilon, select)
-
+from gems47s3.conformal import SweepPoint, conformal_order_statistic, conformal_quantile, select
 
 EV = ROOT / "evidence" / "conformal"
 ALPHAS = (0.05, 0.10, 0.20, 0.25, 0.30)
@@ -163,7 +161,7 @@ def main() -> int:
                                           for c in (0.48, 0.60, 0.80, 1.00)))
     over = [r for r in cand if r.get("density_per_1000", 0) > ceiling_density]
     cand = [r for r in cand if r.get("density_per_1000", 0) <= ceiling_density]
-    print(f"[ceiling] dropped {len(set((r['recipe'], r['op']) for r in over))} operating points "
+    print(f"[ceiling] dropped {len({(r['recipe'], r['op']) for r in over})} operating points "
           f"whose emitted mass exceeds the algebraic ceiling; {len(cand)} rows remain")
 
     # ------------------------------------------------------------------ per (instrument, op)
@@ -409,7 +407,7 @@ def main() -> int:
                           formula="S_max = G*(c/target - 0.8)/0.2",
                           sensitivity={f"G={G}_c={c}": s_max(CEILING_TARGET_DTI, G, c)
                                        for G, c in CEILING_TABLE},
-                          operating_points_dropped=len(set((r["recipe"], r["op"]) for r in over))),
+                          operating_points_dropped=len({(r["recipe"], r["op"]) for r in over})),
         selection_rule=("hard pre-filters: (i) emitted mass must not exceed the algebraic "
                         "ceiling S_max at which DTI can no longer reach the target, (ii) folds "
                         f"with truth < {MIN_TRUTH_PX} px are dropped uniformly; then rank by "

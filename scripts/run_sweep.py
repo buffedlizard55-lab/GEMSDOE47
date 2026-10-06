@@ -39,11 +39,9 @@ from scipy import ndimage as ndi
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47s3 import emission as E            # noqa: E402
-from gems47s3 import metric as M              # noqa: E402
-from gems47s3.grid import robust_unit         # noqa: E402
-from gems47s3.holdout import PREVALENCE_TARGETS, build_folds, offcatalogue_enrichment  # noqa: E402
-from gems47s3.spec import HEIGHT, WIDTH       # noqa: E402
+from gems47s3 import emission as E
+from gems47s3 import metric as M
+from gems47s3.holdout import PREVALENCE_TARGETS, build_folds, offcatalogue_enrichment
 
 SURF = ROOT / "data" / "surfaces"
 REF = ROOT / "data" / "reference"
@@ -242,7 +240,6 @@ def main() -> int:
             # the detector sees only the catalogue that is NOT held out on this block
             visible_cat = g.catalogue & ~fold.truth
             cache = {}
-            sub = valid[y0:y1, x0:x1]
             fields = field_variants(g, valid, visible_cat, cache)
             if variant_names is None:
                 variant_names = list(fields)

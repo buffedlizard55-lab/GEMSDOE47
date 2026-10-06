@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="GEMSDOE47 research status, bounded uniqueness audit, negative spatial holdout result, and clearly labeled research-only GeoTIFF download.">
+  <title>GEMSDOE47 · Evidence before upload</title>
+  <link rel="stylesheet" href="docs/style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">DOE GEMS Prize · DrivenData #306 · research record</span></div>
+  <nav aria-label="Main navigation">
+    <a class="on" href="index.html">Project home</a><a href="docs/executive-summary.html">Executive summary</a>
+    <a href="docs/submit.html">How to submit</a><a href="docs/analysis.html">Results analysis</a>
+    <a href="docs/leaderboard.html">Leaderboard evidence</a><a href="docs/hypotheses.html">Hypotheses</a>
+    <a href="docs/sources.html">Sources</a>
+  </nav>
+</div></header>
+<main class="wrap">
+  <section class="dl" aria-labelledby="download-heading">
+    <h2 id="download-heading">Research GeoTIFF download — <span class="bad">NOT FOR SUBMISSION</span></h2>
+    <p><strong>H47-B failed its preregistered promotion gate.</strong> This file is shared for transparent research review only; do not upload it or spend a competition slot. A format-valid raster is not a validated prediction.</p>
+    <a class="btn" download href="docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download research-only H47-B GeoTIFF (1.5 MB)</a>
+    <dl class="kv">
+      <dt>Decision</dt><dd class="bad">NOT PROMOTED · NO SLOT RECOMMENDED</dd>
+      <dt>SHA-256</dt><dd>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</dd>
+      <dt>Locked-test DTI</dt><dd>H47-B 0.027553 · single-scale 0.025639 · random 0.037159</dd>
+      <dt>Conformal floor</dt><dd>0.0; block exchangeability unverified</dd>
+      <dt>Format</dt><dd>float32, one band, EPSG:32611, 3292 × 3730, 100 m; in-footprint [0,1], NaN outside</dd>
+    </dl>
+    <p class="small dim">The bounded uniqueness check found no exact mask match among 334 accessible, comparable TIFFs in 55 visible sibling repositories. That is not a global uniqueness proof and does not override the failed holdout.</p>
+    <a class="btn sec" href="docs/validation-h47b-20261006.md">Read the full validation and uniqueness report →</a>
+  </section>
+
+  <h2>Current decision: evidence before upload</h2>
+  <p>The goal remains a scientifically defensible, unique prediction of faults absent from existing catalogues. H47-B is a negative screen, not a submission candidate. The old d-cat/annulus TIFF is a delete-only subset of a published mask, and the previous modeled score and claimed conformal floor have been retired.</p>
+  <div class="feed">
+    <article class="card"><div class="lab">Latest saved public board read</div><div class="val">0.3774</div><div class="sub">Rank 1; participant name not retained.</div></article>
+    <article class="card"><div class="lab">DARD</div><div class="val">0.3195</div><div class="sub">Rank 7 in the same saved read.</div></article>
+    <article class="card"><div class="lab">extradr19</div><div class="val">0.2778</div><div class="sub">Rank 13; not mapped to a TIFF.</div></article>
+    <article class="card"><div class="lab">Slot status</div><div class="val bad">Closed</div><div class="sub">No candidate has passed the current holdout gate.</div></article>
+  </div>
+  <div class="note"><strong>Attribution caveat.</strong> The board is participant-level; it provides no TIFF filename, file hash, or upload receipt. The alleged H33-2-B2 → 0.2778 mapping remains unverified; GEMSDOE32 describes that TIFF as unscored. This site is a dated evidence record, not a live leaderboard feed.</div>
+
+  <h2>Two independent sessions, one repository — both gates closed</h2>
+  <p>This repository now holds the work of <strong>two sessions on the same brief</strong>, merged on
+     2026-10-06 (PR&nbsp;#6). Each built its own detector, preregistered its own gate, and
+     <strong>closed it</strong>. They agree on the verdict by different routes.</p>
+  <table>
+    <tr><th></th><th>Earlier session — H47-B</th><th>Later session — H47-GSA</th></tr>
+    <tr><th>Idea</th>
+        <td>Cross-scale persistence of <code>TMI_up150</code> magnetic edges</td>
+        <td>Geodetic strain rate × <em>low</em> Th/K hydrothermal alteration × GDR thermal discharge</td></tr>
+    <tr><th>Gate</th>
+        <td>Preregistered locked test block, random control, conformal floor</td>
+        <td>Five truth frames + cross-fitted leaderboard-anchored inversion</td></tr>
+    <tr><th>Result</th>
+        <td>Pooled DTI <strong>0.02755</strong> vs a fixed-seed random control at
+            <strong>0.037159</strong> — lost to noise; conformal floor 0.0</td>
+        <td>Out-of-fold paired deltas <strong>−0.0611</strong> and <strong>−0.0450</strong> vs the
+            incumbent; loses on all five frames; in-fold +0.30 was optimizer’s curse</td></tr>
+    <tr><th>Decision</th>
+        <td><strong>NOT PROMOTED</strong></td><td><strong>NOT PROMOTED</strong></td></tr>
+  </table>
+  <p>The later session also built <strong>LATI</strong>, an instrument that treats the thirteen returned
+     leaderboard DTIs as <em>measurements of the hidden label set</em>; diagnosed the reported
+     <code>"Predicted values must be in range [0, 1]"</code> rejection as a <strong>NaN</strong> problem,
+     not a range problem (12/12 <code>-nan</code> variants fail
+     <code>np.all((v&gt;=0)&amp;(v&lt;=1))</code>, 17/17 all-finite variants pass, and no file anywhere
+     has a value outside [0,1]); measured the hidden truth mass at <strong>K ≈ 12,348 px</strong>
+     model-free; and <strong>falsified</strong> its own strongest-looking idea — re-occupying the
+     catalogue flank — with a break-even of 0.2200 against a reported 0.2778.</p>
+  <p><a href="docs/index.html"><strong>→ The later session’s full site: LATI method, the five ranked
+     hypotheses, every number, and IR-47-001…015</strong></a></p>
+
+  <h2>What happens next</h2>
+  <ol class="steps">
+    <li>Keep the submission slot unused. Do not treat the research download as a portal-ready file.</li>
+    <li>Establish authorized competition input provenance and a reproducible spatially blocked incumbent.</li>
+    <li>Preregister a genuinely distinct geological detector and appropriate controls before scoring.</li>
+    <li>Promote only if it beats the current holdout best and controls with adequate label coverage; then repeat format and bounded uniqueness audits.</li>
+    <li><strong>Use the 1 m DEM.</strong> The competition links 716 USGS 3DEP 1 m tiles; only pre-derived
+        100 m LiDAR rasters were reachable. Every LiDAR-derived layer ranked poorly in the later
+        session’s 72-layer screen — exactly what resampling metre-scale scarps to 100 m should do.
+        Largest untested lever.</li>
+    <li><strong>Spend three slots on the λ-probe.</strong> <code>1/DTI(λ)</code> is linear in
+        <code>1/λ</code>, so an anchor, a λ = 0.5 scaling and a null-addition recover
+        <code>T</code>, <code>F</code>, <code>K</code> exactly — conditioning 56×–1380× better than
+        reading four decimals, and it would also settle whether scoring is chunk-restricted.</li>
+    <li><strong>Upload the all-finite convention.</strong> If a slot is ever spent, use a raster with no
+        NaN anywhere; the <code>-nan</code> convention is what produced the reported range rejection.</li>
+  </ol>
+  <p><a class="btn sec" href="docs/executive-summary.html">Executive summary &amp; future submission steps →</a> <a class="btn sec" href="docs/next-session.md">Next-session plan →</a></p>
+</main>
+<footer><div class="wrap">GEMSDOE47 · An auditable research project, not an official DOE, USGS, or DrivenData product. <a href="docs/irregularities.md">Open issues</a> · <a href="docs/irregularities.html">IR-47-001…015</a> · <a href="docs/sources.md">Sources</a> · <a href="docs/index.html">Later session’s site</a> · <a href="README.md">Standing charter</a></div></footer>
+</body>
+</html>

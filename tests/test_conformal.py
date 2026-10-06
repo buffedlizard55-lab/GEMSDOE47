@@ -6,8 +6,14 @@ import math
 import numpy as np
 import pytest
 
-from gems47s3.conformal import (SweepPoint, conformal_quantile, conformal_order_statistic,
-                              dkw_epsilon, min_blocks_for_alpha, select)
+from gems47s3.conformal import (
+    SweepPoint,
+    conformal_order_statistic,
+    conformal_quantile,
+    dkw_epsilon,
+    min_blocks_for_alpha,
+    select,
+)
 
 
 def test_quantile_uses_the_n_plus_one_correction():

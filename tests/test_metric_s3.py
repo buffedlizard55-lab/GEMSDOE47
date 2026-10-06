@@ -13,9 +13,9 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from gems47s3 import metric as M  # noqa: E402
-from gems47s3.metric import credit_bar, dti  # noqa: E402
-from gems47s3.spec import ALPHA, BETA  # noqa: E402
+from gems47s3 import metric as M
+from gems47s3.metric import credit_bar, dti
+from gems47s3.spec import ALPHA, BETA
 
 
 def test_kernel_values_on_the_100m_lattice():

@@ -39,8 +39,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3.spec import (BRIDGE_COMMIT, BRIDGE_PARTS, BRIDGE_REPO, PINS,  # noqa: E402
-                         FOOTPRINT_PIXELS, LABEL_POSITIVE_PIXELS)
+from gems47s3.spec import (
+    BRIDGE_COMMIT,
+    BRIDGE_PARTS,
+    BRIDGE_REPO,
+    FOOTPRINT_PIXELS,
+    LABEL_POSITIVE_PIXELS,
+    PINS,
+)
 
 DATA = ROOT / "data"
 EV = ROOT / "evidence"
@@ -68,8 +74,10 @@ def gh_raw(repo: str, ref: str, path: str, dest: Path) -> bool:
     dest.parent.mkdir(parents=True, exist_ok=True)
     url = f"/repos/{repo}/contents/{path}?ref={ref}"
     with dest.open("wb") as fh:
+        # check=False deliberately: a 404 from one candidate path is an expected branch, not an
+        # error, and the caller inspects the return code and the sha256 pin instead.
         r = subprocess.run(["gh", "api", "-H", "Accept: application/vnd.github.raw+json", url],
-                           stdout=fh, stderr=subprocess.PIPE)
+                           stdout=fh, stderr=subprocess.PIPE, check=False)
     if r.returncode != 0:
         dest.unlink(missing_ok=True)
         print(f"    gh api failed: {r.stderr.decode()[:200].strip()}")
@@ -142,7 +150,7 @@ def main() -> int:
     tgt = DATA / "training_features.tif"
     v = verify("training_features.tif", tgt)
     if v.get("ok"):
-        print(f"[skip] training_features.tif already matches its pin")
+        print("[skip] training_features.tif already matches its pin")
         log["steps"].append(dict(action="skip", file="training_features.tif", reason="pin matched"))
     elif args.verify_only:
         print("[missing] training_features.tif")
@@ -156,10 +164,10 @@ def main() -> int:
                 print(f"[cached] {name}")
                 continue
             print(f"[fetch ] {BRIDGE_REPO}@{BRIDGE_COMMIT[:8]} {name} ({nbytes:,} bytes)")
-            if not gh_raw(BRIDGE_REPO, BRIDGE_COMMIT, f"data/bridge/{name}", dest):
-                if not gh_raw(BRIDGE_REPO, BRIDGE_COMMIT, name, dest):
-                    parts_ok = False
-                    break
+            if (not gh_raw(BRIDGE_REPO, BRIDGE_COMMIT, f"data/bridge/{name}", dest)
+                    and not gh_raw(BRIDGE_REPO, BRIDGE_COMMIT, name, dest)):
+                parts_ok = False
+                break
             got = dest.stat().st_size
             gd = sha256(dest)
             ok = (got == nbytes and gd == digest)

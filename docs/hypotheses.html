@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The five hypotheses — GEMSDOE47</title>
+<meta name="description" content="The five GEMSDOE47 geological hypotheses, ranked: layers, physical signature, why each should catch a fault missing from USGS/INGENIOUS, difference from prior work, and verdict.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>Five candidate geological hypotheses, ranked</h1>
+  <p class="sub">Generated before implementation, as the brief requires. Each names its layers, the
+     physical signature it targets, why it should catch a fault <i>missing</i> from USGS/INGENIOUS
+     rather than one already in it, and how it differs from anything already implemented across the
+     44 sibling repositories.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a class="on" href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+  </nav>
+</div></header>
+
+<div class="wrap">
+
+<div class="callout info">
+<b>The constraint that shaped all five.</b> DrivenData staff, community thread
+<a href="https://community.drivendata.org/t/where-do-you-draw-the-line/11536">11536</a>
+(<code>chrisk-dd</code>, 23 Sep): <i>“‘new fault’ means ‘any fault pixel not already captured by
+USGS/INGENIOUS’ and can include newly mapped geometry of an existing fault system.”</i>
+Combined with thread <a href="https://community.drivendata.org/t/scoring-clarification-masked-pixels-and-re-evaluation/11516">11516</a>
+(<i>“Pixels corresponding to known USGS/INGENIOUS faults are masked / excluded from evaluation”</i>),
+this means the target population is <b>off-catalogue</b>, and mass on catalogue pixels is free but
+useless. Every hypothesis below is aimed off-catalogue by construction.
+</div>
+
+<h2>Ranking</h2>
+<p class="small">Expected DTI improvement is the LATI leave-one-observation-out gain of adding the
+hypothesis’s layers to the best-supported baseline model (13 observations, baseline LOO SSR
+0.014401). Implementation cost is measured in this environment: 2 vCPU, 3 GB RAM, and only the
+restored layers available.</p>
+<table>
+<tr><th>#</th><th>Hypothesis</th><th class="n">Expected gain<br>(LOO)</th><th class="n">Cost</th>
+    <th>Verdict</th></tr>
+<tr><td>1</td><td><b>H47-1 GSA</b> — geodetic strain × hydrothermal alteration × thermal discharge</td>
+    <td class="n">+86.4 % in-fold<br><b>−0.053 out-of-fold</b></td><td class="n">Low</td>
+    <td><span class="badge b-warn">SHIPPED as the primary arm; cross-fit FAILED</span></td></tr>
+<tr><td>2</td><td><b>H47-2 SAF</b> — strike-aligned catalogue-flank continuation</td>
+    <td class="n">+55.7 % on 12 obs<br><b>−64.0 % on 13</b></td><td class="n">Low</td>
+    <td><span class="badge b-bad">FALSIFIED — break-even 0.2200</span></td></tr>
+<tr><td>3</td><td><b>H47-3 SGMC transfer</b> — state geologic-map faults absent from the catalogue</td>
+    <td class="n">LOO worsens<br>(0.008124 → 0.009279)</td><td class="n">Very low</td>
+    <td><span class="badge b-bad">FALSIFIED — 0.5 % of fitted K</span></td></tr>
+<tr><td>4</td><td><b>H47-4 DMC</b> — deep-source magnetic continuity (TMI-UC150)</td>
+    <td class="n">measured by the earlier session</td><td class="n">already paid</td>
+    <td><span class="badge b-bad">ALREADY TESTED as H47-B — lost to a random control</span></td></tr>
+<tr><td>5</td><td><b>H47-5 λ-probe</b> — three designed submissions recover T, F, K in closed form</td>
+    <td class="n">exact, not statistical</td><td class="n">3 slots</td>
+    <td><span class="badge b-info">DESIGNED, NOT SPENT</span></td></tr>
+</table>
+
+<h2 id="h47-1">H47-1 · GSA — geodetic strain × hydrothermal alteration × thermal discharge</h2>
+<div class="panel">
+<p><b>Layers.</b> <code>geod_shearrate</code> (band 7) and <code>geod_dilaterate</code> (band 8) from
+<code>training_features.tif</code>; <code>rad_ThK</code> (band 1 of
+<code>geodawn_extensions_u8.tif</code>, the GeoDAWN thorium/potassium ratio); and proximity to the
+27,092 GDR spring-chemistry and water-well points in
+<code>gdr_wellspring_in_footprint.csv</code>.</p>
+<p><b>Physical signature targeted.</b> Not an edge and not a curvature transform — a <b>state</b>
+signature. Four independent indicators of the same process:
+(1) crustal strain rate localises on structurally weak, actively slipping zones;
+(2) hydrothermal fluid flow destroys K-feldspar and Th-bearing accessories and precipitates silica and
+clay, so altered fault rock reads <b>low Th/K</b> — the fitted coefficient is
+<b>−5.74</b>, i.e. the truth prefers low Th/K, which is the alteration direction and not a generic
+“high radiometric contrast” direction;
+(3) dilatation rate marks volume change at releasing bends and stepovers;
+(4) warm and hot spring discharge is the surface expression of a permeable fault conduit.</p>
+<p><b>Why it catches a fault MISSING from the catalogue.</b> The given labels are the USGS Quaternary
+fault compilation plus INGENIOUS — both are <b>surface-rupture</b> compilations, mapped from
+geomorphology. A fault that is actively straining and hydrothermally altered but has <b>no
+geomorphic expression</b> (buried under basin fill, or blind beneath a clay cap) is invisible to
+topographic ridge detection and therefore absent from those compilations, yet it is precisely the
+fault a geothermal resource assessment wants. Strain rate, alteration chemistry and fluid discharge
+all see it; a DEM does not.</p>
+<p><b>How it differs from prior work.</b> The sibling collection used radiometrics and thermal points
+only as <i>corroboration gates</i> on a topographic ridge field — a vote that could only remove dots.
+This is the first time they are the <b>primary</b> belief field, and the first time the sign of the
+radiometric term is fitted rather than assumed. LATI fits <b>low</b> Th/K and <b>low</b>
+<code>tmi_vg</code>, which is the opposite of the “high geophysical contrast” prior every sibling
+repository used.</p>
+<p><b>Result.</b> In-fold LOO improved <b>+86.4 %</b> (0.014401 → 0.001960) over four forward-selection
+steps, K = 15,638. Under a pre-specified geological pool with selection <i>inside</i> each fold, the
+out-of-fold paired deltas were <b>−0.0611</b> and <b>−0.0450</b>. The in-fold advantage was
+optimizer’s curse and pool-selection bias. <b>Shipped as the primary arm for the unlimited-submission
+Final Prize Round; explicitly not recommended for a weekly slot.</b></p>
+</div>
+
+<h2 id="h47-2">H47-2 · SAF — strike-aligned catalogue-flank continuation</h2>
+<div class="panel">
+<p><b>Layers.</b> The catalogue mask itself. A structure tensor (σ = 3 px) gives the local strike;
+<code>distance_transform_edt(return_indices=True)</code> gives, for every pixel, the offset vector to
+the nearest catalogue pixel; their dot product decomposes the 0–300 m halo into
+<b>along-strike continuation</b>, <b>across-strike splay</b>, <b>trace-tip extension</b> (weighted by
+<code>exp(−d_tip/6)</code> over 47,431 detected endpoints) and <b>bend splay</b> (weighted by
+<code>1 − coherence</code>). Implementation: <code>src/gems47/hypotheses.py</code>.</p>
+<p><b>Physical signature targeted.</b> Displacement transfer. Normal faults in the Basin and Range grow
+by linkage of en-echelon segments, so unmapped geometry concentrates at propagation tips (displacement
+tapering into a monocline or relay ramp) and at releasing-bend stepovers. Both are directional, not
+buffer-shaped.</p>
+<p><b>Why it catches a fault MISSING from the catalogue.</b> It is the most literal reading of the
+organiser’s own words — <i>“newly mapped geometry of an existing fault system”</i>. A trace that stops
+on the map but continues in the ground produces new-fault pixels immediately along-strike of the mapped
+endpoint, and those pixels are by definition not in USGS/INGENIOUS.</p>
+<p><b>How it differs from prior work.</b> Directly opposite. The reported-0.2778 arm was <i>built</i> by
+deleting every dot within 2 px of the catalogue; sibling arms <code>h32-1-prethin-tip-euler</code>
+(0.2649) and <code>h33d-analog-tip-stepover-r30</code> (0.2632) grew tips but scored <i>below</i> their
+own baselines. This hypothesis says those arms grew tips isotropically instead of along-strike.</p>
+<p><b>Result — FALSIFIED, and the falsification is quantified.</b> On the twelve flank-agnostic
+observations the halo layers were the strongest public predictors in the entire 72-layer screen
+(<code>dcat_band_0_1.5</code>: LOO gain +55.7 %, β = +6.18; the fitted truth put <b>67.1 %</b> of K
+within 150 m of a mapped fault, a zone that is 3.45 % of the evaluated area — ×19.5 enrichment, while
+the incumbent puts only 11.6 % of its dots there). Every layer beat its own spatial-permutation null
+10/10 with z = 122–1562, so this was not a thinness artefact. Then the thirteenth observation — the
+flank-<i>pruned</i> 0.2778 raster — inverted it: β collapsed from <b>+6.18</b> to <b>+1.42</b> and the
+LOO gain became <b>−64.0 %</b>. Sweeping that one file’s assumed score gives a
+<b>break-even of 0.2200</b>: the flank is supported only if the flank-pruned arm scored below 0.22,
+when it is reported at 0.2778 and its own unpruned base at 0.2708. In the 13-observation screen
+<code>dcat_band_0_1.5</code> became the <b>worst</b> of 65 layers (−227.6 %) while
+<code>dcat_band_3_6</code> (300–600 m) stayed positive (+26.7 %).
+<b>Not shipped.</b> Also: the strike decomposition itself added nothing — along-strike, across-strike,
+tip-extension and bend-splay were statistically tied (LOO 0.006568–0.006657) with the plain graded
+halo (0.006594), so the orientation model is unsupported independently of the falsification.</p>
+</div>
+
+<h2 id="h47-3">H47-3 · SGMC transfer — catalogue-difference emission</h2>
+<div class="panel">
+<p><b>Layers.</b> <code>derived_sgmc_faults_100m_u8.tif</code>: 83,593 px of USGS State Geologic Map
+Compilation fault traces rasterised to the 100 m grid, of which <b>62,122 px</b> lie more than 300 m
+from the competition’s given catalogue.</p>
+<p><b>Physical signature targeted.</b> None — this is a <b>set difference</b>, not a detector. A fault
+mapped by a state geological survey and absent from the Quaternary compilation is, by the organiser’s
+definition, a candidate new fault.</p>
+<p><b>Why it catches a fault MISSING from the catalogue.</b> It does not infer missing faults, it
+<b>imports</b> them from an official compilation the competition did not supply as labels. Highest
+possible confidence per pixel: these are mapped, real, published fault traces.</p>
+<p><b>How it differs from prior work.</b> A sibling repository specified this as <code>H60-2</code> and
+built <code>sgmc-off-catalogue-44k</code>, but the file was never scored, so the hypothesis was never
+tested. This project tests it against the leaderboard returns instead of shipping it blind.</p>
+<p><b>Result — FALSIFIED.</b> Adding SGMC proximity to the incumbent + flank model made LOO
+<i>worse</i> (0.008124 → 0.009279), and the fitted truth placed only <b>0.5 %</b> of K on SGMC
+off-catalogue pixels. The frame built from it is also self-defeating as a selector: a raster consisting
+of the SGMC pixels scores 1.0000 on it by tautology, and the near-uniform <code>r13-lattice</code>
+scores 0.2499 — better than the live-0.2600 incumbent’s 0.0942 — because the frame mostly measures
+coverage, not skill. <b>Not shipped.</b></p>
+</div>
+
+<h2 id="h47-4">H47-4 · DMC — deep-source magnetic continuity <span class="badge b-bad">ALREADY TESTED — FAILED</span></h2>
+<div class="panel">
+<p><b>Layers.</b> <code>TMI_up150</code> (band 4 of <code>geodawn_extensions_u8.tif</code>, total
+magnetic intensity upward-continued 150 m) against the supplied 100 m <code>tmi_hg</code>,
+<code>tmi_vg</code>, <code>rtp</code> and <code>tc</code> bands.</p>
+<p><b>Physical signature targeted.</b> <b>Depth discrimination by continuation contrast.</b> Upward
+continuation suppresses shallow sources; a lineament that persists at 150 m of continuation is
+basement-scale, while one that vanishes is near-surface. Faults through alluvium-filled basins are
+buried: no scarp, no topographic ridge, but a deep magnetic-offset signature that survives continuation.
+The discriminator is the <i>ratio</i> of continued to uncontinued edge response, not either alone.</p>
+<p><b>Why it catches a fault MISSING from the catalogue.</b> The Quaternary compilation is
+geomorphology-driven, so a fault with zero surface expression under basin fill is systematically
+absent from it. LATI independently fits <b>high <code>tmi_hg</code> (β = +8.55)</b> with
+<b>low <code>tmi_vg</code> (β = −9.63)</b> — shallow horizontal-gradient contrast without the deep
+vertical-gradient expression — which is exactly the buried-structure signature, arrived at from the
+leaderboard rather than from the physics.</p>
+<p><b>How it differs from prior work.</b> Sibling arms used <code>tmi</code>, <code>rtp</code>,
+<code>tc</code> and tilt-angle zero crossings as <i>edge detectors</i> at a single scale. None used
+upward continuation as a <b>depth filter</b>, and none combined it with the vertical-gradient band as a
+contrast pair. <code>H61-3</code> (tilt-angle zero crossings) is the nearest relative and is a
+single-scale edge detector.</p>
+<div class="callout bad">
+<b>This hypothesis is not new, and it has already been tested and rejected.</b> While merging the two
+GEMSDOE47 sessions it emerged that the <b>earlier</b> session built exactly this idea as
+<b>H47-B</b> — cross-scale persistence of <code>TMI_up150</code> magnetic edges — and ran it through a
+preregistered gate with a locked test block and nontrivial controls. Result
+(<a href="validation-h47b-20261006.md">validation-h47b-20261006.md</a>,
+<a href="h47b-screen-report-20261006.json">screen report</a>):
+<table style="margin:10px 0">
+<tr><th>Arm</th><th class="n">Locked-test pooled DTI</th></tr>
+<tr><td>H47-B candidate (selected spacing 5 px / 500 m)</td><td class="n">0.02755</td></tr>
+<tr><td>Tuned single-scale baseline</td><td class="n">0.02564</td></tr>
+<tr><td><b>Fixed-seed random control</b></td><td class="n"><b>0.03716</b></td></tr>
+</table>
+The candidate <b>lost to random noise</b>, and its assumption-conditional conformal lower floor was
+<b>0.0</b>. Verdict: <b>NOT PROMOTED</b>. Its research-only GeoTIFF is still published at
+<a href="downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">docs/downloads/</a>
+for review, marked not-for-submission.
+<br><br>
+The physics argument above is still sound and the LATI coefficients (<code>tmi_hg</code> β = +8.55 with
+<code>tmi_vg</code> β = −9.63) still point the same way — but a sound physical story that loses to a
+random control on a locked test block is a rejected hypothesis, not an unbuilt one. Recorded here so the
+next session does not pay to learn it twice.
+</div>
+</div>
+
+<h2 id="h47-5">H47-5 · λ-probe — exact identification of T, F and K <span class="badge b-info">NOT SPENT</span></h2>
+<div class="panel">
+<p><b>Layers.</b> None. This is a <b>measurement design</b>, not a detector.</p>
+<p><b>Physical signature targeted.</b> The metric’s own exact scale identity. Both <code>T</code> and
+<code>F</code> are homogeneous of degree 1 in the prediction, so
+<code>DTI(λp) = λT / (λα(T+F) + βK)</code> and <b><code>1/DTI(λ)</code> is linear in <code>1/λ</code></b>.
+Three returns from one file therefore solve for <code>T</code>, <code>F</code> and <code>K</code> in
+closed form:
+<b>S1 ANCHOR</b> (λ = 1, identical to the live 0.2600 raster, so it cannot cost rank),
+<b>S2 SCALE</b> (λ = 0.5), <b>S3 NULL-ADD</b> (the anchor plus 2,000 dots placed where no truth is
+expected, so their marginal credit is ~0 and their cost is exactly 0.2 × 2,000).</p>
+<p><b>Why it matters.</b> Every local frame in this project is a <i>model</i> of the truth. This is the
+only way to measure <code>K</code> and the incumbent’s <code>F/T</code> directly. Conditioning is
+56×–1380× better than reading four decimal places off a single return. All three probes are constructed
+to score <i>below</i> the anchor, so they cannot cost leaderboard rank.</p>
+<p><b>How it differs from prior work.</b> A sibling repository designed the identical probe set and
+built the three files — and never submitted them. This project independently re-derived the identity,
+verified it numerically to 1e-15 in <code>tests/test_metric.py</code>, and records why it was not spent:
+there are no credentials in this environment, and spending three weekly slots on measurement rather
+than on a candidate is a decision for the owner, not for an autonomous agent.</p>
+<p><b>Status.</b> Designed, verified, not spent. This is the highest-value next action available to
+anyone who does have credentials.</p>
+</div>
+
+<h2>What was screened and rejected</h2>
+<p class="small">72 layers were screened on 12 observations (59 geological + 13 controls) and 65 on 13.
+Beyond the three falsified hypotheses above, these were tested and did not survive:</p>
+<ul class="small">
+<li><b>LiDAR scarp morphology</b> (12 bands derived from 706 USGS 3DEP 1 m tiles): <code>lidar_upface_max</code>
+    ranked 21st of 72 on 12 observations and did not enter the 13-observation forward selection.
+    <code>lidar_coh100</code>, <code>lidar_strike</code> and <code>lidar_valid</code> were among the
+    <i>worst</i> layers. Consistent with the resampling argument: metre-scale scarp morphology averaged
+    to 100 m loses the discriminating signal.</li>
+<li><b>Thermal-spring temperature class</b>: <code>thermal_hot_prox</code> was the worst layer on 12
+    observations (−192 β, SSR 0.2299); <code>thermal_warm_prox</code> (all 27,092 points, not just the
+    hot ones) entered the 12-observation selection at step 3. Broad discharge density matters;
+    temperature class does not.</li>
+<li><b>Volcanic vent proximity</b>: 21 vents in the footprint — too few to carry signal.</li>
+<li><b>Earthquake density</b> (<code>ieq_n100a15</code>, <code>deq_n100a15</code>): +47.1 % and +26.6 %
+    on 13 observations, but neither entered the forward selection ahead of strain rate.</li>
+<li><b>Every gradient of a supplied band</b> (<code>cond_surf_grad</code>,
+    <code>depth_to_base_surf_grad</code>, <code>iso_grav_anom_grad</code>): among the worst on 13
+    observations (−89.7 %, −72.7 %, −64.4 %). Edge detection on these fields is exhausted.</li>
+</ul>
+
+</div>
+<footer><div class="wrap">
+  GEMSDOE47 · <a href="index.html">home</a> · <a href="method.html">method</a> ·
+  <a href="evidence.html">every number</a> · <a href="irregularities.html">irregularities</a>
+</div></footer>
+</body>
+</html>

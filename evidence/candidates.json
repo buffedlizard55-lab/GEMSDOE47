@@ -1,0 +1,748 @@
+{
+ "generated_utc": "2026-10-06T10:29:52Z",
+ "frames": {
+  "sgmc_offcatalogue_K": 62122,
+  "catalogue_fold_K": {
+   "NW": 29319,
+   "NE": 12596,
+   "SW": 9473,
+   "SE": 9600
+  }
+ },
+ "arms": [
+  {
+   "arm": "prior_d2.8 (reported 0.26)",
+   "n_dots": 44090,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "in_flank_0_3px": 8607,
+   "in_flank_0_1_5px": 5092,
+   "on_sgmc_offcat": 748,
+   "sgmc_frame_dti": 0.094174,
+   "sgmc_T": 5568.5,
+   "sgmc_F": 41593.2,
+   "sgmc_recall": 0.08964,
+   "sgmc_credit_per_dot": 0.1263,
+   "catq_fold_dti": {
+    "NW": 0.119787,
+    "NE": 0.133001,
+    "SW": 0.093935,
+    "SE": 0.088113
+   },
+   "catq_mean": 0.108709,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 44090,
+     "jaccard": 1.0,
+     "frac_of_new": 1.0
+    },
+    "prior_d1.5": {
+     "intersection": 29849,
+     "jaccard": 0.401682,
+     "frac_of_new": 0.677002
+    },
+    "prior_tgc-v2": {
+     "intersection": 29849,
+     "jaccard": 0.39499,
+     "frac_of_new": 0.677002
+    },
+    "prior_h19-5": {
+     "intersection": 44090,
+     "jaccard": 0.363986,
+     "frac_of_new": 1.0
+    },
+    "prior_h19-4": {
+     "intersection": 38484,
+     "jaccard": 0.297438,
+     "frac_of_new": 0.872851
+    },
+    "prior_h16-1": {
+     "intersection": 32164,
+     "jaccard": 0.236735,
+     "frac_of_new": 0.729508
+    },
+    "prior_h28-ridge": {
+     "intersection": 2356,
+     "jaccard": 0.022025,
+     "frac_of_new": 0.053436
+    },
+    "prior_hedge-v2": {
+     "intersection": 6241,
+     "jaccard": 0.030538,
+     "frac_of_new": 0.141551
+    },
+    "prior_ens12": {
+     "intersection": 6241,
+     "jaccard": 0.030538,
+     "frac_of_new": 0.141551
+    },
+    "prior_h25-ctx": {
+     "intersection": 6659,
+     "jaccard": 0.033496,
+     "frac_of_new": 0.151032
+    },
+    "prior_r13-lattice": {
+     "intersection": 1776,
+     "jaccard": 0.007196,
+     "frac_of_new": 0.040281
+    },
+    "prior_placeholder": {
+     "intersection": 1341,
+     "jaccard": 0.007119,
+     "frac_of_new": 0.030415
+    },
+    "prior_h33-2-b2": {
+     "intersection": 37654,
+     "jaccard": 0.854026,
+     "frac_of_new": 0.854026
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "reported_live_dti": 0.26
+  },
+  {
+   "arm": "prior_h33-2-b2 (reported 0.2778)",
+   "n_dots": 37654,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "in_flank_0_3px": 2171,
+   "in_flank_0_1_5px": 0,
+   "on_sgmc_offcat": 748,
+   "sgmc_frame_dti": 0.095386,
+   "sgmc_T": 5517.6,
+   "sgmc_F": 35220.8,
+   "sgmc_recall": 0.08882,
+   "sgmc_credit_per_dot": 0.14654,
+   "catq_fold_dti": {
+    "NW": 0.005366,
+    "NE": 0.005842,
+    "SW": 0.004257,
+    "SE": 0.002923
+   },
+   "catq_mean": 0.004597,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 37654,
+     "jaccard": 0.854026,
+     "frac_of_new": 1.0
+    },
+    "prior_d1.5": {
+     "intersection": 25517,
+     "jaccard": 0.353392,
+     "frac_of_new": 0.67767
+    },
+    "prior_tgc-v2": {
+     "intersection": 25517,
+     "jaccard": 0.347335,
+     "frac_of_new": 0.67767
+    },
+    "prior_h19-5": {
+     "intersection": 37654,
+     "jaccard": 0.310854,
+     "frac_of_new": 1.0
+    },
+    "prior_h19-4": {
+     "intersection": 32760,
+     "jaccard": 0.254599,
+     "frac_of_new": 0.870027
+    },
+    "prior_h16-1": {
+     "intersection": 27266,
+     "jaccard": 0.202982,
+     "frac_of_new": 0.72412
+    },
+    "prior_h28-ridge": {
+     "intersection": 1898,
+     "jaccard": 0.018794,
+     "frac_of_new": 0.050406
+    },
+    "prior_hedge-v2": {
+     "intersection": 4814,
+     "jaccard": 0.024147,
+     "frac_of_new": 0.127848
+    },
+    "prior_ens12": {
+     "intersection": 4814,
+     "jaccard": 0.024147,
+     "frac_of_new": 0.127848
+    },
+    "prior_h25-ctx": {
+     "intersection": 5057,
+     "jaccard": 0.026072,
+     "frac_of_new": 0.134302
+    },
+    "prior_r13-lattice": {
+     "intersection": 1513,
+     "jaccard": 0.006287,
+     "frac_of_new": 0.040182
+    },
+    "prior_placeholder": {
+     "intersection": 1107,
+     "jaccard": 0.006077,
+     "frac_of_new": 0.029399
+    },
+    "prior_h33-2-b2": {
+     "intersection": 37654,
+     "jaccard": 1.0,
+     "frac_of_new": 1.0
+    }
+   },
+   "max_jaccard_vs_any_prior": 1.0,
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "reported_live_dti": 0.2778
+  },
+  {
+   "arm": "ARM-A greedy (LATI)",
+   "n_dots": 4000,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "in_flank_0_3px": 4000,
+   "in_flank_0_1_5px": 3924,
+   "on_sgmc_offcat": 0,
+   "sgmc_frame_dti": 6e-05,
+   "sgmc_T": 3.0,
+   "sgmc_F": 3996.6,
+   "sgmc_recall": 5e-05,
+   "sgmc_credit_per_dot": 0.00076,
+   "catq_fold_dti": {
+    "NW": 0.052021,
+    "NE": 0.038889,
+    "SW": 0.122424,
+    "SE": 0.102009
+   },
+   "catq_mean": 0.078836,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 987,
+     "jaccard": 0.020954,
+     "frac_of_new": 0.24675
+    },
+    "prior_d1.5": {
+     "intersection": 1093,
+     "jaccard": 0.017356,
+     "frac_of_new": 0.27325
+    },
+    "prior_tgc-v2": {
+     "intersection": 1093,
+     "jaccard": 0.017016,
+     "frac_of_new": 0.27325
+    },
+    "prior_h19-5": {
+     "intersection": 1951,
+     "jaccard": 0.015839,
+     "frac_of_new": 0.48775
+    },
+    "prior_h19-4": {
+     "intersection": 1848,
+     "jaccard": 0.014675,
+     "frac_of_new": 0.462
+    },
+    "prior_h16-1": {
+     "intersection": 1693,
+     "jaccard": 0.01341,
+     "frac_of_new": 0.42325
+    },
+    "prior_h28-ridge": {
+     "intersection": 257,
+     "jaccard": 0.003726,
+     "frac_of_new": 0.06425
+    },
+    "prior_hedge-v2": {
+     "intersection": 846,
+     "jaccard": 0.004986,
+     "frac_of_new": 0.2115
+    },
+    "prior_ens12": {
+     "intersection": 846,
+     "jaccard": 0.004986,
+     "frac_of_new": 0.2115
+    },
+    "prior_h25-ctx": {
+     "intersection": 1025,
+     "jaccard": 0.006237,
+     "frac_of_new": 0.25625
+    },
+    "prior_r13-lattice": {
+     "intersection": 192,
+     "jaccard": 0.000922,
+     "frac_of_new": 0.048
+    },
+    "prior_placeholder": {
+     "intersection": 142,
+     "jaccard": 0.00095,
+     "frac_of_new": 0.0355
+    },
+    "prior_h33-2-b2": {
+     "intersection": 1,
+     "jaccard": 2.4e-05,
+     "frac_of_new": 0.00025
+    }
+   },
+   "max_jaccard_vs_any_prior": 0.020954,
+   "max_frac_overlap_vs_any_prior": 0.48775,
+   "lati_K": 17292.93555608489,
+   "lati_T": 1583.8,
+   "lati_F": 286.3,
+   "lati_predicted_dti": 0.111467,
+   "lati_weighted_recall": 0.09158,
+   "lati_credit_per_dot": 0.39594,
+   "emission_stopped_by": "model_drift_guard",
+   "budget": 150000
+  },
+  {
+   "arm": "ARM-A top44090 (LATI)",
+   "n_dots": 44090,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "in_flank_0_3px": 44090,
+   "in_flank_0_1_5px": 44090,
+   "on_sgmc_offcat": 0,
+   "sgmc_frame_dti": 0.004015,
+   "sgmc_T": 234.9,
+   "sgmc_F": 43785.5,
+   "sgmc_recall": 0.00378,
+   "sgmc_credit_per_dot": 0.00533,
+   "catq_fold_dti": {
+    "NW": 0.234447,
+    "NE": 0.243665,
+    "SW": 0.200897,
+    "SE": 0.18373
+   },
+   "catq_mean": 0.215685,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 5092,
+     "jaccard": 0.061284,
+     "frac_of_new": 0.115491
+    },
+    "prior_d1.5": {
+     "intersection": 6603,
+     "jaccard": 0.067684,
+     "frac_of_new": 0.149762
+    },
+    "prior_tgc-v2": {
+     "intersection": 6603,
+     "jaccard": 0.066822,
+     "frac_of_new": 0.149762
+    },
+    "prior_h19-5": {
+     "intersection": 12857,
+     "jaccard": 0.084383,
+     "frac_of_new": 0.291608
+    },
+    "prior_h19-4": {
+     "intersection": 12658,
+     "jaccard": 0.081553,
+     "frac_of_new": 0.287095
+    },
+    "prior_h16-1": {
+     "intersection": 12127,
+     "jaccard": 0.077786,
+     "frac_of_new": 0.275051
+    },
+    "prior_h28-ridge": {
+     "intersection": 2700,
+     "jaccard": 0.025322,
+     "frac_of_new": 0.061238
+    },
+    "prior_hedge-v2": {
+     "intersection": 8117,
+     "jaccard": 0.040086,
+     "frac_of_new": 0.184101
+    },
+    "prior_ens12": {
+     "intersection": 8117,
+     "jaccard": 0.040086,
+     "frac_of_new": 0.184101
+    },
+    "prior_h25-ctx": {
+     "intersection": 9628,
+     "jaccard": 0.049166,
+     "frac_of_new": 0.218372
+    },
+    "prior_r13-lattice": {
+     "intersection": 1783,
+     "jaccard": 0.007224,
+     "frac_of_new": 0.04044
+    },
+    "prior_placeholder": {
+     "intersection": 1618,
+     "jaccard": 0.008603,
+     "frac_of_new": 0.036698
+    },
+    "prior_h33-2-b2": {
+     "intersection": 0,
+     "jaccard": 0.0,
+     "frac_of_new": 0.0
+    }
+   },
+   "max_jaccard_vs_any_prior": 0.084383,
+   "max_frac_overlap_vs_any_prior": 0.291608,
+   "lati_K": 17292.93555608489,
+   "lati_T": 8473.8,
+   "lati_F": 14238.5,
+   "lati_predicted_dti": 0.461114,
+   "lati_weighted_recall": 0.49001,
+   "lati_credit_per_dot": 0.19219
+  },
+  {
+   "arm": "ARM-B greedy (LATI)",
+   "n_dots": 78742,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "in_flank_0_3px": 78584,
+   "in_flank_0_1_5px": 60623,
+   "on_sgmc_offcat": 74,
+   "sgmc_frame_dti": 0.013927,
+   "sgmc_T": 909.7,
+   "sgmc_F": 77207.6,
+   "sgmc_recall": 0.01464,
+   "sgmc_credit_per_dot": 0.01155,
+   "catq_fold_dti": {
+    "NW": 0.252752,
+    "NE": 0.223045,
+    "SW": 0.113344,
+    "SE": 0.121743
+   },
+   "catq_mean": 0.177721,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 3015,
+     "jaccard": 0.025163,
+     "frac_of_new": 0.03829
+    },
+    "prior_d1.5": {
+     "intersection": 4138,
+     "jaccard": 0.030726,
+     "frac_of_new": 0.052551
+    },
+    "prior_tgc-v2": {
+     "intersection": 4159,
+     "jaccard": 0.030601,
+     "frac_of_new": 0.052818
+    },
+    "prior_h19-5": {
+     "intersection": 8199,
+     "jaccard": 0.042776,
+     "frac_of_new": 0.104125
+    },
+    "prior_h19-4": {
+     "intersection": 8339,
+     "jaccard": 0.042944,
+     "frac_of_new": 0.105903
+    },
+    "prior_h16-1": {
+     "intersection": 8294,
+     "jaccard": 0.042667,
+     "frac_of_new": 0.105331
+    },
+    "prior_h28-ridge": {
+     "intersection": 3448,
+     "jaccard": 0.024536,
+     "frac_of_new": 0.043789
+    },
+    "prior_hedge-v2": {
+     "intersection": 8683,
+     "jaccard": 0.036702,
+     "frac_of_new": 0.110272
+    },
+    "prior_ens12": {
+     "intersection": 8683,
+     "jaccard": 0.036702,
+     "frac_of_new": 0.110272
+    },
+    "prior_h25-ctx": {
+     "intersection": 11733,
+     "jaccard": 0.051376,
+     "frac_of_new": 0.149006
+    },
+    "prior_r13-lattice": {
+     "intersection": 3256,
+     "jaccard": 0.011629,
+     "frac_of_new": 0.04135
+    },
+    "prior_placeholder": {
+     "intersection": 2875,
+     "jaccard": 0.012981,
+     "frac_of_new": 0.036512
+    },
+    "prior_h33-2-b2": {
+     "intersection": 138,
+     "jaccard": 0.001187,
+     "frac_of_new": 0.001753
+    }
+   },
+   "max_jaccard_vs_any_prior": 0.051376,
+   "max_frac_overlap_vs_any_prior": 0.149006,
+   "lati_K": 23144.747227783017,
+   "lati_T": 22119.9,
+   "lati_F": -47501.9,
+   "lati_predicted_dti": 1.645902,
+   "lati_weighted_recall": 0.95572,
+   "lati_credit_per_dot": 0.28092,
+   "emission_stopped_by": "marginal_rule_exhausted",
+   "budget": 150000
+  },
+  {
+   "arm": "ARM-B top44090 (LATI)",
+   "n_dots": 44090,
+   "on_catalogue": 0,
+   "outside_footprint": 0,
+   "in_flank_0_3px": 44090,
+   "in_flank_0_1_5px": 44090,
+   "on_sgmc_offcat": 0,
+   "sgmc_frame_dti": 0.004861,
+   "sgmc_T": 284.4,
+   "sgmc_F": 43750.9,
+   "sgmc_recall": 0.00458,
+   "sgmc_credit_per_dot": 0.00645,
+   "catq_fold_dti": {
+    "NW": 0.253393,
+    "NE": 0.258299,
+    "SW": 0.130902,
+    "SE": 0.13901
+   },
+   "catq_mean": 0.195401,
+   "distinctness": {
+    "prior_d2.8": {
+     "intersection": 1974,
+     "jaccard": 0.022899,
+     "frac_of_new": 0.044772
+    },
+    "prior_d1.5": {
+     "intersection": 2745,
+     "jaccard": 0.027067,
+     "frac_of_new": 0.062259
+    },
+    "prior_tgc-v2": {
+     "intersection": 2759,
+     "jaccard": 0.026875,
+     "frac_of_new": 0.062577
+    },
+    "prior_h19-5": {
+     "intersection": 5060,
+     "jaccard": 0.031593,
+     "frac_of_new": 0.114765
+    },
+    "prior_h19-4": {
+     "intersection": 5137,
+     "jaccard": 0.031567,
+     "frac_of_new": 0.116512
+    },
+    "prior_h16-1": {
+     "intersection": 5096,
+     "jaccard": 0.031277,
+     "frac_of_new": 0.115582
+    },
+    "prior_h28-ridge": {
+     "intersection": 2165,
+     "jaccard": 0.020203,
+     "frac_of_new": 0.049104
+    },
+    "prior_hedge-v2": {
+     "intersection": 5339,
+     "jaccard": 0.02601,
+     "frac_of_new": 0.121093
+    },
+    "prior_ens12": {
+     "intersection": 5339,
+     "jaccard": 0.02601,
+     "frac_of_new": 0.121093
+    },
+    "prior_h25-ctx": {
+     "intersection": 7575,
+     "jaccard": 0.038281,
+     "frac_of_new": 0.171808
+    },
+    "prior_r13-lattice": {
+     "intersection": 1793,
+     "jaccard": 0.007265,
+     "frac_of_new": 0.040667
+    },
+    "prior_placeholder": {
+     "intersection": 1613,
+     "jaccard": 0.008576,
+     "frac_of_new": 0.036584
+    },
+    "prior_h33-2-b2": {
+     "intersection": 0,
+     "jaccard": 0.0,
+     "frac_of_new": 0.0
+    }
+   },
+   "max_jaccard_vs_any_prior": 0.038281,
+   "max_frac_overlap_vs_any_prior": 0.171808,
+   "lati_K": 23144.747227783017,
+   "lati_T": 21633.6,
+   "lati_F": -38106.3,
+   "lati_predicted_dti": 1.421277,
+   "lati_weighted_recall": 0.93471,
+   "lati_credit_per_dot": 0.49067
+  }
+ ],
+ "shipped": [
+  {
+   "mode": "zeros",
+   "filename": "gems47-h47A-flank-reoccupation-20261006T103141Z-zeros.tif",
+   "sha256": "c53383ef51504d3e8d15d34d2107855ef5a3ad0441f7078ac8583d12591c2eea",
+   "bytes": 205354,
+   "validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47A-flank-reoccupation-20261006T103141Z-zeros.tif",
+    "format": {
+     "driver": "GTiff",
+     "count": 1,
+     "dtype": "float32",
+     "crs": "EPSG:32611",
+     "width": 3292,
+     "height": 3730,
+     "nodata": null,
+     "shape": [
+      3730,
+      3292
+     ],
+     "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+     ],
+     "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+     ]
+    },
+    "stats": {
+     "n_pixels": 12279160,
+     "n_finite": 12279160,
+     "n_nan": 0,
+     "n_footprint": 5167373,
+     "n_emitted": 4000,
+     "n_emitted_on_catalogue": 0,
+     "n_emitted_outside_footprint": 0,
+     "v_min": 0.0,
+     "v_max": 1.0,
+     "v_unique_count": 2,
+     "v_unique_values": [
+      0.0,
+      1.0
+     ],
+     "emitted_mass": 4000.0,
+     "band_descriptions": [
+      null
+     ]
+    },
+    "checks": {
+     "single_band": true,
+     "dtype_float32": true,
+     "crs_epsg32611": true,
+     "shape_matches_template": true,
+     "transform_matches_template": true,
+     "resolution_100m": true,
+     "bounds_match_template": true,
+     "nan_only_outside_footprint": true,
+     "all_pixels_finite": true,
+     "finite_where_footprint": true,
+     "no_nodata_sentinel_values": true,
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": true,
+     "RANGE_nan_tolerant: finite values within [0,1]": true,
+     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
+     "RANGE_min_max_reported": true,
+     "RANGE_masked_read: read(masked=True) within [0,1]": true,
+     "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "passes_nan_intolerant_range_check": true,
+    "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": true
+   }
+  },
+  {
+   "mode": "nan",
+   "filename": "gems47-h47A-flank-reoccupation-20261006T103141Z-nan.tif",
+   "sha256": "466ddaaef8818e52f63631f5eb03814629a36c369a70f964e5bbc6f75b258343",
+   "bytes": 256600,
+   "validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47A-flank-reoccupation-20261006T103141Z-nan.tif",
+    "format": {
+     "driver": "GTiff",
+     "count": 1,
+     "dtype": "float32",
+     "crs": "EPSG:32611",
+     "width": 3292,
+     "height": 3730,
+     "nodata": NaN,
+     "shape": [
+      3730,
+      3292
+     ],
+     "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+     ],
+     "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+     ]
+    },
+    "stats": {
+     "n_pixels": 12279160,
+     "n_finite": 5167373,
+     "n_nan": 7111787,
+     "n_footprint": 5167373,
+     "n_emitted": 4000,
+     "n_emitted_on_catalogue": 0,
+     "n_emitted_outside_footprint": 0,
+     "v_min": 0.0,
+     "v_max": 1.0,
+     "v_unique_count": 2,
+     "v_unique_values": [
+      0.0,
+      1.0
+     ],
+     "emitted_mass": 4000.0,
+     "band_descriptions": [
+      null
+     ]
+    },
+    "checks": {
+     "single_band": true,
+     "dtype_float32": true,
+     "crs_epsg32611": true,
+     "shape_matches_template": true,
+     "transform_matches_template": true,
+     "resolution_100m": true,
+     "bounds_match_template": true,
+     "nan_only_outside_footprint": true,
+     "all_pixels_finite": false,
+     "finite_where_footprint": true,
+     "no_nodata_sentinel_values": true,
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
+     "RANGE_nan_tolerant: finite values within [0,1]": true,
+     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
+     "RANGE_min_max_reported": true,
+     "RANGE_masked_read: read(masked=True) within [0,1]": true,
+     "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "passes_nan_intolerant_range_check": false,
+    "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": false
+   }
+  }
+ ],
+ "shipped_note": "GEMSDOE47 H47-A flank-reoccupation | LATI-inverted belief field (prox_d2.8, dcat_band_0_1.5), K=17,293, greedy marginal-rule emission, 4000 dots of which 4000 in the 0-300 m catalogue halo; LATI-predicted DTI 0.1115; UNSCORED",
+ "seconds": 374.1
+}

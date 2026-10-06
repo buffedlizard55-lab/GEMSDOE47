@@ -47,9 +47,9 @@ from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3 import emission as E          # noqa: E402
-from gems47s3 import metric as M            # noqa: E402
-from gems47s3.spec import HEIGHT, WIDTH     # noqa: E402
+from gems47s3 import emission as E
+from gems47s3 import metric as M
+from gems47s3.spec import HEIGHT, WIDTH
 
 DATA = ROOT / "data"
 EV = ROOT / "evidence" / "control"
@@ -153,7 +153,7 @@ def main() -> int:
                 keep = np.zeros(n_comp + 1, bool)
                 keep[in_block] = True
             else:
-                target = int(round(prev * float(region.sum())))
+                target = round(prev * float(region.sum()))
                 keep, acc = np.zeros(n_comp + 1, bool), 0
                 for j in rng.permutation(in_block.size):
                     if acc >= target:
@@ -279,7 +279,7 @@ def main() -> int:
         c = np.array([r["C_shifted"]["dti"] for r in rows if r["C_shifted"]["dti"] is not None])
         d = np.array([r["D_wrongplace"]["dti"] for r in rows if "D_wrongplace" in r])
         summary[pname] = dict(
-            n_blocks=int(len(rows)),
+            n_blocks=len(rows),
             A_shipped_mean=round(float(a.mean()), 6),
             B_random_mean=round(float(b.mean()), 6),
             B_random_sd=round(float(np.mean([r["B_random"]["sd"] for r in rows])), 6),

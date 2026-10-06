@@ -1,30 +1,47 @@
-# --- large competition rasters: restored by scripts/fetch_data.py, never committed --------
-data/*.tif
-data/bridge/
-data/external/
-data/features/
+# ---- large local datasets and derived rasters: deliberately NOT versioned ----
+# The restored competition bytes (~507 MB) live in .cache/ and are re-derivable in
+# ~30 s with `python3 scripts/restore_data.py --group all`, which verifies every
+# SHA-256 against registry/data_manifest.json before use.
+.cache/
+/data/*
+!/data/README.md
+!/data/restore_receipt.json
+# session 3: provenance record for the reference corpus copied in from GEMSDOE1-46
+!/data/reference/
+/data/reference/*
+!/data/reference/README.md
+/artifacts/
+/outputs/
+work/
+*.npz
+*.npy
+*.tiff
+*.partial
+*.assembling
 
-# --- derived caches (rebuild with scripts/build_surfaces.py; 1.1 GB) ---------------------
-data/surfaces/
-data/*.npy
-data/*.npz
-
-# --- reference corpus copied in from the GEMSDOE1-46 repositories for learning only ------
-# provenance and the exact source path of every file are in data/reference/README.md
-data/reference/*.tif
-
-# --- the ONE thing that must be committed: the downloadable submission --------------------
-!docs/downloads/*.tif
-
-scratch/
-__pycache__/
-*.pyc
-.pytest_cache/
-.mypy_cache/
-*.log.tmp
-# Scratch outputs of smoke tests and superseded runs are not committed.
+# ---- session 3 scratch: rebuilt by scripts/, never versioned ----
+/data/bridge/
+/data/surfaces/
+_preview/
 evidence/sweep/sweep_a_quick.json
 evidence/sweep/sweep_quick.json
 evidence/sweep/sweep_a_prefix.json
 evidence/sweep/sweep_a_b5.json
-_preview/
+scratch/
+*.log.tmp
+
+# ---- the ONE derived artifact that must be versioned: the downloadable submission ----
+!docs/downloads/*.tif
+
+# ---- python ----
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+venv*/
+.DS_Store

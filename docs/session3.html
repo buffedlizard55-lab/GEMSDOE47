@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEMSDOE47 — DOE GEMS Prize submission — GEMSDOE47</title>
+<meta name="description" content="Session 3 of GEMSDOE47: the downloadable candidate GeoTIFF, its SHA-256, the uniqueness assertion against all 18 reference artifacts, the random and shifted controls, and the split-conformal floor quoted next to the chosen spacing.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-06 20:00 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="../README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a class="on" href="session3.html">Session 3 — submission</a>
+    <a href="HOW_TO_SUBMIT.html">How to submit (s3)</a>
+    <a href="RESULTS.html">Results (s3)</a>
+    <a href="why-02778.html">Why 0.2778</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="gemsdoe47-doe-gems-prize-drivendata-306-nw-nevada-geodawn">GEMSDOE47 · DOE GEMS Prize (DrivenData #306) · NW Nevada / GeoDAWN</h1>
+<p><em>Generated 2026-10-06 19:58 UTC by <code>scripts/build_site.py</code> from committed JSON receipts. No number on this site is hand-typed.</em></p>
+<hr />
+<h2 id="download-the-submission">⬇️ DOWNLOAD THE SUBMISSION</h2>
+<h3 id="gemsdoe47-scarp9-persistence-s28-d737-b2tif"><a href="downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif"><strong>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</strong></a></h3>
+<p><a href="downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif" download class="btn btn-primary" style="font-size:1.3em;padding:14px 28px;display:inline-block">⬇️ Download <code>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</code></a></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>File</strong></td>
+<td><a href="downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif"><code>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</code></a></td>
+</tr>
+<tr>
+<td><strong>SHA-256</strong></td>
+<td><code>f3f840b7880b7540…</code></td>
+</tr>
+<tr>
+<td><strong>Size</strong></td>
+<td>316,497 bytes</td>
+</tr>
+<tr>
+<td><strong>Format</strong></td>
+<td>single band, float32, EPSG:32611, 100 m, 3730 × 3292, every cell finite and in [0,1], <strong>no nodata tag</strong></td>
+</tr>
+<tr>
+<td><strong>Values</strong></td>
+<td>binary {0.0, 1.0} — proved optimal in §“Why binary” below</td>
+</tr>
+<tr>
+<td><strong>Positive pixels</strong></td>
+<td>37,612 (0.72787 % of the footprint)</td>
+</tr>
+<tr>
+<td><strong>Submission name</strong></td>
+<td><code>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2</code></td>
+</tr>
+<tr>
+<td><strong><code>Note (optional)</code></strong> (152/200 chars)</td>
+<td><code>Across-strike slope step persisted 1.9km; binary dots, 280m spacing, 200m off known-fault flanks; 37.6k px; spacing fixed by split conformal, 90% floor.</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>➡️ Step-by-step upload instructions: <a href="HOW_TO_SUBMIT.html">HOW TO SUBMIT</a></strong></p>
+<h3 id="uniqueness-checked-not-claimed">Uniqueness — checked, not claimed</h3>
+<p>Asserted against all 18 reference artifacts in <code>data/reference/</code> by Jaccard distance on the positive-pixel set and by SHA-256:</p>
+<ul>
+<li>max Jaccard = <strong>0.014412</strong> (threshold 0.5)</li>
+<li>max containment of any prior artifact inside this one = <strong>0.027726</strong> (threshold 0.9)</li>
+<li><strong>unique = True</strong></li>
+</ul>
+<details><summary>per-artifact comparison</summary>
+
+| reference artifact | its positive px | intersection | Jaccard |
+|---|---|---|---|
+| `scored_h35-06_0.0418.tif` | 39,530 | 1,096 | 0.014412 |
+| `scored_h34-scatter-q50_0.0778.tif` | 37,654 | 800 | 0.010743 |
+| `scored_h19-5-solid_0.1922.tif` | 121,131 | 1,622 | 0.010323 |
+| `derived_sgmc_faults_100m_u8.tif` | 82,151 | 1,170 | 0.009866 |
+| `scored_h19-5-d1.5_0.2477.tif` | 60,069 | 737 | 0.007602 |
+| `scored_topo-gap-d1.5_0.2449.tif` | 61,328 | 745 | 0.007587 |
+| `unscored_h33-2b2-plus-h33-1.tif` | 38,554 | 558 | 0.00738 |
+| `scored_h33-2-b2_0.2778.tif` | 37,654 | 549 | 0.007348 |
+| `scored_h30-arr-habitat_0.1352.tif` | 91,533 | 930 | 0.007253 |
+| `scored_h27-4-d2.8_0.2708.tif` | 40,199 | 549 | 0.007106 |
+| `scored_h33d-tip-stepover_0.2632.tif` | 41,865 | 556 | 0.007045 |
+| `scored_d28-poisson-offcat_0.2600.tif` | 44,090 | 549 | 0.006765 |
+| `scored_h19-5-d2.8_0.2600.tif` | 44,090 | 549 | 0.006765 |
+| `derived_gdr_volcanics_100m_u8.tif` | 6,776 | 51 | 0.00115 |
+| `derived_gdr_2m_probes_100m_u8.tif` | 2,700 | 10 | 0.000248 |
+| `derived_gdr_paleo_100m_u8.tif` | 244 | 3 | 7.9e-05 |
+| `derived_gdr_qfaults_v2_100m_u8.tif` | 59,065 | 0 | 0.0 |
+| `qfaults_prior_u8.tif` | 138,416 | 0 | 0.0 |
+
+</details>
+
+<hr />
+<h2 id="the-conformal-guarantee-next-to-the-chosen-spacing">The conformal guarantee, next to the chosen spacing</h2>
+<p><strong>Chosen operating point: <code>R2_scarp9_topo</code> at <code>s2.8_d7.37_b2</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>minimum dot spacing</td>
+<td><strong>2.8 px = 280 m</strong></td>
+</tr>
+<tr>
+<td>emitted density</td>
+<td><strong>7.37 px per 1000 scored px</strong></td>
+</tr>
+<tr>
+<td>catalogue flank buffer</td>
+<td><strong>2.0 px = 200 m</strong></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>guarantee</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>method</td>
+<td>split conformal prediction — Lei, G'Sell, Rinaldo, Tibshirani &amp; Wasserman, <em>JASA</em> 113(523):1094–1111, 2018</td>
+</tr>
+<tr>
+<td>unit of exchangeability</td>
+<td><strong>spatial holdout block</strong></td>
+</tr>
+<tr>
+<td>primary instrument</td>
+<td><code>PM0200</code> — catalogue components subsampled by whole component to a 0.200 % truth prevalence, the midpoint of the 0.112-0.294 % range inverted from the organiser's own published scores</td>
+</tr>
+<tr>
+<td>calibration blocks / selection blocks</td>
+<td>12 / 13</td>
+</tr>
+<tr>
+<td>α</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><strong>certified floor (finite-sample, split-robust)</strong></td>
+<td><strong>0.01343</strong></td>
+</tr>
+<tr>
+<td><strong>confidence level</strong></td>
+<td><strong>90.00 %</strong></td>
+</tr>
+<tr>
+<td>certified floor on the single pre-registered split</td>
+<td>0.04477</td>
+</tr>
+<tr>
+<td>mean empirical violation rate over 400 random splits</td>
+<td>0.0873 (nominal alpha = 0.1)</td>
+</tr>
+<tr>
+<td>calibration-half mean DTI</td>
+<td>0.09683</td>
+</tr>
+<tr>
+<td>selection-half mean DTI (audit, never used to choose)</td>
+<td>0.06064</td>
+</tr>
+<tr>
+<td>cleared the certified floor?</td>
+<td><strong>False</strong></td>
+</tr>
+<tr>
+<td>leave-one-block-out worst floor</td>
+<td>0.04477</td>
+</tr>
+<tr>
+<td>DKW/Massart mean floor</td>
+<td>0.04553</td>
+</tr>
+<tr>
+<td>minimum blocks required for this confidence</td>
+<td>9</td>
+</tr>
+<tr>
+<td>vacuous?</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Read this honestly.</strong> The floor is a floor on <em>this instrument</em> — a prevalence-matched, spatially-blocked holdout whose truth is drawn from the given catalogue. It is <strong>not</strong> a forecast of the organiser's public DTI, because the organiser's truth is a set of faults no public compilation contains. The guarantee is exact under exchangeability of blocks; geological blocks are not i.i.d., and the leave-one-block-out and DKW rows above are there so you can see how much work that assumption is doing.</p>
+</blockquote>
+<h3 id="why-the-emitted-mass-is-what-it-is-an-algebraic-ceiling">Why the emitted mass is what it is: an algebraic ceiling</h3>
+<p>The holdout cannot see one thing the organiser's own scores do determine. With <code>M = T</code> and coverage <code>c = T/|G|</code>,</p>
+<pre><code>DTI = c*G / (0.2*S + 0.8*G)   =&gt;   S_max(target, G, c) = G*(c/target - 0.8)/0.2
+</code></pre>
+<p>so <strong>no amount of skill lifts the score above 0.3195 once the emitted mass S exceeds S_max.</strong> At |G| = 8,000 px and coverage 0.6, S_max = <strong>43,117 px</strong> = 8.44 per 1000 scored px. 90 of the 180 swept operating points emit past that ceiling and were dropped before selection: they are not risky, they are arithmetically incapable of reaching the target.</p>
+<table>
+<thead>
+<tr>
+<th>|G| \ coverage</th>
+<th>0.48</th>
+<th>0.60</th>
+<th>0.80</th>
+<th>1.00</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5,764</td>
+<td>20,242</td>
+<td>31,066</td>
+<td>49,107</td>
+<td>67,147</td>
+</tr>
+<tr>
+<td>8,000</td>
+<td>28,094</td>
+<td>43,117</td>
+<td>68,156</td>
+<td>93,196</td>
+</tr>
+<tr>
+<td>10,335</td>
+<td>36,294</td>
+<td>55,702</td>
+<td>88,050</td>
+<td>120,397</td>
+</tr>
+<tr>
+<td>15,179</td>
+<td>53,305</td>
+<td>81,810</td>
+<td>129,318</td>
+<td>176,827</td>
+</tr>
+</tbody>
+</table>
+<p><code>|G|</code> bracket inverted from the eleven published scores: 5,764 ≤ |G| ≤ 15,179 px. Coverage 0.48 is what the 0.2778 incumbent demonstrably achieved.</p>
+<h3 id="the-selection-rule-declared-before-the-result">The selection rule, declared before the result</h3>
+<blockquote>
+<p>hard pre-filters: (i) emitted mass must not exceed the algebraic ceiling S_max at which DTI can no longer reach the target, (ii) folds with truth &lt; 50 px are dropped uniformly; then rank by 0.5<em>worst-normalised-calibration-mean + 0.5</em>worst-normalised-conformal-floor over the prevalence-matched instruments, ties broken toward the floor</p>
+</blockquote>
+<p>Robustness instruments: ['PM0200', 'PM0112', 'PM0294', 'A1', 'A2']. Mean–risk objective value of the chosen point: <strong>0.923</strong> (worst normalised mean 0.925, worst normalised floor 0.920, worst instrument <code>PM0294</code>).</p>
+<h3 id="is-the-guarantee-actually-calibrated">Is the guarantee actually calibrated?</h3>
+<p>A single 50/50 split of 25 heterogeneous geological blocks is one draw from a high-variance distribution. The bound was therefore recomputed over 400 independent random splits of the same blocks (seed 4242):</p>
+<table>
+<thead>
+<tr>
+<th>α</th>
+<th>confidence</th>
+<th>splits</th>
+<th>floor p05</th>
+<th>floor median</th>
+<th>floor max</th>
+<th>mean violation</th>
+<th>nominal α</th>
+<th>% splits calibrated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.05</td>
+<td>95 %</td>
+<td>0</td>
+<td>vacuous</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>0.05</td>
+<td>—</td>
+</tr>
+<tr>
+<td>0.10</td>
+<td>90.0 %</td>
+<td>400</td>
+<td><strong>0.013433</strong></td>
+<td>0.020184</td>
+<td>0.055309</td>
+<td><strong>0.0873</strong></td>
+<td>0.1</td>
+<td>70 %</td>
+</tr>
+<tr>
+<td>0.20</td>
+<td>80.0 %</td>
+<td>400</td>
+<td><strong>0.020184</strong></td>
+<td>0.044769</td>
+<td>0.066775</td>
+<td><strong>0.1642</strong></td>
+<td>0.2</td>
+<td>82 %</td>
+</tr>
+<tr>
+<td>0.25</td>
+<td>75.0 %</td>
+<td>400</td>
+<td><strong>0.026371</strong></td>
+<td>0.046911</td>
+<td>0.086386</td>
+<td><strong>0.2354</strong></td>
+<td>0.25</td>
+<td>62 %</td>
+</tr>
+<tr>
+<td>0.30</td>
+<td>70.0 %</td>
+<td>400</td>
+<td><strong>0.026371</strong></td>
+<td>0.046911</td>
+<td>0.086386</td>
+<td><strong>0.2354</strong></td>
+<td>0.3</td>
+<td>78 %</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Read this as the honest bottom line on the guarantee.</strong> Averaged over splits the mean violation rate is <em>below</em> the nominal α at every level tested, so the theorem is doing its job. On the one pre-registered split the selection half violated the 90 % floor in 0.231 of blocks — split luck, now quantified rather than hidden. The number quoted next to the chosen spacing is therefore the <strong>5th percentile of the floor distribution over all splits</strong>, which is robust to that luck.</p>
+<h3 id="confidence-level-vs-floor">Confidence level vs floor</h3>
+<table>
+<thead>
+<tr>
+<th>α</th>
+<th>confidence</th>
+<th>order statistic k of n</th>
+<th>certified floor</th>
+<th>vacuous?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.05</td>
+<td>95.0 %</td>
+<td>13 of 12</td>
+<td>-inf</td>
+<td>True</td>
+</tr>
+<tr>
+<td>0.10</td>
+<td>90.0 %</td>
+<td>12 of 12</td>
+<td>0.04477</td>
+<td>False</td>
+</tr>
+<tr>
+<td>0.20</td>
+<td>80.0 %</td>
+<td>11 of 12</td>
+<td>0.04691</td>
+<td>False</td>
+</tr>
+<tr>
+<td>0.25</td>
+<td>75.0 %</td>
+<td>10 of 12</td>
+<td>0.06902</td>
+<td>False</td>
+</tr>
+<tr>
+<td>0.30</td>
+<td>70.0 %</td>
+<td>10 of 12</td>
+<td>0.06902</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p>A 90 % lower bound needs n ≥ 9 blocks and a 95 % bound needs n ≥ 19 (<code>conformal.min_blocks_for_alpha</code>). That is the finite-sample price of the theorem, reported rather than hidden.</p>
+<hr />
+<h2 id="what-this-is">What this is</h2>
+<p>GEMSDOE47 generates a <strong>unique</strong> GeoTIFF submission for the DOE GEMS Prize (DrivenData competition 306): identify hidden geologic faults to discover new geothermal resources in the GeoDAWN region of north-western Nevada. $300,000 in prizes, submissions due <strong>3 December 2026</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>page</th>
+<th>what it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="HOW_TO_SUBMIT.html">HOW TO SUBMIT</a></td>
+<td>the executive summary: exactly how to upload, what to type in every field</td>
+</tr>
+<tr>
+<td><a href="RESULTS.html">RESULTS</a></td>
+<td>every measurement, with the script that reproduces it</td>
+</tr>
+<tr>
+<td><a href="why-02778.html">Why 0.2778, and can we beat it?</a></td>
+<td>the PhD-level answer the brief asks for</td>
+</tr>
+<tr>
+<td><a href="research.html">Research knowledge base</a></td>
+<td>verified literature and free official data sources</td>
+</tr>
+<tr>
+<td><a href="hypotheses-s3.html">Hypotheses H47</a></td>
+<td>five new hypotheses ranked, and five refuted ones with their numbers</td>
+</tr>
+<tr>
+<td><a href="REMAINING_WORK.html">Remaining work and limitations</a></td>
+<td>what is left, what this cannot do, and how every claim above is checked</td>
+</tr>
+<tr>
+<td><a href="COMPLIANCE.html">Requirement compliance</a></td>
+<td>pass 3: every line of the brief, checked, with the artifact that satisfies it</td>
+</tr>
+<tr>
+<td><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">Repository README</a></td>
+<td>the standing brief and the repository map</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="official-links-for-manual-review">Official links for manual review</h2>
+<p>Every claim on this site traces to one of these.</p>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Competition home (DrivenData #306, DOE GEMS Prize)</a></li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">Performance metric — the authoritative definition of DTI</a></li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Live public leaderboard</a></li>
+<li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Official reference solution (PyTorch U-Net)</a></li>
+<li><a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">Scoring clarification — are known USGS/INGENIOUS faults masked? (staff answer)</a></li>
+<li><a href="https://community.drivendata.org/t/11527">Organisers will not disclose test-fault sources / types / coverage</a></li>
+<li><a href="https://www.energy.gov/hgeo/articles/hydrocarbons-and-geothermal-energy-office-announces-300000-help-identify-hidden">DOE announcement of the $300,000 GEMS Prize</a></li>
+<li><a href="https://gdr.openei.org/submissions/1391">INGENIOUS Great Basin Regional Dataset Compilation — the origin of all 19 bands (DOI 10.15121/1881483)</a></li>
+<li><a href="https://gdr.openei.org/submissions/1349">USGS Geophysics, Heat Flow, Slip &amp; Dilation Tendency (Nevada Geothermal ML Project)</a></li>
+<li><a href="https://data.openei.org/search?q=Nevada">GeoDAWN EarthMRI / 3DEP LiDAR for western Nevada (Open Energy Data Initiative)</a></li>
+<li><a href="https://pubs.nbmg.unr.edu/Quaternary-faults-in-Nevada-p/m167.htm">NBMG Map 167 — Quaternary faults in Nevada (free download)</a></li>
+<li><a href="https://gisweb.unr.edu/nbmg/rest/services/Geology/Faults/MapServer">NBMG Quaternary Faults ArcGIS service — states traces were digitised at 1:250,000</a></li>
+<li><a href="https://data-nbmg.opendata.arcgis.com/pages/geohazards">NBMG Open Data portal (geohazards)</a></li>
+<li><a href="https://www.sciencebase.gov/catalog/item/5888bf4fe4b05ccb964bab9d">USGS State Geologic Map Compilation (SGMC), DOI 10.5066/F7WH2N65</a></li>
+<li><a href="https://pangea.stanford.edu/ERE/pdf/IGAstandard/SGW/2025/Hermant.pdf">Hermant, Kiersnowski &amp; Bellanger 2025 — deep learning to map Quaternary faults, N. Nevada</a></li>
+<li><a href="https://nbmg.unr.edu/staff/pdfs/blewitt%20grc%20paper.pdf">Blewitt et al. — targeting geothermal resources from geodetic strain rate and slip tendency</a></li>
+<li><a href="https://doi.org/10.1080/01621459.2017.1322365">Lei, G'Sell, Rinaldo, Tibshirani &amp; Wasserman 2018, JASA — split conformal prediction</a></li>
+<li><a href="https://arxiv.org/abs/1604.04173">Same, preprint</a></li>
+<li><a href="https://www.thinkgeoenergy.com/us-doe-announces-prize-challenge-for-discovery-of-hidden-geothermal-systems/">Two-round structure and expert label expansion (independent report of the organiser's rules)</a></li>
+</ul>
+<hr />
+<p><strong>Focal values: Maximize P(Win). Own the Outcome.</strong></p>
+</article>
+</div>
+</body>
+</html>

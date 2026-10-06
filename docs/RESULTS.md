@@ -6,7 +6,7 @@ nav_order: 3
 
 # Results — every measurement, with the script that reproduces it
 
-*Generated 2026-10-06 17:47 UTC by `scripts/build_site.py`.*
+*Generated 2026-10-06 19:58 UTC by `scripts/build_site.py`.*
 
 ## 1. Which bands can localise a fault at all
 

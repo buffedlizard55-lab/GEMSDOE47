@@ -6,7 +6,7 @@ nav_order: 1
 
 # GEMSDOE47 · DOE GEMS Prize (DrivenData #306) · NW Nevada / GeoDAWN
 
-*Generated 2026-10-06 17:47 UTC by `scripts/build_site.py` from committed JSON receipts. No number on this site is hand-typed.*
+*Generated 2026-10-06 19:58 UTC by `scripts/build_site.py` from committed JSON receipts. No number on this site is hand-typed.*
 
 ---
 
@@ -27,7 +27,7 @@ nav_order: 1
 | **Submission name** | `gemsdoe47-scarp9-persistence-s2.8-d7.37-b2` |
 | **`Note (optional)`** (152/200 chars) | `Across-strike slope step persisted 1.9km; binary dots, 280m spacing, 200m off known-fault flanks; 37.6k px; spacing fixed by split conformal, 90% floor.` |
 
-**➡️ Step-by-step upload instructions: [HOW TO SUBMIT](HOW_TO_SUBMIT.md)**
+**➡️ Step-by-step upload instructions: [HOW TO SUBMIT](HOW_TO_SUBMIT.html)**
 
 ### Uniqueness — checked, not claimed
 
@@ -154,13 +154,13 @@ GEMSDOE47 generates a **unique** GeoTIFF submission for the DOE GEMS Prize (Driv
 
 | page | what it answers |
 |---|---|
-| [HOW TO SUBMIT](HOW_TO_SUBMIT.md) | the executive summary: exactly how to upload, what to type in every field |
-| [RESULTS](RESULTS.md) | every measurement, with the script that reproduces it |
-| [Why 0.2778, and can we beat it?](why-02778.md) | the PhD-level answer the brief asks for |
-| [Research knowledge base](research.md) | verified literature and free official data sources |
-| [Hypotheses H47](hypotheses.md) | five new hypotheses ranked, and five refuted ones with their numbers |
-| [Remaining work and limitations](REMAINING_WORK.md) | what is left, what this cannot do, and how every claim above is checked |
-| [Requirement compliance](COMPLIANCE.md) | pass 3: every line of the brief, checked, with the artifact that satisfies it |
+| [HOW TO SUBMIT](HOW_TO_SUBMIT.html) | the executive summary: exactly how to upload, what to type in every field |
+| [RESULTS](RESULTS.html) | every measurement, with the script that reproduces it |
+| [Why 0.2778, and can we beat it?](why-02778.html) | the PhD-level answer the brief asks for |
+| [Research knowledge base](research.html) | verified literature and free official data sources |
+| [Hypotheses H47](hypotheses-s3.html) | five new hypotheses ranked, and five refuted ones with their numbers |
+| [Remaining work and limitations](REMAINING_WORK.html) | what is left, what this cannot do, and how every claim above is checked |
+| [Requirement compliance](COMPLIANCE.html) | pass 3: every line of the brief, checked, with the artifact that satisfies it |
 | [Repository README](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md) | the standing brief and the repository map |
 
 ---

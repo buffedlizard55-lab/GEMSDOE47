@@ -43,8 +43,7 @@ from scipy.ndimage import distance_transform_edt
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47s3 import metric as M            # noqa: E402
-from gems47s3.spec import (EPSG, HEIGHT, TRANSFORM, WIDTH)  # noqa: E402
+from gems47s3.spec import EPSG, HEIGHT, TRANSFORM, WIDTH
 
 REF = ROOT / "data" / "reference"
 DATA = ROOT / "data"
@@ -156,7 +155,6 @@ def main() -> int:
     # ------------------------------------------------- credit of removed mass
     # For a nested pair (base -> pruned) the organiser's two scores pin the mean
     # realised credit of the removed dots, given |G|.  Solve for the best-known pair.
-    best = max(rows, key=lambda r: r["reported_public_dti"])
     removals = []
     for nb in nesting:
         if not (nb["a_is_subset_of_b"] or nb["b_is_subset_of_a"]):
@@ -171,8 +169,8 @@ def main() -> int:
         for G in (g_floor, 8000.0, 12000.0, 20000.0):
             # assume the child keeps all of the parent's credit except dT
             # parent: s_p = T_p/(0.2 T_p + 0.2 S_p + 0.8 G)   [M=0 corner]
-            def solve(s, S):
-                return s * (0.2 * S + 0.8 * G) / (1 - 0.2 * s)
+            def solve(s, S, _G=G):
+                return s * (0.2 * S + 0.8 * _G) / (1 - 0.2 * s)
             try:
                 Tp = solve(parent["reported_public_dti"], parent["S_active"])
                 Tc = solve(child["reported_public_dti"], child["S_active"])

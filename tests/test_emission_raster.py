@@ -154,8 +154,9 @@ def test_write_validate_roundtrip_all_finite(tmp_path):
 
 def test_validator_rejects_out_of_range_values(tmp_path):
     import rasterio
-    from gems47s3.spec import HEIGHT, WIDTH
+
     from gems47s3.raster import TRANSFORM
+    from gems47s3.spec import HEIGHT, WIDTH
     p = tmp_path / "bad.tif"
     a = np.zeros((HEIGHT, WIDTH), np.float32)
     a[0, 0] = 1.5                             # outside [0,1]
@@ -171,8 +172,9 @@ def test_validator_rejects_the_float32_sentinel(tmp_path):
     """The official training_features.tif uses -3.4028234663852886e38 for out-of-footprint
     cells; if that value reaches a submission the portal's range check fails."""
     import rasterio
-    from gems47s3.spec import HEIGHT, WIDTH
+
     from gems47s3.raster import TRANSFORM
+    from gems47s3.spec import HEIGHT, WIDTH
     p = tmp_path / "sentinel.tif"
     a = np.zeros((HEIGHT, WIDTH), np.float32)
     a[5, 5] = np.float32(-3.4028234663852886e38)
@@ -233,6 +235,7 @@ def test_openness_is_high_on_a_crest_and_low_in_a_pit():
 def _real_footprint_and_a_dot_inside_it():
     """The template footprint, plus a 10x10 dot guaranteed to lie inside it."""
     import numpy as np
+
     from gems47s3.grid import Grid
     fp = Grid().footprint
     ys, xs = np.nonzero(fp)
@@ -268,10 +271,12 @@ def test_zeros_mode_carries_the_strongest_guarantee(tmp_path):
 def test_gated_recipes_still_yield_a_total_order():
     """Multiplying a total-order core by a gate re-introduces float32 collisions; build_field
     must re-rank so the emitter's spacing guarantee holds for gated recipes too."""
+    from pathlib import Path
+
     import numpy as np
+
     from gems47s3.detector import Bands, Recipe, build_field
     from gems47s3.grid import Grid
-    from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     surf = root / "data" / "surfaces" / "valid.npy"
     if not surf.exists():

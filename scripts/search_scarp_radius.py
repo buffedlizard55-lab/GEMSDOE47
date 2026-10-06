@@ -13,14 +13,19 @@ Run:  python3 scripts/search_scarp_radius.py
 Out:  evidence/scarp_radius_search.json
 """
 from __future__ import annotations
-import json, sys, time
+
+import json
+import sys
+import time
 from pathlib import Path
-import numpy as np, rasterio
+
+import numpy as np
+import rasterio
 from scipy import ndimage as ndi
+
 ROOT = Path(__file__).resolve().parents[1]; sys.path.insert(0, str(ROOT / "src"))
 from gems47s3 import geomorph as G
 from gems47s3.detector import Bands
-from gems47s3.spec import FEATURE_INVALID_BELOW
 
 DATA = ROOT / "data"; SURF = DATA / "surfaces"; EV = ROOT / "evidence"
 NS = (2_000, 5_000, 10_000, 20_000, 40_000, 80_000, 160_000)
@@ -51,7 +56,7 @@ def main():
     smp = lambda m, n: rng.choice(np.nonzero(m.ravel())[0], size=min(n, int(m.sum())), replace=False)
     S = {k: dict(pos=smp(v, 40000), neg=smp(bg, 120000)) for k, v in T.items()}
     print("[setup] " + " ".join(f"{k}={int(v.sum())}" for k, v in T.items()) +
-          f" random P@40k: " + " ".join(f"{k}={v.sum()/valid.sum():.4f}" for k, v in T.items()))
+          " random P@40k: " + " ".join(f"{k}={v.sum()/valid.sum():.4f}" for k, v in T.items()))
     rows = []
     for b in ("det_elev_slope", "det_elev", "tmi_hg"):
         z = bands.filled(b, valid)

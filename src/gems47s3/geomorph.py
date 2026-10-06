@@ -111,7 +111,7 @@ def openness(z: np.ndarray, radius: int) -> np.ndarray:
 
     psi_d = max_t arctan((z(x+t d) - z(x)) / (t * cell));  openness = pi/2 - max_d psi_d.
     """
-    L = max(1, int(round(radius)))
+    L = max(1, radius)
     worst = np.full(z.shape, -np.inf, np.float32)
     for dy, dx in DIRS8:
         norm = float(np.hypot(dy, dx))

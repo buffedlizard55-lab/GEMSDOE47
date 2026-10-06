@@ -42,15 +42,14 @@ from pathlib import Path
 
 import numpy as np
 import rasterio
-from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3 import emission as E                                 # noqa: E402
-from gems47s3.detector import Bands, Recipe, build_field           # noqa: E402
-from gems47s3.grid import Grid                                     # noqa: E402
-from gems47s3.raster import receipt_json, validate_submission, write_submission  # noqa: E402
-from gems47s3.spec import EPSG, FOOTPRINT_PIXELS, HEIGHT, WIDTH    # noqa: E402
+from gems47s3 import emission as E
+from gems47s3.detector import Bands, Recipe, build_field
+from gems47s3.grid import Grid
+from gems47s3.raster import receipt_json, validate_submission, write_submission
+from gems47s3.spec import FOOTPRINT_PIXELS, HEIGHT, WIDTH
 
 DATA = ROOT / "data"
 REF = DATA / "reference"
@@ -150,7 +149,7 @@ def main() -> int:
     # ---- emission domain: inside the footprint, finite in all bands, off the given catalogue
     scored = g.footprint & valid & ~g.catalogue
     n_scored = int(scored.sum())
-    budget = int(round(density * n_scored / 1000.0))
+    budget = round(density * n_scored / 1000.0)
     emask = scored if flank_b <= 0 else (scored & (g.d_catalogue > flank_b))
     em = E.emit(field, emask, min_dist=min_dist, support_q=1.0, blur="none", budget=budget)
     mask = em["mask"]

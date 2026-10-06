@@ -1,12 +1,23 @@
 # GEMSDOE47 — DOE GEMS Prize (DrivenData competition 306), NW Nevada / GeoDAWN
 
+> **Read `README.md` first — it is the standing charter and the current decision record.**
+> This file is *session 3*'s transcription of the brief and its own results. Where the two differ,
+> `README.md` governs. Two corrections session 3 adopted from it: the public leaderboard rank 1 is
+> **0.3774** (a later same-date read; this session started from 0.3345), and the attribution of
+> 0.2778 to a specific TIFF is **contested** (`IR-47-002`) — session 3's nesting arithmetic
+> (40,199 − 2,545 = 37,654) is a fact about the bytes, not proof of which bytes earned which score.
+>
+> Session 3's candidate is **CONTROL-PASSED, NOT LATI-VALIDATED, NO SLOT RECOMMENDED YET** — see
+> `docs/session3.md` and `evidence/control/controls.json`. Its package is namespaced to
+> `src/gems47s3/` so nothing of the two earlier sessions is overwritten.
+
 **Focal values: Maximize P(Win). Own the Outcome.**
 
 This repository exists to produce one thing: a **unique, valid, downloadable GeoTIFF
 submission** that scores above everything the GEMSDOE1–46 family has shipped, plus the
 evidence, code and documentation that make the result checkable line by line.
 
-> **➡️ The submission is at the top of the site: [docs/index.md](docs/index.md) →
+> **➡️ The submission is at the top of the site: [docs/session3.md](docs/session3.md) →
 > `docs/downloads/`.** The one-click TIF, its SHA-256, its format receipt and the conformal
 > confidence level next to the chosen spacing are all in the executive summary.
 > See **[HOW TO SUBMIT](docs/HOW_TO_SUBMIT.md)**.

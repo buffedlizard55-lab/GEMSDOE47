@@ -35,7 +35,7 @@ bank or a fan edge than a fault.
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass, field as dc_field
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
@@ -70,7 +70,7 @@ class Recipe:
                     regional_power=float(self.regional_power), notes=self.notes)
 
     @staticmethod
-    def from_dict(d: dict) -> "Recipe":
+    def from_dict(d: dict) -> Recipe:
         return Recipe(name=d["name"], terms=[(b, t, float(r), float(w)) for b, t, r, w in d["terms"]],
                       use_vacancy=d.get("use_vacancy", False),
                       vacancy_scale_px=d.get("vacancy_scale_px", 8.0),

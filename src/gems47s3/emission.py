@@ -185,8 +185,7 @@ def greedy_coverage(field: np.ndarray, mask: np.ndarray, n: int,
         for d, e, k in zip(dy, dx, kw):
             ny, nx = y + int(d), x + int(e)
             if 0 <= ny < f.shape[0] and 0 <= nx < f.shape[1]:
-                if float(k) > C[ny, nx]:
-                    C[ny, nx] = float(k)
+                C[ny, nx] = max(C[ny, nx], float(k))
     return out
 
 

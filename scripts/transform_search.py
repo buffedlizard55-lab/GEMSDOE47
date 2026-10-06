@@ -46,7 +46,7 @@ from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3.spec import BAND_INDEX, FEATURE_INVALID_BELOW  # noqa: E402
+from gems47s3.spec import BAND_INDEX, FEATURE_INVALID_BELOW
 
 DATA = ROOT / "data"
 REF = DATA / "reference"
@@ -105,7 +105,7 @@ def t_openness(z, r):
     same transform GEMSDOE19's H19-5 used on 1 m LiDAR; here it is applied to the official
     100 m det_elev, the only elevation surface obtainable in this environment.
     """
-    L = max(1, int(round(r)))
+    L = max(1, round(r))
     dirs = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
     worst = np.full(z.shape, -np.inf, np.float32)
     for dy, dx in dirs:

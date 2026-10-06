@@ -1,0 +1,36 @@
+[tool.ruff]
+# No global `select`: ruff's defaults stay in force for the whole repository, so
+# the previous session's modules (gemsdoe47/, src/gems47_*.py) are linted exactly
+# as strictly as they were before this merge.  The ignores below are scoped to the
+# paths added by the later session and each one records a deliberate pattern
+# rather than a suppressed warning.
+line-length = 110
+
+[tool.ruff.lint.per-file-ignores]
+"src/gems47/*" = [
+  "C408",   # dict()/list() calls: these build record dicts from computed values,
+            # where the call form is clearer than a literal with 8+ keyword pairs
+  "RUF015", # next() vs [0]: the list comprehension form keeps the filter visible
+  "RUF059", # unused tuple unpack: the position carries meaning (e.g. d, dy, dx, iy, ix)
+  "BLE001", # blind except: the restore path must survive any single-file API failure
+]
+# Session 3 (merged 2026-10-06) added a second, namespaced package.  It gets the same
+# ignores for the same stated reasons -- these are deliberate patterns, not suppressed
+# warnings -- plus the two that its evidence-writing style needs:
+#   E501 is not ignored; line-length 110 is enforced.
+"src/gems47s3/*" = [
+  "C408",   # dict()/list() calls building evidence records from computed values
+  "RUF015",
+  "RUF059", # unused tuple unpack: the position carries meaning (e.g. dy, dx, kw)
+  "BLE001",
+  "RUF046", # round() inside a dict value: the rounding IS the reported precision
+]
+"scripts/*" = [
+  "C408", "RUF015", "RUF059",
+  "E402",   # imports after sys.path.insert: unavoidable for scripts run from the repo root
+  "UP031",  # printf formatting in progress logs
+  "S110", "S112",  # try/except pass|continue while sweeping many prior rasters
+  "ISC004", # implicit concatenation across lines in long evidence strings
+  "BLE001",
+]
+"tests/*" = ["C408", "RUF015", "RUF059"]

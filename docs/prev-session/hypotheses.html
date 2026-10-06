@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<base href="../"><!-- preserved verbatim from the earlier session; base repoints its relative links to docs/ -->
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Ranked, falsifiable GEMS fault-detection hypotheses with source availability, confounders and current H47-B negative result.">
+  <title>Ranked Hypotheses · GEMSDOE47</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap"><div class="brand"><h1>GEMSDOE47</h1><span class="tag">Prior rankings are not results</span></div>
+  <nav aria-label="Main navigation"><a href="../index.html">Project home</a><a href="executive-summary.html">Executive summary</a><a href="submit.html">How to submit</a><a href="analysis.html">Results</a><a href="leaderboard.html">Leaderboard evidence</a><a class="on" href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a></nav>
+</div></header>
+<main class="wrap">
+  <div class="note bad"><strong>H47-B, the initial top-ranked screen, is now tested and NOT PROMOTED.</strong> It lost to the fixed-seed random control and its assumption-conditional lower bound was zero. The original ranking below is preserved as a prior; it is not a post-hoc claim of success. No slot is eligible.</div>
+  <p>The original shortlist was prepared before H47-B scoring. Expected gains are qualitative priors, not numeric performance claims. “New” refers to the inspected project code/artifacts, not global novelty.</p>
+  <table><thead><tr><th>Prior rank</th><th>Hypothesis / signature</th><th>Expected gain / effort (prior only)</th><th>Official source and availability</th><th>Current status</th></tr></thead><tbody>
+    <tr><td>#1</td><td><strong>H47-B — cross-scale magnetic-edge persistence.</strong> Magnetic contacts stable in position and axial orientation across 200/400/800 m Gaussian scales; confounders include lithology, remanence, mosaic and processing edges.</td><td>Medium, high uncertainty; medium cost for a rank-grid screen, high for a physical tilt-depth reconstruction.</td><td><a href="https://doi.org/10.5066/P93LGLVQ" rel="noopener">USGS GeoDAWN DOI 10.5066/P93LGLVQ</a>. A rank-encoded mirror channel was tested; raw magnetic units and organizer features were not locally available.</td><td><strong>Tested; NOT PROMOTED.</strong> Public-catalogue holdout lost to random; floor 0.</td></tr>
+    <tr><td>#2</td><td><strong>H47-C — attribute-conditioned fault-tip continuation.</strong> Continue a mapped trace only where geomorphic/structural attributes support a truncated mapping boundary; true fault termination is the key alternative.</td><td>Low–medium; medium–high implementation cost.</td><td><a href="https://www.usgs.gov/programs/earthquake-hazards/faults" rel="noopener">USGS Quaternary Faults and Folds</a> and <a href="https://www.usgs.gov/3d-elevation-program" rel="noopener">USGS 3DEP</a>. Local summary CSV has centroids, not trace vertices; obtain official geometry and measure exact overlap before modeling.</td><td>Possible next research direction, conditional on geometry and holdout baseline.</td></tr>
+    <tr><td>#3</td><td><strong>H47-D — ASTER alteration boundaries × independent basement structure.</strong> Test class-specific alteration edges co-located with independent magnetic structure; alteration polygons are not geothermal or fault labels.</td><td>Low–medium, high variance; high implementation cost.</td><td><a href="https://mrdata.usgs.gov/surficial-mineralogy/ofr-2013-1139/" rel="noopener">USGS MRData ASTER/OFR 2013–1139</a>. Official catalog page lists data; no archive/footprint counts are in this checkout.</td><td>Research idea only; acquire, license-check, and measure coverage first.</td></tr>
+    <tr><td>#4</td><td><strong>H47-E — strain-tensor dilatancy × independent edge.</strong> Test whether present-day strain orientations agree with a separate basement lineament while controlling resolution and mechanism.</td><td>Low–medium; high implementation cost.</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/" rel="noopener">DrivenData feature data</a> is login-gated; named bands are not equivalent to locally verified files.</td><td>Blocked on authorized raster access and a falsifiable spatial test.</td></tr>
+    <tr><td>#5</td><td><strong>H47-F — time-persistent spring/well thermal-chemistry residuals.</strong> Repeated, quality-controlled anomalies may support fluid pathways; station duplication and sampling bias are major confounders.</td><td>Low–medium; medium–high implementation cost.</td><td><a href="https://gdr.openei.org/submissions/1391" rel="noopener">DOE INGENIOUS GDR 1391</a>. Catalog lists temperature/chemistry data; exact-footprint station count has not been computed.</td><td>Conditional only; no coverage or predictive result established.</td></tr>
+  </tbody></table>
+  <h2>Current research order</h2>
+  <p>The prior ranking remains visible to avoid rewriting history. Following H47-B's negative screen, investigate H47-C's official geometry availability and build a defensible current spatial-holdout baseline before detector work. If trace geometry cannot be obtained or its overlap is insufficient, reassess H47-D and H47-F only after their official data coverage is counted. H47-A acquisition-invariant edges are implemented as a screen but lack a valid geological holdout. H47-B should not be retuned on the same locked blocks; any new physical-data version needs a new preregistration and independent holdout.</p>
+  <div class="note"><strong>Slot rule:</strong> no hypothesis advances to upload until its genuinely new output beats the current spatially blocked holdout best and relevant controls, with adequate label coverage and a successful file/uniqueness audit. A public-board score or a promising physical story cannot waive this gate.</div>
+  <p><a href="hypotheses.md">Detailed hypothesis rationale and provenance →</a> · <a href="preregistered-h2.md">Frozen H47-B protocol →</a> · <a href="validation-h47b-20261006.md">H47-B results →</a></p>
+</main>
+<footer><div class="wrap">Expected improvement and implementation costs are priors, not scores.</div></footer>
+</body>
+</html>

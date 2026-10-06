@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<base href="../"><!-- preserved verbatim from the earlier session; base repoints its relative links to docs/ -->
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="GEMSDOE47 executive summary: research-only H47-B GeoTIFF, failed holdout gate, and current submission decision.">
+  <title>Executive Summary · GEMSDOE47</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">DOE GEMS Prize · evidence before upload</span></div>
+  <nav aria-label="Main navigation">
+    <a href="../index.html">Project home</a><a class="on" href="executive-summary.html">Executive summary</a>
+    <a href="submit.html">How to submit</a><a href="analysis.html">Results analysis</a>
+    <a href="leaderboard.html">Leaderboard evidence</a><a href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a>
+  </nav>
+</div></header>
+<main class="wrap">
+  <section class="dl">
+    <h2>Research-only GeoTIFF — <span class="bad">DO NOT SUBMIT</span></h2>
+    <p>H47-B passed the local file-format audit but <strong>failed the preregistered promotion gate</strong>. No competition slot is recommended.</p>
+    <a class="btn" download href="downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download the research TIFF</a>
+    <dl class="kv"><dt>SHA-256</dt><dd>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</dd><dt>Locked test</dt><dd>0.027553 H47-B · 0.025639 baseline · 0.037159 random</dd><dt>Floor</dt><dd>0.0; exchangeability unverified</dd><dt>Format</dt><dd>One-band float32 · 3292 × 3730 · EPSG:32611 · 100 m · values [0,1] inside and NaN outside</dd></dl>
+    <a class="btn sec" href="validation-h47b-20261006.md">Detailed experiment report →</a>
+  </section>
+  <h2>Executive summary</h2>
+  <p>The objective remains a <strong>new, scientifically defensible and unique fault-prediction raster</strong> for the DOE GEMS Prize. H47-B tests cross-scale persistence of a rank-encoded upward-continued magnetic channel. The detector is distinct from the historical d-cat pruning artifact, but it did not outperform a random control on the locked spatial blocks. It is not a submission candidate.</p>
+  <p>The latest saved one-time public-board observation is rank 1 at 0.3774 (participant name not retained); DARD was rank 7 at 0.3195; `extradr19` was rank 13 at 0.2778. The old checked-in 0.3345 rank-1 snapshot is superseded. None of these participant rows authenticates a TIFF-to-score mapping. In particular, the GEMSDOE32 H33-2-B2 file is marked unscored by its owner page.</p>
+  <div class="note bad"><strong>Do not upload either TIFF in this repository.</strong> H47-B failed the preregistered promotion gate. The older d-cat/annulus file is derived by deleting pixels from a published sibling mask and does not meet the no-copy requirement. The old modeled 0.34912 score and 0.34837 “conformal floor” are retired.</div>
+  <h2>What would authorize a future submission?</h2>
+  <ol class="steps"><li>Obtain and hash authorized competition inputs; verify local mirror provenance against official downloads where possible.</li><li>Freeze a spatially blocked baseline and a genuinely new detector, controls, label-coverage rules, and metric before looking at held-out scores.</li><li>Require a robust gain over the current spatial holdout best and controls; do not use a slot if that gate fails.</li><li>Validate the exact written TIFF and compare it against accessible prior artifacts. State what the uniqueness search cannot prove.</li><li>Only after approval, use the current official portal instructions manually with an accurate unique name and short note. See <a href="submit.html">How to submit</a>.</li></ol>
+  <p><a class="btn sec" href="analysis.html">Read score attribution and experimental details →</a> <a class="btn sec" href="hypotheses.html">Review ranked next hypotheses →</a></p>
+</main>
+<footer><div class="wrap">GEMSDOE47 · public research note · <a href="sources.html">Source register</a> · <a href="../README.md">Standing charter</a></div></footer>
+</body>
+</html>

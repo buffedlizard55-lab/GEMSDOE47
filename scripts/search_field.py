@@ -35,9 +35,8 @@ from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3 import geomorph as G                              # noqa: E402
-from gems47s3.detector import Bands, regional_gate, vacancy_gate  # noqa: E402
-from gems47s3.spec import BAND_INDEX, FEATURE_INVALID_BELOW     # noqa: E402
+from gems47s3 import geomorph as G
+from gems47s3.detector import Bands, vacancy_gate
 
 DATA = ROOT / "data"
 SURF = DATA / "surfaces"
@@ -138,14 +137,14 @@ def main() -> int:
             for r in radii:
                 try:
                     t = np.asarray(fn(z, r), np.float32)
-                except Exception as e:
+                except Exception:
                     continue
                 score_field(f"{bname}:{tname}:{r:g}", G.rank_scale(np.where(valid, t, np.nan)),
                             valid, targets, samples, rows, t0)
     # inverted openness (low openness = enclosed = linear valley, which scored AUC 0.28 on B)
     for bname in ("det_elev", "det_elev_slope"):
         for r in (1.5, 3.0, 5.0):
-            o = G.openness(zb[bname], int(round(r)))
+            o = G.openness(zb[bname], round(r))
             score_field(f"{bname}:inv_openness:{r:g}", G.rank_scale(np.where(valid, -o, np.nan)),
                         valid, targets, samples, rows, t0)
 

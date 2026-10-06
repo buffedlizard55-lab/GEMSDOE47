@@ -34,7 +34,7 @@ from scipy import ndimage as ndi
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47s3.spec import FEATURE_BANDS, FEATURE_INVALID_BELOW  # noqa: E402
+from gems47s3.spec import FEATURE_BANDS, FEATURE_INVALID_BELOW
 
 DATA = ROOT / "data"
 SURF = DATA / "surfaces"

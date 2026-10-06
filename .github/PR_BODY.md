@@ -1,3 +1,78 @@
+## Merge shape — read this first
+
+`main` had already absorbed **two prior sessions on this same brief**, and its recorded decision is
+*"no submission is eligible and no slot is recommended"*. Its branch history is also **unrelated**
+to this one (`git merge-base` returns nothing), so this is an `--allow-unrelated-histories` merge.
+Nothing of main's is overwritten:
+
+* **This session's package is namespaced** `src/gems47/` → **`src/gems47s3/`**; main's
+  `src/gems47/` is untouched. Same for `tests/test_metric_s3.py`, `docs/hypotheses-s3.md`,
+  `scripts/build_submission_s3.py`, `README-session3.md`.
+* **`scripts/build_site_s3.py --check` asserts it**: all **44** of main's `docs/` files are
+  byte-identical to `main`, and the one sanctioned change (`docs/index.html`) is verified
+  *additive* — all 367 of main's lines survive in order, 47 added.
+* The only content conflict in the whole merge was `.gitignore`, resolved as a documented union.
+* **main's CI gates now pass on the merged tree**: `ruff check .` clean (195 errors in session-3
+  code fixed, plus a `src/gems47s3/*` entry in `pyproject.toml`'s `per-file-ignores` mirroring
+  main's `src/gems47/*` for the same stated reasons); `unittest discover -s tests` 68 tests OK;
+  `pytest` **152 passed, 8 skipped**, including main's `tests/test_site.py` site-integrity suite,
+  which session-3's pages are held to rather than exempted from.
+* One pre-existing bug in main's suite fixed on the way: `tests/test_shipped.py::
+  test_training_nodata_is_float32_min_not_nan` took no fixture, so it raised `RasterioIOError`
+  instead of skipping in a data-less checkout. CI never saw it because CI names its test files
+  explicitly. It now takes the module's `tmpl` guard like its siblings.
+
+**main's gate status is unchanged by this PR.** The header badge on `docs/index.html` still reads
+*GATE CLOSED — NO SUBMISSION RECOMMENDED*. Session 3's artifact is published as
+**CONTROL-PASSED · NOT LATI-VALIDATED · NO SLOT RECOMMENDED YET**.
+
+## The control that main's standard requires
+
+Both prior gates closed on the same missing control, so session 3 ran it:
+`scripts/control_random_and_shifted.py` → `evidence/control/controls.json`. At **matched mass,
+matched spacing and matched flank buffer on identical folds**:
+
+| frame | A: shipped dots | B: random field, identical emitter (20 seeds) | C: A translated 45–60 px | D: same mass, wrong places | A ÷ B | A > B |
+|---|---|---|---|---|---|---|
+| `PM0112` | **0.00908** | 0.00151 (sd 0.00106) | 0.00126 | 0.00195 | **6.02×** | 23/24 |
+| `PM0200` | **0.01380** | 0.00224 (sd 0.00131) | 0.00193 | 0.00212 | **6.17×** | 24/25 |
+| `PM0294` | **0.01497** | 0.00227 (sd 0.00115) | 0.00210 | 0.00235 | **6.61×** | 23/25 |
+| `A1` isolated | **0.00857** | 0.00180 (sd 0.00093) | 0.00122 | 0.00185 | **4.75×** | 17/20 |
+
+Arm C is the important one: it preserves the candidate's density and clustering and destroys only
+its *alignment* with the geology, so A ≫ C means the placement is doing work and not merely the
+dot count. `A1` is the cleanest frame — isolated components are by construction >3 px from the rest
+of the catalogue, so the flank prune cannot be anti-correlated with the truth there.
+
+**`IR-47-CODE-09`: the first run of this control reported the opposite result and was wrong.** It
+pruned the controls against the *visible* catalogue while the shipped raster had been pruned
+against the *full* catalogue, so the controls could place dots within 2 px of the fold truth and
+the candidate structurally could not. It reported A/B = 0.28–0.31 — *"loses to random by 3.5×"*,
+which is exactly how main's H47-B died (0.02755 vs 0.03716). Fixing the asymmetry reversed the
+verdict. Both runs are recorded in the script's docstring and the commit message, because a
+reviewer seeing only one of them would reach the opposite conclusion about the same bytes.
+
+**Why no slot is recommended anyway.** The candidate has not been through main's promotion
+instrument: cross-fitted LATI with paired out-of-fold deltas against the incumbent on all five
+truth frames. Its own holdout shows the optimizer's-curse signature — calibration mean 0.0968
+against a selection mean of 0.0606, a 37 % out-of-fold drop. It stays positive, which H47-GSA did
+not, but a positive drop is not a promotion. It also inherits main's ceiling: same 100 m layers
+that forty-four repositories converged on at 0.26–0.28, and a 0.5–3 m scarp averaged into a 100 m
+pixel is below the noise floor of the resampled product.
+
+## Corrections adopted from main
+
+* Public leaderboard rank 1 is **0.3774** (main's later same-date read), not the 0.3345 this
+  session started from. Both are recorded rather than silently reconciled.
+* `IR-47-002`: the attribution of 0.2778 to a specific TIFF is **contested**. Session 3's nesting
+  arithmetic (40,199 − 2,545 = 37,654, verified as an exact subset) is a fact about the bytes, not
+  proof of which bytes earned which score. `docs/why-02778.html` is labelled accordingly.
+* `docs/_config.yml` was deleted: `docs/.nojekyll` is present, so Jekyll never runs and a config
+  file there would imply a build that does not happen. Session-3 pages are rendered to HTML into
+  main's existing skin instead.
+
+---
+
 ## What this delivers
 
 A **unique, format-verified GeoTIFF submission** for DrivenData competition 306 (DOE GEMS Prize,

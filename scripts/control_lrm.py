@@ -37,8 +37,8 @@ from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3 import geomorph as G                    # noqa: E402
-from gems47s3.spec import BAND_INDEX, FEATURE_INVALID_BELOW  # noqa: E402
+from gems47s3 import geomorph as G
+from gems47s3.spec import BAND_INDEX, FEATURE_INVALID_BELOW
 
 DATA = ROOT / "data"
 EV = ROOT / "evidence"

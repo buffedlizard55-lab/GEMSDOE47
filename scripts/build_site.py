@@ -7,13 +7,12 @@ every figure, table and link on every page is read out of a committed JSON recei
 inventing a value.
 
 Run:  python3 scripts/build_site.py
-Out:  docs/index.md, docs/HOW_TO_SUBMIT.md, docs/RESULTS.md, docs/why-02778.md,
+Out:  docs/session3.md, docs/HOW_TO_SUBMIT.md, docs/RESULTS.md, docs/why-02778.md,
       docs/research.md, docs/_config.yml
 """
 from __future__ import annotations
 
 import json
-import sys
 import time
 from pathlib import Path
 
@@ -88,7 +87,7 @@ def missing(name: str) -> str:
 
 
 # --------------------------------------------------------------------------- page builders
-def page_index(bundle, sel, sweep) -> str:
+def page_index(bundle, sel, sweep, ctrl=None) -> str:
     now = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
     name = bundle["submission_name"] if bundle else "<not built yet>"
     tif = f"downloads/{name}.tif"
@@ -99,14 +98,10 @@ def page_index(bundle, sel, sweep) -> str:
     par = ch.get("params", {}) if ch else {}
     # --- pre-compute the guarantee numbers (no nested f-strings: Python 3.11 rejects them)
     a_used = float(sel.get("alpha_used", sel.get("alpha", 0.10))) if sel else 0.10
-    rep_all = (sel or {}).get("repeated_split_robustness") or {}
-    rep_a = (rep_all.get("by_alpha") or {}).get(f"alpha={a_used:.2f}", {}) or {}
-    rep_a10 = (rep_all.get("by_alpha") or {}).get("alpha=0.10", {}) or {}
+    rep_a = (((sel or {}).get("repeated_split_robustness") or {}).get("by_alpha") or {}).get(f"alpha={a_used:.2f}", {}) or {}
     fl_p05 = rep_a.get("floor_p05")
-    fl_p05_10 = rep_a10.get("floor_p05")
     n_splits = rep_a.get("n_splits", 0)
     viol_mean = rep_a.get("mean_violation_rate")
-    deliv_10 = ((sel or {}).get("delivered_by_alpha") or {}).get("alpha=0.10", {}) or {}
     lines = [
         "---", "title: GEMSDOE47 — DOE GEMS Prize submission", "layout: default",
         "nav_order: 1", "---", "",
@@ -125,16 +120,16 @@ def page_index(bundle, sel, sweep) -> str:
             f"| **File** | [`{name}.tif`]({tif}) |",
             f"| **SHA-256** | `{sha}` |",
             f"| **Size** | {size} bytes |",
-            f"| **Format** | single band, float32, EPSG:32611, 100 m, 3730 × 3292, "
-            f"every cell finite and in [0,1], **no nodata tag** |",
-            f"| **Values** | binary {{0.0, 1.0}} — proved optimal in §“Why binary” below |",
+            "| **Format** | single band, float32, EPSG:32611, 100 m, 3730 × 3292, "
+            "every cell finite and in [0,1], **no nodata tag** |",
+            "| **Values** | binary {0.0, 1.0} — proved optimal in §“Why binary” below |",
             f"| **Positive pixels** | {bundle['operating_point']['emitted_px']:,} "
             f"({bundle['operating_point']['emitted_pct_of_footprint']} % of the footprint) |",
             f"| **Submission name** | `{name}` |",
             f"| **`Note (optional)`** ({bundle['note_length']}/200 chars) | "
             f"`{bundle['note_optional']}` |",
             "",
-            "**➡️ Step-by-step upload instructions: [HOW TO SUBMIT](HOW_TO_SUBMIT.md)**", "",
+            "**➡️ Step-by-step upload instructions: [HOW TO SUBMIT](HOW_TO_SUBMIT.html)**", "",
         ]
         u = bundle["uniqueness"]
         lines += [
@@ -168,9 +163,9 @@ def page_index(bundle, sel, sweep) -> str:
             f"{float(par.get('flank_b', 0)) * 100:.0f} m** |",
             "",
             "| guarantee | value |", "|---|---|",
-            f"| method | split conformal prediction — Lei, G'Sell, Rinaldo, Tibshirani & "
-            f"Wasserman, *JASA* 113(523):1094–1111, 2018 |",
-            f"| unit of exchangeability | **spatial holdout block** |",
+            "| method | split conformal prediction — Lei, G'Sell, Rinaldo, Tibshirani & "
+            "Wasserman, *JASA* 113(523):1094–1111, 2018 |",
+            "| unit of exchangeability | **spatial holdout block** |",
             f"| primary instrument | `{sel['primary_instrument']}` — "
             f"{sel['primary_instrument_meaning']} |",
             f"| calibration blocks / selection blocks | {g.get('n_calibration_blocks')} / "
@@ -215,16 +210,16 @@ def page_index(bundle, sel, sweep) -> str:
                       f"{mc.get('operating_points_dropped')} of the 180 swept operating points emit "
                       "past that ceiling and were dropped before selection: they are not risky, "
                       "they are arithmetically incapable of reaching the target.", "",
-                      "| \|G\| \\ coverage | 0.48 | 0.60 | 0.80 | 1.00 |", "|---|---|---|---|---|"]
+                      "| \\|G\\| \\ coverage | 0.48 | 0.60 | 0.80 | 1.00 |", "|---|---|---|---|---|"]
             for G in (5764, 8000, 10335, 15179):
                 row = [f"| {G:,} "]
                 for c in (0.48, 0.60, 0.80, 1.00):
                     v = (mc.get("sensitivity") or {}).get(f"G={G}_c={c}")
                     row.append(f"| {v:,.0f} " if v else "| — ")
                 lines.append("".join(row) + "|")
-            lines += ["", f"`|G|` bracket inverted from the eleven published scores: "
-                          f"5,764 ≤ |G| ≤ 15,179 px. Coverage 0.48 is what the 0.2778 incumbent "
-                          f"demonstrably achieved.", ""]
+            lines += ["", "`|G|` bracket inverted from the eleven published scores: "
+                          "5,764 ≤ |G| ≤ 15,179 px. Coverage 0.48 is what the 0.2778 incumbent "
+                          "demonstrably achieved.", ""]
         if sel.get("selection_rule"):
             lines += ["### The selection rule, declared before the result", "",
                       f"> {sel['selection_rule']}", "",
@@ -285,18 +280,18 @@ def page_index(bundle, sel, sweep) -> str:
               "geothermal resources in the GeoDAWN region of north-western Nevada. $300,000 in "
               "prizes, submissions due **3 December 2026**.", "",
               "| page | what it answers |", "|---|---|",
-              "| [HOW TO SUBMIT](HOW_TO_SUBMIT.md) | the executive summary: exactly how to upload, "
+              "| [HOW TO SUBMIT](HOW_TO_SUBMIT.html) | the executive summary: exactly how to upload, "
               "what to type in every field |",
-              "| [RESULTS](RESULTS.md) | every measurement, with the script that reproduces it |",
-              "| [Why 0.2778, and can we beat it?](why-02778.md) | the PhD-level answer the brief "
+              "| [RESULTS](RESULTS.html) | every measurement, with the script that reproduces it |",
+              "| [Why 0.2778, and can we beat it?](why-02778.html) | the PhD-level answer the brief "
               "asks for |",
-              "| [Research knowledge base](research.md) | verified literature and free official "
+              "| [Research knowledge base](research.html) | verified literature and free official "
               "data sources |",
-              "| [Hypotheses H47](hypotheses-s3.md) | five new hypotheses ranked, and five refuted "
+              "| [Hypotheses H47](hypotheses-s3.html) | five new hypotheses ranked, and five refuted "
               "ones with their numbers |",
-              "| [Remaining work and limitations](REMAINING_WORK.md) | what is left, what this "
+              "| [Remaining work and limitations](REMAINING_WORK.html) | what is left, what this "
               "cannot do, and how every claim above is checked |",
-              "| [Requirement compliance](COMPLIANCE.md) | pass 3: every line of the brief, "
+              "| [Requirement compliance](COMPLIANCE.html) | pass 3: every line of the brief, "
               "checked, with the artifact that satisfies it |",
               "| [Repository README](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md) "
               "| the standing brief and the repository map |", "",
@@ -340,13 +335,13 @@ def page_howto(bundle, sel) -> str:
             "| | |", "|---|---|",
             f"| SHA-256 | `{bundle['sha256'][0]}` |",
             f"| Size | {bundle['files_bytes']:,} bytes |" if bundle.get("files_bytes") else "| Size | — |",
-            f"| Bands / dtype | 1 × float32 |",
-            f"| CRS | EPSG:32611 (UTM zone 11N) |",
-            f"| Dimensions | 3730 rows × 3292 cols |",
-            f"| Transform | `(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)` — 100 m pixels |",
-            f"| nodata tag | **absent** |",
-            f"| Cell values | every one of the 12,279,160 cells is finite and in [0,1]; "
-            f"min exactly 0.0, max exactly 1.0 |",
+            "| Bands / dtype | 1 × float32 |",
+            "| CRS | EPSG:32611 (UTM zone 11N) |",
+            "| Dimensions | 3730 rows × 3292 cols |",
+            "| Transform | `(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)` — 100 m pixels |",
+            "| nodata tag | **absent** |",
+            "| Cell values | every one of the 12,279,160 cells is finite and in [0,1]; "
+            "min exactly 0.0, max exactly 1.0 |",
             f"| Positive pixels | {bundle['operating_point']['emitted_px']:,} |",
             "",
             "### Verify it yourself before uploading", "",
@@ -373,7 +368,7 @@ def page_howto(bundle, sel) -> str:
         "(https://www.drivendata.org/competitions/306/competition-doe-gems/).",
         "2. Click **Submissions** in the competition navigation.",
         "3. Choose the file you just downloaded.",
-        f"4. In **Submission name**, paste:", "",
+        "4. In **Submission name**, paste:", "",
         "   ```", f"   {name}", "   ```", "",
         f"5. In **Note (optional)** ({len(note)}/200 characters), paste:", "",
         "   ```", f"   {note}", "   ```", "",
@@ -420,7 +415,7 @@ def page_howto(bundle, sel) -> str:
             "instruments — because ranking by the mean selects the noisiest high mean, which is "
             "the failure mode the brief names.", "",
             "**This floor is a floor on the holdout instrument, not a forecast of the public "
-            "leaderboard score.** See [RESULTS](RESULTS.md#what-the-holdout-can-and-cannot-say).",
+            "leaderboard score.** See [RESULTS](RESULTS.html#what-the-holdout-can-and-cannot-say).",
             "",
         ]
     else:
@@ -572,7 +567,7 @@ def page_results(sel, sweep, scarp, bands, inst, inv, skill) -> str:
     L += ["## 5. The inversion of the organiser's own scores", "",
           "`scripts/run_inversion.py` → `evidence/inversion/live_anchor_inversion.json`.", ""]
     if inv:
-        L += ["| artifact | S_active | public DTI | model-free \|G\| floor | dots ≤2 px of catalogue |",
+        L += [r"| artifact | S_active | public DTI | model-free \|G\| floor | dots ≤2 px of catalogue |",
               "|---|---|---|---|---|"]
         for r in sorted(inv.get("artifacts", []),
                         key=lambda r: -(r.get("reported_public_dti") or 0)):
@@ -616,6 +611,7 @@ def page_results(sel, sweep, scarp, bands, inst, inv, skill) -> str:
         rows = sweep["rows"]
         ref = [r for r in rows if r["recipe"].startswith("REF")]
         import collections
+
         import numpy as np
         agg = collections.defaultdict(list)
         for r in rows:
@@ -750,6 +746,7 @@ def page_research() -> str:
 def main() -> int:
     DOCS.mkdir(parents=True, exist_ok=True)
     (DOCS / "downloads").mkdir(parents=True, exist_ok=True)
+    ctrl = load("control/controls.json")
     bundle = load("submission/bundle.json")
     sel = load("conformal/selection.json")
     sweep = load("sweep/sweep_a.json")
@@ -764,7 +761,7 @@ def main() -> int:
         bundle["files_bytes"] = p.stat().st_size if p.exists() else None
 
     pages = {
-        "index.md": page_index(bundle, sel, sweep),
+        "session3.md": page_index(bundle, sel, sweep, ctrl),
         "HOW_TO_SUBMIT.md": page_howto(bundle, sel),
         "RESULTS.md": page_results(sel, sweep, scarp, bands, inst, inv, skill),
         "why-02778.md": page_why(),
@@ -783,20 +780,11 @@ def main() -> int:
         (DOCS / name).write_text(text)
         print(f"[site] docs/{name}: {len(text):,} chars")
 
-    (DOCS / "_config.yml").write_text(
-        "title: GEMSDOE47 — DOE GEMS Prize\n"
-        "description: >-\n"
-        "  A unique, format-verified GeoTIFF submission for DrivenData competition 306\n"
-        "  (DOE GEMS Prize, GeoDAWN / NW Nevada), with a split-conformal certified floor\n"
-        "  on the chosen emission spacing.\n"
-        "remote_theme: jekyll-theme-primer\n"
-        "plugins:\n  - jekyll-remote-theme\n"
-        "markdown: kramdown\n"
-        "kramdown:\n  parse_block_html: true\n"
-        "exclude:\n  - downloads\n"
-        "show_downloads: true\n"
-        "nav_sort: order\n")
-    print("[site] docs/_config.yml written")
+    # No _config.yml: docs/.nojekyll is present, so GitHub Pages serves docs/ as plain static
+    # files and Jekyll never runs.  A _config.yml here would be inert and would imply a build
+    # that does not happen.  Session-3 pages are rendered to HTML by scripts/build_site_s3.py
+    # into main's existing skin instead.
+    (DOCS / "_config.yml").unlink(missing_ok=True)
     print(f"[site] {len(pages)} pages + config; download at docs/downloads/")
     return 0
 

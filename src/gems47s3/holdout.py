@@ -44,7 +44,7 @@ import numpy as np
 from scipy import ndimage as ndi
 
 from . import metric as M
-from .grid import Grid, STRUCT8
+from .grid import STRUCT8, Grid
 
 # Prevalence targets (fraction of the footprint that is truth).  The first three come from
 # the live-anchor inversion's model-free bounds on |G|; the last is the unmatched control.
@@ -155,7 +155,7 @@ def offcatalogue_enrichment(field: np.ndarray, g: Grid, prior: np.ndarray,
         median_ecdf_offcatalogue=float(np.median(ecdf)),
         p90_ecdf_offcatalogue=float(np.quantile(ecdf, 0.90)),
         enrichment_vs_uniform=float(ecdf.mean() - 0.5),
-        topq_capture=float(((f[offcat] >= np.quantile(f[bg], 1.0 - q)).mean())),
+        topq_capture=float((f[offcat] >= np.quantile(f[bg], 1.0 - q)).mean()),
         q=q,
     )
 

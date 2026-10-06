@@ -52,8 +52,8 @@ from scipy import ndimage as ndi
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47s3 import metric as M      # noqa: E402
-from gems47s3.spec import ALPHA, BETA, EPS_METRIC  # noqa: E402
+from gems47s3 import metric as M
+from gems47s3.spec import ALPHA, BETA, EPS_METRIC
 
 REF = ROOT / "data" / "reference"
 DATA = ROOT / "data"

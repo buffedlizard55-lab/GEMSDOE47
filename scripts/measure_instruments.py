@@ -28,7 +28,7 @@ from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3.spec import BAND_INDEX, FEATURE_BANDS, FEATURE_INVALID_BELOW  # noqa: E402
+from gems47s3.spec import FEATURE_BANDS, FEATURE_INVALID_BELOW
 
 DATA = ROOT / "data"
 SURF = DATA / "surfaces"
@@ -56,11 +56,9 @@ def main() -> int:
 
     # ---------------- A1 / A2: are catalogue components alone in their 300 m dilation?
     comp_lab, n_comp = ndi.label(cat, structure=STRUCT8)
-    sizes = np.bincount(comp_lab.ravel(), minlength=n_comp + 1)
     dilated = ndi.binary_dilation(cat, iterations=3, structure=STRUCT8)
     dil_lab, n_dil = ndi.label(dilated, structure=STRUCT8)
     # how many DISTINCT catalogue components touch each dilated blob
-    per_blob = {}
     ys, xs = np.nonzero(cat)
     dl = dil_lab[ys, xs]
     cl = comp_lab[ys, xs]
@@ -102,9 +100,9 @@ def main() -> int:
                 continue
             srt = np.sort(a[v])
 
-            def rk(mask):
-                x = a[mask & v]
-                return float(np.searchsorted(srt, x).mean() / srt.size) if x.size else None
+            def rk(mask, _a=a, _v=v, _srt=srt):
+                x = _a[mask & _v]
+                return float(np.searchsorted(_srt, x).mean() / _srt.size) if x.size else None
             table.append(dict(band=name, description=descs[i - 1],
                               background_p50=round(float(np.median(a[bg & v])), 4),
                               catalogue_p50=round(float(np.median(a[cat3 & v])), 4),

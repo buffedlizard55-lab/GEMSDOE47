@@ -21,8 +21,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47s3 import field as F            # noqa: E402
-from gems47s3.grid import Grid, robust_unit  # noqa: E402
+from gems47s3 import field as F
+from gems47s3.grid import Grid
 
 OUT = ROOT / "data" / "surfaces"
 EV = ROOT / "evidence"

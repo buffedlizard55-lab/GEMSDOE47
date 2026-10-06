@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<base href="../"><!-- preserved verbatim from the earlier session; base repoints its relative links to docs/ -->
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Executive decision and manual submission guidance for GEMSDOE47. The available H47-B TIFF is research-only and must not be uploaded.">
+  <title>Executive Summary &amp; Submission Guide · GEMSDOE47</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">Executive decision · manual submission guidance</span></div>
+  <nav aria-label="Main navigation">
+    <a href="../index.html">Project home</a><a class="on" href="executive-summary.html">Executive summary</a>
+    <a href="submit.html">How to submit</a><a href="analysis.html">Results analysis</a>
+    <a href="leaderboard.html">Leaderboard evidence</a><a href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a>
+  </nav>
+</div></header>
+<main class="wrap">
+  <section class="dl">
+    <h2>Research artifact only — <span class="bad">NOT FOR SUBMISSION</span></h2>
+    <p>H47-B is a one-band float32 GeoTIFF that passed this repository's local format/range audit. It <strong>failed the preregistered holdout promotion gate</strong>; its score lost to the fixed-seed random control and its assumption-conditional lower floor was zero. This link is for research review, not portal use.</p>
+    <a class="btn" download href="downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download H47-B research GeoTIFF (1.5 MB)</a>
+    <dl class="kv"><dt>SHA-256</dt><dd>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</dd><dt>Locked-test DTI</dt><dd>0.027553 H47-B · 0.025639 single-scale baseline · 0.037159 random</dd><dt>Conformal floor</dt><dd>0.0; nominal 6/7 depends on unverified block exchangeability</dd><dt>Format audit</dt><dd>PASS locally; not an organizer acceptance result</dd></dl>
+    <a class="btn sec" href="validation-h47b-20261006.md">Read validation report →</a>
+  </section>
+  <h2>Executive decision</h2>
+  <p><strong>No candidate is currently eligible for a competition submission slot.</strong> The H47-B mask was not an exact match to any of 334 accessible, grid-comparable TIFF artifacts checked across 55 visible sibling repositories. This is a bounded uniqueness finding only; it does not establish global uniqueness or remedy the failed scientific gate. The older d-cat/annulus TIFF is a delete-only subset of a published artifact and is retained for history only.</p>
+  <p>The prior 0.34912 model score and 0.34837 “conformal floor” are withdrawn: their calibration points were selected rungs from one monotone family, the mapping from old files to public participant scores was unauthenticated, and the target was extrapolated. The latest saved one-time public leaderboard read is rank 1 at 0.3774 (participant name not preserved), DARD at 0.3195/#7, and `extradr19` at 0.2778/#13. Participant rows do not identify TIFF files; no score-to-file mapping is verified.</p>
+  <div class="note"><strong>Maximize P(Win) · Own the Outcome.</strong> A failed screen is useful information. The slot remains unused until a new, preregistered detector beats the current spatially blocked holdout best and its controls with adequate label coverage, then passes the exact-byte format and bounded uniqueness reviews.</div>
+  <h2>If a future candidate passes: manual submission sequence</h2>
+  <p>This is a future checklist, not permission to upload H47-B. Only a team member with authorized competition access should act. The official rules, live form labels, file limits, round schedule, and slot limits can change; recheck the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" rel="noopener">official competition home</a> and <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/" rel="noopener">data/instructions page</a> immediately before use.</p>
+  <ol class="steps">
+    <li><strong>Confirm promotion first.</strong> Verify the candidate's preregistration, official-input provenance, spatial-block report, comparison to the current holdout best, controls, label coverage, and exact prediction hash. If any requirement fails or is missing, stop; do not spend a slot.</li>
+    <li><strong>Validate the final file.</strong> Use the competition's current sample-submission grid and instructions. Reopen the exact GeoTIFF bytes to confirm one band, expected CRS/shape/transform, finite in-footprint predictions in [0,1], and the required outside-footprint convention. Keep the validator receipt and SHA-256.</li>
+    <li><strong>Prepare identity and note.</strong> Give the promoted output a unique filename and a short factual note describing the method. Do not reuse either research filename or claim a public/leaderboard score that is not tied to this file by an organizer receipt.</li>
+    <li><strong>Sign in and start a new submission.</strong> Use the enrolled team's authorized DrivenData account; open the GEMS Prize competition and follow the current submission flow shown on the official page. Select the one-band `.tif` (or a `.zip` containing exactly one accepted TIFF if the current form requires that), enter the unique name and concise note if prompted, then submit manually.</li>
+    <li><strong>Verify the receipt.</strong> Wait for the portal's validation/scoring result. Save its submission ID, timestamp, displayed status/score and the exact uploaded file hash in the project record. A successful upload is not a holdout pass or a guarantee of final-round performance.</li>
+  </ol>
+  <p>For the full checklist and format caveats, see <a href="submit.html">How to submit a future promoted candidate</a>. This repository never logs in, uploads a TIFF, monitors the board, or spends a slot automatically.</p>
+</main>
+<footer><div class="wrap">GEMSDOE47 · no submission is authorized by this page · <a href="sources.html">sources</a> · <a href="irregularities.md">open issues</a></div></footer>
+</body>
+</html>

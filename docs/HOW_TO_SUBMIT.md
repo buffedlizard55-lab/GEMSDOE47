@@ -6,7 +6,7 @@ nav_order: 2
 
 # HOW TO SUBMIT — executive summary
 
-*Generated 2026-10-06 17:47 UTC by `scripts/build_site.py`.*
+*Generated 2026-10-06 19:58 UTC by `scripts/build_site.py`.*
 
 ## 1. Download the file
 
@@ -85,7 +85,7 @@ The selection half (13 blocks, never used to choose) realised a mean DTI of **0.
 
 The operating point was chosen by maximising the **conformal floor**, not the calibration mean, and then by a max-min robustness criterion across five holdout instruments — because ranking by the mean selects the noisiest high mean, which is the failure mode the brief names.
 
-**This floor is a floor on the holdout instrument, not a forecast of the public leaderboard score.** See [RESULTS](RESULTS.md#what-the-holdout-can-and-cannot-say).
+**This floor is a floor on the holdout instrument, not a forecast of the public leaderboard score.** See [RESULTS](RESULTS.html#what-the-holdout-can-and-cannot-say).
 
 ## 4. Why the format is what it is
 

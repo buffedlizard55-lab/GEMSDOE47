@@ -6,14 +6,17 @@ nav_order: 6
 
 # Research knowledge base
 
-*Generated 2026-10-06 17:47 UTC. The full text of each file is in `knowledge/` in the repository; this page is the index plus every official link, so a reviewer can check any claim without reading the code.*
+*Generated 2026-10-06 19:58 UTC. The full text of each file is in `knowledge/` in the repository; this page is the index plus every official link, so a reviewer can check any claim without reading the code.*
 
 | file | what it settles |
 |---|---|
 | [`00_index.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/00_index.md) | Knowledge base — index |
 | [`01_metric_algebra_and_inversion.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/01_metric_algebra_and_inversion.md) | Knowledge base 01 — the metric's algebra, and what the organiser's own scores imply |
+| [`01_the_gems_target_population.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/01_the_gems_target_population.md) | The GEMS target population — what the hidden labels actually are |
+| [`02_the_metric_algebra.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/02_the_metric_algebra.md) | The DTI metric algebra — everything that follows from four published formulas |
 | [`02_the_two_instruments_measure_different_populations.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/02_the_two_instruments_measure_different_populations.md) | The two candidate holdout instruments measure DIFFERENT fault populations |
 | [`03_geothermal_fault_discovery_research.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/03_geothermal_fault_discovery_research.md) | Knowledge base 03 — geothermal fault discovery: the verified literature |
+| [`03_next_steps_and_the_ceiling.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/03_next_steps_and_the_ceiling.md) | Next steps, ranked by expected value |
 | [`04_free_public_data_sources.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/04_free_public_data_sources.md) | Knowledge base 04 — overlooked free / public data sources, contrarian but grounded |
 | [`05_why_02778_and_can_we_beat_it.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/05_why_02778_and_can_we_beat_it.md) | Why GEMSDOE32 `h33-h33-2-b2` scored 0.2778, and whether it can be beaten |
 | [`06_hypotheses_H47.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/06_hypotheses_H47.md) | H47 — new geological hypotheses, measured, ranked, and honestly refuted where they failed |

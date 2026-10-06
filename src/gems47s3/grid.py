@@ -12,8 +12,14 @@ import numpy as np
 import rasterio
 from scipy import ndimage as ndi
 
-from .spec import (BAND_INDEX, FEATURE_INVALID_BELOW, FEATURE_SENTINEL, HEIGHT,
-                   LABEL_POSITIVE_PIXELS, PINS, WIDTH)
+from .spec import (
+    BAND_INDEX,
+    FEATURE_INVALID_BELOW,
+    HEIGHT,
+    LABEL_POSITIVE_PIXELS,
+    PINS,
+    WIDTH,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"

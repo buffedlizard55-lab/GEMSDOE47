@@ -36,11 +36,10 @@ from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3 import emission as E                                  # noqa: E402
-from gems47s3 import metric as M                                    # noqa: E402
-from gems47s3.detector import Bands, Recipe, build_core, regional_gate, vacancy_gate  # noqa: E402
-from gems47s3.grid import Grid                                      # noqa: E402
-from gems47s3.spec import HEIGHT, WIDTH                             # noqa: E402
+from gems47s3 import emission as E
+from gems47s3 import metric as M
+from gems47s3.detector import Bands, Recipe, build_core, regional_gate, vacancy_gate
+from gems47s3.grid import Grid
 
 DATA = ROOT / "data"
 SURF = DATA / "surfaces"
@@ -147,7 +146,7 @@ def build_blocks(g: Grid, comp_lab: np.ndarray, n_comp: int, sizes: np.ndarray,
         truth["AA"] = np.isin(comp_lab, in_block) & region
         sizes_in = sizes[in_block]
         for name, prev in PM_PREVALENCES.items():
-            target = int(round(prev * float(region.sum())))
+            target = round(prev * float(region.sum()))
             order = rng.permutation(in_block.size)
             keep, acc, nkept = [], 0, 0
             for j in order:
@@ -266,14 +265,18 @@ def main() -> int:
             n_truth = int(truth.sum())
             k_near = M.kernel(ndi.distance_transform_edt(~truth))
 
-            def record(name, op, mask, extra=None):
-                r = score_binary(mask, truth, k_near, n_truth)
-                rows.append(dict(block=int(f["k"]), instrument=inst, recipe=name,
-                                 half=("calibration" if bi in calib else "selection"),
-                                 block_index=bi,
+            # every loop variable this closure reads is bound as a default argument: B023 is
+            # not a style complaint here, it is the difference between scoring fold k and
+            # silently scoring whatever the loop variables hold when the closure is called.
+            def record(name, op, mask, extra=None, _truth=truth, _k_near=k_near,
+                       _n_truth=n_truth, _f=f, _inst=inst, _bi=bi, _scored_c=scored_c):
+                r = score_binary(mask, _truth, _k_near, _n_truth)
+                rows.append(dict(block=int(_f["k"]), instrument=_inst, recipe=name,
+                                 half=("calibration" if _bi in calib else "selection"),
+                                 block_index=_bi,
                                  op=op, dti=r["dti"], tp=r["tp"], fp=r["fp"], S=r["S"], M=r["M"],
-                                 coverage=r["coverage"], n_truth=n_truth,
-                                 emitted=int(mask.sum()), n_scored=int(scored_c.sum()),
+                                 coverage=r["coverage"], n_truth=_n_truth,
+                                 emitted=int(mask.sum()), n_scored=int(_scored_c.sum()),
                                  **(extra or {})))
 
             if incumbent is not None:
@@ -299,7 +302,7 @@ def main() -> int:
                     emask = flank_masks[b]
                     for s in spacings:
                         for dens in qs:
-                            budget = int(round(dens * n_scored / 1000.0))
+                            budget = round(dens * n_scored / 1000.0)
                             em = E.emit(fc, emask, min_dist=s, support_q=1.0, blur="none",
                                         budget=budget)
                             record(rec.name, f"s{s:g}_d{dens:g}_b{b:g}", em["mask"],

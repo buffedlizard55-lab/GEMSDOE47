@@ -139,7 +139,7 @@ def dti_binary(pred_bool, truth, valid=None, known=None, alpha: float = ALPHA, b
     if n == 0 or s == 0.0:
         return dict(tp=0.0, fp=s, fn=float(n), n_truth=n, dti=0.0, coverage=0.0,
                     S=s, M=0.0, wasted=s,
-                    dti_identity=(0.0 if n else 0.0))
+                    dti_identity=0.0)
     k_near = kernel(distance_transform_edt(~g))
     # TP_w = sum over truth of max_x p(x) k(d(x,g)); for binary p this is k(d(p, g)).
     tp = float(kernel(distance_transform_edt(~p))[g].sum())

@@ -1,0 +1,10 @@
+-r requirements.txt
+ruff>=0.16,<1
+# The later session's suite (tests/test_metric.py, test_lati.py, test_submission.py,
+# test_shipped.py) is pytest-based; the earlier session's suite is unittest-based.
+# Both run in CI - see .github/workflows/tests.yml.
+pytest>=8.0
+# Session 3 (merged 2026-10-06): scripts/build_site_s3.py renders the session-3
+# markdown pages into main's existing docs/ skin, because docs/.nojekyll means
+# Pages serves raw files and a .md link would show unrendered text.
+markdown>=3.5
