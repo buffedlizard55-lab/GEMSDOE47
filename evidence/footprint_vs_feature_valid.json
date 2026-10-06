@@ -1,0 +1,31 @@
+{
+  "footprint_pixels": 5167373,
+  "feature_valid_all19": 5165840,
+  "footprint_and_feature_valid": 5164300,
+  "footprint_pixels_with_a_sentinel_band": 3073,
+  "feature_valid_pixels_outside_footprint": 1540,
+  "sentinel_cells_total": 7113320,
+  "catalogue_pixels": 60988,
+  "catalogue_pixels_on_a_sentinel_band": 94,
+  "per_band_bad_counts": {
+    "mag_anom": 7113308,
+    "rtp": 7113308,
+    "tmi_hg": 7113308,
+    "geod_2ndinv": 7113308,
+    "iso_grav_anom_slope": 7113308,
+    "tc": 7113320,
+    "geod_shearrate": 7113308,
+    "geod_dilaterate": 7113308,
+    "tmi_vg": 7113308,
+    "deq_n100a15": 7113308,
+    "iso_grav_anom_vg": 7113308,
+    "det_elev": 7113308,
+    "iso_grav_anom": 7113308,
+    "tmi": 7113308,
+    "depth_to_base_surf": 7113308,
+    "ieq_n100a15": 7113308,
+    "cond_surf": 7113308,
+    "iso_grav_anom_hg": 7113308,
+    "det_elev_slope": 7113308
+  }
+}

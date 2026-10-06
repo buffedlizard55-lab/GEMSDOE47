@@ -1,0 +1,15 @@
+title: GEMSDOE47 — DOE GEMS Prize
+description: >-
+  A unique, format-verified GeoTIFF submission for DrivenData competition 306
+  (DOE GEMS Prize, GeoDAWN / NW Nevada), with a split-conformal certified floor
+  on the chosen emission spacing.
+remote_theme: jekyll-theme-primer
+plugins:
+  - jekyll-remote-theme
+markdown: kramdown
+kramdown:
+  parse_block_html: true
+exclude:
+  - downloads
+show_downloads: true
+nav_sort: order

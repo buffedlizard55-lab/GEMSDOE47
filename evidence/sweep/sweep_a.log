@@ -1,0 +1,61 @@
+[folds] 25 spatial blocks, 3199 components (A1 isolated 300, A2 flanking 2897) (6s)
+   block  0 crop=(89, 621, 168, 548) comps=87 A1=26 A2=1316 PM0200=298 px
+   block  1 crop=(0, 621, 548, 1096) comps=269 A1=285 A2=3520 PM0200=676 px
+   block  2 crop=(0, 621, 1096, 1644) comps=168 A1=194 A2=2033 PM0200=694 px
+   block  3 crop=(0, 621, 1644, 2192) comps=155 A1=97 A2=2886 PM0200=686 px
+   block  4 crop=(0, 621, 2192, 2740) comps=196 A1=610 A2=2548 PM0200=682 px
+   block  5 crop=(0, 621, 2740, 3291) comps=87 A1=479 A2=1667 PM0200=744 px
+   block  6 crop=(621, 1242, 0, 548) comps=169 A1=150 A2=2613 PM0200=430 px
+   block  7 crop=(621, 1242, 548, 1096) comps=273 A1=352 A2=4125 PM0200=672 px
+   block  8 crop=(621, 1242, 1096, 1644) comps=188 A1=382 A2=3221 PM0200=704 px
+   block  9 crop=(621, 1242, 1644, 2192) comps=89 A1=167 A2=1286 PM0200=240 px
+   block 10 crop=(621, 775, 2192, 2740) comps=66 A1=209 A2=703 PM0200=170 px
+   block 11 crop=(621, 775, 2740, 3291) comps=45 A1=64 A2=727 PM0200=265 px
+   block 12 crop=(1242, 1658, 267, 548) comps=70 A1=130 A2=639 PM0200=157 px
+   block 13 crop=(1242, 1863, 548, 1096) comps=250 A1=612 A2=3696 PM0200=649 px
+   block 14 crop=(1242, 1863, 1096, 1644) comps=344 A1=428 A2=4834 PM0200=651 px
+   block 15 crop=(1242, 1863, 1644, 1780) comps=48 A1=20 A2=889 PM0200=113 px
+   block 19 crop=(1863, 2436, 812, 1096) comps=21 A1=0 A2=393 PM0200=144 px
+   block 20 crop=(1863, 2484, 1096, 1644) comps=174 A1=491 A2=3815 PM0200=698 px
+   block 21 crop=(1863, 2484, 1644, 2055) comps=97 A1=116 A2=2340 PM0200=296 px
+   block 26 crop=(2484, 3105, 1115, 1644) comps=114 A1=171 A2=2787 PM0200=255 px
+   block 27 crop=(2484, 3105, 1644, 2192) comps=121 A1=250 A2=2836 PM0200=632 px
+   block 28 crop=(2878, 3105, 2192, 2263) comps=2 A1=0 A2=66 PM0200=66 px
+   block 32 crop=(3105, 3495, 1278, 1644) comps=64 A1=194 A2=1379 PM0200=104 px
+   block 33 crop=(3105, 3730, 1644, 2192) comps=100 A1=634 A2=2715 PM0200=603 px
+   block 34 crop=(3105, 3461, 2192, 2301) comps=2 A1=0 A2=180 PM0200=180 px
+[split] calibration block indices [1, 2, 3, 4, 6, 8, 9, 11, 16, 18, 23, 24]
+[split] selection   block indices [0, 5, 7, 10, 12, 13, 14, 15, 17, 19, 20, 21, 22]
+[sweep] 5 recipes x 3 spacings x 6 densities x 2 flank buffers x 5 instruments x 25 blocks
+[core] R1_scarp9: 1 terms  (32s)
+[core] R2_scarp9_topo: 4 terms  (60s)
+[core] R3_scarp9_topo_reg: 6 terms  (99s)
+[core] R4_scarp9_topo_reg_mag: 8 terms  (142s)
+[core] R5_scarp9_vacancy: 8 terms  (180s)
+[sweep] block 0 (1/25) done, 724 rows  (214s)
+[sweep] block 1 (2/25) done, 1629 rows  (271s)
+[sweep] block 2 (3/25) done, 2534 rows  (327s)
+[sweep] block 3 (4/25) done, 3439 rows  (384s)
+[sweep] block 4 (5/25) done, 4344 rows  (442s)
+[sweep] block 5 (6/25) done, 5249 rows  (499s)
+[sweep] block 6 (7/25) done, 6154 rows  (554s)
+[sweep] block 7 (8/25) done, 7059 rows  (611s)
+[sweep] block 8 (9/25) done, 7964 rows  (667s)
+[sweep] block 9 (10/25) done, 8869 rows  (722s)
+[sweep] block 10 (11/25) done, 9774 rows  (749s)
+[sweep] block 11 (12/25) done, 10679 rows  (777s)
+[sweep] block 12 (13/25) done, 11584 rows  (807s)
+[sweep] block 13 (14/25) done, 12489 rows  (865s)
+[sweep] block 14 (15/25) done, 13394 rows  (922s)
+[sweep] block 15 (16/25) done, 14118 rows  (944s)
+[sweep] block 19 (17/25) done, 14842 rows  (972s)
+[sweep] block 20 (18/25) done, 15747 rows  (1030s)
+[sweep] block 21 (19/25) done, 16652 rows  (1077s)
+[sweep] block 26 (20/25) done, 17557 rows  (1130s)
+[sweep] block 27 (21/25) done, 18462 rows  (1186s)
+[sweep] block 28 (22/25) done, 19005 rows  (1198s)
+[sweep] block 32 (23/25) done, 19910 rows  (1230s)
+[sweep] block 33 (24/25) done, 20815 rows  (1284s)
+[sweep] block 34 (25/25) done, 21539 rows  (1302s)
+
+wrote evidence/sweep/sweep_a.json: 21539 rows  (1303s)

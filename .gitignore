@@ -1,0 +1,30 @@
+# --- large competition rasters: restored by scripts/fetch_data.py, never committed --------
+data/*.tif
+data/bridge/
+data/external/
+data/features/
+
+# --- derived caches (rebuild with scripts/build_surfaces.py; 1.1 GB) ---------------------
+data/surfaces/
+data/*.npy
+data/*.npz
+
+# --- reference corpus copied in from the GEMSDOE1-46 repositories for learning only ------
+# provenance and the exact source path of every file are in data/reference/README.md
+data/reference/*.tif
+
+# --- the ONE thing that must be committed: the downloadable submission --------------------
+!docs/downloads/*.tif
+
+scratch/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+*.log.tmp
+# Scratch outputs of smoke tests and superseded runs are not committed.
+evidence/sweep/sweep_a_quick.json
+evidence/sweep/sweep_quick.json
+evidence/sweep/sweep_a_prefix.json
+evidence/sweep/sweep_a_b5.json
+_preview/
