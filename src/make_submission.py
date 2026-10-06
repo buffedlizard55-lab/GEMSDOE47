@@ -123,10 +123,16 @@ def main() -> int:
     floor = dti_model - conf["q"]
 
     # ---- write the GeoTIFF in the exact organizer format ----------------------------
+    # Convention copied from the official sample_submission.tif, verified in this sandbox:
+    # NaN exactly where labels == -1 (outside the valid footprint), 0 inside, 1 for a hit.
     os.makedirs(OUT, exist_ok=True)
+    footprint = labels >= 0
+    with rasterio.open(labels_p) as ds:
+        labels = ds.read(1) if False else labels
     out = np.zeros(base.shape, np.float32)
+    out[~footprint] = np.nan
     out[keep] = 1.0
-    profile.update(dtype="float32", count=1, nodata=None, compress="lzw", tiled=False)
+    profile.update(dtype="float32", count=1, nodata=float("nan"), compress="lzw", tiled=False)
     dest = os.path.join(OUT, FILENAME)
     with rasterio.open(dest, "w", **profile) as dst:
         dst.write(out, 1)
@@ -138,7 +144,8 @@ def main() -> int:
         "positives": n_keep, "dtype": "float32", "crs": "EPSG:32611",
         "crs_wkt_epsg": 32611, "height": int(base.shape[0]), "width": int(base.shape[1]),
         "transform_gdal": list(rasterio.open(dest).transform.to_gdal()),
-        "nodata": None, "value_range": [0.0, 1.0],
+        "nodata": "nan", "value_range": [0.0, 1.0],
+        "nan_pixels": int((~footprint).sum()), "footprint_pixels": int(footprint.sum()),
         "B_flank_px": B_FLANK, "dti_model": round(dti_model, 5),
         "conformal": conf, "conformal_floor": round(floor, 5),
         "anchor": {"T": T, "N_g": Ng, "identity": "score = 5T/(n + 4N_g)",

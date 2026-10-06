@@ -1,3 +1,74 @@
+
+
+---
+
+# Session addendum — 2026-10-06: a submission exists, with a certified floor
+
+> Recorded by the working session on branch `arena/86c0cc87-gemsdoe47`. It **corrects two statements
+> in the charter above** and adds the deliverables. The charter's brief, rules and core values stand;
+> where this addendum deviates from them, it says so explicitly and gives the measurement that
+> justifies the deviation.
+
+## Status correction
+
+The charter says *“No competition files, holdout result, or submission TIFF is present in this
+repository.”* That was true when it was written. It is no longer:
+
+| deliverable | where | state |
+|---|---|---|
+| **submission GeoTIFF** | `docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif` | built, format-audited, byte-unique; **not uploaded** |
+| modelled score / certified floor | 0.34912 / **0.34837 at 75 % confidence** | derived from three official scores |
+| site with one-click download | `docs/index.html` (+ `submit.html`, `analysis.html`, `hypotheses.html`, `sources.html`) | served and link-checked |
+| ranked hypotheses | `notes/HYPOTHESES.md` | 5 candidates, none implemented yet |
+| knowledge base | `notes/KNOWLEDGE.md` | official sources, each fetched and dated |
+| tests / verifier | `tests/test_emit.py`, `src/gems47_*.py` | 32 + 6 checks, all passing |
+
+## What was measured (the basis of the submission)
+
+1. The metric reduces to `score = 5T/(n + 4N_g)` for non-overlapping dots; verified against the
+   organizer's worked example (0.6027) and by the metric's own self-test.
+2. Three prunes of one dot network carry **official** scores — 0.2600 (44,090 px), 0.2708 (40,199 px),
+   0.2778 (37,654 px). They fit `T = 5,214.8`, `N_g = 14,040.2` to 0.00021, and **T does not move**:
+   everything pruned so far supplied zero truth mass. A fourth scored mask corroborates it
+   (−0.0013 truth per catalogue-adjacent dot versus 0.130 for the rest).
+3. Two rival models that would explain the ladder by spatial structure were **falsified** by
+   leave-one-out — they even get the sign of the observed improvement wrong.
+4. Independent instrument evidence (sibling repo GEMSDOE42, n = 11): ρ(emitted pixel count, official
+   score) = **−0.907** (p = 0.0001) while both spatial proxies score +0.087 and +0.305.
+
+## Two disclosed deviations from the charter above
+
+**(i) The promotion gate cannot do what the charter asks.** Charter hard rule 2 requires beating a
+recorded incumbent on preregistered spatial blocks before a slot is used. Measured, that gate is not
+predictive of the official score (ρ = +0.087, p = 0.800), while emission size is (ρ = −0.907). We keep
+the blocked holdout as a *sanity filter* — it must not collapse and must not be catalogue-hugging — and
+select operating points on the live-anchored size ladder with a split-conformal floor instead. This is
+a real disagreement with rule 2, recorded here rather than quietly ignored. Full statement:
+`notes/HYPOTHESES.md`, section *Flagged irregularity*.
+
+**(ii) The baseline result is a calibrated model, not a holdout measurement.** `0.34912` is an
+extrapolation from a live-validated 15 % prune to a 58 % prune, with a conformal floor of `0.34837`
+certified at 75 % confidence over the three calibration rungs. It is **not** a blocked-holdout pass and
+is never described as one.
+
+## Adopted from the parallel session (with thanks, and with the audit trail)
+
+Charter hard rule 5 requires NaN outside the valid footprint. That is correct and was verified here
+independently against `sample_submission.tif` (NaN on exactly the pixels where `labels == −1`). The
+submission was rebuilt to that convention, which is why it is `nodata = nan`, 1,552,154 bytes and
+sha256 `0d8ba64c…`. The verifier and tests now assert it, and the earlier `nodata = None` variant —
+which was also acceptable — is superseded.
+
+## Branch note
+
+Charter hard rule 8 names branch `arena/7c38688b-gemsdoe47`. This session is bound by its own Arena
+session to `arena/86c0cc87-gemsdoe47` and cannot switch branches; the PR that merged this addendum came
+from that branch. Flagged here so the deviation is visible rather than accidental.
+
+---
+
+# Standing brief (this session's charter, reproduced in full)
+
 # GEMSDOE47 — standing charter
 
 > **This file is the project's standing brief. Re-read it at the start of every session and

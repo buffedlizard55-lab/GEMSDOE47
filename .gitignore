@@ -1,4 +1,7 @@
 # Large local datasets and derived rasters — deliberately NOT versioned (see README)
+/data/
+/artifacts/
+/outputs/
 work/
 *.npz
 *.npy
@@ -7,3 +10,10 @@ work/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+.DS_Store

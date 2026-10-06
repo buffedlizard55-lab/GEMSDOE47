@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GEMSDOE47 — submission, status and analysis</title>
+<meta name="description" content="GEMSDOE47 executive summary: a unique GEMS Prize fault-detection GeoTIFF, one-click download, the live-anchored score ladder and a split-conformal certified floor.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,20 +28,21 @@
   <section class="dl">
     <h2>⬇ Download the submission</h2>
     <p class="small dim" style="margin:4px 0 0">
-      Single-band float32 GeoTIFF on the competition grid. Every value is 0&nbsp;or&nbsp;1 — no NaN,
-      no nodata sentinel — so it cannot trip the
+      Single-band float32 GeoTIFF on the competition grid, using the official template's own
+      convention exactly: NaN outside the valid footprint, and only 0 or 1 inside. Every finite value
+      is in [0,&nbsp;1], so it cannot trip the
       <em>“Predicted values must be in range [0, 1]”</em> rejection.
     </p>
     <a class="btn" download href="downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif">
-      Download gems47-dcat20-annulus-flankprune-n18524-20261006.tif (772 KB)
+      Download gems47-dcat20-annulus-flankprune-n18524-20261006.tif (1.5 MB)
     </a>
     <div>
       <a class="btn sec" href="submit.html">Step-by-step: how to submit →</a>
       <a class="btn sec" href="analysis.html">Why these numbers →</a>
     </div>
     <dl class="kv">
-      <dt>sha256</dt><dd>32c76c92c68a0bd3da2ed52759aa7da57e40ee61ff92a9a5acbc67ad6e166eaa</dd>
-      <dt>bytes</dt><dd>790,012</dd>
+      <dt>sha256</dt><dd>0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261</dd>
+      <dt>bytes</dt><dd>1,552,154</dd>
       <dt>grid</dt><dd>3730 × 3292 · EPSG:32611 · transform (243350, 100, 0, 4508550, 0, −100)</dd>
       <dt>positives</dt><dd>18,524 pixels at 1.0 (everything else 0.0)</dd>
       <dt>modelled DTI</dt><dd class="good">0.34912</dd>
@@ -126,7 +128,8 @@
         network. The admissible set is {B = 19, 20, 21}; <strong>B = 20</strong> is chosen for a round
         2.0 km threshold with a 4.4 % modelled margin.</li>
     <li><strong>Values in [0, 1]:</strong> the raster contains only 0.0 and 1.0 and declares
-        <code>nodata: None</code>, so the earlier rejection cannot recur.</li>
+        <code>nodata: nan</code> and NaN exactly where the official template puts it, so the earlier
+        rejection cannot recur.</li>
     <li><strong>Uniqueness:</strong> byte-unique against all 15 sibling rasters held locally; maximum
         Jaccard 0.4608. All 18,524 pixels are a subset of one publicly published network — the
         <em>operator</em> is ours, the lineage is disclosed on the analysis page.</li>

@@ -8,13 +8,13 @@
 
 | property | value |
 |---|---|
-| sha256 | `32c76c92c68a0bd3da2ed52759aa7da57e40ee61ff92a9a5acbc67ad6e166eaa` |
-| bytes | 790,012 |
+| sha256 | `0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261` |
+| bytes | 1,552,154 |
 | shape | 3730 × 3292 — identical to `sample_submission.tif` |
 | CRS / transform | EPSG:32611 / `(243350, 100, 0, 4508550, 0, −100)` |
 | dtype / bands | float32 / 1 |
-| nodata | `None` |
-| values | exactly two distinct values, 0.0 and 1.0 → **inside [0, 1] by construction**, zero NaN |
+| nodata | `nan` (identical to `sample_submission.tif`) |
+| values | finite values are exactly two, 0.0 and 1.0 → **inside [0, 1] by construction**; NaN appears on exactly the 7,111,787 pixels outside the valid footprint, byte-for-byte the same convention as the official template |
 | positives | 18,524 |
 
 The earlier rejection — *"Predicted values must be in range [0, 1]"* — cannot recur: the raster contains only 0.0 and 1.0, and `nodata` is `None`, so no reader can interpret a sentinel (−1) as a prediction.

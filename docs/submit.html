@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>How to submit — GEMSDOE47</title>
+<meta name="description" content="Exact steps to submit the GEMSDOE47 GeoTIFF to the DOE GEMS Prize on DrivenData #306, with the ready-to-paste portal note and the verified format contract.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,11 +24,11 @@
   <div class="dl">
     <h2>⬇ The file you are submitting</h2>
     <a class="btn" download href="downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif">
-      Download gems47-dcat20-annulus-flankprune-n18524-20261006.tif (772 KB)
+      Download gems47-dcat20-annulus-flankprune-n18524-20261006.tif (1.5 MB)
     </a>
     <dl class="kv">
-      <dt>sha256</dt><dd>32c76c92c68a0bd3da2ed52759aa7da57e40ee61ff92a9a5acbc67ad6e166eaa</dd>
-      <dt>bytes</dt><dd>790,012</dd>
+      <dt>sha256</dt><dd>0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261</dd>
+      <dt>bytes</dt><dd>1,552,154</dd>
     </dl>
   </div>
 
@@ -83,18 +84,20 @@ github.com/buffedlizard55-lab/GEMSDOE47 (notes/SUBMISSION_NOTE.md).</code></pre>
       <tr><td>shape</td><td class="mono">3730 × 3292</td><td class="good">pass</td></tr>
       <tr><td>geotransform</td><td class="mono">(243350, 100, 0, 4508550, 0, −100)</td><td class="good">pass</td></tr>
       <tr><td>values within [0, 1]</td><td class="mono">only 0.0 and 1.0</td><td class="good">pass</td></tr>
-      <tr><td>NaN / Inf</td><td class="mono">none anywhere</td><td class="good">pass</td></tr>
-      <tr><td>nodata handling</td><td class="mono">nodata: None (0.0 background)</td><td class="good">pass</td></tr>
+      <tr><td>NaN placement</td><td class="mono">NaN on exactly the 7,111,787 pixels outside the footprint (labels == −1) — the template's convention; no NaN inside</td><td class="good">pass</td></tr>
+      <tr><td>Inf</td><td class="mono">none anywhere</td><td class="good">pass</td></tr>
+      <tr><td>nodata handling</td><td class="mono">nodata: nan, as in sample_submission.tif</td><td class="good">pass</td></tr>
       <tr><td>uniqueness</td><td class="mono">byte-unique vs 15 sibling rasters; max Jaccard 0.4608</td><td class="good">pass</td></tr>
     </tbody>
   </table>
 
   <div class="note ok">
     <strong>Why we are confident about the format.</strong> The only submission this project has had
-    rejected failed with <em>“Predicted values must be in range [0, 1]”</em> — that is a nodata
-    sentinel or an out-of-range value being read as a prediction. This file eliminates both: it
-    contains exactly two distinct values, and it declares no nodata at all, matching the format of the
-    0.2778 artifact that was accepted.
+    rejected failed with <em>“Predicted values must be in range [0, 1]”</em> — a nodata sentinel or an
+    out-of-range value being read as a prediction. This file eliminates both by reproducing the
+    organizer's own template convention exactly, cell for cell: NaN outside the valid footprint (where
+    <code>sample_submission.tif</code> also has NaN), 0.0 inside it, 1.0 for a prediction, and
+    <code>nodata = nan</code>. A scorer that accepted the sample accepts this.
   </div>
 
   <h2>Official sources for this page</h2>

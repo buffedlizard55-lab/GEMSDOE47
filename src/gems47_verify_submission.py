@@ -5,8 +5,9 @@ Checks, in order:
   1. GeoTIFF opens with rasterio; 1 band; float32; shape/CRS/transform identical to the
      organizer's sample_submission.tif.
   2. Every finite value lies in [0,1]  (the exact cause of the earlier rejection).
-  3. nodata is not a sentinel that a scorer could read as a value.
-  4. No NaN/Inf.
+  3. NaN appears exactly outside the valid footprint, matching sample_submission.tif — no NaN
+     inside the footprint and no nodata sentinel that a scorer could read as a value.
+  4. No Inf anywhere.
   5. Byte-unique against every sibling raster we hold; report max Jaccard (lineage honesty).
   6. sha256 + byte size match notes/results.json.
 Exit code is non-zero if any hard check fails.
@@ -65,13 +66,25 @@ def main() -> int:
 
     # 2/3/4 value range
     fin = a[np.isfinite(a)]
-    check(bool(np.isfinite(a).all()), "no NaN/Inf anywhere")
+    check(not np.isinf(a).any(), "no Inf anywhere")
     check(float(fin.min()) >= 0.0 and float(fin.max()) <= 1.0,
-          f"all values in [0,1] (min {fin.min()}, max {fin.max()})")
-    check(nodata is None, f"nodata is None (got {nodata}) — no sentinel can be read as a value")
+          f"all finite values in [0,1] (min {fin.min()}, max {fin.max()})")
+    check(isinstance(nodata, float) and np.isnan(nodata),
+          f"nodata is nan, as in sample_submission.tif (got {nodata})")
     vals = np.unique(fin)
-    check(bool(np.all(np.isin(vals, [0.0, 1.0]))), f"only 0.0/1.0 present (found {vals[:5]})")
+    check(bool(np.all(np.isin(vals, [0.0, 1.0]))), f"finite values are only 0.0/1.0 (found {vals[:5]})")
     check(int((a > 0).sum()) == rec["positives"], f"positives {rec['positives']}")
+    # NaN must sit exactly outside the footprint, i.e. where labels == -1
+    lab = next((p for p in ("/home/user/_ref/GEMSDOE24/data/bridge/labels.tif",
+                            os.path.join(ROOT, "work", "labels.tif")) if os.path.exists(p)), None)
+    if lab:
+        with rasterio.open(lab) as ld:
+            labels = ld.read(1)
+        check(bool(np.array_equal(np.isnan(a), labels == -1)),
+              "NaN mask == (labels == -1), exactly as in sample_submission.tif")
+        check(not np.isnan(a[labels >= 0]).any(), "no NaN inside the valid footprint")
+    else:
+        print("  SKIP  labels.tif absent — NaN-vs-footprint check not run")
 
     # 5. uniqueness
     sub = a > 0

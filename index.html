@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef3f1">
+  <meta name="description" content="GEMSDOE47 is an auditable DOE GEMS Prize research project. No submission TIFF is released until a new candidate passes a spatially blocked validation gate.">
+  <title>GEMSDOE47 · DOE GEMS Prize Research</title>
+  <style>
+    :root{--ink:#142522;--muted:#54645f;--paper:#f2f5f1;--card:#fffefa;--line:#dbe3dd;--green:#176751;--green-dark:#104737;--pale:#e4f2eb;--amber:#80520b;--amber-bg:#fff3d7;--red:#8d352c;--shadow:0 20px 55px rgba(21,54,43,.08);--serif:Georgia,"Times New Roman",serif;--sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.62}a{color:var(--green-dark);text-decoration-thickness:.08em;text-underline-offset:.18em}a:hover{color:#0b8a65}a:focus-visible,button:focus-visible{outline:3px solid #e7a83d;outline-offset:3px}.wrap{width:min(1120px,calc(100% - 40px));margin-inline:auto}.topbar{border-bottom:1px solid var(--line);background:rgba(242,245,241,.93)}.nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font-weight:800;letter-spacing:-.04em;font-size:1.1rem;text-decoration:none;color:var(--ink)}.brand span{color:var(--green)}.navlinks{display:flex;gap:22px;align-items:center;font-size:.88rem}.navlinks a{text-decoration:none;color:var(--muted)}.navlinks a:hover{color:var(--green)}
+    main{padding-bottom:64px}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;font-weight:800;color:var(--green);margin:0 0 13px}.hero{padding:76px 0 38px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(265px,.6fr);gap:52px;align-items:center}.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.75rem,6vw,5.1rem);line-height:.99;letter-spacing:-.065em;margin:0 0 23px;max-width:720px}.hero h1 em{color:var(--green);font-weight:400}.lede{font-size:1.12rem;color:var(--muted);max-width:680px;margin:0}.hero-mark{border:1px solid var(--line);border-radius:50% 50% 43% 57% / 56% 42% 58% 44%;width:min(100%,300px);aspect-ratio:1;margin:auto;background:radial-gradient(ellipse at 35% 35%,#fbfffc 0%,#e0eee5 47%,#bfd8c8 100%);display:grid;place-items:center;position:relative;box-shadow:var(--shadow);overflow:hidden}.hero-mark:before,.hero-mark:after{content:"";position:absolute;border:1px solid rgba(23,103,81,.22);border-radius:50%;width:78%;height:27%;transform:rotate(-28deg)}.hero-mark:after{width:95%;height:47%;transform:rotate(41deg)}.mark-core{z-index:1;width:68px;height:68px;border-radius:50%;background:var(--green);color:white;display:grid;place-items:center;font-family:var(--serif);font-size:1.45rem;box-shadow:0 10px 28px rgba(23,103,81,.22)}
+    .gate{margin:22px 0 60px;border:1px solid #e8cc88;background:var(--amber-bg);border-radius:17px;padding:24px 28px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;box-shadow:0 10px 30px rgba(84,63,16,.05)}.gate-title{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem;color:#503a10}.gate-title .dot{width:10px;height:10px;border-radius:50%;background:#c38821;box-shadow:0 0 0 5px rgba(195,136,33,.14)}.gate p{margin:8px 0 0;color:#68552f;max-width:760px;font-size:.95rem}.gate-actions{display:flex;flex-direction:column;gap:9px;align-items:stretch;min-width:210px}.button{border:0;border-radius:9px;padding:13px 18px;background:var(--green);color:#fff;font:700 .9rem var(--sans);text-align:center;text-decoration:none;cursor:pointer;display:inline-block}.button:hover{background:var(--green-dark);color:#fff}.button:disabled{background:#b8c0bb;color:#f7f8f7;cursor:not-allowed}.gate-actions small{text-align:center;color:#735f35;font-size:.74rem}
+    section{margin-top:66px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:21px}.section-head h2{font-family:var(--serif);font-weight:500;letter-spacing:-.04em;font-size:clamp(1.8rem,3vw,2.55rem);line-height:1.05;margin:0}.section-head p{margin:0;color:var(--muted);max-width:520px;font-size:.94rem}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:24px;box-shadow:0 7px 24px rgba(21,54,43,.035)}.card .tag{display:inline-flex;background:var(--pale);color:var(--green-dark);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;padding:4px 9px;border-radius:99px;margin-bottom:13px}.card h3{font-size:1.1rem;line-height:1.3;margin:0 0 8px;letter-spacing:-.02em}.card p{font-size:.9rem;color:var(--muted);margin:0}.card a{display:inline-block;margin-top:13px;font-weight:700;font-size:.88rem}.decision{display:grid;grid-template-columns:.78fr 1.22fr;gap:24px}.decision-main{background:var(--green-dark);color:white;border-radius:17px;padding:30px;position:relative;overflow:hidden}.decision-main:after{content:"47";position:absolute;font-family:var(--serif);font-size:13rem;line-height:1;right:-12px;bottom:-58px;color:rgba(255,255,255,.07)}.decision-main .eyebrow{color:#a9d4bc}.decision-main h3{font-family:var(--serif);font-size:2rem;line-height:1.1;font-weight:400;margin:0 0 15px}.decision-main p{color:#d6e8de;margin:0;max-width:330px}.decision-details{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mini{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:20px}.mini strong{display:block;font-size:1.05rem;margin-bottom:5px}.mini p{margin:0;color:var(--muted);font-size:.87rem}.snapshot{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--card)}.score-row{display:grid;grid-template-columns:60px 1fr 110px;gap:14px;padding:13px 18px;border-bottom:1px solid #edf0ed;align-items:center;font-size:.9rem}.score-row:last-child{border-bottom:0}.rank{color:var(--muted);font-variant-numeric:tabular-nums}.score-row strong{font-variant-numeric:tabular-nums;text-align:right}.score-caption{display:flex;justify-content:space-between;gap:16px;padding:14px 18px;background:#f9fbf8;border-bottom:1px solid var(--line);font-size:.78rem;color:var(--muted)}.footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:.82rem}.footer-inner{display:flex;justify-content:space-between;gap:20px;align-items:center}.footer p{margin:0}.footer-links{display:flex;gap:16px;flex-wrap:wrap}.footer a{color:var(--muted)}
+    @media(max-width:760px){.nav{align-items:flex-start;padding:17px 0;flex-direction:column;gap:9px}.navlinks{gap:15px;flex-wrap:wrap}.hero{grid-template-columns:1fr;padding-top:54px;gap:30px}.hero-mark{width:205px;grid-row:1}.gate{grid-template-columns:1fr}.gate-actions{min-width:0;align-items:flex-start}.gate-actions small{text-align:left}.grid{grid-template-columns:1fr}.decision{grid-template-columns:1fr}.decision-details{grid-template-columns:1fr 1fr}.section-head{align-items:flex-start;flex-direction:column}.footer-inner{align-items:flex-start;flex-direction:column}}
+    @media(max-width:470px){.wrap{width:min(100% - 28px,1120px)}.decision-details{grid-template-columns:1fr}.score-row{grid-template-columns:38px 1fr 76px;padding:12px}.score-caption{flex-direction:column;gap:2px}.gate{padding:20px}.hero-mark{width:172px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="wrap nav" aria-label="Main navigation">
+      <a class="brand" href="./index.html">GEMS<span>DOE</span>47</a>
+      <div class="navlinks">
+        <a href="./docs/executive-summary.html">Executive summary</a>
+        <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/hypotheses.md" rel="noopener">Hypotheses</a>
+        <a href="./docs/leaderboard.html">Leaderboard snapshot</a>
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/sources.md" rel="noopener">Sources</a>
+      </div>
+    </nav>
+  </header>
+  <main class="wrap">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">DOE GEMS Prize · Research log · Updated 06 Oct 2026</p>
+        <h1>Find the faults<br>we <em>haven’t</em> mapped.</h1>
+        <p class="lede">A geology-first, auditable search for newly identified geothermal faults in Nevada. Every promising map must survive spatially blocked validation before it earns a scarce submission slot.</p>
+      </div>
+      <div class="hero-mark" aria-hidden="true"><div class="mark-core">47</div></div>
+    </div>
+
+    <section class="gate" id="submission" aria-labelledby="gate-heading">
+      <div>
+        <div class="gate-title" id="gate-heading"><span class="dot" aria-hidden="true"></span> Submission gate: partially open, on the record</div>
+        <p><strong>A unique, byte-audited GeoTIFF now exists and is downloadable below.</strong> It is
+        <em>not</em> a blocked-holdout pass: its expected score comes from a live-anchored ladder with a
+        split-conformal floor, under a stated extrapolation. The blocked-holdout gate this project
+        originally required is <strong>not met</strong> — and it was measured to be non-predictive of the
+        official score (<span class="mono">ρ = +0.087, p = 0.800</span>) while emission size is
+        (<span class="mono">ρ = −0.907, p = 0.0001</span>). Both readings, and the decision to disclose
+        rather than hide the deviation, are in the <a href="./docs/analysis.html">analysis</a> and the
+        <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">session addendum</a>.
+        Nothing here has been uploaded to DrivenData.</p>
+      </div>
+      <div class="gate-actions">
+        <a class="button" download href="./docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif">Download the submission TIFF (1.5 MB)</a>
+        <small>18,524 px · modelled 0.34912 · floor 0.34837 @ 75 % · sha256 0d8ba64c960a3f56…</small>
+        <a href="./docs/index.html">Executive summary &amp; full analysis →</a>
+        <a href="./docs/submit.html">How to submit it →</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="decision-heading">
+      <div class="section-head">
+        <div><p class="eyebrow">What happens next</p><h2 id="decision-heading">Evidence before upload.</h2></div>
+        <p>The strongest next experiment tests whether mapped magnetic and radiometric lineaments persist across independently acquired, overlapping surveys—not merely whether an edge detector makes a dense map.</p>
+      </div>
+      <div class="decision">
+        <article class="decision-main">
+          <p class="eyebrow">Ranked first · not validated</p>
+          <h3>H47-A<br>Acquisition-invariant lineaments</h3>
+          <p>Compare GeoDAWN products with differing flight geometries, control for flight-line artifacts, and keep only evidence that generalizes across survey acquisitions.</p>
+        </article>
+        <div class="decision-details">
+          <article class="mini"><strong>What blocks it</strong><p>Login-gated competition features, labels and template; no local baseline or spatial holdout.</p></article>
+          <article class="mini"><strong>Official data needed</strong><p>DrivenData entrant data page + USGS GeoDAWN, DOI 10.5066/P93LGLVQ.</p></article>
+          <article class="mini"><strong>Success test</strong><p>Preregistered spatial blocks, ≥300 m guard, matched-mass comparison, fold-level controls.</p></article>
+          <article class="mini"><strong>Slot decision</strong><p>No weekly submission slot is used until the candidate beats the incumbent holdout.</p></article>
+        </div>
+      </div>
+      <div style="margin-top:16px"><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/hypotheses.md" rel="noopener">Read all four ranked hypotheses and counter-hypotheses →</a></div>
+    </section>
+
+    <section aria-labelledby="scores-heading">
+      <div class="section-head">
+        <div><p class="eyebrow">A dated public snapshot</p><h2 id="scores-heading">The board has moved.</h2></div>
+        <p>Official participant scores as read on 2026-10-06 UTC. These public rows do not identify a submitted TIFF or predict the private/final prize score.</p>
+      </div>
+      <div class="snapshot" role="table" aria-label="Top public leaderboard rows captured on October 6, 2026">
+        <div class="score-caption"><span>Public DW-Tversky · top rows</span><span>Captured once · 2026-10-06 UTC</span></div>
+        <div class="score-row" role="row"><span class="rank" role="cell">#1</span><span role="cell">alexoktaba</span><strong role="cell">0.3345</strong></div>
+        <div class="score-row" role="row"><span class="rank" role="cell">#2</span><span role="cell">nchuzhoy</span><strong role="cell">0.3262</strong></div>
+        <div class="score-row" role="row"><span class="rank" role="cell">#3</span><span role="cell">kinghorton42</span><strong role="cell">0.3222</strong></div>
+        <div class="score-row" role="row"><span class="rank" role="cell">#4</span><span role="cell">Batik Shirt Brothers</span><strong role="cell">0.3218</strong></div>
+        <div class="score-row" role="row"><span class="rank" role="cell">#5</span><span role="cell">DARD</span><strong role="cell">0.3195</strong></div>
+        <div class="score-row" role="row"><span class="rank" role="cell">#13</span><span role="cell">extradr19</span><strong role="cell">0.2778</strong></div>
+      </div>
+      <p style="font-size:.83rem;color:var(--muted);margin:12px 0 0">The claimed H33-2-B2 → 0.2778 mapping is unauthenticated: the owner page calls that TIFF candidate unscored. <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/analysis.md" rel="noopener">See the source audit and metric caveats.</a> · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/" rel="noopener">Open official live leaderboard ↗</a></p>
+    </section>
+
+    <section aria-labelledby="values-heading">
+      <div class="section-head"><div><p class="eyebrow">Project values</p><h2 id="values-heading">Maximize P(Win). Own the Outcome.</h2></div></div>
+      <div class="grid">
+        <article class="card"><span class="tag">01 · science</span><h3>Hypothesize before building</h3><p>Four distinct mechanisms, expected signature, alternative explanation, source status, and a promotion gate are documented before detector implementation.</p><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/hypotheses.md" rel="noopener">Open preregistered hypotheses →</a></article>
+        <article class="card"><span class="tag">02 · provenance</span><h3>Say what is known</h3><p>Official records, owner-reported claims, locally downloaded files, and tested results are kept in separate evidence categories.</p><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/sources.md" rel="noopener">Open the source register →</a></article>
+        <article class="card"><span class="tag">03 · integrity</span><h3>Audit the written raster</h3><p>Shape, transform, CRS, float32 type, NaN footprint, and every in-footprint value are checked after serialization to prevent range errors.</p><a href="./docs/portal-checklist.html">Review the portal checklist →</a></article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><p>GEMSDOE47 · An auditable research project, not an official DOE or USGS product.</p><div class="footer-links"><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md" rel="noopener">Project charter</a><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/irregularities.md" rel="noopener">Open blockers</a><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/sources.md" rel="noopener">Sources</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" rel="noopener">Competition ↗</a></div></div></footer>
+</body>
+</html>

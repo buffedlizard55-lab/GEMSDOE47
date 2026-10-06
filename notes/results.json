@@ -1,7 +1,7 @@
 {
  "file": "gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
- "sha256": "32c76c92c68a0bd3da2ed52759aa7da57e40ee61ff92a9a5acbc67ad6e166eaa",
- "bytes": 790012,
+ "sha256": "0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261",
+ "bytes": 1552154,
  "positives": 18524,
  "dtype": "float32",
  "crs": "EPSG:32611",
@@ -16,11 +16,13 @@
   0.0,
   -100.0
  ],
- "nodata": null,
+ "nodata": "nan",
  "value_range": [
   0.0,
   1.0
  ],
+ "nan_pixels": 7111787,
+ "footprint_pixels": 5167373,
  "B_flank_px": 20,
  "dti_model": 0.34912,
  "conformal": {
