@@ -86,17 +86,21 @@ Both `T` and `F` are homogeneous of degree 1 in `p`, so
 DTI(λp) = λT / (λα(T + F) + βK)      ⇒      1/DTI(λ) is LINEAR in 1/λ
 ```
 
-Three returns from **one** file therefore solve for `T`, `F` and `K` in closed
-form:
+Three exact DTI returns from scaled versions of one fixed prediction would solve
+for `T`, `F` and `K` in closed form, subject to the same target/mask and exact score
+semantics:
 
-* **S1 ANCHOR** — λ = 1, byte-identical to a known live raster, so it cannot cost rank
+* **S1 ANCHOR** — λ = 1, the selected prediction
 * **S2 SCALE** — λ = 0.5
-* **S3 NULL-ADD** — the anchor plus N dots placed where no truth is expected, so
-  their marginal credit is ≈ 0 and their cost is exactly α·N
+* **S3 NULL-ADD** — anchor plus N predictions placed where credit is expected to be
+  near zero, so their marginal FP cost is approximately α·N
 
-Conditioning is **56×–1380× better** than reading four decimal places off a single
-return. All three probes can be constructed to score *below* the anchor, so they
-cannot cost leaderboard rank. Designed, verified, **never spent** (H47-5).
+The algebraic conditioning estimate is **56×–1380×** better than solving from one
+rounded four-decimal return in the analyzed setup. This is a measurement design,
+not a submission recommendation: the predicted score ordering is not guaranteed
+for private labels, and probes may consume upload allowance or affect which final
+submission is selected. The probe set is designed but **not authorized or spent**;
+verify current official rules and opportunity cost before any use.
 
 ## 5. Required recall for a target score
 
@@ -112,19 +116,28 @@ x = T/K = (αρ + β)/(1/DTI − α),     ρ = F/K
 | **0.3195** | 27.30 % | 34.13 % | **102.73 % — impossible** |
 | 0.3262 | 27.92 % | 34.90 % | **104.98 % — impossible** |
 
-At the incumbent's waste ratio the 0.3195 target **cannot be reached at any
-recall** — recall cannot exceed 100 %. Reaching it requires `F/T` to roughly
-**halve**: same credit, half the wasted mass. It is a precision problem, not a
-coverage problem, and no amount of new detector mass solves it.
+At the assumed incumbent waste ratio the 0.3195 target **cannot be reached in
+this algebraic scenario** because the required weighted recall exceeds 100 %.
+This is not a private-score forecast: the waste ratio and target score are
+participant-history quantities, and the 2026-10-06 saved public snapshot placed
+0.3195 at rank 7, not rank 1. The equation illustrates why reducing wasted mass
+can matter; it does not show that any proposed detector will do so.
 
-A perfect-knowledge ceiling of ≈0.78 follows from the same equation. The community
-leader at 0.3262 is therefore at ≈42 % of the achievable ceiling, which says the
-binding constraint is **knowing where the faults are**, not method.
+A perfect-knowledge ceiling follows only under the same scoring and coverage
+assumptions. It should not be compared to the current leaderboard as a calibrated
+prediction or used to infer what data the organizer evaluated.
 
-## 6. Why 0.2778 won
+## 6. Conditional arithmetic for the reported 0.2778 — attribution unresolved
 
-It is not a discovery, it is precision. Emitted mass along the family's
-trajectory:
+The public leaderboard records a participant-level 0.2778 row, but not a TIFF hash
+or upload receipt. The GEMSDOE32 owner page marks H33-2-B2 unscored, so the alleged
+score/file mapping is contested. The table combines owner-reported values and
+raster-derived counts; it is not proof that the H33 TIFF earned 0.2778.
+
+If the mapping and metric interpretation were correct, reducing low-credit
+emissions while retaining higher-credit mass could improve precision. That general
+mechanism is consistent with the DTI equation, but it does not identify the cause
+of a participant's score. Emitted mass along the reported family trajectory:
 
 | Raster | Emitted px S | DTI | Covered 300 m kernel integral | Kernel credit retention |
 |---|---|---|---|---|
@@ -132,16 +145,21 @@ trajectory:
 | d1.5 (Poisson thin, 1.5 px) | 60,069 | 0.2477 | 383,645 | 0.854 |
 | d2.8 (Poisson thin, 2.4 px) | 44,090 | **0.2600** | 341,261 | 0.759 |
 | h27-4-r1-solo (rank-1 corroboration) | 40,199 | 0.2708 | — | — |
-| h33-2-b2 (flank-pruned) | 37,654 | **0.2778** | 302,510 | — |
+| h33-2-b2 (flank-pruned; mapping contested) | 37,654 | **0.2778 reported, not file-authenticated** | 302,510 | — |
 
-Mass fell **69 %** from h19-5 to h33-2-b2 while the covered kernel integral fell
-only **33 %**. Each step removed mass whose marginal credit was below `α·DTI`.
-The final step removed every dot within 2 px of the given catalogue — dots on
-**masked** pixels, which cannot earn credit at all.
+Raster mass fell **69 %** from h19-5 to H33-2-B2 while the covered public-catalogue
+kernel integral fell only **33 %**. This is a raster-derived coverage/mass comparison,
+not proof that the score changed for that reason. H33's construction prunes a
+2-pixel neighbourhood around the catalogue; that neighbourhood includes off-catalogue
+pixels and should not be described as entirely masked. Local masking evidence supports
+excluding known-catalogue cells before both sums, so deleting cells that are wholly
+excluded would not change DTI. The contribution of nearby off-catalogue cells depends
+on private truth credit, which is unavailable here.
 
-Read against §2, that is the whole story: `1/DTI` fell because `F/T` fell, and
-`F/T` fell because mass with near-zero marginal credit was deleted, not because
-any new fault was found.
+**Conclusion:** precision is a plausible general explanation for a high score under
+the metric, but the project cannot claim “H33 won because of precision” without a
+file-level score receipt and confirmed evaluation semantics. See the attribution
+caveat in `docs/analysis.md`.
 
 ## 7. Two numerical traps in the expectation algebra
 

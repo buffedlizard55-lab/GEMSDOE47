@@ -15,7 +15,7 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="executive-summary.html">Executive summary &amp; how to submit</a>
-    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="hypotheses.html">New hypotheses</a>
     <a href="method.html">LATI method</a>
     <a class="on" href="evidence.html">Every number</a>
     <a href="irregularities.html">Irregularities</a>
@@ -46,19 +46,19 @@
 above from the restored bytes and asserts they match; <code>scripts/verify_grid.py</code>).
 Band order and descriptions are read from the TIFF metadata, not from documentation.</p>
 
-<h2 id="why-02778">Why 0.2778 won — the arithmetic</h2>
+<h2 id="why-02778">Conditional arithmetic for the reported 0.2778 — attribution unresolved</h2>
+<div class="callout warn"><b>The 0.2778-to-H33-2-B2 TIFF mapping is contested.</b> The public leaderboard row is participant-level, with no filename, hash, or receipt; the GEMSDOE32 owner page marks that TIFF unscored. The equations below explain what could affect DTI if the mapping and metric assumptions were correct. They do not establish that this TIFF earned 0.2778 or why a participant received that score.</div>
 <pre>1/DTI = α + α·(F/T) + β·(K/T)        α = 0.2, β = 0.8
 FN_w  = K − T          exactly
-FP_w  = S − Φ          exactly,  Φ = Σ_{x∈D} κ(x),  κ(x) = max_{g∈G} k(d(x,g))
-DTI   = T / (α·(T + S − Φ) + β·K)
+FP_w  = S − Φ          exactly,  Φ = Σ_{x∈D} p(x)κ(x),  κ(x) = max_{g∈G} k(d(x,g))
+DTI   = T / (α·(T + F) + β·K)
 
-marginal rule:  add a dot  ⇔  dT·(1/DTI − α) &gt; α·dF
-                for dT = k, dF = 1 − k this is   k &gt; α·DTI
-                at DTI 0.2600 → k &gt; 0.0520      at DTI 0.2778 → k &gt; 0.0556
-                k = 1 − d/3 px  ⇒  a dot pays only within ≈ 2.84 px ≈ 284 m of a truth pixel
+marginal rule:  a change improves DTI iff dT·(1/DTI − α) &gt; α·dF
+For a unit-mass dot with credit k and FP increment 1−k: k &gt; α·DTI.
 
 x = T/K required for a target DTI at waste ratio ρ = F/K:   x = (αρ + β)/(1/DTI − α)</pre>
-<p>The family’s trajectory is a <b>mass</b> story, not a discovery story:</p>
+<p>If a score/file mapping is eventually verified, the general mechanism is straightforward: removing low-credit emissions can reduce false-positive mass while retaining higher-credit mass, improving precision. The H33-specific flank-pruning explanation is <b>not established</b>. The prior comparison mixes a contested reported score with raster-derived counts, and catalogue-mask pixels are locally supported as excluded before both sums. Deleting only fully excluded pixels cannot itself change the score; effects of deleting nearby off-catalogue pixels would depend on their true credit.</p>
+<p>The family trajectory below is therefore a <b>conditional raster/metric comparison</b>, not proof of a discovery or a cause of the participant score:</p>
 <table>
 <tr><th>Raster</th><th class="n">Emitted px S</th><th class="n">Live / reported DTI</th>
     <th class="n">Covered 300 m kernel integral</th><th class="n">Kernel credit retention</th></tr>
@@ -66,17 +66,12 @@ x = T/K required for a target DTI at waste ratio ρ = F/K:   x = (αρ + β)/(1/
 <tr><td>d1.5 — Poisson thin at 1.5 px</td><td class="n">60,069</td><td class="n">0.2477</td><td class="n">383,645</td><td class="n">0.854</td></tr>
 <tr><td>d2.8 — Poisson thin at 2.4 px</td><td class="n">44,090</td><td class="n">0.2600</td><td class="n">341,261</td><td class="n">0.759</td></tr>
 <tr><td>h27-4-r1-solo (rank-1 corroboration)</td><td class="n">40,199</td><td class="n">0.2708</td><td class="n">—</td><td class="n">—</td></tr>
-<tr><td><b>h33-2-b2 (flank-pruned)</b></td><td class="n"><b>37,654</b></td><td class="n"><b>0.2778</b></td><td class="n">302,510</td><td class="n">—</td></tr>
+<tr><td><b>h33-2-b2 (flank-pruned)</b> <span class="badge b-warn">score link contested</span></td><td class="n"><b>37,654</b></td><td class="n"><b>0.2778 (reported, not file-authenticated)</b></td><td class="n">302,510</td><td class="n">—</td></tr>
 </table>
-<p>Emitted mass fell <b>69 %</b> from h19-5 to h33-2-b2 while the covered kernel integral fell only
-<b>33 %</b>. Each step removed mass whose marginal credit was below <code>α·DTI</code>. The final step
-removed every dot within 2 px of the given catalogue — dots on <b>masked</b> pixels, which cannot earn
-credit at all.</p>
+<p>The raster comparison shows fewer emitted pixels at each thinning step, while its exact covered-kernel integral also declines. This is consistent with a precision/coverage trade-off, but it does not establish which exact file was scored or which emissions received private-label credit. The H33 construction prunes a 2-pixel catalogue flank; that band includes off-catalogue neighbors and must not be described as “all masked pixels.”</p>
 
-<h2>The thirteen observations</h2>
-<p class="small">Every row is a raster that was actually uploaded, restored byte-exactly and SHA-256
-verified, together with the DTI reported for it. <code>S</code> is the <b>evaluated</b> mass (dots on
-masked catalogue pixels excluded); “dots” is the raw count. F1–F5 are defined below the table.</p>
+<h2>The thirteen historical score/file records</h2>
+<p class="small">Twelve rows have owner-reported DTI/file pairings and byte-exact restored rasters. The H33-2-B2 / 0.2778 record is explicitly contested: the owner page says unscored and the public participant row has no file receipt. “Reported DTI” is not an organizer-verified artifact score. <code>S</code> is the locally computed evaluated mass; “dots” is the raw count. F1–F5 and LATI quantities use the included 13-record set and therefore inherit the contested-point sensitivity.</p>
 <table>
 <tr><th>ID</th><th class="n">Reported DTI</th><th class="n">Dots</th><th class="n">S (evaluated)</th>
     <th class="n">On catalogue</th><th class="n">Coverage</th><th class="n">F1</th><th class="n">F2</th>

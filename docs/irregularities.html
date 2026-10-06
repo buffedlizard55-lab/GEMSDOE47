@@ -4,18 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Irregularities — GEMSDOE47</title>
-<meta name="description" content="IR-47-001 to IR-47-015: everything that looks wrong, contradicts itself, or rests on a number that could not be verified, each with links for manual review.">
+<meta name="description" content="Issues IR-47-001 to IR-47-020, including contested score attribution, unverified portal-error cause, proxy-specific conformal assumptions, and no-slot decision.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <h1>Irregularities flagged for manual review</h1>
-  <p class="sub">Everything that looks wrong, contradicts itself, or rests on a number that could not be
-     verified. Machine-readable copy: <code>registry/irregularities.json</code>.</p>
+  <h1>Irregularities and evidence limits</h1>
+  <p class="sub">Issues IR-47-001 to IR-47-020, including current conformal, uniqueness, submission-rule, and portal-error caveats. Manual review of DrivenData content is subject to prior written consent under its Terms of Use. Machine-readable registry: <code>registry/irregularities.json</code>.</p>
   <nav>
     <a href="index.html">Home</a>
     <a href="executive-summary.html">Executive summary &amp; how to submit</a>
-    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="hypotheses.html">New hypotheses</a>
     <a href="method.html">LATI method</a>
     <a href="evidence.html">Every number</a>
     <a class="on" href="irregularities.html">Irregularities</a>
@@ -27,7 +26,7 @@
 <table>
 <tr><th>ID</th><th>What is irregular</th><th>Why it matters</th><th>What was done</th><th>Severity</th></tr>
 
-<tr><td><b>IR-47-001</b></td>
+<tr id="ir-47-001"><td><b>IR-47-001</b></td>
 <td>The nodata value in <code>training_features.tif</code> is <code>−3.4028234663852886e+38</code> —
     the float32 minimum — <b>not</b> NaN. <code>np.isfinite()</code> returns <b>True</b> for it.</td>
 <td>Any statistics, rank transform or model fitted without special-casing it treats
@@ -38,20 +37,15 @@
     <code>evidence/training_band_stats.json</code> as <code>missing_in_fp</code>.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
-<tr><td><b>IR-47-002</b></td>
+<tr id="ir-47-002"><td><b>IR-47-002</b></td>
 <td><b>The reported 0.2778 attribution is contested.</b> A sibling repository’s own records log
     <code>attribution_conflict_site_says_unscored_official_board_has_unlinked_0.2778_row</code> for
     <code>h33-h33-2-b2-…-zeros</code>.</td>
-<td>This single number is the <b>only</b> direct flank ablation in the whole 44-repository collection,
-    and it decides the H47-2 verdict. If it is wrong, the strongest-looking hypothesis this project
-    generated is alive again.</td>
-<td>Not resolved — it cannot be, without portal access. Instead of asserting a conclusion,
-    <code>scripts/flank_sensitivity.py</code> reports the <b>break-even</b>: the flank is supported only
-    if that file scored <b>≤ 0.2200</b>. Manual review: open the competition leaderboard and check
-    whether a 0.2778 row exists and which file it belongs to.</td>
+<td>The 0.2778 participant row is not tied to the H33-2-B2 TIFF by a filename, hash, or organizer receipt. This disputed point changes the retrospective flank sensitivity result.</td>
+<td>Unresolved. The participant leaderboard cannot identify the file, and this project does not scrape or copy the board. `scripts/flank_sensitivity.py` reports a conditional break-even of 0.2200 only if the mapping is assumed. Resolve only with an authorized file-level receipt from the owner/organizer; otherwise retain the caveat.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
-<tr><td><b>IR-47-003</b></td>
+<tr id="ir-47-003"><td><b>IR-47-003</b></td>
 <td><code>sample_submission.tif</code> is <b>not</b> an all-zero template. It contains
     <b>60,988</b> pixels at value 1, and every one of them coincides with <code>labels == 1</code>.</td>
 <td>Anyone who uploads the sample unchanged gets a submission consisting purely of <b>masked</b>
@@ -61,7 +55,7 @@
     anywhere.</td>
 <td><span class="badge b-info">LOW</span></td></tr>
 
-<tr><td><b>IR-47-004</b></td>
+<tr id="ir-47-004"><td><b>IR-47-004</b></td>
 <td><b>The organiser’s reference solution does not optimise the leaderboard metric.</b>
     <code>drivendataorg/gems-prize-reference-solution</code> trains a U-Net with
     <code>smp.losses.TverskyLoss(alpha=0.2, beta=0.8, mode="binary")</code> — a patch-level,
@@ -76,7 +70,7 @@
     organiser’s worked example.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
-<tr><td><b>IR-47-005</b></td>
+<tr id="ir-47-005"><td><b>IR-47-005</b></td>
 <td><b>A blocked holdout on the given catalogue cannot be scored under the organiser’s masking rule.</b>
     With <code>mask_mode="zero"</code>, the holdout truth <i>is</i> the masked set, so
     <code>g &amp; evaluated</code> is empty, <code>K = 0</code> and DTI ≡ 0 for every candidate. A first
@@ -89,7 +83,7 @@
     structurally unfit for the purpose it has been used for.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
-<tr><td><b>IR-47-006</b></td>
+<tr id="ir-47-006"><td><b>IR-47-006</b></td>
 <td><b>The staff answer in forum thread 11527 could not be retrieved.</b> The thread
     (“How were the new test faults identified? Data sources and fault types”) has 9 replies; only the two
     questions and two non-staff replies rendered. The page presents a collapsed post list.</td>
@@ -101,7 +95,7 @@
     anywhere in this repository.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
-<tr><td><b>IR-47-007</b></td>
+<tr id="ir-47-007"><td><b>IR-47-007</b></td>
 <td><b>Optimizer’s curse measured at ≈0.30 DTI.</b> A candidate built by maximising a fitted belief
     scored <b>0.6245</b> under that belief and <b>0.032–0.057</b> under four independent frames. Under
     cross-fitting the same candidate returned <b>−0.0611</b> and <b>−0.0450</b> against the incumbent.</td>
@@ -114,7 +108,7 @@
     in-fold selection was fitting noise.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
-<tr><td><b>IR-47-008</b></td>
+<tr id="ir-47-008"><td><b>IR-47-008</b></td>
 <td><b>A sibling repository’s truth model is self-referential.</b> It draws hidden truth as
     <code>π ~ exp(−d(H19-5)/1.85 px)</code> — a scatter around the group’s own best field — then reports
     that a rule covering that field better wins by +0.0247 with 12/12 draws positive.</td>
@@ -124,7 +118,7 @@
     the model. Positive and negative controls are published alongside every screen.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
-<tr><td><b>IR-47-009</b></td>
+<tr id="ir-47-009"><td><b>IR-47-009</b></td>
 <td><b>Two sibling downloads were verified defective.</b> A “smooth-max-coverage” raster had
     <b>57.8 %</b> of its 44,090 dots off the belief support it claimed to pack, and a catalogue-proxy DTI
     of 0.0163 against its own incumbent’s 0.1618. Root cause: blurring a 1-px binary ridge by σ = 1.85 px
@@ -135,7 +129,7 @@
     already delivered, never against a static upper bound.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
-<tr><td><b>IR-47-010</b></td>
+<tr id="ir-47-010"><td><b>IR-47-010</b></td>
 <td><b>An arithmetic error propagated through several sibling repositories.</b> The marginal credit bar
     was written as <code>α·s/(1 − α·s)</code> = 0.0549 at s = 0.26. The correct value is
     <code>α·s</code> = <b>0.0520</b> — the published form is <b>5.5 % too high</b>.</td>
@@ -147,28 +141,24 @@
     <code>dT = k, dF = 1 − k</code>.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
-<tr><td><b>IR-47-011</b></td>
+<tr id="ir-47-011"><td><b>IR-47-011</b></td>
 <td><b>Whether scoring is restricted to a public-chunk footprint is unresolved.</b> No prior repository
     answers it, and no statement from the organiser was found.</td>
 <td>If the whole raster is scored but only public-chunk truth exists, mass in private chunks is
     <b>pure false positive</b>. That changes the optimal emission from “cover the footprint” to “cover
     the public chunks”, and it could account for part of the gap between 0.28 and 0.3262.</td>
-<td>Flagged, not assumed. The λ-probe design (H47-5) would settle it in three submissions. Manual
-    review: ask in the forum, or read the rules page for a public/private split statement.</td>
+<td>Flagged, not assumed. A λ-probe is a mathematical design only; it may consume upload allowance and affect the selected final submission. Do not spend it without current official rules and an authorized owner's explicit approval.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
-<tr><td><b>IR-47-012</b></td>
+<tr id="ir-47-012"><td><b>IR-47-012</b></td>
 <td><b>The 1 m DEM was never used.</b> The competition supplies links to 716 USGS 3DEP 1 m tiles. Only a
     sibling repository’s pre-derived 100 m LiDAR scarp rasters were reachable from this environment.</td>
-<td>Fault scarps are a metre-scale phenomenon. Averaging them to 100 m destroys the discriminating
-    signal — consistent with every LiDAR-derived layer ranking poorly here
-    (<code>lidar_coh100</code>, <code>lidar_strike</code>, <code>lidar_valid</code> among the worst of
-    72). The top of the leaderboard is almost certainly using the 1 m data directly.</td>
+<td>Fault scarps can be metre-scale, so resampling before detection can erase narrow morphology. Earlier pre-derived 100 m LiDAR layers ranked poorly (<code>lidar_coh100</code>, <code>lidar_strike</code>, <code>lidar_valid</code> among the worst of 72). This does not establish what any leaderboard participant used or that native-resolution LiDAR will improve DTI.</td>
 <td>Flagged as the single largest untested lever. The derived 100 m rasters are used and their provenance
     is recorded, but no claim is made that they represent the 1 m signal.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
-<tr><td><b>IR-47-013</b></td>
+<tr id="ir-47-013"><td><b>IR-47-013</b></td>
 <td><b>Six of the thirteen observations are nested thinnings of one field</b>
     (<code>d2.8 ⊂ h19-5</code>, <code>d1.5 ⊂ h19-5</code>, <code>d1.5 ⊂ tgc-v2</code>;
     <code>h19-4</code>, <code>h16-1</code> near-identical to <code>h19-5</code> at 121k–124k dots).</td>
@@ -178,7 +168,7 @@
     test is stratified by reported DTI so each fold spans the range.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
-<tr><td><b>IR-47-014</b></td>
+<tr id="ir-47-014"><td><b>IR-47-014</b></td>
 <td><b>Two bugs in this project’s own first pass</b>, both caught by the review passes and both of which
     would have produced impossible numbers.</td>
 <td>(a) The first-order <code>Φ ≈ ⟨q, a⟩</code> is an <b>upper bound</b>, not an estimate: it drove
@@ -194,23 +184,35 @@
     densities (z = −0.58, +0.28, −0.17).</td>
 <td><span class="badge b-good">FIXED</span></td></tr>
 
-<tr><td><b>IR-47-015</b></td>
+<tr id="ir-47-015"><td><b>IR-47-015</b></td>
 <td><b>Sandbox volatility.</b> Mid-project the virtual environment and the 1.2 GB restored dataset
     disappeared, because both live in paths excluded from workspace snapshots
     (<code>venv*</code>, <code>.cache</code>). The sibling clones under <code>/home/user/refs</code> were
     lost too.</td>
 <td>Any result that depends on non-repo state is one recycle away from being unreproducible.</td>
 <td>Everything needed is re-derivable from committed files: <code>scripts/restore_data.py</code>
-    restores 22/22 hash-pinned bytes in ~30 s, <code>scripts/ship.py</code> was rewritten to compute its
+    restores 23/23 hash-pinned manifest entries, <code>scripts/ship.py</code> was rewritten to compute its
     four belief layers directly instead of rebuilding the 59-layer stack, and the one extra reference
     raster is now pinned in <code>registry/data_manifest.json</code> with its SHA-256.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 </table>
 
+<h2>Current audit additions</h2>
+<ul>
+<li id="ir-47-016"><b>IR-47-016 — new single-scale TIFF is not promoted.</b> Strict local validation passes only against the explicit binary mask derived from finite cells in the mirrored sample template; the training-features-derived mask differs (see IR-47-020). It has zero exact positive-mask matches among 334 sibling-site TIFFs and 19 independent local prior TIFFs. Its locked-test pooled DTI against the known-fault catalogue-mask proxy (0.025639) loses to H47-B (0.027553) and random control (0.037159). These are proxy scores, not missing-fault target scores. Research-only; no slot.</li>
+<li id="ir-47-017"><b>IR-47-017 — conformal level is conditional and proxy-specific.</b> The calibration target is the known-fault catalogue mask, not the competition's missing-fault target. Six calibration blocks give nominal 6/7 = 85.7% proxy-score coverage only under exchangeability; spatial exchangeability is unverified, two cores have no mask pixels, and the clipped lower bound is 0.000.</li>
+<li id="ir-47-018"><b>IR-47-018 — no unlimited Final Prize Round assumption.</b> The official description says one submission is selected across the initial/final rounds; verify the current upload allowance and deadline in the authorized participant portal.</li>
+<li id="ir-47-019"><b>IR-47-019 — range-error root cause unknown.</b> The rejected TIFF and organizer diagnostic are unavailable. NaNs can fail local range expressions, but this does not prove they caused the portal error. The primary research TIFF's strict local pass is tied to the explicit mirrored-sample footprint in IR-47-020.</li>
+<li id="ir-47-020"><b>IR-47-020 — local mirror footprint mismatch.</b> The finite-cell masks of <code>sample_submission.tif</code> and <code>labels.tif</code> each contain 5,167,373 pixels; the footprint inferred from <code>training_features.tif</code> contains 5,165,852. There are 1,540 feature-valid pixels outside the sample mask and 3,061 sample/label pixels invalid or masked in features. Strict TIFF validation therefore uses an explicit binary mask made from finite sample-template cells. This is a local mirror observation—not authentication of official files or proof of the organizer's evaluation footprint.</li>
+</ul>
+<p>Full details: <a href="irregularities.md">current IR-01…25 register</a> ·
+<a href="../evidence/conformal_spacing_audit_20261006.json">conformal/spacing report</a> ·
+<a href="../evidence/conformal_candidate_uniqueness_20261006.json">new TIFF uniqueness report</a>.</p>
+
 <div class="callout info">
-<b>Links for manual review.</b>
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">competition leaderboard</a>
-(IR-47-002: does a 0.2778 row exist, and for which file?) ·
+<b>Official source links for authorized manual review only.</b> Manual monitoring/copying requires prior written consent under the Terms of Use.
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/" rel="noopener">competition leaderboard</a>
+(IR-47-002: participant-level rows do not identify a file; request a separate authorized receipt) ·
 <a href="https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527">thread 11527</a>
 (IR-47-006: the unretrieved staff answer) ·
 <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/rules/">competition rules</a>

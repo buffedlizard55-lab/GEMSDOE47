@@ -15,7 +15,7 @@
    "severity": "HIGH",
    "what": "the reported 0.2778 attribution is contested",
    "why_it_matters": "it is the only direct flank ablation in the collection and decides the H47-2 verdict",
-   "what_was_done": "break-even reported (0.2200) instead of a conclusion; manual review requested",
+   "what_was_done": "break-even reported as conditional only; do not infer file attribution from the participant leaderboard; request an authorized file-level receipt",
    "human_page": "docs/irregularities.html#ir-47-002"
   },
   {
@@ -87,14 +87,14 @@
    "severity": "HIGH",
    "what": "whether scoring is restricted to a public-chunk footprint is unresolved",
    "why_it_matters": "mass in private chunks may be pure FP",
-   "what_was_done": "flagged; the lambda-probe design would settle it in 3 submissions",
+   "what_was_done": "flagged; lambda-probe is a design only, may consume allowance, and requires current rules plus authorized owner approval",
    "human_page": "docs/irregularities.html#ir-47-011"
   },
   {
    "id": "IR-47-012",
    "severity": "HIGH",
    "what": "the 1 m DEM was never used",
-   "why_it_matters": "fault scarps are a metre-scale phenomenon; the top of the board is probably using it",
+   "why_it_matters": "native-resolution scarp detection may preserve metre-scale signal; prior 100 m LiDAR screens do not establish what competitors used or promise a gain",
    "what_was_done": "flagged as the single largest untested lever",
    "human_page": "docs/irregularities.html#ir-47-012"
   },
@@ -117,10 +117,50 @@
   {
    "id": "IR-47-015",
    "severity": "MEDIUM",
-   "what": "sandbox volatility: venv, .cache (1.2 GB) and the sibling clones were lost mid-project",
+   "what": "sandbox volatility: virtual environment, cache and sibling clones can disappear between sessions",
    "why_it_matters": "any result depending on non-repo state is one recycle from unreproducible",
-   "what_was_done": "restore_data.py rebuilds 22/22 in ~30 s; ship.py needs no 59-layer stack; the 13th raster is now hash-pinned in the manifest",
+   "what_was_done": "restore_data.py rebuilds 23/23 manifest entries; ship.py does not need the 59-layer stack; the reference raster is hash-pinned",
    "human_page": "docs/irregularities.html#ir-47-015"
+  },
+  {
+   "id": "IR-47-016",
+   "severity": "HIGH / NEGATIVE",
+   "what": "new single-scale d=5 TIFF is not promoted despite a footprint-specific strict local format pass and bounded uniqueness",
+   "why_it_matters": "locked pooled DTI against the known-fault catalogue-mask proxy is 0.025639, below H47-B 0.027553 and random control 0.037159; these are not missing-fault target scores and the conformal lower floor is zero",
+   "what_was_done": "labelled research-only; strict local validator passes only with an explicit mirrored-sample-derived mask; feature-derived footprint mismatch is separately registered; 0 exact masks in 334 historical exact-grid TIFFs; no slot recommendation",
+   "human_page": "docs/irregularities.html#ir-47-016"
+  },
+  {
+   "id": "IR-47-017",
+   "severity": "HIGH / ASSUMPTION",
+   "what": "85.7 percent split-conformal calculation is conditional on exchangeability and targets only a diagnostic score against the known-fault catalogue mask",
+   "why_it_matters": "the known-fault mask is excluded from the competition missing-fault evaluation; spatial block exchangeability is unverified; two calibration cores are empty",
+   "what_was_done": "reported n=6, rank=6/6, nominal 6/7 proxy-score coverage, zero lower bound and no private-label guarantee",
+   "human_page": "docs/analysis.html"
+  },
+  {
+   "id": "IR-47-018",
+   "severity": "HIGH / RULES",
+   "what": "unlimited Final Prize Round submission assumption is unsupported",
+   "why_it_matters": "official description says one submission is selected for scoring across initial/final prize rounds; current upload allowance remains to be checked",
+   "what_was_done": "removed unlimited-submission advice; use authorized participant portal for current allowance/deadline; no slot spent",
+   "human_page": "docs/submit.html"
+  },
+  {
+   "id": "IR-47-019",
+   "severity": "HIGH / UNKNOWN",
+   "what": "root cause of the reported range rejection is unknown",
+   "why_it_matters": "rejected TIFF and organizer-side diagnostic are unavailable; NaNs are only a plausible failure mode",
+   "what_was_done": "changed site language to distinguish local NaN-intolerant checks from portal cause; strict local validation passes against an explicit sample-template mask only; see IR-47-020 for the feature-mask discrepancy",
+   "human_page": "docs/irregularities.html#ir-47-019"
+  },
+  {
+   "id": "IR-47-020",
+   "severity": "HIGH / FOOTPRINT MISMATCH",
+   "what": "sample/label and training-feature-derived footprints differ in the local mirror",
+   "why_it_matters": "strict validation depends on the chosen footprint; the feature-derived mask has 1,540 pixels outside the sample/label mask and omits 3,061 sample/label pixels",
+   "what_was_done": "recorded windowed counts and training_features SHA-256; validated the NaN-outside research TIFF with an explicit binary mask derived from finite sample-template cells; official footprint provenance remains unresolved",
+   "human_page": "docs/irregularities.html#ir-47-020"
   }
  ]
 }

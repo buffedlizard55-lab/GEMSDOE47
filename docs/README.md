@@ -1,21 +1,19 @@
-# GEMSDOE47 — site source
+# GEMSDOE47 — site source map
 
-GitHub Pages serves this directory. `index.html` is the landing page and the
-submission download is the first element on it.
+GitHub Pages is configured for the repository root (`main:/`). The primary landing page is `../index.html`; `docs/index.html` is a consistent secondary research summary. Both place the unique TIFF download prominently and label it research-only/not-for-submission.
 
 | Page | Contents |
 |---|---|
-| `index.html` | The download, the headline finding, the range-error fix, all five frames, official sources |
-| `executive-summary.html` | **Exactly how to submit** — nine steps, the note text, the recommendation, remaining work |
-| `hypotheses.html` | The five hypotheses, ranked, each with layers / signature / why-it-catches-a-missing-fault / difference from prior work / verdict |
-| `method.html` | LATI: the algebra, the identifiability fix, the binned fast path, the controls, cross-fitting, the two bugs |
-| `evidence.html` | Every number, with its source file |
-| `irregularities.html` | IR-47-001 … IR-47-015 |
-| `prior-results.csv` | 63 rows: every known submission and score across the family |
-| `prior-output-manifest.csv` | Every file this repository publishes or removed, with SHA-256 |
-| `downloads/` | The shipped GeoTIFFs |
+| `../index.html` | Primary download, negative holdout result, no-slot decision |
+| `index.html` | Secondary research landing page consistent with root decision |
+| `executive-summary.html` | Research TIFF, conformal assumptions, metric attribution limits, future manual submission instructions |
+| `hypotheses.html` / `hypotheses.md` | Four prospective unbuilt hypotheses, ranked with layers, physical rationale, cost and data limits |
+| `analysis.html` / `analysis.md` | Locked-test results, conformal audit, bounded uniqueness and score attribution |
+| `method.html` | LATI algebra, identifiability, controls, cross-fitting and limitations |
+| `evidence.html` | Historical numeric ledger, with a contested H33 attribution warning |
+| `irregularities.html` / `irregularities.md` | Historical and current irregularities, including unverified range-error cause and no-slot decision |
+| `submit.html` | Fail-closed manual instructions for a future promoted candidate only |
+| `sources.html` / `sources.md` | Official links and acquisition/provenance status |
+| `downloads/` | Generated TIFFs; current outputs are research-only and not slot-eligible |
 
-`downloads/` is committed on purpose — the deliverable must be reachable from the
-live site with one click, and nothing else in this repository may be committed
-that exceeds the size cap. Large restored inputs stay in `.cache/`, which
-`.gitignore` excludes; see `data/README.md`.
+The new TIFF must remain downloadable for research review, not be presented as a validated submission. Large restored inputs stay under ignored `.cache/`; see `../data/README.md`.

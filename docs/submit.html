@@ -16,8 +16,8 @@
   </nav>
 </div></header>
 <main class="wrap">
-  <div class="note bad"><strong>Current status: do not upload either repository TIFF.</strong> H47-B failed the preregistered holdout gate and is only a research artifact. The older d-cat/annulus file is derived by pruning a published mask. Neither file is eligible for a slot.</div>
-  <p>These instructions apply only after a <em>new</em> prediction has beaten the current spatially blocked holdout best under a frozen protocol and passed independent review. This site does not log in, upload, poll the leaderboard, or spend a slot.</p>
+  <div class="note bad"><strong>Current status: do not upload any repository TIFF.</strong> H47-B and the new single-scale d=5 control failed the holdout/control gate; both are research-only. The older d-cat/annulus file is a pruned prior mask. No current artifact is eligible for a slot.</div>
+  <p><a download href="downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif">Download the new unique TIFF for research review only</a> (SHA-256 <code>dc71c807fbca2cd398f394bcd91b10ecec6b46fe89c2d61f5b1c058fef672811</code>). It passes the strict local validator only with an explicit binary footprint derived from finite cells in the mirrored sample template; the feature-derived footprint disagrees. This does not establish the official evaluation mask, scientific validity, or organizer acceptance. These instructions apply only after a <em>future</em> prediction beats the current spatially blocked holdout best under a frozen protocol and passes independent review. This site does not log in, upload, poll the leaderboard, or spend a slot.</p>
   <h2>Gate 1 — scientific promotion (required before packaging)</h2>
   <ol class="steps">
     <li>Pin authorized input files, the candidate code revision, the frozen protocol and spatial block assignment by SHA-256. Distinguish official downloads from public mirrors and verify labels/grid semantics.</li>
@@ -29,21 +29,24 @@
   <h2>Gate 2 — verify the exact output bytes</h2>
   <ol class="steps">
     <li>Build a new single-band GeoTIFF from the promoted prediction using the official sample-submission profile. Do not modify a previously submitted TIFF to imitate a new model.</li>
-    <li>Run the local validator after writing, using the exact authorized template and feature-footprint files. This repository provides <code>scripts/validate_submission.py</code>; example: <code>python scripts/validate_submission.py --submission prediction.tif --template sample_submission.tif --features training_features.tif</code>.</li>
+    <li>Run the local validator after writing, using the exact authorized template and the organizer-confirmed valid footprint. In this mirror, the sample/label footprint and the footprint inferred from <code>training_features.tif</code> disagree by 1,540 and 3,061 pixels, so do not substitute the feature-derived mask without resolving that mismatch. If the organizer's current instructions confirm that finite sample-template cells define the footprint, build and use an explicit mask:
+      <p><code>python scripts/build_footprint_mask.py --template sample_submission.tif --output footprint_mask.tif</code><br>
+      <code>python scripts/validate_submission.py --submission prediction.tif --template sample_submission.tif --footprint-mask footprint_mask.tif --report validation.json</code></p>
+      The helper records hashes and derives only from finite, unmasked sample cells; it cannot authenticate the download or organizer semantics.</li>
     <li>Check width, height, CRS, transform, one-band float32 type, nodata/mask convention, and every in-footprint value in [0,1]. Reopen the final path, compute its SHA-256, and keep the validator report. A local pass is not an organizer acceptance guarantee.</li>
     <li>Choose a unique, descriptive filename and a brief truthful note. Never state that the file has a particular public score unless an organizer receipt maps that exact hash to that score.</li>
   </ol>
   <h2>Gate 3 — manual portal action (authorized team member only)</h2>
   <ol class="steps">
-    <li>Immediately before upload, review the current <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" rel="noopener">official competition page</a>, current <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" rel="noopener">problem description</a>, rules, format instructions and submission-slot limits. Do not rely on an old screenshot or this repository for current form wording.</li>
+    <li>Immediately before any upload, review the current <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" rel="noopener">official competition page</a>, <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" rel="noopener">problem description</a>, rules, format instructions, deadline, and participant-dashboard upload allowance. The description says one submission is selected for scoring across the initial and final prize rounds; do not infer unlimited uploads from that statement or rely on this dated repository for live rules.</li>
     <li>Sign in through the team's authorized DrivenData account and open the GEMS Prize submission page. Follow its currently displayed “new submission” workflow.</li>
     <li>Upload the verified `.tif` (or a permitted archive only if the current portal instructions explicitly allow it), enter the unique name and short note if those fields are present, and submit manually.</li>
     <li>Wait for validation/scoring to finish. Record the organizer submission/receipt ID, timestamp, exact uploaded SHA-256, status and returned score. If rejected, preserve the message and inspect the rejected bytes; do not guess at a fix or silently substitute another file.</li>
   </ol>
   <div class="note"><strong>Score attribution rule.</strong> A leaderboard participant row is not a file receipt. Keep organizer confirmation that connects submission ID, uploaded file hash and score. Until that evidence exists, file-to-score associations remain unverified.</div>
   <h2>Current artifact links (research only)</h2>
-  <p><a href="validation-h47b-20261006.md">H47-B experiment, format and bounded uniqueness report</a> · <a href="analysis.md">retired historical score/conformal claims and current attribution limits</a> · <a href="portal-checklist.html">short pre-upload checklist</a>.</p>
+  <p><a download href="downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif">New single-scale research TIFF</a> · <a href="../evidence/conformal_spacing_audit_20261006.json">spacing/conformal results</a> · <a href="../evidence/conformal_candidate_uniqueness_20261006.json">bounded uniqueness audit</a> · <a href="validation-h47b-20261006.md">H47-B validation report</a> · <a href="analysis.md">score attribution and retired-claim limits</a> · <a href="portal-checklist.html">short pre-upload checklist</a>.</p>
 </main>
-<footer><div class="wrap">Do not upload H47-B or the historical d-cat/annulus TIFF. The submission gate remains closed.</div></footer>
+<footer><div class="wrap">Do not upload any current GEMSDOE47 TIFF. The gate remains closed until a genuinely new prediction beats the holdout and controls. <a href="executive-summary.html">Executive summary</a> · <a href="../README.md">standing brief</a></div></footer>
 </body>
 </html>

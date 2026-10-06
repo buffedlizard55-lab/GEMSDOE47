@@ -18,18 +18,22 @@
 </div></header>
 <main class="wrap">
   <section class="dl" aria-labelledby="download-heading">
-    <h2 id="download-heading">Research GeoTIFF download — <span class="bad">NOT FOR SUBMISSION</span></h2>
-    <p><strong>H47-B failed its preregistered promotion gate.</strong> This file is shared for transparent research review only; do not upload it or spend a competition slot. A format-valid raster is not a validated prediction.</p>
-    <a class="btn" download href="docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download research-only H47-B GeoTIFF (1.5 MB)</a>
+    <h2 id="download-heading">Unique research TIFF — <span class="bad">NOT FOR SUBMISSION</span></h2>
+    <p><strong>One-click download:</strong> a new NaN-outside single-scale magnetic-edge control, generated on the competition grid and compared against historical artifacts. Strict local validation passes only with an explicit footprint mask derived from finite cells in the mirrored sample template; the training-features-derived mask disagrees, so the authorized official footprint remains unresolved. The candidate loses to H47-B and a fixed-seed random control on a known-catalogue-mask proxy, not the off-catalogue target. <strong>Research only — do not upload or spend a slot.</strong></p>
+    <a class="btn" download href="docs/downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif">Download unique research-only GeoTIFF (.tif)</a>
     <dl class="kv">
       <dt>Decision</dt><dd class="bad">NOT PROMOTED · NO SLOT RECOMMENDED</dd>
-      <dt>SHA-256</dt><dd>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</dd>
-      <dt>Locked-test DTI</dt><dd>H47-B 0.027553 · single-scale 0.025639 · random 0.037159</dd>
-      <dt>Conformal floor</dt><dd>0.0; block exchangeability unverified</dd>
-      <dt>Format</dt><dd>float32, one band, EPSG:32611, 3292 × 3730, 100 m; in-footprint [0,1], NaN outside</dd>
+      <dt>Unique filename</dt><dd>gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif</dd>
+      <dt>SHA-256</dt><dd>dc71c807fbca2cd398f394bcd91b10ecec6b46fe89c2d61f5b1c058fef672811</dd>
+      <dt>Portal note (research reference only)</dt><dd>single-scale edge; d=5 px/500 m; catalogue-mask proxy conformal 6/7=85.7% nominal, lower floor 0.000 (exchangeability unverified); RESEARCH ONLY</dd>
+      <dt>Locked proxy DTI</dt><dd>Known-catalogue-mask proxy only: H47-B 0.027553 · this single-scale control 0.025639 · fixed-seed random 0.037159; not hidden-target scores</dd>
+      <dt>Conformal result</dt><dd>6 calibration blocks; 85.7% nominal marginal level conditional on exchangeability; clipped lower bound 0.000. Spatial exchangeability is unverified and two calibration blocks are empty.</dd>
+      <dt>Format</dt><dd>One-band float32, EPSG:32611, 3292 × 3730, 100 m, template transform/bounds, [0,1] inside, NaN nodata/outside, 18,524 binary predictions. Strict validation passes with the explicit sample-template-derived mask; the feature-derived mask differs; official footprint and organizer acceptance are unresolved.</dd>
+      <dt>Bounded uniqueness</dt><dd>0 exact matches across 334/334 sibling-site and 19/19 independent local prior TIFFs; max Jaccard 0.01290 remote, 0.02055 local (earlier H47-B). Same-mask all-finite diagnostic encoding excluded; not global.</dd>
     </dl>
-    <p class="small dim">The bounded uniqueness check found no exact mask match among 334 accessible, comparable TIFFs in 55 visible sibling repositories. That is not a global uniqueness proof and does not override the failed holdout.</p>
-    <a class="btn sec" href="docs/validation-h47b-20261006.md">Read the full validation and uniqueness report →</a>
+    <p class="small dim">This is a control artifact, not a new geological discovery model. The complete conformal, locked-test and bounded-uniqueness records are linked below.</p>
+    <a class="btn sec" href="docs/analysis.html">Read the full results analysis →</a>
+    <a class="btn sec" href="docs/executive-summary.html">Executive summary &amp; submission instructions →</a>
   </section>
 
   <h2>Current decision: evidence before upload</h2>
@@ -62,36 +66,29 @@
     <tr><th>Decision</th>
         <td><strong>NOT PROMOTED</strong></td><td><strong>NOT PROMOTED</strong></td></tr>
   </table>
-  <p>The later session also built <strong>LATI</strong>, an instrument that treats the thirteen returned
-     leaderboard DTIs as <em>measurements of the hidden label set</em>; diagnosed the reported
-     <code>"Predicted values must be in range [0, 1]"</code> rejection as a <strong>NaN</strong> problem,
-     not a range problem (12/12 <code>-nan</code> variants fail
-     <code>np.all((v&gt;=0)&amp;(v&lt;=1))</code>, 17/17 all-finite variants pass, and no file anywhere
-     has a value outside [0,1]); measured the hidden truth mass at <strong>K ≈ 12,348 px</strong>
-     model-free; and <strong>falsified</strong> its own strongest-looking idea — re-occupying the
-     catalogue flank — with a break-even of 0.2200 against a reported 0.2778.</p>
-  <p><a href="docs/index.html"><strong>→ The later session’s full site: LATI method, the five ranked
-     hypotheses, every number, and IR-47-001…015</strong></a></p>
+  <p><strong>Target caveat:</strong> the experimental block label is the known-fault catalogue mask; it is excluded from the organizer's actual off-catalogue target. These local DTI values are a diagnostic proxy, not validation of missing-fault prediction.</p>
+  <p>The later session also built <strong>LATI</strong>, a provisional instrument based on twelve
+     owner-reported score/file pairs and one contested H33-2-B2 attribution; those are not thirteen
+     official file-level score receipts. It found that NaN-containing TIFFs can fail a common local
+     range expression (12/12 in one sibling sample, versus 17/17 all-finite variants passing), but the
+     rejected upload is unavailable and the portal's root cause is <strong>unknown</strong>. Its model-free
+     hidden-truth mass estimate is <strong>K ≈ 12,348 px</strong>. The catalogue-flank hypothesis looks
+     supported on twelve observations but reverses if the contested 0.2778 attribution is assumed true;
+     that sensitivity is not a verified scientific falsification.</p>
+  <p><a href="docs/index.html"><strong>→ Research site: LATI method, four unbuilt ranked geological hypotheses, every number, and limitations</strong></a></p>
 
   <h2>What happens next</h2>
   <ol class="steps">
-    <li>Keep the submission slot unused. Do not treat the research download as a portal-ready file.</li>
-    <li>Establish authorized competition input provenance and a reproducible spatially blocked incumbent.</li>
-    <li>Preregister a genuinely distinct geological detector and appropriate controls before scoring.</li>
-    <li>Promote only if it beats the current holdout best and controls with adequate label coverage; then repeat format and bounded uniqueness audits.</li>
-    <li><strong>Use the 1 m DEM.</strong> The competition links 716 USGS 3DEP 1 m tiles; only pre-derived
-        100 m LiDAR rasters were reachable. Every LiDAR-derived layer ranked poorly in the later
-        session’s 72-layer screen — exactly what resampling metre-scale scarps to 100 m should do.
-        Largest untested lever.</li>
-    <li><strong>Spend three slots on the λ-probe.</strong> <code>1/DTI(λ)</code> is linear in
-        <code>1/λ</code>, so an anchor, a λ = 0.5 scaling and a null-addition recover
-        <code>T</code>, <code>F</code>, <code>K</code> exactly — conditioning 56×–1380× better than
-        reading four decimals, and it would also settle whether scoring is chunk-restricted.</li>
-    <li><strong>Upload the all-finite convention.</strong> If a slot is ever spent, use a raster with no
-        NaN anywhere; the <code>-nan</code> convention is what produced the reported range rejection.</li>
+    <li>Keep the competition slot unused. Do not treat any research download as an upload recommendation.</li>
+    <li>Use official, authorized competition inputs where possible; freeze a reproducible spatially blocked incumbent and control set.</li>
+    <li>Develop and rank genuinely distinct geological hypotheses, then preregister the detector, holdout, metrics, and controls before scoring.</li>
+    <li>Promote only if the candidate beats the current holdout best and nontrivial controls with adequate label coverage and a positive, defensible lower bound; repeat exact-byte format and bounded-uniqueness audits.</li>
+    <li>The official competition description says one submission is selected for scoring across the initial and final prize rounds. Verify the live participant-dashboard rules and deadline; do not assume an unlimited Final Prize Round or spend slots on an unvalidated probe.</li>
+    <li>The λ-probe could identify metric components, but it is measurement-only and may consume submissions; do not run it unless the organizer's current rules and an authorized participant decide it is worth the opportunity cost.</li>
+    <li>Follow the current official format instructions rather than guessing about NaN parser behavior. The primary research TIFF uses NaN outside the mirrored sample footprint; the reported historical range-error cause and official footprint remain unresolved, and local validation does not guarantee portal acceptance.</li>
   </ol>
   <p><a class="btn sec" href="docs/executive-summary.html">Executive summary &amp; future submission steps →</a> <a class="btn sec" href="docs/next-session.md">Next-session plan →</a></p>
 </main>
-<footer><div class="wrap">GEMSDOE47 · An auditable research project, not an official DOE, USGS, or DrivenData product. <a href="docs/irregularities.md">Open issues</a> · <a href="docs/irregularities.html">IR-47-001…015</a> · <a href="docs/sources.md">Sources</a> · <a href="docs/index.html">Later session’s site</a> · <a href="README.md">Standing charter</a></div></footer>
+<footer><div class="wrap">GEMSDOE47 · An auditable research project, not an official DOE, USGS, or DrivenData product. <a href="docs/irregularities.md">Open issues</a> · <a href="docs/irregularities.html">IR-47-001…020</a> · <a href="docs/sources.md">Sources</a> · <a href="docs/index.html">Later session’s site</a> · <a href="README.md">Standing charter</a></div></footer>
 </body>
 </html>

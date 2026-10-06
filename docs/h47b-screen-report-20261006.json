@@ -69,7 +69,7 @@
     },
     "future_candidate_boundary": "Any future authorized-input detector must be a separately preregistered candidate with a new hypothesis ID, evidence record, and filename; this H47-B file remains research-only.",
     "path": "work/candidates/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
-    "portal_note": "RESEARCH ONLY \u2014 NOT FOR SUBMISSION. Public-mirror H47-B cannot confer slot eligibility. Metric-screen failures: locked-test pooled DTI did not beat the fixed-seed random control; assumption-conditional conformal lower bound is not positive.",
+    "portal_note": "RESEARCH ONLY — NOT FOR SUBMISSION. Public-mirror H47-B cannot confer slot eligibility. Metric-screen failures: locked-test pooled DTI did not beat the fixed-seed random control; assumption-conditional conformal lower bound is not positive.",
     "positive_pixels": 18524,
     "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
     "unique_name": "gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif"
@@ -105,7 +105,8 @@
       13
     ],
     "spatial_independence": "not assumed or established",
-    "split_rule": "block id (row + column) mod 3; fixed before scoring"
+    "split_rule": "block id (row + column) mod 3; fixed before scoring",
+    "evaluation_target": "labels.tif == 1, the known USGS/INGENIOUS fault-catalogue mask; diagnostic resemblance proxy only, not the hidden missing-fault target used for off-catalogue evaluation"
   },
   "conformal_lower_bound": {
     "alpha": 0.14285714285714285,
@@ -131,7 +132,7 @@
     ],
     "quantile": 0.04860422299678556,
     "rank_1_based": 6,
-    "scope": "future comparable public-catalogue block DTI, not private-label/leaderboard DTI",
+    "scope": "future comparable block-level DTI against the same known-fault catalogue-mask diagnostic proxy only; not the hidden missing-fault target or leaderboard score",
     "selection_mean": 0.04860422299678556,
     "sorted_residuals": [
       -0.022972712231893608,
@@ -183,7 +184,7 @@
   "full_domain_alignment": {
     "H47B_dti_against_mirrored_catalogue": 0.04642384041012774,
     "baseline_dti_against_mirrored_catalogue": 0.04727772348258497,
-    "interpretation": "descriptive full-label alignment only; not a spatial holdout or hidden-target score",
+    "interpretation": "descriptive full-domain DTI against the known-fault catalogue-mask proxy only; not a spatial holdout or hidden missing-fault target score",
     "random_dti_against_mirrored_catalogue": 0.036010665031522775
   },
   "grid": {
@@ -211,7 +212,7 @@
     "the mirrored catalogue labels and sample template were not independently authenticated against organizer downloads",
     "TMI_up150 is one quantized upward-continuation channel, not raw magnetic data or a physical tilt-depth solution",
     "block scores are spatially dependent; conformal level is conditional on an unverified exchangeability assumption",
-    "the public label catalogue is not the private target of newly mapped faults",
+    "labels.tif == 1 marks known USGS/INGENIOUS catalogue faults that the organizer masks from off-catalogue evaluation; all local DTI values are diagnostic resemblance-proxy scores, not missing-fault validation",
     "no official leaderboard score or 0.2778 TIFF mapping is inferred from this experiment",
     "this script always marks H47-B as not slot-eligible and never publishes a non-research filename"
   ],
@@ -227,11 +228,11 @@
         "baseline_positive_predictions": 2157,
         "block_id": 0,
         "column": 0,
-        "positive_truth_pixels": 4876,
         "random_dti": 0.03383783544333562,
         "random_positive_predictions": 1779,
         "role": "calibration",
-        "row": 0
+        "row": 0,
+        "catalogue_mask_pixels": 4876
       },
       {
         "H47B_dti": 0.035949067668527145,
@@ -240,11 +241,11 @@
         "baseline_positive_predictions": 1753,
         "block_id": 1,
         "column": 1,
-        "positive_truth_pixels": 6067,
         "random_dti": 0.038869374927547926,
         "random_positive_predictions": 2895,
         "role": "selection",
-        "row": 0
+        "row": 0,
+        "catalogue_mask_pixels": 6067
       },
       {
         "H47B_dti": 0.006277852673496135,
@@ -253,11 +254,11 @@
         "baseline_positive_predictions": 713,
         "block_id": 2,
         "column": 2,
-        "positive_truth_pixels": 6091,
         "random_dti": 0.03766768149435112,
         "random_positive_predictions": 2382,
         "role": "locked_test",
-        "row": 0
+        "row": 0,
+        "catalogue_mask_pixels": 6091
       },
       {
         "H47B_dti": 0.024200994807156897,
@@ -266,11 +267,11 @@
         "baseline_positive_predictions": 910,
         "block_id": 3,
         "column": 3,
-        "positive_truth_pixels": 5266,
         "random_dti": 0.03872568356549973,
         "random_positive_predictions": 2182,
         "role": "calibration",
-        "row": 0
+        "row": 0,
+        "catalogue_mask_pixels": 5266
       },
       {
         "H47B_dti": 0.09766530788290376,
@@ -279,11 +280,11 @@
         "baseline_positive_predictions": 4246,
         "block_id": 4,
         "column": 0,
-        "positive_truth_pixels": 7396,
         "random_dti": 0.035897064443832886,
         "random_positive_predictions": 1448,
         "role": "selection",
-        "row": 1
+        "row": 1,
+        "catalogue_mask_pixels": 7396
       },
       {
         "H47B_dti": 0.05035309917956381,
@@ -292,11 +293,11 @@
         "baseline_positive_predictions": 4165,
         "block_id": 5,
         "column": 1,
-        "positive_truth_pixels": 10600,
         "random_dti": 0.039599206869292816,
         "random_positive_predictions": 2789,
         "role": "locked_test",
-        "row": 1
+        "row": 1,
+        "catalogue_mask_pixels": 10600
       },
       {
         "H47B_dti": 0.03694814002634576,
@@ -305,11 +306,11 @@
         "baseline_positive_predictions": 197,
         "block_id": 6,
         "column": 2,
-        "positive_truth_pixels": 992,
         "random_dti": 0.024187005054110602,
         "random_positive_predictions": 189,
         "role": "calibration",
-        "row": 1
+        "row": 1,
+        "catalogue_mask_pixels": 992
       },
       {
         "H47B_dti": 0.0,
@@ -318,11 +319,11 @@
         "baseline_positive_predictions": 0,
         "block_id": 7,
         "column": 3,
-        "positive_truth_pixels": 0,
         "random_dti": 0.0,
         "random_positive_predictions": 0,
         "role": "selection",
-        "row": 1
+        "row": 1,
+        "catalogue_mask_pixels": 0
       },
       {
         "H47B_dti": 0.0,
@@ -331,11 +332,11 @@
         "baseline_positive_predictions": 0,
         "block_id": 8,
         "column": 0,
-        "positive_truth_pixels": 0,
         "random_dti": 0.0,
         "random_positive_predictions": 0,
         "role": "locked_test",
-        "row": 2
+        "row": 2,
+        "catalogue_mask_pixels": 0
       },
       {
         "H47B_dti": 0.07157693522867917,
@@ -344,11 +345,11 @@
         "baseline_positive_predictions": 2231,
         "block_id": 9,
         "column": 1,
-        "positive_truth_pixels": 5489,
         "random_dti": 0.03331440942253533,
         "random_positive_predictions": 1520,
         "role": "calibration",
-        "row": 2
+        "row": 2,
+        "catalogue_mask_pixels": 5489
       },
       {
         "H47B_dti": 0.049978364417391966,
@@ -357,11 +358,11 @@
         "baseline_positive_predictions": 1043,
         "block_id": 10,
         "column": 2,
-        "positive_truth_pixels": 4166,
         "random_dti": 0.043176145896500866,
         "random_positive_predictions": 1044,
         "role": "selection",
-        "row": 2
+        "row": 2,
+        "catalogue_mask_pixels": 4166
       },
       {
         "H47B_dti": 0.0,
@@ -370,11 +371,11 @@
         "baseline_positive_predictions": 0,
         "block_id": 11,
         "column": 3,
-        "positive_truth_pixels": 0,
         "random_dti": 0.0,
         "random_positive_predictions": 0,
         "role": "locked_test",
-        "row": 2
+        "row": 2,
+        "catalogue_mask_pixels": 0
       },
       {
         "H47B_dti": 0.0,
@@ -383,11 +384,11 @@
         "baseline_positive_predictions": 0,
         "block_id": 12,
         "column": 0,
-        "positive_truth_pixels": 0,
         "random_dti": 0.0,
         "random_positive_predictions": 0,
         "role": "calibration",
-        "row": 3
+        "row": 3,
+        "catalogue_mask_pixels": 0
       },
       {
         "H47B_dti": 0.059428375015104916,
@@ -396,11 +397,11 @@
         "baseline_positive_predictions": 541,
         "block_id": 13,
         "column": 1,
-        "positive_truth_pixels": 3861,
         "random_dti": 0.021682289118415153,
         "random_positive_predictions": 365,
         "role": "selection",
-        "row": 3
+        "row": 3,
+        "catalogue_mask_pixels": 3861
       },
       {
         "H47B_dti": 0.0032612243373077695,
@@ -409,11 +410,11 @@
         "baseline_positive_predictions": 343,
         "block_id": 14,
         "column": 2,
-        "positive_truth_pixels": 5342,
         "random_dti": 0.031792081778350766,
         "random_positive_predictions": 1735,
         "role": "locked_test",
-        "row": 3
+        "row": 3,
+        "catalogue_mask_pixels": 5342
       },
       {
         "H47B_dti": 0.0,
@@ -422,11 +423,11 @@
         "baseline_positive_predictions": 0,
         "block_id": 15,
         "column": 3,
-        "positive_truth_pixels": 0,
         "random_dti": 0.0,
         "random_positive_predictions": 0,
         "role": "calibration",
-        "row": 3
+        "row": 3,
+        "catalogue_mask_pixels": 0
       }
     ],
     "candidate_beats_baseline": true,
@@ -577,5 +578,11 @@
         "pooled_test_dti": 0.027140026315712818
       }
     }
+  },
+  "protocol_post_score_clarification": {
+    "date": "2026-10-06",
+    "current_document_sha256": "ce7554722d970bb43c98e7bbdb17cbaa6b23b15de28618df4e2a46feb440f41a",
+    "scope": "interpretation-only clarification of labels.tif == 1 as the known-fault catalogue-mask proxy; no input bytes, labels, split, scoring, or results changed",
+    "original_frozen_protocol_sha256_preserved": true
   }
 }

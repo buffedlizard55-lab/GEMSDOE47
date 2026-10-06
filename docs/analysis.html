@@ -2,40 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Corrected GEMSDOE47 score attribution, H47-B spatial-screen results, retired score model and bounded TIFF uniqueness audit.">
-  <title>Results &amp; Attribution Analysis · GEMSDOE47</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Results analysis — GEMSDOE47</title>
+  <meta name="description" content="Locked spatial results, split-conformal spacing audit, bounded TIFF uniqueness, and leaderboard score attribution limits.">
+  <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<header><div class="wrap">
-  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">Negative result disclosed · score mappings not authenticated</span></div>
-  <nav aria-label="Main navigation"><a href="../index.html">Project home</a><a href="executive-summary.html">Executive summary</a><a href="submit.html">How to submit</a><a class="on" href="analysis.html">Results analysis</a><a href="leaderboard.html">Leaderboard evidence</a><a href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a></nav>
+<header class="top"><div class="wrap">
+  <h1>Results analysis</h1>
+  <p class="sub">GEMSDOE47 · evidence record · 2026-10-06</p>
+  <nav aria-label="Main navigation"><a href="../index.html">Home</a><a href="executive-summary.html">Executive summary</a><a class="on" href="analysis.html">Results</a><a href="submit.html">Submission guide</a><a href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a></nav>
 </div></header>
 <main class="wrap">
-  <div class="note bad"><strong>Current decision: H47-B is NOT PROMOTED.</strong> It lost to the fixed-seed random control on locked spatial blocks and its assumption-conditional conformal lower floor is zero. Do not upload it or spend a slot.</div>
-  <h2>Latest saved public leaderboard observations</h2>
-  <table><thead><tr><th>Row</th><th>Score</th><th>Evidence limit</th></tr></thead><tbody>
-    <tr><td>#1</td><td class="num">0.3774</td><td>Participant name not preserved in the later saved record.</td></tr>
-    <tr><td>DARD · #7</td><td class="num">0.3195</td><td>Participant-level public row only.</td></tr>
-    <tr><td>extradr19 · #13</td><td class="num">0.2778</td><td>Participant-level public row only.</td></tr>
+  <div class="note bad"><strong>Decision: no candidate is promoted.</strong> The single-scale TIFF is research-only; its locked-test score is below H47-B and the fixed-seed random control on a known-catalogue-mask proxy, not the competition's missing-fault target. Its clipped conformal lower bound is zero. Do not upload or spend a slot.</div>
+
+  <h2>Locked spatial comparison</h2>
+  <table><thead><tr><th>Selected arm (d = 5 px / 500 m)</th><th class="num">Pooled proxy DTI<br><span class="small">known-catalogue mask</span></th><th>Status</th></tr></thead><tbody>
+    <tr><td>H47-B cross-scale magnetic-edge persistence</td><td class="num">0.02755344</td><td>Not promoted</td></tr>
+    <tr><td>Single-scale TMI-up150 edge control</td><td class="num">0.02563947</td><td>Not promoted</td></tr>
+    <tr><td>Fixed-seed random control</td><td class="num"><strong>0.03715911</strong></td><td>Exceeds both</td></tr>
   </tbody></table>
-  <p>The previous in-repository page put 0.3345 at rank 1 and DARD at #5. A later one-time public read recorded the values above and supersedes that stale copy. The official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/" rel="noopener">leaderboard</a> has no file hashes or TIFF names. In particular, there is no evidence connecting the 0.2778 row to the GEMSDOE32 H33-2-B2 TIFF; its owner page labels the candidate unscored.</p>
-  <h2>H47-B locked-test comparison</h2>
-  <table><thead><tr><th>Method</th><th class="num">Pooled DTI</th><th class="num">Mean block DTI</th></tr></thead><tbody>
-    <tr><td>H47-B, cross-scale TMI edge persistence, 5 px</td><td class="num">0.02755344</td><td class="num">0.01197844</td></tr>
-    <tr><td>Tuned single-scale baseline, 5 px</td><td class="num">0.02563947</td><td class="num">0.01099731</td></tr>
-    <tr><td>Fixed-seed random control</td><td class="num"><strong>0.03715911</strong></td><td class="num"><strong>0.02181179</strong></td></tr>
-  </tbody></table>
-  <p>H47-B modestly exceeded the baseline but lost to random. Only three of five locked blocks contained catalogue truth, and random exceeded H47-B in all three labeled blocks. The public-mirror label set is incomplete, so zeros in empty blocks are not interpreted as “no geological fault.”</p>
-  <h2>Conformal: calculation is not a guarantee</h2>
-  <p>Six calibration blocks yield a nominal order-statistic level of 6/7 ≈ 85.7% only if calibration and future block scores are exchangeable. That assumption is unverified under spatial dependence, and two calibration blocks have no catalogue truth. The computed, clipped lower bound was <strong>0.0</strong>. It is not a positive performance floor for private labels or a leaderboard score.</p>
-  <h2>Retired historical claim</h2>
-  <p>The prior `0.34912` modeled score and `0.34837` purported floor were unsupported by the score-to-file evidence and conformal design, and involved long extrapolation from a monotone deletion family. They are withdrawn. The historical d-cat/annulus TIFF is a delete-only subset of a published mask, not an independent detector. It remains for audit only.</p>
-  <h2>Uniqueness audit scope</h2>
-  <p>H47-B had zero exact positive-mask matches among 334 accessible, exact-grid-comparable TIFF artifacts found in 55 visible sibling repositories. Maximum equal-mass Jaccard was 0.01119057; maximum positive-support Jaccard was 0.01685795. The <a href="h47b-uniqueness-audit-20261006.json">full audit record</a> lists the inventory paths, Git blob hashes, all comparisons, and two rasters excluded for grid mismatch. This is a bounded artifact comparison, not global uniqueness and not evidence of predictive value.</p>
-  <div class="note"><strong>Metric note.</strong> The local implementation transcribes the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" rel="noopener">DTI formula</a>; it is not an organizer-run scorer. The old simplification to an inferred “dot count” and any regression based on an unauthenticated file/score mapping are not used here.</div>
-  <p><a href="analysis.md">Read the full written analysis →</a> · <a href="validation-h47b-20261006.md">Full H47-B experiment report →</a> · <a href="leaderboard-snapshot-2026-10-06.json">Machine-readable public snapshot →</a></p>
+  <p>The local reference target is <code>labels.tif == 1</code>: known USGS/INGENIOUS catalogue-mask pixels, which the organizer says are masked from actual off-catalogue scoring (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" rel="noopener">official description</a> and <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516" rel="noopener">staff masking clarification</a>). This locked test is therefore a resemblance proxy, not a holdout of the competition's missing-fault target. Three of five locked blocks had catalogue-mask pixels, and random exceeded H47-B in each. Empty mask cores do not prove absence of a fault.</p>
+
+  <h2>Split conformal</h2>
+  <p>Five disjoint blocks selected spacing, six calibrated, and five were reserved as locked test. Both arms selected 5 px / 500 m using selection blocks only. Six calibration <em>catalogue-mask proxy</em> scores, rank 6 of 6, yield a nominal one-sided marginal level of <strong>6/7 ≈ 85.7%</strong> under exchangeability. The clipped lower prediction bound is <strong>0.000</strong> for both arms.</p>
+  <p>Two calibration cores contain no known-catalogue mask pixels; spatial block exchangeability is unverified. The nominal level only concerns future comparable scores against this proxy mask, not missing-fault labels, private DTI, rank, cellwise coverage, or leaderboard performance. See the <a href="../evidence/conformal_spacing_audit_20261006.json">complete report</a>, <a href="https://arxiv.org/abs/1604.04173" rel="noopener">Lei et al. (2018)</a>, and <a href="https://doi.org/10.1080/01621459.2017.1307116" rel="noopener">publisher DOI</a>.</p>
+
+  <h2>Unique research TIFF</h2>
+  <p><a download href="downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif"><strong>Download the single-scale d=5 TIFF</strong></a> — SHA-256 <code>dc71c807fbca2cd398f394bcd91b10ecec6b46fe89c2d61f5b1c058fef672811</code>; 309,530 bytes; one-band float32, EPSG:32611, 3292 × 3730, 100 m; 18,524 binary predictions; NaN nodata/outside, [0,1] inside. The strict local validator passes only with an explicit binary footprint from finite cells in the mirrored sample template. The `training_features.tif`-derived footprint differs by 1,540 feature-only and 3,061 template-only pixels; the authorized official footprint and organizer acceptance remain unresolved. This is format validation, not scientific promotion.</p>
+  <p>It had 0 exact positive-mask matches among 334 exact-grid TIFFs in the saved sibling inventory; maximum equal-mass Jaccard was 0.01290464 and positive-support Jaccard 0.02010094. Every fetched blob ID and byte count matched the historical inventory. The full remote fetch was not repeated for the NaN-outside encoding; its positive mask was verified identical to the paired all-finite diagnostic, so the prior mask-based remote comparison applies. Separately, 19/19 independent exact-grid prior TIFFs in the local downloads/restored cache had no exact match; the maximum local equal-mass Jaccard was 0.02054983 against the earlier H47-B TIFF. The paired all-finite encoding is excluded from local priors as a same-run diagnostic, not an independent prior model. These bounded searches do not prove global uniqueness or predictive value. See the <a href="../evidence/conformal_candidate_uniqueness_20261006.json">full comparison</a> and the separate <a href="h47b-uniqueness-audit-20261006.json">H47-B audit</a>.</p>
+
+  <h2>Leaderboard observations and the 0.2778 attribution</h2>
+  <p>The saved one-time public snapshot records rank 1 = 0.3774 (name not preserved), DARD at #7 = 0.3195, and <code>extradr19</code> at #13 = 0.2778. The official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/" rel="noopener">leaderboard</a> exposes participant rows, not TIFF names, hashes, or receipts. GEMSDOE32's owner page marks H33-2-B2 unscored; its alleged pairing with 0.2778 is contested, so this repository cannot state why that TIFF scored 0.2778—or that it did.</p>
+  <p>Conditionally, the score equation is <code>DTI = T / (0.2(T + F) + 0.8K)</code>; removing low-credit emissions can improve precision if the reduction in <code>F</code> outweighs lost <code>T</code>. But the H33-specific causal claim depends on the unverified mapping and on masking semantics. The local masking evidence indicates known-catalogue pixels are excluded before both sums; removing only such excluded pixels would not change the score. See the <a href="analysis.md">full written analysis</a> and <a href="evidence.html#why-02778">metric arithmetic</a>.</p>
+  <p>This is a dated record, not a live leaderboard feed. DrivenData's <a href="https://www.drivendata.org/termsofuse/" rel="noopener">Terms of Use</a> restrict automated monitoring and require prior written consent for manual monitoring/copying; this project does not poll or mirror the board.</p>
+
+  <h2>Historical claim retraction</h2>
+  <p>The modeled 0.34912 result and purported 0.34837 conformal floor are withdrawn. They used selected rungs from a monotone family, an unverified score/file link, and extrapolation that did not establish exchangeable calibration. The old d-cat/annulus artifact is a pruned prior mask, not a new detector. Neither is a current result or submission recommendation.</p>
 </main>
-<footer><div class="wrap">No official submission ID, TIFF hash, or score receipt is recorded for a GEMSDOE47 file.</div></footer>
+<footer><div class="wrap">GEMSDOE47 · <a href="executive-summary.html">executive summary</a> · <a href="validation-h47b-20261006.md">validation report</a> · <a href="irregularities.md">irregularities</a> · <a href="sources.html">sources</a></div></footer>
 </body>
 </html>

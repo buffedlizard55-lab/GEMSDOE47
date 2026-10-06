@@ -1,107 +1,54 @@
-# Next steps, ranked by expected value
+# Next research steps — evidence-weighted and slot-safe
 
-Reusable research base. Ordered by (information gained + score gained) per unit of
-effort, given what this project established and falsified.
+Reusable research base. This note supersedes earlier next-step advice that recommended spending three λ-probe slots or treated the Final Prize Round as unlimited. The official competition description says one submission is selected for scoring across the initial and final prize rounds; exact upload allowances and deadlines must be checked in the authorized participant portal. No submission is recommended by this repository.
 
-## 1. Use the 1 m DEM. Nothing else is close.
+## Current decision
 
-The competition supplies links to **716 USGS 3DEP 1 m tiles** and this project
-could only reach a sibling repository's pre-derived **100 m** LiDAR scarp rasters.
-Fault scarps are a metre-scale phenomenon: a 0.5–3 m scarp averaged over a
-100 m pixel is a 0.5–3 % elevation perturbation, below the noise floor of the
-resampled product.
+- H47-B selected d=5 px / 500 m; locked-test pooled DTI 0.02755344.
+- Its single-scale 400 m edge control selected d=5 px / 500 m; locked-test pooled DTI 0.02563947.
+- A fixed-seed random control reached 0.03715911. Both candidate arms lost to this control.
+- Six calibration blocks gave a nominal 6/7 = 85.7% marginal level only under exchangeability; spatial block exchangeability is unverified, two calibration cores are empty, and the clipped lower bound is 0.000.
+- The new single-scale TIFF passes 17/17 local format checks and had no exact positive-mask match in the bounded 334-artifact search. These are not evidence of performance or organizer acceptance.
+- Do not submit either TIFF. Do not run a score-measurement probe unless the current portal rules and a human owner explicitly approve its opportunity cost.
 
-The evidence that this matters is in the screen itself. Every LiDAR-derived layer
-ranked poorly — `lidar_coh100`, `lidar_strike` and `lidar_valid` were among the
-**worst of 72**, and the best (`lidar_upface_max`) reached only rank 21 — while the
-community leader sits at 0.3262 against a family best of 0.2778. Forty-four
-repositories converged on 0.26–0.28 using the same 100 m layers.
+Full machine-readable results: `evidence/conformal_spacing_audit_20261006.json` and `evidence/conformal_candidate_uniqueness_20261006.json`; narrative: `docs/analysis.md` and `docs/executive-summary.html`.
 
-**Action:** download the tiles from `1m_DEM_links.csv`, compute scarp morphology at
-native resolution (openness, local relief, down-facing / up-facing curvature,
-profile curvature), detect scarps as **1–3 m features**, and only then aggregate to
-the 100 m submission grid — aggregating the *detections*, not the *elevations*.
+## Ranked unbuilt geological hypotheses
 
-## 2. Spend three slots on the λ-probe (H47-5).
+The next shortlist is in [`docs/hypotheses.md`](../docs/hypotheses.md). It is qualitative and prospective; there is no defensible numeric DTI forecast from the small, nested, partly contested score/file history.
 
-`1/DTI(λ)` is linear in `1/λ`, so an anchor, a λ = 0.5 scaling and a null-addition
-of known mass recover `T`, `F` and `K` **exactly** — conditioning 56×–1380× better
-than reading four decimals off one return. All three probes can be built to score
-below the anchor so they cannot cost rank.
+1. **Native-resolution 3DEP scarp/channel coherence.** Detect metre-scale scarps on 1 m DEM samples before aggregation. Best possible new surface-geometry signal; high cost and high false-positive risk. 3DEP is free, but the exact footprint tile set and mosaic have not been obtained/verified here.
+2. **ASTER alteration mineralogy × independent structure.** Use USGS mineral classes and an independent structure cue to find exposed alteration along unmapped corridors. Official map data are listed, but no footprint intersection was retrieved; strong lithology/exposure confounding.
+3. **Active-strain / magnetic-edge concordance.** Combine strain and magnetic orientation explicitly, with strong ablation and random-alignment controls. Component screens were weak, so this has a low–medium prior; mirror bands are not organizer-authenticated.
+4. **Time-normalized thermal/geochemical station residuals.** Only proceed if DOE GDR records contain repeated, well-located measurements. Existing GSA already tested static point proximity; temporal residuals are a different operator, not a claim that thermal data are new.
 
-This converts every later decision from "which frame do we trust?" into arithmetic.
-A sibling repository designed the identical probes and never submitted them.
+For every candidate: pin input hashes and block IDs; freeze an operator and guard band; use matched mass or justify another comparison; include random, spatial-permutation and domain controls; report per-fold values and empty-label cores; and require a gain over a reproducible current holdout best before any slot discussion. A spatially blocked test against the public catalogue is only a screening proxy for the organizer's private target.
 
-**Also settles IR-47-011**: if the null-addition's cost differs from `α·N`, the
-scoring footprint is not the whole raster.
+## Highest-value data work (not yet a model result)
 
-## 3. Retrieve the staff answer in thread 11527.
+### 1. Verify and acquire the exact 3DEP tiles
 
-Which data the NLR/USGS experts actually used — GeoDAWN lidar, 1 m 3DEP DEM,
-magnetics/radiometrics, imagery, field mapping, geologic maps — and whether the new
-faults are surface scarps or buried/geophysical picks. One post would settle the
-field question directly. The page renders a collapsed post list; retry via
-`…/11527/10` or `…/11527?print=true`.
+USGS [3DEP products and services](https://www.usgs.gov/core-science-systems/ngp/3dep/about-3dep-products-services) are public/free, and the competition description references 1 m DEM links. The previous environment could not retrieve some direct USGS endpoints. Before proposing implementation as viable, verify the exact tile list from the authorized competition materials, fetch the files via a working official service, record URLs, checksums, CRS/vertical datum and coverage gaps, then mosaic without resampling away 1 m features.
 
-## 4. Attack precision, not coverage.
+### 2. Verify the official input and label semantics
 
-At the incumbent's waste ratio `F/T ≈ 8`, 0.3195 needs 102.7 % weighted recall —
-impossible. Halve `F/T` and 0.3195 needs ≈55 %. The lever is **removing** mass, not
-adding it, and the family's own trajectory already proves it
-(`0.1922 → 0.2778` came entirely from cutting S by 69 %).
+The local feature, label and sample files are hash-pinned public mirrors, not files downloaded from an authenticated participant portal. The official data page redirects unauthenticated clients to login. Keep mirror-derived results explicitly separate from organizer scoring; an authorized owner may compare official bytes to the pinned mirrors.
 
-Concrete: rank every emitted dot by its marginal credit under the best available
-belief, and delete the tail below `α·DTI`. Then re-spend the freed budget only
-where the marginal rule still accepts.
+### 3. Resolve only through an authorized score receipt
 
-## 5. Resolve the 0.2778 attribution (IR-47-002).
+The saved public board is participant-level and contains no TIFF hashes. The H33-2-B2/0.2778 link is contested: the owner page labels the file unscored. Do not scrape, poll, or repeatedly copy leaderboard content; DrivenData's [Terms of Use](https://www.drivendata.org/termsofuse/) restrict automated monitoring and require prior written consent for manual monitoring/copying. If an owner has an authorized submission receipt mapping an exact file hash to a score, record that receipt; otherwise leave the attribution unresolved.
 
-One contested number decides whether the strongest hypothesis this project
-generated — catalogue-flank re-occupation — is alive or dead. The break-even is
-**0.2200**: the flank is supported only if the flank-pruned raster scored at or
-below that. Open the leaderboard and check whether a 0.2778 row exists and which
-file it belongs to.
+## Retired or corrected advice
 
-## 6. Build H47-4 (deep-source magnetic continuity).
+- **Do not spend three submissions on the λ-probe.** Its scale identity is mathematically valid under fixed metric semantics, but submission slots and final-entry selection can carry opportunity cost. No portal allowance or risk-free status was established.
+- **Do not describe a Final Prize Round as unlimited.** The official description says one submission is selected for scoring across rounds; it does not establish unlimited uploads. Verify current portal terms.
+- **Do not state that NaNs caused the reported `[0,1]` rejection.** The rejected TIFF and organizer diagnostic are missing. NaNs fail a common range expression in a local sample, which is only a plausible failure mode. The all-finite candidate passes local checks; portal acceptance is untested.
+- **Do not state that the H33-2-B2 TIFF scored 0.2778.** The leaderboard row is unlinked, and the owner page marks that artifact unscored.
+- **Do not call H47-B deep-source continuity unbuilt.** Cross-scale magnetic-edge persistence was already tested and not promoted; new magnetic ideas need genuinely different operators and fresh controls.
+- **Do not claim a positive conformal performance floor.** The current clipped bound is zero and spatial exchangeability has not been demonstrated.
 
-Specified, data restored, unbuilt. `TMI_up150` in `geodawn_extensions_u8.tif` is a
-**depth filter**: a lineament that survives 150 m of upward continuation is
-basement-scale; one that vanishes is near-surface. The discriminator is the ratio of
-continued to uncontinued edge response.
+## Source and method references
 
-LATI independently fits **high `tmi_hg` (β = +8.55)** with **low `tmi_vg`
-(β = −9.63)** — shallow horizontal-gradient contrast without the deep
-vertical-gradient expression. That is the buried-structure signature, arrived at
-from the leaderboard rather than from the physics, and it is the opposite of the
-"high geophysical contrast" prior every sibling repository used.
-
-## 7. What is now known to be dead ends — do not retry
-
-| Idea | Verdict | Evidence |
-|---|---|---|
-| Isotropic catalogue-flank re-occupation (0–300 m) | **Falsified** | break-even 0.2200 vs reported 0.2778; `dcat_band_0_1.5` becomes the **worst of 65** layers (−227.6 %) once the flank-pruned raster is admitted |
-| Strike decomposition of the flank (along / across / tip / bend) | **Unsupported** | all six variants tied within 1.4 % of each other on LOO — orientation carries no signal beyond distance |
-| SGMC catalogue-difference transfer | **Falsified** | adding it worsened LOO (0.008124 → 0.009279); the fitted truth puts **0.5 %** of K there |
-| Blocked holdout on the given catalogue as a selector | **Structurally unfit** | DTI ≡ 0 under the organiser's masking; unmasked, it rewards the opposite skill |
-| Any selection on an in-fold score | **Structurally unfit** | optimizer's curse measured at ≈0.30 DTI; cross-fitted deltas −0.061 and −0.045 |
-| Gradients of `cond_surf`, `depth_to_base_surf`, `iso_grav_anom` | **Exhausted** | −89.7 %, −72.7 %, −64.4 % LOO on 13 observations |
-| `thermal_hot_prox` (temperature class) | **Dead** | worst layer on 12 observations; but *broad* discharge density (`thermal_warm_prox`, all 27,092 points) did enter the selection |
-| Volcanic vent proximity | **Dead** | 21 vents in the footprint |
-
-## 8. What is known and worth keeping
-
-| Quantity | Value | How |
-|---|---|---|
-| Hidden new-fault mass K in the scored split | **12,348 px** model-free; 15,638–21,477 under fitted shapes | the `r13-lattice` diffuse probe; corroborated by `placeholder` (7,931), a uniform 12-observation fit (12,626) and a sibling's independent inference (12,691) |
-| Masking semantics | zeroed before **both** sums | the Hedge-v2 / ens12 natural experiment |
-| Strongest single predictor of the hidden truth | proximity to the successful incumbent field (SSR 0.0086 of 72 layers) | LATI screen, with a shuffled-layer negative control at 0.1761 |
-| Layers that survive a 13-observation LOO screen | `geod_shearrate`, `geod_2ndinv`, `rad_ThK` (**low**), `ieq_n100a15`, `tmi_hg`, `geod_dilaterate`, `tmi_vg` (**low**), `rad_Th` (**low**), `dcat_band_3_6`, `deq_n100a15`, `rad_UTh`, `thermal_warm_prox` | 41 of 65 improved LOO |
-| Whether any of them survives **cross-fitting** | **Not demonstrated** | a-priori pool, in-fold selection, out-of-fold scoring → SHIP = False |
-
-That last row is the honest headline. A coherent physical story — actively
-straining, hydrothermally altered, seismically and thermally active ground with
-shallow magnetic contrast — emerges from the leaderboard returns and is *not*
-contradicted by any independent frame. But it is not **validated** either, and the
-project rule is not to spend a scarce slot on an unvalidated idea. The Final Prize
-Round (3 Sep – 16 Oct) has unlimited submissions, which is exactly where such an
-arm belongs.
+- Competition metric/format/round description: [official problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/).
+- USGS [3DEP](https://www.usgs.gov/core-science-systems/ngp/3dep/about-3dep-products-services), USGS [ASTER/MRData OFR 2013-1139](https://mrdata.usgs.gov/surficial-mineralogy/ofr-2013-1139/), USGS [Quaternary faults](https://www.usgs.gov/programs/earthquake-hazards/faults), and DOE [INGENIOUS GDR submission 1391](https://gdr.openei.org/submissions/1391).
+- Split-conformal exchangeability result: [Lei et al. (2018), arXiv](https://arxiv.org/abs/1604.04173), [publisher DOI](https://doi.org/10.1080/01621459.2017.1307116). Spatial block exchangeability remains an unverified assumption here.

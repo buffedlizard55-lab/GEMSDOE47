@@ -330,6 +330,10 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
         [selected_by_id[index]["dti"] for index in SELECTION_BLOCKS],
         calibration_scores,
     )
+    conformal["scope"] = (
+        "future comparable block-level DTI against the same known-fault catalogue-mask "
+        "proxy only; not the hidden missing-fault target or leaderboard score"
+    )
 
     selected_prediction = _make_map(
         h2_order, h2_score.shape, spacing=selected_spacing, budget=BUDGET,
@@ -398,7 +402,7 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
                 "selection" if block_id in SELECTION_BLOCKS else
                 "calibration" if block_id in CALIBRATION_BLOCKS else "locked_test"
             ),
-            "positive_truth_pixels": int(selected_by_id[block_id]["Ng"]),
+            "catalogue_mask_pixels": int(selected_by_id[block_id]["Ng"]),
             "H47B_dti": float(selected_by_id[block_id]["dti"]),
             "H47B_positive_predictions": int(selected_by_id[block_id]["n_pred_pos"]),
             "baseline_dti": float(baseline_by_id[block_id]["dti"]),
@@ -418,7 +422,7 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
         "H47B_dti_against_mirrored_catalogue": float(dti(selected_prediction, truth)["dti"]),
         "baseline_dti_against_mirrored_catalogue": float(dti(baseline_prediction, truth)["dti"]),
         "random_dti_against_mirrored_catalogue": float(dti(random_prediction, truth)["dti"]),
-        "interpretation": "descriptive full-label alignment only; not a spatial holdout or hidden-target score",
+        "interpretation": "descriptive full-domain DTI against the known-fault catalogue-mask proxy only; not a spatial holdout or hidden missing-fault target score",
     }
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -436,6 +440,10 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
         "protocol": "docs/preregistered-h2.md",
         "protocol_sha256": sha256_file(ROOT / "docs" / "preregistered-h2.md"),
         "source_data_provenance": "public group-hosted GitHub mirror; not direct organizer download",
+        "source_links": {
+            "competition_problem": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+            "known_catalogue_mask_clarification": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516",
+        },
         "input_sha256": inputs["hashes"],
         "feature_manifest_sha256": sha256_file(EXT_MANIFEST),
         "grid": {
@@ -450,6 +458,10 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
         "block_protocol": {
             "nrows": BLOCK_SHAPE[0],
             "ncols": BLOCK_SHAPE[1],
+            "evaluation_target": (
+                "labels.tif == 1, known-fault catalogue mask; diagnostic resemblance "
+                "proxy only, not the hidden missing-fault competition target"
+            ),
             "guard_px": GUARD_PX,
             "guard_m": GUARD_PX * 100,
             "selection_block_ids": list(SELECTION_BLOCKS),
@@ -506,7 +518,7 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
             "the mirrored catalogue labels and sample template were not independently authenticated against organizer downloads",
             "TMI_up150 is one quantized upward-continuation channel, not raw magnetic data or a physical tilt-depth solution",
             "block scores are spatially dependent; conformal level is conditional on an unverified exchangeability assumption",
-            "the public label catalogue is not the private target of newly mapped faults",
+            "labels.tif == 1 marks known USGS/INGENIOUS catalogue faults that the organizer masks from the off-catalogue target; all local DTI values are diagnostic resemblance-proxy scores, not missing-fault validation",
             "no official leaderboard score or 0.2778 TIFF mapping is inferred from this experiment",
             "this script always marks H47-B as not slot-eligible and never publishes a non-research filename",
         ],
