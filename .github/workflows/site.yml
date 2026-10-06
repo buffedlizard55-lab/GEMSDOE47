@@ -6,6 +6,8 @@ on:
     paths:
       - '.github/workflows/site.yml'
       - 'scripts/refresh_source_feed.py'
+      - 'scripts/publish_probe_check.py'
+      - 'docs/assets/site.js'
       - 'registry/current-source-list.json'
   schedule:
     - cron: '17 7 * * *'

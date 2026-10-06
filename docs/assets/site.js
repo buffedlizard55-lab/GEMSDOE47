@@ -32,12 +32,18 @@ async function refreshFeed() {
     if (!response.ok) throw Error(`HTTP ${response.status}`);
     let feed = await response.json();
     try {
-      const checkResponse = await fetch('https://api.github.com/repos/buffedlizard55-lab/GEMSDOE47/commits/arena%2F50b2a166-gemsdoe47/check-runs?check_name=Permitted%20public%20source%20feed&filter=latest', {cache:'no-store', headers:{Accept:'application/vnd.github+json'}});
+      const runsResponse = await fetch('https://api.github.com/repos/buffedlizard55-lab/GEMSDOE47/actions/workflows/site.yml/runs?branch=arena%2F50b2a166-gemsdoe47&status=success&per_page=1', {cache:'no-store', headers:{Accept:'application/vnd.github+json'}});
+      if (!runsResponse.ok) throw Error('public feed run unavailable');
+      const feedSha = (await runsResponse.json()).workflow_runs?.[0]?.head_sha;
+      if (!feedSha || !/^[0-9a-f]{40}$/.test(feedSha)) throw Error('no completed feed publication');
+      const checkResponse = await fetch(`https://api.github.com/repos/buffedlizard55-lab/GEMSDOE47/commits/${feedSha}/check-runs?check_name=Permitted%20public%20source%20feed&filter=latest`, {cache:'no-store', headers:{Accept:'application/vnd.github+json'}});
       if (checkResponse.ok) {
         const checks = (await checkResponse.json()).check_runs || [];
-        const latest = checks.find(check => check.name === 'Permitted public source feed' && check.status === 'completed' && check.output?.summary?.includes('```json\n'));
+        const latest = checks.find(check => check.name === 'Permitted public source feed' && check.status === 'completed' && check.output?.summary?.includes('```base64json\n'));
         if (latest) {
-          feed = JSON.parse(latest.output.summary.split('```json\n')[1].split('\n```')[0]);
+          const encoded = latest.output.summary.split('```base64json\n')[1].split('\n```')[0].trim();
+          const bytes = Uint8Array.from(atob(encoded), ch => ch.charCodeAt(0));
+          feed = JSON.parse(new TextDecoder().decode(bytes));
           if (byId('feed-timestamp')) byId('feed-timestamp').dataset.receiptUrl = latest.html_url;
         }
       }
