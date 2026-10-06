@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buffedlizard55-lab.github.io/GEMSDOE47/docs/promotion-report.schema.json",
+  "title": "GEMSDOE47 promotion report",
+  "description": "Human-reviewed evidence gate required before packaging an H47-A map. This is a schema, not a validation result.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "hypothesis_id",
+    "status",
+    "official_inputs_authorized",
+    "preregistered_before_scoring",
+    "spatially_blocked",
+    "guard_m",
+    "matched_mass",
+    "controls_reported",
+    "score_metric",
+    "folds",
+    "prediction_sha256",
+    "template_sha256",
+    "features_sha256",
+    "pooled_incumbent_dti",
+    "pooled_candidate_dti",
+    "report_id",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "hypothesis_id": {"const": "H47-A"},
+    "status": {"enum": ["not_promoted", "promoted"]},
+    "official_inputs_authorized": {"type": "boolean"},
+    "preregistered_before_scoring": {"type": "boolean"},
+    "spatially_blocked": {"type": "boolean"},
+    "guard_m": {"type": "number", "minimum": 300},
+    "matched_mass": {"type": "boolean"},
+    "controls_reported": {"type": "boolean"},
+    "score_metric": {"const": "official_dw_tversky"},
+    "report_id": {"type": "string", "minLength": 1},
+    "prediction_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "template_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "features_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "pooled_incumbent_dti": {"type": "number", "minimum": 0, "maximum": 1},
+    "pooled_candidate_dti": {"type": "number", "minimum": 0, "maximum": 1},
+    "folds": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["block_id", "incumbent_dti", "candidate_dti", "incumbent_mass", "candidate_mass"],
+        "properties": {
+          "block_id": {"type": "string", "minLength": 1},
+          "incumbent_dti": {"type": "number", "minimum": 0, "maximum": 1},
+          "candidate_dti": {"type": "number", "minimum": 0, "maximum": 1},
+          "incumbent_mass": {"type": "number", "minimum": 0, "maximum": 1},
+          "candidate_mass": {"type": "number", "minimum": 0, "maximum": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "domain_matched_random_control_reported",
+        "ablations_reported",
+        "official_scorer_version",
+        "preregistration_sha256",
+        "fold_assignment_sha256",
+        "source_data_sha256",
+        "model_code_revision"
+      ],
+      "properties": {
+        "domain_matched_random_control_reported": {"const": true},
+        "ablations_reported": {"const": true},
+        "official_scorer_version": {"type": "string", "minLength": 1},
+        "preregistration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "fold_assignment_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_data_sha256": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        },
+        "model_code_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

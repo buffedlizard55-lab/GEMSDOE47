@@ -1,0 +1,14 @@
+# Locally authorized competition inputs and derived outputs are never committed by default.
+/data/
+/artifacts/
+/outputs/
+/.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.DS_Store
