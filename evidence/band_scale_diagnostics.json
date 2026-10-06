@@ -1,0 +1,370 @@
+{
+  "generated_utc": "2026-10-06T10:33:45Z",
+  "purpose": "measure which official bands carry structure at the metric's own 300 m scale and whether they detect mapped faults",
+  "n_positive_sample": 60000,
+  "n_negative_sample": 300000,
+  "bands": [
+    {
+      "band": "det_elev_slope",
+      "description": "Detrended elevation slope - gradient of elevation after detrending",
+      "valid_px": 5164312,
+      "median": 3.7492629289627075,
+      "var_total": 69.35452584565826,
+      "hf_variance_fraction": 0.18099,
+      "autocorr": {
+        "lag1px": 0.87982,
+        "lag2px": 0.8214,
+        "lag3px": 0.78774,
+        "lag5px": 0.73613,
+        "lag10px": 0.65013,
+        "lag30px": 0.41649
+      },
+      "auc_raw": 0.5544,
+      "auc_300m_residual_signed": 0.4837,
+      "auc_300m_residual_abs": 0.5655
+    },
+    {
+      "band": "geod_dilaterate",
+      "description": "Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+      "valid_px": 5164312,
+      "median": 5.5,
+      "var_total": 41.28492796806246,
+      "hf_variance_fraction": 0.001697,
+      "autocorr": {
+        "lag1px": 0.99894,
+        "lag2px": 0.99778,
+        "lag3px": 0.99656,
+        "lag5px": 0.99401,
+        "lag10px": 0.98759,
+        "lag30px": 0.9587
+      },
+      "auc_raw": 0.5345,
+      "auc_300m_residual_signed": 0.5011,
+      "auc_300m_residual_abs": 0.5512
+    },
+    {
+      "band": "det_elev",
+      "description": "Detrended elevation - topography with regional trends removed",
+      "valid_px": 5164312,
+      "median": -75.57621002197266,
+      "var_total": 58485.137461157006,
+      "hf_variance_fraction": 0.006534,
+      "autocorr": {
+        "lag1px": 0.99772,
+        "lag2px": 0.99342,
+        "lag3px": 0.98813,
+        "lag5px": 0.97566,
+        "lag10px": 0.93698,
+        "lag30px": 0.72533
+      },
+      "auc_raw": 0.4853,
+      "auc_300m_residual_signed": 0.4318,
+      "auc_300m_residual_abs": 0.5481
+    },
+    {
+      "band": "geod_shearrate",
+      "description": "Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+      "valid_px": 5164312,
+      "median": 9.699999809265137,
+      "var_total": 98.25735470959852,
+      "hf_variance_fraction": 0.001773,
+      "autocorr": {
+        "lag1px": 0.99894,
+        "lag2px": 0.99785,
+        "lag3px": 0.99672,
+        "lag5px": 0.99443,
+        "lag10px": 0.98874,
+        "lag30px": 0.96471
+      },
+      "auc_raw": 0.5687,
+      "auc_300m_residual_signed": 0.5059,
+      "auc_300m_residual_abs": 0.5418
+    },
+    {
+      "band": "ieq_n100a15",
+      "description": "Earthquake intensity or density (n=100km radius, a=15deg parameters)",
+      "valid_px": 5164312,
+      "median": 755.7000122070312,
+      "var_total": 904113.0897739135,
+      "hf_variance_fraction": 0.002128,
+      "autocorr": {
+        "lag1px": 0.99902,
+        "lag2px": 0.99799,
+        "lag3px": 0.99692,
+        "lag5px": 0.99471,
+        "lag10px": 0.98915,
+        "lag30px": 0.9651
+      },
+      "auc_raw": 0.5731,
+      "auc_300m_residual_signed": 0.5016,
+      "auc_300m_residual_abs": 0.5394
+    },
+    {
+      "band": "geod_2ndinv",
+      "description": "Geodetic second invariant - measure of strain rate tensor magnitude",
+      "valid_px": 5164312,
+      "median": 19.90778923034668,
+      "var_total": 230.1066699804196,
+      "hf_variance_fraction": 0.00173,
+      "autocorr": {
+        "lag1px": 0.99897,
+        "lag2px": 0.99793,
+        "lag3px": 0.99686,
+        "lag5px": 0.99471,
+        "lag10px": 0.9894,
+        "lag30px": 0.96744
+      },
+      "auc_raw": 0.5715,
+      "auc_300m_residual_signed": 0.5057,
+      "auc_300m_residual_abs": 0.5344
+    },
+    {
+      "band": "iso_grav_anom_vg",
+      "description": "Isostatic gravity anomaly vertical gradient - vertical rate of change",
+      "valid_px": 5164312,
+      "median": -0.07213491946458817,
+      "var_total": 2.6527573507172004,
+      "hf_variance_fraction": 0.003828,
+      "autocorr": {
+        "lag1px": 0.99893,
+        "lag2px": 0.99647,
+        "lag3px": 0.99267,
+        "lag5px": 0.98142,
+        "lag10px": 0.9354,
+        "lag30px": 0.63775
+      },
+      "auc_raw": 0.5311,
+      "auc_300m_residual_signed": 0.4981,
+      "auc_300m_residual_abs": 0.5314
+    },
+    {
+      "band": "depth_to_base_surf",
+      "description": "Depth to basement surface - thickness of sedimentary cover",
+      "valid_px": 5164312,
+      "median": 316.3645324707031,
+      "var_total": 483409.4857666265,
+      "hf_variance_fraction": 0.001893,
+      "autocorr": {
+        "lag1px": 0.99953,
+        "lag2px": 0.99841,
+        "lag3px": 0.99665,
+        "lag5px": 0.99121,
+        "lag10px": 0.96691,
+        "lag30px": 0.74935
+      },
+      "auc_raw": 0.5136,
+      "auc_300m_residual_signed": 0.4649,
+      "auc_300m_residual_abs": 0.5302
+    },
+    {
+      "band": "iso_grav_anom_hg",
+      "description": "Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+      "valid_px": 5164312,
+      "median": 0.037620771676301956,
+      "var_total": 4.1537623219901,
+      "hf_variance_fraction": 0.002986,
+      "autocorr": {
+        "lag1px": 0.9979,
+        "lag2px": 0.99257,
+        "lag3px": 0.98423,
+        "lag5px": 0.95947,
+        "lag10px": 0.86115,
+        "lag30px": 0.32741
+      },
+      "auc_raw": 0.5042,
+      "auc_300m_residual_signed": 0.4831,
+      "auc_300m_residual_abs": 0.5271
+    },
+    {
+      "band": "iso_grav_anom_slope",
+      "description": "Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+      "valid_px": 5164312,
+      "median": 0.10218460857868195,
+      "var_total": 0.0060066515532444156,
+      "hf_variance_fraction": 0.00318,
+      "autocorr": {
+        "lag1px": 0.99816,
+        "lag2px": 0.99349,
+        "lag3px": 0.98616,
+        "lag5px": 0.96422,
+        "lag10px": 0.87515,
+        "lag30px": 0.40134
+      },
+      "auc_raw": 0.5376,
+      "auc_300m_residual_signed": 0.5159,
+      "auc_300m_residual_abs": 0.527
+    },
+    {
+      "band": "mag_anom",
+      "description": "Magnetic anomaly - deviation from expected Earth's magnetic field",
+      "valid_px": 5164312,
+      "median": -57.68793296813965,
+      "var_total": 14188.945059881597,
+      "hf_variance_fraction": 0.001195,
+      "autocorr": {
+        "lag1px": 0.99904,
+        "lag2px": 0.99698,
+        "lag3px": 0.99385,
+        "lag5px": 0.98453,
+        "lag10px": 0.94511,
+        "lag30px": 0.6736
+      },
+      "auc_raw": 0.4901,
+      "auc_300m_residual_signed": 0.4887,
+      "auc_300m_residual_abs": 0.5267
+    },
+    {
+      "band": "tmi_hg",
+      "description": "Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+      "valid_px": 5164312,
+      "median": 13.155465126037598,
+      "var_total": 1668.8146180853369,
+      "hf_variance_fraction": 0.175173,
+      "autocorr": {
+        "lag1px": 0.94003,
+        "lag2px": 0.83374,
+        "lag3px": 0.75391,
+        "lag5px": 0.66701,
+        "lag10px": 0.5453,
+        "lag30px": 0.34121
+      },
+      "auc_raw": 0.5289,
+      "auc_300m_residual_signed": 0.5055,
+      "auc_300m_residual_abs": 0.5253
+    },
+    {
+      "band": "deq_n100a15",
+      "description": "Distance to earthquake (n=100km radius, a=15deg azimuth parameters)",
+      "valid_px": 5164312,
+      "median": 622.7999877929688,
+      "var_total": 22038572758.76625,
+      "hf_variance_fraction": 0.009431,
+      "autocorr": {
+        "lag1px": 0.99828,
+        "lag2px": 0.99444,
+        "lag3px": 0.98901,
+        "lag5px": 0.97545,
+        "lag10px": 0.93808,
+        "lag30px": 0.7681
+      },
+      "auc_raw": 0.553,
+      "auc_300m_residual_signed": 0.5044,
+      "auc_300m_residual_abs": 0.5249
+    },
+    {
+      "band": "tmi",
+      "description": "Total magnetic intensity - total strength of magnetic field",
+      "valid_px": 5164312,
+      "median": -124.8157730102539,
+      "var_total": 23139.649009713128,
+      "hf_variance_fraction": 0.033179,
+      "autocorr": {
+        "lag1px": 0.992,
+        "lag2px": 0.97098,
+        "lag3px": 0.94166,
+        "lag5px": 0.87496,
+        "lag10px": 0.72583,
+        "lag30px": 0.40454
+      },
+      "auc_raw": 0.4884,
+      "auc_300m_residual_signed": 0.484,
+      "auc_300m_residual_abs": 0.5248
+    },
+    {
+      "band": "rtp",
+      "description": "Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+      "valid_px": 5164312,
+      "median": -137.22166442871094,
+      "var_total": 28604.74943280772,
+      "hf_variance_fraction": 0.034893,
+      "autocorr": {
+        "lag1px": 0.99087,
+        "lag2px": 0.96699,
+        "lag3px": 0.9339,
+        "lag5px": 0.8596,
+        "lag10px": 0.69811,
+        "lag30px": 0.36927
+      },
+      "auc_raw": 0.4981,
+      "auc_300m_residual_signed": 0.4852,
+      "auc_300m_residual_abs": 0.5238
+    },
+    {
+      "band": "tmi_vg",
+      "description": "Total magnetic intensity vertical gradient - rate of change in vertical direction",
+      "valid_px": 5164312,
+      "median": -0.008997071534395218,
+      "var_total": 0.06354091087866633,
+      "hf_variance_fraction": 0.381477,
+      "autocorr": {
+        "lag1px": 0.90347,
+        "lag2px": 0.67621,
+        "lag3px": 0.44072,
+        "lag5px": 0.18279,
+        "lag10px": 0.07127,
+        "lag30px": 0.0091
+      },
+      "auc_raw": 0.4867,
+      "auc_300m_residual_signed": 0.4861,
+      "auc_300m_residual_abs": 0.523
+    },
+    {
+      "band": "iso_grav_anom",
+      "description": "Isostatic gravity anomaly - gravity after compensating for topographic mass",
+      "valid_px": 5164312,
+      "median": -7.26103401184082,
+      "var_total": 104.15431238230487,
+      "hf_variance_fraction": 0.001177,
+      "autocorr": {
+        "lag1px": 0.99929,
+        "lag2px": 0.99817,
+        "lag3px": 0.99666,
+        "lag5px": 0.99246,
+        "lag10px": 0.97552,
+        "lag30px": 0.83734
+      },
+      "auc_raw": 0.4602,
+      "auc_300m_residual_signed": 0.526,
+      "auc_300m_residual_abs": 0.5221
+    },
+    {
+      "band": "cond_surf",
+      "description": "Conductivity surface - electrical conductivity of subsurface",
+      "valid_px": 5164312,
+      "median": 2.885897636413574,
+      "var_total": 0.38874695713295476,
+      "hf_variance_fraction": 0.002091,
+      "autocorr": {
+        "lag1px": 0.99899,
+        "lag2px": 0.9974,
+        "lag3px": 0.99528,
+        "lag5px": 0.98974,
+        "lag10px": 0.97136,
+        "lag30px": 0.89263
+      },
+      "auc_raw": 0.4842,
+      "auc_300m_residual_signed": 0.5036,
+      "auc_300m_residual_abs": 0.5076
+    },
+    {
+      "band": "tc",
+      "description": "Tilt angle or total curvature - magnetic field derivative for edge detection",
+      "valid_px": 5164300,
+      "median": 18.48169994354248,
+      "var_total": 19.5206253507846,
+      "hf_variance_fraction": 0.023261,
+      "autocorr": {
+        "lag1px": 0.99302,
+        "lag2px": 0.97831,
+        "lag3px": 0.95932,
+        "lag5px": 0.91765,
+        "lag10px": 0.82996,
+        "lag30px": 0.63198
+      },
+      "auc_raw": 0.4424,
+      "auc_300m_residual_signed": 0.472,
+      "auc_300m_residual_abs": 0.4965
+    }
+  ],
+  "reading": "hf_variance_fraction is the share of a band's variance that survives removal of a 300 m smooth.  A band with hf ~ 0 cannot localise a fault to within the kernel support and can only act as a regional prior. auc_300m_residual_abs is the tie-aware AUC of |band - smooth(band)| against the catalogue dilated by 1 px; 0.5 means no skill."
+}

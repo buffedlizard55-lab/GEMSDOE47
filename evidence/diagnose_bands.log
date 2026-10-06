@@ -1,0 +1,44 @@
+[setup] catalogue-dilated positives 237472 (sampled 60000), background negatives 4599225 (sampled 300000)
+[ 1/19] mag_anom               hf= 0.0012 lag1=0.9990 lag3=0.9939 lag30=0.6736 AUCraw=0.4901 AUC|hf|=0.5267  (12s)
+[ 2/19] rtp                    hf= 0.0349 lag1=0.9909 lag3=0.9339 lag30=0.3693 AUCraw=0.4981 AUC|hf|=0.5238  (22s)
+[ 3/19] tmi_hg                 hf= 0.1752 lag1=0.9400 lag3=0.7539 lag30=0.3412 AUCraw=0.5289 AUC|hf|=0.5253  (32s)
+[ 4/19] geod_2ndinv            hf= 0.0017 lag1=0.9990 lag3=0.9969 lag30=0.9674 AUCraw=0.5715 AUC|hf|=0.5344  (45s)
+[ 5/19] iso_grav_anom_slope    hf= 0.0032 lag1=0.9982 lag3=0.9862 lag30=0.4013 AUCraw=0.5376 AUC|hf|=0.5270  (57s)
+[ 6/19] tc                     hf= 0.0233 lag1=0.9930 lag3=0.9593 lag30=0.6320 AUCraw=0.4424 AUC|hf|=0.4965  (69s)
+[ 7/19] geod_shearrate         hf= 0.0018 lag1=0.9989 lag3=0.9967 lag30=0.9647 AUCraw=0.5687 AUC|hf|=0.5418  (81s)
+[ 8/19] geod_dilaterate        hf= 0.0017 lag1=0.9989 lag3=0.9966 lag30=0.9587 AUCraw=0.5345 AUC|hf|=0.5512  (94s)
+[ 9/19] tmi_vg                 hf= 0.3815 lag1=0.9035 lag3=0.4407 lag30=0.0091 AUCraw=0.4867 AUC|hf|=0.5230  (106s)
+[10/19] deq_n100a15            hf= 0.0094 lag1=0.9983 lag3=0.9890 lag30=0.7681 AUCraw=0.5530 AUC|hf|=0.5249  (119s)
+[11/19] iso_grav_anom_vg       hf= 0.0038 lag1=0.9989 lag3=0.9927 lag30=0.6378 AUCraw=0.5311 AUC|hf|=0.5314  (131s)
+[12/19] det_elev               hf= 0.0065 lag1=0.9977 lag3=0.9881 lag30=0.7253 AUCraw=0.4853 AUC|hf|=0.5481  (145s)
+[13/19] iso_grav_anom          hf= 0.0012 lag1=0.9993 lag3=0.9967 lag30=0.8373 AUCraw=0.4602 AUC|hf|=0.5221  (157s)
+[14/19] tmi                    hf= 0.0332 lag1=0.9920 lag3=0.9417 lag30=0.4045 AUCraw=0.4884 AUC|hf|=0.5248  (170s)
+[15/19] depth_to_base_surf     hf= 0.0019 lag1=0.9995 lag3=0.9967 lag30=0.7493 AUCraw=0.5136 AUC|hf|=0.5302  (182s)
+[16/19] ieq_n100a15            hf= 0.0021 lag1=0.9990 lag3=0.9969 lag30=0.9651 AUCraw=0.5731 AUC|hf|=0.5394  (194s)
+[17/19] cond_surf              hf= 0.0021 lag1=0.9990 lag3=0.9953 lag30=0.8926 AUCraw=0.4842 AUC|hf|=0.5076  (207s)
+[18/19] iso_grav_anom_hg       hf= 0.0030 lag1=0.9979 lag3=0.9842 lag30=0.3274 AUCraw=0.5042 AUC|hf|=0.5271  (219s)
+[19/19] det_elev_slope         hf= 0.1810 lag1=0.8798 lag3=0.7877 lag30=0.4165 AUCraw=0.5544 AUC|hf|=0.5655  (232s)
+
+wrote /home/user/GEMSDOE47/evidence/band_scale_diagnostics.json   (232s)
+
+--- ranked by AUC of the 300 m-scale residual ---
+band                    hf_frac   lag3px   AUCraw  AUC|hf|
+det_elev_slope           0.1810   0.7877   0.5544   0.5655
+geod_dilaterate          0.0017   0.9966   0.5345   0.5512
+det_elev                 0.0065   0.9881   0.4853   0.5481
+geod_shearrate           0.0018   0.9967   0.5687   0.5418
+ieq_n100a15              0.0021   0.9969   0.5731   0.5394
+geod_2ndinv              0.0017   0.9969   0.5715   0.5344
+iso_grav_anom_vg         0.0038   0.9927   0.5311   0.5314
+depth_to_base_surf       0.0019   0.9967   0.5136   0.5302
+iso_grav_anom_hg         0.0030   0.9842   0.5042   0.5271
+iso_grav_anom_slope      0.0032   0.9862   0.5376   0.5270
+mag_anom                 0.0012   0.9939   0.4901   0.5267
+tmi_hg                   0.1752   0.7539   0.5289   0.5253
+deq_n100a15              0.0094   0.9890   0.5530   0.5249
+tmi                      0.0332   0.9417   0.4884   0.5248
+rtp                      0.0349   0.9339   0.4981   0.5238
+tmi_vg                   0.3815   0.4407   0.4867   0.5230
+iso_grav_anom            0.0012   0.9967   0.4602   0.5221
+cond_surf                0.0021   0.9953   0.4842   0.5076
+tc                       0.0233   0.9593   0.4424   0.4965

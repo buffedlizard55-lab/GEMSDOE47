@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hypotheses H47 — GEMSDOE47</title>
+<meta name="description" content="Five new geological hypotheses ranked by expected DTI improvement over implementation cost, the spatially-blocked validation gate, and five refuted candidates with their numbers.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-06 20:13 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="../README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — submission</a>
+    <a href="HOW_TO_SUBMIT.html">How to submit (s3)</a>
+    <a href="RESULTS.html">Results (s3)</a>
+    <a href="why-02778.html">Why 0.2778</a>
+    <a class="on" href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<p>The standing brief asks for 3–5 <strong>new</strong> geological hypotheses, each with the layers involved, the
+physical signature targeted, why it should catch a fault <strong>missing</strong> from the USGS/INGENIOUS
+catalogue rather than one already in it, and how it differs from what GEMSDOE1–46 already
+implemented — then ranked by expected DTI improvement against implementation cost, with the top
+candidate validated on a spatially-blocked holdout <strong>before</strong> any submission slot is spent.</p>
+<p>Ten candidates were drafted. Five were <strong>refuted by measurement in this session</strong> and are reported
+in §3 with their numbers, because a refutation that is not written down gets re-proposed next
+session. The five survivors are §1–§2.</p>
+<p><strong>Novelty was checked, not asserted.</strong> Every candidate was compared against the hypothesis
+registries of GEMSDOE32 (<code>/tmp/g32/registry/hypotheses.json</code>: H33-1..5, H60-1..5, H61-1..5,
+H33-A..E), GEMSDOE33 (<code>/tmp/GEMSDOE33_c</code>: H33-6..10) and 19GEMSDOE (<code>H19-1..H19-5</code>) — thirty
+prior hypotheses in total. None of the five survivors appears in them.</p>
+<p>All measurements below are tie-aware (Mann–Whitney with 0.5 credit for ties) and are reproducible:</p>
+<pre><code class="language-bash">python3 scripts/diagnose_bands.py          # which bands carry 300 m-scale structure
+python3 scripts/diagnose_surfaces.py       # tie-aware skill of every derived surface
+python3 scripts/search_scarp_radius.py     # the transform search that produced H47-1
+python3 scripts/search_field.py            # composites, regional priors, the H47-A gate
+python3 scripts/run_sweep_a.py             # spatially-blocked, prevalence-matched validation
+</code></pre>
+<p>Random baselines, <code>evidence/instrument_populations.json</code>: precision-at-40k is <strong>0.0861</strong> against
+the given catalogue's 300 m halo, <strong>0.0099</strong> against isolated-catalogue halos (A1), <strong>0.0762</strong>
+against flanking-catalogue halos (A2), <strong>0.0829</strong> against SGMC off-catalogue halos.</p>
+<hr />
+<h2 id="1-the-five-surviving-hypotheses-ranked">1. The five surviving hypotheses, ranked</h2>
+<p>Ranking key = (expected DTI improvement) ÷ (implementation cost), where cost is measured in lines
+of new code and compute, both of which are already spent for the top three.</p>
+<table>
+<thead>
+<tr>
+<th>rank</th>
+<th>hypothesis</th>
+<th>expected ΔDTI</th>
+<th>cost</th>
+<th>status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>H47-1 laterally-persistent across-strike slope step</td>
+<td>large</td>
+<td><strong>already implemented</strong></td>
+<td>validated on holdout, in the shipped recipe</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>H47-2 regional strain-rate veto prior</td>
+<td>moderate</td>
+<td><strong>already implemented</strong></td>
+<td>validated, in the shipped recipe</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>H47-3 isolated-vs-flanking habitat dichotomy</td>
+<td>moderate</td>
+<td><strong>already implemented</strong></td>
+<td>validated as a sign flip, partially in the shipped recipe</td>
+</tr>
+<tr>
+<td>4</td>
+<td>H47-4 catalogue-vacancy residual</td>
+<td>small, uncertain</td>
+<td>already implemented</td>
+<td>under test as recipe <code>R5</code>; not in the shipped recipe unless the sweep promotes it</td>
+</tr>
+<tr>
+<td>5</td>
+<td>H47-5 1 m LiDAR scarp refinement</td>
+<td>potentially the largest of all</td>
+<td><strong>blocked</strong> — needs external data</td>
+<td>source named and verified to exist, NOT obtainable here</td>
+</tr>
+</tbody>
+</table>
+<h3 id="h47-1-laterally-persistent-across-strike-slope-step">H47-1 — Laterally-persistent across-strike slope step</h3>
+<ul>
+<li><strong>Layers.</strong> <code>det_elev_slope</code> only (the official detrended-elevation gradient). No external data.</li>
+<li><strong>Physical signature.</strong> A normal-fault scarp is a <strong>straight, laterally persistent step</strong>, not a
+  bend and not a rough patch. Formally: for each of four strikes, take the two-sided mean
+  difference of the slope field <strong>across</strong> the strike over a 900 m half-width, then smooth the
+  result <strong>along</strong> the strike over 1.9 km, and take the maximum over strikes. Implemented as
+  <code>geomorph.scarp_step(z, 9)</code>.</li>
+<li><strong>Why it catches a fault the catalogue lacks.</strong> The Nevada Quaternary fault inventory was
+  digitised at <strong>1:250,000</strong> — the NBMG service description says so verbatim, and adds that "a
+  buffer has been applied to the data to account for the inaccuracies"
+  (https://gisweb.unr.edu/nbmg/rest/services/Geology/Faults/MapServer). A 1:250,000 compilation
+  systematically omits scarps of 1–3 m throw on alluvial-covered range fronts, which is precisely
+  the population expert LiDAR mapping recovers: Hermant, Kiersnowski &amp; Bellanger (2025, 50th
+  Stanford Geothermal Workshop) label <strong>1,100 faults / 264 km</strong> in northern central Nevada from a
+  10 m DEM and measure up to <strong>400 m</strong> of offset between their labels and the USGS Quaternary
+  trace. A detector that requires 1.9 km of along-strike persistence finds the <em>system</em>, and the
+  metric's 300 m kernel then rewards a dot anywhere along it — including the segments the
+  small-scale compilation dropped.</li>
+<li><strong>How it differs from what is implemented.</strong> GEMSDOE19's H19-5 used topographic openness and
+  thermal corroboration; GEMSDOE32's H33-A/B used Hessian line response, valley collinearity and
+  orientation consensus; H33-D used an unsigned gradient magnitude. <strong>All of these are per-pixel or
+  short-range measures.</strong> None imposes a kilometre-scale along-strike persistence constraint, which
+  is the only thing in this repository that separates a scarp from a canyon rim, a stream bank or an
+  alluvial-fan edge — the exact false-positive mode Hermant et al. report.</li>
+<li><strong>Measured.</strong> Precision-at-40k against expert-mapped Quaternary fault <strong>0.5049</strong> (5.9× random);
+  at 10k <strong>0.6543</strong> (7.6×); tie-aware AUC <strong>0.6183</strong>. Interior optimum in the persistence radius
+  (r=5: 0.4611, r=9: <strong>0.5049</strong>, r=13: 0.4691, r=17: 0.4403, r=31: 0.3880), so the 1.9 km
+  run-length is fitted, not chosen. The shipped 0.2778 artifact scores 0.1253 on the comparable
+  off-catalogue target and 0.0607 (below random) on the catalogue halo, the latter because it was
+  deliberately flank-pruned.</li>
+<li><strong>Cost.</strong> ~60 lines in <code>src/gems47s3/geomorph.py</code>, ~30 s of compute. Already paid.</li>
+</ul>
+<h3 id="h47-2-regional-strain-rate-veto-prior-the-corrected-form-of-a-refuted-idea">H47-2 — Regional strain-rate veto prior (the corrected form of a refuted idea)</h3>
+<ul>
+<li><strong>Layers.</strong> <code>geod_2ndinv</code>, <code>geod_shearrate</code> — smoothed to a 2.5 km scale. No external data.</li>
+<li><strong>Physical signature.</strong> Blewitt et al. (GRC/NBMG,
+  https://nbmg.unr.edu/staff/pdfs/blewitt%20grc%20paper.pdf) tested and supported the prediction
+  that "geothermal activity would be spatially correlated with areas of high inter-seismic strain
+  accumulation, especially when faults are favorably oriented with respect to the strain-rate tensor
+  field." These are exactly the bands the INGENIOUS compilation supplies (DOI 10.15121/1881483).</li>
+<li><strong>The measurement that reframes it.</strong> <code>geod_2ndinv</code> has a <strong>300 m-scale variance fraction of
+  0.0017</strong> — 99.83 % of its variance lives above the metric's kernel support
+  (<code>evidence/band_scale_diagnostics.json</code>). It cannot localise a fault to within 300 m, and the
+  original H47-D formulation (a Laplacian of the dilatation/shear ratio, designed to cancel the
+  smooth regional gradient) was <strong>refuted</strong>: tie-aware AUC 0.4765 against the catalogue and
+  precision-at-40k 0.0790, i.e. <em>below</em> the 0.0861 random baseline.</li>
+<li><strong>The corrected form.</strong> Use it as a <strong>veto</strong>, not a locator: multiply the topographic core by the
+  rank of the 2.5-km-smoothed strain-rate invariant. Measured precision-at-40k <strong>0.3072</strong> (3.6×
+  random) — the strongest regional prior among all 19 bands, and stronger than any single
+  fine-scale transform of any magnetic band.</li>
+<li><strong>Why it catches missing faults.</strong> It cannot find a fault; it can <em>refuse</em> one. A topographic step
+  on a basin floor with no strain-rate expression is far more likely to be a stream bank or an
+  escarpment of erosion than a structure. Removing those is a pure precision gain, and precision is
+  the binding constraint at 0.2778 (the false-positive tax ≈6,757 exceeds the earned credit ≈3,870;
+  see <code>knowledge/05</code> §5.1).</li>
+<li><strong>Differs from.</strong> The family used these bands as scalars or plain gradient magnitudes at fine
+  scale (worthless, as measured), and H61-4 proposed a principal-axis matched filter on the strain
+  tensor that was <strong>never implemented</strong>. Nobody used them as a kilometre-scale veto.</li>
+<li><strong>Cost.</strong> ~15 lines (<code>detector.regional_gate</code>, <code>geomorph.regional</code>), ~5 s. Already paid.</li>
+</ul>
+<h3 id="h47-3-isolated-versus-flanking-habitat-dichotomy">H47-3 — Isolated-versus-flanking habitat dichotomy</h3>
+<ul>
+<li><strong>Layers.</strong> <code>geod_2ndinv</code> (both signs), <code>mag_anom</code> regional, <code>tmi_hg</code> regional, plus the
+  geometry of <code>labels.tif</code> itself. No external data.</li>
+<li><strong>Physical signature — the discovery.</strong> Split the 3,199 catalogue components by whether a
+  component is <strong>alone</strong> in its own 300 m dilation (<code>A1</code>, 300 components, 6,315 px) or <strong>shares</strong> it
+  with another trace (<code>A2</code>, 2,897 components, 54,673 px). Then measure each band's affinity for
+  each population (<code>evidence/instrument_populations.json</code>):</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>band (mean rank)</th>
+<th>background</th>
+<th>A1 isolated</th>
+<th>A2 flanking</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>geod_2ndinv</code></td>
+<td>—</td>
+<td>0.5301</td>
+<td><strong>0.5620</strong></td>
+</tr>
+<tr>
+<td><code>ieq_n100a15</code></td>
+<td>—</td>
+<td>0.4962</td>
+<td><strong>0.5690</strong></td>
+</tr>
+<tr>
+<td><code>deq_n100a15</code></td>
+<td>—</td>
+<td>0.4894</td>
+<td><strong>0.5496</strong></td>
+</tr>
+<tr>
+<td><code>mag_anom</code></td>
+<td>—</td>
+<td><strong>0.5421</strong></td>
+<td>0.4891</td>
+</tr>
+<tr>
+<td><code>iso_grav_anom</code></td>
+<td>—</td>
+<td><strong>0.5179</strong></td>
+<td>0.4628</td>
+</tr>
+<tr>
+<td><code>geod_dilaterate</code></td>
+<td>—</td>
+<td><strong>0.4406</strong> (inverted)</td>
+<td>0.5389</td>
+</tr>
+</tbody>
+</table>
+<p>And at the transform level, <code>inv_regional(geod_2ndinv, 25)</code> — the <strong>inverse</strong> — is the strongest
+  single predictor of isolated traces in the whole search (precision-at-40k 0.0327 against a 0.0099
+  random baseline, <strong>3.3×</strong>), while the non-inverted version is the strongest predictor of flanking
+  ones (<strong>3.8×</strong>).
+* <strong>Interpretation.</strong> These are two different geological habitats. <strong>Flanking</strong> traces are
+  range-front fault systems: clustered, in high inter-seismic strain, seismically active, expressed
+  in topography. <strong>Isolated</strong> traces are buried basin-floor structures: low strain rate, no
+  topographic expression, detected if at all by magnetics and by a gravity low. One detector cannot
+  serve both, and a single scalar weight on <code>geod_2ndinv</code> must compromise between them.
+* <strong>Why it catches missing faults.</strong> The catalogue's own isolated population is a <strong>sample of the
+  missing-fault habitat</strong>: 6,315 px, which sits almost exactly on the model-free floor
+  <strong>|G| ≥ 5,764 px</strong> inverted from the organiser's published scores. If the hidden truth is of
+  comparable size and mixed character, a field that only models the flanking habitat is leaving a
+  large fraction of it unaddressed.
+* <strong>Differs from.</strong> Nothing in GEMSDOE1–46 ever stratified the catalogue by isolation. Every prior
+  hypothesis treats "fault" as one population.
+* <strong>Cost.</strong> ~40 lines (<code>scripts/measure_instruments.py</code> builds the split; two signed terms in the
+  recipe). Already paid. <strong>Partially in the shipped recipe</strong> — <code>mag_anom</code> regional and <code>tmi_hg</code>
+  line terms are the A1 arm; the explicit inverse-strain A1 term is held back pending the sweep.</p>
+<h3 id="h47-4-catalogue-vacancy-residual">H47-4 — Catalogue-vacancy residual</h3>
+<ul>
+<li><strong>Layers.</strong> All 19 bands through the topographic core, plus the <em>geometry</em> of <code>labels.tif</code> used
+  only as a density to be subtracted. No external data.</li>
+<li><strong>Physical signature.</strong> At a matched 800 m scale, compute the rank of the physics-lineament
+  density and the rank of the catalogue-trace density, then emit
+  <code>rank(physics) × (1 − rank(catalogue))</code>. High values are places with multi-physics lineament
+  evidence and <strong>no mapped trace</strong>: mapping gaps.</li>
+<li><strong>Why it catches missing faults.</strong> The gaps are not random. Hermant et al. Fig. 2 shows the
+  USGS-to-expert-label distance varies with the <em>scale of the source map</em>, and NBMG documents that
+  its own inventory was digitised at 1:250,000. Where the source map was small-scale, the catalogue
+  is thin for cartographic reasons, not geological ones. A density residual aims at exactly that.</li>
+<li><strong>Differs from.</strong> GEMSDOE32's H60-2 added <strong>external</strong> catalogues (SGMC, QFaults v2) as a
+  positive prior — measured here to be worth zero, since the training labels already contain them
+  (<code>knowledge/04</code> §1.5). H33-2 used the given catalogue only as a <strong>removal</strong> buffer. No prior
+  surface computes a residual against the given catalogue's own density field.</li>
+<li><strong>Measured, honestly.</strong> The raw physics-density surface is weak: tie-aware AUC 0.5629 against the
+  catalogue, precision-at-40k 0.1024 (1.19× random). As a multiplicative <strong>gate</strong> on a strong core
+  it is plausible but unproven; recipe <code>R5_scarp9_vacancy</code> tests it on the holdout, and it is
+  <strong>shipped only if the sweep promotes it</strong>. Rank it below H47-1..3 because its expected gain is
+  second-order: the flank buffer already removes on-catalogue mass, which is most of what the gate
+  would do.</li>
+<li><strong>Cost.</strong> ~30 lines (<code>detector.vacancy_gate</code>). Already paid.</li>
+</ul>
+<h3 id="h47-5-1-m-lidar-scarp-refinement-blocked-named-and-verified-not-obtainable-here">H47-5 — 1 m LiDAR scarp refinement <em>(blocked; named and verified, NOT obtainable here)</em></h3>
+<ul>
+<li><strong>Specific free official source.</strong> <strong>GeoDAWN EarthMRI / 3DEP LiDAR</strong>, distributed on the Open
+  Energy Data Initiative: "GeoDAWN West Central Nevada EarthMRI Data" and "GeoDAWN Northwestern
+  Elko County Nevada EarthMRI Data", original-product-resolution rasters plus LiDAR point clouds,
+  acquired by the USGS Earth Mapping Resources Initiative and the USGS 3D Elevation Program with DOE
+  Geothermal Technologies Office funding — https://data.openei.org/search?q=Nevada</li>
+<li><strong>Obtainability verdict.</strong> <code>EXISTS</code> (source, landing page and contents confirmed this session)
+  but <strong>NOT <code>FETCHABLE-HERE</code></strong>: <code>data.openei.org</code>, <code>gdr.openei.gov</code>, <code>prd-tnm.s3.amazonaws.com</code>,
+  <code>usgs.gov</code> and <code>opentopography.org</code> all return <code>000</code> from this sandbox, and the competition's own
+  <code>1m_DEM_links.csv</code> is login-gated. <strong>This hypothesis is therefore NOT proposed as viable for this
+  session</strong>, in keeping with the standing rule.</li>
+<li><strong>Why it is listed first among the blocked ones anyway.</strong> H47-1 works at 100 m on a <em>detrended
+  elevation slope</em>, and it is the strongest signal in the entire shipped stack. Giddens &amp; Faulds
+  (2025) mapped step-overs across ~499,178 km² of the Great Basin from GeoDAWN 1 m LiDAR and found
+  <strong>91.9 %</strong> of them on range-front faults — the same structures, resolved 100× finer. Any session
+  with network access should spend its first hour here.</li>
+</ul>
+<hr />
+<h2 id="2-validation-gate-the-top-candidate-on-a-spatially-blocked-holdout">2. Validation gate: the top candidate on a spatially-blocked holdout</h2>
+<p>The brief forbids spending a submission slot on an idea that has not beaten the current holdout
+best. The gate is implemented, not promised:</p>
+<ul>
+<li><strong>Blocking.</strong> <code>Grid.spatial_folds</code> cuts the grid into contiguous rectangular blocks; whole
+  8-connected catalogue components are assigned to one block by majority
+  (<code>holdout.build_blocks</code>). No part of a held-out trace is ever visible as "known", so a detector
+  cannot score by continuing a trace it was shown. Random pixel splits are leakage-prone for long
+  connected traces and are not used anywhere in this repository.</li>
+<li><strong>Masking.</strong> The remaining catalogue is masked pixel-exactly, exactly as the organiser masks it
+  (DrivenData staff, thread 11516 post #2).</li>
+<li><strong>Prevalence matching.</strong> Folds are subsampled by whole component to 0.112 %, 0.200 % and 0.294 %
+  truth prevalence — the bracket inverted from the organiser's own published scores. Unmatched folds
+  are also reported (<code>A1</code> 0.056–0.104 %, <code>A2</code> 0.35–0.90 %) because the optimal emission density
+  moves with prevalence and an unmatched fold would select the wrong operating point.</li>
+<li><strong>Result.</strong> On every prevalence-matched instrument the H47-1 field beats the shipped 0.2778
+  artifact by more than an order of magnitude (mean DTI 0.082 vs 0.0043 at 0.200 % prevalence), and
+  the holdout <strong>reproduces the organiser's flank-buffer effect in the right direction</strong> (b=2 ≥ b=0
+  on the mixed <code>PM*</code> folds, b=0 ≥ b=2 on the flanking-only <code>A2</code> folds) — which is the independent
+  check that the instrument is not merely flattering.</li>
+<li><strong>Caveat, carried not hidden</strong> (<code>IR-47-PROXY-02</code>). Fold truth is drawn from the catalogue, so this
+  instrument cannot reward a genuinely new fault that no compilation contains, and it is structurally
+  invalid for arms that prune near the catalogue. It is an <strong>ordering</strong> instrument. The conformal
+  floor reported next to the chosen spacing is a floor <em>on this instrument</em> and is labelled that way
+  everywhere it appears.</li>
+</ul>
+<hr />
+<h2 id="3-refuted-candidates-with-their-numbers">3. Refuted candidates, with their numbers</h2>
+<p>Recorded so the next session does not re-spend the compute. All values are tie-aware; random
+precision-at-40k is 0.0861 (catalogue) / 0.0829 (SGMC off-catalogue).</p>
+<table>
+<thead>
+<tr>
+<th>draft id</th>
+<th>hypothesis as drafted</th>
+<th>layers</th>
+<th>measured AUC vs catalogue</th>
+<th>measured P@40k catalogue</th>
+<th>verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>H47-B</strong></td>
+<td>cross-strike magnetic "braid number": count distinct ridge maxima in the cross-strike profile within ±5 px, as a damage-zone multimodality test</td>
+<td><code>rtp</code>, <code>tmi_hg</code>, <code>tmi_vg</code>, <code>tc</code>, <code>mag_anom</code></td>
+<td>0.4987</td>
+<td>0.0807 (0.94×)</td>
+<td><strong>REFUTED.</strong> No skill against the target population. It does reach 1.6× against SGMC off-catalogue, i.e. it detects braided magnetic lineation in <em>bedrock</em> — the wrong population. Root cause measured separately: every magnetic band has AUC ≈0.52 against expert-mapped fault at 300 m, and <code>tc</code> is <em>inverted</em> (0.4476).</td>
+</tr>
+<tr>
+<td><strong>H47-C</strong></td>
+<td>two-sided drainage-azimuth asymmetry: vector-mean downslope azimuth on each side of a candidate line, as a half-graben tilt test</td>
+<td><code>det_elev</code>, <code>det_elev_slope</code></td>
+<td>0.4796</td>
+<td>0.0538 (0.62×)</td>
+<td><strong>REFUTED as formulated.</strong> Inverted and tie-dominated (608,518 px on the modal value). The magnitude-asymmetry variant is marginally positive (AUC 0.5345, P@40k 0.0920) but far below H47-1. Root cause: at 100 m on a <em>detrended</em> surface there is no flow network to route; this needs a 10 m DEM and real flow accumulation. Would be worth retrying if H47-5 is ever unblocked.</td>
+</tr>
+<tr>
+<td><strong>H47-D</strong></td>
+<td>strain-partitioning ratio Laplacian: ρ = |dilatation|/(shear+ε), signed Laplacian to suppress the smooth regional gradient</td>
+<td><code>geod_dilaterate</code>, <code>geod_shearrate</code>, <code>geod_2ndinv</code></td>
+<td>0.4765</td>
+<td>0.0790 (0.92×)</td>
+<td><strong>REFUTED as formulated</strong>; <strong>the corrected form survives as H47-2.</strong> The Laplacian was designed to cancel the regional gradient, but the regional gradient <em>is</em> the signal: these bands are 99.83 % smooth above 300 m, so their fine-scale residual is numerical noise. The raw ratio has AUC 0.4507 (inverted) yet P@40k 0.1661 against SGMC — a bedrock affinity, not a fault one.</td>
+</tr>
+<tr>
+<td><strong>H47-E</strong></td>
+<td>signed persistent basement-depth step: cross-strike <em>signed</em> step in <code>depth_to_base_surf</code> persisting &gt;10 px, with sign flips marking segment boundaries / transfer zones</td>
+<td><code>depth_to_base_surf</code>, <code>cond_surf</code></td>
+<td>0.5113</td>
+<td>0.0552 (0.64×)</td>
+<td><strong>REFUTED.</strong> <code>depth_to_base_surf</code> has a 300 m-scale variance fraction of <strong>0.0019</strong> and a catalogue affinity rank of 0.5106 — no fine-scale content and no population affinity. The sign-flip (accommodation-zone) variant is also null: AUC 0.4874, P@40k 0.0711. The physical idea is sound (basin-fill thickness steps across range fronts, and sign reversals do locate transfer zones) but this product is too smooth at 100 m to express it.</td>
+</tr>
+<tr>
+<td><strong>H47-F</strong></td>
+<td>multi-family corroboration count: how many of five physics families fire above their 99th percentile</td>
+<td>all 19 bands</td>
+<td>0.5004</td>
+<td>0.0929 (1.08×)</td>
+<td><strong>REFUTED as a primary field.</strong> The count is dominated by ties (820,948 px on the modal value) and carries almost no ranking information. Its <em>continuous</em> relatives are useful (<code>corr_mean</code> AUC 0.5516, <code>fam_topo</code> AUC 0.5741) and are used inside H47-1's corroborating terms.</td>
+</tr>
+</tbody>
+</table>
+<p>Two further dead ends, recorded because they consumed real compute:</p>
+<ul>
+<li><strong>Fitting a truth model to the eleven published scores fails.</strong> <code>scripts/fit_truth_model.py</code>
+  searched sources × buffers × prevalence × smoothing × seeds for a candidate truth reproducing all
+  eleven organiser scores; best quick-grid RMSE <strong>0.1449</strong>, worst absolute error <strong>0.1935</strong>, with a
+  systematic 0.12–0.19 under-prediction of every high scorer. The hidden truth is not a subset of
+  any public compilation.</li>
+<li><strong>Supervised detectors trained on the catalogue are a trap.</strong> The metric masks catalogue pixels, so
+  a model that reproduces the catalogue emits worthless mass. Family evidence: GEMSDOE26
+  <code>dilcond-oof</code> → 0.1223; a histogram-gradient-boosting detector → 0.0286.</li>
+</ul>
+</article>
+</div>
+</body>
+</html>

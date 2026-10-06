@@ -32,6 +32,7 @@
     <a href="validation-protocol.md">Validation protocol</a>
     <a href="review-log.md">Review log</a>
     <a href="next-session.md">Next session</a>
+    <a href="session3.html">Session 3 (scarp-persistence candidate)</a>
     <a href="../README.md">README / brief</a>
   </nav>
 </div></header>
@@ -397,6 +398,52 @@ random noise. Its pages are preserved and linked, not overwritten.</p>
 </div>
 
 </div>
+
+<!-- ==================================================================== -->
+<!-- Session 3, merged 2026-10-06. ADDITIVE: nothing above this comment was
+     changed, and the decision recorded in the header badge still stands. -->
+<div class="dl" style="border-color:var(--warn);background:linear-gradient(135deg,#2a2415,#16232f)">
+  <p class="kicker" style="color:var(--warn)">Third session merged &middot; gate status UNCHANGED</p>
+  <h2>Session 3 &mdash; scarp-persistence candidate
+      <span class="badge b-warn">CONTROL-PASSED &middot; NOT LATI-VALIDATED &middot; NO SLOT RECOMMENDED YET</span></h2>
+  <p class="small" style="margin:0 0 10px">
+    A third session worked the same brief independently and is merged here under
+    <code>src/gems47s3/</code>, <code>docs/session3.html</code> and
+    <code>knowledge/04..06</code>. Its candidate is a different detector: an
+    <b>across-strike step in <code>det_elev_slope</code>, persisted 1.9&nbsp;km along strike</b>
+    (<code>scarp(det_elev_slope, r=9)</code>), emitted at 2.8&nbsp;px spacing, 7.37 dots per 1000
+    scored px and a 2&nbsp;px catalogue-flank buffer &mdash; 37,612 positive px, binary {0,1},
+    all-finite, no nodata tag, max Jaccard <b>0.0144</b> against all 18 reference artifacts.</p>
+  <p class="small" style="margin:0 0 10px">
+    <b>It passes the control that closed both gates above.</b> At matched mass, spacing and flank
+    buffer on identical folds it beats a uniform random field put through the identical emitter by
+    <b>6.02&times; / 6.17&times; / 6.61&times;</b> on the three prevalence-matched frames and
+    <b>4.75&times;</b> on the isolated-component frame, and beats a translated copy of itself (same
+    density and clustering, alignment destroyed) by the same margins; A&nbsp;&gt;&nbsp;B on 87 of 94
+    blocks (<code>evidence/control/controls.json</code>). H47-B lost that comparison (0.02755 vs
+    0.03716). The first run of the control reported the opposite &mdash; A/B&nbsp;=&nbsp;0.28 &mdash;
+    because the controls were pruned against the <i>visible</i> catalogue while the candidate was
+    pruned against the <i>full</i> catalogue; the asymmetry, not the candidate, produced that number
+    (<code>IR-47-CODE-09</code>). Both runs are recorded.</p>
+  <p class="small" style="margin:0 0 12px">
+    <b>Why no slot is recommended yet.</b> It has not been through this repository&rsquo;s promotion
+    instrument: cross-fitted LATI with paired out-of-fold deltas against the incumbent, on all five
+    truth frames. Its own holdout shows the optimizer&rsquo;s-curse signature &mdash; calibration mean
+    0.0968 against a selection mean of 0.0606, a 37% out-of-fold drop. It stays positive, which
+    H47-GSA did not, but a positive drop is not a promotion. It also inherits every ceiling this
+    README records: it is built on the same 100&nbsp;m layers that forty-four repositories converged
+    on at 0.26&ndash;0.28, and a 0.5&ndash;3&nbsp;m scarp averaged into a 100&nbsp;m pixel is below
+    the noise floor of the resampled product.</p>
+  <div class="btnrow">
+    <a class="btn ghost" href="session3.html">Session 3 front page &rarr;</a>
+    <a class="btn ghost" href="HOW_TO_SUBMIT.html">How it would be submitted &rarr;</a>
+    <a class="btn ghost" href="RESULTS.html">Every measurement &rarr;</a>
+    <a class="btn ghost" href="COMPLIANCE.html">Requirement compliance &rarr;</a>
+    <a class="btn ghost" href="downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif"
+       download>&#11015; the .tif (309 KB)</a>
+  </div>
+</div>
+
 <footer><div class="wrap">
   GEMSDOE47 · built autonomously · every number on this site is generated from a file under
   <code>evidence/</code> and every input byte is SHA-256 pinned in

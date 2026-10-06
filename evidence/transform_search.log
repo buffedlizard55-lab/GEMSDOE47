@@ -1,0 +1,40 @@
+[setup] cat3=444794 offcat=61664 off3=428326 bg=4317094  random P@40k(off)=0.0829
+[search] band det_elev done: 50 candidates  (209s)
+[search] band det_elev_slope done: 100 candidates  (405s)
+[search] band tmi_hg done: 150 candidates  (601s)
+[search] band tmi_vg done: 200 candidates  (799s)
+[search] band rtp done: 250 candidates  (998s)
+
+wrote /home/user/GEMSDOE47/evidence/transform_search.json: 250 candidates  (998s)
+
+band             transform       r  AUCoff  AUCcat   offW   offE  P@40k_off  P@40k_cat
+det_elev_slope   lrm           9.0  0.7825  0.5998  0.784  0.780     0.2603     0.1059
+det_elev_slope   lrm           5.0  0.7827  0.6029  0.781  0.783     0.2546     0.1273
+det_elev_slope   lrm           2.5  0.7789  0.6003  0.775  0.781     0.2346     0.1211
+det_elev_slope   lrm           3.0  0.7789  0.6003  0.775  0.781     0.2346     0.1211
+det_elev_slope   lrm           1.5  0.7761  0.5952  0.771  0.779     0.2235     0.1035
+det_elev         line          9.0  0.5210  0.5219  0.513  0.527     0.2077     0.0186
+det_elev         lrm           5.0  0.7857  0.5945  0.780  0.786     0.2019     0.0261
+det_elev         lrm           9.0  0.7865  0.5951  0.782  0.785     0.2013     0.0320
+det_elev         line          5.0  0.5202  0.5211  0.513  0.526     0.1986     0.0247
+det_elev         lrm           2.5  0.7817  0.5909  0.775  0.783     0.1883     0.0411
+det_elev         lrm           3.0  0.7817  0.5909  0.775  0.783     0.1883     0.0411
+det_elev         curv          9.0  0.6680  0.5320  0.668  0.664     0.1860     0.0199
+det_elev         line          1.5  0.5086  0.5075  0.508  0.510     0.1840     0.0383
+det_elev_slope   detrend       1.5  0.7379  0.5950  0.736  0.739     0.1838     0.1524
+det_elev         line          3.0  0.5170  0.5136  0.514  0.520     0.1836     0.0242
+det_elev         line          2.5  0.5150  0.5125  0.513  0.517     0.1803     0.0272
+det_elev_slope   curv          1.5  0.7239  0.5948  0.724  0.725     0.1799     0.1115
+det_elev         lrm           1.5  0.7794  0.5872  0.772  0.781     0.1795     0.0464
+det_elev_slope   tpi           1.5  0.4863  0.4811  0.483  0.489     0.1779     0.1034
+det_elev         scarp         1.5  0.7720  0.5964  0.765  0.774     0.1776     0.0658
+det_elev_slope   detrend       2.5  0.7367  0.5997  0.735  0.737     0.1772     0.1804
+det_elev_slope   detrend       3.0  0.7361  0.5996  0.735  0.737     0.1771     0.1812
+det_elev         scarp         5.0  0.7721  0.6066  0.767  0.772     0.1761     0.0863
+det_elev         scarp         2.5  0.7726  0.6017  0.767  0.774     0.1754     0.0746
+det_elev         scarp         3.0  0.7726  0.6017  0.767  0.774     0.1754     0.0746
+det_elev         curv          5.0  0.7078  0.5555  0.711  0.702     0.1749     0.0119
+det_elev         detrend       9.0  0.7545  0.5867  0.754  0.751     0.1746     0.0243
+det_elev_slope   curv          2.5  0.7137  0.5932  0.716  0.713     0.1742     0.1330
+det_elev         scarp         9.0  0.7678  0.6073  0.764  0.765     0.1740     0.0956
+det_elev_slope   tpi           2.5  0.4822  0.4780  0.477  0.486     0.1737     0.1115

@@ -1,0 +1,237 @@
+{
+  "generated_utc": "2026-10-06T11:18:40Z",
+  "seconds": 70.2,
+  "populations": {
+    "footprint": 5167373,
+    "catalogue": 60988,
+    "catalogue_within_300m": 444794,
+    "sgmc_offcatalogue": 61664,
+    "sgmc_offcatalogue_within_300m": 428326,
+    "overlap_cat3_off3": 22841,
+    "components_total": 3199,
+    "A1_isolated_components": 300,
+    "A1_isolated_px": 6315,
+    "A2_flanking_components": 2897,
+    "A2_flanking_px": 54673,
+    "A1_300m_halo": 51064,
+    "A2_300m_halo": 393730,
+    "random_baseline_precision_at_40k": {
+      "catalogue": 0.08608,
+      "sgmc_offcatalogue": 0.08289,
+      "A1": 0.00988,
+      "A2": 0.0762
+    }
+  },
+  "band_population_table": [
+    {
+      "band": "mag_anom",
+      "description": "mag_anom - Magnetic anomaly - deviation from expected Earth's magnetic field",
+      "background_p50": -57.8546,
+      "catalogue_p50": -55.9039,
+      "offcat_sgmc_p50": -50.5722,
+      "rank_catalogue": 0.4952,
+      "rank_offcat_sgmc": 0.5203,
+      "rank_A1_isolated": 0.5421,
+      "rank_A2_flanking": 0.4891
+    },
+    {
+      "band": "rtp",
+      "description": "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+      "background_p50": -137.2096,
+      "catalogue_p50": -137.3477,
+      "offcat_sgmc_p50": -125.2139,
+      "rank_catalogue": 0.5005,
+      "rank_offcat_sgmc": 0.5264,
+      "rank_A1_isolated": 0.5064,
+      "rank_A2_flanking": 0.4997
+    },
+    {
+      "band": "tmi_hg",
+      "description": "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+      "background_p50": 13.0172,
+      "catalogue_p50": 14.7753,
+      "offcat_sgmc_p50": 13.7779,
+      "rank_catalogue": 0.5254,
+      "rank_offcat_sgmc": 0.5034,
+      "rank_A1_isolated": 0.5106,
+      "rank_A2_flanking": 0.5273
+    },
+    {
+      "band": "geod_2ndinv",
+      "description": "geod_2ndinv - Geodetic second invariant - measure of strain rate tensor magnitude",
+      "background_p50": 19.4,
+      "catalogue_p50": 25.0,
+      "offcat_sgmc_p50": 18.6811,
+      "rank_catalogue": 0.5583,
+      "rank_offcat_sgmc": 0.4796,
+      "rank_A1_isolated": 0.5301,
+      "rank_A2_flanking": 0.562
+    },
+    {
+      "band": "iso_grav_anom_slope",
+      "description": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+      "background_p50": 0.1015,
+      "catalogue_p50": 0.1096,
+      "offcat_sgmc_p50": 0.0881,
+      "rank_catalogue": 0.5312,
+      "rank_offcat_sgmc": 0.4341,
+      "rank_A1_isolated": 0.4707,
+      "rank_A2_flanking": 0.539
+    },
+    {
+      "band": "tc",
+      "description": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+      "background_p50": 18.5854,
+      "catalogue_p50": 17.4192,
+      "offcat_sgmc_p50": 15.822,
+      "rank_catalogue": 0.4476,
+      "rank_offcat_sgmc": 0.3849,
+      "rank_A1_isolated": 0.4633,
+      "rank_A2_flanking": 0.4456
+    },
+    {
+      "band": "geod_shearrate",
+      "description": "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+      "background_p50": 9.3556,
+      "catalogue_p50": 12.5901,
+      "offcat_sgmc_p50": 8.7,
+      "rank_catalogue": 0.5407,
+      "rank_offcat_sgmc": 0.4526,
+      "rank_A1_isolated": 0.5143,
+      "rank_A2_flanking": 0.5441
+    },
+    {
+      "band": "geod_dilaterate",
+      "description": "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+      "background_p50": 5.4296,
+      "catalogue_p50": 6.0,
+      "offcat_sgmc_p50": 4.9,
+      "rank_catalogue": 0.5276,
+      "rank_offcat_sgmc": 0.4478,
+      "rank_A1_isolated": 0.4406,
+      "rank_A2_flanking": 0.5389
+    },
+    {
+      "band": "tmi_vg",
+      "description": "tmi_vg - Total magnetic intensity vertical gradient - rate of change in vertical direction",
+      "background_p50": -0.0089,
+      "catalogue_p50": -0.0106,
+      "offcat_sgmc_p50": -0.0081,
+      "rank_catalogue": 0.4898,
+      "rank_offcat_sgmc": 0.5031,
+      "rank_A1_isolated": 0.5004,
+      "rank_A2_flanking": 0.4884
+    },
+    {
+      "band": "deq_n100a15",
+      "description": "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+      "background_p50": 607.7,
+      "catalogue_p50": 766.1,
+      "offcat_sgmc_p50": 577.855,
+      "rank_catalogue": 0.5427,
+      "rank_offcat_sgmc": 0.4814,
+      "rank_A1_isolated": 0.4894,
+      "rank_A2_flanking": 0.5496
+    },
+    {
+      "band": "iso_grav_anom_vg",
+      "description": "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+      "background_p50": -0.0851,
+      "catalogue_p50": 0.0713,
+      "offcat_sgmc_p50": -0.1871,
+      "rank_catalogue": 0.525,
+      "rank_offcat_sgmc": 0.4714,
+      "rank_A1_isolated": 0.5236,
+      "rank_A2_flanking": 0.5252
+    },
+    {
+      "band": "det_elev",
+      "description": "det_elev - Detrended elevation - topography with regional trends removed",
+      "background_p50": -76.2795,
+      "catalogue_p50": -68.7578,
+      "offcat_sgmc_p50": 115.4244,
+      "rank_catalogue": 0.4922,
+      "rank_offcat_sgmc": 0.69,
+      "rank_A1_isolated": 0.4936,
+      "rank_A2_flanking": 0.492
+    },
+    {
+      "band": "iso_grav_anom",
+      "description": "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+      "background_p50": -7.1513,
+      "catalogue_p50": -8.4196,
+      "offcat_sgmc_p50": -2.964,
+      "rank_catalogue": 0.4691,
+      "rank_offcat_sgmc": 0.6069,
+      "rank_A1_isolated": 0.5179,
+      "rank_A2_flanking": 0.4628
+    },
+    {
+      "band": "tmi",
+      "description": "tmi - Total magnetic intensity - total strength of magnetic field",
+      "background_p50": -124.7163,
+      "catalogue_p50": -125.9506,
+      "offcat_sgmc_p50": -111.2065,
+      "rank_catalogue": 0.4928,
+      "rank_offcat_sgmc": 0.5324,
+      "rank_A1_isolated": 0.531,
+      "rank_A2_flanking": 0.4879
+    },
+    {
+      "band": "depth_to_base_surf",
+      "description": "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+      "background_p50": 315.7888,
+      "catalogue_p50": 320.9888,
+      "offcat_sgmc_p50": 104.8788,
+      "rank_catalogue": 0.5106,
+      "rank_offcat_sgmc": 0.3498,
+      "rank_A1_isolated": 0.4632,
+      "rank_A2_flanking": 0.5168
+    },
+    {
+      "band": "ieq_n100a15",
+      "description": "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+      "background_p50": 738.6331,
+      "catalogue_p50": 906.001,
+      "offcat_sgmc_p50": 726.9,
+      "rank_catalogue": 0.5607,
+      "rank_offcat_sgmc": 0.4829,
+      "rank_A1_isolated": 0.4962,
+      "rank_A2_flanking": 0.569
+    },
+    {
+      "band": "cond_surf",
+      "description": "cond_surf - Conductivity surface - electrical conductivity of subsurface",
+      "background_p50": 2.8911,
+      "catalogue_p50": 2.8554,
+      "offcat_sgmc_p50": 2.9057,
+      "rank_catalogue": 0.4867,
+      "rank_offcat_sgmc": 0.5148,
+      "rank_A1_isolated": 0.5004,
+      "rank_A2_flanking": 0.485
+    },
+    {
+      "band": "iso_grav_anom_hg",
+      "description": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+      "background_p50": 0.0329,
+      "catalogue_p50": 0.0922,
+      "offcat_sgmc_p50": 0.1084,
+      "rank_catalogue": 0.505,
+      "rank_offcat_sgmc": 0.5033,
+      "rank_A1_isolated": 0.5113,
+      "rank_A2_flanking": 0.5042
+    },
+    {
+      "band": "det_elev_slope",
+      "description": "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending",
+      "background_p50": 3.5833,
+      "catalogue_p50": 5.1027,
+      "offcat_sgmc_p50": 12.9884,
+      "rank_catalogue": 0.5475,
+      "rank_offcat_sgmc": 0.743,
+      "rank_A1_isolated": 0.5337,
+      "rank_A2_flanking": 0.5493
+    }
+  ],
+  "conclusion": "SGMC off-catalogue is high, steep, shallow-basement terrain (exposed mountain bedrock); the given catalogue is close to background on elevation and sediment thickness. The two populations are nearly disjoint in terrain space, so Instrument B measures 'is this a mountain' and is rejected for selection. See knowledge/02."
+}
