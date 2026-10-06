@@ -205,12 +205,12 @@ def main() -> int:
             random_field = np.random.default_rng(SEED + block["block_id"]).random(valid.shape, dtype=np.float32)
             for name in ("raw", "structural", "profile", "random"):
                 f = random_field if name == "random" else fields[name][sy, sx]
-                for spacing in SPACINGS:
-                    p = emit(f, valid, spacing, block["budget"])
+                for sweep_spacing in SPACINGS:
+                    p = emit(f, valid, sweep_spacing, block["budget"])
                     result = M.score(p, truth, valid).as_dict()
                     # Store finite primitive components only; zero scores have no inv_dti.
                     row = {k: result[k] for k in ("TP_w", "FP_w", "FN_w", "|G|", "S", "Phi", "DTI")}
-                    row.update(role=role, block_id=block["block_id"], model=name, spacing_px=spacing,
+                    row.update(role=role, block_id=block["block_id"], model=name, spacing_px=sweep_spacing,
                                valid_pixels=block["support_pixels"], prediction_pixels=block["budget"])
                     rows.append(row)
         if role == "calibration":
@@ -233,6 +233,11 @@ def main() -> int:
             save_json(CACHE / "locked-choice.json", {"spacing_px": spacing, "incumbent": incumbent,
                       "incumbent_spacing_px": incumbent_spacing, "conformal": band, "test_not_yet_scored": True})
         print(f"[score] {role} complete", flush=True)
+    if spacing != SPACINGS[choose_operating_point(band, SPACINGS)]:
+        raise ValueError("spacing changed after it was locked; refusing test interpretation")
+    locked_choice = json.loads((CACHE / "locked-choice.json").read_text())
+    if spacing != locked_choice["spacing_px"] or incumbent_spacing != locked_choice["incumbent_spacing_px"]:
+        raise ValueError("final interpretation differs from pre-test lock")
     def chosen_rows(model, selected_spacing):
         return [r for r in rows if r["role"] == "test" and r["model"] == model and r["spacing_px"] == selected_spacing]
     verdict = B.gate(chosen_rows("profile", spacing), chosen_rows(incumbent, incumbent_spacing),
