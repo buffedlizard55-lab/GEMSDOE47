@@ -6,7 +6,7 @@ nav_order: 2
 
 # HOW TO SUBMIT — executive summary
 
-*Generated 2026-10-06 19:58 UTC by `scripts/build_site.py`.*
+*Generated 2026-10-06 20:13 UTC by `scripts/build_site.py`.*
 
 ## 1. Download the file
 

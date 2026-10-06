@@ -6,7 +6,7 @@ nav_order: 6
 
 # Research knowledge base
 
-*Generated 2026-10-06 19:58 UTC. The full text of each file is in `knowledge/` in the repository; this page is the index plus every official link, so a reviewer can check any claim without reading the code.*
+*Generated 2026-10-06 20:13 UTC. The full text of each file is in `knowledge/` in the repository; this page is the index plus every official link, so a reviewer can check any claim without reading the code.*
 
 | file | what it settles |
 |---|---|
