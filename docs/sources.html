@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sources — GEMSDOE47</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">Every source used, with what it establishes</span></div>
+  <nav>
+    <a href="index.html">Executive summary</a>
+    <a href="submit.html">How to submit</a>
+    <a href="analysis.html">Leaderboard &amp; analysis</a>
+    <a href="hypotheses.html">Hypotheses</a>
+    <a class="on" href="sources.html">Sources</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+<p class="small dim">Each link was fetched on 2026-10-06. Where a previously common URL has moved or
+died, that is stated explicitly — the point of this page is that a human can check every claim by
+clicking, and can tell which claims came from where.</p>
+
+<h2>Competition — official</h2>
+<table>
+  <thead><tr><th>source</th><th>what it establishes</th></tr></thead>
+  <tbody>
+    <tr><td><a href="https://www.drivendata.org/competitions/306/" target="_blank" rel="noopener">Competition home (DrivenData #306)</a></td>
+        <td>Prize pool $300,000; end date Dec 3 2026, 23:59 UTC; initial round $50k on the private test set, final round $250k on a re-labeled dataset; the same submission is scored twice; submission flow (Enroll → data → model → Submit → “Make new submission”).</td></tr>
+    <tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" target="_blank" rel="noopener">Problem description</a></td>
+        <td>The metric, the competition structure, and the statement that models are scored against newly identified faults in the GeoDAWN region.</td></tr>
+    <tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/rules/" target="_blank" rel="noopener">Official rules</a></td>
+        <td>“There is spatial overlap between the training dataset (the USGS quaternary fault dataset) and the test dataset”; the training faults may be used for training; external data is encouraged but must be licensed and shareable with the organizers for independent verification.</td></tr>
+    <tr><td><a href="https://github.com/drivendataorg/gems-prize-reference-solution" target="_blank" rel="noopener">Organizer reference solution</a></td>
+        <td>The baseline approach the organizers themselves publish, linked from the competition “how to compete” list.</td></tr>
+  </tbody>
+</table>
+
+<h2>Catalogues — official</h2>
+<table>
+  <thead><tr><th>source</th><th>what it establishes</th></tr></thead>
+  <tbody>
+    <tr><td><a href="https://www.usgs.gov/programs/earthquake-hazards/faults" target="_blank" rel="noopener">USGS Quaternary Fault and Fold Database</a></td>
+        <td>Current official landing page for the QFFD. <strong>Irregularity flagged:</strong> the long-cited path <code>earthquake.usgs.gov/hazards/qfaults/</code> now returns <strong>404</strong> (verified by fetch on 2026-10-06) — any document still citing it is stale.</td></tr>
+    <tr><td><a href="https://pubs.usgs.gov/fs/2004/3033/fs-2004-3033.html" target="_blank" rel="noopener">USGS FS 2004-3033</a></td>
+        <td>QFFD scope: ≈2,000 Quaternary faults and folds believed capable of M&gt;6; it is the source for faults used in the National Seismic Hazard Maps.</td></tr>
+  </tbody>
+</table>
+
+<h2>Geophysics — official data releases</h2>
+<table>
+  <thead><tr><th>source</th><th>what it establishes</th></tr></thead>
+  <tbody>
+    <tr><td><a href="https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7" target="_blank" rel="noopener">GeoDAWN airborne magnetics &amp; radiometrics (USGS ScienceBase)</a></td>
+        <td>Glen &amp; Earney 2024, DOI <a href="https://doi.org/10.5066/P93LGLVQ" target="_blank" rel="noopener">10.5066/P93LGLVQ</a>; flown 2021-11 → 2022-11 over the NW Great Basin; joint USGS EarthMRI + DOE GTO effort; grid files downloadable (42 MB / 227 MB areas).</td></tr>
+    <tr><td><a href="https://gdr.openei.org/submissions/1591" target="_blank" rel="noopener">GeoDAWN on the DOE Geothermal Data Repository</a></td>
+        <td>Mirror of the same release with a DOE citation — a fallback when ScienceBase is slow.</td></tr>
+    <tr><td><a href="https://www.sciencebase.gov/catalog/item/60d39cc1d34e12a1b009c64b" target="_blank" rel="noopener">Magnetotelluric data, Gabbs Valley NV 2020</a></td>
+        <td>USGS release, DOI <a href="https://doi.org/10.5066/P9GZ9Z56" target="_blank" rel="noopener">10.5066/P9GZ9Z56</a>: 59 wideband MT stations with impedance tensors and induction vectors, “the real induction vectors point towards strong conductors”. The closest public proxy for a <em>direct</em> geothermal indicator (conductive clay caps, fluid pathways) — and the most overlooked source in this competition, because it is a station network rather than a raster.</td></tr>
+    <tr><td><a href="https://www.usgs.gov/programs/earthquake-hazards/faults" target="_blank" rel="noopener">USGS Earthquake Hazards Program — faults</a></td>
+        <td>Entry point to the seismicity and fault products used to sanity-check lineament hypotheses.</td></tr>
+  </tbody>
+</table>
+
+<h2>Method</h2>
+<table>
+  <thead><tr><th>source</th><th>what it establishes</th></tr></thead>
+  <tbody>
+    <tr><td><a href="https://doi.org/10.1080/01621459.2017.1307116" target="_blank" rel="noopener">Lei, G'Sell, Rinaldo, Tibshirani &amp; Wasserman, <em>JASA</em> 113(523), 2018</a></td>
+        <td>Split conformal / distribution-free predictive inference — the finite-sample coverage construction used for the certified floor, including the <code>⌈(n+1)(1−α)⌉</code> rank rule and the resulting <code>α ≥ 1/(n+1)</code> limit of our three-rung calibration.</td></tr>
+    <tr><td><a href="https://arxiv.org/abs/1604.04173" target="_blank" rel="noopener">Preprint of the same paper</a></td>
+        <td>Open-access copy for manual review.</td></tr>
+  </tbody>
+</table>
+
+<h2>Project-internal evidence (sibling repositories, public)</h2>
+<table>
+  <thead><tr><th>source</th><th>what it establishes</th></tr></thead>
+  <tbody>
+    <tr><td><a href="https://github.com/buffedlizard55-lab/GEMSDOE42" target="_blank" rel="noopener">buffedlizard55-lab/GEMSDOE42</a></td>
+        <td>The instrument table in §2 of the analysis page: Spearman(emitted pixel count, official score) = −0.907 (p 0.0001, n 11) versus +0.087 and +0.305 for the two spatial proxies. Also the statement that beating 0.2778 was <em>not</em> established at the time of writing.</td></tr>
+    <tr><td><a href="https://github.com/buffedlizard55-lab/GEMSDOE45" target="_blank" rel="noopener">buffedlizard55-lab/GEMSDOE45</a></td>
+        <td>The 2026-10-06 leaderboard snapshot: board maximum <strong>0.3345</strong>, explicitly correcting the stale 0.3195.</td></tr>
+    <tr><td><a href="https://github.com/buffedlizard55-lab/GEMSDOE40" target="_blank" rel="noopener">buffedlizard55-lab/GEMSDOE40</a></td>
+        <td>The metric reduction used here, and the mass-dominance finding (live/proxy ratio falls 2.53 → 0.28 as emissions grow from 40k to 146k pixels).</td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+  <strong>What is <em>not</em> an official source.</strong> Every prior score quoted on this site
+  (including 0.2778 and the leaderboard rows) is <em>user-reported</em> by the artifact owners —
+  no upload receipt or artefact-authenticated mapping exists in any repository we reviewed. The score
+  table is duplicated across several sibling repositories, which makes it consistent, not verified.
+  It is used as calibration data with that caveat stated wherever it appears.
+</div>
+</main>
+<footer><div class="wrap">GEMSDOE47 · verify anything you doubt by clicking the links above.</div></footer>
+</body>
+</html>

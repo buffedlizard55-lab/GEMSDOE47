@@ -1,0 +1,9 @@
+# Large local datasets and derived rasters — deliberately NOT versioned (see README)
+work/
+*.npz
+*.npy
+*.tiff
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/

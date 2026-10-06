@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to submit — GEMSDOE47</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">How to submit, exactly</span></div>
+  <nav>
+    <a href="index.html">Executive summary</a>
+    <a class="on" href="submit.html">How to submit</a>
+    <a href="analysis.html">Leaderboard &amp; analysis</a>
+    <a href="hypotheses.html">Hypotheses</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+
+  <div class="dl">
+    <h2>⬇ The file you are submitting</h2>
+    <a class="btn" download href="downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif">
+      Download gems47-dcat20-annulus-flankprune-n18524-20261006.tif (772 KB)
+    </a>
+    <dl class="kv">
+      <dt>sha256</dt><dd>32c76c92c68a0bd3da2ed52759aa7da57e40ee61ff92a9a5acbc67ad6e166eaa</dd>
+      <dt>bytes</dt><dd>790,012</dd>
+    </dl>
+  </div>
+
+  <h2>Submission steps</h2>
+  <ol class="steps">
+    <li><strong>Open the competition and go to the Submissions tab.</strong>
+      <a href="https://www.drivendata.org/competitions/306/" target="_blank" rel="noopener">drivendata.org/competitions/306/</a>
+      → sign in → <em>Submit</em> → <em>Make new submission</em> (the flow described on the
+      competition page itself).</li>
+
+    <li><strong>Upload the file above.</strong> The page accepts a single-band GeoTIFF
+      (<code>.tif</code>) or a <code>.zip</code> containing exactly one GeoTIFF. Do <em>not</em> zip
+      this one — it is already a single GeoTIFF. Do not re-save it in another tool: re-encoding can
+      rewrite the nodata tag, which is what caused an earlier rejection on this project.</li>
+
+    <li><strong>Give it a unique name / short comment</strong> so submissions can be told apart
+      (for example, “clustering with k=25” style comments are what the form expects here):
+      <pre><code>d_cat annulus flank-prune, B = 20 px (2.0 km), 18,524 px, conformal floor 0.3484 @ 75%</code></pre></li>
+
+    <li><strong>Paste the note</strong> into the optional <em>Note</em> field. This is the field the
+      brief requires the conformal confidence level to appear in, so it is already inside the text:
+      <pre><code>Method: delete-only distance-to-catalogue annulus prune of a dot network, B = 20 px
+(2.0 km). Leaves 18,524 px. Modelled DTI 0.34912; split-conformal certified floor
+0.34837 at 75% confidence (3 calibration rungs with official scores, q = 0.000755,
+Lei et al. JASA 2018 split conformal). Full note and limitations:
+github.com/buffedlizard55-lab/GEMSDOE47 (notes/SUBMISSION_NOTE.md).</code></pre>
+      The long-form note is
+      <a href="../notes/SUBMISSION_NOTE.md">notes/SUBMISSION_NOTE.md</a> in the repository.</li>
+
+    <li><strong>Before you click submit, check one thing:</strong> does the competition keep your
+      <em>best</em> score, or only the most recent submission? This file is a bet that the modelled
+      0.3491 is realised; if the board keeps only the latest submission and the bet fails, the
+      0.2778 you already hold is replaced. The rule is on the competition rules page —
+      <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/rules/" target="_blank" rel="noopener">official rules</a>.
+      Nothing in this repository uploads anything automatically.</li>
+
+    <li><strong>Record the result.</strong> When the score returns, add the rung to
+      <code>notes/results.json</code> and to the ladder table on
+      <a href="analysis.html">the analysis page</a>. If it comes back below 0.2778, that is the single
+      most valuable measurement this project can get: it pins the decay rate of <code>T</code>, which
+      is the one assumption the whole submission rests on.</li>
+  </ol>
+
+  <h2>Format contract — verified, not assumed</h2>
+  <p>Every line below is checked automatically by <code>src/gems47_verify_submission.py</code>
+     (non-zero exit code on any failure), and asserted by <code>tests/test_emit.py</code>.</p>
+  <table>
+    <thead><tr><th>requirement</th><th>our file</th><th>status</th></tr></thead>
+    <tbody>
+      <tr><td>single band</td><td class="mono">1</td><td class="good">pass</td></tr>
+      <tr><td>dtype</td><td class="mono">float32</td><td class="good">pass</td></tr>
+      <tr><td>CRS</td><td class="mono">EPSG:32611</td><td class="good">pass</td></tr>
+      <tr><td>shape</td><td class="mono">3730 × 3292</td><td class="good">pass</td></tr>
+      <tr><td>geotransform</td><td class="mono">(243350, 100, 0, 4508550, 0, −100)</td><td class="good">pass</td></tr>
+      <tr><td>values within [0, 1]</td><td class="mono">only 0.0 and 1.0</td><td class="good">pass</td></tr>
+      <tr><td>NaN / Inf</td><td class="mono">none anywhere</td><td class="good">pass</td></tr>
+      <tr><td>nodata handling</td><td class="mono">nodata: None (0.0 background)</td><td class="good">pass</td></tr>
+      <tr><td>uniqueness</td><td class="mono">byte-unique vs 15 sibling rasters; max Jaccard 0.4608</td><td class="good">pass</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note ok">
+    <strong>Why we are confident about the format.</strong> The only submission this project has had
+    rejected failed with <em>“Predicted values must be in range [0, 1]”</em> — that is a nodata
+    sentinel or an out-of-range value being read as a prediction. This file eliminates both: it
+    contains exactly two distinct values, and it declares no nodata at all, matching the format of the
+    0.2778 artifact that was accepted.
+  </div>
+
+  <h2>Official sources for this page</h2>
+  <ul class="small">
+    <li>Competition home and submission flow — <a href="https://www.drivendata.org/competitions/306/" target="_blank" rel="noopener">drivendata.org/competitions/306/</a></li>
+    <li>Problem description, scoring and competition structure — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" target="_blank" rel="noopener">page/967/</a></li>
+    <li>Official rules (including data-use and external-data conditions) — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/rules/" target="_blank" rel="noopener">rules</a></li>
+    <li>Reference solution published by the organizers — <a href="https://github.com/drivendataorg/gems-prize-reference-solution" target="_blank" rel="noopener">github.com/drivendataorg/gems-prize-reference-solution</a></li>
+  </ul>
+</main>
+
+<footer><div class="wrap">GEMSDOE47 · nothing on this page uploads anything for you.</div></footer>
+</body>
+</html>

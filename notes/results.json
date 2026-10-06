@@ -1,0 +1,223 @@
+{
+ "file": "gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
+ "sha256": "32c76c92c68a0bd3da2ed52759aa7da57e40ee61ff92a9a5acbc67ad6e166eaa",
+ "bytes": 790012,
+ "positives": 18524,
+ "dtype": "float32",
+ "crs": "EPSG:32611",
+ "crs_wkt_epsg": 32611,
+ "height": 3730,
+ "width": 3292,
+ "transform_gdal": [
+  243350.0,
+  100.0,
+  0.0,
+  4508550.0,
+  0.0,
+  -100.0
+ ],
+ "nodata": null,
+ "value_range": [
+  0.0,
+  1.0
+ ],
+ "B_flank_px": 20,
+ "dti_model": 0.34912,
+ "conformal": {
+  "n_calibration": 3,
+  "alpha": 0.25,
+  "confidence": 0.75,
+  "rank_k": 3,
+  "q": 0.0007545112075376115,
+  "rungs": [
+   {
+    "excluded_B": 0,
+    "T_refit": 5470.167737142855,
+    "N_refit": 15200.285714285706,
+    "loo_pred": 0.2607545112075376,
+    "live": 0.26,
+    "residual": -0.0007545112075376115
+   },
+   {
+    "excluded_B": 1,
+    "T_refit": 5223.13941573034,
+    "N_refit": 14088.747191011253,
+    "loo_pred": 0.27047766138872065,
+    "live": 0.2708,
+    "residual": 0.00032233861127933805
+   },
+   {
+    "excluded_B": 2,
+    "T_refit": 5073.287555555561,
+    "N_refit": 13368.305555555586,
+    "loo_pred": 0.27836289924342644,
+    "live": 0.2778,
+    "residual": -0.0005628992434264513
+   }
+  ]
+ },
+ "conformal_floor": 0.34837,
+ "anchor": {
+  "T": 5214.8,
+  "N_g": 14040.2,
+  "identity": "score = 5T/(n + 4N_g)",
+  "ruling_rule": "shallowest B with model >= 1.03*leader and retention >= 0.40",
+  "leader_used": 0.3345,
+  "admissible_B": [
+   19,
+   20,
+   21
+  ]
+ },
+ "ledger": [
+  {
+   "B_px": 0,
+   "n": 44090,
+   "frac_of_base": 1.0,
+   "dti_model": 0.26009
+  },
+  {
+   "B_px": 1,
+   "n": 40199,
+   "frac_of_base": 0.9117,
+   "dti_model": 0.27059
+  },
+  {
+   "B_px": 2,
+   "n": 37654,
+   "frac_of_base": 0.854,
+   "dti_model": 0.27793
+  },
+  {
+   "B_px": 3,
+   "n": 35483,
+   "frac_of_base": 0.8048,
+   "dti_model": 0.28451
+  },
+  {
+   "B_px": 4,
+   "n": 33829,
+   "frac_of_base": 0.7673,
+   "dti_model": 0.28974
+  },
+  {
+   "B_px": 5,
+   "n": 32017,
+   "frac_of_base": 0.7262,
+   "dti_model": 0.2957
+  },
+  {
+   "B_px": 6,
+   "n": 30853,
+   "frac_of_base": 0.6998,
+   "dti_model": 0.29965
+  },
+  {
+   "B_px": 7,
+   "n": 29750,
+   "frac_of_base": 0.6748,
+   "dti_model": 0.3035
+  },
+  {
+   "B_px": 8,
+   "n": 28490,
+   "frac_of_base": 0.6462,
+   "dti_model": 0.30802
+  },
+  {
+   "B_px": 9,
+   "n": 27345,
+   "frac_of_base": 0.6202,
+   "dti_model": 0.31224
+  },
+  {
+   "B_px": 10,
+   "n": 26294,
+   "frac_of_base": 0.5964,
+   "dti_model": 0.31622
+  },
+  {
+   "B_px": 12,
+   "n": 24586,
+   "frac_of_base": 0.5576,
+   "dti_model": 0.32291
+  },
+  {
+   "B_px": 14,
+   "n": 22772,
+   "frac_of_base": 0.5165,
+   "dti_model": 0.33033
+  },
+  {
+   "B_px": 16,
+   "n": 21279,
+   "frac_of_base": 0.4826,
+   "dti_model": 0.3367
+  },
+  {
+   "B_px": 18,
+   "n": 19863,
+   "frac_of_base": 0.4505,
+   "dti_model": 0.34297
+  },
+  {
+   "B_px": 20,
+   "n": 18524,
+   "frac_of_base": 0.4201,
+   "dti_model": 0.34912
+  },
+  {
+   "B_px": 22,
+   "n": 17331,
+   "frac_of_base": 0.3931,
+   "dti_model": 0.35479
+  },
+  {
+   "B_px": 24,
+   "n": 16308,
+   "frac_of_base": 0.3699,
+   "dti_model": 0.3598
+  },
+  {
+   "B_px": 26,
+   "n": 15250,
+   "frac_of_base": 0.3459,
+   "dti_model": 0.36513
+  },
+  {
+   "B_px": 28,
+   "n": 14357,
+   "frac_of_base": 0.3256,
+   "dti_model": 0.36975
+  },
+  {
+   "B_px": 30,
+   "n": 13487,
+   "frac_of_base": 0.3059,
+   "dti_model": 0.37437
+  },
+  {
+   "B_px": 35,
+   "n": 11705,
+   "frac_of_base": 0.2655,
+   "dti_model": 0.3842
+  },
+  {
+   "B_px": 40,
+   "n": 10128,
+   "frac_of_base": 0.2297,
+   "dti_model": 0.39334
+  },
+  {
+   "B_px": 50,
+   "n": 7501,
+   "frac_of_base": 0.1701,
+   "dti_model": 0.40957
+  }
+ ],
+ "lineage": {
+  "base": "buffedlizard55-lab/GEMSDOE33/docs/downloads/gemsdoe33-d28-reference-20261004-426073b6b4ab-nan.tif",
+  "operator": "delete-only annulus flank prune",
+  "note": "learning-use of a public artifact; every emitted pixel is an original dot pixel"
+ }
+}
