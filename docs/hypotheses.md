@@ -1,0 +1,61 @@
+# Preregistered candidate hypotheses — GEMSDOE47
+
+**Prepared:** 2026-10-06 UTC, before implementation of any geological detector in this repository.
+
+**Scope:** four candidate strategies screened against the methods visible in GEMSDOE32, GEMSDOE39–42 and the user-provided history. The target repository itself began with only `README.md`; therefore “not previously implemented here” is literal, while “not seen in earlier GEMSDOE work” is a bounded review, not proof of global novelty.
+
+**Decision:** H47-A is the first candidate to test. **It has not been validated. No submission slot is eligible.**
+
+> Ratings below are qualitative priors, not measured score gains. The public private-label target is unavailable here, the current repository has no holdout data, and no score attribution for the cited H33 file has been authenticated.
+
+## Ranked shortlist
+
+| Rank | Candidate | Targeted DTI improvement | Implementation cost | New external data / availability | Status |
+|---:|---|---|---|---|---|
+| 1 | **H47-A — GeoDAWN acquisition-invariant lineaments** | **Medium, uncertain**: reduce false positives from flight-line / survey-boundary artifacts while retaining geologically persistent edges | **Medium–high**: retrieve/align survey products, model flight-line geometry, then run blocked tests | USGS GeoDAWN ScienceBase release, DOI [10.5066/P93LGLVQ](https://doi.org/10.5066/P93LGLVQ), publicly listed with Area 1/2 grids, line data, and flight paths. Source page was read; files have not been downloaded here. | **Top candidate; holdout blocked** by missing competition rasters/labels |
+| 2 | **H47-B — ASTER hydrothermal-alteration × independent structure** | **Medium but high variance**: potentially identify fluid-altered corridors; mineral/lithology confounding may erase any gain | **Medium–high**: clip/reproject classes, quantify footprint overlap, control lithology and duplicate evidence | USGS OFR 2013–1139 / USGS MRData provides public, downloadable alteration shapefiles and WMS/WMTS; the full shapefile archive is listed as 587 MB. Exact 100 m footprint intersection still must be measured. | Source obtainable; not locally validated |
+| 3 | **H47-C — InSAR deformation-gradient corroboration** | **Low–medium**: active shallow creep or deformation could expose faults missed by a static scarp catalogue; many faults will be locked or below detection | **High**: Sentinel-1 time-series processing, coherence screening, atmospheric/topographic correction, and orbit-pair controls | NASA ASF DAAC Sentinel-1/OPERA access through [asf_search](https://www.earthdata.nasa.gov/data/tools/asf-search); data are free/open, but NASA says Earthdata Login is required for downloads/full tool use. | Not accessible/validated here; not the top candidate |
+| 4 | **H47-D — persistent thermal/discharge anomalies in USGS water records** | **Low–medium**: repeated warm groundwater or unusual discharge may indicate a permeable conduit; point coverage is likely sparse | **Low–medium**: query site/parameter history, screen measurement quality, spatially aggregate only corroborated anomalies | USGS Nevada Water Science Center and Water Services REST API document groundwater levels, water quality and site data; a footprint-specific station/parameter count has **not** been queried. | Conditional; do not treat as viable until coverage is measured |
+
+## H47-A — acquisition-invariant lineament support (first validation target)
+
+- **Layers:** competition GeoDAWN magnetics (especially total magnetic intensity/reduced-to-pole products and their derivatives) and radiometric grids; USGS GeoDAWN Area 1/Area 2 grid products plus flight-line paths/CSV metadata. The official competition feature raster is not present in this checkout.
+- **Physical / measurement signature:** compare edge location and orientation after matching spatial resolution and footprint in independently collected, overlapping survey products. Retain a line only when its cross-line / cross-product support is spatially coherent after accounting for flight-line direction and survey boundaries. Separately model and down-weight features aligned with acquisition stripes or confined to a mosaic seam. This is an **acquisition-invariance test**, not another per-band edge detector.
+- **Why it may find uncatalogued faults:** concealed structures can create magnetic or radiometric contrasts without a mapped surface trace. Requiring the signal to persist across acquisition geometry could keep real geology while suppressing survey artifacts, freeing the false-positive budget for off-catalogue structures. It does not use existing fault geometry to draw predictions.
+- **Difference from inspected prior work:** inspected sibling write-ups describe scalar gradients/ridges, multiscale Hessian/worming/Euler features, cross-physics orientation agreement, and terrain/scarp or emission changes. No inspected method description performed a held-out **survey-acquisition/flightline invariance** test. This is a bounded novelty check; the prior repositories are not the source of the proposed data or proof of a geological effect.
+- **Free official source check:** USGS ScienceBase item 657e1d85d34e23d3533209f7 identifies DOI 10.5066/P93LGLVQ, describes two overlapping surveys with different flight specifications, and lists magnetic/radiometric grids and flight-line/path products. USGS states that magnetic processing included tie-line leveling and micro-leveling. The official catalog establishes that the files are listed; it does **not** establish they were downloaded or that the overlap covers every competition tile.
+- **Validation plan:** preregister whole spatial blocks and a guard at least as wide as the scorer's 300 m distance support; build the candidate without using labels from the held-out block; evaluate the official distance-weighted Tversky metric at the same emitted mass as the incumbent and against a domain-matched random control. Compare pooled score and each fold with the repository's current holdout best. The official competition data page requires login, the current repository has no features/labels/template, and no incumbent holdout score exists here, so this validation **cannot be run now**. No weekly slot may be used.
+
+## H47-B — ASTER alteration footprint coupled to structural evidence
+
+- **Layers:** USGS MRData hydrothermal-alteration classes (argillic, phyllic, epidote-chlorite, carbonate and hydro-silica) plus a separate GeoDAWN magnetic/gravity structural edge field. Keep the alteration evidence separate from the fault detector until ablations are complete.
+- **Physical signature:** mapped hydroxyl-bearing clay/alunite/sericite, silica-rich and related mineral groups, constrained to elongated / edge-aligned patterns that also have independent geophysical structural support. Do **not** simply emit every altered polygon.
+- **Why it may find uncatalogued faults:** fault-controlled hydrothermal fluids can alter host rocks where the fault itself has no preserved surface scarp. Alteration can therefore reveal a fluid pathway absent from a fault-trace catalogue.
+- **Important counter-hypothesis:** this USGS product is a map of minerals *likely produced by hydrothermal alteration* and areas permissive of **gold/copper mineral deposits**, not a geothermal-fault map. The report explicitly notes that playa sediments, detrital clays/muscovite, limestone/dolomite, and other non-hydrothermal materials can produce similar mapped classes. It cannot be treated as geothermal truth.
+- **Difference from inspected prior work:** sibling notes discuss measured well/spring chemistry, shallow temperature probes, paleo-geothermal point/feature data, radiometric/geophysical features, and DEM scarps; none of the inspected prior method descriptions used this regional ASTER alteration shapefile as an independent, lithology-controlled evidence layer.
+- **Free official source check:** USGS MRData page `https://mrdata.usgs.gov/surficial-mineralogy/ofr-2013-1139/` lists individual downloadable ZIP shapefiles (86–161 MB) and a 587 MB full archive, plus WMS/WMTS. USGS OFR 2013–1139 describes 247 ASTER scenes and the mapped mineral classes. The source is obtainable; exact coverage intersection, dates, and duplicate-in-catalogue behavior remain to be measured.
+- **Validation:** the same locked spatial-block protocol as H47-A, plus controls by host-lithology and a permutation test that preserves polygon area and spatial clustering. If it cannot beat the incumbent on held-out blocks, retire it before any submission slot.
+
+## H47-C — Sentinel-1 / OPERA deformation-gradient corroboration
+
+- **Layers:** Sentinel-1 interferometric phase / OPERA surface-displacement products, fused only after quality/coherence screening with existing GeoDAWN geophysics. No deformation raster is in this repository.
+- **Physical signature:** spatially coherent line-of-sight velocity or displacement gradients that persist across independent time windows and acquisition geometries, with an orientation compatible with a structural discontinuity. A single interferogram is not a fault observation.
+- **Why it may find uncatalogued faults:** active creep or earthquake-cycle deformation can expose blind structures that lack a mapped Quaternary scarp. Conversely, most Great Basin faults may be locked or deform below the instrument/processing detection threshold; a null signal is not evidence of no fault.
+- **Difference from inspected prior work:** the prior list includes earthquake-density/rupture and geodetic-strain features, but no inspected method description used a Sentinel-1 time-series displacement field with coherence and orbit-pair controls.
+- **Free official source check:** NASA Earthdata's Sentinel-1 page documents global acquisition and ASF DAAC access; its `asf_search` page says an Earthdata Login is required to download data and use some tools. The data is publicly available, but an account and significant processing are required. We have not checked scene coverage or coherence over this exact footprint.
+
+## H47-D — persistent groundwater temperature/discharge evidence
+
+- **Layers:** USGS site histories for groundwater/spring water temperature, discharge, and water-quality observations; spatially link to competition features only after a datum/quality/period-of-record audit.
+- **Physical signature:** a time-persistent thermal or discharge anomaly, not a one-time temperature point. Require repeated observations and reject measurements without method, date, and quality metadata.
+- **Why it may find uncatalogued faults:** sustained warm discharge requires a fluid pathway and can indicate a permeable structure whose trace is unmapped. The signal can be displaced from its source and is not itself a fault line.
+- **Difference from inspected prior work:** earlier H33 notes describe INGENIOUS spring/well geothermometry and shallow temperature-probe inputs; this proposal is specifically a temporal analysis of independent USGS water-service records, not another static interpolation of those same compilation fields. A source-ID deduplication is mandatory before use.
+- **Free official source check:** USGS Nevada Water Science Center lists groundwater and water-quality records; USGS Water Services documents a REST Site Service and historical records. However, no footprint-specific query was made, and the water service is scheduled for decommissioning in 2027 in favor of the new API. Until station count/parameter coverage is measured, this remains conditional.
+
+## Promotion gate (non-negotiable)
+
+1. Obtain the official competition files by an authorized route and preserve hashes/metadata. Do not copy a previous prediction raster.
+2. Register the chosen hypothesis and candidate parameters before scoring its blocked folds.
+3. Use spatially separated folds and a 300 m guard. A catalogue-withheld score is only a screening proxy; it does not reveal the private expert labels for new faults.
+4. Compare at matched emitted mass against the current local best, and retain per-fold, pooled, random-control and ablation results.
+5. Promote only if the candidate beats the current holdout best under the preregistered rule. Until then the slot gate remains **CLOSED** and no submission TIFF is issued as competitive.

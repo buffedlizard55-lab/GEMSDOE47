@@ -1,0 +1,15 @@
+{
+  "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "captured_utc": "2026-10-06",
+  "capture_type": "one-time public page read in this session; not an automated feed",
+  "caveat": "Participant-level public best scores only. The page does not identify a TIFF filename or organizer submission ID for each row. Scores can change and are not the private/final prize score.",
+  "top_rows": [
+    {"rank": 1, "participant": "alexoktaba", "best_public_dw_tversky": 0.3345},
+    {"rank": 2, "participant": "nchuzhoy", "best_public_dw_tversky": 0.3262},
+    {"rank": 3, "participant": "kinghorton42", "best_public_dw_tversky": 0.3222},
+    {"rank": 4, "participant": "Batik Shirt Brothers", "best_public_dw_tversky": 0.3218},
+    {"rank": 5, "participant": "DARD", "best_public_dw_tversky": 0.3195},
+    {"rank": 13, "participant": "extradr19", "best_public_dw_tversky": 0.2778}
+  ],
+  "score_to_artifact_mapping": null
+}
