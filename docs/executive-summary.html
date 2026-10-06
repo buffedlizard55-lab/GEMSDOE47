@@ -43,6 +43,78 @@
   </div>
 </div>
 
+<h2 id="h48">H48 (this session) — split-conformal certified emission, and why the gate is still closed</h2>
+
+<p>The brief for this session asked for <b>split conformal prediction over the project's own spacing
+sweep</b>: split the sweep into a <b>calibration half</b> and a <b>selection half</b>, and certify the
+chosen operating point with a <b>guaranteed floor instead of an observed best</b>. That machinery is
+implemented, runs end to end (<code>scripts/build_h48.py</code>, 117&nbsp;s), and its output is the
+artifact at the top of this page. It is also the reason the gate is closed, which is the useful part.</p>
+
+<h3>What the new detector is</h3>
+<p><b>MSCL — multi-scale curvature lineament consensus.</b> Five physical bands
+(<code>det_elev</code> topography, <code>tmi</code>, <code>mag_anom</code>, <code>iso_grav_anom</code>,
+<code>rad_TC</code>) are passed through a <b>structure-tensor / Hessian curvature transform</b> at three
+apertures (1.2, 2.5, 5.0 px = 120, 250, 500 m) — a sign-agnostic lineament saliency
+<code>R = √λ₁ · (λ₁−λ₂)/(λ₁+λ₂)</code> — and combined by a <b>cross-domain consensus</b>: a cell must be
+a lineament in the topography ranking <i>and</i> in the potential-field ranking. Curvature is the point:
+a compact blob, a speckle field and a 200&nbsp;km trace with the same gradient magnitude score
+identically under rank-per-pixel scoring, which is what every earlier arm of this project did.</p>
+
+<h3>The emission: H48-APEX</h3>
+<p>The emitted set is the detector's own <b>apex</b> — the 3×3 local maxima of the consensus rank field,
+taken in descending consensus, cleared of the masked catalogue margin, separated by the family's
+measured-best <b>2.5 px</b> aperture, capped at 60,000 px. Seven nested rank thresholds
+(255 · 254 · 252 · 248 · 240 · 224 · 192) form the swept family. <b>No prior submission's dots are used
+as a base</b>: the first H48 build repacked the family's 0.2600 field and reproduced 44.0% of the
+reported-0.2778 field pixel-for-pixel, which is a re-issue, not a submission — it was rejected on that
+ground and moved to <code>docs/downloads/superseded/</code>.</p>
+
+<h3>The certificate, stated so it can be checked</h3>
+<table>
+<tr><th>Quantity</th><th>Value</th></tr>
+<tr><td>Chosen member</td><td>consensus rank ≥ 192, 28,124 px, 2.5 px separation</td></tr>
+<tr><td>Point prediction</td><td>0.0858 (lati BinnedSoftmax M2, <i>extended with the candidate emissions as observations</i>, so prediction and calibration share one estimator)</td></tr>
+<tr><td>Conformal quantile</td><td>+0.02908 (signed residual, observed − predicted)</td></tr>
+<tr><td><b>Certified floor</b></td><td><b>0.1149</b></td></tr>
+<tr><td><b>Confidence level</b></td><td><b>46.15%</b> — cross-conformal LOO over n = 12 returns, family of m = 7 candidates, Bonferroni α/m</td></tr>
+<tr><td>Conformal rank k</td><td>k = ⌈(n+1)(1−α)⌉ = 6 of 12 (Lei, G'Sell, Rinaldo, Tibshirani &amp; Wasserman 2018, JASA 113(523):1094–1111, eq. 2.6)</td></tr>
+<tr><td>m = 1 reference</td><td>92.31% level, but floor −0.1403 — one return (the diffuse r13 lattice) is a −0.14 residual, so a pre-registered single candidate is <i>worse</i> certified than the swept family here</td></tr>
+<tr><td>n = 6 split half</td><td>level 0.000 — with 6 calibration returns no non-vacuous family-of-7 guarantee exists at any positive level (α/m &lt; 1/(n+1)). Reported, not hidden.</td></tr>
+<tr><td>Assumption</td><td>Exchangeability of the calibration returns and the candidate. The returns are partly <b>nested thinnings of one field</b> (measured containment 1.000 for h33-2-b2 ⊂ d2.8), so this is an <b>assumption-conditional</b> bound on the public-test DTI — not a distribution-free guarantee for the private expert label set, the Final Round label set, or a leaderboard rank.</td></tr>
+</table>
+
+<h3>Blocked holdout (pre-registered, spatially blocked, 3 px buffer)</h3>
+<table>
+<tr><th>Frame</th><th>H48-APEX (28,124 px)</th><th>Incumbent h33-2-b2 (37,654 px)</th><th>Verdict</th></tr>
+<tr><td><code>catalogue</code> (given USGS/INGENIOUS faults, weak proxy)</td><td>0.0335</td><td>0.0067</td><td>candidate wins 5.0×</td></tr>
+<tr><td><code>sgmc_offcatalogue</code> (independent state-map faults &gt;1.5 cells off the catalogue — the closest local proxy for “faults missing from the catalogue”)</td><td>0.0878</td><td>0.0989</td><td><b>candidate loses</b></td></tr>
+</table>
+
+<h3>The gate verdict — closed, with the reason in one line</h3>
+<p><code>evidence/h48_apex_build.json → promotion.shippable = false</code>, reasons:
+(i) blocked SGMC-off-catalogue frame 0.0878 ≤ 0.0989;
+(ii) certified floor 0.1149 &lt; live incumbent 0.2600.
+The artifact is <b>unique (max Jaccard 0.0095)</b> and <b>format-perfect (21/21)</b>; it is simply not
+yet <i>demonstrated</i> to be better than what the family has already had scored. Under this project's own
+rule — never spend a slot on an idea that has not beaten the holdout best — it stays a research artifact.
+It is published, downloadable, and reproducible so that a reviewer can check every number above.</p>
+
+<h3>What would open the gate</h3>
+<ol>
+<li><b>One scored probe.</b> The λ-probe arm (score λ·p of the incumbent at λ &lt; 1) recovers T, F and K
+from the returned DTI by inversion, which is the only way this project can learn what the hidden
+expert labels <i>overlap</i> with its own field. Until that happens every "prediction" above is a
+model, and the model is known to be a similarity regressor: its dominant feature is proximity to the
+incumbent field, which is why it scores the apex set at 0.086 and any incumbent-shaped set at 0.18–0.20
+regardless of the geology.</li>
+<li><b>A truth frame that is not a proxy.</b> Both local frames reward different things; the private
+expert set is neither.</li>
+<li><b>Calibration points.</b> With n = 12 returns and a family of 7, the certified level is 46.15%.
+Reducing the family to one pre-registered member raises the level to 92.31% — that is the lever a
+future session should pull, not more model fitting.</li>
+</ol>
+
 <h2 id="gate">The promotion gate</h2>
 <p>This repository inherits a hard rule from the earlier session, and this candidate does not pass it:</p>
 <div class="callout bad">

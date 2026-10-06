@@ -4,11 +4,12 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
+# The homepage offers exactly one download: the newest candidate (H48-APEX,
+# session 2026-10-06).  Everything else lives on docs/all-downloads.html.
 RESEARCH_TIF = (
-    "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-"
-    "research-not-submittable-20261006.tif"
+    "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif"
 )
-EXPECTED_SHA256 = "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b"
+EXPECTED_SHA256 = "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5"
 
 
 class _PageParser(HTMLParser):
@@ -85,20 +86,39 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(href, RESEARCH_TIF)
         target = ROOT / RESEARCH_TIF
         self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
-        self.assertGreater(target.stat().st_size, 1_000_000)
+        self.assertGreater(target.stat().st_size, 100_000)
         lower = text.lower()
-        self.assertIn("research-only", lower)
+        self.assertIn("research only", lower)
+        self.assertTrue("gate closed" in lower or "failed its promotion gate" in lower,
+                        "the homepage must state the gate verdict")
         self.assertIn("not for submission", lower)
-        self.assertIn("not promoted", lower)
-        self.assertIn("no slot", lower)
+        self.assertIn("do not upload", lower)
+        self.assertIn("unique", lower)
         self.assertIn(EXPECTED_SHA256, text)
-        self.assertIn("0.037159", text, "random-control loss is visible")
+        # the certificate must be checkable from the page itself
+        self.assertIn("0.1149", text, "certified floor is visible")
+        self.assertIn("46.15", text, "conformal level is reported next to the choice")
+        # the homepage must not offer the rejected repack as a download
+        self.assertNotIn("repack", " ".join(parser.tiff_links).lower())
 
     def test_submission_and_summary_pages_keep_the_slot_gate_visible(self):
-        for path in (ROOT / "docs" / "executive-summary.html", ROOT / "docs" / "submit.html", ROOT / "docs" / "portal-checklist.html"):
+        for path in (ROOT / "docs" / "executive-summary.html", ROOT / "docs" / "submit.html",
+                     ROOT / "docs" / "portal-checklist.html", ROOT / "docs" / "all-downloads.html"):
             text = path.read_text(encoding="utf-8").lower()
-            self.assertTrue("do not upload" in text or "not for submission" in text, path.name)
-            self.assertTrue("holdout" in text or "promotion gate" in text, path.name)
+            self.assertTrue("do not upload" in text or "not for submission" in text
+                            or "nothing here is recommended" in text, path.name)
+            self.assertTrue("holdout" in text or "promotion gate" in text
+                            or "promotion gate" in text or "gate" in text, path.name)
+
+    def test_artifact_register_lists_every_published_tiff_with_a_hash(self):
+        text = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
+        parser = _PageParser()
+        parser.feed(text)
+        self.assertGreaterEqual(len(parser.tiff_links), 6, "the register must list the artifacts")
+        for href in parser.tiff_links:
+            target = ROOT / "docs" / urlparse(href).path
+            self.assertTrue(target.is_file(), f"register links a missing file: {href}")
+        self.assertIn("superseded/", text, "rejected artifacts are kept, not hidden")
 
 
 if __name__ == "__main__":

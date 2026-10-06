@@ -27,6 +27,7 @@
     <a href="sources.html">Sources</a>
     <a href="submit.html">Submit</a>
     <a href="portal-checklist.html">Portal checklist</a>
+    <a href="all-downloads.html">All downloads</a>
     <a href="analysis.html">Analysis</a>
     <a href="validation-protocol.md">Validation protocol</a>
     <a href="review-log.md">Review log</a>
@@ -39,7 +40,46 @@
 
 <!-- ==================================================================== -->
 <div class="dl">
-  <p class="kicker">Research artifact — download for review</p>
+  <p class="kicker">Session 2026-10-06 (H48) — newest artifact, download for review</p>
+  <h2>gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif
+      <span class="badge b-bad">RESEARCH ONLY — GATE CLOSED</span></h2>
+  <p class="small" style="margin:0 0 10px">
+    <b>H48-APEX · the most novel raster this project has ever produced.</b>
+    Max equal-mass Jaccard against <b>all 13</b> prior scored rasters = <b>0.0095</b>
+    (the previous best artifact scored 0.0457; the H48 repack of the incumbent scored 0.4400,
+    i.e. it was a re-issue and was rejected). Format gate: <b>21/21 checks pass</b>.
+    Gate verdict: <b>closed</b> — it loses the SGMC-off-catalogue blocked frame
+    (0.0878 vs incumbent 0.0989) and its split-conformal floor is 0.1149, below the live
+    0.2600 incumbent. <b>Do not upload it to a scored slot yet.</b></p>
+  <div class="btnrow">
+    <a class="btn" href="downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif"
+       download>⬇&nbsp; DOWNLOAD THE SUBMISSION (.tif, 176 KB)</a>
+    <a class="btn ghost" href="executive-summary.html#h48">Certification &amp; how to submit →</a>
+  </div>
+  <p class="small" style="margin:0">
+    Single band, float32, EPSG:32611, 100 m, 3730 × 3292, identical bounds to the training grid,
+    <b>every pixel finite and inside [0,&nbsp;1]</b> (zeros outside the footprint), 28,124 emitted
+    pixels, values in {0.0, 1.0}. This is the variant that clears a NaN-intolerant range check —
+    the exact defect behind <code>"Predicted values must be in range [0, 1]"</code>
+    (<a href="#range-error">the fix</a>).
+  </p>
+  <div class="kv" style="margin-top:12px">
+    <div><b>SHA-256</b> 8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5</div>
+    <div><b>Bytes</b> 176,159 &nbsp;·&nbsp; <b>Emitted pixels</b> 28,124 &nbsp;·&nbsp; <b>Values</b> {0.0, 1.0}</div>
+    <div><b>Detector</b> multi-scale curvature lineament consensus (MSCL) - 3 apertures × 5 bands, cross-domain agreement</div>
+    <div><b>Operating point</b> consensus rank ≥ 192 · 2.5 px separation — the family-of-7 sweep member with the best <i>certified</i> floor</div>
+    <div><b>Split-conformal floor</b> 0.1149 at <b>level 46.15%</b> (rank 6 of n = 12, m = 7 Bonferroni; m = 1 channel level 92.3%)</div>
+    <div><b>Uniqueness</b> max Jaccard 0.0095 <span class="badge b-good">UNIQUE</span> — vs 13 prior rasters</div>
+    <div><b>Receipt</b> <a href="../evidence/h48_apex_build.json">evidence/h48_apex_build.json</a> · <a href="h48.json">docs/h48.json</a></div>
+  </div>
+  <p class="small" style="margin:12px 0 0">
+    <b>Paste this into the optional “Note” field on the DrivenData submission form:</b><br>
+    <code>GEMSDOE47-H48-APEX-r192 | multi-scale curvature lineament consensus (5 bands × 3 apertures, cross-domain), catalogue-clear apex emission, 28,124 px; split-conformal certified floor 0.1149 at 46.15% level (rank 6 of n=12, m=7 Bonferroni; m=1 channel 92.3%); unique (max Jaccard 0.0095 vs 13 priors); UNSCORED</code>
+  </p>
+</div>
+
+<div class="dl" style="margin-top:22px">
+  <p class="kicker">Previous artifact (H47-GSA) — superseded as the primary download</p>
   <h2>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif
       <span class="badge b-bad">RESEARCH ONLY — NOT FOR SUBMISSION</span></h2>
   <p class="small" style="margin:0 0 10px">
@@ -50,8 +90,7 @@
     five truth frames). A format pass is not a scientific promotion. Do not upload
     it to a scarce weekly slot.</p>
   <div class="btnrow">
-    <a class="btn" href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif"
-       download>⬇&nbsp; DOWNLOAD THE SUBMISSION (.tif, 240 KB)</a>
+    <a class="btn ghost" href="all-downloads.html">Download this artifact →</a>
     <a class="btn ghost" href="executive-summary.html">How to submit it →</a>
   </div>
   <p class="small" style="margin:0">
@@ -77,9 +116,11 @@
 <div class="callout info">
   <b>Also available</b> — same raster, NaN outside the footprint (matches the organiser’s own
   <code>sample_submission.tif</code> convention, but fails a NaN-intolerant range check):
-  <a href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif" download>gems47-h47gsa-…-nan.tif</a>
+  <a href="all-downloads.html">gems47-h47gsa-…-nan.tif</a>
   &nbsp;·&nbsp; <b>Secondary arm</b> (conservative matched-budget re-emission):
-  <a href="downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif" download>gems47-h47maxcov-…-allfinite.tif</a>
+  <a href="all-downloads.html">gems47-h47maxcov-…-allfinite.tif</a>
+  &nbsp;·&nbsp; <b>Rejected for novelty this session</b> (it re-issues the incumbent: max Jaccard 0.4400),
+  kept only as evidence. <a href="all-downloads.html">Every artifact, every hash, every status →</a>
 </div>
 <!-- ==================================================================== -->
 

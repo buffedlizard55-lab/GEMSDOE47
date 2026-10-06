@@ -1,0 +1,59 @@
+{
+ "generated_utc": "20261006T202949Z",
+ "candidate": {
+  "name": "GEMSDOE47-H48-APEX-r192",
+  "file": "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif",
+  "sha256": "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5",
+  "bytes": 176159,
+  "n_positive": 28124,
+  "format_checks_passed": true,
+  "max_jaccard_vs_13_priors": 0.009507,
+  "predicted_dti": 0.08578766591790139,
+  "certified_floor": 0.11486597456776,
+  "certificate": {
+   "name": "cross_conformal_all_returns|family_7",
+   "level": 0.46153846153846156,
+   "level_pct": 46.154,
+   "n_calibration": 12,
+   "conformal_rank_k": 6,
+   "quantile": 0.02907830864985861,
+   "m_candidates": 7,
+   "assumption": "Exchangeability of the calibration scores and the candidate's score. The calibration observations are previous submissions, several of them nested thinnings of one field, so this is an ASSUMPTION-CONDITIONAL bound on the public-test DTI of a probe raster - not a distribution-free guarantee for the private test set, the Final Prize Round label set, or a leaderboard rank.",
+   "m1_reference_level": 0.9230769230769231,
+   "m1_reference_quantile": -0.14026182885627853,
+   "split_half_family_level": 0.8571428571428572
+  },
+  "blocked_holdout": {
+   "catalogue": {
+    "candidate": 0.03353242608843613,
+    "incumbent_h33_2_b2": 0.006698424894897517
+   },
+   "sgmc_offcatalogue": {
+    "candidate": 0.08778773860542068,
+    "incumbent_h33_2_b2": 0.09893469496140979
+   }
+  },
+  "promotion": {
+   "unique": true,
+   "beats_incumbent_both_holdout_frames": false,
+   "certified_floor_above_live_incumbent": false,
+   "shippable": false,
+   "reasons": [
+    "blocked holdout frame sgmc_offcatalogue: candidate 0.0878 <= incumbent 0.0989",
+    "certified floor 0.1149 < live incumbent 0.26"
+   ],
+   "note": "'shippable' means: unique against every prior artefact, ahead of the reported 0.2778 field on both blocked holdout frames, and certified above the live 0.2600 incumbent by the split-conformal floor. It is NOT a claim about the private expert label set."
+  }
+ },
+ "rejected_repack_arm": {
+  "file": "gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif",
+  "max_jaccard_vs_13_priors": 0.440003,
+  "predicted_dti": 0.1859592882613959,
+  "certified_floor": 0.2150375969112545,
+  "reason": "re-issues the incumbent field (44.0% pixel overlap with the reported-0.2778 raster) - evidence only"
+ },
+ "source": [
+  "evidence/h48_apex_build.json",
+  "evidence/h48_build.json"
+ ]
+}
