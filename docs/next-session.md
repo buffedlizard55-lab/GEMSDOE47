@@ -1,5 +1,17 @@
 # Next-session plan — continue without rework
 
+> **Superseding status (2026-10-06):** the verified submission TIFF now exists
+> (`docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif`, sha256 `0d8ba64c…`,
+> conformal floor 0.34837 @ 75 %) and was re-derived byte-identically in a clean sandbox the same day
+> (see `docs/review-log.md` addendum). The official **footprint/catalogue bytes were obtained from the
+> group's GitHub mirror `GEMSDOE24/data/bridge/`** — sufficient for the sanity diagnostics below; the
+> **private test labels remain unavailable** and no offline score is claimed. The operative
+> priority list is the README's “Next session” section; the steps below remain valid for any *new*
+> candidate emission, and the H1 first-pass screening (FAIL, IR-14) has already run through steps 4–6.
+> One correction to the text below: “public mapped faults” diagnostics are only vacuous for
+> annulus-restricted masks (0.0 for every arm by construction, see `notes/HYPOTHESES.md` H1) — for
+> unrestricted candidates the full-domain alignment test is informative and is what screened H1.
+
 ## Hard gate before a submission TIFF
 
 1. Obtain the official feature raster and `1m_DEM_links.csv` (names shown on the public problem page), an official raster-label file, and sample-submission GeoTIFF by an authorized, enrolled-competitor route. The exact label/template download basenames are not verified without login; pass their actual paths to the checker. The official page is login-gated; no credentials are present here and the project will not bypass it.

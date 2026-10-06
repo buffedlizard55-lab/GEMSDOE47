@@ -17,7 +17,13 @@
 | values | finite values are exactly two, 0.0 and 1.0 → **inside [0, 1] by construction**; NaN appears on exactly the 7,111,787 pixels outside the valid footprint, byte-for-byte the same convention as the official template |
 | positives | 18,524 |
 
-The earlier rejection — *"Predicted values must be in range [0, 1]"* — cannot recur: the raster contains only 0.0 and 1.0, and `nodata` is `None`, so no reader can interpret a sentinel (−1) as a prediction.
+The earlier rejection — *"Predicted values must be in range [0, 1]"* — cannot recur: every finite value in
+the raster is exactly 0.0 or 1.0, and NaN appears **only** outside the valid footprint, which is the
+official convention ("data outside the bounds is null or nan",
+[problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/), fetched
+2026-10-06). There is no numeric sentinel (e.g. −1) inside the footprint that a scorer could read as a
+prediction — verified in this session by `src/gems47_verify_submission.py`, all 19 checks passing against
+the checked-in file plus the official `sample_submission.tif` and `labels.tif` bytes.
 
 ---
 
@@ -51,7 +57,12 @@ Three prunes of this exact network have official scores. They fix the two unknow
 | B = 1 | drop `d_cat ≤ 1` px | 40,199 | 0.2708 |
 | B = 2 | drop `d_cat ≤ 2` px | 37,654 | 0.2778 |
 
-Joint least squares over the three rungs gives **T = 5,214.8**, **N_g = 14,040.2**, max residual **0.00021**. `T` is *constant* across the ladder: everything removed so far supplied **zero** truth mass. Independently, the sibling mask `gems28-h32-1-prethin` (42,294 px, 0.2649) adds 2,095 dots over `h27-4-solo` (40,199, 0.2708). Under the same identity those extra dots contribute **ΔT = −2.7**, i.e. −0.0013 each — indistinguishable from zero — against 0.130 for the average retained dot. That near-total efficiency gap between catalogue-adjacent and outer dots is the whole mechanism, and it is measured, not assumed.
+Joint least squares over the three rungs gives **T = 5,214.8**, **N_g = 14,040.2**, max residual **0.00021**.
+*Fit-space disclosure (added on re-verification, 2026-10-06):* the exact (T, N_g) depend on the least-squares
+parameterization; refits in score space give (5,218.2; 14,056.2) and in 1/y space (5,210.4; 14,019.8).
+The modelled B = 20 score varies only in the fifth decimal, **0.34905 – 0.34925** (floor 0.34830 – 0.34850),
+so the headline numbers are robust to that choice; the conformal `q` is unaffected because the LOO rungs use
+the exact two-rung algebraic solve. `T` is *constant* across the ladder: everything removed so far supplied **zero** truth mass. Independently, the sibling mask `gems28-h32-1-prethin` (42,294 px, 0.2649) adds 2,095 dots over `h27-4-solo` (40,199, 0.2708). Under the same identity those extra dots contribute **ΔT = −2.7**, i.e. −0.0013 each — indistinguishable from zero — against 0.130 for the average retained dot. That near-total efficiency gap between catalogue-adjacent and outer dots is the whole mechanism, and it is measured, not assumed.
 
 **Which sweep variable.** The operating point here is an annulus threshold `B` on distance-to-catalogue, not a dot spacing: the spacing instrument was carried through this project and rejected on evidence — this family's median nearest-neighbour spacing is already 3.00 px against a 3 px kernel radius (kernels saturate), and the trace re-dotting operator moves 24,552 of 48,193 positions off the original dots because the network is 99.4 % two-dot pairs rather than continuous traces. Re-dotting would violate the delete-only guarantee, so the sweep that the conformal step certifies is the annulus threshold, reported next to the confidence level above.
 
@@ -122,7 +133,16 @@ q = 0.000755      confidence = 1 − α = 75%
 3. **Our own spatial proxies are worthless and we do not use them.** The dots' density is 2.2× enriched on the off-catalogue mapped-fault network and 0.49× in the far field, so the far dots are *weaker*, not stronger; both structural-coverage models that formalise this were falsified against the live ladder (§3). No offline holdout identified a better operating point, and none is claimed.
 4. **Best-of-board assumption.** This is only free if the leaderboard keeps the participant's best score. If it keeps only the last submission, uploading this replaces 0.2778. Check on the submission page. Nothing was uploaded from this repo — no automated upload exists, by design.
 5. **Leaderboard attribution is user-reported.** The 0.2778 row maps to the GEMSDOE32 artifact by user report, not by an artefact-authenticated receipt; if that mapping is wrong, every fit above shifts.
-6. **Lineage / uniqueness — disclosed.** All 18,524 positive pixels are a strict subset of the published `gems28-h27-4-r1-solo-d2-8` network. Max Jaccard against the 15 sibling rasters we hold = **0.4608**; the file is byte-unique against all of them, and no site publishes an 18,524-pixel annulus mask. A fully independent emission (our own detector rather than a prune of a published mask) is the top item for the next session — it is the one thing that would remove this caveat.
+6. **Lineage / uniqueness — disclosed, and now byte-verified against the artifacts themselves.**
+   All 18,524 positive pixels are a strict subset of the published `gems28-h27-4-r1-solo-d2-8`
+   network (0 difference on re-derivation, 2026-10-06). Re-derived ladder rungs are *pixel-for-pixel
+   identical* to the published scored artifacts (`d_cat>1` ≡ `gems28-h27-4-r1-solo-d2-8`, 0.2708;
+   `d_cat>2` ≡ `gems32-h33-2-b2`, 0.2778). Max Jaccard over the 10 sibling rasters held in the
+   verification sandbox = **0.4920** (vs the 0.2778 artifact — expected, we are its strict subset);
+   every other sibling ≤ 0.4608; the file is byte-unique against all of them, and no site publishes an
+   18,524-pixel annulus mask. A fully independent emission (our own detector rather than a prune of a
+   published mask) remains the top item for the next session — it is the one thing that would remove
+   this caveat.
 
 ## 7. Reproduce
 

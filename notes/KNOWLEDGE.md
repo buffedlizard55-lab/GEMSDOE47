@@ -155,3 +155,22 @@ exactly reproduced by `score = 5T/(n + 4N_g)` with the same `T` and `N_g` as its
 higher-`T` network (unproven offline). **The current bar is 0.3345** (2026-10-06 snapshot), which under
 the same identity sits at ≈21,800 dots — i.e. the leader is on the same curve, roughly two rungs short
 of where this submission sits.
+
+### B8. Byte-level ladder identity and acquisition topology (added on the 2026-10-06 re-verification)
+
+- Re-deriving `base ∧ d_cat > 1` and `base ∧ d_cat > 2` from `labels.tif` + the GEMSDOE33 base produces
+  masks **pixel-for-pixel identical** to the published, officially scored `gems28-h27-4-r1-solo-d2-8`
+  (0.2708) and `gems32-h33-2-b2` (0.2778). The ladder is therefore an operator on *those artifacts
+  themselves*, not a reconstruction that merely shares their count.
+- The GEMSDOE30 `d28-poisson300m-offcat-44090` (0.2600) and GEMSDOE24 `h25-1-dotted-h19-5` (44,090-dot
+  variant) artifacts are pixel-identical to the GEMSDOE33 base: the same 44,090-dot network has been
+  scored **≥ 3 times at 0.2600** through different repos — same set ⇒ same score, an independent
+  determinism check of the scorer.
+- Sandbox network reality (measured, not assumed): only `api.github.com` is reachable; Dropbox,
+  `gdr.openei.org` and `www.sciencebase.gov` fail at TLS. All official competition bytes used here are
+  obtained through the group's GitHub mirrors (`GEMSDOE24/data/bridge`, sibling `docs/downloads`), whose
+  provenance is the receipts published next to each artifact. The full H1–H5 input stack
+  (`geodawn_rad_u8.tif`, `geodawn_extensions_u8.tif`, `lidar_scarp_features_u8.tif`,
+  `gdr_qfaults_traces.csv`, `derived_sgmc_faults_100m_u8.tif`, INGENIOUS temperature zips) is public
+  under `GEMSDOE24/data/external/`, so no hypothesis in `notes/HYPOTHESES.md` is blocked on new
+  external acquisition in this environment.

@@ -5,15 +5,16 @@ by expected DTI improvement per unit of implementation cost. **A standing irregu
 the end: the brief's promotion gate ("beat the current holdout best") is not a valid selection
 instrument for this competition, and we do not pretend otherwise.**
 
-Ranking summary:
+Ranking summary *(status column added after the 2026-10-06 screening pass — see each hypothesis's
+validation-plan note and `docs/irregularities.md` IR-14)*:
 
-| # | hypothesis | expected DTI gain | cost | new external data |
-|---|---|---|---|---|
-| H1 | hydrothermal-alteration halos in radiometric ratios, Laplacian-filtered | high | medium | no (already local) |
-| H2 | tilt-depth of upward-continued RTP magnetics along lineaments | high | medium | no (already local) |
-| H3 | QFFD attribute-conditioned along-strike continuation of high-slip-rate faults | medium-high | low | no (already local) |
-| H4 | dilatational strain-rate extremum along shear lineaments (tensor invariant) | medium | low-medium | no (already local) |
-| H5 | accessibility-bias correction using closed-claim / road distance | low-medium | low | no (already local) |
+| # | hypothesis | expected DTI gain | cost | new external data | status |
+|---|---|---|---|---|---|
+| H1 | hydrothermal-alteration halos in radiometric ratios, Laplacian-filtered | high | medium | no (already local) | **first implementation screened FAIL** (worse than chance vs catalogue, 0.0156 vs 0.0369 control); mechanism not abandoned — retry on raw float grids, single-ratio variants |
+| H2 | tilt-depth of upward-continued RTP magnetics along lineaments | high | medium | no (already local) | not yet screened |
+| H3 | QFFD attribute-conditioned along-strike continuation of high-slip-rate faults | medium-high | low | no (already local) | not yet screened |
+| H4 | dilatational strain-rate extremum along shear lineaments (tensor invariant) | medium | low-medium | no (already local) | not yet screened |
+| H5 | accessibility-bias correction using closed-claim / road distance | low-medium | low | no (already local) | not yet screened |
 
 ---
 
@@ -40,7 +41,12 @@ Ranking summary:
   already local and their provenance hash is pinned in `notes/KNOWLEDGE.md`.
 - **Validation plan** — spatially-blocked 4-fold holdout with a 300 m guard band; matched-mass
   comparison against the incumbent emission; **score the halo-positive pixels only inside the outer
-  annulus** so the test is on ground the catalogues do not already cover.
+  annulus** so the test is on ground the catalogues do not already cover. *(Amended 2026-10-06 after
+  the first build ran: an annulus-restricted mask is unscorable on the catalogue holdout by
+  construction — no pixel can be within kernel reach of the only available truth, so every candidate
+  scores exactly 0.0 there. The implemented protocol in `scripts/build_h1_candidate.py` therefore
+  records the annulus-restricted blocked DTI as a vacuous control and adds a full-domain
+  alignment-vs-chance test as the discriminating sanity check.)*
 
 ## H2 — Tilt-depth of upward-continued RTP magnetics
 
