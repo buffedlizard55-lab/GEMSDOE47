@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Corrected GEMSDOE47 score attribution, H47-B spatial-screen results, retired score model and bounded TIFF uniqueness audit.">
+  <meta name="description" content="H47-QC and H47-B blocked-screen results, conformal limits, corrected 0.2778 attribution and bounded TIFF uniqueness audits.">
   <title>Results &amp; Attribution Analysis · GEMSDOE47</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header><div class="wrap">
   <div class="brand"><h1>GEMSDOE47</h1><span class="tag">Negative result disclosed · score mappings not authenticated</span></div>
-  <nav aria-label="Main navigation"><a href="../index.html">Project home</a><a href="executive-summary.html">Executive summary</a><a href="submit.html">How to submit</a><a class="on" href="analysis.html">Results analysis</a><a href="leaderboard.html">Leaderboard evidence</a><a href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a></nav>
+  <nav aria-label="Main navigation"><a href="../index.html">Project home</a><a href="executive-summary.html">Executive summary</a><a href="submit.html">How to submit</a><a class="on" href="analysis.html">Results analysis</a><a href="leaderboard.html">Leaderboard evidence</a><a href="hypotheses-round2-20261006.md">H47-QC shortlist</a><a href="hypotheses.html">Legacy hypotheses</a><a href="sources.html">Sources</a></nav>
 </div></header>
 <main class="wrap">
-  <div class="note bad"><strong>Current decision: H47-B is NOT PROMOTED.</strong> It lost to the fixed-seed random control on locked spatial blocks and its assumption-conditional conformal lower floor is zero. Do not upload it or spend a slot.</div>
+  <div class="note bad"><strong>Current decision: H47-QC is NOT PROMOTED.</strong> Its locked-test DTI lost to the geochemistry-only ablation and its conformal lower floor is zero. Do not upload it or spend a slot. H47-B and H47-GSA are also not promoted.</div>
   <h2>Latest saved public leaderboard observations</h2>
   <table><thead><tr><th>Row</th><th>Score</th><th>Evidence limit</th></tr></thead><tbody>
     <tr><td>#1</td><td class="num">0.3774</td><td>Participant name not preserved in the later saved record.</td></tr>
@@ -20,6 +20,17 @@
     <tr><td>extradr19 · #13</td><td class="num">0.2778</td><td>Participant-level public row only.</td></tr>
   </tbody></table>
   <p>The previous in-repository page put 0.3345 at rank 1 and DARD at #5. A later one-time public read recorded the values above and supersedes that stale copy. The official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/" rel="noopener">leaderboard</a> has no file hashes or TIFF names. In particular, there is no evidence connecting the 0.2778 row to the GEMSDOE32 H33-2-B2 TIFF; its owner page labels the candidate unscored.</p>
+  <h2>H47-QC locked-test comparison — 5,000 points</h2>
+  <table><thead><tr><th>Method (spacing selected on five selection blocks)</th><th class="num">Pixels</th><th class="num">Locked-test pooled DTI</th></tr></thead><tbody>
+    <tr><td><strong>H47-QC, geothermometer consensus × aligned RTP/gravity edge (6 px)</strong></td><td class="num">5,000</td><td class="num">0.01316894</td></tr>
+    <tr><td>Geochemistry-only ablation (6 px)</td><td class="num">5,000</td><td class="num"><strong>0.01419481</strong></td></tr>
+    <tr><td>Structural-edge-only ablation (6 px)</td><td class="num">5,000</td><td class="num">0.01255839</td></tr>
+    <tr><td>H47-B persistence, equal mass (5 px)</td><td class="num">5,000</td><td class="num">0.00782453</td></tr>
+    <tr><td>Single-scale magnetic baseline, equal mass (5 px)</td><td class="num">5,000</td><td class="num">0.00812956</td></tr>
+    <tr><td>Fixed-seed random within candidate support (5 px)</td><td class="num">5,000</td><td class="num">0.01285767</td></tr>
+    <tr><td>Fixed-seed random over full footprint (6 px)</td><td class="num">5,000</td><td class="num">0.01232633</td></tr>
+  </tbody></table>
+  <p>H47-QC beat four of six matched-mass controls but lost to its geochemistry-only ablation. Selected spacing was 6 px / 600 m. The six-block split-conformal nominal level was 85.7%; the clipped lower block-DTI floor was <strong>0.0</strong>, conditional on unverified block-score exchangeability. Fifty-four emitted cells coincide with known public-catalogue labels. The input CSV is a mirror and the public-label screen is not a private-target validation. <a href="h47qc-screen-20261006.json">Full report</a> · <a href="preregistered-h47qc-20261006.md">Frozen preregistration</a> · <a href="downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.md">Download and note</a>.</p>
   <h2>H47-B locked-test comparison</h2>
   <table><thead><tr><th>Method</th><th class="num">Pooled DTI</th><th class="num">Mean block DTI</th></tr></thead><tbody>
     <tr><td>H47-B, cross-scale TMI edge persistence, 5 px</td><td class="num">0.02755344</td><td class="num">0.01197844</td></tr>
@@ -32,7 +43,7 @@
   <h2>Retired historical claim</h2>
   <p>The prior `0.34912` modeled score and `0.34837` purported floor were unsupported by the score-to-file evidence and conformal design, and involved long extrapolation from a monotone deletion family. They are withdrawn. The historical d-cat/annulus TIFF is a delete-only subset of a published mask, not an independent detector. It remains for audit only.</p>
   <h2>Uniqueness audit scope</h2>
-  <p>H47-B had zero exact positive-mask matches among 334 accessible, exact-grid-comparable TIFF artifacts found in 55 visible sibling repositories. Maximum equal-mass Jaccard was 0.01119057; maximum positive-support Jaccard was 0.01685795. The <a href="h47b-uniqueness-audit-20261006.json">full audit record</a> lists the inventory paths, Git blob hashes, all comparisons, and two rasters excluded for grid mismatch. This is a bounded artifact comparison, not global uniqueness and not evidence of predictive value.</p>
+  <p>H47-B had zero exact positive-mask matches among 334 accessible, exact-grid-comparable TIFF artifacts found in 55 visible sibling repositories. Maximum equal-mass Jaccard was 0.01119057; maximum positive-support Jaccard was 0.01685795. H47-QC also had zero exact matches in that inventory; its maximum top-5,000 equal-mass Jaccard was 0.00210442 and its maximum positive-support Jaccard was 0.00244346. The <a href="h47b-uniqueness-audit-20261006.json">H47-B audit</a> and <a href="h47qc-uniqueness-audit-20261006.json">H47-QC audit</a> list inventory paths, blob hashes, comparisons, and exclusions. These bounded artifact comparisons are not global uniqueness or evidence of predictive value.</p>
   <div class="note"><strong>Metric note.</strong> The local implementation transcribes the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" rel="noopener">DTI formula</a>; it is not an organizer-run scorer. The old simplification to an inferred “dot count” and any regression based on an unauthenticated file/score mapping are not used here.</div>
   <p><a href="analysis.md">Read the full written analysis →</a> · <a href="validation-h47b-20261006.md">Full H47-B experiment report →</a> · <a href="leaderboard-snapshot-2026-10-06.json">Machine-readable public snapshot →</a></p>
 </main>

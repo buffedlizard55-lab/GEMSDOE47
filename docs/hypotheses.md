@@ -1,6 +1,6 @@
 # Ranked, testable geology hypotheses — GEMSDOE47
 
-**Original ranking prepared:** 2026-10-06 UTC, before H47-B scoring. **Original top test:** H47-B. The ranking is preserved as a prior, not a performance claim. **Post-screen status:** H47-B was tested and is **NOT PROMOTED** (locked-test pooled DTI 0.02755 vs 0.02564 baseline and 0.03716 random; assumption-conditional lower floor 0.0). The next research step is conditional H47-C source-geometry/coverage verification, not a slot submission. “New” means not implemented as this operator in this checkout or in the linked GEMSDOE artifacts inspected; it is not a claim of worldwide novelty.
+**Historical ranking prepared:** 2026-10-06 UTC, before H47-B scoring. **Original top test:** H47-B. This document is preserved as a prior, not a current shortlist or performance claim. **Post-screen status:** H47-B was tested and is **NOT PROMOTED** (locked-test pooled DTI 0.02755 vs 0.02564 baseline and 0.03716 random; assumption-conditional lower floor 0.0). The later H47-QC round was also tested and **NOT PROMOTED**; see the [current ranked shortlist and report](hypotheses-round2-20261006.md). There is no slot submission authorization. The remaining H47-C/D/E/F ideas below are conditional historical suggestions, not the current ranking. “New” means not implemented as this operator in this checkout or in the linked GEMSDOE artifacts inspected; it is not a claim of worldwide novelty.
 
 ## Repository/data audit that constrains this shortlist
 

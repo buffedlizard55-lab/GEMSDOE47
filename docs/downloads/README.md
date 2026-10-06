@@ -1,7 +1,8 @@
 # Download directory — research artifacts only
 
-**There is no submission-eligible TIFF in this directory. Do not upload either file to DrivenData.**
+**There is no submission-eligible TIFF in this directory. Do not upload any file listed here to DrivenData.**
 
+- `gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif` — H47-QC; format/range checks pass, but the preregistered blocked screen loses to geochemistry-only and its conformal lower floor is 0.0. [One-click artifact note and exact metrics](gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.md) · [full report](../h47qc-screen-20261006.json).
 - `gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif` — H47-B; local GeoTIFF format audit passed, but the preregistered holdout/control gate failed. Published only for transparent research review. See [`../validation-h47b-20261006.md`](../validation-h47b-20261006.md).
 - `gems47-dcat20-annulus-flankprune-n18524-20261006.tif` — historical delete-only subset of a published sibling mask; not an independent detector and not eligible under the no-copy requirement. See [`../analysis.md`](../analysis.md).
 

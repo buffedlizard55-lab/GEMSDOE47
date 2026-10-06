@@ -1,10 +1,10 @@
 # Results and leaderboard attribution — corrected 2026-10-06
 
-> **No score from this project is a DrivenData leaderboard score. H47-B is not promoted and is not eligible for a submission slot.** This page supersedes the previous score-ladder and “conformal floor” interpretation.
+> **No score from this project is a DrivenData leaderboard score. H47-QC and H47-B are not promoted and are not eligible for a submission slot.** This page supersedes previous score-ladder and “conformal floor” interpretations; public board rows do not authenticate a TIFF/score pair.
 
 ## Decision in brief
 
-H47-B is a new magnetic-edge persistence screen and its mask has low similarity to the accessible sibling-repository TIFFs checked in this audit. Its local output-format audit passed. It nevertheless failed the preregistered scientific promotion gate: the locked-test candidate lost to the fixed-seed random control and the assumption-conditional conformal lower floor was zero. Do not upload it.
+H47-B is a new magnetic-edge persistence screen and its mask has low similarity to the accessible sibling-repository TIFFs checked in that audit. Its local output-format audit passed. It nevertheless failed its preregistered scientific gate: the locked-test candidate lost to the fixed-seed random control and its assumption-conditional conformal lower floor was zero. H47-QC is the latest screen and also failed; see its result below. Do not upload either.
 
 The detailed measurements, per-block results, input provenance, output audit, and scope of the uniqueness check are in the [H47-B validation report](validation-h47b-20261006.md). The complete sanitized experiment record is [`h47b-screen-report-20261006.json`](h47b-screen-report-20261006.json).
 
@@ -42,7 +42,34 @@ The candidate beat the baseline but lost to random. The unweighted mean block DT
 
 The descriptive full-domain DTI values (H47-B 0.04642384; baseline 0.04727772; random 0.03601067) use all available public catalogue labels and are **not** holdout or hidden-target estimates. Do not present them as predictive performance.
 
-## Uniqueness: bounded finding, not a promotion argument
+## H47-QC geothermometer-consensus screen — negative result
+
+H47-QC was frozen before scoring in [`preregistered-h47qc-20261006.md`](preregistered-h47qc-20261006.md). Its label-blind builder uses repeated-row medians for three mirror-exported GDR geothermometers, a measured outlet-temperature proxy, a fixed agreement/temperature/cooling weight, a 1 km Gaussian field, and aligned gradients in named RTP and isostatic-gravity bands. The `dist_known_fault_px` CSV field is never read. The build counted 90 positive-weight source groups at 89 unique cells; after structural-validity intersection, 252,618 cells remained for the combined ranking.
+
+| Selected 5,000-point operating point | Spacing | Locked-test pooled DTI |
+|---|---:|---:|
+| **H47-QC** | **6 px / 600 m** | **0.01316894** |
+| Geochemistry-only ablation | 6 px / 600 m | **0.01419481** |
+| Structural-edge-only ablation | 6 px / 600 m | 0.01255839 |
+| H47-B equal-mass persistence | 5 px / 500 m | 0.00782453 |
+| Single-scale magnetic baseline | 5 px / 500 m | 0.00812956 |
+| Fixed-seed random within H47-QC support | 5 px / 500 m | 0.01285767 |
+| Fixed-seed random over full footprint | 6 px / 600 m | 0.01232633 |
+
+Spacing for each method was selected on the five frozen selection blocks, with the five locked blocks reserved for final reporting. H47-QC beat four of six comparators but **lost to the geochemistry-only ablation**. That is not evidence that the structural interaction improves the thermal-source ranking. The selected-mask mean block DTI was 0.006385 on selection blocks, 0.012113 on calibration blocks, and 0.006791 on locked-test blocks; the difference across small block sets shows substantial geographic heterogeneity.
+
+With six calibration blocks the largest preregistered nominal one-sided split-conformal level is **6/7 = 85.7%**. The clipped lower future-comparable-block DTI floor was **0.0**, so the bound is vacuous. Exchangeability is unverified under spatial dependence, and neither this level nor its floor transfers to private labels or the leaderboard.
+
+The 5,000-point artifact has a valid all-finite `[0,1]` GeoTIFF format, but **54 selected cells coincide with known public-catalogue labels**. The public proxy DTI counts those as known-label hits; it does not establish withheld-fault discovery. The artifact is [available for download with a short note](downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.md), explicitly **research only / do not submit**. Full metrics and hashes: [`h47qc-screen-20261006.json`](h47qc-screen-20261006.json). A separate bounded audit compared it to 334 exact-grid rasters from 55 public sibling repositories: zero exact masks, maximum equal-mass Jaccard 0.002104; see [`h47qc-uniqueness-audit-20261006.json`](h47qc-uniqueness-audit-20261006.json). This does not change the failed gate.
+
+## Scientific assessment of the reported 0.2778 value
+
+The most defensible mechanism is **precision gained by pruning low-marginal-credit evaluated prediction mass**, not proof of a new geological discovery. From the documented metric, for binary/weighted predictions `DTI = 5T / (T + F + 4K)`, where `T` is distance-weighted credit, `F` is false-positive mass, and `K` is the scored truth count. A point helps only when its marginal kernel credit is sufficient relative to the existing score; cutting low-credit predictions can improve the ratio even when total coverage falls.
+
+The owner-reported family trajectory from 0.1922 to 0.2778 is consistent with this: emitted mass reportedly falls 69% (121,131 to 37,654 pixels), while covered 300 m kernel credit falls about 33% (449,693 to 302,510). Those are useful mechanism clues, **not verified explanation of the 0.2778 leaderboard row**. The official public board is participant-level (`extradr19` was observed at 0.2778/#13 on 2026-10-06); it does not identify a TIFF. The GEMSDOE32 H33-2-B2 page marks that raster **UNSCORED**, and no organizer receipt links its hash to the participant row. Therefore do not state that H33-2-B2 earned 0.2778 or that a particular deletion caused it.
+
+In particular, the claim that removing dots on masked catalogue pixels yielded “free precision” conflicts with the repository's working mask interpretation: DrivenData staff said those pixels are excluded from evaluation, and a mirror-byte comparison (two owner-reported 0.1563 entries differing on catalogue-only mass) is consistent with masking before both DTI sums. Under that semantics, deleting only masked pixels should not change the score at all. The public rows and owner mirrors are not receipt-authenticated, so even this empirical cross-check is corroborative rather than a formal test of the private scorer. **Bottom line:** sparse pruning can explain why a family of reported DTI values rose; the file-level cause of the public 0.2778 remains unresolved.
+
 
 The one-time GitHub inventory covered 55 visible `buffedlizard55-lab` GEMSDOE repositories. It found 425 tracked TIFF paths representing 336 unique Git blobs; 334 one-band rasters matched the candidate's full grid, and two blobs were read but excluded for different geotransforms. Fetched bytes were verified against Git blob IDs. There were no fetch/read failures and no exact positive-mask matches. The maximum equal-mass Jaccard similarity was 0.011190567; the maximum positive-support Jaccard was 0.016857947.
 

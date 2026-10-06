@@ -78,25 +78,21 @@ bar as `α·s/(1 − α·s)` = 0.0549 at s = 0.26. The correct value is `α·s` 
 **0.0520**; the published form is **5.5 % too high**, so any emission threshold
 built on it stops too early. (IR-47-010.)
 
-## 4. The exact scale identity — a measurement device
+## 4. Scale identity — offline algebra, not a submission plan
 
-Both `T` and `F` are homogeneous of degree 1 in `p`, so
+Under the displayed local DTI formula, with a fixed truth, mask, footprint and scorer, positive scaling
+of a soft prediction gives `T(λp) = λT(p)` and `F(λp) = λF(p)`, while `K` is unchanged. Thus
 
 ```
-DTI(λp) = λT / (λα(T + F) + βK)      ⇒      1/DTI(λ) is LINEAR in 1/λ
+DTI(λp) = λT / (λα(T + F) + βK)      ⇒      1/DTI(λ) is linear in 1/λ
 ```
 
-Three returns from **one** file therefore solve for `T`, `F` and `K` in closed
-form:
-
-* **S1 ANCHOR** — λ = 1, byte-identical to a known live raster, so it cannot cost rank
-* **S2 SCALE** — λ = 0.5
-* **S3 NULL-ADD** — the anchor plus N dots placed where no truth is expected, so
-  their marginal credit is ≈ 0 and their cost is exactly α·N
-
-Conditioning is **56×–1380× better** than reading four decimal places off a single
-return. All three probes can be constructed to score *below* the anchor, so they
-cannot cost leaderboard rank. Designed, verified, **never spent** (H47-5).
+Exact returns at multiple scales could identify these terms **if** the organizer uses the same formula,
+masking, and scaling semantics. That scorer behavior and its private target are not available here. The
+previous proposal to collect anchor/scale/null-add returns was a measurement idea—not a geological
+detector—and is **not authorized for any competition slot**, even in an unlimited round. Do not assume
+null-added pixels have zero marginal credit, do not claim the probe cannot lower a rank, and do not use
+public score probes to imply private-set performance. Retain the identity for offline algebra only.
 
 ## 5. Required recall for a target score
 
@@ -104,24 +100,27 @@ cannot cost leaderboard rank. Designed, verified, **never spent** (H47-5).
 x = T/K = (αρ + β)/(1/DTI − α),     ρ = F/K
 ```
 
-| Target DTI | x at ρ = 0 | x at ρ = 1 | x at ρ = 8.02 (incumbent) |
+| Target DTI | x at ρ = 0 | x at ρ = 1 | x at ρ = 8.02 (illustrative only) |
 |---|---|---|---|
-| 0.2600 | 21.94 % | 27.43 % | 82.42 % |
-| 0.2708 | 22.90 % | 28.63 % | 86.03 % |
-| 0.2778 | 23.53 % | 29.41 % | 88.49 % |
-| **0.3195** | 27.30 % | 34.13 % | **102.73 % — impossible** |
-| 0.3262 | 27.92 % | 34.90 % | **104.98 % — impossible** |
+| 0.2600 | 21.94 % | 27.43 % | 65.93 % |
+| 0.2708 | 22.90 % | 28.63 % | 68.83 % |
+| 0.2778 (participant row; file unmapped) | 23.53 % | 29.41 % | 70.71 % |
+| 0.3195 (public rank 7, one-time capture) | 27.30 % | 34.13 % | 82.05 % |
+| 0.3262 (older #1 snapshot; superseded) | 27.92 % | 34.90 % | 83.89 % |
+| **0.3774 (one-time public #1)** | **32.66 %** | **40.82 %** | **98.13 %** |
 
-At the incumbent's waste ratio the 0.3195 target **cannot be reached at any
-recall** — recall cannot exceed 100 %. Reaching it requires `F/T` to roughly
-**halve**: same credit, half the wasted mass. It is a precision problem, not a
-coverage problem, and no amount of new detector mass solves it.
+Here `ρ = F/K`; the 8.02 column is only an algebraic scenario, **not a verified current
+incumbent ratio**. An earlier version mislabeled recall requirements at this ratio and claimed that
+0.3195 required 102.73 % recall. That contradicts the displayed equation: for `ρ = 8.02`, it requires
+82.05 %, while the one-time public leader reference 0.3774 requires 98.13 %. The earlier “impossible”
+claim is retracted. A high required recall in a hypothetical ratio scenario is not a forecast; exact
+private-target `T`, `F`, and `K` remain unknown.
 
-A perfect-knowledge ceiling of ≈0.78 follows from the same equation. The community
-leader at 0.3262 is therefore at ≈42 % of the achievable ceiling, which says the
-binding constraint is **knowing where the faults are**, not method.
+The expression also has a mathematical ceiling as `T/K → ∞` at fixed `F/K`, but no fixed ceiling is
+identified without a defensible hidden-target mass and false-positive ratio. Do not compare the public
+leaderboard score to a fitted ceiling as if it were validated truth.
 
-## 6. Why 0.2778 won
+## 6. What can and cannot be inferred about a reported 0.2778
 
 It is not a discovery, it is precision. Emitted mass along the family's
 trajectory:
@@ -134,14 +133,9 @@ trajectory:
 | h27-4-r1-solo (rank-1 corroboration) | 40,199 | 0.2708 | — | — |
 | h33-2-b2 (flank-pruned) | 37,654 | **0.2778** | 302,510 | — |
 
-Mass fell **69 %** from h19-5 to h33-2-b2 while the covered kernel integral fell
-only **33 %**. Each step removed mass whose marginal credit was below `α·DTI`.
-The final step removed every dot within 2 px of the given catalogue — dots on
-**masked** pixels, which cannot earn credit at all.
+On the owner-reported lineage, mass fell **69 %** from h19-5 to the alleged h33-2-b2 while the covered kernel integral fell only **33 %**. This is consistent with sparse thinning retaining higher-credit pixels and improving precision relative to the emitted mass. However, the public 0.2778 participant row is not mapped to that TIFF by an organizer receipt; the H33-2-B2 owner page marks the file **UNSCORED**.
 
-Read against §2, that is the whole story: `1/DTI` fell because `F/T` fell, and
-`F/T` fell because mass with near-zero marginal credit was deleted, not because
-any new fault was found.
+The owner-described final step removes dots within 2 px of the given catalogue. Under the working mask semantics in `knowledge/01_the_gems_target_population.md`, those dots are zeroed before both score sums; deleting only masked cells therefore cannot itself raise DTI. The attribution of the 0.2778 value to that operation is unsupported and may be false. The defensible interpretation is narrower: the reported family trajectory is compatible with thinning that removed low-marginal-credit **evaluated** mass faster than it removed kernel credit. Which exact file and operation produced the public 0.2778 score remains unresolved.
 
 ## 7. Two numerical traps in the expectation algebra
 
@@ -172,7 +166,7 @@ which only ever subtracts non-negative terms from 1, so `E[κ] ∈ [0,1]` by
 construction. Validated against 600-draw Monte-Carlo at three densities
 (z = −0.58, +0.28, −0.17).
 
-**Trap C — boundary fill.** Shifting `1 − q` and filling out-of-grid positions
-with `0.0` means `q = 1` there, i.e. *certain hidden truth beyond every border*.
-That inflated `E[κ]` along all four edges and made the dense and sparse paths
-disagree by 29 %. The fill must be `1.0`. (IR-47-014.)
+**Trap C — boundary fill.** In the local proxy implementation, shifting `1 − q` and filling out-of-grid positions
+with `0.0` artificially implied `q = 1` there. This was a boundary-handling bug, not evidence of real
+hidden truth beyond the grid. It inflated `E[κ]` along all four edges and made dense/sparse calculations
+disagree by 29 %. The corrected fill is `1.0`. (IR-47-014.)

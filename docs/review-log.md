@@ -40,6 +40,37 @@ Local review is complete; remote checks and the requested PR merge are pending.
 - The H47-B spatial experiment was **not rerun** after the already-observed locked result; subsequent edits harden publication/status wording and non-scoring formatting only. No new scientific result is claimed.
 - PR **#5** was opened from the fixed branch `arena/ff217a74-gemsdoe47` to `main`; its initial required GitHub `test` check passed. This review-log follow-up must also pass checks before merge. The GitHub PR history is the authoritative record of final-head checks and merge state; neither merge nor format validity changes H47-B's `NOT_PROMOTED` scientific status.
 
+## H47-QC follow-up — 2026-10-06, fixed Arena branch
+
+### Pass 1 — implement the frozen top-ranked hypothesis
+
+- Read the standing charter and produced the four-item ranked H47-QC hypothesis shortlist before candidate code or DTI scoring. The selected method combines quality-screened geothermometer consensus with aligned RTP/isostatic-gravity gradients.
+- Froze the input hashes, grouping, thresholds, weights, kernel/support, 5,000-point matched-budget controls, block roles, spacing sweep, conformal calculation, and fail-closed gate in `docs/preregistered-h47qc-20261006.md` before implementation.
+- Implemented a label-blind builder in `src/gems47/geochem_consensus.py` and the full block sweep in `scripts/run_h47qc.py`. The feature builder does not read `labels.tif` or the label-derived `dist_known_fault_px` field; labels are opened only after score fields are built.
+- Built the uniquely named all-finite binary research TIFF and an adjacent short note. SHA-256 is `3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2`; 5,000 positive cells, all values in `[0,1]`, one-band float32, EPSG:32611, 100 m.
+- The public-catalogue block screen selected 6 px / 600 m. H47-QC locked-test pooled DTI was **0.01316894**, below geochemistry-only **0.01419481**; random-within-support was 0.01285767. The 6-block split-conformal nominal level was **6/7 = 85.7%** and the clipped lower block-DTI floor was **0.0**. Fifty-four emitted cells overlap known public-catalogue labels. The preregistered gate failed; do not upload or spend a slot.
+
+### Pass 2 — scientific, code, provenance, and attribution review
+
+- Confirmed the top-ranked idea was genuinely new only within the explicitly reviewed implementation inventory; the source columns remain mirror-derived and their exact canonical GDR definitions were not verified.
+- Downloaded and Git-blob-verified all 336 TIFF blobs from the previously captured 55-repository public inventory. Against the 334 exact-grid one-band rasters: zero exact mask matches; maximum top-5,000 equal-mass Jaccard **0.00210442**, maximum positive-support Jaccard **0.00244346**. This is bounded artifact uniqueness, not global novelty or validation.
+- Rechecked the label-blind boundary, weight formula, support intersection, spacing selection, fixed block roles, controls, and report/hash linkage. Corrected the sample-template SHA-256 transcription in the preregistration to match the pinned manifest.
+- Scientific review found and corrected two historical overclaims: (1) the 0.2778 participant row is not authenticated to H33-2-B2, which the owner marks “UNSCORED”; deleting only catalogue-masked pixels cannot explain a score rise under the staff-described mask semantics; (2) the earlier 102.7% recall-at-`F/K=8.02` claim contradicted the displayed equation. The corrected illustrative values are 82.05% for 0.3195 and 98.13% for the one-time 0.3774 public-leader reference; `F/K=8.02` itself is unverified.
+- Reworked current-facing pages to keep the one-click artifact conspicuously **NOT PROMOTED / DO NOT SUBMIT**, update the stale leader reference, bound source and score claims, and prohibit using an unlimited round to bypass the holdout gate. README retains the project charter for future sessions.
+- A final narrative audit removed unverified claims that 706/716 official 1 m tiles were available, that the LATI `K` estimate was model-free, that the owner-reported mask comparison proved scorer internals, or that the 0.2778 association definitively falsified a hypothesis. The 3DEP exact-footprint coverage remains unmeasured. The NaN scan is now described as a demonstrated failure mode, not the proven cause of the missing historical rejection.
+
+### Pass 3 — full brief, tests, artifact and release check
+
+- `.venv/bin/ruff check .` and `git diff --check`: passed.
+- `PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -v`: **68 passed, 2 skipped**. The skips are optional tests requiring mirrored inputs; these inputs were available for the separate H47-QC run.
+- `PYTHONPATH=src .venv/bin/python -m pytest tests -q`: **106 passed, 2 skipped, 2 subtests passed**.
+- `src/gems47_metric.py`: **8/8** self-checks passed. `scripts/verify_grid.py`: **16/16** checks passed.
+- The final H47-QC GeoTIFF was reopened and passed the repository's read-back format/range checks: exactly 5,000 emissions, all finite, values `{0,1}`, no nodata sentinel, no out-of-footprint emissions. The local validator's `recommended_for_upload` is a *format-only* result; the scientific gate remains closed.
+- The final runner was rerun after adding a transparent implementation note about the one-pixel finite-difference support erosion. Scores and the TIFF remained byte-identical: pooled DTI 0.0131689425, spacing 6 px, clipped floor 0.0, TIFF SHA-256 `3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2`.
+- The evidence JSON in `evidence/` and identical GitHub-Pages copy in `docs/` have matching bytes. The report's candidate SHA-256 matches the TIFF, and the uniqueness audit references the same final hash.
+- Current non-archive site pages have 191 relative links checked with zero missing; the unit suite's site checks also pass. The verbatim `docs/prev-session/` historical snapshot is intentionally unchanged.
+- No competition portal access, upload, slot, leaderboard polling, or private-target claim was made. The PR/merge on the current fixed branch remains pending until remote checks are verified.
+
 ## Historical negative screens retained
 
 - H1 radiometric-halo first screen: full-domain matched-mass catalogue DTI 0.0156 vs 0.0369 seeded uniform control; negative screening evidence, not a spatial holdout.

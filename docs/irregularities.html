@@ -77,16 +77,16 @@
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
 <tr><td><b>IR-47-005</b></td>
-<td><b>A blocked holdout on the given catalogue cannot be scored under the organiser’s masking rule.</b>
-    With <code>mask_mode="zero"</code>, the holdout truth <i>is</i> the masked set, so
-    <code>g &amp; evaluated</code> is empty, <code>K = 0</code> and DTI ≡ 0 for every candidate. A first
-    run of that frame returned 0.0 for all four folds and all four arms.</td>
-<td>Sibling repositories report <b>non-zero</b> values on exactly this frame, so their scorers do not
-    apply the mask the organiser says is applied. Any conclusion drawn from that holdout is measuring a
-    different metric than the leaderboard’s.</td>
-<td>Frame F5 is scored <b>unmasked</b> and labelled as such, and is never used to select. Also recorded:
-    this frame rewards catalogue skill, which is the <i>opposite</i> of the target skill, so it is
-    structurally unfit for the purpose it has been used for.</td>
+<td><b>Catalogue-as-truth holdout is vacuous under one plausible mask interpretation.</b> If
+    <code>mask_mode="zero"</code> removes the catalogue from both sums, then <code>g &amp; evaluated</code>
+    is empty, <code>K = 0</code> and the local DTI is zero for every candidate. The local first run
+    returned 0.0 for all four folds/arms; that is a conditional calculation, not an organizer-scored test.</td>
+<td>Sibling repositories report nonzero values on this frame, but the file/score mappings are
+    owner-reported and lack organizer receipts. They cannot establish how the private scorer handles the
+    mask or whether its metric matches the local implementation.</td>
+<td>Frame F5 is labeled <b>unmasked</b> and is never used for candidate selection. Because its truth is
+    the given catalogue rather than newly mapped off-catalogue faults, it is not a target-relevant
+    selector regardless of the exact scorer internals.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
 <tr><td><b>IR-47-006</b></td>
@@ -150,22 +150,25 @@
 <tr><td><b>IR-47-011</b></td>
 <td><b>Whether scoring is restricted to a public-chunk footprint is unresolved.</b> No prior repository
     answers it, and no statement from the organiser was found.</td>
-<td>If the whole raster is scored but only public-chunk truth exists, mass in private chunks is
-    <b>pure false positive</b>. That changes the optimal emission from “cover the footprint” to “cover
-    the public chunks”, and it could account for part of the gap between 0.28 and 0.3262.</td>
-<td>Flagged, not assumed. The λ-probe design (H47-5) would settle it in three submissions. Manual
-    review: ask in the forum, or read the rules page for a public/private split statement.</td>
+<td>If the whole raster were scored but only public-chunk truth existed, predictions in private chunks
+    might incur false-positive cost. The scoring footprint is not established here. Do not use this
+    speculation to explain the captured 0.3774 public leader or any participant row.</td>
+<td>Flagged, not assumed. The earlier λ-probe design is not authorized under the no-slot rule. Seek an
+    official statement in the rules or a staff response; no submission experiment is justified without
+    a validated candidate.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
 <tr><td><b>IR-47-012</b></td>
-<td><b>The 1 m DEM was never used.</b> The competition supplies links to 716 USGS 3DEP 1 m tiles. Only a
-    sibling repository’s pre-derived 100 m LiDAR scarp rasters were reachable from this environment.</td>
-<td>Fault scarps are a metre-scale phenomenon. Averaging them to 100 m destroys the discriminating
-    signal — consistent with every LiDAR-derived layer ranking poorly here
-    (<code>lidar_coh100</code>, <code>lidar_strike</code>, <code>lidar_valid</code> among the worst of
-    72). The top of the leaderboard is almost certainly using the 1 m data directly.</td>
-<td>Flagged as the single largest untested lever. The derived 100 m rasters are used and their provenance
-    is recorded, but no claim is made that they represent the 1 m signal.</td>
+<td><b>1 m DEM coverage was not verified.</b> The official USGS 3DEP 1-meter collection is public,
+    but exact usable coverage/acquisition for the competition template was not checked. Earlier project
+    notes asserted 716 tiles; the referenced link list is absent from this checkout, so that count is
+    unverified. Only sibling-derived 100 m LiDAR scarp rasters were inspected here.</td>
+<td>Fine-scale scarps could be obscured by 100 m aggregation, but the owner-reported low ranks of
+    derived layers do not establish causality. The 0.3774 public leader’s files and use of 1 m data are
+    unknown.</td>
+<td>Flagged as an untested coverage/resolution question, not the explanation for any score. Audit exact
+    official tile footprints and dates first; consider a candidate only with adequate data and an
+    independent spatially blocked holdout.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
 <tr><td><b>IR-47-013</b></td>

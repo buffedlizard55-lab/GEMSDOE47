@@ -2,7 +2,11 @@
 
 ## Current state
 
-The frozen H47-B public-catalogue screen has run; it is not a future plan. It used 4 × 4 disjoint block cores with a 3-pixel/300 m guard, five selection blocks, six calibration blocks, and five locked-test blocks. H47-B scored 0.027553 pooled on locked blocks, versus 0.025639 for the tuned single-scale baseline and 0.037159 for the fixed-seed random control. Its assumption-conditional split-conformal lower floor was 0.0. Five blocks had no catalogue truth. **The gate failed; no candidate is promoted and no slot is authorized.** See [`validation-h47b-20261006.md`](validation-h47b-20261006.md) and the frozen [`preregistered-h2.md`](preregistered-h2.md).
+Two public-catalogue screens have run; neither is a future plan or private-target validation. H47-B used 4 × 4 disjoint block cores with a 3-pixel/300 m guard, five selection blocks, six calibration blocks, and five locked-test blocks. It scored 0.027553 pooled on locked blocks, versus 0.025639 for the tuned single-scale baseline and 0.037159 for the fixed-seed random control; its assumption-conditional split-conformal lower floor was 0.0. Five blocks had no catalogue truth. See [`validation-h47b-20261006.md`](validation-h47b-20261006.md) and [`preregistered-h2.md`](preregistered-h2.md).
+
+H47-QC separately used a frozen 4 × 4 block split, selected 6 px / 600 m, and scored 0.0131689425 on its locked test versus 0.0141948068 for the geochemistry-only ablation. Its six-block split-conformal nominal level was 6/7 = 85.7%, with a clipped lower floor of 0.0 under unverified block-score exchangeability. Its preregistered gate failed. See [`preregistered-h47qc-20261006.md`](preregistered-h47qc-20261006.md) and [`h47qc-screen-20261006.json`](h47qc-screen-20261006.json).
+
+**No candidate is promoted and no slot is authorized.** H47-B and H47-QC use distinct candidate definitions and holdout screens; do not compare their raw DTI values as if they were one standardized leaderboard.
 
 The experiment used group-hosted mirrors, not authenticated organizer downloads. The local DTI implementation was transcribed from the official [problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/); it is not an organizer-run private scorer. A public-label score cannot establish performance on expert-private labels.
 

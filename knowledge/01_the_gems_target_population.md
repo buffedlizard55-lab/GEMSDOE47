@@ -26,7 +26,7 @@ Two consequences that dominate every design decision:
    relay ramps, parallel strands, stepovers — sits immediately adjacent to mapped
    traces. The target is a **halo that is adjacent to but not on** the catalogue.
 
-## 3. Masking — and how it was confirmed empirically
+## 3. Masking — staff wording and limits of the empirical clue
 
 > "Pixels corresponding to known USGS/INGENIOUS faults are masked / excluded from
 > evaluation, so they do not count towards penalty terms. ... for scoring purposes
@@ -35,32 +35,26 @@ Two consequences that dominate every design decision:
 > — DrivenData staff (`chrisk-dd`), thread 11516, 2026-09-16
 > https://community.drivendata.org/t/scoring-clarification-masked-pixels-and-re-evaluation/11516
 
-**Mass on catalogue pixels is free but useless.** It earns nothing and, if the
-mask is applied only to the penalty term, it costs α per unit.
+**Masked-catalogue prediction mass should earn no credit and should be irrelevant to scoring if the organizer's mask is applied to both prediction and truth.** If only the false-positive penalty were masked, those predictions would instead cost α per unit; that alternative must not be silently assumed.
 
-The word "should" in that answer is doing work, so it was tested rather than
-trusted. A natural experiment exists in the recovered bytes:
-`8GEMSDOE_Hedge-v2_submission.tif` is byte-identical to
-`gemsdoe-ens12-adopted-7f00890a.tif` off the catalogue and additionally carries
-all **60,988** catalogue pixels at p = 1. Both returned **exactly 0.1563**.
+A byte comparison of the recovered mirrors shows that `8GEMSDOE_Hedge-v2_submission.tif` is identical
+to `gemsdoe-ens12-adopted-7f00890a.tif` off the catalogue and adds catalogue pixels at p = 1. The
+associated owner-reported scores are both 0.1563 to four decimals, but no organizer receipt binds
+those hashes to that return. The staff statement and comparison are **consistent** with known pixels
+being excluded from both sums; they do not verify the portal implementation.
 
-* If masked mass could still donate credit to adjacent new-fault pixels, adding
-  54,533 dots hugging the catalogue would have *raised* T measurably — new-fault
-  geometry is by definition adjacent to existing traces. It did not move the
-  fourth decimal.
-* If catalogue pixels were not masked at all, the score would have collapsed.
+**Local working assumption only:** `mask_mode="zero"` removes known cells from both sums. Under that
+rule, deleting only masked predictions cannot improve DTI. Since the 0.2778 participant row is not
+mapped to H33-2-B2 by an organizer receipt, do not claim that its alleged catalogue deletion caused the
+score change.
 
-**Conclusion: masked pixels are zeroed before both sums.** Implemented as
-`mask_mode="zero"`.
+### Conditional consequence for catalogue-based holdouts
 
-### A structural consequence most people miss
-
-Under that masking, **a blocked holdout whose truth is the given catalogue cannot
-be scored at all**: `truth & evaluated` is empty, `K = 0`, and DTI ≡ 0 for every
-candidate. Sibling repositories report non-zero values on exactly that frame, so
-their scorers do not apply the organiser's mask — and the frame rewards catalogue
-skill, which is the *opposite* of the target skill. It is structurally unfit for
-selecting candidates in this competition. (IR-47-005.)
+If an evaluator masks the known catalogue from both truth and prediction, a holdout whose truth is
+only the catalogue has empty `truth & evaluated`, `K = 0`, and DTI ≡ 0 for every candidate. This is a
+conditional property of that interpretation, not proof of the portal's internals. Do not infer scorer
+behavior from owner-reported nonzero values on local catalogue frames; those mappings are not
+organizer-authenticated. Such a frame is not used for candidate selection here. (IR-47-005.)
 
 ## 4. The grid
 
@@ -72,8 +66,8 @@ selecting candidates in this competition. (IR-47-005.)
 | Bounds (m) | 243350 / 4135550 / 572550 / 4508550 |
 | Resolution | 100 m |
 | Footprint (`labels != −1`) | 5,167,373 px — identical to `isfinite(sample_submission)` |
-| Catalogue (`labels == 1`, masked) | 60,988 px |
-| **Evaluated** (footprint ∧ ¬catalogue) | **5,106,385 px** |
+| Catalogue-marked labels (`labels == 1`) | 60,988 px; staff describes these as masked/excluded |
+| **Local proxy scoring domain** (footprint ∧ ¬catalogue) | **5,106,385 px**; not a verified private scorer mask |
 | `labels.tif` | int8, nodata −1 |
 | `sample_submission.tif` | float32, 1 band, nodata nan, values {0,1}, **60,988 ones — all on `labels==1`, so it is not all-zero** |
 | `training_features.tif` | float32, 19 bands, nodata **−3.4028234663852886e+38** |
@@ -122,9 +116,9 @@ bilinear) + HFlip + VFlip + RandomRotation(30)`.
 
 | Layer | Bands | Notes |
 |---|---|---|
-| `lidar_scarp_features_u8.tif` | `ex_max, ex_mean, step_max, lapneg_max, lappos_max, downface_max, upface_max, cross_max, relief, coh100, strike, valid` | derived from 706 USGS 3DEP **1 m** tiles, then resampled to 100 m — which destroys the discriminating signal (IR-47-012) |
+| `lidar_scarp_features_u8.tif` | `ex_max, ex_mean, step_max, lapneg_max, lappos_max, downface_max, upface_max, cross_max, relief, coh100, strike, valid` | sibling-derived 100 m layers described as LiDAR scarp features; claimed 1 m source provenance and exact tile coverage/acquisition were not independently verified (IR-47-012) |
 | `geodawn_rad_u8.tif` | `K, Th, U, TC` | GeoDAWN radiometrics |
-| `geodawn_extensions_u8.tif` | `ThK, UK, UTh, TMI_up150` | ratios + **150 m upward-continued TMI** — the depth filter nobody used |
+| `geodawn_extensions_u8.tif` | `ThK, UK, UTh, TMI_up150` | ratios + **150 m upward-continued TMI**; persistence was screened as H47-B and not promoted |
 | `derived_sgmc_faults_100m_u8.tif` | 1 | 83,593 px, of which **62,122 px** lie >300 m off the given catalogue |
 | `gdr_qfaults_traces.csv` | — | 1,126 traces with slip rate, recency, dip, slip sense, length, centroids |
 | `gdr_wellspring_in_footprint.csv` | — | 27,092 spring-chemistry / water-well points with temperature and three geothermometers |
