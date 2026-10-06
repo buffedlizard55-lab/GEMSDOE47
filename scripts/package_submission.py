@@ -35,14 +35,14 @@ def _promotion_gate(report: dict, prediction: Path, template: Path, features: Pa
         "matched_mass",
         "controls_reported",
     )
-    if type(report.get("schema_version")) is not int or report["schema_version"] != 1:
-        raise ValueError("promotion report schema_version must be integer 1")
+    if type(report.get("schema_version")) is not int or report["schema_version"] != 2:
+        raise ValueError("promotion report schema_version must be integer 2")
     if report.get("hypothesis_id") != "H47-A":
         raise ValueError("only a reviewed H47-A promotion report is accepted by this packager")
     if report.get("status") != "promoted":
         raise ValueError("promotion report status must be 'promoted'")
-    if report.get("score_metric") != "official_dw_tversky":
-        raise ValueError("promotion report must identify the official_dw_tversky metric")
+    if report.get("score_metric") != "drivendata_distance_weighted_tversky":
+        raise ValueError("promotion report must identify the DrivenData distance-weighted Tversky metric")
     if not isinstance(report.get("report_id"), str) or not report["report_id"].strip():
         raise ValueError("promotion report needs a non-empty string report_id")
     for key in required_true:
@@ -54,9 +54,9 @@ def _promotion_gate(report: dict, prediction: Path, template: Path, features: Pa
     for key in ("domain_matched_random_control_reported", "ablations_reported"):
         if evidence.get(key) is not True:
             raise ValueError(f"promotion evidence is incomplete: {key} must be true")
-    scorer_version = evidence.get("official_scorer_version")
-    if not isinstance(scorer_version, str) or not scorer_version.strip():
-        raise ValueError("promotion evidence must pin the official scorer version")
+    metric_implementation = evidence.get("metric_implementation")
+    if not isinstance(metric_implementation, str) or not metric_implementation.strip():
+        raise ValueError("promotion evidence must pin the local DTI formula implementation")
     for key in ("preregistration_sha256", "fold_assignment_sha256"):
         value = evidence.get(key)
         if not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{64}", value):
@@ -150,7 +150,7 @@ def _promotion_gate(report: dict, prediction: Path, template: Path, features: Pa
     return {
         "report_id": report["report_id"],
         "model_code_revision": code_revision,
-        "official_scorer_version": evidence["official_scorer_version"],
+        "metric_implementation": evidence["metric_implementation"],
         "preregistration_sha256": evidence["preregistration_sha256"],
         "fold_assignment_sha256": evidence["fold_assignment_sha256"],
         "folds": len(folds),

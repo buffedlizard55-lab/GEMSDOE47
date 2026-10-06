@@ -1,46 +1,63 @@
-# What the scores do—and do not—tell us
+# Results and leaderboard attribution — corrected 2026-10-06
 
-**Evidence cutoff:** official sources and pages checked on 2026-10-06 UTC. The competition leaderboard is volatile. This is a research note, not a score forecast.
+> **No score from this project is a DrivenData leaderboard score. H47-B is not promoted and is not eligible for a submission slot.** This page supersedes the previous score-ladder and “conformal floor” interpretation.
 
-## First correction: 0.2778 is not verified as the H33 TIFF's score
+## Decision in brief
 
-The user-provided history associates `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` with **0.2778**. The public [GEMSDOE32 landing page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html), however, calls that artifact **UNSCORED**, describes 0.2747 as a *model projection*, and says no organizer score exists for the candidate. The current official public leaderboard shows **participant** rows, not TIFF filenames; the 0.2778 row is participant `extradr19`. A row score cannot establish which file produced it. GEMSDOE41's dated audit also labels the H33 filename-to-score mapping as user-reported and unauthenticated. Therefore:
+H47-B is a new magnetic-edge persistence screen and its mask has low similarity to the accessible sibling-repository TIFFs checked in this audit. Its local output-format audit passed. It nevertheless failed the preregistered scientific promotion gate: the locked-test candidate lost to the fixed-seed random control and the assumption-conditional conformal lower floor was zero. Do not upload it.
 
-- “H33-2-B2 earned 0.2778” is **not independently verified** from the official leaderboard or the linked artifact page.
-- The exact causal question “why did this TIFF get 0.2778?” is **not answerable from evidence currently available**.
-- The defensible answer is conditional: if the group did submit a corresponding file under a team account, sparse emission and catalogue-flank pruning are plausible reasons it could perform well, but this is a hypothesis, not a measured attribution.
+The detailed measurements, per-block results, input provenance, output audit, and scope of the uniqueness check are in the [H47-B validation report](validation-h47b-20261006.md). The complete sanitized experiment record is [`h47b-screen-report-20261006.json`](h47b-screen-report-20261006.json).
 
-## The board moved beyond the prompt's 0.3195
+## Latest saved public leaderboard evidence
 
-A one-time read of the [official public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) on 2026-10-06 UTC showed:
+A one-time read of the official [DrivenData public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) on 2026-10-06 was recorded as follows:
 
-| Rank | Participant | Best public DW-Tversky |
-|---:|---|---:|
-| 1 | alexoktaba | **0.3345** |
-| 2 | nchuzhoy | 0.3262 |
-| 3 | kinghorton42 | 0.3222 |
-| 4 | Batik Shirt Brothers | 0.3218 |
-| 5 | DARD | 0.3195 |
-| 13 | extradr19 | 0.2778 |
+| Public row | Score | What is retained |
+|---|---:|---|
+| Rank 1 | **0.3774** | Participant name was not preserved in the session record. |
+| DARD, rank 7 | **0.3195** | Participant-level public score. |
+| `extradr19`, rank 13 | **0.2778** | Participant-level public score. |
 
-This is a dated public snapshot, not a private-test score or final award result. The leaderboard does not associate a participant's score with a particular raster. Automated polling is intentionally not implemented: DrivenData's [Terms of Use](https://www.drivendata.org/termsofuse/) prohibit robot/spider or other automatic access for monitoring/copying, and also prohibit manual monitoring/copying without prior written consent. The site links the live board and retains this dated snapshot instead.
+The earlier checked-in snapshot and web pages listed **0.3345 as rank 1** and DARD at rank 5. That is stale relative to the later captured read and has been superseded; the older participant name and intermediate rows are not carried forward because they cannot be verified from the saved record. The leaderboard is a moving public display, not a feed. This project does not automate access or monitoring.
 
-## What is scientifically plausible about a sparse H33-style result?
+**Crucial attribution boundary:** the public board reports participant rows, not TIFF filenames, exact file hashes, or organizer receipt IDs. None of the rows above identifies a particular TIFF. `0.3195` is not the latest captured rank-1 score. `0.2778` is not verified as the score of the GEMSDOE32 H33-2-B2 TIFF: the owner page marks that candidate **UNSCORED**, and the participant-level board cannot repair the missing mapping. The user-provided result list remains a user report; see [prior results](prior-results.md).
 
-The official [problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) specifies a distance-weighted Tversky score with `alpha = 0.2`, `beta = 0.8`, and a triangular kernel with 300 m support. In the published formula, false positives are penalized less than false negatives, and predictions closer to truth receive more credit than distant predictions. This favors *useful coverage*, not simply dense probability everywhere.
+## Retraction: old score model and alleged conformal floor
 
-The official equations define three coupled terms: distance-weighted true positives, false positives weighted by distance from the nearest truth, and false negatives reduced by the best nearby prediction. Adding confidence at one pixel can change more than one term; its marginal value depends on its nearest-truth kernel, whether it becomes the best cover for one or several truth pixels, and the existing prediction/label geometry. Therefore there is no single `alpha`-only pixel-ranking shortcut in this note. Use the pinned official reference scorer on whole holdout maps. A 300 m rasterization tolerance is a scoring feature, not permission to draw arbitrary blobs.
+The previous pages reported a modeled `0.34912` score and a purported split-conformal lower floor of `0.34837` at 75%. **That claim is retired and must not be reused.** The inputs were selected rungs from a single monotone deletion family, not demonstrated exchangeable calibration examples; the 0.2778 score-to-file link was not organizer-authenticated; and the selected operating point was a long extrapolation. These conditions do not support the represented distribution-free guarantee or a claim of private/leaderboard performance. The values are preserved only as an explicitly retired historical record in [`notes/results-retired-unverified-20261006.json`](../notes/results-retired-unverified-20261006.json) and in the prior-result notes.
 
-If an H33-2-B2-like file really was submitted, a plausible mechanism is that it removed some redundant prediction mass near already mapped traces while retaining enough nearby coverage of genuinely new faults. Its own project page reports an internal live-mirror improvement and a projected score, but also marks the file unscored. Without the exact prediction bytes, official submission receipt, and labels, we cannot separate a successful scientific detector from a fortunate budget change or a filename/score mismatch.
+The older `docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif` is derived by pruning a published sibling mask. It is not a new detector, does not meet the user's no-copy submission requirement, and is retained only for historical audit. Its byte uniqueness does not make its prediction scientifically unique.
 
-## What would be needed to claim a genuine improvement?
+## H47-B public-catalogue screen
 
-1. The authorized competition feature/label/template files and checksums.
-2. A preregistered, spatially blocked, 300 m-guarded holdout. Model fitting and feature selection must exclude the held-out block; scoring a full-map fit against its training labels is leakage.
-3. A same-mass comparison to the best local holdout baseline, fold-level results, and null controls. Existing-label holdout is only a proxy: the private target is expert-labeled faults absent from the public USGS database, so success on known traces does not prove discovery performance.
-4. A candidate-to-leaderboard mapping backed by an organizer submission receipt. Public participant best scores alone do not supply this mapping.
-5. A final one-file decision that considers the contest's expanded-label final round, not just a public score. The official competition page explains the two-round expert-review structure.
+The experiment used the rank-encoded `TMI_up150` channel from a public group-hosted GeoDAWN mirror; the labels and sample template were also mirrored, not acquired through an authenticated organizer download. The preregistered 4 × 4 spatial screen used disjoint 300 m-guarded block cores and matched emission mass. DTI was computed by this repository's implementation of the formula in the official [problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/); it was not an organizer-run scorer.
 
-## Current decision
+| Locked-test result | DTI |
+|---|---:|
+| H47-B, selected spacing 5 px / 500 m | 0.02755344 |
+| Tuned single-scale edge baseline, 5 px / 500 m | 0.02563947 |
+| Fixed-seed random control, matched mass and spacing | **0.03715911** |
 
-This repository contains no competition rasters, model, incumbent holdout result, or prior TIF. The top-ranked new candidate in [`hypotheses.md`](hypotheses.md) is H47-A, but it cannot be validated until authorized competition inputs are available. The submission gate is therefore **CLOSED**. No previous TIFF was copied and no unvalidated/zero placeholder is presented as a competitive submission.
+The candidate beat the baseline but lost to random. The unweighted mean block DTIs were 0.01197844, 0.01099731, and 0.02181179 respectively. Two of the five locked blocks had no catalogue truth; three had truth, and random exceeded H47-B in all three. Five of the 16 total blocks were empty, including two calibration blocks. The nominal 6/7 conformal calculation produced a clipped lower floor of **0.0**, with exchangeability unverified. These are useful negative screening results, not evidence that magnetic data cannot help.
+
+The descriptive full-domain DTI values (H47-B 0.04642384; baseline 0.04727772; random 0.03601067) use all available public catalogue labels and are **not** holdout or hidden-target estimates. Do not present them as predictive performance.
+
+## Uniqueness: bounded finding, not a promotion argument
+
+The one-time GitHub inventory covered 55 visible `buffedlizard55-lab` GEMSDOE repositories. It found 425 tracked TIFF paths representing 336 unique Git blobs; 334 one-band rasters matched the candidate's full grid, and two blobs were read but excluded for different geotransforms. Fetched bytes were verified against Git blob IDs. There were no fetch/read failures and no exact positive-mask matches. The maximum equal-mass Jaccard similarity was 0.011190567; the maximum positive-support Jaccard was 0.016857947.
+
+That supports a narrow statement: **the H47-B mask was not an exact match to any of those 334 accessible, comparable rasters in the inventory.** It does not prove global uniqueness, cover private/deleted/unindexed prior files, establish a score attribution, or override H47-B's failed holdout gate. The tracked [full uniqueness-audit JSON](h47b-uniqueness-audit-20261006.json) includes the inventory identities, all comparisons, and the two exclusions; additional raw downloads and the original run environment remain under ignored `work/audit/`.
+
+## Metric and interpretation limits
+
+The official problem description defines weighted `TPw`, `FPw`, and `FNw`; using `FNw = Ng − TPw` gives
+
+```text
+DTI = 5 × TPw / (TPw + FPw + 4 × Ng)
+```
+
+`src/gems47_metric.py` implements that formula and includes regression checks, including the official worked-example components. This repository implementation has not been run by the organizer. Reducing the formula further to a function of a presumed dot count requires extra assumptions about prediction values and distance-weighted false positives; those assumptions do not authenticate old scores or identify a TIFF.
+
+## What would change the decision
+
+A future candidate needs a preregistered, reproducible gain over the **current spatially blocked holdout best**, plus meaningful null/random and domain controls; sufficient label coverage; a conformal floor only if its assumptions are defensible; a fresh byte-level output audit; and a uniqueness check with explicit coverage limits. It must be a new prediction, not a pruned prior map. Until all gates pass, retain the slot. See the [validation protocol](validation-protocol.md), [submission guide](submit.html), and [irregularity register](irregularities.md).

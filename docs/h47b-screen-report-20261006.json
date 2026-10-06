@@ -1,0 +1,581 @@
+{
+  "acquisition_block_subgroup_audit": [
+    {
+      "block_id": 1,
+      "dti": 0.02695578060580852,
+      "guard_px": 3,
+      "positive_prediction": 4487,
+      "positive_truth": 19987,
+      "valid_pixels": 2259645
+    },
+    {
+      "block_id": 2,
+      "dti": 0.06372962992923446,
+      "guard_px": 3,
+      "positive_prediction": 9702,
+      "positive_truth": 22072,
+      "valid_pixels": 1562077
+    },
+    {
+      "block_id": 3,
+      "dti": 0.06259212588324298,
+      "guard_px": 3,
+      "positive_prediction": 3371,
+      "positive_truth": 9612,
+      "valid_pixels": 748457
+    },
+    {
+      "block_id": 4,
+      "dti": 0.028920847431694312,
+      "guard_px": 3,
+      "positive_prediction": 872,
+      "positive_truth": 8633,
+      "valid_pixels": 542249
+    }
+  ],
+  "artifact": {
+    "format_audit": {
+      "above_one_pixels": 0,
+      "bands": 1,
+      "below_zero_pixels": 0,
+      "crs": "EPSG:32611",
+      "dtype": "float32",
+      "footprint_source": "work/bridge/labels.tif",
+      "height": 3730,
+      "invalid_inside_pixels": 0,
+      "max_in_footprint": 1.0,
+      "min_in_footprint": 0.0,
+      "nodata": "NaN",
+      "non_nan_outside_pixels": 0,
+      "outside_pixels": 7111787,
+      "range": [
+        0.0,
+        1.0
+      ],
+      "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
+      "status": "PASS",
+      "submission": "work/candidates/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+      "template": "work/bridge/sample_submission.tif",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "valid_pixels": 5167373,
+      "width": 3292
+    },
+    "future_candidate_boundary": "Any future authorized-input detector must be a separately preregistered candidate with a new hypothesis ID, evidence record, and filename; this H47-B file remains research-only.",
+    "path": "work/candidates/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+    "portal_note": "RESEARCH ONLY \u2014 NOT FOR SUBMISSION. Public-mirror H47-B cannot confer slot eligibility. Metric-screen failures: locked-test pooled DTI did not beat the fixed-seed random control; assumption-conditional conformal lower bound is not positive.",
+    "positive_pixels": 18524,
+    "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
+    "unique_name": "gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif"
+  },
+  "baseline_selected_spacing_m": 500,
+  "baseline_selected_spacing_px": 5,
+  "baseline_selection_mean_dti": 0.05203546468455439,
+  "block_protocol": {
+    "calibration_block_ids": [
+      0,
+      3,
+      6,
+      9,
+      12,
+      15
+    ],
+    "guard_m": 300,
+    "guard_px": 3,
+    "locked_test_block_ids": [
+      2,
+      5,
+      8,
+      11,
+      14
+    ],
+    "ncols": 4,
+    "nrows": 4,
+    "selection_block_ids": [
+      1,
+      4,
+      7,
+      10,
+      13
+    ],
+    "spatial_independence": "not assumed or established",
+    "split_rule": "block id (row + column) mod 3; fixed before scoring"
+  },
+  "conformal_lower_bound": {
+    "alpha": 0.14285714285714285,
+    "assumption": "marginal block-score exchangeability; unverified under spatial dependence",
+    "calibration_scores": [
+      0.04322933766477053,
+      0.024200994807156897,
+      0.03694814002634576,
+      0.07157693522867917,
+      0.0,
+      0.0
+    ],
+    "lower_bound_clipped": 0.0,
+    "n_calibration_blocks": 6,
+    "nominal_coverage": 0.8571428571428572,
+    "one_sided_residuals": [
+      0.0053748853320150294,
+      0.024403228189628662,
+      0.011656082970439796,
+      -0.022972712231893608,
+      0.04860422299678556,
+      0.04860422299678556
+    ],
+    "quantile": 0.04860422299678556,
+    "rank_1_based": 6,
+    "scope": "future comparable public-catalogue block DTI, not private-label/leaderboard DTI",
+    "selection_mean": 0.04860422299678556,
+    "sorted_residuals": [
+      -0.022972712231893608,
+      0.0053748853320150294,
+      0.011656082970439796,
+      0.024403228189628662,
+      0.04860422299678556,
+      0.04860422299678556
+    ]
+  },
+  "emission": {
+    "budget_per_candidate": 18524,
+    "candidate_rule": "descending score; ties by row-major flat index; greedy Euclidean min separation",
+    "selection_rule": "highest mean DTI on five selection blocks; tie favors larger spacing",
+    "spacings_m": [
+      200,
+      300,
+      400,
+      500,
+      600
+    ],
+    "spacings_px": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "feature_channel": "TMI_up150; uint8 rank encoding, not physical units",
+  "feature_diagnostics": {
+    "gradient_quantiles": [
+      0.06901354342699051,
+      0.04406334459781647,
+      0.02401825413107872
+    ],
+    "normalization_quantile": 0.99,
+    "orientation_pair_count": 3,
+    "scales_px": [
+      2.0,
+      4.0,
+      8.0
+    ],
+    "score_type": "cross-scale normalized magnetic-edge persistence; uncalibrated",
+    "support_threshold": 0.99,
+    "valid_support_pixels": 4856877
+  },
+  "feature_manifest_sha256": "56556f24c051043fd7a85587786118f8064624f2ad0604aaa3e6614f1a9f6d2f",
+  "full_domain_alignment": {
+    "H47B_dti_against_mirrored_catalogue": 0.04642384041012774,
+    "baseline_dti_against_mirrored_catalogue": 0.04727772348258497,
+    "interpretation": "descriptive full-label alignment only; not a spatial holdout or hidden-target score",
+    "random_dti_against_mirrored_catalogue": 0.036010665031522775
+  },
+  "grid": {
+    "crs": "EPSG:32611",
+    "height": 3730,
+    "resolution_m": 100,
+    "transform": [
+      243350.0,
+      100.0,
+      0.0,
+      4508550.0,
+      0.0,
+      -100.0
+    ],
+    "width": 3292
+  },
+  "hypothesis_id": "H47-B",
+  "input_sha256": {
+    "acquisition_blocks": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a",
+    "features": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+    "labels": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+    "template": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+  },
+  "limitations": [
+    "the mirrored catalogue labels and sample template were not independently authenticated against organizer downloads",
+    "TMI_up150 is one quantized upward-continuation channel, not raw magnetic data or a physical tilt-depth solution",
+    "block scores are spatially dependent; conformal level is conditional on an unverified exchangeability assumption",
+    "the public label catalogue is not the private target of newly mapped faults",
+    "no official leaderboard score or 0.2778 TIFF mapping is inferred from this experiment",
+    "this script always marks H47-B as not slot-eligible and never publishes a non-research filename"
+  ],
+  "locked_test": {
+    "H47B_mean_block_dti": 0.011978435238073543,
+    "H47B_pooled_dti": 0.02755344310252606,
+    "baseline_mean_block_dti": 0.01099730895861253,
+    "block_details": [
+      {
+        "H47B_dti": 0.04322933766477053,
+        "H47B_positive_predictions": 2187,
+        "baseline_dti": 0.04618998726523071,
+        "baseline_positive_predictions": 2157,
+        "block_id": 0,
+        "column": 0,
+        "positive_truth_pixels": 4876,
+        "random_dti": 0.03383783544333562,
+        "random_positive_predictions": 1779,
+        "role": "calibration",
+        "row": 0
+      },
+      {
+        "H47B_dti": 0.035949067668527145,
+        "H47B_positive_predictions": 1848,
+        "baseline_dti": 0.02802466955375683,
+        "baseline_positive_predictions": 1753,
+        "block_id": 1,
+        "column": 1,
+        "positive_truth_pixels": 6067,
+        "random_dti": 0.038869374927547926,
+        "random_positive_predictions": 2895,
+        "role": "selection",
+        "row": 0
+      },
+      {
+        "H47B_dti": 0.006277852673496135,
+        "H47B_positive_predictions": 804,
+        "baseline_dti": 0.004258323407782995,
+        "baseline_positive_predictions": 713,
+        "block_id": 2,
+        "column": 2,
+        "positive_truth_pixels": 6091,
+        "random_dti": 0.03766768149435112,
+        "random_positive_predictions": 2382,
+        "role": "locked_test",
+        "row": 0
+      },
+      {
+        "H47B_dti": 0.024200994807156897,
+        "H47B_positive_predictions": 957,
+        "baseline_dti": 0.019110756094419583,
+        "baseline_positive_predictions": 910,
+        "block_id": 3,
+        "column": 3,
+        "positive_truth_pixels": 5266,
+        "random_dti": 0.03872568356549973,
+        "random_positive_predictions": 2182,
+        "role": "calibration",
+        "row": 0
+      },
+      {
+        "H47B_dti": 0.09766530788290376,
+        "H47B_positive_predictions": 3749,
+        "baseline_dti": 0.10969395998161485,
+        "baseline_positive_predictions": 4246,
+        "block_id": 4,
+        "column": 0,
+        "positive_truth_pixels": 7396,
+        "random_dti": 0.035897064443832886,
+        "random_positive_predictions": 1448,
+        "role": "selection",
+        "row": 1
+      },
+      {
+        "H47B_dti": 0.05035309917956381,
+        "H47B_positive_predictions": 4066,
+        "baseline_dti": 0.047470118329684396,
+        "baseline_positive_predictions": 4165,
+        "block_id": 5,
+        "column": 1,
+        "positive_truth_pixels": 10600,
+        "random_dti": 0.039599206869292816,
+        "random_positive_predictions": 2789,
+        "role": "locked_test",
+        "row": 1
+      },
+      {
+        "H47B_dti": 0.03694814002634576,
+        "H47B_positive_predictions": 222,
+        "baseline_dti": 0.041897798981566,
+        "baseline_positive_predictions": 197,
+        "block_id": 6,
+        "column": 2,
+        "positive_truth_pixels": 992,
+        "random_dti": 0.024187005054110602,
+        "random_positive_predictions": 189,
+        "role": "calibration",
+        "row": 1
+      },
+      {
+        "H47B_dti": 0.0,
+        "H47B_positive_predictions": 0,
+        "baseline_dti": 0.0,
+        "baseline_positive_predictions": 0,
+        "block_id": 7,
+        "column": 3,
+        "positive_truth_pixels": 0,
+        "random_dti": 0.0,
+        "random_positive_predictions": 0,
+        "role": "selection",
+        "row": 1
+      },
+      {
+        "H47B_dti": 0.0,
+        "H47B_positive_predictions": 0,
+        "baseline_dti": 0.0,
+        "baseline_positive_predictions": 0,
+        "block_id": 8,
+        "column": 0,
+        "positive_truth_pixels": 0,
+        "random_dti": 0.0,
+        "random_positive_predictions": 0,
+        "role": "locked_test",
+        "row": 2
+      },
+      {
+        "H47B_dti": 0.07157693522867917,
+        "H47B_positive_predictions": 2376,
+        "baseline_dti": 0.07312765730521804,
+        "baseline_positive_predictions": 2231,
+        "block_id": 9,
+        "column": 1,
+        "positive_truth_pixels": 5489,
+        "random_dti": 0.03331440942253533,
+        "random_positive_predictions": 1520,
+        "role": "calibration",
+        "row": 2
+      },
+      {
+        "H47B_dti": 0.049978364417391966,
+        "H47B_positive_predictions": 1099,
+        "baseline_dti": 0.05135097578677041,
+        "baseline_positive_predictions": 1043,
+        "block_id": 10,
+        "column": 2,
+        "positive_truth_pixels": 4166,
+        "random_dti": 0.043176145896500866,
+        "random_positive_predictions": 1044,
+        "role": "selection",
+        "row": 2
+      },
+      {
+        "H47B_dti": 0.0,
+        "H47B_positive_predictions": 0,
+        "baseline_dti": 0.0,
+        "baseline_positive_predictions": 0,
+        "block_id": 11,
+        "column": 3,
+        "positive_truth_pixels": 0,
+        "random_dti": 0.0,
+        "random_positive_predictions": 0,
+        "role": "locked_test",
+        "row": 2
+      },
+      {
+        "H47B_dti": 0.0,
+        "H47B_positive_predictions": 0,
+        "baseline_dti": 0.0,
+        "baseline_positive_predictions": 0,
+        "block_id": 12,
+        "column": 0,
+        "positive_truth_pixels": 0,
+        "random_dti": 0.0,
+        "random_positive_predictions": 0,
+        "role": "calibration",
+        "row": 3
+      },
+      {
+        "H47B_dti": 0.059428375015104916,
+        "H47B_positive_predictions": 530,
+        "baseline_dti": 0.07110771810062985,
+        "baseline_positive_predictions": 541,
+        "block_id": 13,
+        "column": 1,
+        "positive_truth_pixels": 3861,
+        "random_dti": 0.021682289118415153,
+        "random_positive_predictions": 365,
+        "role": "selection",
+        "row": 3
+      },
+      {
+        "H47B_dti": 0.0032612243373077695,
+        "H47B_positive_predictions": 450,
+        "baseline_dti": 0.0032581030555952615,
+        "baseline_positive_predictions": 343,
+        "block_id": 14,
+        "column": 2,
+        "positive_truth_pixels": 5342,
+        "random_dti": 0.031792081778350766,
+        "random_positive_predictions": 1735,
+        "role": "locked_test",
+        "row": 3
+      },
+      {
+        "H47B_dti": 0.0,
+        "H47B_positive_predictions": 0,
+        "baseline_dti": 0.0,
+        "baseline_positive_predictions": 0,
+        "block_id": 15,
+        "column": 3,
+        "positive_truth_pixels": 0,
+        "random_dti": 0.0,
+        "random_positive_predictions": 0,
+        "role": "calibration",
+        "row": 3
+      }
+    ],
+    "candidate_beats_baseline": true,
+    "candidate_beats_random": false,
+    "random_control_pooled_dti": 0.03715911385648702,
+    "random_mean_block_dti": 0.02181179402839894,
+    "single_scale_baseline_pooled_dti": 0.02563946679372895
+  },
+  "promotion": {
+    "metric_screen_passed": false,
+    "reasons_not_promoted": [
+      "locked-test pooled DTI did not beat the fixed-seed random control",
+      "assumption-conditional conformal lower bound is not positive",
+      "public-mirror H47-B screen is research-only and cannot confer submission-slot eligibility"
+    ],
+    "rule": "This public-mirror research screen can never confer slot eligibility; its separate metric screen requires beating the tuned single-scale baseline and random control with a positive assumption-conditional floor.",
+    "slot_eligible": false,
+    "status": "NOT_PROMOTED"
+  },
+  "protocol": "docs/preregistered-h2.md",
+  "protocol_sha256": "4cb65d953e575d942f0b1db8d258a36fbc2c8caea32e3409da127d36eaa0c6c6",
+  "report_version": 1,
+  "research_only_publication": {
+    "format_audit": {
+      "above_one_pixels": 0,
+      "bands": 1,
+      "below_zero_pixels": 0,
+      "crs": "EPSG:32611",
+      "dtype": "float32",
+      "footprint_source": "work/bridge/labels.tif",
+      "height": 3730,
+      "invalid_inside_pixels": 0,
+      "max_in_footprint": 1.0,
+      "min_in_footprint": 0.0,
+      "nodata": "NaN",
+      "non_nan_outside_pixels": 0,
+      "outside_pixels": 7111787,
+      "range": [
+        0.0,
+        1.0
+      ],
+      "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
+      "status": "PASS",
+      "submission": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+      "template": "work/bridge/sample_submission.tif",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "valid_pixels": 5167373,
+      "width": 3292
+    },
+    "path": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+    "reason": "locked-test pooled DTI did not beat the fixed-seed random control; assumption-conditional conformal lower bound is not positive; public-mirror H47-B screen is research-only and cannot confer submission-slot eligibility",
+    "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
+    "status": "RESEARCH_ONLY_NOT_FOR_PORTAL"
+  },
+  "selected_spacing_m": 500,
+  "selected_spacing_px": 5,
+  "selection_mean_dti": 0.04860422299678556,
+  "source_data_provenance": "public group-hosted GitHub mirror; not direct organizer download",
+  "spacing_sweep": {
+    "H47-B": {
+      "2": {
+        "mean_calibration_dti": 0.016283959251490145,
+        "mean_selection_dti": 0.02712318672347685,
+        "mean_test_dti": 0.0058557852544309195,
+        "pooled_calibration_dti": 0.021276018642800588,
+        "pooled_selection_dti": 0.03727793624962865,
+        "pooled_test_dti": 0.014380337599113106
+      },
+      "3": {
+        "mean_calibration_dti": 0.0227930205777392,
+        "mean_selection_dti": 0.039562024594725555,
+        "mean_test_dti": 0.008773811157928097,
+        "pooled_calibration_dti": 0.03452371699824216,
+        "pooled_selection_dti": 0.05431380960678798,
+        "pooled_test_dti": 0.021196394460768167
+      },
+      "4": {
+        "mean_calibration_dti": 0.026985533834325063,
+        "mean_selection_dti": 0.047572448725111585,
+        "mean_test_dti": 0.010637894739087352,
+        "pooled_calibration_dti": 0.04338495532401449,
+        "pooled_selection_dti": 0.06394244620260052,
+        "pooled_test_dti": 0.02498687966146161
+      },
+      "5": {
+        "mean_calibration_dti": 0.02932590128782539,
+        "mean_selection_dti": 0.04860422299678556,
+        "mean_test_dti": 0.011978435238073543,
+        "pooled_calibration_dti": 0.04666082256079565,
+        "pooled_selection_dti": 0.06480829928894608,
+        "pooled_test_dti": 0.02755344310252606
+      },
+      "6": {
+        "mean_calibration_dti": 0.027239105577086715,
+        "mean_selection_dti": 0.04619826370650537,
+        "mean_test_dti": 0.013041166592104187,
+        "pooled_calibration_dti": 0.04498916986557572,
+        "pooled_selection_dti": 0.06145702285012037,
+        "pooled_test_dti": 0.028833421263860348
+      }
+    },
+    "single_scale_baseline": {
+      "2": {
+        "mean_calibration_dti": 0.01584222352499378,
+        "mean_selection_dti": 0.026492831613827143,
+        "mean_test_dti": 0.0050261746541908564,
+        "pooled_calibration_dti": 0.020763455905004044,
+        "pooled_selection_dti": 0.036564014321110574,
+        "pooled_test_dti": 0.012464409002055723
+      },
+      "3": {
+        "mean_calibration_dti": 0.022575946720459112,
+        "mean_selection_dti": 0.04190327487877414,
+        "mean_test_dti": 0.008488058500601643,
+        "pooled_calibration_dti": 0.03310489718172908,
+        "pooled_selection_dti": 0.05735002525782357,
+        "pooled_test_dti": 0.02070046720592462
+      },
+      "4": {
+        "mean_calibration_dti": 0.025110581456025488,
+        "mean_selection_dti": 0.04901068279995082,
+        "mean_test_dti": 0.009945180397513484,
+        "pooled_calibration_dti": 0.04033605315055728,
+        "pooled_selection_dti": 0.06587110161577021,
+        "pooled_test_dti": 0.023934697110905918
+      },
+      "5": {
+        "mean_calibration_dti": 0.030054366607739053,
+        "mean_selection_dti": 0.05203546468455439,
+        "mean_test_dti": 0.01099730895861253,
+        "pooled_calibration_dti": 0.046786899757795264,
+        "pooled_selection_dti": 0.06948020954069385,
+        "pooled_test_dti": 0.02563946679372895
+      },
+      "6": {
+        "mean_calibration_dti": 0.029556651249020596,
+        "mean_selection_dti": 0.04871408863086975,
+        "mean_test_dti": 0.012141117134184583,
+        "pooled_calibration_dti": 0.04595438104662337,
+        "pooled_selection_dti": 0.06491461975093776,
+        "pooled_test_dti": 0.027140026315712818
+      }
+    }
+  }
+}

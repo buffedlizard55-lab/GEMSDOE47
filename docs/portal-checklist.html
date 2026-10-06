@@ -1,21 +1,32 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Manual checklist for preparing a new validated DOE GEMS Prize GeoTIFF submission.">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Fail-closed manual pre-upload checklist. Current research TIFFs are not eligible for submission.">
   <title>Portal Checklist · GEMSDOE47</title>
-  <style>:root{--ink:#142522;--muted:#54645f;--paper:#f2f5f1;--white:#fffefa;--line:#dbe3dd;--green:#176751;--deep:#104737;--amber:#fff3d7;--serif:Georgia,"Times New Roman",serif;--sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.7 var(--sans)}a{color:var(--deep);text-underline-offset:3px}.wrap{width:min(850px,calc(100% - 36px));margin:0 auto}.top{padding:20px 0;border-bottom:1px solid var(--line)}.top a{text-decoration:none;font-weight:800}.hero{padding:48px 0 23px}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.73rem;color:var(--green);font-weight:800}.hero h1{font:500 clamp(2.4rem,6vw,3.8rem)/1.05 var(--serif);letter-spacing:-.05em;margin:.25em 0}.hero p{color:var(--muted)}.warning{padding:18px 20px;background:var(--amber);border:1px solid #e8cc88;border-radius:12px;color:#624a19}.card{margin:17px 0;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px}.card h2{font:500 1.5rem var(--serif);margin:0 0 6px}.code{font: .9em ui-monospace,SFMono-Regular,Menlo,monospace;background:#e8eee9;padding:2px 6px;border-radius:5px;overflow-wrap:anywhere}.steps{padding-left:1.3em}.steps li{padding-left:5px;margin:12px 0}.muted{color:var(--muted)}.footer{border-top:1px solid var(--line);margin-top:48px;padding:23px 0;color:var(--muted);font-size:.85rem}</style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top"><div class="wrap"><a href="../index.html">← GEMSDOE47 home</a></div></header>
-  <main class="wrap">
-    <section class="hero"><p class="eyebrow">Manual, no-slot-spend guidance</p><h1>Portal checklist</h1><p>Use only after the spatially blocked holdout has promoted a new prediction and the written GeoTIFF has passed byte-level validation. The portal action requires an authorized participant account; this project does not submit automatically.</p></section>
-    <div class="warning"><strong>Current status: do not upload.</strong> No candidate is validated, no TIFF exists, and the submission gate is closed. The identifier and note below are drafts reserved for H47-A only.</div>
-    <article class="card"><h2>Proposed identity</h2><p><strong>Project/candidate:</strong> <span class="code">GEMSDOE47_H47A_GeoDAWNInvariant_v1</span></p><p><strong>Final filename pattern:</strong> <span class="code">GEMSDOE47_H47A_GeoDAWNInvariant_v1_&lt;UTC timestamp&gt;_&lt;SHA256 first 12&gt;.tif</span></p><p class="muted">The timestamp and content hash make the delivered filename traceable and resistant to accidental collisions. Do not use this proposed name before promotion; the package script will generate the final unique filename from the actual output bytes.</p></article>
-    <article class="card"><h2>Draft short portal note</h2><blockquote>Research candidate testing magnetic/radiometric lineament persistence across overlapping GeoDAWN surveys with differing acquisition geometry; source: USGS GeoDAWN, DOI 10.5066/P93LGLVQ. Not validated or approved for upload yet.</blockquote><p class="muted">Before any real upload, replace the final sentence with an accurate, concise method/provenance note only after the holdout and output audit pass. Never claim a private score or performance gain without organizer evidence.</p></article>
-    <article class="card"><h2>Pre-upload checklist</h2><ol class="steps"><li>Confirm the selected candidate is promoted in a reproducible report: official inputs authorized, spatial blocks frozen, ≥300 m guard, matched prediction mass, fold results and controls included, and candidate beats the local incumbent under the preregistered rule.</li><li>Check the final artifact is generated from the new model output, not a prior submission or placeholder. Retain exact input, code revision and output SHA-256.</li><li>Run <span class="code">python scripts/validate_submission.py --submission new_candidate.tif --template official_sample_template.tif --features training_features.tif</span> after writing (replace example paths with the exact authorized files). Resolve every reported error; do not clip or replace nodata blindly.</li><li>Confirm exactly one float32 band; official width, height, CRS, transform; finite in-footprint pixels all in [0, 1]; and NaN outside the footprint. Re-open the exact bytes that will be uploaded.</li><li>Confirm name and short note accurately reflect this model, new inputs and any limits. Keep the SHA-256 receipt.</li><li>Use the authorized DrivenData submission portal manually; verify the portal's receipt and record the result. The project does not automate access or use a weekly slot.</li></ol></article>
-    <article class="card"><h2>Known limits</h2><p>Public participant-level leaderboard values do not identify a TIFF. The label set used in a spatial catalogue holdout cannot stand in for expert-private newly mapped faults. A passing format check does not prove geological skill; a holdout gain does not guarantee private/final ranking. See the <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/irregularities.md" rel="noopener">irregularity register</a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/docs/next-session.md" rel="noopener">next-session plan</a>.</p></article>
-  </main>
-  <footer class="footer"><div class="wrap">Always verify the current official instructions and competition rules before submission.</div></footer>
+<header><div class="wrap"><div class="brand"><h1>GEMSDOE47</h1><span class="tag">No slot until promotion</span></div>
+  <nav aria-label="Main navigation"><a href="../index.html">Project home</a><a href="executive-summary.html">Executive summary</a><a href="submit.html">How to submit</a><a href="analysis.html">Results</a><a class="on" href="portal-checklist.html">Checklist</a></nav>
+</div></header>
+<main class="wrap">
+  <div class="note bad"><strong>STOP — current H47-B research TIFF is NOT FOR SUBMISSION.</strong> It failed the preregistered holdout/control gate. The historical d-cat/annulus file is derived from a published mask. Neither file is slot-eligible.</div>
+  <h2>Only for a future candidate after promotion</h2>
+  <ol class="steps">
+    <li>☐ Candidate is a new prediction, with no copied/pruned prior mask lineage.</li>
+    <li>☐ Protocol, data, code, block assignment and candidate output are pinned by hashes; official inputs are authorized and provenance is clear.</li>
+    <li>☐ Candidate beats the current spatially blocked holdout best under the frozen rule, with ≥300 m guard, adequate labels, pooled and per-fold scores, and random/domain controls.</li>
+    <li>☐ Any conformal interval states calibration count, rank, nominal coverage, target and exchangeability assumptions; no unsupported “guarantee” is used.</li>
+    <li>☐ The candidate beats the relevant control and has a positive defensible lower floor if required. Otherwise, keep the slot closed.</li>
+    <li>☐ The exact written file was reopened and audited against the current official template: band count, type, CRS, shape, transform, nodata footprint and all predictions in [0,1].</li>
+    <li>☐ Accessible prior-artifact comparison is documented, with exact-match and similarity results and its scope limits.</li>
+    <li>☐ Filename is unique; portal note is accurate, short and does not claim a score without organizer evidence.</li>
+    <li>☐ Current official rules, file restrictions, slot limits and portal instructions were reviewed manually immediately before submission.</li>
+    <li>☐ An authorized team member uploads manually and records the organizer receipt ID, timestamp, exact file hash, validation status and returned score.</li>
+  </ol>
+  <p>Detailed manual steps: <a href="submit.html">How to submit a future promoted candidate</a>. Current evidence: <a href="validation-h47b-20261006.md">H47-B report</a>.</p>
+</main>
+<footer><div class="wrap">A format pass does not create scientific promotion or organizer acceptance.</div></footer>
 </body>
 </html>

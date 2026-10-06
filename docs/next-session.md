@@ -1,39 +1,32 @@
-# Next-session plan — continue without rework
+# Next-session plan — continue from the verified state
 
-> **Superseding status (2026-10-06):** the verified submission TIFF now exists
-> (`docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif`, sha256 `0d8ba64c…`,
-> conformal floor 0.34837 @ 75 %) and was re-derived byte-identically in a clean sandbox the same day
-> (see `docs/review-log.md` addendum). The official **footprint/catalogue bytes were obtained from the
-> group's GitHub mirror `GEMSDOE24/data/bridge/`** — sufficient for the sanity diagnostics below; the
-> **private test labels remain unavailable** and no offline score is claimed. The operative
-> priority list is the README's “Next session” section; the steps below remain valid for any *new*
-> candidate emission, and the H1 first-pass screening (FAIL, IR-14) has already run through steps 4–6.
-> One correction to the text below: “public mapped faults” diagnostics are only vacuous for
-> annulus-restricted masks (0.0 for every arm by construction, see `notes/HYPOTHESES.md` H1) — for
-> unrestricted candidates the full-domain alignment test is informative and is what screened H1.
+> **Current state (2026-10-06 UTC): no eligible submission and no slot recommendation.** H47-B is a research-only TIFF; it lost to the fixed-seed random control on locked spatial blocks, and its assumption-conditional conformal lower floor was 0.0. The legacy d-cat/annulus TIFF is a delete-only subset of a published mask. Old 0.34912/0.34837 performance claims and the earlier 0.3345 rank-1 board snapshot are superseded. Do not repeat those claims.
 
-## Hard gate before a submission TIFF
+## Ordered actions
 
-1. Obtain the official feature raster and `1m_DEM_links.csv` (names shown on the public problem page), an official raster-label file, and sample-submission GeoTIFF by an authorized, enrolled-competitor route. The exact label/template download basenames are not verified without login; pass their actual paths to the checker. The official page is login-gated; no credentials are present here and the project will not bypass it.
-2. Place files under ignored `data/`, then run `python scripts/check_competition_data.py --labels LABEL_RASTER_BASENAME --template SAMPLE_TEMPLATE_BASENAME` for presence, SHA-256, and basic metadata. The check script does not download or authenticate; it fails closed when files are missing or grids disagree.
-3. Verify raster shape, transform, CRS, band descriptions, nodata/mask and label counts from file bytes. Compare all template-aligned inputs before deriving a feature.
-4. Freeze the existing spatial holdout baseline and verify it is genuinely out-of-fold with at least a 300 m buffer. If no valid incumbent exists, create and report the baseline first; do not claim an improvement against a guessed score.
-5. Run only the existing initial H47-A screening implementation first. Retrieve official GeoDAWN overlap/flightline products if authorized; verify coverage, horizontal CRS, pixel size and independent overlap, then explicitly align the grids. Freeze candidate parameters and controls before looking at held-out results; any method change after this point requires a dated preregistration update before scoring.
-6. Promote only if candidate improves on the local holdout best under the locked rule. Report per-fold values, pooled DTI, same-mass comparison, random/domain controls, and limitations. If not, record the negative result and keep the slot gate closed.
-7. Generate a submission TIFF only from the promoted prediction, copied to the official template profile and audited after writing. Assign a unique name/comment from the build receipt and check for duplicate pixels/hashes against accessible prior artifacts.
-8. Publish a download only after the artifact passes both the local format audit and the holdout gate. The exact competition portal requires the user/team's authorized submission action; this repository does not upload or spend slots.
+1. **Keep the slot closed.** Do not upload either TIFF in `docs/downloads/`. H47-B's local format pass and low similarity to accessible artifacts do not establish scientific promotion.
+2. **Establish authorized data provenance.** The official DrivenData data page is login-gated. If this work continues under an authorized entrant account, preserve the exact official feature, catalogue-label and sample-template bytes/hashes and compare them with the group-hosted `GEMSDOE24` mirror. Do not bypass login. The current H47-B report is explicitly based on mirror files.
+3. **Build a comparable incumbent.** No artifact-authenticated, comparable spatially blocked “current best” has been established. Build and save a reproducible baseline plus fold report with the official task formula, adequate truth counts and disjoint guarded spatial cores. Do not treat leaderboard scores or the historical TIFF as an incumbent.
+4. **Resolve next-candidate feasibility before coding.** First inspect official USGS QFFD geometry/metadata for H47-C and count its footprint coverage; the available local summary CSV is not trace geometry. If coverage is insufficient, assess official ASTER alteration polygons (H47-D) or INGENIOUS temporal well/spring records (H47-F), counting and mapping coverage before proposing implementation. Record licenses and source URLs.
+5. **Rank and preregister a genuinely new detector.** State the physical signature, missing-catalogue rationale, known confounders, controls, exact inputs/hashes, split assignment, mass, metric and promotion gate. Do not tune on a locked block. H47-B's existing held-out data must not be recycled as an independent test for a re-tuned version.
+6. **Run the full evaluation.** Compare against the current spatial holdout best and same-mass random/domain controls, report pooled and per-block DTI, label coverage, calibration assumptions and failure regions. No slot unless the predeclared rule passes.
+7. **Audit the candidate file.** Build a new TIFF only from a promoted output; validate exact bytes/grid/range/nodata, assign a unique filename and note, and compare against accessible historical artifacts. Repeat the uniqueness check if new repositories or artifacts become visible; never claim global uniqueness from the current inventory.
+8. **Update the site and release only after evidence.** Keep research downloads conspicuously labeled. A distinct, newly promoted candidate may be linked at the top only after full review; H47-B itself must remain research-only and must never be renamed or relabeled as a submission. Submit manually through an authorized portal account and retain the organizer receipt.
+9. **Delivery gate.** Complete the three review passes, full test suite, Ruff, local HTML-link checks, and GitHub CI. Open/merge a PR only when all evidence and wording are consistent. This repository never submits automatically and does not monitor the leaderboard.
 
-## Research order after H47-A
+## Current source boundaries
 
-- H47-B: clip the official USGS ASTER alteration polygons to the exact competition bounds; confirm class coverage/host geology before testing.
-- H47-C: check ASF/OPERA Sentinel-1 scene coverage/coherence over the grid and determine whether an account is needed.
-- H47-D: query USGS water site history for temperature/discharge parameters inside the footprint; deduplicate against INGENIOUS records and report actual station counts.
+- **Official pages reviewed:** DrivenData problem/data/rules/leaderboard pages; USGS GeoDAWN, QFFD, 3DEP, ASTER; DOE INGENIOUS; NASA/USGS sources listed in [`sources.md`](sources.md).
+- **Not directly acquired here:** official raw GeoDAWN archives and authenticated competition inputs. H47-B used a public owner-hosted mirror.
+- **No authenticated file-to-score receipt:** public participant rows, including 0.2778, do not identify a TIFF.
+- **Latest saved public-board observation:** rank 1 = 0.3774 (name not retained); DARD = 0.3195/#7; `extradr19` = 0.2778/#13. The old 0.3345/#1 snapshot is stale. No automated monitoring.
+- **Current bounded uniqueness finding:** H47-B had zero exact positive-mask matches among 334 exact-grid rasters from 55 visible sibling repositories; maximum equal-mass Jaccard 0.01119. The full inventory and comparison rows are in the linked JSON audit. It is not a global uniqueness claim or submission authorization.
 
-## Known limitations
+## Continue from these files
 
-- No competition inputs, GPU, or previous local pipeline were present in the initial checkout. Full train/inference/holdout has not run.
-- The official data page is login-gated. Public-source listings and sibling-site output files do not substitute for the authorized training files.
-- Current leaderboard values are a one-time public snapshot. DrivenData Terms of Use prevent project-side automated polling without written permission.
-- Spatial holdout against public mapped faults is a proxy and cannot validate discovery of the private expert labels.
-- No filename-to-score mapping for the reported 0.2778 is verified; the GEMSDOE32 page calls its H33-2-B2 candidate unscored.
-- A public board score cannot guarantee private or final-round ranking. Competition rules state the same chosen submission is later rescored against an expert-expanded label set.
+- [`validation-h47b-20261006.md`](validation-h47b-20261006.md), [`h47b-screen-report-20261006.json`](h47b-screen-report-20261006.json), and [`h47b-uniqueness-audit-20261006.json`](h47b-uniqueness-audit-20261006.json)
+- [`preregistered-h2.md`](preregistered-h2.md) — frozen H47-B protocol
+- [`hypotheses.md`](hypotheses.md) — original candidate ranking plus post-screen status
+- [`irregularities.md`](irregularities.md) — open evidence flags
+- [`sources.md`](sources.md) — official and secondary provenance
+- [`README.md`](../README.md) — standing charter and current decision

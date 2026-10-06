@@ -1,162 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Candidate hypotheses — GEMSDOE47</title>
-<meta name="description" content="Five ranked, unimplemented geological hypotheses for finding geothermal faults missing from the USGS catalogue, plus a flagged gate irregularity.">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Ranked, falsifiable GEMS fault-detection hypotheses with source availability, confounders and current H47-B negative result.">
+  <title>Ranked Hypotheses · GEMSDOE47</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><div class="wrap">
-  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">Five ranked geological candidates</span></div>
-  <nav>
-    <a href="index.html">Executive summary</a>
-    <a href="submit.html">How to submit</a>
-    <a href="analysis.html">Leaderboard &amp; analysis</a>
-    <a class="on" href="hypotheses.html">Hypotheses</a>
-    <a href="sources.html">Sources</a>
-  </nav>
+<header><div class="wrap"><div class="brand"><h1>GEMSDOE47</h1><span class="tag">Prior rankings are not results</span></div>
+  <nav aria-label="Main navigation"><a href="../index.html">Project home</a><a href="executive-summary.html">Executive summary</a><a href="submit.html">How to submit</a><a href="analysis.html">Results</a><a href="leaderboard.html">Leaderboard evidence</a><a class="on" href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a></nav>
 </div></header>
-
 <main class="wrap">
-<p>Five candidates that are <strong>not yet implemented</strong> in this project, each with the four
-required fields: layers, physical signature, why it should catch a fault <em>missing</em> from the
-USGS/INGENIOUS catalogue rather than one already in it, and how it differs from everything already
-built. Ranked by expected DTI gain per unit of implementation cost. All five use data that is already
-local and hash-verified — none needs a new download.</p>
-
-<table>
-  <thead><tr><th>#</th><th>hypothesis</th><th>expected gain</th><th>cost</th><th>new data</th><th>screen status (2026-10-06)</th></tr></thead>
-  <tbody>
-    <tr class="hi"><td>H1</td><td>Hydrothermal-alteration halos in radiometric ratios, curvature-filtered</td><td class="good">high</td><td>medium</td><td>no</td><td><strong>FAIL</strong> — first implementation screened: worse than chance vs catalogue (0.0156 vs 0.0369); mechanism gets one float-grid retry before abandonment</td></tr>
-    <tr><td>H2</td><td>Tilt-depth of upward-continued RTP magnetics</td><td class="good">high</td><td>medium</td><td>no</td><td>not screened</td></tr>
-    <tr><td>H3</td><td>QFFD attribute-conditioned along-strike continuation</td><td>medium-high</td><td class="good">low</td><td>no</td><td>not screened</td></tr>
-    <tr><td>H4</td><td>Dilatational strain-rate extremum along shear lineaments</td><td>medium</td><td>low-med</td><td>no</td><td>not screened</td></tr>
-    <tr><td>H5</td><td>Accessibility-bias correction (claims / roads)</td><td>low-med</td><td class="good">low</td><td>no</td><td>not screened</td></tr>
-  </tbody>
-</table>
-
-<h2>H1 — Hydrothermal alteration halos</h2>
-<ul>
-  <li><strong>Layers:</strong> GeoDAWN radiometrics K, Th, U, TC; GeoDAWN extensions ThK, UK, UTh,
-      TMI_up150; plus <code>cond_surf</code> and <code>iso_grav_anom_hg</code> from the organizer stack.</li>
-  <li><strong>Signature:</strong> normalised ratios (K/Th, U/Th, U/K) followed by a
-      <em>Laplacian-of-Gaussian</em> curvature transform at 3–5 px scale, to isolate halo-shaped
-      anomalies rather than lithological step edges. Active geothermal systems precipitate potassium
-      and strip thorium along fluid pathways.</li>
-  <li><strong>Why it catches a missing fault:</strong> both USGS catalogues are geomorphic and
-      structural-mapping products — a fault enters them when a scarp or contact is mapped. A buried or
-      topographically muted fault has no scarp but still alters the near-surface radiometric signature.
-      It targets the <em>fluid</em> record instead of the displacement record.</li>
-  <li><strong>Differs from what exists:</strong> every operator in this project acts on the geometry of
-      a dot network and its distance to a mask; the sibling work we reviewed used DEM curvature, Euler
-      deconvolution and graph persistence. Nothing in the family touches radiometric ratios or halos.</li>
-  <li><strong>Source:</strong> USGS GeoDAWN airborne magnetics + radiometrics,
-      <a href="https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7" target="_blank" rel="noopener">ScienceBase release</a>
-      (DOI 10.5066/P93LGLVQ), already local as uint8 rank rasters with pinned hashes.</li>
-</ul>
-
-<h2>H2 — Tilt-depth of upward-continued magnetics</h2>
-<ul>
-  <li><strong>Layers:</strong> <code>rtp</code>, <code>tmi</code>, <code>tmi_vg</code>,
-      <code>tmi_hg</code>, <code>mag_anom</code>, <code>depth_to_base_surf</code>.</li>
-  <li><strong>Signature:</strong> upward-continue RTP magnetics 1–5 km, take the tilt angle
-      <code>atan(∂f/∂z / |∇<sub>H</sub>f|)</code>, and ridge-follow the 0° contour. Because tilt is a
-      ratio, it is largely independent of unknown magnetisation amplitude — and the contour spacing
-      yields <em>depth</em> as well as location.</li>
-  <li><strong>Why it catches a missing fault:</strong> magnetic basement edges are seen through cover,
-      so a fault that never broke the surface still offsets the basement and still produces a lateral
-      gradient. Conversely, purely geomorphic catalogue faults with no basement expression are
-      suppressed — the operator is selective for the missing class.</li>
-  <li><strong>Differs from what exists:</strong> the sibling attempts used Euler deconvolution, which
-      needs a structural-index guess and is unstable at low signal. This repo performs no magnetic
-      transform at all.</li>
-  <li><strong>Source:</strong> the organizer's own 19-band feature stack (sha256-verified locally).</li>
-</ul>
-
-<h2>H3 — QFFD attribute-conditioned along-strike continuation</h2>
-<ul>
-  <li><strong>Layers:</strong> <code>gdr_qfaults_traces.csv</code> (USGS QFFD: <code>slip_rate</code>,
-      <code>recency</code>, <code>map_scale</code>, mapped length, centroids) gated by the lidar scarp
-      band <code>step_max</code>.</li>
-  <li><strong>Signature:</strong> a geometry-plus-attribute operator. For traces with high slip rate
-      but short <em>mapped</em> length, extrapolate along strike and search for scarp morphology beyond
-      the mapped tip. The signal is “mapping stopped, geology did not”.</li>
-  <li><strong>Why it catches a missing fault:</strong> mapped trace length is a product of mapping
-      effort and map scale as much as of fault size. A high-slip-rate fault that terminates at a
-      quadrangle boundary or at a lidar survey edge is a candidate for an unmapped continuation.</li>
-  <li><strong>Differs from what exists:</strong> every other use of the catalogues in this family —
-      including ours — rasterises them to a binary mask and prunes by distance. Nobody uses the
-      <em>attribute table</em> to predict where mapping is incomplete.</li>
-  <li><strong>Source:</strong> USGS Quaternary Fault and Fold Database,
-      <a href="https://www.usgs.gov/programs/earthquake-hazards/faults" target="_blank" rel="noopener">official landing page</a>
-      (note: the older <code>earthquake.usgs.gov/hazards/qfaults/</code> path now 404s — verified).</li>
-  <li><strong>Cheap pre-test:</strong> truncate each trace at its tip, hold out the final 20 %, and
-      check the extrapolator beats a straight-line control before spending any holdout time.</li>
-</ul>
-
-<h2>H4 — Dilatational strain-rate extremum along shear lineaments</h2>
-<ul>
-  <li><strong>Layers:</strong> <code>geod_shearrate</code>, <code>geod_dilaterate</code>,
-      <code>geod_2ndinv</code>, <code>deq_n100a15</code>, <code>ieq_n100a15</code>,
-      <code>det_elev_slope</code>.</li>
-  <li><strong>Signature:</strong> second invariant of the strain-rate tensor combined with the angle
-      between principal strain axes and the nearest mapped fault strike — a reactivation-favouriness
-      field.</li>
-  <li><strong>Why it catches a missing fault:</strong> the catalogues record past surface rupture; the
-      geodetic tensor records present-day deformation. A creeping fault can deform today with no
-      Quaternary scarp.</li>
-  <li><strong>Differs from what exists:</strong> the strain tensor is currently consumed only as opaque
-      raw bands; no invariant, axis orientation or criticality angle is computed anywhere in the family
-      work we reviewed.</li>
-  <li><strong>Placebo test:</strong> rotate the criticality angle by 45° — if the score does not
-      collapse, the hypothesis is dead. Ranked below H1–H3 because the geodetic bands are the noisiest
-      in the stack and 100 m pixels may be below the needed resolution.</li>
-</ul>
-
-<h2>H5 — Accessibility-bias correction</h2>
-<ul>
-  <li><strong>Layers:</strong> <code>blm_closed_claim_distance_m.tif</code>,
-      <code>tiger_road_distance_m.tif</code>, plus <code>det_elev</code> and <code>cond_surf</code>.</li>
-  <li><strong>Signature:</strong> a sampling-effort signature. Known faults cluster near roads and
-      claims because that is where mapping happened. Build an inverse-probability-weighted expected
-      fault density and target the residual: ground with the same physical signature but low access.</li>
-  <li><strong>Why it catches a missing fault:</strong> the faults the competition scores are by
-      construction the missed ones, and part of that miss is explained by access rather than geology.</li>
-  <li><strong>Differs from what exists:</strong> the audit layers exist in the family's data directory
-      but no reviewed operator uses them for selection.</li>
-  <li><strong>Source:</strong> BLM and TIGER layers already local; both are US public-domain federal
-      datasets.</li>
-</ul>
-
-<div class="note bad">
-  <h3 style="margin-top:0">Flagged irregularity — the brief's promotion gate does not work</h3>
-  <p style="margin-bottom:6px">The brief requires validating a candidate on the spatially-blocked
-  holdout and refusing a weekly slot unless it beats the current holdout best. We measured that this
-  gate is not predictive of the official score:</p>
-  <table>
-    <thead><tr><th>instrument</th><th class="num">ρ vs official score</th><th class="num">n</th><th class="num">p</th></tr></thead>
-    <tbody>
-      <tr class="hi"><td><strong>emitted pixel count</strong></td><td class="num">−0.907</td><td class="num">11</td><td class="num">0.0001</td></tr>
-      <tr><td>spatially-blocked catalogue holdout</td><td class="num">+0.087</td><td class="num">11</td><td class="num">0.800</td></tr>
-      <tr><td>SGMC off-catalogue faults</td><td class="num">+0.305</td><td class="num">11</td><td class="num">0.361</td></tr>
-    </tbody>
-  </table>
-  <p>A sibling's own slot-eligible candidate (mean blocked-holdout DTI 0.2507, rank 1 of 21) has never
-  been scored on the live board, so the gate's positive predictive value is unmeasured while its
-  negatives are contradicted by our results.</p>
-  <p style="margin-bottom:0"><strong>What we do instead:</strong> keep the blocked holdout as a sanity
-  filter (it must not collapse, and must not be merely catalogue-hugging), but select operating points
-  on the live-anchored size ladder with a split-conformal floor. This is a deliberate, disclosed
-  deviation from a literal reading of the brief, made under the brief's own “Maximize P(Win)” value —
-  the alternative is spending weekly slots on proxy-approved candidates that the evidence says are no
-  better than chance.</p>
-</div>
-
-<p class="small dim">Full text with sources and provenance:
-<a href="../notes/HYPOTHESES.md">notes/HYPOTHESES.md</a>.</p>
+  <div class="note bad"><strong>H47-B, the initial top-ranked screen, is now tested and NOT PROMOTED.</strong> It lost to the fixed-seed random control and its assumption-conditional lower bound was zero. The original ranking below is preserved as a prior; it is not a post-hoc claim of success. No slot is eligible.</div>
+  <p>The original shortlist was prepared before H47-B scoring. Expected gains are qualitative priors, not numeric performance claims. “New” refers to the inspected project code/artifacts, not global novelty.</p>
+  <table><thead><tr><th>Prior rank</th><th>Hypothesis / signature</th><th>Expected gain / effort (prior only)</th><th>Official source and availability</th><th>Current status</th></tr></thead><tbody>
+    <tr><td>#1</td><td><strong>H47-B — cross-scale magnetic-edge persistence.</strong> Magnetic contacts stable in position and axial orientation across 200/400/800 m Gaussian scales; confounders include lithology, remanence, mosaic and processing edges.</td><td>Medium, high uncertainty; medium cost for a rank-grid screen, high for a physical tilt-depth reconstruction.</td><td><a href="https://doi.org/10.5066/P93LGLVQ" rel="noopener">USGS GeoDAWN DOI 10.5066/P93LGLVQ</a>. A rank-encoded mirror channel was tested; raw magnetic units and organizer features were not locally available.</td><td><strong>Tested; NOT PROMOTED.</strong> Public-catalogue holdout lost to random; floor 0.</td></tr>
+    <tr><td>#2</td><td><strong>H47-C — attribute-conditioned fault-tip continuation.</strong> Continue a mapped trace only where geomorphic/structural attributes support a truncated mapping boundary; true fault termination is the key alternative.</td><td>Low–medium; medium–high implementation cost.</td><td><a href="https://www.usgs.gov/programs/earthquake-hazards/faults" rel="noopener">USGS Quaternary Faults and Folds</a> and <a href="https://www.usgs.gov/3d-elevation-program" rel="noopener">USGS 3DEP</a>. Local summary CSV has centroids, not trace vertices; obtain official geometry and measure exact overlap before modeling.</td><td>Possible next research direction, conditional on geometry and holdout baseline.</td></tr>
+    <tr><td>#3</td><td><strong>H47-D — ASTER alteration boundaries × independent basement structure.</strong> Test class-specific alteration edges co-located with independent magnetic structure; alteration polygons are not geothermal or fault labels.</td><td>Low–medium, high variance; high implementation cost.</td><td><a href="https://mrdata.usgs.gov/surficial-mineralogy/ofr-2013-1139/" rel="noopener">USGS MRData ASTER/OFR 2013–1139</a>. Official catalog page lists data; no archive/footprint counts are in this checkout.</td><td>Research idea only; acquire, license-check, and measure coverage first.</td></tr>
+    <tr><td>#4</td><td><strong>H47-E — strain-tensor dilatancy × independent edge.</strong> Test whether present-day strain orientations agree with a separate basement lineament while controlling resolution and mechanism.</td><td>Low–medium; high implementation cost.</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/" rel="noopener">DrivenData feature data</a> is login-gated; named bands are not equivalent to locally verified files.</td><td>Blocked on authorized raster access and a falsifiable spatial test.</td></tr>
+    <tr><td>#5</td><td><strong>H47-F — time-persistent spring/well thermal-chemistry residuals.</strong> Repeated, quality-controlled anomalies may support fluid pathways; station duplication and sampling bias are major confounders.</td><td>Low–medium; medium–high implementation cost.</td><td><a href="https://gdr.openei.org/submissions/1391" rel="noopener">DOE INGENIOUS GDR 1391</a>. Catalog lists temperature/chemistry data; exact-footprint station count has not been computed.</td><td>Conditional only; no coverage or predictive result established.</td></tr>
+  </tbody></table>
+  <h2>Current research order</h2>
+  <p>The prior ranking remains visible to avoid rewriting history. Following H47-B's negative screen, investigate H47-C's official geometry availability and build a defensible current spatial-holdout baseline before detector work. If trace geometry cannot be obtained or its overlap is insufficient, reassess H47-D and H47-F only after their official data coverage is counted. H47-A acquisition-invariant edges are implemented as a screen but lack a valid geological holdout. H47-B should not be retuned on the same locked blocks; any new physical-data version needs a new preregistration and independent holdout.</p>
+  <div class="note"><strong>Slot rule:</strong> no hypothesis advances to upload until its genuinely new output beats the current spatially blocked holdout best and relevant controls, with adequate label coverage and a successful file/uniqueness audit. A public-board score or a promising physical story cannot waive this gate.</div>
+  <p><a href="hypotheses.md">Detailed hypothesis rationale and provenance →</a> · <a href="preregistered-h2.md">Frozen H47-B protocol →</a> · <a href="validation-h47b-20261006.md">H47-B results →</a></p>
 </main>
-<footer><div class="wrap">GEMSDOE47 · no candidate here spends a slot before it beats the incumbent on mechanism and validated size.</div></footer>
+<footer><div class="wrap">Expected improvement and implementation costs are priors, not scores.</div></footer>
 </body>
 </html>

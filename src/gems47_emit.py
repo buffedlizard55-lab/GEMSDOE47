@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
 """Emission construction for the DOE GEMS Prize (DrivenData #306).
 
-Everything here operates on the competition grid, verified from bytes:
-    3730 rows x 3292 cols, EPSG:32611, 100 m, origin (243350.0, 4508550.0)
-which is the geotransform of every official and every archived artifact used.
+Legacy emission operators retained for unit tests and historical learning.
+The documented 3730 x 3292, EPSG:32611, 100 m grid came from mirrored/local
+rasters; this module does not authenticate official inputs or submission lineage.
 """
 from __future__ import annotations
+
 import numpy as np
 from scipy import ndimage
 from scipy.spatial import cKDTree
@@ -24,9 +26,10 @@ def octile_dot_spacing(px_mask):
 def flank_prune(dots, dist_to_catalogue, B):
     """Remove every dot whose Euclidean distance to the nearest catalogue pixel is <= B.
 
-    Measured on the group's own live-scored ladder (all byte-verified here):
-      ring 1 removal: 44,090 -> 40,199 dots, live 0.2600 -> 0.2708  (+0.0108)
-      ring 2 removal: 40,199 -> 37,654 dots, live 0.2708 -> 0.2778  (+0.0070)
+    This operator was used for a historical candidate whose score-to-file
+    mappings were not organizer-authenticated. The function is retained for
+    unit tests and analysis only; it must not be treated as a validated
+    submission method or a live-scored performance ladder.
     """
     return dots & (dist_to_catalogue > B)
 
@@ -35,14 +38,12 @@ def greedy_min_separation(dots, min_sep_px):
     """Greedy maximal independent set on the 'too close' graph.
 
     Iterates pixels in raster-scan order and keeps a dot only when no already-kept
-    dot lies within min_sep_px (Euclidean).  Purely a deletion: the surviving
-    values and positions are untouched, so the file format cannot be affected.
+    dot lies within min_sep_px (Euclidean). The output mask is a subset of the
+    input mask; this function does not validate raster metadata or performance.
     """
     ys, xs = np.nonzero(dots)
     order = np.lexsort((xs, ys))
     keep = np.zeros(dots.shape, dtype=bool)
-    trees = {}
-    from scipy.spatial import cKDTree
     kept = []
     r2 = float(min_sep_px) ** 2
     for idx in order:
@@ -65,12 +66,11 @@ def dilate_support(dots, r):
 
 
 def to_raster(dots, footprint, dtype=np.float32, outside='nan'):
-    """Build the submission raster: 1.0 at dots, 0 outside them, NaN/0 outside footprint."""
+    """Build a float raster: 1.0 at dots, 0 elsewhere, with configurable outside cells."""
     a = np.zeros(dots.shape, dtype=dtype)
     a[dots] = dtype(1.0)
-    if outside == 'nan':
-        if footprint is not None:
-            a[~footprint] = np.nan
+    if outside == 'nan' and footprint is not None:
+        a[~footprint] = np.nan
     return a
 
 

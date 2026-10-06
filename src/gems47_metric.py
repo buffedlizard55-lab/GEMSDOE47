@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Exact re-implementation of the DOE GEMS distance-weighted Tversky index (DTI).
 
 Transcribed line by line from the organizer's problem description
@@ -19,8 +20,9 @@ Two consequences used throughout this repository:
       ground-truth pixel is a pure loss: it adds exactly alpha * p(x) to the
       denominator and 0 to the numerator.  Such pixels are called "dead dots".
 
-Pixel-neutral masking follows the organizer staff clarification quoted in
-docs/verification/ (mask is pixel-exact and identical to the training labels).
+This module does not validate any masking convention against an organizer
+receipt. Callers must apply the current official footprint/label semantics and
+record the exact source inputs separately.
 """
 from __future__ import annotations
 
@@ -88,9 +90,15 @@ def dti(pred, truth, mask=None, *, want_fields=False):
     FNw = float(np.sum(1.0 - cov_g))               # == N_g - TP_w exactly (max <= 1)
     denom = TPw + ALPHA * FPw + BETA * FNw + EPS
     val = float(TPw / denom) if denom > 0 else 0.0
-    out = dict(dti=val, TPw=TPw, FPw=FPw, FNw=FNw, Ng=Ng,
-               dti_identity=float(5.0 * TPw / (TPw + FPw + 4.0 * Ng)) if Ng > 0 else 0.0,
-               n_pred_pos=int((p > 0).sum()))
+    out = {
+        "dti": val,
+        "TPw": TPw,
+        "FPw": FPw,
+        "FNw": FNw,
+        "Ng": Ng,
+        "dti_identity": float(5.0 * TPw / (TPw + FPw + 4.0 * Ng)) if Ng > 0 else 0.0,
+        "n_pred_pos": int((p > 0).sum()),
+    }
     if want_fields:
         out['coverage'] = coverage
     return out

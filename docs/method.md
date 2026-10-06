@@ -1,43 +1,22 @@
-# H47-A implementation note — screening score only
+# Method notes and status
 
-**State:** implementation added; **no GeoDAWN or competition raster was available to run it**. Unit tests use small synthetic arrays only. There is no geological result, calibration, holdout score, or submission file.
+## H47-B — tested public-catalogue screen (NOT PROMOTED)
 
-## Reproducible surface definition
+H47-B is a cross-scale magnetic-edge persistence screen implemented in `gemsdoe47/magnetic.py` and `scripts/run_h2_experiment.py`. It uses a quantized, rank-encoded `TMI_up150` channel from a group-hosted GeoDAWN mirror, not raw physical-unit magnetic grids. The feature score is an uncalibrated screening transform, not a fault probability, physical tilt-angle/depth estimate, or organizer-approved prediction.
 
-`gemsdoe47/candidate.py` implements a deliberately small, inspectable first test:
+The exact scales, mask-support thresholds, score normalization, fixed 18,524-pixel emission mass, spacing sweep, block assignment, guard, controls, conformal calculation and promotion rule were frozen in [`preregistered-h2.md`](preregistered-h2.md) before scoring. The experiment selected 5 px/500 m. On five locked blocks, pooled DTI was 0.027553 for H47-B, 0.025639 for the tuned single-scale baseline, and 0.037159 for a fixed-seed random control. The assumption-conditional conformal lower floor clipped to 0.0. Five of 16 blocks had no catalogue truth. The candidate therefore failed the metric screen; do not submit it. Because all H47-B labels/features were read from a group-hosted public mirror, this screen is permanently research-only: its runner always sets `slot_eligible` to false and has no non-research publication path.
 
-1. Require the two magnetic grids (and optional two radiometric grids) to be pre-aligned exactly; no hidden reprojection or resampling occurs.
-2. Compute centered finite-difference gradient magnitude and direction on valid pixels. Exclude the one-pixel stencil around nodata so a mask edge cannot be mistaken for a geological edge.
-3. Normalize each acquisition's positive valid-pixel edge magnitude independently by its 99.5th percentile; clip the strongest values at 1. (Zero gradients are excluded so a very sparse edge field does not collapse to a zero scale.)
-4. In each independent modality, take the weaker acquisition's normalized edge support and multiply by axial orientation agreement, `abs(cos(theta_A - theta_B))`. Reversed gradient sign therefore still represents the same unoriented lineament.
-5. If both magnetic and radiometric pairs exist at a pixel, average their paired support. If only one modality is valid there, use that modality.
-6. An optional flight-line-direction factor is `1 - penalty × alignment × normalized strength`. The default penalty is **0**; its value must be chosen only on locked training folds, never by leaderboard feedback.
-7. Write NaN outside the joint valid gradient support. Output values are in `[0,1]` by construction but are **not calibrated probabilities** and are not suitable for submission without a separate model/holdout decision.
+Full block details, output metadata, hash and bounded artifact comparison are in [`validation-h47b-20261006.md`](validation-h47b-20261006.md). The TIFF in `docs/downloads/` is named `research-not-submittable` and is published only for transparent review.
 
-The full implementation, per-input robust scales and SHA-256 sidecar are in `gemsdoe47/candidate.py` and `scripts/build_h47a.py`. A typical local invocation after authorized data are obtained and explicitly aligned is:
+## Older screens and historical TIFF
 
-```bash
-python -m pip install -r requirements.txt
-python scripts/build_h47a.py \
-  --mag-a data/geodawn/area1_mag_aligned.tif \
-  --mag-b data/geodawn/area2_mag_aligned.tif \
-  --rad-a data/geodawn/area1_rad_aligned.tif \
-  --rad-b data/geodawn/area2_rad_aligned.tif \
-  --template data/ACTUAL_OFFICIAL_SAMPLE_FILENAME.tif \
-  --out data/derived/h47a_screening.tif
-```
+- H47-A (`gemsdoe47/candidate.py`, `scripts/build_h47a.py`) implements a cross-acquisition edge-agreement screen, but no valid geological holdout result supports it.
+- H1 (`scripts/build_h1_candidate.py`) is a radiometric-ratio/LoG halo screen. The first public-catalogue matched-mass screen scored 0.0156 against 0.0369 for random and did not promote.
+- `gems47-dcat20-annulus-flankprune-n18524-20261006.tif` is a delete-only subset of a published network. It is a historical learning artifact, not a unique detector.
+- The prior 0.34912 modeled score and purported 0.34837 conformal floor are retired. Their score-to-file inputs were not organizer-authenticated and their selected rungs do not justify exchangeable conformal calibration. See [`analysis.md`](analysis.md).
 
-Omit both `--rad-*` arguments when the radiometric pair is unavailable. The script fails if grids do not match; alignment parameters must be recorded in a separate source-preparation receipt before use. It writes only under ignored `data/` or `artifacts/` folders and tags the GeoTIFF `VALIDATION_STATUS=NOT_RUN`.
+## Scientific and metric boundaries
 
-## Known scientific limits
+The official [DrivenData problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) defines the distance-weighted Tversky index. `src/gems47_metric.py` is a local implementation of that stated formula with regression checks; it is not the organizer's private scoring service. H47-B uses public mirror labels for a spatial screening test only. Those labels are not the hidden expert target, and empty blocks do not establish absence of faults.
 
-- An edge in a magnetic/radiometric product can result from lithology, remanent magnetization, processing, a mosaic seam, or acquisition artifacts—not only a fault.
-- Independent per-survey quantile scaling can elevate weak/noisy edges. The robust scale is a transparent heuristic, not physical calibration.
-- One-pixel gradients are sensitive to noise and may miss broad, low-amplitude or non-linear structures.
-- A line that happens to be parallel to a flight direction can be geological. The optional penalty is a control to test, not a justified default.
-- H47-A requires actual valid overlap between acquisitions. Catalog text says surveys overlap; exact grid and competition-footprint coverage have not been computed.
-- Spatial blocking the known public fault catalogue does not establish discovery of private expert faults. Final-round scoring can differ.
-
-## Synthetic tests are not results
-
-`tests/test_candidate.py` checks deterministic math properties: same-edge support, axial orientation, orthogonal-edge rejection, nodata suppression, and optional flight-line penalty. It does not contain Nevada observations and must never be presented as a score or evidence that H47-A works geologically.
+A future detector requires a new dated preregistration and a valid spatial holdout against an established current best. The feature source must be acquired with permitted provenance, exact grid/coverage measured, and important alternatives/negative controls reported. Do not retune H47-B on its locked blocks and claim independent validation.

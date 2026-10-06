@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://buffedlizard55-lab.github.io/GEMSDOE47/docs/promotion-report.schema.json",
   "title": "GEMSDOE47 promotion report",
-  "description": "Human-reviewed evidence gate required before packaging an H47-A map. This is a schema, not a validation result.",
+  "description": "Human-reviewed evidence gate used by the legacy H47-A packager. The recorded metric is the official formula evaluated by a pinned local implementation, not an organizer-run private scorer. This is a schema, not a validation result.",
   "type": "object",
   "required": [
     "schema_version",
@@ -25,7 +25,7 @@
     "evidence"
   ],
   "properties": {
-    "schema_version": {"const": 1},
+    "schema_version": {"const": 2},
     "hypothesis_id": {"const": "H47-A"},
     "status": {"enum": ["not_promoted", "promoted"]},
     "official_inputs_authorized": {"type": "boolean"},
@@ -34,7 +34,7 @@
     "guard_m": {"type": "number", "minimum": 300},
     "matched_mass": {"type": "boolean"},
     "controls_reported": {"type": "boolean"},
-    "score_metric": {"const": "official_dw_tversky"},
+    "score_metric": {"const": "drivendata_distance_weighted_tversky"},
     "report_id": {"type": "string", "minLength": 1},
     "prediction_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "template_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
@@ -62,7 +62,7 @@
       "required": [
         "domain_matched_random_control_reported",
         "ablations_reported",
-        "official_scorer_version",
+        "metric_implementation",
         "preregistration_sha256",
         "fold_assignment_sha256",
         "source_data_sha256",
@@ -71,7 +71,7 @@
       "properties": {
         "domain_matched_random_control_reported": {"const": true},
         "ablations_reported": {"const": true},
-        "official_scorer_version": {"type": "string", "minLength": 1},
+        "metric_implementation": {"type": "string", "minLength": 1},
         "preregistration_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "fold_assignment_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "source_data_sha256": {

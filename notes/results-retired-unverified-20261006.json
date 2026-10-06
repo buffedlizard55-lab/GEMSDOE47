@@ -1,0 +1,231 @@
+{
+  "record_status": "RETIRED_UNVERIFIED_NOT_FOR_PROMOTION",
+  "retirement_notice": "Historical result ledger preserved for audit only. Its 0.34912 modeled score and 0.34837 purported 75% conformal floor are withdrawn: the score-to-file mapping was not organizer-authenticated, the selected deletion rungs do not establish exchangeable conformal calibration, and the result was a long extrapolation. Do not use this file as a performance claim or submission recommendation.",
+  "superseded_by": "docs/analysis.md and docs/validation-h47b-20261006.md",
+  "historical_record": {
+    "B_flank_px": 20,
+    "anchor": {
+      "N_g": 14040.2,
+      "T": 5214.8,
+      "admissible_B": [
+        19,
+        20,
+        21
+      ],
+      "identity": "score = 5T/(n + 4N_g)",
+      "leader_used": 0.3345,
+      "ruling_rule": "shallowest B with model >= 1.03*leader and retention >= 0.40"
+    },
+    "bytes": 1552154,
+    "conformal": {
+      "alpha": 0.25,
+      "confidence": 0.75,
+      "n_calibration": 3,
+      "q": 0.0007545112075376115,
+      "rank_k": 3,
+      "rungs": [
+        {
+          "N_refit": 15200.285714285706,
+          "T_refit": 5470.167737142855,
+          "excluded_B": 0,
+          "live": 0.26,
+          "loo_pred": 0.2607545112075376,
+          "residual": -0.0007545112075376115
+        },
+        {
+          "N_refit": 14088.747191011253,
+          "T_refit": 5223.13941573034,
+          "excluded_B": 1,
+          "live": 0.2708,
+          "loo_pred": 0.27047766138872065,
+          "residual": 0.00032233861127933805
+        },
+        {
+          "N_refit": 13368.305555555586,
+          "T_refit": 5073.287555555561,
+          "excluded_B": 2,
+          "live": 0.2778,
+          "loo_pred": 0.27836289924342644,
+          "residual": -0.0005628992434264513
+        }
+      ]
+    },
+    "conformal_floor": 0.34837,
+    "crs": "EPSG:32611",
+    "crs_wkt_epsg": 32611,
+    "dti_model": 0.34912,
+    "dtype": "float32",
+    "file": "gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
+    "footprint_pixels": 5167373,
+    "height": 3730,
+    "ledger": [
+      {
+        "B_px": 0,
+        "dti_model": 0.26009,
+        "frac_of_base": 1.0,
+        "n": 44090
+      },
+      {
+        "B_px": 1,
+        "dti_model": 0.27059,
+        "frac_of_base": 0.9117,
+        "n": 40199
+      },
+      {
+        "B_px": 2,
+        "dti_model": 0.27793,
+        "frac_of_base": 0.854,
+        "n": 37654
+      },
+      {
+        "B_px": 3,
+        "dti_model": 0.28451,
+        "frac_of_base": 0.8048,
+        "n": 35483
+      },
+      {
+        "B_px": 4,
+        "dti_model": 0.28974,
+        "frac_of_base": 0.7673,
+        "n": 33829
+      },
+      {
+        "B_px": 5,
+        "dti_model": 0.2957,
+        "frac_of_base": 0.7262,
+        "n": 32017
+      },
+      {
+        "B_px": 6,
+        "dti_model": 0.29965,
+        "frac_of_base": 0.6998,
+        "n": 30853
+      },
+      {
+        "B_px": 7,
+        "dti_model": 0.3035,
+        "frac_of_base": 0.6748,
+        "n": 29750
+      },
+      {
+        "B_px": 8,
+        "dti_model": 0.30802,
+        "frac_of_base": 0.6462,
+        "n": 28490
+      },
+      {
+        "B_px": 9,
+        "dti_model": 0.31224,
+        "frac_of_base": 0.6202,
+        "n": 27345
+      },
+      {
+        "B_px": 10,
+        "dti_model": 0.31622,
+        "frac_of_base": 0.5964,
+        "n": 26294
+      },
+      {
+        "B_px": 12,
+        "dti_model": 0.32291,
+        "frac_of_base": 0.5576,
+        "n": 24586
+      },
+      {
+        "B_px": 14,
+        "dti_model": 0.33033,
+        "frac_of_base": 0.5165,
+        "n": 22772
+      },
+      {
+        "B_px": 16,
+        "dti_model": 0.3367,
+        "frac_of_base": 0.4826,
+        "n": 21279
+      },
+      {
+        "B_px": 18,
+        "dti_model": 0.34297,
+        "frac_of_base": 0.4505,
+        "n": 19863
+      },
+      {
+        "B_px": 20,
+        "dti_model": 0.34912,
+        "frac_of_base": 0.4201,
+        "n": 18524
+      },
+      {
+        "B_px": 22,
+        "dti_model": 0.35479,
+        "frac_of_base": 0.3931,
+        "n": 17331
+      },
+      {
+        "B_px": 24,
+        "dti_model": 0.3598,
+        "frac_of_base": 0.3699,
+        "n": 16308
+      },
+      {
+        "B_px": 26,
+        "dti_model": 0.36513,
+        "frac_of_base": 0.3459,
+        "n": 15250
+      },
+      {
+        "B_px": 28,
+        "dti_model": 0.36975,
+        "frac_of_base": 0.3256,
+        "n": 14357
+      },
+      {
+        "B_px": 30,
+        "dti_model": 0.37437,
+        "frac_of_base": 0.3059,
+        "n": 13487
+      },
+      {
+        "B_px": 35,
+        "dti_model": 0.3842,
+        "frac_of_base": 0.2655,
+        "n": 11705
+      },
+      {
+        "B_px": 40,
+        "dti_model": 0.39334,
+        "frac_of_base": 0.2297,
+        "n": 10128
+      },
+      {
+        "B_px": 50,
+        "dti_model": 0.40957,
+        "frac_of_base": 0.1701,
+        "n": 7501
+      }
+    ],
+    "lineage": {
+      "base": "buffedlizard55-lab/GEMSDOE33/docs/downloads/gemsdoe33-d28-reference-20261004-426073b6b4ab-nan.tif",
+      "note": "learning-use of a public artifact; every emitted pixel is an original dot pixel",
+      "operator": "delete-only annulus flank prune"
+    },
+    "nan_pixels": 7111787,
+    "nodata": "nan",
+    "positives": 18524,
+    "record_status": "RETIRED_UNVERIFIED_NOT_FOR_PROMOTION",
+    "sha256": "0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261",
+    "transform_gdal": [
+      243350.0,
+      100.0,
+      0.0,
+      4508550.0,
+      0.0,
+      -100.0
+    ],
+    "value_range": [
+      0.0,
+      1.0
+    ],
+    "width": 3292
+  }
+}

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Spatially blocked DTI evaluation.
 
 A block is a rectangular window of the 100 m grid.  Only ground-truth pixels
@@ -7,8 +8,10 @@ credit for truth inside it.  This is the standard "blocked holdout" so that a
 ranking learned on some blocks cannot be scored by memorising neighbouring ones.
 """
 from __future__ import annotations
+
 import numpy as np
-from .gems47_metric import dti, R_PX
+
+from .gems47_metric import R_PX, dti
 
 
 def block_windows(shape, nrows, ncols, buffer_px=0):

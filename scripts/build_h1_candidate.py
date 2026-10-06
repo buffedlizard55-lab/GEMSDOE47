@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 """Build the H1 research candidate: radiometric alteration-halo emission.
 
-Per notes/HYPOTHESES.md H1: normalised radiometric ratios (Th/K inverted, U/K,
-U/Th — the GeoDAWN contractor ratio grids, uint8 rank-encoded) followed by a
-curvature transform (Laplacian of Gaussian) to isolate halo-shaped anomalies,
-emitted only in the outer annulus beyond catalogue kernel reach, at the
-incumbent-matched pixel budget.
+Per notes/HYPOTHESES.md H1, a speculative rank-grid affinity from Th/K, U/K,
+and U/Th is transformed with a Laplacian of Gaussian and emitted only outside
+the 300 m catalogue-kernel reach. The ratios are uint8 rank proxies, not
+physical geochemical units; this is an unvalidated mechanism hypothesis.
 
-This is a RESEARCH artifact.  It is not scored, the promotion gate cannot be
-satisfied without the organizer's private labels, and this script refuses to
-write into docs/downloads/.  A sidecar receipt records every input hash.
+This is a RESEARCH screen using a public group-hosted mirror, not authenticated
+organizer downloads. A previous matched-mass catalogue-alignment screen was
+negative (0.0156 vs 0.0369 seeded random), while the annulus-restricted blocked
+score is vacuous by construction. It is not promoted and this script refuses
+to write into docs/downloads/. A sidecar receipt records input hashes.
 
-Inputs (public, sha256-pinned against the GEMSDOE24 manifest):
+Inputs (public mirror bytes, SHA-256 pinned against GEMSDOE24 manifests):
   work/external/geodawn_rad_u8.tif        K, Th, U, TC rank grids
   work/external/geodawn_extensions_u8.tif ThK, UK, UTh, TMI_up150 rank grids
-  work/bridge/labels.tif                  official training label raster (footprint + catalogue)
+  work/bridge/labels.tif                  mirrored public catalogue labels + footprint
 
 Usage:  python3 scripts/build_h1_candidate.py
 """
@@ -161,17 +162,13 @@ def main() -> int:
     out[foot] = 0.0
     out[emit] = 1.0
 
-    # ---------------- sanity filters (never a promotion gate; see HYPOTHESES.md) --
-    # NOTE on instrument validity: an annulus-restricted mask CANNOT be scored on the
-    # catalogue holdout — the only truth there is the catalogue, and every pixel is
-    # (by construction) beyond kernel reach of it; the 2x2 blocked DTI of any
-    # d_cat>3 emission against labels is exactly 0 for that reason alone. Measured
-    # here: candidate, random control and incumbent-dots-in-annulus all pool to 0.0.
-    # We therefore record the annulus-restricted blocked DTI as a VACUOUS control and
-    # add an ALONG-FIELD alignment test on the full valid domain (not a score):
-    # do unannulus-restricted top-mass halo pixels hit catalogue faults at matched
-    # mass better than chance? Necessary (not sufficient) for "catches faults the
-    # catalogue misses from the same physical process".
+    # ---------------- exploratory diagnostics (not a promotion gate) ------------
+    # An annulus-restricted mask is beyond the catalogue's 300 m kernel reach by
+    # construction. Its blocked DTI against that same catalogue is therefore
+    # vacuous: candidate and controls can all score zero without distinguishing
+    # their geological value. The separate full-domain, matched-mass comparison
+    # is a local catalogue-alignment screen only; it is not the private target
+    # score and cannot establish discovery of uncatalogued faults.
     from src.gems47_blocks import blocked_scores
     truth = (lab == 1)
     rows = {"candidate": blocked_scores(out, truth, 2, 2),
@@ -238,7 +235,7 @@ def main() -> int:
     sha = sha256_file(dest)
 
     receipt = {
-        "artifact": fn, "kind": "RESEARCH CANDIDATE — NOT SCORED, DO NOT SPEND A SLOT",
+        "artifact": fn, "kind": "RESEARCH ONLY — MIRROR-LABEL SCREEN, NOT PROMOTED, DO NOT SUBMIT",
         "hypothesis": "H1 radiometric alteration halos (ratio field → LoG curvature) in the outer annulus",
         "built_utc": "2026-10-06", "positives": n, "sha256": sha,
         "rule": {"annulus": f"d_cat > {ANNULUS_D_CAT_MIN} px", "budget": BUDGET,
@@ -251,15 +248,16 @@ def main() -> int:
             "allowed_px": n_allowed,
             "blocked_catalogue_holdout_dti_pooled_2x2_annulus_restricted": heldout,
             "annulus_holdout_note": "vacuous by construction (0.0 for every annulus-restricted mask); "
-                                    "recorded to document the instrument's limitation, not to gate",
+                                    "not evidence for or against private-label performance",
             "full_domain_alignment_dti_vs_catalogue": alignment,
             "median_d_cat_of_emission_px": round(float(np.median(d_emit)), 2),
             "frac_emission_within_3px_of_catalogue": round(float((d_emit <= 3).mean()), 4),
             "max_jaccard_vs_siblings": jac[:5],
         },
-        "promotion_state": "SANITY FILTERS ONLY — the blocked catalogue holdout is a non-predictive "
-                           "instrument for the official score (notes/KNOWLEDGE.md B2); no slot is "
-                           "recommended for this file under any outcome of it.",
+        "promotion_state": "NOT_PROMOTED — full-domain matched-mass catalogue DTI was 0.0156 "
+                           "versus 0.0369 for seeded random in the recorded screen; the "
+                           "annulus-restricted holdout is vacuous; labels are from a public mirror; "
+                           "no official or private score is inferred.",
     }
     with open(dest + ".receipt.json", "w") as fh:
         json.dump(receipt, fh, indent=1)
