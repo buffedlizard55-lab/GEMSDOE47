@@ -11,7 +11,7 @@
  "research_artifacts": [
   {
    "hypothesis_id": "H47-B",
-   "file": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+   "file": "docs/downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
    "status": "RESEARCH_ONLY_NOT_FOR_PORTAL",
    "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
    "positive_pixels": 18524,
@@ -40,7 +40,7 @@
    "local_format_audit": "PASS; does not imply organizer acceptance or scientific promotion"
   },
   {
-   "file": "docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
+   "file": "docs/downloads/superseded/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
    "status": "HISTORICAL_NOT_FOR_PORTAL",
    "lineage": "Delete-only subset of a published sibling mask; not an independent detector."
   }

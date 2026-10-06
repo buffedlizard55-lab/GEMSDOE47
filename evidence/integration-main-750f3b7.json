@@ -1,0 +1,10 @@
+{
+  "main_commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
+  "preserved_work": "Session3 package/pages/evidence/artifact and H48 package/pages/evidence/artifact preserved additively.",
+  "h48_original_conformal_sha256": "e3464947166d48fd0d45192ca068ca6b414295937890538c1f1da30e9ef6d6b1",
+  "h48_namespace_file": "src/gems47/h48_conformal.py",
+  "h48_logic_modified": false,
+  "c1_frozen_code_not_modified": true,
+  "all_competition_slot_gates_remain_closed": true,
+  "caution": "Other-session proxy floors and validation frames are not comparable with C1 or authenticated private scores."
+}

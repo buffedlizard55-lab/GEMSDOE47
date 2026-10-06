@@ -1,107 +1,46 @@
-# Next steps, ranked by expected value
+# Next work — no demonstrated universal ceiling
 
-Reusable research base. Ordered by (information gained + score gained) per unit of
-effort, given what this project established and falsified.
+Current 2026-10-06 state: H47-C1, H47-B and historical LATI discovery arms are research-only. No
+competition score or eligible submission has been produced. Do not extrapolate an in-fold fitted-belief
+improvement, a zero-floor proxy or low mask overlap into a winning forecast.
 
-## 1. Use the 1 m DEM. Nothing else is close.
+## Ordered actions
 
-The competition supplies links to **716 USGS 3DEP 1 m tiles** and this project
-could only reach a sibling repository's pre-derived **100 m** LiDAR scarp rasters.
-Fault scarps are a metre-scale phenomenon: a 0.5–3 m scarp averaged over a
-100 m pixel is a 0.5–3 % elevation perturbation, below the noise floor of the
-resampled product.
+1. **Preserve the slot.** Current C1 pooled .177872 loses to the fixed ordinary-terrain baseline .180216;
+   11/22 fold wins, 15 required; nominal 90% marginal proxy floor zero. The mean gain is not enough.
+2. **Audit actual official data bytes/coverage**, not catalog listings. Public USGS QFFD and GDR 1391
+   archives have a repeatable GitHub-runner probe with source/license/hash/geometry receipts. Consult
+   actual status. The core competition arrays remain mirrors, not authenticated portal downloads.
+3. **Acquire raw 1 m feasibility evidence before ranking it viable.** Exact tile-link CSV, masks, license,
+   tile inventory and footprint are still not available here. 3DEP is free; process bounded tiles/halos,
+   not an unbounded large mosaic in Git. There is no evidence that leaders use it or a universal 100 m ceiling.
+4. **Preregister a distinct competing-explanation detector and fresh validation design.** C1 test values
+   are now known; changing features/thresholds and reusing them does not create a second untouched test.
+   Investigate scarp/channel/contact/road differences, not a prior mask re-emission.
+5. **Require controlled improvement before a slot.** Same target, domain, mass and guards; frozen
+   selection/calibration; adequate truth and fold-level comparisons; conservative statistical scope.
+   Include ordinary terrain/random and appropriate independent-domain checks. Never remove hard/zero
+   blocks to manufacture a positive floor.
+6. **Reopen exact TIFF and ZIP**, inspect both raw and masked range, internal footprint mask and one-band
+   grid/CRS/bounds; re-audit accessible prior outputs; retain an organizer receipt only after eligible upload.
 
-The evidence that this matters is in the screen itself. Every LiDAR-derived layer
-ranked poorly — `lidar_coh100`, `lidar_strike` and `lidar_valid` were among the
-**worst of 72**, and the best (`lidar_upface_max`) reached only rank 21 — while the
-community leader sits at 0.3262 against a family best of 0.2778. Forty-four
-repositories converged on 0.26–0.28 using the same 100 m layers.
+## Rules and access boundaries
 
-**Action:** download the tiles from `1m_DEM_links.csv`, compute scarp morphology at
-native resolution (openness, local relief, down-facing / up-facing curvature,
-profile curvature), detect scarps as **1–3 m features**, and only then aggregate to
-the 100 m submission grid — aggregating the *detections*, not the *elevations*.
+Up to three scoring submissions per week; one selected file scored in **both** rounds. The official
+[overview](https://www.drivendata.org/competitions/306/competition-doe-gems/) currently lists December 3,
+2026, 23:59 UTC. There is no unlimited final-round experimentation phase.
 
-## 2. Spend three slots on the λ-probe (H47-5).
+[DrivenData Terms](https://www.drivendata.org/termsofuse/) prohibit robot/spider monitoring. The automatic
+feed therefore covers permitted government/owner sources only; dated participant observations are
+not refreshed by a bot without written organizer permission. Failures/policy skips are explicit.
 
-`1/DTI(λ)` is linear in `1/λ`, so an anchor, a λ = 0.5 scaling and a null-addition
-of known mass recover `T`, `F` and `K` **exactly** — conditioning 56×–1380× better
-than reading four decimals off one return. All three probes can be built to score
-below the anchor so they cannot cost rank.
+No DrivenData credentials are requested or bypassed. Entrant eligibility, account access, core provenance
+and organizer acceptance cannot be certified by this coding agent. Public source recipes already
+restore the research data autonomously; these limitations must not be relabeled as manual setup tasks.
 
-This converts every later decision from "which frame do we trust?" into arithmetic.
-A sibling repository designed the identical probes and never submitted them.
+## Why the historical fitted “ceiling” is withdrawn
 
-**Also settles IR-47-011**: if the null-addition's cost differs from `α·N`, the
-scoring footprint is not the whole raster.
-
-## 3. Retrieve the staff answer in thread 11527.
-
-Which data the NLR/USGS experts actually used — GeoDAWN lidar, 1 m 3DEP DEM,
-magnetics/radiometrics, imagery, field mapping, geologic maps — and whether the new
-faults are surface scarps or buried/geophysical picks. One post would settle the
-field question directly. The page renders a collapsed post list; retry via
-`…/11527/10` or `…/11527?print=true`.
-
-## 4. Attack precision, not coverage.
-
-At the incumbent's waste ratio `F/T ≈ 8`, 0.3195 needs 102.7 % weighted recall —
-impossible. Halve `F/T` and 0.3195 needs ≈55 %. The lever is **removing** mass, not
-adding it, and the family's own trajectory already proves it
-(`0.1922 → 0.2778` came entirely from cutting S by 69 %).
-
-Concrete: rank every emitted dot by its marginal credit under the best available
-belief, and delete the tail below `α·DTI`. Then re-spend the freed budget only
-where the marginal rule still accepts.
-
-## 5. Resolve the 0.2778 attribution (IR-47-002).
-
-One contested number decides whether the strongest hypothesis this project
-generated — catalogue-flank re-occupation — is alive or dead. The break-even is
-**0.2200**: the flank is supported only if the flank-pruned raster scored at or
-below that. Open the leaderboard and check whether a 0.2778 row exists and which
-file it belongs to.
-
-## 6. Build H47-4 (deep-source magnetic continuity).
-
-Specified, data restored, unbuilt. `TMI_up150` in `geodawn_extensions_u8.tif` is a
-**depth filter**: a lineament that survives 150 m of upward continuation is
-basement-scale; one that vanishes is near-surface. The discriminator is the ratio of
-continued to uncontinued edge response.
-
-LATI independently fits **high `tmi_hg` (β = +8.55)** with **low `tmi_vg`
-(β = −9.63)** — shallow horizontal-gradient contrast without the deep
-vertical-gradient expression. That is the buried-structure signature, arrived at
-from the leaderboard rather than from the physics, and it is the opposite of the
-"high geophysical contrast" prior every sibling repository used.
-
-## 7. What is now known to be dead ends — do not retry
-
-| Idea | Verdict | Evidence |
-|---|---|---|
-| Isotropic catalogue-flank re-occupation (0–300 m) | **Falsified** | break-even 0.2200 vs reported 0.2778; `dcat_band_0_1.5` becomes the **worst of 65** layers (−227.6 %) once the flank-pruned raster is admitted |
-| Strike decomposition of the flank (along / across / tip / bend) | **Unsupported** | all six variants tied within 1.4 % of each other on LOO — orientation carries no signal beyond distance |
-| SGMC catalogue-difference transfer | **Falsified** | adding it worsened LOO (0.008124 → 0.009279); the fitted truth puts **0.5 %** of K there |
-| Blocked holdout on the given catalogue as a selector | **Structurally unfit** | DTI ≡ 0 under the organiser's masking; unmasked, it rewards the opposite skill |
-| Any selection on an in-fold score | **Structurally unfit** | optimizer's curse measured at ≈0.30 DTI; cross-fitted deltas −0.061 and −0.045 |
-| Gradients of `cond_surf`, `depth_to_base_surf`, `iso_grav_anom` | **Exhausted** | −89.7 %, −72.7 %, −64.4 % LOO on 13 observations |
-| `thermal_hot_prox` (temperature class) | **Dead** | worst layer on 12 observations; but *broad* discharge density (`thermal_warm_prox`, all 27,092 points) did enter the selection |
-| Volcanic vent proximity | **Dead** | 21 vents in the footprint |
-
-## 8. What is known and worth keeping
-
-| Quantity | Value | How |
-|---|---|---|
-| Hidden new-fault mass K in the scored split | **12,348 px** model-free; 15,638–21,477 under fitted shapes | the `r13-lattice` diffuse probe; corroborated by `placeholder` (7,931), a uniform 12-observation fit (12,626) and a sibling's independent inference (12,691) |
-| Masking semantics | zeroed before **both** sums | the Hedge-v2 / ens12 natural experiment |
-| Strongest single predictor of the hidden truth | proximity to the successful incumbent field (SSR 0.0086 of 72 layers) | LATI screen, with a shuffled-layer negative control at 0.1761 |
-| Layers that survive a 13-observation LOO screen | `geod_shearrate`, `geod_2ndinv`, `rad_ThK` (**low**), `ieq_n100a15`, `tmi_hg`, `geod_dilaterate`, `tmi_vg` (**low**), `rad_Th` (**low**), `dcat_band_3_6`, `deq_n100a15`, `rad_UTh`, `thermal_warm_prox` | 41 of 65 improved LOO |
-| Whether any of them survives **cross-fitting** | **Not demonstrated** | a-priori pool, in-fold selection, out-of-fold scoring → SHIP = False |
-
-That last row is the honest headline. A coherent physical story — actively
-straining, hydrothermally altered, seismically and thermally active ground with
-shallow magnetic contrast — emerges from the leaderboard returns and is *not*
-contradicted by any independent frame. But it is not **validated** either, and the
-project rule is not to spend a scarce slot on an unvalidated idea. The Final Prize
-Round (3 Sep – 16 Oct) has unlimited submissions, which is exactly where such an
-arm belongs.
+Unverified participant-to-file mappings, nested thinning observations and model assumptions do not
+identify a unique hidden label set or its mass. Conditional statements like “102.7% recall is needed”
+under a fitted waste ratio are not competition-wide impossibility results. The old fixed hidden K,
+private .34837 floor and three-slot λ inversion suggestions are not current evidence.

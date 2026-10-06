@@ -1,28 +1,28 @@
 <!doctype html>
 <html lang="en">
 <head>
-<base href="../"><!-- preserved verbatim from the earlier session; base repoints its relative links to docs/ -->
+<base href="../index.html"><!-- preserved verbatim from the earlier session; base repoints its relative links to docs/ -->
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Executive decision and manual submission guidance for GEMSDOE47. The available H47-B TIFF is research-only and must not be uploaded.">
   <title>Executive Summary &amp; Submission Guide · GEMSDOE47</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
 </head>
-<body>
+<body><aside data-current-warning="true" style="padding:16px;background:#fff1df;border:2px solid #a96329;color:#663516">Historical page — NOT CURRENT ADVICE. Do not upload these legacy files. <a href="../executive-summary.html">Current C1 summary and research download</a>.</aside>
 <header><div class="wrap">
   <div class="brand"><h1>GEMSDOE47</h1><span class="tag">Executive decision · manual submission guidance</span></div>
   <nav aria-label="Main navigation">
-    <a href="../index.html">Project home</a><a class="on" href="executive-summary.html">Executive summary</a>
-    <a href="submit.html">How to submit</a><a href="analysis.html">Results analysis</a>
-    <a href="leaderboard.html">Leaderboard evidence</a><a href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a>
+    <a href="../index.html">Project home</a><a class="on" href="../executive-summary.html">Executive summary</a>
+    <a href="../submit.html">How to submit</a><a href="../analysis.html">Results analysis</a>
+    <a href="../leaderboard.html">Leaderboard evidence</a><a href="../hypotheses.html">Hypotheses</a><a href="../sources.html">Sources</a>
   </nav>
 </div></header>
 <main class="wrap">
   <section class="dl">
     <h2>Research artifact only — <span class="bad">NOT FOR SUBMISSION</span></h2>
     <p>H47-B is a one-band float32 GeoTIFF that passed this repository's local format/range audit. It <strong>failed the preregistered holdout promotion gate</strong>; its score lost to the fixed-seed random control and its assumption-conditional lower floor was zero. This link is for research review, not portal use.</p>
-    <a class="btn" download href="downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download H47-B research GeoTIFF (1.5 MB)</a>
+    <a class="btn" download href="../downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download H47-B research GeoTIFF (1.5 MB)</a>
     <dl class="kv"><dt>SHA-256</dt><dd>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</dd><dt>Locked-test DTI</dt><dd>0.027553 H47-B · 0.025639 single-scale baseline · 0.037159 random</dd><dt>Conformal floor</dt><dd>0.0; nominal 6/7 depends on unverified block exchangeability</dd><dt>Format audit</dt><dd>PASS locally; not an organizer acceptance result</dd></dl>
-    <a class="btn sec" href="validation-h47b-20261006.md">Read validation report →</a>
+    <a class="btn sec" href="../validation-h47b-20261006.md">Read validation report →</a>
   </section>
   <h2>Executive decision</h2>
   <p><strong>No candidate is currently eligible for a competition submission slot.</strong> The H47-B mask was not an exact match to any of 334 accessible, grid-comparable TIFF artifacts checked across 55 visible sibling repositories. This is a bounded uniqueness finding only; it does not establish global uniqueness or remedy the failed scientific gate. The older d-cat/annulus TIFF is a delete-only subset of a published artifact and is retained for history only.</p>
@@ -37,8 +37,8 @@
     <li><strong>Sign in and start a new submission.</strong> Use the enrolled team's authorized DrivenData account; open the GEMS Prize competition and follow the current submission flow shown on the official page. Select the one-band `.tif` (or a `.zip` containing exactly one accepted TIFF if the current form requires that), enter the unique name and concise note if prompted, then submit manually.</li>
     <li><strong>Verify the receipt.</strong> Wait for the portal's validation/scoring result. Save its submission ID, timestamp, displayed status/score and the exact uploaded file hash in the project record. A successful upload is not a holdout pass or a guarantee of final-round performance.</li>
   </ol>
-  <p>For the full checklist and format caveats, see <a href="submit.html">How to submit a future promoted candidate</a>. This repository never logs in, uploads a TIFF, monitors the board, or spends a slot automatically.</p>
+  <p>For the full checklist and format caveats, see <a href="../submit.html">How to submit a future promoted candidate</a>. This repository never logs in, uploads a TIFF, monitors the board, or spends a slot automatically.</p>
 </main>
-<footer><div class="wrap">GEMSDOE47 · no submission is authorized by this page · <a href="sources.html">sources</a> · <a href="irregularities.md">open issues</a></div></footer>
+<footer><div class="wrap">GEMSDOE47 · no submission is authorized by this page · <a href="../sources.html">sources</a> · <a href="../irregularities.md">open issues</a></div></footer>
 </body>
 </html>

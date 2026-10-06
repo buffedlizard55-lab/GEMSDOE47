@@ -1,0 +1,9 @@
+# Exact numerical/parser versions used on 2026-10-06; Python 3.11.2, GDAL in rasterio wheel.
+# Install requirements-dev.txt, then this file to reproduce the frozen H47-C1 screen.
+numpy==2.4.6
+scipy==1.17.1
+rasterio==1.4.4
+scikit-learn==1.9.1
+requests==2.34.2
+beautifulsoup4==4.15.0
+pyshp==3.1.6

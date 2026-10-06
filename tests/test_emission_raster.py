@@ -137,6 +137,7 @@ def test_oriented_blur_preserves_mass_better_than_isotropic_along_a_line():
 
 
 # --------------------------------------------------------------------- format gates
+@pytest.mark.needs_data
 def test_write_validate_roundtrip_all_finite(tmp_path):
     from gems47s3.spec import HEIGHT, WIDTH
     v = np.zeros((HEIGHT, WIDTH), np.float32)
@@ -246,6 +247,7 @@ def _real_footprint_and_a_dot_inside_it():
     return fp, v
 
 
+@pytest.mark.needs_data
 def test_nan_mode_is_legal_but_not_the_strongest_guarantee(tmp_path):
     """`mode="nan"` matches the official page ("data outside the bounds is null or nan") and
     three scored reference artifacts ship that way, so the validator must not call it a failure
@@ -260,6 +262,7 @@ def test_nan_mode_is_legal_but_not_the_strongest_guarantee(tmp_path):
     assert r.checks["nodata_tag_not_out_of_range"] is True   # no nodata tag at all
 
 
+@pytest.mark.needs_data
 def test_zeros_mode_carries_the_strongest_guarantee(tmp_path):
     fp, v = _real_footprint_and_a_dot_inside_it()
     p = tmp_path / "zeros.tif"
@@ -268,6 +271,7 @@ def test_zeros_mode_carries_the_strongest_guarantee(tmp_path):
     assert r.ok and r.strongest_guarantee
 
 
+@pytest.mark.needs_data
 def test_gated_recipes_still_yield_a_total_order():
     """Multiplying a total-order core by a gate re-introduces float32 collisions; build_field
     must re-rank so the emitter's spacing guarantee holds for gated recipes too."""
@@ -284,7 +288,7 @@ def test_gated_recipes_still_yield_a_total_order():
         pytest.skip("data/surfaces/valid.npy not built; run scripts/build_surfaces.py")
     g = Grid()
     valid = np.load(surf)
-    bands = Bands(root / "data" / "training_features.tif")
+    bands = Bands(g.data_dir / "training_features.tif")
     rec = Recipe(name="gated", terms=[("det_elev_slope", "scarp", 3, 1.0)],
                  use_vacancy=True, vacancy_power=0.5,
                  regional_bands=("geod_2ndinv",), regional_power=0.5)

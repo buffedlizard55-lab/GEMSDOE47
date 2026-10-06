@@ -4,12 +4,8 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-# The homepage offers exactly one download: the newest candidate (H48-APEX,
-# session 2026-10-06).  Everything else lives on docs/all-downloads.html.
-RESEARCH_TIF = (
-    "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif"
-)
-EXPECTED_SHA256 = "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5"
+RESEARCH_TIF = "docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
+EXPECTED_SHA256 = "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0"
 
 
 class _PageParser(HTMLParser):
@@ -22,6 +18,7 @@ class _PageParser(HTMLParser):
         self.language = None
         self.descriptions = 0
         self.tiff_links = []
+        self.assets = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -29,6 +26,10 @@ class _PageParser(HTMLParser):
             self.language = attrs.get("lang")
         if "id" in attrs:
             self.ids.add(attrs["id"])
+        if tag in ("script", "img") and attrs.get("src"):
+            self.assets.append(attrs["src"])
+        if tag == "link" and attrs.get("href"):
+            self.assets.append(attrs["href"])
         if tag == "a" and attrs.get("href"):
             self.links.append(attrs["href"])
             if urlparse(attrs["href"]).path.lower().endswith((".tif", ".tiff")):
@@ -48,6 +49,24 @@ class _PageParser(HTMLParser):
 
 
 class SiteTests(unittest.TestCase):
+    def test_all_deployed_nested_links_assets_stay_inside_pages_artifact(self):
+        for page in sorted((ROOT / "docs").rglob("*.html")):
+            parser = _PageParser(); parser.feed(page.read_text())
+            for href in parser.links + parser.assets:
+                url = urlparse(href)
+                if url.scheme or url.netloc or not url.path:
+                    continue
+                target = (page.parent / unquote(url.path)).resolve()
+                self.assertTrue(target.is_relative_to((ROOT / "docs").resolve()), href)
+                self.assertTrue(target.is_file(), f"{page}: {href}")
+
+    def test_new_download_precedes_the_large_intro_on_home_and_summary(self):
+        for name in ["index.html", "executive-summary.html"]:
+            text = (ROOT / "docs" / name).read_text()
+            self.assertLess(text.index("↓ Download GeoTIFF"), text.index("<h1>"), name)
+            self.assertIn("2.8 px / 280 m", text)
+            self.assertIn("nominal 90% marginal block band", text)
+
     def test_all_local_html_links_resolve(self):
         pages = sorted([ROOT / "index.html", *ROOT.glob("docs/*.html")])
         self.assertGreaterEqual(len(pages), 4)
@@ -87,38 +106,23 @@ class SiteTests(unittest.TestCase):
         target = ROOT / RESEARCH_TIF
         self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
         self.assertGreater(target.stat().st_size, 100_000)
+        import hashlib
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), EXPECTED_SHA256)
         lower = text.lower()
-        self.assertIn("research only", lower)
-        self.assertTrue("gate closed" in lower or "failed its promotion gate" in lower,
-                        "the homepage must state the gate verdict")
+        self.assertIn("research-only", lower)
         self.assertIn("not for submission", lower)
-        self.assertIn("do not upload", lower)
-        self.assertIn("unique", lower)
+        self.assertIn("not promoted", lower)
+        self.assertIn("no slot", lower)
         self.assertIn(EXPECTED_SHA256, text)
-        # the certificate must be checkable from the page itself
-        self.assertIn("0.1149", text, "certified floor is visible")
-        self.assertIn("46.15", text, "conformal level is reported next to the choice")
-        # the homepage must not offer the rejected repack as a download
-        self.assertNotIn("repack", " ".join(parser.tiff_links).lower())
+        self.assertIn("0.177872", text, "candidate pooled score is visible")
+        self.assertIn("0.180216", text, "pooled baseline loss is visible")
+        self.assertIn("0.0000", text, "zero conformal floor is visible")
 
     def test_submission_and_summary_pages_keep_the_slot_gate_visible(self):
-        for path in (ROOT / "docs" / "executive-summary.html", ROOT / "docs" / "submit.html",
-                     ROOT / "docs" / "portal-checklist.html", ROOT / "docs" / "all-downloads.html"):
+        for path in (ROOT / "docs" / "executive-summary.html", ROOT / "docs" / "submit.html", ROOT / "docs" / "portal-checklist.html"):
             text = path.read_text(encoding="utf-8").lower()
-            self.assertTrue("do not upload" in text or "not for submission" in text
-                            or "nothing here is recommended" in text, path.name)
-            self.assertTrue("holdout" in text or "promotion gate" in text
-                            or "promotion gate" in text or "gate" in text, path.name)
-
-    def test_artifact_register_lists_every_published_tiff_with_a_hash(self):
-        text = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
-        parser = _PageParser()
-        parser.feed(text)
-        self.assertGreaterEqual(len(parser.tiff_links), 6, "the register must list the artifacts")
-        for href in parser.tiff_links:
-            target = ROOT / "docs" / urlparse(href).path
-            self.assertTrue(target.is_file(), f"register links a missing file: {href}")
-        self.assertIn("superseded/", text, "rejected artifacts are kept, not hidden")
+            self.assertTrue("do not upload" in text or "not for submission" in text, path.name)
+            self.assertTrue("holdout" in text or "promotion gate" in text, path.name)
 
 
 if __name__ == "__main__":

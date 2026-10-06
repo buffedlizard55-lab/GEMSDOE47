@@ -46,6 +46,7 @@ from gems47 import grid as G
 from gems47 import hypotheses as HY
 from gems47 import lati
 from gems47 import metric as M
+from gems47.research_policy import reject_pages_output, require_research_only
 from gems47.scripts_common import rank_u8_inplace
 from gems47.submission import diff_report, validate_submission, write_submission
 
@@ -89,12 +90,13 @@ def dense_q(shape, ev_idx, w_norm, K):
 
 
 def main() -> int:
+    require_research_only()
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", type=int, default=44_090,
                     help="dot budget; default matches the live-0.2600 incumbent exactly")
     ap.add_argument("--slug", default="gems47")
     ap.add_argument("--hypothesis", default="h47-saf")
-    ap.add_argument("--outdir", default=str(ROOT / "docs" / "downloads"))
+    ap.add_argument("--outdir", default=str(ROOT / ".cache" / "retired_lati_reproduction" / "build_submission"))
     ap.add_argument("--greedy", action="store_true", default=True,
                     help="greedy marginal-rule emission (default); dots are spaced by the rule itself")
     ap.add_argument("--topk", action="store_true", help="use plain top-k ranking instead of greedy")
@@ -238,6 +240,7 @@ def main() -> int:
     h = hashlib.sha256(np.ascontiguousarray(cand.view(np.uint8)).tobytes()).hexdigest()
     base_name = f"{args.slug}-{args.hypothesis}-flank-reoccupation-{n_cand}px-{stamp}-{h[:10]}"
     outdir = Path(args.outdir)
+    reject_pages_output(outdir, ROOT)
     outdir.mkdir(parents=True, exist_ok=True)
     shipped = []
     pvals = np.where(ev & cand, np.float32(1.0), np.float32(0.0))
@@ -288,7 +291,7 @@ def main() -> int:
         results=rows, shipped=shipped, submission_note=note,
         allfinite_vs_nan_identical=dr["identical"],
         seconds=round(time.time() - t0, 1))
-    (ROOT / "evidence" / "submission_build.json").write_text(json.dumps(out, indent=1, default=float))
+    (outdir / "submission_build-educational-only.json").write_text(json.dumps(out, indent=1, default=float))
     np.save(ROOT / ".cache" / "candidate_dots.npy", cand)
     np.save(ROOT / ".cache" / "q_f1.npy", q1.astype(np.float32))
     print(f"\nwrote evidence/submission_build.json ({time.time()-t0:.0f}s)")

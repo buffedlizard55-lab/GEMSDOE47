@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "reviewed_utc": "2026-10-06T21:50:43Z",
+  "status": "THREE_LOCAL_PASSES_COMPLETE_REMOTE_MERGE_PENDING",
+  "passes": [
+    {
+      "pass": 1,
+      "title": "Implement completely and verify",
+      "complete": true,
+      "freeze_commit": "cc14ad84fbace93bdd0c2a7bc8b520170e082bb3",
+      "fit_test_executed": true,
+      "slot_authorized": false
+    },
+    {
+      "pass": 2,
+      "title": "Audit/fix bugs, assumptions, edge cases",
+      "complete": true,
+      "technical_correction_commit": "7aa938e",
+      "unchanged_prediction_fields_and_history": true,
+      "superseded_run_preserved": true
+    },
+    {
+      "pass": 3,
+      "title": "Recheck original brief, accuracy, reliability and release",
+      "complete": true,
+      "pytest_passed": 160,
+      "pytest_skipped": 0,
+      "subtests_passed": 2,
+      "unittest_passed": 70,
+      "ruff": "PASS",
+      "node_syntax": "PASS",
+      "grid_checks_passed": 16,
+      "preview_http_status": 200,
+      "preview_download_byte_hash_matches": true,
+      "source_policy": "No automated DrivenData requests without recorded written permission",
+      "merged_pytest_passed": 227,
+      "merged_pytest_skipped": 0,
+      "upstream_rasterio_deprecation_warning": 1
+    }
+  ],
+  "ci_green_observed": {
+    "run_id": 37534139423,
+    "url": "https://github.com/buffedlizard55-lab/GEMSDOE47/actions/runs/37534139423",
+    "scope": "Previous working-branch commit; final commit checked again before merge."
+  },
+  "private_score_or_organizer_acceptance_verified": false,
+  "winning_target_achieved": false,
+  "remaining_limits": [
+    "Private/global positive floor unavailable",
+    "Organizer mask acceptance untested",
+    "Core arrays remain mirrors",
+    "Raw 1m CSV/tiles not acquired",
+    "Original verbatim chat prompt unavailable; structured brief preserved"
+  ],
+  "review_file_sha256": {
+    "evidence/profile-screen.json": "373ca6d2cfc9ebb8f7b7467a337ce56452dea0a666ac69a00a28b887d0e6eecc",
+    "evidence/profile-spacing-history.csv": "52331d4ec8f2186cbb9d9957a973f1ea2047186a3d37a9ff2ee7aa8e0504076d",
+    "evidence/current-submission.json": "871cd5b7149965f3fb94d05c2c191656a2b7d0991c9fdd54ae076b7c2e420c3d",
+    "evidence/profile-uniqueness.json": "55d8661b022f835569fe793607b873143109b316f730c5691a41d1578e496461",
+    "docs/research/h47c-hypotheses-preregistered.md": "2514b50fe12e090cb838c96e1aa1005736d5d504a7b65cee7d270c65ad2dfc93"
+  },
+  "additive_main_integration": {
+    "main_commit": "750f3b7",
+    "preserved_namespaces": [
+      "gems47s3",
+      "gems47.h48",
+      "gems47.h48_conformal"
+    ],
+    "c1_frozen_code_unchanged": true,
+    "new_uniqueness_comparisons": 561,
+    "exact_matches": 0,
+    "max_jaccard": 0.04061653572764684
+  },
+  "pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE47/pull/12"
+}

@@ -1,41 +1,13 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Corrected GEMSDOE47 score attribution, H47-B spatial-screen results, retired score model and bounded TIFF uniqueness audit.">
-  <title>Results &amp; Attribution Analysis · GEMSDOE47</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header><div class="wrap">
-  <div class="brand"><h1>GEMSDOE47</h1><span class="tag">Negative result disclosed · score mappings not authenticated</span></div>
-  <nav aria-label="Main navigation"><a href="../index.html">Project home</a><a href="executive-summary.html">Executive summary</a><a href="submit.html">How to submit</a><a class="on" href="analysis.html">Results analysis</a><a href="leaderboard.html">Leaderboard evidence</a><a href="hypotheses.html">Hypotheses</a><a href="sources.html">Sources</a></nav>
-</div></header>
-<main class="wrap">
-  <div class="note bad"><strong>Current decision: H47-B is NOT PROMOTED.</strong> It lost to the fixed-seed random control on locked spatial blocks and its assumption-conditional conformal lower floor is zero. Do not upload it or spend a slot.</div>
-  <h2>Latest saved public leaderboard observations</h2>
-  <table><thead><tr><th>Row</th><th>Score</th><th>Evidence limit</th></tr></thead><tbody>
-    <tr><td>#1</td><td class="num">0.3774</td><td>Participant name not preserved in the later saved record.</td></tr>
-    <tr><td>DARD · #7</td><td class="num">0.3195</td><td>Participant-level public row only.</td></tr>
-    <tr><td>extradr19 · #13</td><td class="num">0.2778</td><td>Participant-level public row only.</td></tr>
-  </tbody></table>
-  <p>The previous in-repository page put 0.3345 at rank 1 and DARD at #5. A later one-time public read recorded the values above and supersedes that stale copy. The official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/" rel="noopener">leaderboard</a> has no file hashes or TIFF names. In particular, there is no evidence connecting the 0.2778 row to the GEMSDOE32 H33-2-B2 TIFF; its owner page labels the candidate unscored.</p>
-  <h2>H47-B locked-test comparison</h2>
-  <table><thead><tr><th>Method</th><th class="num">Pooled DTI</th><th class="num">Mean block DTI</th></tr></thead><tbody>
-    <tr><td>H47-B, cross-scale TMI edge persistence, 5 px</td><td class="num">0.02755344</td><td class="num">0.01197844</td></tr>
-    <tr><td>Tuned single-scale baseline, 5 px</td><td class="num">0.02563947</td><td class="num">0.01099731</td></tr>
-    <tr><td>Fixed-seed random control</td><td class="num"><strong>0.03715911</strong></td><td class="num"><strong>0.02181179</strong></td></tr>
-  </tbody></table>
-  <p>H47-B modestly exceeded the baseline but lost to random. Only three of five locked blocks contained catalogue truth, and random exceeded H47-B in all three labeled blocks. The public-mirror label set is incomplete, so zeros in empty blocks are not interpreted as “no geological fault.”</p>
-  <h2>Conformal: calculation is not a guarantee</h2>
-  <p>Six calibration blocks yield a nominal order-statistic level of 6/7 ≈ 85.7% only if calibration and future block scores are exchangeable. That assumption is unverified under spatial dependence, and two calibration blocks have no catalogue truth. The computed, clipped lower bound was <strong>0.0</strong>. It is not a positive performance floor for private labels or a leaderboard score.</p>
-  <h2>Retired historical claim</h2>
-  <p>The prior `0.34912` modeled score and `0.34837` purported floor were unsupported by the score-to-file evidence and conformal design, and involved long extrapolation from a monotone deletion family. They are withdrawn. The historical d-cat/annulus TIFF is a delete-only subset of a published mask, not an independent detector. It remains for audit only.</p>
-  <h2>Uniqueness audit scope</h2>
-  <p>H47-B had zero exact positive-mask matches among 334 accessible, exact-grid-comparable TIFF artifacts found in 55 visible sibling repositories. Maximum equal-mass Jaccard was 0.01119057; maximum positive-support Jaccard was 0.01685795. The <a href="h47b-uniqueness-audit-20261006.json">full audit record</a> lists the inventory paths, Git blob hashes, all comparisons, and two rasters excluded for grid mismatch. This is a bounded artifact comparison, not global uniqueness and not evidence of predictive value.</p>
-  <div class="note"><strong>Metric note.</strong> The local implementation transcribes the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" rel="noopener">DTI formula</a>; it is not an organizer-run scorer. The old simplification to an inferred “dot count” and any regression based on an unauthenticated file/score mapping are not used here.</div>
-  <p><a href="analysis.md">Read the full written analysis →</a> · <a href="validation-h47b-20261006.md">Full H47-B experiment report →</a> · <a href="leaderboard-snapshot-2026-10-06.json">Machine-readable public snapshot →</a></p>
-</main>
-<footer><div class="wrap">No official submission ID, TIFF hash, or score receipt is recorded for a GEMSDOE47 file.</div></footer>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mechanism and evidence boundaries · GEMSDOE47</title><meta name="description" content="Reported H33 pruning mechanism, exact DTI tradeoffs, non-identifiable hidden mass and no free confidence-scaling win.">
+<meta name="theme-color" content="#173d38"><link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body data-site-version="h47c" data-base=""><a class="skip" href="#main">Skip to evidence</a>
+<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+<nav aria-label="Main navigation"><a href="executive-summary.html" aria-current="false">Summary</a><a href="hypotheses.html" aria-current="false">Hypotheses</a><a href="evidence.html" aria-current="false">Evidence</a><a href="sources.html" aria-current="false">Sources &amp; feed</a><a href="submit.html" aria-current="false">Submission guide</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>Research-only · NOT PROMOTED</strong><span>No slot authorized. Do not upload this run.</span></div>
+<main id="main"><section class="page-heading"><span class="eyebrow">Learning from the reported best</span><h1>Pruning can help.<br>It does not locate new geology.</h1></section><section><h2>What the 0.2778 evidence actually says</h2><p>The user associates 0.2778 with GEMSDOE32 H33/B2. A dated official participant row has the same value, but does not expose a filename. The owner’s page describes 37,654 dots, B2/flank pruning and an unscored projected 0.2747; other source histories disagree. Mirror hashes identify bytes, not the file that earned 0.2778. This conflict remains visible rather than being silently resolved.</p><h2>The exact mechanism</h2><pre>D = T / (0.2 (T + F) + 0.8 K)
+ΔD &gt; 0 ⇔ ΔT (1 − 0.2 D) − 0.2 D ΔF &gt; 0
+F = S − Φ;  T need not equal Φ</pre><p>Removing predictions can improve D if avoided false-positive cost exceeds lost max-kernel truth credit. Duplicated coverage and low-credit rungs/flanks are plausible pruning targets, <strong>not</strong> proof that all adjacent terrain is empty. A dot can credit several truth pixels; separated prediction dots alone do not justify T=Φ or D=T/(.2N+.8K).</p><h2>How large a real improvement is required?</h2><p>For the explicitly hypothetical case of fixed F and K, reaching 0.3195 from 0.2778 needs about <strong>16.0% more weighted true credit</strong>; reaching 0.3774 needs <strong>38.8% more</strong>. These are algebraic scenarios, not forecasts; T, F and K on hidden labels are not identified here.</p><h2>Why λ shrinking and history inversion do not create a free win</h2><pre>D(λp) = λT / (0.2 λ(T+F) + 0.8 K)
+1/D(λp) = 0.2(1+F/T) + 0.8 K/(λT)</pre><p>For positive truth and credit, reducing confidence λ lowers D. Even exact scaling measurements identify ratios, not a unique hidden map or absolute truth mass. Nested/adaptive, rounded scores with unverified file mapping cannot supply conformal coverage. No three-slot λ-probe recommendation remains active.</p><h2>What the new test teaches</h2><p>C1 beats random on public catalogue cores but not the ordinary-terrain pooled control; it also loses to random on the distant SGMC diagnostic. The result does not warrant declaring all scarp methods falsified, nor does it support private transfer. Higher-resolution, properly licensed morphology is a next research direction only after byte/coverage feasibility and a genuinely fresh validation design.</p><a href="knowledge.html" >Reusable knowledge and current next steps →</a></section><div class="notice"><strong>DO NOT UPLOAD · no slot</strong><p>The locked holdout gate failed: pooled DTI 0.177872 is below the frozen baseline’s 0.180216; only 11/22 truth-bearing blocks improve (required 15). The lower floor is zero. Local format validity is not scientific promotion or organizer acceptance.</p></div><section class="session-history"><h2>Preserved concurrent research</h2><p><a href="session3.html">Session 3 scarp persistence</a> · <a href="research.html">H48 curvature consensus</a> · <a href="all-downloads.html">All historical research files</a>. Different proxy frames; no cross-task/private guarantee. Every submission slot gate remains closed.</p></section></main><footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="irregularities.html" >Limitations &amp; corrections</a><br><a href="method.html" >Reproduce this screen</a> · <a href="leaderboard.html" >Dated public board</a><br>Reviewed 6 October 2026 · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" >Official competition 306 ↗</a></div></footer></body></html>

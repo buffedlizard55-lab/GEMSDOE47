@@ -36,7 +36,6 @@ import rasterio
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems47 import conformal as CF
 from gems47 import features as FEAT
 from gems47 import grid as G
 from gems47 import (
@@ -44,6 +43,7 @@ from gems47 import (
     h49,
     lati,
 )
+from gems47 import h48_conformal as CF
 from gems47 import metric as M
 
 CACHE = ROOT / ".cache"

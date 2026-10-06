@@ -3,7 +3,7 @@
 
 Adapted from the sibling GEMSDOE42 script (same manifest schema, same verification discipline).
 
-Data placement is the single blocker to running the full pipeline.  The DrivenData data page is
+Restoration removes the data-placement blocker; scientific validation and provenance remain separate.  The DrivenData data page is
 login-walled, so this script pulls the owner-supplied integrity-pinned mirrors from the sibling
 GEMSDOE* GitHub repositories and verifies each byte against the recorded SHA-256.
 
@@ -57,7 +57,9 @@ def gh_raw(repo: str, ref: str, path: str, dest: Path) -> None:
 
 
 def restore_entry(entry: dict, root: Path, skip_large: bool) -> dict:
-    dest = root / entry["dest"]
+    dest = (root / entry["dest"]).resolve()
+    if dest == root.resolve() or not dest.is_relative_to(root.resolve()):
+        raise ValueError("manifest destination escapes the data directory")
     nbytes = entry.get("bytes", 0)
     if skip_large and nbytes > 20_000_000 and not dest.exists():
         return {"id": entry["id"], "dest": entry["dest"], "group": entry["group"],
@@ -81,10 +83,10 @@ def restore_entry(entry: dict, root: Path, skip_large: bool) -> dict:
         else:
             gh_raw(entry["repo"], entry["ref"], entry["path"], tmp)
         got = sha256_file(tmp)
-        if got != entry["sha256"]:
+        if got != entry["sha256"] or tmp.stat().st_size != nbytes:
             tmp.unlink(missing_ok=True)
-            raise SystemExit(
-                f"SHA-256 MISMATCH for {entry['id']}\n  expected {entry['sha256']}\n  got      {got}"
+            raise ValueError(
+                f"SHA-256 or byte-size MISMATCH for {entry['id']}\n  expected {entry['sha256']} / {nbytes} bytes\n  got {got}"
             )
         tmp.replace(dest)
     finally:
@@ -106,10 +108,14 @@ def main() -> int:
     root.mkdir(parents=True, exist_ok=True)
     manifest = json.load(MANIFEST.open())
     only = {s for s in args.only.split(",") if s}
+    unknown = only - {e["id"] for e in manifest["files"]}
+    if unknown:
+        ap.error(f"unknown manifest ids: {sorted(unknown)}")
 
     receipt = {"schema_version": 1, "target_dir": str(root),
                "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-               "files": []}
+               "scope": "requested manifest subset, not organizer authentication",
+               "requested_group": args.group, "only_ids": sorted(only), "files": []}
     failed = 0
     for entry in manifest["files"]:
         if args.group != "all" and entry["group"] != args.group:
@@ -118,16 +124,18 @@ def main() -> int:
             continue
         try:
             rec = restore_entry(entry, root, args.skip_large)
-        except subprocess.CalledProcessError as exc:
+        except (subprocess.CalledProcessError, OSError, ValueError) as exc:
             rec = {"id": entry["id"], "dest": entry["dest"], "group": entry["group"],
-                   "status": "FAILED", "error": f"exit {exc.returncode}"}
+                   "status": "FAILED", "error": str(exc)[:300]}
             failed += 1
         secs = f"  {rec['seconds']}s" if "seconds" in rec else ""
         print(f"[{rec['status']:>13}] {rec['id']:<48} {rec.get('bytes', 0):>12,} B{secs}", flush=True)
         receipt["files"].append(rec)
 
-    receipt["all_verified"] = all(r["status"] in ("present", "restored", "skipped-large")
+    receipt["all_verified"] = bool(receipt["files"]) and all(r["status"] in ("present", "restored")
                                   for r in receipt["files"])
+    receipt["verified_file_count"] = sum(r["status"] in ("present", "restored") for r in receipt["files"])
+    receipt["skipped_file_count"] = sum(r["status"] == "skipped-large" for r in receipt["files"])
     out = ROOT / "data" / "restore_receipt.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(receipt, indent=1))
