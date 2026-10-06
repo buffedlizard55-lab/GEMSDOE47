@@ -30,12 +30,24 @@ async function refreshFeed() {
   try {
     const response = await fetch(`${base}data/source-feed.json`, {cache: 'no-store'});
     if (!response.ok) throw Error(`HTTP ${response.status}`);
-    const feed = await response.json(); const board = feed.leaderboard || {};
+    let feed = await response.json();
+    try {
+      const checkResponse = await fetch('https://api.github.com/repos/buffedlizard55-lab/GEMSDOE47/commits/arena%2F50b2a166-gemsdoe47/check-runs?check_name=Permitted%20public%20source%20feed&filter=latest', {cache:'no-store', headers:{Accept:'application/vnd.github+json'}});
+      if (checkResponse.ok) {
+        const checks = (await checkResponse.json()).check_runs || [];
+        const latest = checks.find(check => check.name === 'Permitted public source feed' && check.status === 'completed' && check.output?.summary?.includes('```json\n'));
+        if (latest) {
+          feed = JSON.parse(latest.output.summary.split('```json\n')[1].split('\n```')[0]);
+          if (byId('feed-timestamp')) byId('feed-timestamp').dataset.receiptUrl = latest.html_url;
+        }
+      }
+    } catch { /* Retain same-origin dated fallback, never invent a fresh observation. */ }
+    const board = feed.leaderboard || {};
     const observed = board.observed_utc || board.observed_date || 'not retained';
     const stale = board.status !== 'FRESH_OFFICIAL_PARTICIPANT_OBSERVATION' || (board.observed_utc && Date.now() - Date.parse(board.observed_utc) > 36 * 3600 * 1000);
     const rows = Array.isArray(board.rows) ? board.rows : [];
     text(byId('feed-status'), `${stale ? 'Dated / stale observation — not a fresh live score.' : 'Official participant table freshly fetched.'} Last observation: ${observed}. ${feed.permission_boundary || ''} ${feed.fetch_failures || 0} fetch/parser failures; ${feed.policy_skips || 0} permission-policy skips.`);
-    text(byId('feed-timestamp'), `Last automation run: ${feed.generated_utc || feed.generated_date || 'not recorded'}. Daily scheduled refresh. This does not re-run models or authorize submissions.`);
+    text(byId('feed-timestamp'), `Last automation run: ${feed.generated_utc || feed.generated_date || 'not recorded'}. Daily scheduled refresh via public GitHub Checks receipt. This does not re-run models or authorize submissions.`);
     if (rows.length && typeof rows[0].score === 'number') document.querySelectorAll('.live-top-score').forEach(node => text(node, finiteScore(rows[0].score)));
     if (byId('leaderboard-table')) byId('leaderboard-table').replaceChildren(makeTable(['Rank','Participant / team','Public score'], rows.map(row => [row.rank, row.profile_url ? link(row.profile_url,row.participant || 'name not retained') : row.participant || 'name not retained', finiteScore(row.score)])));
     if (byId('source-feed-table')) byId('source-feed-table').replaceChildren(makeTable(['Source / evidence class','Last attempt / status','Last successful fetch / content SHA-256'], (feed.sources || []).map(source => {

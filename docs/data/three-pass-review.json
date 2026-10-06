@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "reviewed_utc": "2026-10-06T21:50:43Z",
-  "status": "THREE_LOCAL_PASSES_COMPLETE_REMOTE_MERGE_PENDING",
+  "status": "THREE_PASSES_COMPLETE_PR12_MERGED",
   "passes": [
     {
       "pass": 1,
@@ -71,5 +71,22 @@
     "exact_matches": 0,
     "max_jaccard": 0.04061653572764684
   },
-  "pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE47/pull/12"
+  "pr_url": "https://github.com/buffedlizard55-lab/GEMSDOE47/pull/12",
+  "pr12_merge": {
+    "mergeCommit": {
+      "oid": "04d49a321b146e13fb2b6e718ea73dfb02534fbc"
+    },
+    "mergedAt": "2026-10-06T22:08:36Z",
+    "number": 12,
+    "state": "MERGED",
+    "url": "https://github.com/buffedlizard55-lab/GEMSDOE47/pull/12"
+  },
+  "final_ci_green_runs": [
+    37538373309,
+    37538368535
+  ],
+  "main_ci_green_run": 37538674597,
+  "merged_pytest_passed": 227,
+  "merged_pytest_skipped": 0,
+  "merge_publication_receipt": "merge-publication-receipt.json"
 }
