@@ -371,3 +371,20 @@ footprint cells (58,800 exact-catalogue); GDR traces: 82,871 (58,876 exact-catal
 cells: 244. These all_touched pixel counts are not fault counts or expert-new truth. The earlier
 USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
 GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.
+
+## Publication receipt
+
+PR **#12 merged** at 2026-10-06 22:08:36 UTC, commit `04d49a321b146e13fb2b6e718ea73dfb02534fbc`,
+after green branch checks. Main CI and the existing root Pages deployment succeeded. The merged suite
+passes **227 tests + 2 subtests** locally (one upstream Rasterio deprecation warning); unittest 70 OK.
+C1's frozen code, field/history hashes and TIFF bytes remain unchanged after additive reconciliation.
+Refreshed uniqueness scope is **561 comparisons**, no exact match, max Jaccard unchanged.
+
+The repo's Pages mode is legacy `main:/`, not an Actions docs artifact. The GitHub integration cannot
+administer Pages settings/cancel permissions, so no permission bypass or main push was attempted.
+A dedicated scheduled permitted-source job publishes public Checks JSON on the fixed working branch;
+the website consumes it with a dated fallback. This preserves automatic source updates without a
+Pages-admin change. No automated DrivenData monitoring or competition upload.
+
+[Merge/publication receipt](evidence/merge-publication-receipt.json) ·
+[PR12](https://github.com/buffedlizard55-lab/GEMSDOE47/pull/12). Scientific gate remains closed.

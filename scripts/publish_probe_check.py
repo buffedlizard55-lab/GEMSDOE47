@@ -17,13 +17,14 @@ from pathlib import Path
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--receipt", type=Path, required=True)
+    parser.add_argument("--name", default="Public-data receipt (neutral, inspect JSON)")
     args = parser.parse_args()
     body = json.loads(args.receipt.read_text())
     pretty = json.dumps(body, indent=2, allow_nan=False)
     if len(pretty.encode()) > 60_000:
         raise ValueError("receipt exceeds Check summary budget; do not silently truncate")
     repo, sha, run = os.environ["GITHUB_REPOSITORY"], os.environ["GITHUB_SHA"], os.environ["GITHUB_RUN_ID"]
-    payload = {"name": "Public-data receipt (neutral, inspect JSON)", "head_sha": sha,
+    payload = {"name": args.name, "head_sha": sha,
                "status": "completed", "conclusion": "neutral",
                "details_url": f"https://github.com/{repo}/actions/runs/{run}",
                "output": {"title": "Download success/failure is inside the receipt, not implied by a green workflow",

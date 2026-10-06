@@ -92,7 +92,7 @@
       "id": "R15",
       "requirement": "Automatic auditable feed",
       "status": "PASS_PERMITTED_SCOPE",
-      "evidence": "Daily government/owner feed; failures/staleness explicit; DD bot traffic disabled under Terms absent written permission."
+      "evidence": "Daily permitted-source Checks API feed with static fallback, compatible with existing legacy-root Pages mode; DD bot traffic disabled. No main push/admin setting change."
     },
     {
       "id": "R16",
@@ -109,8 +109,8 @@
     {
       "id": "R18",
       "requirement": "PR then merge main",
-      "status": "PR_OPEN_CHECKS_PENDING",
-      "evidence": "PR12 opened. Concurrent main750f3b7 reconciled additively on fixed branch; all gates closed; final checks/merge still to be recorded."
+      "status": "PASS_PR12_MERGED",
+      "evidence": "PR12 merged 2026-10-06T22:08:36Z as 04d49a321b146e13fb2b6e718ea73dfb02534fbc after green branch CI; main CI and legacy root Pages deployment succeeded."
     },
     {
       "id": "R19",
