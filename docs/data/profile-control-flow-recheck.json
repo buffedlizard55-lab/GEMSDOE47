@@ -1,0 +1,13 @@
+{
+  "technical_correction_only": true,
+  "prediction_field_sha256": {
+    "raw": "20f8abd405eeafbaf7c03dbcc6883cdda5c0a9a8d5e71034d1d07c0a7cebb237",
+    "structural": "64a7542311b9bc7a23da0395c73501eb4d74ae1a625c7f2669c8a24eabc52c17",
+    "profile": "b0e9d92d6c6e450e26ffda6983c717c800d830fedea0f716f1ef6fe0e5bac144"
+  },
+  "prediction_fields_byte_identical_to_superseded_run": true,
+  "full_spacing_history_sha256": "52331d4ec8f2186cbb9d9957a973f1ea2047186a3d37a9ff2ee7aa8e0504076d",
+  "full_spacing_history_byte_identical_to_superseded_run": true,
+  "locked_spacing_matches_final": true,
+  "model_split_target_and_selection_parameters_changed": false
+}

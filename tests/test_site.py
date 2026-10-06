@@ -4,11 +4,8 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-RESEARCH_TIF = (
-    "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-"
-    "research-not-submittable-20261006.tif"
-)
-EXPECTED_SHA256 = "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b"
+RESEARCH_TIF = "docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
+EXPECTED_SHA256 = "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0"
 
 
 class _PageParser(HTMLParser):
@@ -85,14 +82,18 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(href, RESEARCH_TIF)
         target = ROOT / RESEARCH_TIF
         self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
-        self.assertGreater(target.stat().st_size, 1_000_000)
+        self.assertGreater(target.stat().st_size, 100_000)
+        import hashlib
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), EXPECTED_SHA256)
         lower = text.lower()
         self.assertIn("research-only", lower)
         self.assertIn("not for submission", lower)
         self.assertIn("not promoted", lower)
         self.assertIn("no slot", lower)
         self.assertIn(EXPECTED_SHA256, text)
-        self.assertIn("0.037159", text, "random-control loss is visible")
+        self.assertIn("0.177872", text, "candidate pooled score is visible")
+        self.assertIn("0.180216", text, "pooled baseline loss is visible")
+        self.assertIn("0.0000", text, "zero conformal floor is visible")
 
     def test_submission_and_summary_pages_keep_the_slot_gate_visible(self):
         for path in (ROOT / "docs" / "executive-summary.html", ROOT / "docs" / "submit.html", ROOT / "docs" / "portal-checklist.html"):

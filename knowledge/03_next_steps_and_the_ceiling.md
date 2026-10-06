@@ -103,5 +103,6 @@ straining, hydrothermally altered, seismically and thermally active ground with
 shallow magnetic contrast — emerges from the leaderboard returns and is *not*
 contradicted by any independent frame. But it is not **validated** either, and the
 project rule is not to spend a scarce slot on an unvalidated idea. The Final Prize
-Round (3 Sep – 16 Oct) has unlimited submissions, which is exactly where such an
-arm belongs.
+Round is not an unlimited-submission refuge: one selected submission is evaluated in
+both rounds. The official overview currently lists December 3, 2026, 23:59 UTC as
+the competition end. This failed arm is research-only and must not consume a slot.

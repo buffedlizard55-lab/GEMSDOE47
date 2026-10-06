@@ -1,38 +1,16 @@
 #!/usr/bin/env python3
-"""Build, evaluate and ship the two GEMSDOE47 submission arms.
+"""RETIRED LATI builders: educational reproduction only, never a slot candidate.
 
-This is the lean, self-contained ship path: it needs only the hash-pinned
-competition bytes in ``.cache/gems_data`` (``scripts/restore_data.py``) plus the
-single reference raster ``.cache/gems_data/reference/h33-2-b2-zeros.tif``.  It
-computes the four belief layers it needs directly instead of rebuilding the whole
-59-layer feature stack.
+Both arms depend on adaptive, unauthenticated leaderboard observations and fitted
+truth models. Their scores are proxy beliefs, not organizer receipts. H47-GSA
+failed cross-fitting. H47-MAXCOV changes an emission rule, not the geology; its
+covered-kernel integral is not DTI without truth. Neither is approved.
 
-ARM 1  H47-MAXCOV  - PRIMARY, the only arm this project is willing to recommend
-    for a scarce weekly Development Round slot.
-    Belief: the 13-observation LATI model that uses ONLY the layer the instrument
-    actually supports out of fold - proximity to the incumbent field.  No
-    unvalidated geological layer is bet on.
-    Emission: greedy on the exact marginal rule with the exact Bernoulli
-    E[kappa].  At matched budget this maximises the covered 300 m kernel
-    integral, which is an *exact, truth-model-free* metric quantity.  So ARM 1
-    changes the EMISSION RULE, not the geology - a claim that can be verified
-    arithmetically rather than believed.
+The official competition has up to three scoring submissions per week and ONE
+selected file for both prize rounds, not unlimited final-round submissions.
 
-ARM 2  H47-GSA  - SECONDARY, a discovery arm for the Final Prize Round
-    (3 Sep - 16 Oct), which has UNLIMITED submissions.
-    Belief: LATI forward selection over an a-priori geothermal pool ->
-    geodetic shear strain rate, low Th/K hydrothermal alteration, GDR thermal
-    discharge proximity, dilatation rate.
-    ``evidence/crossfit_validation.json`` shows its in-fold advantage (+0.30 DTI)
-    does NOT survive out-of-fold scoring (-0.061 and -0.045 in the two folds), so
-    it is explicitly NOT recommended for a weekly slot.  Unlimited-submission
-    rounds are exactly where a cheap, unvalidated, high-variance arm belongs.
-
-Both arms are written in two out-of-footprint conventions and validated:
-    -allfinite.tif  PRIMARY download - passes a NaN-intolerant range check
-    -nan.tif        secondary        - matches the organiser's own template
-
-    python3 scripts/ship.py [--budget 37654] [--budget2 44090]
+Opt-in: python scripts/ship.py --research-only
+Outputs go to ignored cache, never delete or replace the current research TIFF.
 """
 
 from __future__ import annotations
@@ -56,6 +34,7 @@ from gems47 import emitter as E
 from gems47 import grid as G
 from gems47 import lati
 from gems47 import metric as M
+from gems47.research_policy import require_research_only
 from gems47.scripts_common import rank_u8_inplace
 from gems47.submission import diff_report, validate_submission, write_submission
 
@@ -66,7 +45,7 @@ H33_REL = "reference/h33-2-b2-zeros.tif"
 # restore is verifiable rather than trusted
 H33_SHA256 = "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9"
 H33_DTI = 0.2778
-K_UNIFORM = 12_348.0   # model-free estimate from the r13-lattice diffuse probe
+K_UNIFORM = 12_348.0   # model-dependent approximation from an unauthenticated diffuse-probe score
 ARM2_LAYERS = ["prox_d2.8", "geod_shearrate", "rad_ThK", "thermal_warm_prox", "geod_dilaterate"]
 
 
@@ -127,6 +106,7 @@ def fit(rows_u8, obs):
 
 
 def main() -> int:
+    require_research_only()
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", type=int, default=37_654,
                     help="matched to the reported-0.2778 arm: equal-mass comparison")
@@ -309,22 +289,16 @@ def main() -> int:
 
     # ---- write --------------------------------------------------------------
     stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
-    outdir = ROOT / "docs" / "downloads"
+    outdir = ROOT / ".cache" / "retired_lati_reproduction" / "ship"
     outdir.mkdir(parents=True, exist_ok=True)
-    removed = []
-    for old in sorted(outdir.glob("*.tif")):
-        # superseded exploratory outputs: the falsified flank arms and the
-        # pre-cross-fit H47-GSA build.  Recorded, never silently deleted.
-        removed.append(dict(filename=old.name, bytes=old.stat().st_size,
-                            sha256=sha256_file(old)))
-        old.unlink()
+    removed = []  # historical reproduction must never delete published TIFFs
     shipped = []
     specs = [
-        ("arm1_maxcov", "h47maxcov", "PRIMARY - recommended for a weekly Development Round slot",
+        ("arm1_maxcov", "h47maxcov", "RETIRED EDUCATIONAL REPRODUCTION - NOT PROMOTED, NO SLOT",
          f"GEMSDOE47 H47-MAXCOV-{args.budget} | 13-observation LATI belief (incumbent-field "
          f"proximity, K={f1['theta'][0]:,.0f}); exact-marginal-rule max-coverage emission at "
          f"matched budget; changes the EMISSION RULE, not the geology; UNSCORED"),
-        ("arm2_h47gsa", "h47gsa", "SECONDARY - Final Prize Round discovery arm (unlimited submissions)",
+        ("arm2_h47gsa", "h47gsa", "RETIRED FAILED RESEARCH ARM - NOT PROMOTED, NO SLOT",
          f"GEMSDOE47 H47-GSA-{args.budget} | LATI forward selection over an a-priori geothermal "
          f"pool ({', '.join(ARM2_LAYERS[1:])}), K={f2['theta'][0]:,.0f}; FAILED cross-fitted "
          f"validation (-0.061 / -0.045 out of fold); do NOT spend a weekly slot; UNSCORED"),
@@ -341,7 +315,7 @@ def main() -> int:
                              mode="zeros" if mode == "allfinite" else "nan", template=t)
             v = validate_submission(fn, template=t)
             shipped.append(dict(arm=key, slug=slug, role=role, budget=args.budget, mode=mode,
-                                primary_download=bool(mode == "allfinite" and key == "arm1_maxcov"),
+                                primary_download=False, slot_authorized=False,
                                 filename=fn.name, name=base_name,
                                 sha256=sha256_file(fn), bytes=fn.stat().st_size,
                                 n_dots=int(dots.sum()), submission_note=note, validation=v))
@@ -366,12 +340,12 @@ def main() -> int:
                              K=f2["theta"][0], ssr=f2["ssr"], loo=f2["loo"],
                              loo_residuals=f2["loo_residuals"]),
                    uniform_K=K_UNIFORM,
-                   uniform_K_provenance="model-free solve from the r13-lattice diffuse probe "
+                   uniform_K_provenance="assumption-dependent estimate from an unauthenticated r13-lattice probe "
                                         "(its 300 m halo averages the whole footprint)"),
                frames=dict(
                    F1="13-observation LATI q, ARM 1 belief (incumbent-field proximity only)",
                    F2="13-observation LATI q, ARM 2 belief (H47-GSA forward selection)",
-                   F3=f"uniform q at the model-free K={K_UNIFORM:,.0f} (adversarial to any concentration)",
+                   F3=f"uniform q at the assumed K={K_UNIFORM:,.0f} (adversarial to any concentration)",
                    F4="USGS SGMC faults >300 m off the given catalogue (official, independent)",
                    F5="4-quadrant blocked holdout on the given catalogue, scored unmasked (contaminated)",
                    coverage="covered 300 m kernel integral over the evaluated footprint - exact, "
@@ -379,8 +353,8 @@ def main() -> int:
                results=rows_out, shipped=shipped, superseded_outputs_removed=removed,
                crossfit_validation=crossfit, n_priors_compared=len(priors),
                seconds=round(time.time() - t0, 1))
-    (ROOT / "evidence" / "shipped.json").write_text(json.dumps(out, indent=1, default=float))
-    print(f"\nwrote evidence/shipped.json ({time.time()-t0:.0f}s)")
+    (outdir / "retired-lati-report.json").write_text(json.dumps(out, indent=1, default=float))
+    print(f"\nwrote ignored-cache retired-lati-report.json ({time.time()-t0:.0f}s)")
     return 0
 
 

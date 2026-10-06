@@ -3,6 +3,8 @@ name: Publish GitHub Pages site
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 7 * * *'
   workflow_dispatch:
 
 permissions:
@@ -22,6 +24,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'requests>=2.32,<3' 'beautifulsoup4>=4.12,<5'
+      - name: Refresh auditable public source feed without modifying research results
+        run: python scripts/refresh_source_feed.py
+      - name: Check deployed local links and scientific slot status
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests -p 'test_site.py' -v
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
