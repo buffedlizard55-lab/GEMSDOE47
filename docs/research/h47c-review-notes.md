@@ -59,3 +59,25 @@ This is a documented technical correction, not an independent second geological 
   inside the Pages artifact or point to explicit GitHub/official external URLs.
 - Refresh sources without inventing current data after a network/login/parser failure. Record last
   successful observation, last attempt, provenance class and timestamps separately.
+
+## Pass 3 completed — 2026-10-06 UTC
+
+Independent final recheck: 160 pytest tests + 2 subtests pass, no local skips; unittest 70/70; Ruff and
+JS syntax clean; 16 grid checks; actual preview TIFF HTTP200 and SHA match; 15 serialized format checks.
+Raw spacing CSV recomputes the rank/zero band, original 2.8px choice and failed gate. Current/archived
+HTML links, assets and Pages deployment boundaries checked; home and summary offer the actual new TIFF
+before the large introduction. All fitted field/history hashes unchanged across the technical correction.
+
+Expanded CI initially tried a data-dependent legacy test without restoring data; corrected marker
+selection, while real new TIFF/ZIP bytes still run in CI. Later Tests workflow 37534139423 is green.
+Legacy local-template paths corrected to the canonical restored cache, eliminating two local skips.
+
+Source Terms review disabled unpermitted DrivenData robot monitoring. The automatic feed covers
+permitted government/owner sources and explicitly retains the dated board. Official GDR trace/paleo
+archives acquired/rasterized on runner (82,871 line-covered footprint pixels; 244 paleo point cells),
+not used in C1 and not hidden labels. USGS byte/coverage limitations are separate; never equate a green
+job with a successful source. Final scientific status remains NOT PROMOTED, zero floor, no slot.
+
+Exact final remote check/PR/merge/deployment receipts are updated separately in the three-pass JSON.
+The original word-for-word chat is unavailable; README preserves the complete available structured
+brief and score/URL history without claiming a fabricated verbatim transcript. Winning goal unmet.

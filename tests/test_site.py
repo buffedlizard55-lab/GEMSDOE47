@@ -18,6 +18,7 @@ class _PageParser(HTMLParser):
         self.language = None
         self.descriptions = 0
         self.tiff_links = []
+        self.assets = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -25,6 +26,10 @@ class _PageParser(HTMLParser):
             self.language = attrs.get("lang")
         if "id" in attrs:
             self.ids.add(attrs["id"])
+        if tag in ("script", "img") and attrs.get("src"):
+            self.assets.append(attrs["src"])
+        if tag == "link" and attrs.get("href"):
+            self.assets.append(attrs["href"])
         if tag == "a" and attrs.get("href"):
             self.links.append(attrs["href"])
             if urlparse(attrs["href"]).path.lower().endswith((".tif", ".tiff")):
@@ -44,6 +49,24 @@ class _PageParser(HTMLParser):
 
 
 class SiteTests(unittest.TestCase):
+    def test_all_deployed_nested_links_assets_stay_inside_pages_artifact(self):
+        for page in sorted((ROOT / "docs").rglob("*.html")):
+            parser = _PageParser(); parser.feed(page.read_text())
+            for href in parser.links + parser.assets:
+                url = urlparse(href)
+                if url.scheme or url.netloc or not url.path:
+                    continue
+                target = (page.parent / unquote(url.path)).resolve()
+                self.assertTrue(target.is_relative_to((ROOT / "docs").resolve()), href)
+                self.assertTrue(target.is_file(), f"{page}: {href}")
+
+    def test_new_download_precedes_the_large_intro_on_home_and_summary(self):
+        for name in ["index.html", "executive-summary.html"]:
+            text = (ROOT / "docs" / name).read_text()
+            self.assertLess(text.index("↓ Download GeoTIFF"), text.index("<h1>"), name)
+            self.assertIn("2.8 px / 280 m", text)
+            self.assertIn("nominal 90% marginal block band", text)
+
     def test_all_local_html_links_resolve(self):
         pages = sorted([ROOT / "index.html", *ROOT.glob("docs/*.html")])
         self.assertGreaterEqual(len(pages), 4)

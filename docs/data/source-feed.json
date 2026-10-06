@@ -1,65 +1,70 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-10-06T21:01:46Z",
+  "generated_utc": "2026-10-06T21:49:28Z",
   "policy": "Availability is not claim verification; secondary pages never authenticate a score-to-file mapping.",
-  "automation": "GitHub Pages refresh on push/manual dispatch and daily schedule; no competition uploads.",
+  "automation": "Daily Pages refresh of permitted official/owner sources; DrivenData monitoring disabled without written permission; no uploads.",
   "sources": [
     {
       "id": "official-overview",
       "title": "DrivenData GEMS overview",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
       "verified_claims": false,
-      "status": "FETCH_FAILED",
-      "error_type": "SSLError"
+      "policy_checked_utc": "2026-10-06T21:49:26Z",
+      "status": "SKIPPED_TERMS_WRITTEN_PERMISSION_NOT_RECORDED",
+      "reason": "Automated DrivenData monitoring disabled; retain dated observation and official link.",
+      "terms_url": "https://www.drivendata.org/termsofuse/"
     },
     {
       "id": "official-problem",
       "title": "Official target, metric and GeoTIFF format",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
       "verified_claims": false,
-      "status": "FETCH_FAILED",
-      "error_type": "SSLError"
+      "policy_checked_utc": "2026-10-06T21:49:26Z",
+      "status": "SKIPPED_TERMS_WRITTEN_PERMISSION_NOT_RECORDED",
+      "reason": "Automated DrivenData monitoring disabled; retain dated observation and official link.",
+      "terms_url": "https://www.drivendata.org/termsofuse/"
     },
     {
       "id": "official-about",
       "title": "Official background and research resources",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
       "verified_claims": false,
-      "status": "FETCH_FAILED",
-      "error_type": "SSLError"
+      "policy_checked_utc": "2026-10-06T21:49:26Z",
+      "status": "SKIPPED_TERMS_WRITTEN_PERMISSION_NOT_RECORDED",
+      "reason": "Automated DrivenData monitoring disabled; retain dated observation and official link.",
+      "terms_url": "https://www.drivendata.org/termsofuse/"
     },
     {
       "id": "official-data",
       "title": "Competition downloads (login required)",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
       "verified_claims": false,
-      "status": "FETCH_FAILED",
-      "error_type": "SSLError"
+      "policy_checked_utc": "2026-10-06T21:49:26Z",
+      "status": "SKIPPED_TERMS_WRITTEN_PERMISSION_NOT_RECORDED",
+      "reason": "Automated DrivenData monitoring disabled; retain dated observation and official link.",
+      "terms_url": "https://www.drivendata.org/termsofuse/"
     },
     {
       "id": "official-leaderboard",
       "title": "Official participant leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
       "verified_claims": false,
-      "status": "FETCH_FAILED",
-      "error_type": "SSLError"
+      "policy_checked_utc": "2026-10-06T21:49:26Z",
+      "status": "SKIPPED_TERMS_WRITTEN_PERMISSION_NOT_RECORDED",
+      "reason": "Automated DrivenData monitoring disabled; retain dated observation and official link.",
+      "terms_url": "https://www.drivendata.org/termsofuse/"
     },
     {
       "id": "official-rules",
       "title": "September 2026 official rules",
       "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:26Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -69,27 +74,29 @@
       "title": "Staff clarification: catalogue pixels excluded in both rounds",
       "url": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
       "verified_claims": false,
-      "status": "FETCH_FAILED",
-      "error_type": "SSLError"
+      "policy_checked_utc": "2026-10-06T21:49:26Z",
+      "status": "SKIPPED_TERMS_WRITTEN_PERMISSION_NOT_RECORDED",
+      "reason": "Automated DrivenData monitoring disabled; retain dated observation and official link.",
+      "terms_url": "https://www.drivendata.org/termsofuse/"
     },
     {
       "id": "official-test-sources",
       "title": "Staff withholds test-data sources, types and coverage",
       "url": "https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527?print=true",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
       "verified_claims": false,
-      "status": "FETCH_FAILED",
-      "error_type": "SSLError"
+      "policy_checked_utc": "2026-10-06T21:49:26Z",
+      "status": "SKIPPED_TERMS_WRITTEN_PERMISSION_NOT_RECORDED",
+      "reason": "Automated DrivenData monitoring disabled; retain dated observation and official link.",
+      "terms_url": "https://www.drivendata.org/termsofuse/"
     },
     {
       "id": "official-geodawn",
       "title": "USGS GeoDAWN data release",
       "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:26Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -99,7 +106,7 @@
       "title": "USGS Quaternary faults / current GIS downloads",
       "url": "https://www.usgs.gov/programs/earthquake-hazards/faults",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:26Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -109,7 +116,7 @@
       "title": "USGS free elevation products",
       "url": "https://www.usgs.gov/3d-elevation-program",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:26Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -119,7 +126,7 @@
       "title": "USGS ASTER hydrothermal alteration",
       "url": "https://mrdata.usgs.gov/surficial-mineralogy/ofr-2013-1139/",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:26Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -129,7 +136,7 @@
       "title": "DOE GDR INGENIOUS, CC BY 4.0",
       "url": "https://gdr.openei.org/submissions/1391",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:26Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -139,7 +146,7 @@
       "title": "Organizer-provided CPU/GPU reference solution",
       "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
       "evidence_class": "official",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -149,7 +156,7 @@
       "title": "Lei et al. split conformal, author manuscript",
       "url": "https://www.stat.berkeley.edu/~ryantibs/papers/conformal.pdf",
       "evidence_class": "primary_research_or_software",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -159,7 +166,7 @@
       "title": "Sare et al. 2019 scarp templates",
       "url": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JB016886",
       "evidence_class": "primary_research_or_software",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -169,7 +176,7 @@
       "title": "GDAL internal TIFF nodata masks",
       "url": "https://gdal.org/en/stable/drivers/raster/gtiff.html",
       "evidence_class": "primary_research_or_software",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -179,7 +186,7 @@
       "title": "Rasterio nodata-mask documentation",
       "url": "https://rasterio.readthedocs.io/en/stable/topics/masks.html",
       "evidence_class": "primary_research_or_software",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -189,7 +196,7 @@
       "title": "GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -199,7 +206,7 @@
       "title": "6GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/6GEMSDOE/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -209,7 +216,7 @@
       "title": "GEMSDOE3",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE3/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -219,7 +226,7 @@
       "title": "GEMSDOE2",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE2/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -229,7 +236,7 @@
       "title": "GEMSDOE4",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE4/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -239,7 +246,7 @@
       "title": "5GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/5GEMSDOE/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -249,7 +256,7 @@
       "title": "7GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/7GEMSDOE/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -259,7 +266,7 @@
       "title": "8GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/8GEMSDOE/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -269,7 +276,7 @@
       "title": "GEMSDOE9",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE9/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -279,7 +286,7 @@
       "title": "11GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/11GEMSDOE/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -289,7 +296,7 @@
       "title": "12GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/12GEMSDOE/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -299,7 +306,7 @@
       "title": "15GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/15GEMSDOE/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -309,7 +316,7 @@
       "title": "14GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/14GEMSDOE/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -319,7 +326,7 @@
       "title": "17GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/17GEMSDOE/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -329,7 +336,7 @@
       "title": "18GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/18GEMSDOE/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:45Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -339,7 +346,7 @@
       "title": "19GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/19GEMSDOE/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -349,7 +356,7 @@
       "title": "GEMSDOE10",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE10/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -359,7 +366,7 @@
       "title": "13GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/13GEMSDOE/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -369,7 +376,7 @@
       "title": "16GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/16GEMSDOE/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -379,7 +386,7 @@
       "title": "GEMSDOE21",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE21/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -389,7 +396,7 @@
       "title": "20GEMSDOE",
       "url": "https://buffedlizard55-lab.github.io/20GEMSDOE/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -399,7 +406,7 @@
       "title": "GEMSDOE22",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE22/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -409,7 +416,7 @@
       "title": "GEMSDOE23",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE23/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -419,7 +426,7 @@
       "title": "GEMSDOE24",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE24/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -429,7 +436,7 @@
       "title": "GEMSDOE25",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE25/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -439,7 +446,7 @@
       "title": "GEMSDOE26",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE26/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -449,7 +456,7 @@
       "title": "GEMSDOE27",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE27/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -459,7 +466,7 @@
       "title": "GEMSDOE28",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE28/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -469,7 +476,7 @@
       "title": "GEMSDOE29",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE29/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -479,7 +486,7 @@
       "title": "GEMSDOE30",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE30/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -489,7 +496,7 @@
       "title": "GEMSDOE31",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE31/docs/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -499,7 +506,7 @@
       "title": "GEMSDOE32",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -509,7 +516,7 @@
       "title": "GEMSDOE33",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE33/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -519,7 +526,7 @@
       "title": "GEMSDOE34",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE34/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -529,7 +536,7 @@
       "title": "GEMSDOE35",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE35/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:27Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -539,7 +546,7 @@
       "title": "GEMSDOE36",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE36/docs/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -549,7 +556,7 @@
       "title": "GEMSDOE37",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE37/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -559,7 +566,7 @@
       "title": "GEMSDOE38",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE38/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -569,7 +576,7 @@
       "title": "GEMSDOE39",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE39/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -579,7 +586,7 @@
       "title": "GEMSDOE40",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE40/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -589,7 +596,7 @@
       "title": "GEMSDOE41",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE41/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -599,7 +606,7 @@
       "title": "GEMSDOE42",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE42/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -609,7 +616,7 @@
       "title": "GEMSDOE43",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE43/docs/index.html",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -619,7 +626,7 @@
       "title": "GEMSDOE44",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE44/docs/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -629,7 +636,7 @@
       "title": "GEMSDOE45",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE45/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -639,7 +646,7 @@
       "title": "GEMSDOE46",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE46/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -649,7 +656,7 @@
       "title": "GEMSDOE47",
       "url": "https://buffedlizard55-lab.github.io/GEMSDOE47/",
       "evidence_class": "secondary_owner_page",
-      "last_attempt_utc": "2026-10-06T21:01:46Z",
+      "last_attempt_utc": "2026-10-06T21:49:28Z",
       "verified_claims": false,
       "status": "FETCH_FAILED",
       "error_type": "SSLError"
@@ -765,7 +772,11 @@
         "score": 0.26
       }
     ],
-    "latest_attempt_utc": "2026-10-06T21:01:46Z"
+    "latest_attempt_utc": "2026-10-06T21:46:06Z",
+    "latest_policy_check_utc": "2026-10-06T21:49:26Z"
   },
-  "fetch_failures": 65
+  "drivendata_automated_monitoring_enabled": false,
+  "permission_boundary": "DrivenData Terms prohibit robots/spiders; no written permission recorded. Saved dated board is not automatically refreshed.",
+  "policy_skips": 7,
+  "fetch_failures": 58
 }

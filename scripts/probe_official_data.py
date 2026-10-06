@@ -69,8 +69,8 @@ def coverage(content: bytes, template: G.Template) -> list[dict]:
     rows = []
     with zipfile.ZipFile(io.BytesIO(content)) as archive:
         # Never extract externally-controlled archive paths to the filesystem.
-        if sum(e.file_size for e in archive.infolist()) > 250_000_000:
-            raise ValueError("ZIP expansion exceeds audit budget")
+        if sum(e.file_size for e in archive.infolist() if e.filename.lower().endswith((".shp", ".shx", ".prj"))) > 250_000_000:
+            raise ValueError("supported shapefile expansion exceeds audit budget")
         names = archive.namelist()
         for name in names:
             if not name.lower().endswith(".shp"):
@@ -84,7 +84,7 @@ def coverage(content: bytes, template: G.Template) -> list[dict]:
                 continue
             src_crs = rasterio.crs.CRS.from_wkt(prj.decode("utf-8-sig"))
             reader = shapefile.Reader(shp=io.BytesIO(archive.read(name)),
-                                      dbf=io.BytesIO(matching(".dbf")) if matching(".dbf") else None,
+                                      dbf=None,  # attributes are unnecessary for geometry-only coverage
                                       shx=io.BytesIO(matching(".shx")) if matching(".shx") else None)
             geoms, geometry_types = [], set()
             west, south, east, north = rasterio.transform.array_bounds(*template.shape, template.transform)
@@ -128,13 +128,16 @@ def main() -> int:
         try:
             content, receipt = download(source, cache)
             row.update(receipt)
+            with zipfile.ZipFile(io.BytesIO(content)) as archive:
+                row["archive_members"] = [{"path": m.filename, "uncompressed_bytes": m.file_size} for m in archive.infolist() if not m.is_dir()][:80]
+                row["archive_member_count"] = len(archive.infolist())
             row["layers"] = coverage(content, template)
             row["status"] = ("BYTES_AND_COVERAGE_VERIFIED" if row["layers"] and
                              all(layer["status"] == "GEOMETRY_RASTERIZED" for layer in row["layers"])
                              else "BYTES_VERIFIED_COVERAGE_NOT_VERIFIED")
         except (requests.RequestException, OSError, ValueError, shapefile.ShapefileException,
                 rasterio.errors.RasterioError, zipfile.BadZipFile) as error:
-            row["status"] = "NOT_ACQUIRED_OR_NOT_COVERAGE_VERIFIED"
+            row["status"] = "BYTES_VERIFIED_COVERAGE_NOT_VERIFIED" if "sha256" in row else "NOT_ACQUIRED_OR_NOT_COVERAGE_VERIFIED"
             row["error_type"] = type(error).__name__
             row["error"] = str(error)[:300]
         print(f"{source['id']}: {row['status']}", flush=True)

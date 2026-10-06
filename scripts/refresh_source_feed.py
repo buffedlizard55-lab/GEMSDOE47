@@ -146,7 +146,11 @@ def refresh(sources: list[dict], previous: dict, *, fetcher=requests.get, worker
     if board is None:
         board = dict(previous.get("leaderboard", {}))
         board["status"] = "STALE_LAST_OBSERVATION_RETAINED" if board.get("rows") else "UNAVAILABLE_NO_SCORE_INVENTED"
-        board["latest_attempt_utc"] = utc_now()
+        board_record = next((r for r in records if r["id"] == "official-leaderboard"), {})
+        if board_record.get("last_attempt_utc"):
+            board["latest_attempt_utc"] = board_record["last_attempt_utc"]
+        elif board_record.get("policy_checked_utc"):
+            board["latest_policy_check_utc"] = board_record["policy_checked_utc"]
         board["file_to_score_mapping_verified"] = False
     return {"schema_version": 1, "generated_utc": utc_now(),
             "policy": "Availability is not claim verification; secondary pages never authenticate a score-to-file mapping.",
@@ -169,7 +173,7 @@ def main() -> int:
     temporary = args.out.with_suffix(".json.partial")
     temporary.write_text(json.dumps(out, indent=2, allow_nan=False) + "\n")
     temporary.replace(args.out)
-    print(f"{len(sources)} sources attempted; failures={out['fetch_failures']}; leaderboard={out['leaderboard']['status']}")
+    print(f"{len(sources)} sources processed; policy_skips={out['policy_skips']}; failures={out['fetch_failures']}; leaderboard={out['leaderboard']['status']}")
     return 0  # failures are surfaced in the feed; never replace them by fake facts
 
 
