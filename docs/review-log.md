@@ -40,6 +40,7 @@
 - The download control is visibly disabled with an explanation because there is no validated TIFF. No placeholder, old TIFF, or fabricated artifact is linked. The executive-summary subpage states the manual submission sequence and blockers.
 - Markdown source links in static HTML point to GitHub's rendered `main` views; local `.html` links are checked by a test. This avoids relying on browser interpretation of `.md` URLs in the Pages build.
 - Local HTTP smoke requests returned 200 for the home page, executive summary, leaderboard snapshot and portal checklist. Static tests verify page titles, descriptions, `lang=en`, internal targets, the disabled download gate, and no TIFF link while the gate is closed.
+- The first remote CI run emitted Node.js 20 deprecation and `ubuntu-latest` migration warnings. Updated to `actions/checkout@v7`, `actions/setup-python@v7`, and pinned `ubuntu-24.04`; the latest PR workflow then completed successfully without those annotations.
 - Confirmed no synthetic test raster, competition input, candidate artifact or other test data remains in the checkout; runtime/temp files are ignored or cleaned up.
 
 ## Remaining blockers / what this review did not do
