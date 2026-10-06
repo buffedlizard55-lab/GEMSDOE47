@@ -8,6 +8,8 @@ secret handling and are never copied into the payload, receipts or logs.
 from __future__ import annotations
 
 import argparse
+import base64
+import hashlib
 import json
 import os
 import subprocess
@@ -20,15 +22,18 @@ def main() -> int:
     parser.add_argument("--name", default="Public-data receipt (neutral, inspect JSON)")
     args = parser.parse_args()
     body = json.loads(args.receipt.read_text())
-    pretty = json.dumps(body, indent=2, allow_nan=False)
-    if len(pretty.encode()) > 60_000:
+    canonical = json.dumps(body, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
+    encoded = base64.b64encode(canonical).decode("ascii")
+    digest = hashlib.sha256(canonical).hexdigest()
+    summary = f"UTF-8 JSON receipt, base64 encoded to survive GitHub Markdown escaping. SHA-256: {digest}\n\n```base64json\n{encoded}\n```"
+    if len(summary.encode()) > 60_000:
         raise ValueError("receipt exceeds Check summary budget; do not silently truncate")
     repo, sha, run = os.environ["GITHUB_REPOSITORY"], os.environ["GITHUB_SHA"], os.environ["GITHUB_RUN_ID"]
     payload = {"name": args.name, "head_sha": sha,
                "status": "completed", "conclusion": "neutral",
                "details_url": f"https://github.com/{repo}/actions/runs/{run}",
                "output": {"title": "Download success/failure is inside the receipt, not implied by a green workflow",
-                          "summary": "```json\n" + pretty + "\n```"}}
+                          "summary": summary}}
     path = Path(".cache") / "probe-check-payload.json"
     path.parent.mkdir(exist_ok=True)
     path.write_text(json.dumps(payload, allow_nan=False))
