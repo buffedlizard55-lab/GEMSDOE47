@@ -51,13 +51,12 @@ def local_strike(cat: np.ndarray, sigma_px: float = 3.0) -> tuple[np.ndarray, np
     l1 = tr / 2.0 + disc
     l2 = tr / 2.0 - disc
     coherence = np.where(l1 + l2 > 0, (l1 - l2) / np.maximum(l1 + l2, 1e-12), 0.0)
-    # dominant eigenvector (gradient direction n); strike t is perpendicular
-    nx = Jxx - Jyy
-    ny = 2.0 * Jxy
-    nrm = np.sqrt(nx * nx + ny * ny)
-    nrm = np.where(nrm > 1e-12, nrm, 1.0)
-    tx = -ny / nrm
-    ty = nx / nrm
+    # Jxx-Jyy and 2*Jxy encode DOUBLE the normal angle, not a vector.
+    # Halve atan2 before rotating the normal by 90 degrees to obtain strike.
+    # Components use image coordinates: x=column, y=row; sign is axial.
+    normal_angle = 0.5 * np.arctan2(2.0 * Jxy, Jxx - Jyy)
+    tx = -np.sin(normal_angle)
+    ty = np.cos(normal_angle)
     return tx.astype(np.float32), ty.astype(np.float32), coherence.astype(np.float32)
 
 
@@ -97,7 +96,7 @@ def build_layers(template: G.Template, data=None) -> dict[str, np.ndarray]:
     sty = ty[iy, ix]
     dn = np.maximum(d, 1e-6)
     # |cos(angle between the offset to the catalogue and the local strike)|
-    cos_along = np.abs((dy * stx + dx * sty) / dn).astype(np.float32)
+    cos_along = np.abs((dx * stx + dy * sty) / dn).astype(np.float32)
 
     R = M.RANGE_PX
     halo = (d > 0) & (d <= R) & ev                       # 0 < d <= 3 px = 0..300 m
