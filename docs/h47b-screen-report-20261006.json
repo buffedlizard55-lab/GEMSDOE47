@@ -53,7 +53,7 @@
         1.0
       ],
       "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
-      "status": "PASS",
+      "status": "LOCAL_PASS",
       "submission": "work/candidates/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
       "template": "work/bridge/sample_submission.tif",
       "transform": [
@@ -65,11 +65,14 @@
         4508550.0
       ],
       "valid_pixels": 5167373,
-      "width": 3292
+      "width": 3292,
+      "validation_scope": "local byte-level audit against an owner-supplied mirror grid; not a portal oracle",
+      "organizer_acceptance_established": false
     },
     "future_candidate_boundary": "Any future authorized-input detector must be a separately preregistered candidate with a new hypothesis ID, evidence record, and filename; this H47-B file remains research-only.",
     "path": "work/candidates/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
-    "portal_note": "RESEARCH ONLY \u2014 NOT FOR SUBMISSION. Public-mirror H47-B cannot confer slot eligibility. Metric-screen failures: locked-test pooled DTI did not beat the fixed-seed random control; assumption-conditional conformal lower bound is not positive.",
+    "research_note": "H47-B selected spacing=5 px / 500 m; split-conformal nominal marginal coverage=85.7% (n=6, rank=6), conditional on block-score exchangeability (unverified); clipped lower bound=0.000; public-mirror research screen only.",
+    "portal_note": "RESEARCH ONLY \u2014 NOT FOR SUBMISSION. Do not paste this note into the portal. H47-B selected spacing=5 px / 500 m; split-conformal nominal marginal coverage=85.7% (n=6, rank=6), conditional on block-score exchangeability (unverified); clipped lower bound=0.000; public-mirror research screen only. Metric-screen failures: locked-test pooled DTI did not beat the fixed-seed random control; assumption-conditional conformal lower bound is not positive.",
     "positive_pixels": 18524,
     "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
     "unique_name": "gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif"
@@ -469,7 +472,7 @@
         1.0
       ],
       "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
-      "status": "PASS",
+      "status": "LOCAL_PASS",
       "submission": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
       "template": "work/bridge/sample_submission.tif",
       "transform": [
@@ -481,7 +484,9 @@
         4508550.0
       ],
       "valid_pixels": 5167373,
-      "width": 3292
+      "width": 3292,
+      "validation_scope": "local byte-level audit against an owner-supplied mirror grid; not a portal oracle",
+      "organizer_acceptance_established": false
     },
     "path": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
     "reason": "locked-test pooled DTI did not beat the fixed-seed random control; assumption-conditional conformal lower bound is not positive; public-mirror H47-B screen is research-only and cannot confer submission-slot eligibility",
@@ -577,5 +582,14 @@
         "pooled_test_dti": 0.027140026315712818
       }
     }
+  },
+  "format_audit_scope_review_2026_10_06": {
+    "original_measurements_preserved": true,
+    "local_status_label_updated": true,
+    "source_provenance": "owner-supplied group-hosted mirror; not organizer-authenticated",
+    "official_page_outside_bounds_rule": "null or NaN",
+    "artifact_outside_representation": "NaN with a NaN nodata tag",
+    "organizer_acceptance_established": false,
+    "experiment_rerun": false
   }
 }

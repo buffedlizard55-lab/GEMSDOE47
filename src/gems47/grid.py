@@ -1,8 +1,9 @@
 """Grid / template constants for the GEMS Prize Challenge submission raster.
 
-Every constant here was read back from the hash-pinned competition bytes
-(``sample_submission.tif`` / ``labels.tif``), not from documentation.  The
-verification command is ``scripts/verify_grid.py``.
+Every constant here was read back from hash-pinned, owner-supplied mirror copies
+of ``sample_submission.tif`` / ``labels.tif``, not from documentation. The
+mirror is not organizer authentication. The verification command is
+``scripts/verify_grid.py``.
 
 Official format requirements (competition page 967, "Submission format"):
   * same projected CRS as the training data -> UTM zone 11N, EPSG:32611
@@ -66,6 +67,21 @@ class Template:
         excluded from evaluation, so they do not count towards penalty terms."
         """
         return self.footprint & ~self.catalogue
+
+
+def dataset_matches_template_grid(dataset, template: Template, *, atol: float = 1e-9) -> bool:
+    """Compare raster dimensions, projected CRS, and affine transform to a template.
+
+    Transform coefficients use an absolute tolerance with zero relative tolerance:
+    grid origin/spacing comparisons should not scale with coordinate magnitude.
+    """
+    if dataset.shape != template.shape or dataset.crs is None:
+        return False
+    if dataset.crs.to_string() != template.crs:
+        return False
+    actual = np.asarray(tuple(dataset.transform)[:6], dtype=np.float64)
+    expected = np.asarray(tuple(template.transform)[:6], dtype=np.float64)
+    return bool(np.allclose(actual, expected, rtol=0.0, atol=atol))
 
 
 def load_template(data: Path | None = None) -> Template:

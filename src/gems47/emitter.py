@@ -163,8 +163,9 @@ def emit_poisson_thin(field: np.ndarray, min_dist_px: float, rank_order: bool = 
                       seed: int = 0) -> np.ndarray:
     """Poisson-disc thinning of a binary field, in geology-ranked or raster order.
 
-    Reproduces the *family* of the incumbent (a raster-order thin at d = 2.8 px)
-    so that emission rules can be compared at matched budget.
+    Reproduces the *family* of the owner-reported d2.8 reference (a raster-order
+    thin at d = 2.8 px) so emission rules can be compared at matched budget. It
+    is not the established spatially blocked holdout best.
     """
     ys, xs = np.nonzero(field > 0)
     if ys.size == 0:

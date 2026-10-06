@@ -1,30 +1,25 @@
 #!/usr/bin/env python3
-"""Decisive test of the H47 flank hypothesis, plus the independent SGMC frame.
+"""Exploratory H47 flank-model comparison and public-frame diagnostics.
 
-Q1  Does the catalogue-flank layer add explanatory power to LATI *beyond* the
-    incumbent's own field?  Fit q on {control_prox_d2.8} alone and on
-    {control_prox_d2.8, dcat_band_0_1.5, dcat_band_1.5_3, sgmc_offcat_prox} and
-    compare SSR with leave-one-observation-out CV.  If the flank layers only
-    proxy "near the good field", they add nothing and H47 dies here.
+Q1  Compare the 12-row owner-reported LATI LOO fit with and without catalogue
+    flank layers. This is a model-specific association screen, not a causal
+    ablation or private-target validation. H33-2-B2 is not included as an
+    authenticated score pair.
 
-Q2  Independent, official, real-truth frame.  USGS SGMC geologic-map faults that
-    are NOT within 300 m of the competition's given catalogue are, by the
-    organiser's own definition ("'new fault' means 'any fault pixel not already
-    captured by USGS/INGENIOUS'", thread 11536), *members of the target
-    population*.  Score the incumbent and every H47 arm against them with the
-    official metric.  This is the only local frame whose truth is a real fault
-    population that is off-catalogue.
+Q2  Compare rasters on a public USGS SGMC off-catalogue frame. These are public
+    mapped faults, not organizer-authenticated hidden labels; the comparison is
+    descriptive and cannot alone promote or falsify a candidate.
 
-Q3  Spatially blocked holdout on the given catalogue (4 quadrants), reported for
-    continuity with the sibling repositories, with the contamination caveat that
-    GEMSDOE42 already logged: its truth IS the catalogue, so it rewards the
-    opposite skill.
+Q3  Report a four-quadrant holdout on the given catalogue only as a contaminated
+    diagnostic: because its truth is the catalogue, it rewards the opposite
+    skill and is never used as the project promotion gate.
 
     python3 scripts/test_flank.py
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import time
@@ -80,7 +75,14 @@ def main() -> int:
     U, names = st["U"], list(st["names"])
     ev_idx, shape = st["ev_idx"], tuple(st["meta"]["shape"])
     t = G.load_template()
-    out = {"generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    out = {
+        "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "observation_scope": {
+            "owner_reported_pairs_in_q1": len(obs),
+            "h33_score_file_mapping_verified": False,
+            "interpretation": "Q1 is an exploratory 12-row LOO comparison; local SGMC/catalogue frames are screening proxies, not organizer-authenticated private truth",
+        },
+    }
 
     # ---------------- Q1 ----------------------------------------------------
     extra = {
@@ -91,15 +93,15 @@ def main() -> int:
         "sgmc_offcat": U[names.index("sgmc_offcat")],
     }
     combos = [
-        ("incumbent-field-only", ["prox_d2.8"]),
-        ("incumbent+flank0_1.5", ["prox_d2.8", "dcat_band_0_1.5"]),
-        ("incumbent+flank0_3", ["prox_d2.8", "dcat_band_0_1.5", "dcat_band_1.5_3"]),
-        ("incumbent+flank+sgmc", ["prox_d2.8", "dcat_band_0_1.5", "dcat_band_1.5_3",
-                                  "sgmc_offcat_prox"]),
-        ("flank+sgmc (no incumbent)", ["dcat_band_0_1.5", "dcat_band_1.5_3", "sgmc_offcat_prox"]),
+        ("owner-reported d2.8 reference-field-only", ["prox_d2.8"]),
+        ("d2.8 reference + flank 0-1.5px", ["prox_d2.8", "dcat_band_0_1.5"]),
+        ("d2.8 reference + flank 0-3px", ["prox_d2.8", "dcat_band_0_1.5", "dcat_band_1.5_3"]),
+        ("d2.8 reference + flank + SGMC", ["prox_d2.8", "dcat_band_0_1.5", "dcat_band_1.5_3",
+                                             "sgmc_offcat_prox"]),
+        ("flank + SGMC (no d2.8 reference field)", ["dcat_band_0_1.5", "dcat_band_1.5_3", "sgmc_offcat_prox"]),
     ]
     q1 = []
-    print("[Q1] does the catalogue flank add signal beyond the incumbent's own field?")
+    print("[Q1] does adding catalogue-flank features reduce LOO error in this exploratory fit to owner-reported rows?")
     for label, keys in combos:
         Ux = np.stack([extra[k] for k in keys])
         bm = lati.BinnedSoftmax(Ux, list(range(len(keys))), obs,
@@ -117,11 +119,11 @@ def main() -> int:
     out["Q1_verdict"] = dict(
         baseline_model=base["model"], baseline_loo=base["loo_ssr"],
         best_model=best["model"], best_loo=best["loo_ssr"],
-        flank_adds_signal=bool(best["loo_ssr"] < base["loo_ssr"] - 1e-9),
-        improvement=base["loo_ssr"] - best["loo_ssr"])
-    print(f"   -> best by LOO: {best['model']} ({best['loo_ssr']:.6f} vs baseline "
-          f"{base['loo_ssr']:.6f}); flank adds signal = "
-          f"{out['Q1_verdict']['flank_adds_signal']}")
+        flank_reduces_loo_error_in_exploratory_fit=bool(best["loo_ssr"] < base["loo_ssr"] - 1e-9),
+        loo_ssr_reduction=base["loo_ssr"] - best["loo_ssr"])
+    print(f"   -> lowest LOO error: {best['model']} ({best['loo_ssr']:.6f} vs baseline "
+          f"{base['loo_ssr']:.6f}); exploratory-fit reduction = "
+          f"{out['Q1_verdict']['flank_reduces_loo_error_in_exploratory_fit']}")
 
     # ---------------- Q2: SGMC off-catalogue frame --------------------------
     with rasterio.open(G.data_dir() / "external" / "derived_sgmc_faults_100m_u8.tif") as s:
@@ -139,13 +141,17 @@ def main() -> int:
 
     arms = {}
     d28 = np.zeros(shape, bool); d28.ravel()[[o.dot_flat for o in obs if o.id == "d2.8"][0]] = True
-    arms["incumbent_d2.8 (live 0.2600)"] = d28
-    h33 = ROOT.parent / "refs" / "GEMSDOE32" / "docs" / "downloads" / \
-        "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif"
+    arms["owner-reported d2.8 reference (DTI 0.2600; no organizer receipt)"] = d28
+    h33 = ROOT / ".cache" / "gems_data" / "reference" / "h33-2-b2-zeros.tif"
     if h33.exists():
+        digest = hashlib.sha256(h33.read_bytes()).hexdigest()
+        if digest != "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9":
+            raise SystemExit("H33 reference raster SHA-256 mismatch")
         with rasterio.open(h33) as s:
+            if s.count != 1 or not G.dataset_matches_template_grid(s, t):
+                raise SystemExit("H33 reference raster grid does not match the competition template")
             v = s.read(1)
-        arms["h33-2-b2 (reported 0.2778)"] = np.nan_to_num(v) > 0
+        arms["H33-2-B2 reference raster (score/file mapping unverified)"] = np.nan_to_num(v) > 0
     # flank arm: dots inside the 1-3 px catalogue halo, ranked by an SGMC/ridge composite
     halo = (dcat > 0) & (dcat <= M.RANGE_PX) & ev
     arms["flank_halo_only (all %d px)" % int(halo.sum())] = halo
@@ -186,7 +192,7 @@ def main() -> int:
                         "(the same defect GEMSDOE42 logged in registry/irregularities.json)")
 
     out["seconds"] = round(time.time() - t0, 1)
-    (ROOT / "evidence" / "flank_test.json").write_text(json.dumps(out, indent=1, default=float))
+    (ROOT / "evidence" / "flank_test.json").write_text(json.dumps(out, indent=1, default=float, allow_nan=False))
     print(f"\nwrote evidence/flank_test.json ({time.time()-t0:.0f}s)")
     return 0
 

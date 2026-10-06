@@ -278,7 +278,9 @@
      "fp_fraction": 0.8007525264446769
     }
    },
-   "incumbent_out_of_fold_predicted": {
+   "paired_delta_out_of_fold": -0.0611062104556869,
+   "in_fold_advantage": 0.31335286843632826,
+   "owner_reported_d2_8_reference_out_of_fold_predicted": {
     "T": 5903.742451710956,
     "Phi": 3688.4451494027035,
     "S": 44090.0,
@@ -288,9 +290,7 @@
     "weighted_recall": 0.35254319807685114,
     "credit_per_dot": 0.13390207420528363,
     "fp_fraction": 0.9163428181128895
-   },
-   "paired_delta_out_of_fold": -0.0611062104556869,
-   "in_fold_advantage": 0.31335286843632826
+   }
   },
   "B_train_A_test": {
    "train_ids": [
@@ -550,7 +550,9 @@
      "fp_fraction": 0.807126945973316
     }
    },
-   "incumbent_out_of_fold_predicted": {
+   "paired_delta_out_of_fold": -0.04504387795321116,
+   "in_fold_advantage": 0.3015630415643519,
+   "owner_reported_d2_8_reference_out_of_fold_predicted": {
     "T": 6132.187374146239,
     "Phi": 3761.4212964173107,
     "S": 44090.0,
@@ -560,9 +562,7 @@
     "weighted_recall": 0.3579783913435625,
     "credit_per_dot": 0.13908340608179268,
     "fp_fraction": 0.9146876548782646
-   },
-   "paired_delta_out_of_fold": -0.04504387795321116,
-   "in_fold_advantage": 0.3015630415643519
+   }
   }
  },
  "budget": 37654,
@@ -573,8 +573,20 @@
   ],
   "mean_delta": -0.05307504420444903,
   "ship": false,
-  "rule": "ship only if the candidate beats the incumbent on the mean out-of-fold predicted DTI in BOTH folds",
-  "statement": "CROSS-FIT VALIDATION FAILED - the apparent in-fold advantage does not survive out-of-fold scoring, so the a-priori geological pool does NOT support a candidate that beats the incumbent. Under the project rule ('never spend a weekly submission slot on an idea that hasn't beaten the current holdout best') the honest deliverable is the incumbent-matched re-emission with the smallest out-of-fold deficit, plus the negative result."
+  "rule": "A positive cross-fit is necessary but not sufficient. Project submission requires a genuinely new candidate to beat the established spatially blocked holdout best and controls under a preregistered rule with adequate label coverage.",
+  "statement": "The paired deltas are negative in both folds under this conditional 13-row fit. The fit includes H33-2-B2 at assumed DTI 0.2778, but the score-to-file mapping is unverified. Treat these as conditional research diagnostics, not validation of private-target performance. H47-GSA is NOT PROMOTED; no portal submission or slot is authorized.",
+  "historical_statement_at_generation": "Superseded historical wording: an earlier note referred to a weekly submission slot and suggested re-emitting the owner-reported d2.8 raster; that reference is not the established spatially blocked holdout best. Current competition quota/slot accounting is not verified, and the current project gate closes submission because no candidate passed validation.",
+  "historical_rule_at_generation": "Superseded historical rule: compare against the owner-reported d2.8 reference raster on mean out-of-fold predicted DTI in both folds. That raster is not the established spatially blocked holdout best; the earlier incumbent label was inappropriate.",
+  "submission_authorized": false,
+  "conditional_on_h33_mapping": true,
+  "crossfit_comparison_passed": false
  },
- "seconds": 696.5
+ "seconds": 696.5,
+ "observation_scope": {
+  "owner_reported_pairs": 12,
+  "conditional_h33_scenario": "H33-2-B2 assumed DTI 0.2778",
+  "h33_score_file_mapping_verified": false,
+  "interpretation": "cross-fit deltas and selected layers are conditional exploratory results; they are not an authenticated private-target validation estimate",
+  "baseline_reference": "owner-reported d2.8 raster; score/file pair has no organizer receipt and is not the established spatially blocked holdout best"
+ }
 }

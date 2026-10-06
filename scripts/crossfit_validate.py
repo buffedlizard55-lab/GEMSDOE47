@@ -1,32 +1,18 @@
 #!/usr/bin/env python3
-"""Cross-fitted validation: the only test that can honestly rank a NEW candidate.
+"""Conditional cross-fit audit for the H47-GSA research hypothesis.
 
-Why this script exists
-----------------------
-``scripts/build_final.py`` forward-selected a belief model on all thirteen
-observations and then emitted the dot set that maximises the predicted DTI
-*under that same model*.  The result was F1 = 0.62 against the incumbent's
-0.2653 - a 2.4x "improvement" that no independent frame corroborated
-(F2 0.057, F3 0.014, F4 0.032, F5 0.015, all far below the incumbent).  Two
-biases produce exactly that pattern:
+The historical cross-fit uses twelve owner-reported score/raster pairs plus
+H33-2-B2 at an *assumed* DTI of 0.2778. The public participant-level score is not
+authenticated to that TIFF, so every fold, selected layer, and delta from this
+script is conditional on an unverified score/file association. The saved
+cross-fit deltas are negative; H47-GSA is not promoted.
 
-  B1 optimizer's curse - a candidate chosen to maximise a fitted objective is
-     scored by the same fitted objective, so its in-sample advantage is
-     guaranteed and meaningless;
-  B2 pool-selection bias - the candidate layers were themselves ranked by LOO on
-     the same thirteen observations, so even the LOO number is optimistic.
-
-Both are removed here:
-  * the layer pool is fixed a priori from GEOLOGY (the twelve layers the GEMS
-    problem statement implies for "faults indicative of geothermal resources"),
-    never from the data;
-  * forward selection runs INSIDE each fold;
-  * the candidate built from fold A's model is scored by fold B's model, and
-    vice versa, and the incumbent is scored by the same out-of-fold model so the
-    comparison is paired.
-
-Verdict rule (pre-registered): ship only if the candidate beats the incumbent on
-the mean out-of-fold predicted DTI in BOTH folds.
+The script can diagnose optimizer and pool-selection bias by selecting inside
+each fold and comparing paired predictions. A positive cross-fit result would be
+necessary but not sufficient for promotion: no output from this script may
+authorize a portal submission or slot. The separate project gate requires a
+unique candidate to beat the established spatially blocked holdout best and
+controls under a preregistered rule with adequate label coverage.
 
     python3 scripts/crossfit_validate.py
 """
@@ -54,8 +40,9 @@ from gems47.scripts_common import rank_u8_inplace
 
 L2, BMAX, KLO, KHI = 1e-5, 12.0, 2_000.0, 120_000.0
 LEVELS = {1: 256, 2: 64, 3: 32, 4: 20, 5: 14, 6: 12}
-H33 = Path("/home/user/refs/GEMSDOE32/docs/downloads/"
-           "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif")
+H33 = ROOT / ".cache" / "gems_data" / "reference" / "h33-2-b2-zeros.tif"
+H33_SHA256 = "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9"
+H33_ASSUMED_DTI = 0.2778
 
 # A PRIORI POOL - fixed from geology before any fit was run on these data.
 # "Faults indicative of geothermal resources" in the Basin and Range are, in the
@@ -74,8 +61,15 @@ POOL = ["geod_shearrate", "geod_2ndinv", "geod_dilaterate", "rad_ThK", "rad_UK",
 
 
 def add_h33(obs12, t, ev, ev_idx, shape):
+    if not H33.is_file():
+        raise SystemExit(f"missing {H33}; restore registry entry ref_h33_2_b2 before running")
+    digest = hashlib.sha256(H33.read_bytes()).hexdigest()
+    if digest != H33_SHA256:
+        raise SystemExit(f"H33 SHA-256 mismatch: {digest} != {H33_SHA256}")
     with rasterio.open(H33) as s:
-        v = np.nan_to_num(s.read(1).astype(np.float32))
+        if s.count != 1 or not G.dataset_matches_template_grid(s, t):
+            raise SystemExit("H33 reference raster grid does not match the competition template")
+        v = np.nan_to_num(s.read(1).astype(np.float32), nan=0.0)
     pred = np.where(ev, v, 0.0)
     dm = pred > 0
     dflat = np.flatnonzero(dm.ravel())
@@ -86,12 +80,21 @@ def add_h33(obs12, t, ev, ev_idx, shape):
     for dy, dx, k in zip(M.OFF_DY, M.OFF_DX, M.OFF_K):
         a += k * lati._shift_in(dm.astype(np.float64), dy, dx)
     return list(obs12) + [lati.Obs(
-        id="h33-2-b2", dti=0.2778, site="GEMSDOE32",
-        family="flank-pruned (reported 0.2778, attribution CONFLICTED)",
-        sha256=hashlib.sha256(H33.read_bytes()).hexdigest(), S=float(pred[dm].sum()),
-        n_dots=int((v > 0).sum()), n_on_catalogue=int((v > 0)[t.catalogue].sum()),
-        w=w.ravel()[ev_idx].astype(np.float32), a=a.ravel()[ev_idx].astype(np.float32),
-        dot_pos=pos[dflat], dot_flat=dflat, extras={})]
+        id="h33-2-b2",
+        dti=H33_ASSUMED_DTI,
+        site="GEMSDOE32",
+        family="flank-pruned reference raster; score/file mapping unverified",
+        sha256=digest,
+        S=float(pred[dm].sum()),
+        n_dots=int((v > 0).sum()),
+        n_on_catalogue=int((v > 0)[t.catalogue].sum()),
+        w=w.ravel()[ev_idx].astype(np.float32),
+        a=a.ravel()[ev_idx].astype(np.float32),
+        dot_pos=pos[dflat],
+        dot_flat=dflat,
+        extras={"assumed_dti_scenario": H33_ASSUMED_DTI,
+                "score_file_mapping_verified": False},
+    )]
 
 
 def fit(rows_u8, obs):
@@ -145,7 +148,11 @@ def main() -> int:
     st = FEAT.build_stack(verbose=False)
     U, names, ev_idx = st["U"], list(st["names"]), st["ev_idx"]
     obs = add_h33(obs12, t, ev, ev_idx, shape)
-    print(f"[xfit] {len(obs)} observations, a-priori pool of {len(POOL)} geological layers")
+    print(
+        f"[xfit] {len(obs12)} owner-reported pairs + 1 conditional H33 scenario "
+        f"(assumed DTI {H33_ASSUMED_DTI:.4f}; score/file mapping unverified); "
+        f"a-priori pool of {len(POOL)} geological layers"
+    )
 
     def prox(oid, cap=40.0):
         o = [x for x in obs12 if x.id == oid][0]
@@ -164,15 +171,26 @@ def main() -> int:
     print(f"[xfit] fold A ({len(foldA)}): {[obs[i].id for i in foldA]}")
     print(f"[xfit] fold B ({len(foldB)}): {[obs[i].id for i in foldB]}")
 
-    incumbent = np.zeros(shape, bool)
-    incumbent.ravel()[[o.dot_flat for o in obs if o.id == "d2.8"][0]] = True
-    incumbent &= ev
+    d28_reference = np.zeros(shape, bool)
+    d28_reference.ravel()[[o.dot_flat for o in obs if o.id == "d2.8"][0]] = True
+    d28_reference &= ev
 
-    out = {"generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-           "method": "2-fold cross-fitted LATI: a-priori geological pool, forward "
-                     "selection inside each fold, candidate scored by the OTHER fold's model",
-           "biases_removed": ["optimizer's curse (B1)", "pool-selection bias (B2)"],
-           "pool": POOL, "folds": {}, "budget": 37_654}
+    out = {
+        "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "method": "2-fold cross-fitted LATI: a-priori geological pool, forward selection inside each fold, candidate scored by the other fold's model",
+        "observation_scope": {
+            "owner_reported_pairs": len(obs12),
+            "conditional_h33_scenario": f"H33-2-B2 assumed DTI {H33_ASSUMED_DTI:.4f}",
+            "h33_score_file_mapping_verified": False,
+            "baseline_reference": "owner-reported d2.8 reference raster; no organizer receipt authenticates its participant score mapping, and it is not the established spatially blocked holdout best",
+            "interpretation": "all fold results are conditional exploratory diagnostics, not private-target validation",
+        },
+        "biases_removed": ["optimizer's curse (B1)", "pool-selection bias (B2)"],
+        "pool": POOL,
+        "folds": {},
+        "budget": 37_654,
+        "submission_authorized": False,
+    }
 
     verdicts = []
     for tag, tr_idx, te_idx in (("A_train_B_test", foldA, foldB), ("B_train_A_test", foldB, foldA)):
@@ -192,9 +210,9 @@ def main() -> int:
         q_te = q_te.reshape(shape)
         print(f"[xfit:{tag}] out-of-fold model layers={chosen_te} K={f_te['theta'][0]:,.0f}")
         sc_cand = E.predicted_score(q_te, cand_dots)
-        sc_inc = E.predicted_score(q_te, incumbent)
+        sc_reference = E.predicted_score(q_te, d28_reference)
         sc_in = E.predicted_score(q_tr, cand_dots)
-        delta = sc_cand["DTI"] - sc_inc["DTI"]
+        delta = sc_cand["DTI"] - sc_reference["DTI"]
         verdicts.append(delta)
         out["folds"][tag] = dict(
             train_ids=[obs[i].id for i in tr_idx], test_ids=[obs[i].id for i in te_idx],
@@ -204,33 +222,46 @@ def main() -> int:
                              ssr=f_te["ssr"], loo=f_te["loo"], history=hist_te),
             candidate=dict(n_dots=int(cand_dots.sum()), stopped_by=cand.stopped_by,
                            in_fold_predicted=sc_in, out_of_fold_predicted=sc_cand),
-            incumbent_out_of_fold_predicted=sc_inc,
+            owner_reported_d2_8_reference_out_of_fold_predicted=sc_reference,
             paired_delta_out_of_fold=delta,
             in_fold_advantage=sc_in["DTI"] - sc_cand["DTI"])
         print(f"[xfit:{tag}] IN-fold  predicted DTI: candidate {sc_in['DTI']:.4f}")
         print(f"[xfit:{tag}] OUT-fold predicted DTI: candidate {sc_cand['DTI']:.4f}  "
-              f"incumbent {sc_inc['DTI']:.4f}  -> paired delta {delta:+.4f}")
+              f"owner-reported d2.8 reference {sc_reference['DTI']:.4f}  -> paired delta {delta:+.4f}")
         print(f"[xfit:{tag}] in-fold advantage evaporates by {sc_in['DTI']-sc_cand['DTI']:.4f} "
               f"(= the optimizer's-curse + pool-selection premium)")
         np.save(ROOT / ".cache" / f"xfit_cand_{tag}.npy", cand_dots)
 
-    ok = all(d > 0 for d in verdicts)
+    crossfit_comparison_passed = all(d > 0 for d in verdicts)
     out["verdict"] = dict(
-        paired_deltas=verdicts, mean_delta=float(np.mean(verdicts)),
-        ship=bool(ok),
-        rule="ship only if the candidate beats the incumbent on the mean out-of-fold "
-             "predicted DTI in BOTH folds",
-        statement=("CROSS-FIT VALIDATION PASSED - the candidate beats the incumbent out of fold"
-                   if ok else
-                   "CROSS-FIT VALIDATION FAILED - the apparent in-fold advantage does not survive "
-                   "out-of-fold scoring, so the a-priori geological pool does NOT support a "
-                   "candidate that beats the incumbent. Under the project rule ('never spend a "
-                   "weekly submission slot on an idea that hasn't beaten the current holdout "
-                   "best') the honest deliverable is the incumbent-matched re-emission with the "
-                   "smallest out-of-fold deficit, plus the negative result."))
+        paired_deltas=verdicts,
+        mean_delta=float(np.mean(verdicts)),
+        crossfit_comparison_passed=bool(crossfit_comparison_passed),
+        ship=False,
+        submission_authorized=False,
+        conditional_on_h33_mapping=True,
+        rule=(
+            "A positive cross-fit is necessary but not sufficient. Project submission requires a "
+            "genuinely new candidate to beat the established spatially blocked holdout best and "
+            "controls under a preregistered rule with adequate label coverage."
+        ),
+        statement=(
+            "Conditional cross-fit diagnostic is positive in both folds; this is still not a "
+            "promotion or submission authorization."
+            if crossfit_comparison_passed
+            else
+            "Conditional cross-fit diagnostic is negative in at least one fold. The fit includes "
+            "H33-2-B2 at assumed DTI 0.2778, but the score/file mapping is unverified. Treat the "
+            "deltas as exploratory, not as private-target validation. H47-GSA is NOT PROMOTED; "
+            "no portal submission or slot is authorized."
+        ),
+    )
     out["seconds"] = round(time.time() - t0, 1)
-    (ROOT / "evidence" / "crossfit_validation.json").write_text(json.dumps(out, indent=1, default=float))
-    print(f"\n[verdict] deltas={[round(d,5) for d in verdicts]}  SHIP={ok}")
+    (ROOT / "evidence" / "crossfit_validation.json").write_text(json.dumps(out, indent=1, default=float, allow_nan=False))
+    print(
+        f"\n[verdict] deltas={[round(d,5) for d in verdicts]} "
+        f"crossfit_comparison_passed={crossfit_comparison_passed}; submission_authorized=False"
+    )
     print(out["verdict"]["statement"])
     print(f"wrote evidence/crossfit_validation.json ({time.time()-t0:.0f}s)")
     return 0

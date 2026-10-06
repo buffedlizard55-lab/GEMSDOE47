@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Sensitivity of the H47 flank hypothesis to the contested 0.2778 attribution.
+"""Conditional sensitivity of the H47-SAF exploratory fit to an H33 scenario.
 
-evidence/flank_robustness_13obs.json showed that adding the reported-0.2778
-raster ``h33-2-b2`` - which contains ZERO dots in the catalogue flank, because it
-was *built* by deleting them - flips the flank coefficient from +6.18 to +1.42
-and turns a +55.7% LOO gain into a -64.0% LOO loss.
+There are twelve owner-reported raster/score pairs in the LATI input set. The
+H33-2-B2 TIFF is an additional flank-pruned reference raster, but no authenticated
+receipt links it to the participant-level 0.2778 score. This script therefore
+adds H33 only as an *assumed-DTI scenario* and reports the direction of the
+exploratory leave-one-out (LOO) fit across a coarse tested grid.
 
-But GEMSDOE42's own prior-results.csv flags that score:
-  "attribution_conflict_site_says_unscored_official_board_has_unlinked_0.2778_row"
-
-So the falsification rests on one contested number.  This script sweeps the
-assumed DTI of that single observation from 0.1800 to 0.3000 and reports the
-flank coefficient and the LOO gain at each value, giving the exact break-even.
+A change from positive to negative LOO improvement between tested values is a
+coarse-grid sign-change bracket only. The script does not interpolate or solve
+for an exact root, authenticate a score-to-file mapping, test causality, or
+validate private-target performance. H47-SAF remains unresolved and is not
+promoted.
 
     python3 scripts/flank_sensitivity.py
 """
@@ -22,7 +22,9 @@ import hashlib
 import json
 import sys
 import time
+from itertools import pairwise
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import rasterio
@@ -37,125 +39,235 @@ from gems47 import lati
 from gems47 import metric as M
 from gems47.scripts_common import rank_u8_inplace
 
-H33 = Path("/home/user/refs/GEMSDOE32/docs/downloads/"
-           "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif")
+H33 = ROOT / ".cache" / "gems_data" / "reference" / "h33-2-b2-zeros.tif"
+H33_SHA256 = "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9"
 L2, BMAX, KLO, KHI = 1e-5, 12.0, 2_000.0, 120_000.0
+ASSUMED_DTI_GRID = [
+    0.1800, 0.2000, 0.2200, 0.2400, 0.2477, 0.2550, 0.2600,
+    0.2700, 0.2708, 0.2778, 0.2900, 0.3000,
+]
 
 
-def h33_obs(dti: float, t, ev, ev_idx, shape) -> lati.Obs:
-    with rasterio.open(H33) as s:
-        v = np.nan_to_num(s.read(1).astype(np.float32))
-    pred = np.where(ev, v, 0.0)
-    dm = pred > 0
-    dflat = np.flatnonzero(dm.ravel())
-    pos = np.full(shape[0] * shape[1], -1, np.int64)
-    pos[ev_idx] = np.arange(ev_idx.size)
-    w = M.max_kernel_filter(pred.astype(np.float64))
-    a = np.zeros(shape)
-    for dy, dx, k in zip(M.OFF_DY, M.OFF_DX, M.OFF_K):
-        a += k * lati._shift_in(dm.astype(np.float64), dy, dx)
-    return lati.Obs(id="h33-2-b2", dti=dti, site="GEMSDOE32",
-                    family="flank-pruned (reported 0.2778, attribution CONFLICTED)",
-                    sha256=hashlib.sha256(H33.read_bytes()).hexdigest(),
-                    S=float(pred[dm].sum()), n_dots=int((v > 0).sum()),
-                    n_on_catalogue=int((v > 0)[t.catalogue].sum()),
-                    w=w.ravel()[ev_idx].astype(np.float32),
-                    a=a.ravel()[ev_idx].astype(np.float32),
-                    dot_pos=pos[dflat], dot_flat=dflat, extras={})
+def find_grid_sign_change_bracket(rows: list[dict[str, Any]]) -> dict[str, Any] | None:
+    """Return adjacent tested DTI values bracketing positive-to-nonpositive LOO change.
+
+    This reports the tested values only; it deliberately performs no root finding
+    or interpolation. The listed DTI values are scenario assumptions, not
+    observed scores unless independently authenticated.
+    """
+    tested = sorted(
+        (row for row in rows if row.get("assumed_h33_dti") is not None),
+        key=lambda row: float(row["assumed_h33_dti"]),
+    )
+    for left, right in pairwise(tested):
+        left_change = float(left["loo_improvement_pct"])
+        right_change = float(right["loo_improvement_pct"])
+        if left_change > 0.0 and right_change <= 0.0:
+            return {
+                "last_tested_positive_dti": float(left["assumed_h33_dti"]),
+                "last_tested_positive_loo_improvement_pct": left_change,
+                "first_tested_nonpositive_dti": float(right["assumed_h33_dti"]),
+                "first_tested_nonpositive_loo_improvement_pct": right_change,
+                "interpretation": "coarse-grid sign-change bracket only; no exact root computed",
+                "interpolation_performed": False,
+            }
+    return None
 
 
-def fit(uset, obs):
-    V = np.stack(uset)
-    L = {1: 256, 2: 64}[len(uset)]
-    bm = lati.BinnedSoftmax(V, list(range(len(uset))), obs, L)
-    f = bm.fit(l2=L2, bmax=BMAX, k_lo=KLO, k_hi=KHI)
-    f["ssr"] = float(np.sum((bm.predict(np.array(f["theta"])) - bm.dti_obs) ** 2))
+def load_h33_dots(template: G.Template) -> tuple[np.ndarray, str]:
+    """Load the hash-pinned reference raster and verify its grid before use."""
+    if not H33.is_file():
+        raise SystemExit(
+            f"missing {H33}; restore the hash-pinned ref_h33_2_b2 entry before running"
+        )
+    digest = hashlib.sha256(H33.read_bytes()).hexdigest()
+    if digest != H33_SHA256:
+        raise SystemExit(f"H33 SHA-256 mismatch: {digest} != {H33_SHA256}")
+    with rasterio.open(H33) as src:
+        if src.count != 1 or not G.dataset_matches_template_grid(src, template):
+            raise SystemExit("H33 raster grid/band count does not match the competition template")
+        values = np.nan_to_num(src.read(1).astype(np.float32), nan=0.0)
+    return values > 0, digest
+
+
+def h33_scenario_obs(
+    dti: float,
+    dots: np.ndarray,
+    sha256: str,
+    template: G.Template,
+    ev: np.ndarray,
+    ev_idx: np.ndarray,
+) -> lati.Obs:
+    """Build one LATI row with an explicitly assumed, not authenticated, DTI."""
+    pred = np.where(ev, dots, False)
+    dot_pos = np.flatnonzero(pred.ravel())
+    position = np.full(template.shape[0] * template.shape[1], -1, np.int64)
+    position[ev_idx] = np.arange(ev_idx.size)
+    weights = M.max_kernel_filter(pred.astype(np.float64))
+    proximity = np.zeros(template.shape, dtype=np.float64)
+    for dy, dx, kernel_weight in zip(M.OFF_DY, M.OFF_DX, M.OFF_K):
+        proximity += kernel_weight * lati._shift_in(pred.astype(np.float64), dy, dx)
+    return lati.Obs(
+        id="h33-2-b2",
+        dti=float(dti),
+        site="GEMSDOE32",
+        family="flank-pruned reference raster; score/file link unverified",
+        sha256=sha256,
+        S=float(pred.sum()),
+        n_dots=int(dots.sum()),
+        n_on_catalogue=int((dots & template.catalogue).sum()),
+        w=weights.ravel()[ev_idx].astype(np.float32),
+        a=proximity.ravel()[ev_idx].astype(np.float32),
+        dot_pos=position[dot_pos],
+        dot_flat=dot_pos,
+        extras={"assumed_dti_scenario": float(dti), "score_file_mapping_verified": False},
+    )
+
+
+def fit(uses: list[np.ndarray], observations: list[lati.Obs]) -> dict[str, Any]:
+    values = np.stack(uses)
+    levels = {1: 256, 2: 64}[len(uses)]
+    model = lati.BinnedSoftmax(values, list(range(len(uses))), observations, levels)
+    fitted = model.fit(l2=L2, bmax=BMAX, k_lo=KLO, k_hi=KHI)
+    theta = np.asarray(fitted["theta"])
+    fitted["ssr"] = float(np.sum((model.predict(theta) - model.dti_obs) ** 2))
     loo = 0.0
-    for h in range(len(obs)):
-        sub = [i for i in range(len(obs)) if i != h]
-        g = bm.fit(l2=L2, subset=sub, theta0=np.array(f["theta"]), bmax=BMAX, k_lo=KLO, k_hi=KHI)
-        loo += float(bm.predict(np.array(g["theta"]))[h] - obs[h].dti) ** 2
-    f["loo"] = loo
-    return f
+    for held_out in range(len(observations)):
+        subset = [idx for idx in range(len(observations)) if idx != held_out]
+        fold = model.fit(
+            l2=L2,
+            subset=subset,
+            theta0=theta,
+            bmax=BMAX,
+            k_lo=KLO,
+            k_hi=KHI,
+        )
+        residual = float(model.predict(np.asarray(fold["theta"]))[held_out]
+                         - observations[held_out].dti)
+        loo += residual**2
+    fitted["loo"] = loo
+    return fitted
 
 
 def main() -> int:
-    t0 = time.time()
-    t = G.load_template()
-    ev, shape = t.evaluated, t.shape
+    started = time.time()
+    template = G.load_template()
+    ev, shape = template.evaluated, template.shape
+    ev_idx = np.flatnonzero(ev.ravel())
     obs12 = lati.load_observations(verbose=False)
-    st = FEAT.build_stack(verbose=False)
-    ev_idx = st["ev_idx"]   # the 59-layer matrix is not needed here
-    HL = HY.build_layers(t)
+    if len(obs12) != 12:
+        raise SystemExit(f"expected 12 owner-reported observations, found {len(obs12)}")
 
-    def prox(oid, cap=40.0):
-        o = [x for x in obs12 if x.id == oid][0]
-        m = np.zeros(shape[0] * shape[1], bool)
-        m[o.dot_flat] = True
-        return rank_u8_inplace((-FEAT.dist_px(m.reshape(shape), cap).ravel()[ev_idx]).astype(np.float32))
+    hypothesis_layers = HY.build_layers(template)
+    h33_dots, h33_sha256 = load_h33_dots(template)
 
-    PX = prox("d2.8")
-    UF = rank_u8_inplace(HL["flank_halo_0_3"].ravel()[ev_idx].astype(np.float32))
+    def prox(oid: str, cap: float = 40.0) -> np.ndarray:
+        observation = next((row for row in obs12 if row.id == oid), None)
+        if observation is None:
+            raise ValueError(f"missing observation {oid!r}")
+        mask = np.zeros(shape[0] * shape[1], dtype=bool)
+        mask[observation.dot_flat] = True
+        ranked = -FEAT.dist_px(mask.reshape(shape), cap).ravel()[ev_idx]
+        return rank_u8_inplace(ranked.astype(np.float32))
 
-    d_cat = HL["_diag_d_catalogue"]
-    halo3 = ev & (d_cat > 0) & (d_cat <= M.RANGE_PX)
-    with rasterio.open(H33) as s:
-        h33dots = np.nan_to_num(s.read(1)) > 0
-    rows = []
-    grid = [None, 0.1800, 0.2000, 0.2200, 0.2400, 0.2477, 0.2550, 0.2600, 0.2700, 0.2708,
-            0.2778, 0.2900, 0.3000]
-    print("assumed   n  flank_beta   K_base     K_flank   LOO_base   LOO_flank   LOO_gain  verdict")
-    print("h33 DTI      obs")
-    for dti in grid:
-        if dti is None:
-            obs, tag = list(obs12), "excluded "
+    d2_8_reference = prox("d2.8")
+    flank = rank_u8_inplace(
+        hypothesis_layers["flank_halo_0_3"].ravel()[ev_idx].astype(np.float32)
+    )
+    catalogue_distance = hypothesis_layers["_diag_d_catalogue"]
+    halo3 = ev & (catalogue_distance > 0) & (catalogue_distance <= M.RANGE_PX)
+
+    rows: list[dict[str, Any]] = []
+    scenarios: list[float | None] = [None, *ASSUMED_DTI_GRID]
+    print("assumed H33 DTI   n   flank beta    LOO base   LOO + flank   LOO improvement")
+    print("score/file mapping is unverified; signs below are exploratory-fit directions only")
+    for assumed_dti in scenarios:
+        if assumed_dti is None:
+            observations = list(obs12)
+            scenario_label = "excluded"
         else:
-            obs = list(obs12) + [h33_obs(dti, t, ev, ev_idx, shape)]
-            tag = f"{dti:.4f}  "
-        fb = fit([PX], obs)
-        ff = fit([PX, UF], obs)
-        bf = ff["theta"][2]
-        gain = 100.0 * (fb["loo"] - ff["loo"]) / fb["loo"]
-        verdict = "flank SUPPORTED" if ff["loo"] < fb["loo"] - 1e-9 else "flank NOT supported"
-        rows.append(dict(assumed_h33_dti=dti, n_obs=len(obs), flank_beta=float(bf),
-                         K_base=fb["theta"][0], K_flank=ff["theta"][0],
-                         loo_base=fb["loo"], loo_flank=ff["loo"], loo_gain_pct=gain,
-                         verdict=verdict, theta_base=fb["theta"], theta_flank=ff["theta"]))
-        print(f"{tag}  {len(obs):>3}   {bf:>+9.3f}  {fb['theta'][0]:>9,.0f}  {ff['theta'][0]:>9,.0f}"
-              f"   {fb['loo']:.6f}   {ff['loo']:.6f}   {gain:>+7.1f}%  {verdict}")
+            observations = list(obs12) + [
+                h33_scenario_obs(assumed_dti, h33_dots, h33_sha256, template, ev, ev_idx)
+            ]
+            scenario_label = f"{assumed_dti:.4f}"
 
-    sup = [r for r in rows if r["assumed_h33_dti"] is not None and r["loo_gain_pct"] > 0]
-    breakeven = None
-    if sup:
-        breakeven = max(r["assumed_h33_dti"] for r in sup)
-    out = dict(
-        generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        question="how much does the H47 flank falsification depend on the contested 0.2778?",
-        h33_raster=dict(path=str(H33), sha256=None,
-                        dots=int(h33dots.sum()),
-                        dots_in_catalogue_flank_0_300m=int((h33dots & halo3).sum()),
-                        note="built by DELETING every dot within 2 px of the catalogue, "
-                             "so it is the only direct flank ablation in the whole family"),
-        attribution_flag=("GEMSDOE42/docs/prior-results.csv: 'attribution_conflict_site_says_"
-                          "unscored_official_board_has_unlinked_0.2778_row'"),
-        sweep=rows,
-        break_even_h33_dti=breakeven,
-        conclusion=(
-            "The flank layer is supported by the twelve flank-agnostic observations "
-            "(LOO gain +55.7%, beta=+6.18) and refuted as soon as the flank-PRUNED "
-            "h33-2-b2 raster is admitted at its reported 0.2778 (LOO gain -64.0%, "
-            "beta collapses to +1.42). The break-even assumed score is "
-            f"{breakeven if breakeven is not None else 'below every value tested'}: "
-            "above it the flank is refuted, below it supported. Because the single "
-            "observation that decides the question is itself attribution-conflicted, "
-            "H47 flank re-occupation is NOT SHIPPED - the project rule is never to "
-            "spend a submission slot on a candidate that a direct local ablation "
-            "contradicts."),
-        seconds=round(time.time() - t0, 1))
-    out["h33_raster"]["sha256"] = hashlib.sha256(H33.read_bytes()).hexdigest()
-    (ROOT / "evidence" / "flank_sensitivity.json").write_text(json.dumps(out, indent=1))
-    print(f"\nbreak-even assumed h33-2-b2 DTI: {breakeven}")
-    print(f"wrote evidence/flank_sensitivity.json ({time.time()-t0:.0f}s)")
+        base = fit([d2_8_reference], observations)
+        with_flank = fit([d2_8_reference, flank], observations)
+        flank_beta = float(with_flank["theta"][2])
+        improvement = 100.0 * (base["loo"] - with_flank["loo"]) / base["loo"]
+        direction = "positive" if improvement > 0.0 else "negative" if improvement < 0.0 else "zero"
+        row = {
+            "assumed_h33_dti": assumed_dti,
+            "n_rows_in_fit": len(observations),
+            "flank_beta": flank_beta,
+            "K_base": float(base["theta"][0]),
+            "K_with_flank": float(with_flank["theta"][0]),
+            "loo_base": float(base["loo"]),
+            "loo_with_flank": float(with_flank["loo"]),
+            "loo_improvement_pct": float(improvement),
+            "loo_change_direction": direction,
+            "theta_base": [float(value) for value in base["theta"]],
+            "theta_with_flank": [float(value) for value in with_flank["theta"]],
+            "interpretation": "exploratory fit only; not a hypothesis verdict",
+        }
+        rows.append(row)
+        print(
+            f"{scenario_label:>16} {len(observations):>3} {flank_beta:>+11.3f}"
+            f"   {base['loo']:.6f}   {with_flank['loo']:.6f}"
+            f"   {improvement:>+8.1f}% ({direction})"
+        )
+
+    bracket = find_grid_sign_change_bracket(rows)
+    if bracket is None:
+        print("\nNo positive-to-nonpositive sign change was bracketed on the tested grid.")
+    else:
+        print(
+            "\nCoarse tested-grid bracket only: positive at assumed DTI "
+            f"{bracket['last_tested_positive_dti']:.4f}, nonpositive at "
+            f"{bracket['first_tested_nonpositive_dti']:.4f}; no exact root computed."
+        )
+
+    h33_flank_dots = int((h33_dots & halo3).sum())
+    out = {
+        "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "question": "How do hypothetical H33 DTI values change an exploratory H47-SAF LOO fit?",
+        "scope": {
+            "owner_reported_score_raster_pairs": len(obs12),
+            "organizer_receipts_available": False,
+            "additional_h33_row": "scenario only; score-to-file mapping unverified",
+            "score_file_mapping_verified": False,
+            "purpose": "sensitivity analysis of exploratory LOO fits, not validation or causal inference",
+            "private_target_performance_established": False,
+            "promotion_decision": "H47-SAF remains unresolved and is not promoted",
+        },
+        "h33_raster": {
+            "path": H33.relative_to(ROOT).as_posix(),
+            "sha256": h33_sha256,
+            "dots": int(h33_dots.sum()),
+            "dots_in_catalogue_flank_0_300m": h33_flank_dots,
+            "note": "hash-pinned flank-pruned reference raster; its participant-score association is not authenticated",
+        },
+        "attribution_status": {
+            "reported_participant_dti": 0.2778,
+            "linked_to_this_tiff": False,
+            "basis": "public leaderboard is participant-level and does not identify TIFFs; owner page marks H33-2-B2 unscored",
+        },
+        "tested_assumed_dti_grid": ASSUMED_DTI_GRID,
+        "sweep": rows,
+        "coarse_grid_sign_change_bracket": bracket,
+        "conclusion": (
+            "The twelve owner-reported observations show a positive exploratory LOO change when the "
+            "flank layer is added. The H33 raster is not an authenticated thirteenth score pair. "
+            "Under the hypothetical DTI grid, the fitted LOO change is positive at 0.2200 and "
+            "negative by 0.2400; this is a coarse-grid sign-change bracket only. No exact break-even, "
+            "causal verdict, score-to-file attribution, or private-target performance claim is "
+            "established. H47-SAF remains unresolved and is not promoted."
+        ),
+        "seconds": round(time.time() - started, 1),
+    }
+    output = ROOT / "evidence" / "flank_sensitivity.json"
+    output.write_text(json.dumps(out, indent=2, allow_nan=False) + "\n")
+    print(f"wrote {output.relative_to(ROOT)} ({time.time() - started:.0f}s)")
     return 0
 
 

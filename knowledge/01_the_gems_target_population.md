@@ -35,23 +35,21 @@ Two consequences that dominate every design decision:
 > — DrivenData staff (`chrisk-dd`), thread 11516, 2026-09-16
 > https://community.drivendata.org/t/scoring-clarification-masked-pixels-and-re-evaluation/11516
 
-**Mass on catalogue pixels is free but useless.** It earns nothing and, if the
-mask is applied only to the penalty term, it costs α per unit.
+Under the staff clarification, known USGS/INGENIOUS pixels are excluded from
+evaluation and penalty terms: predictions exactly on those masked pixels earn no
+credit and incur no penalty. This is a statement about the organizer's stated
+scoring rule, not a reason to infer any benefit from deleting a neighborhood of
+unmasked pixels.
 
-The word "should" in that answer is doing work, so it was tested rather than
-trusted. A natural experiment exists in the recovered bytes:
-`8GEMSDOE_Hedge-v2_submission.tif` is byte-identical to
+Earlier notes called a recovered raster comparison a “natural experiment.” That
+label is withdrawn. `8GEMSDOE_Hedge-v2_submission.tif` is byte-identical to
 `gemsdoe-ens12-adopted-7f00890a.tif` off the catalogue and additionally carries
-all **60,988** catalogue pixels at p = 1. Both returned **exactly 0.1563**.
-
-* If masked mass could still donate credit to adjacent new-fault pixels, adding
-  54,533 dots hugging the catalogue would have *raised* T measurably — new-fault
-  geometry is by definition adjacent to existing traces. It did not move the
-  fourth decimal.
-* If catalogue pixels were not masked at all, the score would have collapsed.
-
-**Conclusion: masked pixels are zeroed before both sums.** Implemented as
-`mask_mode="zero"`.
+60,988 catalogue pixels at p = 1; owner-reported records list the same DTI. But
+there are no organizer receipts linking those score reports to the exact TIFFs.
+This descriptive byte comparison is not an authenticated scoring experiment,
+does not establish a causal effect of adding/deleting masked mass, and does not
+measure an effect from changing nearby unmasked pixels. The official staff
+clarification, not this comparison, is the basis for the masking interpretation.
 
 ### A structural consequence most people miss
 

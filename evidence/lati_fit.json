@@ -1,5 +1,5 @@
 {
- "instrument": "LATI v2 - leaderboard-anchored truth inversion (softmax intensity)",
+ "instrument": "LATI v2 - exploratory owner-reported score/raster fit (softmax intensity)",
  "generated_utc": "2026-10-06T10:08:27Z",
  "model": {
   "form": "q(x) = K*exp(sum beta_m u_m(x)) / Z, u = rank percentile in [-0.5,0.5]",
@@ -1433,7 +1433,7 @@
   },
   "beta": [
    {
-    "layer": "K (total hidden mass)",
+    "layer": "K (modeled total truth mass; not measured)",
     "mean": 53520.201088211266,
     "sd": 10253.814744264491,
     "p2.5": 27811.90993996493,
@@ -1799,5 +1799,13 @@
    "n_above_0p2": 5106385
   }
  },
- "seconds": 324.2
+ "seconds": 324.2,
+ "observation_scope": {
+  "owner_reported_score_raster_pairs": 12,
+  "organizer_receipts_available": false,
+  "leaderboard_participant_rows_mapped_to_tiffs": false,
+  "h33_included_as_score_observation": false,
+  "interpretation": "Exploratory fit only; exact raster hashes do not authenticate owner-reported score mappings or private-target performance."
+ },
+ "K_interpretation_scope": "K estimates are exploratory inversions under owner-reported score/raster associations, not measured or organizer-verified hidden-label mass. Diffuse raster geometry reduces dependence on a fitted spatial-intensity shape but does not authenticate the score/file association."
 }

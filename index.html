@@ -19,13 +19,14 @@
 <main class="wrap">
   <section class="dl" aria-labelledby="download-heading">
     <h2 id="download-heading">Research GeoTIFF download — <span class="bad">NOT FOR SUBMISSION</span></h2>
-    <p><strong>H47-B failed its preregistered promotion gate.</strong> This file is shared for transparent research review only; do not upload it or spend a competition slot. A format-valid raster is not a validated prediction.</p>
+    <p><strong>H47-B failed its preregistered promotion gate.</strong> This file is shared for transparent research review only; do not upload it or spend a competition slot. Its local byte-level format/range audit is not organizer acceptance or a validated prediction.</p>
     <a class="btn" download href="docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">Download research-only H47-B GeoTIFF (1.5 MB)</a>
     <dl class="kv">
       <dt>Decision</dt><dd class="bad">NOT PROMOTED · NO SLOT RECOMMENDED</dd>
       <dt>SHA-256</dt><dd>7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b</dd>
       <dt>Locked-test DTI</dt><dd>H47-B 0.027553 · single-scale 0.025639 · random 0.037159</dd>
-      <dt>Conformal floor</dt><dd>0.0; block exchangeability unverified</dd>
+      <dt>Selected spacing / nominal conformal level</dt><dd>5 px / 500 m; 6/7 = 85.7% marginal coverage conditional on unverified block-score exchangeability</dd>
+      <dt>Conformal lower bound</dt><dd>0.0; no positive performance floor</dd>
       <dt>Format</dt><dd>float32, one band, EPSG:32611, 3292 × 3730, 100 m; in-footprint [0,1], NaN outside</dd>
     </dl>
     <p class="small dim">The bounded uniqueness check found no exact mask match among 334 accessible, comparable TIFFs in 55 visible sibling repositories. That is not a global uniqueness proof and does not override the failed holdout.</p>
@@ -53,42 +54,55 @@
         <td>Geodetic strain rate × <em>low</em> Th/K hydrothermal alteration × GDR thermal discharge</td></tr>
     <tr><th>Gate</th>
         <td>Preregistered locked test block, random control, conformal floor</td>
-        <td>Five truth frames + cross-fitted leaderboard-anchored inversion</td></tr>
+        <td>Five local frames + cross-fitted inversion on owner-reported score/raster pairs (conditional H33)</td></tr>
     <tr><th>Result</th>
         <td>Pooled DTI <strong>0.02755</strong> vs a fixed-seed random control at
             <strong>0.037159</strong> — lost to noise; conformal floor 0.0</td>
-        <td>Out-of-fold paired deltas <strong>−0.0611</strong> and <strong>−0.0450</strong> vs the
-            incumbent; loses on all five frames; in-fold +0.30 was optimizer’s curse</td></tr>
+        <td>Conditional observation-level out-of-fold paired deltas <strong>−0.0611</strong> and
+            <strong>−0.0450</strong> vs the owner-reported d2.8 reference; not a spatial holdout. It underperforms that
+            reference on four local frames; its F2 win is against its own in-fold objective. H33 mapping
+            is unverified; not promoted.</td></tr>
     <tr><th>Decision</th>
         <td><strong>NOT PROMOTED</strong></td><td><strong>NOT PROMOTED</strong></td></tr>
   </table>
-  <p>The later session also built <strong>LATI</strong>, an instrument that treats the thirteen returned
-     leaderboard DTIs as <em>measurements of the hidden label set</em>; diagnosed the reported
-     <code>"Predicted values must be in range [0, 1]"</code> rejection as a <strong>NaN</strong> problem,
-     not a range problem (12/12 <code>-nan</code> variants fail
-     <code>np.all((v&gt;=0)&amp;(v&lt;=1))</code>, 17/17 all-finite variants pass, and no file anywhere
-     has a value outside [0,1]); measured the hidden truth mass at <strong>K ≈ 12,348 px</strong>
-     model-free; and <strong>falsified</strong> its own strongest-looking idea — re-occupying the
-     catalogue flank — with a break-even of 0.2200 against a reported 0.2778.</p>
+  <p>The later session also built <strong>LATI</strong>, an exploratory instrument using twelve
+     owner-reported raster/score pairs; the H33-2-B2 / 0.2778 association is an unverified conditional
+     scenario, not an authenticated thirteenth observation. It diagnosed the reported
+     <code>"Predicted values must be in range [0, 1]"</code> check on available sibling files: 12/12
+     <code>-nan</code> variants fail <code>np.all((v&gt;=0)&amp;(v&lt;=1))</code>, 17/17 all-finite variants
+     pass, and none of the 29 scanned files has a value outside [0,1]. The original rejected bytes are
+     unavailable, so its cause remains unresolved. It also produced an exploratory K estimate near
+     <strong>12,348 px</strong>
+     by inverting the owner-reported r13-lattice score/raster association (not organizer-verified hidden-label
+     mass); and found H47-SAF unresolved: the conditional sensitivity fit is positive at assumed DTI
+     0.2200 and negative by 0.2400. This is a coarse sign-change bracket, not an exact break-even,
+     causal verdict, or falsification.</p>
   <p><a href="docs/index.html"><strong>→ The later session’s full site: LATI method, the five ranked
      hypotheses, every number, and IR-47-001…015</strong></a></p>
 
   <h2>What happens next</h2>
   <ol class="steps">
-    <li>Keep the submission slot unused. Do not treat the research download as a portal-ready file.</li>
+    <li>No candidate has passed promotion; no upload is authorized. Do not treat the research download as a portal-ready file.</li>
     <li>Establish authorized competition input provenance and a reproducible spatially blocked incumbent.</li>
     <li>Preregister a genuinely distinct geological detector and appropriate controls before scoring.</li>
     <li>Promote only if it beats the current holdout best and controls with adequate label coverage; then repeat format and bounded uniqueness audits.</li>
-    <li><strong>Use the 1 m DEM.</strong> The competition links 716 USGS 3DEP 1 m tiles; only pre-derived
-        100 m LiDAR rasters were reachable. Every LiDAR-derived layer ranked poorly in the later
-        session’s 72-layer screen — exactly what resampling metre-scale scarps to 100 m should do.
-        Largest untested lever.</li>
-    <li><strong>Spend three slots on the λ-probe.</strong> <code>1/DTI(λ)</code> is linear in
-        <code>1/λ</code>, so an anchor, a λ = 0.5 scaling and a null-addition recover
-        <code>T</code>, <code>F</code>, <code>K</code> exactly — conditioning 56×–1380× better than
-        reading four decimals, and it would also settle whether scoring is chunk-restricted.</li>
-    <li><strong>Upload the all-finite convention.</strong> If a slot is ever spent, use a raster with no
-        NaN anywhere; the <code>-nan</code> convention is what produced the reported range rejection.</li>
+    <li><strong>Research the 1 m DEM only after source access and provenance are verified.</strong>
+        This checkout used pre-derived 100 m LiDAR layers, which ranked poorly; that result does not
+        establish how native-resolution data would perform.</li>
+    <li><strong>The λ-probe is not authorized.</strong> Its theoretical design uses three score observations;
+        its λ = 1 anchor is owner-reported and not authenticated to a TIFF/score receipt. Three observations
+        do not establish a number of new portal uploads or slots. The accessible official pages checked
+        2026-10-06 do not state the current per-user quota or slot accounting, so actual upload/slot cost is
+        unknown. Do not call it free or claim a fixed cost. Keep the gate closed unless the portal/organizer
+        confirms the route and a separate diagnostic is preregistered.</li>
+    <li><strong>Range-error cause unresolved.</strong> The rejected raster bytes are unavailable, so do not
+        attribute the reported rejection to NaNs. In the 29 accessible sibling files, 12/12 <code>-nan</code>
+        variants fail one NaN-intolerant local comparison and 17/17 all-finite variants pass it; that
+        demonstrates a possible failure mode, not the cause of the earlier rejection. For any future,
+        separately authorized upload, validate the exact bytes against the current official requirements;
+        the all-finite output writes zeros outside the supplied footprint and does not meet the published
+        null/NaN-outside wording. The NaN variant follows the available mirror convention but fails the
+        tested raw comparison. Neither variant is an upload recommendation; exact portal behavior is unknown.</li>
   </ol>
   <p><a class="btn sec" href="docs/executive-summary.html">Executive summary &amp; future submission steps →</a> <a class="btn sec" href="docs/next-session.md">Next-session plan →</a></p>
 </main>

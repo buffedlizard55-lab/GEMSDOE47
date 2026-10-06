@@ -1,8 +1,8 @@
 {
- "instrument": "LATI matched-size thinness control",
+ "instrument": "Exploratory LATI spatial-permutation diagnostic",
  "generated_utc": "2026-10-06T10:20:20Z",
  "n_random_draws": 10,
- "null_construction": "spatial permutation of the layer's own rank values (preserves the marginal distribution and tie structure, destroys all spatial information)",
+ "null_construction": "spatial permutation of each layer's rank values (preserves its marginal distribution and tie structure while disrupting spatial arrangement)",
  "uniform_baseline_ssr": 0.17631965107999503,
  "uniform_baseline_K": 59999.999979360364,
  "n_evaluated_pixels": 5106385,
@@ -20,7 +20,7 @@
    "null_K_mean": 59999.999993807825,
    "z_vs_null": 360.3003868447781,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "dcat_band_1.5_3",
@@ -35,7 +35,7 @@
    "null_K_mean": 59999.99999380509,
    "z_vs_null": 458.750347450941,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "d_catalogue_prox",
@@ -50,7 +50,7 @@
    "null_K_mean": 59999.999999999985,
    "z_vs_null": 1561.845982572865,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "sgmc_offcat",
@@ -65,7 +65,7 @@
    "null_K_mean": 59999.999993798745,
    "z_vs_null": 122.32423858371692,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "sgmc_offcat_prox",
@@ -80,7 +80,7 @@
    "null_K_mean": 59999.99999590651,
    "z_vs_null": 1181.5804372467878,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "rtp_grad",
@@ -95,7 +95,7 @@
    "null_K_mean": 59999.99999795099,
    "z_vs_null": 918.6817641418953,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "tmi_grad",
@@ -110,7 +110,7 @@
    "null_K_mean": 59999.999999999985,
    "z_vs_null": 718.2394930419161,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "rad_K",
@@ -125,7 +125,7 @@
    "null_K_mean": 59999.99999594742,
    "z_vs_null": 663.0675095726441,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "tc",
@@ -140,7 +140,7 @@
    "null_K_mean": 59999.99999788883,
    "z_vs_null": 708.9497073511808,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "rad_TC",
@@ -155,7 +155,7 @@
    "null_K_mean": 59999.999999999985,
    "z_vs_null": 913.8126910876182,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "lidar_upface_max",
@@ -170,7 +170,7 @@
    "null_K_mean": 59999.9999979046,
    "z_vs_null": 903.551713284081,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "rad_Th",
@@ -185,7 +185,7 @@
    "null_K_mean": 59999.99999588511,
    "z_vs_null": 724.3376062861456,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "tmi_vg",
@@ -200,7 +200,7 @@
    "null_K_mean": 59999.999995508566,
    "z_vs_null": 342.14087564901496,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   },
   {
    "layer": "dcat_band_3_6",
@@ -215,8 +215,9 @@
    "null_K_mean": 59999.99984821415,
    "z_vs_null": 196.86428340012364,
    "draws_beaten": "10/10",
-   "verdict": "INFORMATIVE"
+   "verdict": "BEATS_ALL_TESTED_PERMUTATIONS"
   }
  ],
- "seconds": 125.5
+ "seconds": 125.5,
+ "interpretation_scope": "Finite-permutation diagnostic for fit to owner-reported score/raster associations only; it does not authenticate pairings, prove the LATI instrument/model valid, establish causality, or validate private-target performance. Ten draws are not a calibrated significance test."
 }

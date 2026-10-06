@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LATI method — GEMSDOE47</title>
-<meta name="description" content="LATI - Leaderboard-Anchored Truth Inversion: the metric algebra, the identifiability fix, the binned fast path, the controls, cross-fitting, and the two bugs the review passes caught.">
+<meta name="description" content="Exploratory LATI inversion of owner-reported score/raster associations: metric algebra, model assumptions, diagnostics, cross-fitting, and implementation limits.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <h1>LATI — Leaderboard-Anchored Truth Inversion</h1>
-  <p class="sub">Turning thirteen returned DTIs into measurements of a hidden label set</p>
+  <h1>LATI — exploratory owner-reported score/raster inversion</h1>
+  <p class="sub">Twelve owner-reported score/raster pairs; H33-2-B2 appears only as an unverified conditional scenario</p>
   <nav>
     <a href="index.html">Home</a>
     <a href="executive-summary.html">Executive summary &amp; how to submit</a>
@@ -27,14 +27,16 @@
 <p>A sibling repository’s truth model — the one every downstream decision in that family was scored
 against — draws hidden truth as <code>π ~ exp(−d(H19-5)/1.85 px)</code>: a scatter around <b>the
 group’s own best field</b>. Any rule that covers that field better then wins by construction. Its own
-evidence file records exactly that: <code>greedy_smoothfield</code> beat the incumbent by
+evidence file records exactly that: <code>greedy_smoothfield</code> beat that group's own best field by
 <b>+0.0247 ± 0.0005</b> with <b>12/12</b> draws positive. The model cannot falsify the field it was
 built from, so the number carries no information.</p>
-<p>LATI replaces it with <b>measurements</b>. For each of twelve prior submissions we hold the exact
-raster that was uploaded (SHA-256 pinned) and the number the organiser sent back. Those twelve numbers
-are data about the hidden label set, and they are the only such data this project has ever had.</p>
+<p>LATI replaces that self-referential construction with an <b>exploratory inversion</b>. The repository
+contains twelve owner-reported raster/score pairs whose bytes are SHA-256 pinned; it has no organizer
+receipts authenticating the scores to those TIFFs. H33-2-B2 is an additional reference raster, but its
+association with the participant-level 0.2778 row is unverified. It is never counted as an authenticated
+thirteenth pair.</p>
 
-<h2>2 · Why thirteen scalars identify anything</h2>
+<h2>2 · What twelve owner-reported pairs and a conditional scenario can show</h2>
 <p>Write <code>G</code> for the hidden new-fault pixel set, <code>K = |G|</code>, and
 <code>q(x) = P(x ∈ G)</code> for its intensity. For a submission <code>p</code> with dot set
 <code>D(p)</code>:</p>
@@ -45,11 +47,14 @@ F(p)  = S(p) − Φ(p)
 DTI   = T / (α·(T + F) + β·K)              α = 0.2, β = 0.8, k(d) = max(1 − d/300 m, 0)</pre>
 <p><b>(L1) is exact.</b> <code>w_p</code> depends only on <code>p</code>, so <code>T</code> is a
 <i>linear functional of the unknown <code>q</code></i>. <b>(L2) is first-order</b> and is used only for
-the 13-observation screening fits; the emission path uses the exact Bernoulli expectation instead (§5).</p>
-<p>So each returned DTI is one non-linear equation in three linear functionals of the same unknown.
-Thirteen structurally different rasters — mass 37,654 to 343,816; lattice, ridge, hedge, ensemble,
-dotted, broad scatter — probe thirteen different halo volumes of <code>q</code>. That is tomography,
-not curve-fitting.</p>
+the exploratory 12-row fits and the separate conditional 13-row scenario that assumes H33-2-B2 had DTI
+0.2778; the emission path uses the exact Bernoulli expectation instead (§5).</p>
+<p>Under the assumption that each owner-reported score is paired to its hash-pinned raster, that value
+contributes one non-linear equation in three modeled functionals of the same unknown. The exploratory
+set spans twelve raster families and masses from 37,654 to 343,816; adding H33 creates a
+<i>hypothetical</i> thirteenth row only under an explicit assumed DTI and the unverified score/file link.
+This sparse inversion ranks associations within those inputs; it is not tomography of authenticated
+ground truth or a fitted map of private labels.</p>
 
 <h2>3 · Exact reductions, verified to machine precision</h2>
 <pre>FN_w = K − T          (the two published sums are term-wise complements)
@@ -86,20 +91,23 @@ which makes the fit scale-free and immune to the float32-min nodata sentinel
 supplied bands contain it.</p>
 
 <h3>The binned fast path</h3>
-<p>Because <code>T</code>, <code>Φ</code> and <code>K</code> are all linear in <code>q</code>, and
-<code>q</code> depends on <code>x</code> only through the selected <code>uₘ(x)</code>, all three are
-exactly determined by the joint histogram of the quantised selected features together with the per-cell
-sums of <code>w_p</code> and <code>a_p</code>. Aggregating onto that grid makes a model evaluation
-<b>0.015 ms instead of 210 ms — 700× faster</b> — with a measured error of <b>1.1e-05</b> in DTI at
-256 levels. That is what makes 65-layer screens, forward selection, leave-one-observation-out CV and
-300 bootstrap replicates affordable on 2 vCPU.</p>
+<p><code>T</code> and <code>K</code> are exactly linear in <code>q</code>; <code>Φ</code> is replaced
+by the first-order linear approximation <code>⟨q, a_p⟩</code> during this exploratory fit. Since
+<code>q</code> depends on <code>x</code> only through the selected <code>uₘ(x)</code>, these modeled
+functionals are determined by the joint histogram of the quantized selected features together with the
+per-cell sums of <code>w_p</code> and <code>a_p</code>. Aggregating onto that grid makes a model
+evaluation <b>0.015 ms instead of 210 ms — 700× faster</b> — with a measured error of
+<b>1.1e-05</b> in DTI at 256 levels. That is what makes 65-layer screens, forward selection,
+leave-one-observation-out CV and 300 bootstrap replicates affordable on 2 vCPU; it does not remove the
+score/raster attribution uncertainty or validate hidden-target performance.</p>
 
-<h2 id="controls">5 · Controls — the instrument is calibrated, not assumed</h2>
+<h2 id="controls">5 · Fit diagnostics — not calibration validation</h2>
 <table>
-<tr><th>Control</th><th>What it must do</th><th class="n">Result</th></tr>
-<tr><td><b>Positive</b>: proximity to each of the twelve submitted rasters</td>
-    <td>Rank at or near the top — the returned scores are by construction most consistent with truth
-        sitting where the successful submissions sat</td>
+<tr><th>Diagnostic</th><th>Question it probes</th><th class="n">Result</th></tr>
+<tr><td><b>Input consistency</b>: proximity to owner-reported reference rasters</td>
+    <td>Does a layer derived from one of the same rasters reproduce the owner-reported score/raster
+        associations? This is an in-sample consistency check, not independent evidence that hidden truth
+        lies where a successful or leaderboard-mapped submission placed dots.</td>
     <td class="n">Ranks <b>#1–#6</b> of 72.<br><code>control_prox_d2.8</code> SSR <b>0.00857</b>,
         K = 21,206</td></tr>
 <tr><td><b>Negative</b>: the LiDAR scarp composite with its values spatially permuted</td>
@@ -110,37 +118,42 @@ sums of <code>w_p</code> and <code>a_p</code>. Aggregating onto that grid makes 
     <td class="n">SSR <b>0.17546</b>, rank #69</td></tr>
 <tr><td><b>Permutation nulls</b>: each of the top 14 layers re-fitted on 10 spatial permutations of
     its own rank values</td>
-    <td>Separate real spatial information from the mere <i>concentration</i> a thin layer produces</td>
+    <td>Check whether a layer’s fit to the owner-reported DTI associations exceeds a finite spatial-permutation reference while holding its marginal values fixed</td>
     <td class="n"><b>10/10</b> beaten by all 14 layers,<br>z = <b>+122 to +1562</b></td></tr>
 <tr><td><b>Exact κ vs Monte-Carlo</b>: 600 Bernoulli draws of <code>G</code> per setting</td>
     <td>The stable ring-product expectation must match</td>
     <td class="n">z = <b>−0.58, +0.28, −0.17</b><br>at q ~ 0.002 / 0.02 / 0.2</td></tr>
 </table>
-<p class="small">The permutation null is the important one. A geometrically thin layer like
-<code>dcat_band_0_1.5</code> produces a highly concentrated <code>q</code> automatically, and
-concentration alone raises DTI for concentrated submissions while lowering it for diffuse ones. A
-permutation preserves the layer’s exact multiset of rank values — so it preserves its marginal
-distribution <i>and</i> its tie structure, hence its achievable concentration — while destroying all
-spatial information. All fourteen layers beat that null 10/10, so the signal was spatial, not an
-artefact of thinness.</p>
+<p class="small">The permutation null tests whether these score/raster associations contain more than a
+concentration effect. A geometrically thin layer like <code>dcat_band_0_1.5</code> produces a highly
+concentrated <code>q</code> automatically, and concentration alone can change fitted scores. A
+permutation preserves the layer’s exact multiset of rank values and tie structure while disrupting its
+spatial arrangement. All fourteen layers beat all 10 tested permutations in this exploratory fit. Ten
+draws are not a calibrated significance test, and the reported z-scores are descriptive comparisons with
+that finite sample. This is consistent with spatial structure in the owner-reported associations, but does
+not authenticate those associations, prove the LATI instrument/model valid, establish a geological cause,
+or validate private-target performance.</p>
 
-<h2 id="crossfit">6 · Cross-fitting — the only test that can rank a NEW candidate</h2>
-<p>A candidate built by maximising a fitted objective, then scored by that same objective, always wins.
-Two biases produce that pattern and both are removed here:</p>
+<h2 id="crossfit">6 · Cross-fitting — a bias diagnostic, not a promotion gate</h2>
+<p>A candidate selected by maximizing a fitted objective and then scored by that same objective can look
+optimistically strong, potentially by construction. This cross-fit is designed to address two biases, but
+its small and unauthenticated observation set still limits interpretation:</p>
 <ul class="small">
 <li><b>B1 optimizer’s curse</b> — the candidate is selected on the objective it is then judged by;</li>
 <li><b>B2 pool-selection bias</b> — the candidate layers were themselves ranked by LOO on the same
-    thirteen observations, so even the LOO number is optimistic.</li>
+    rows. This recorded 13-row run includes H33-2-B2 at an assumed DTI of 0.2778; the score/file
+    mapping remains unverified.</li>
 </ul>
-<p>The cure: fix the layer pool <b>a priori from geology</b> (twelve layers implied by “faults
+<p>The bias diagnostic fixes a pool <b>a priori from geology</b> (twelve layers implied by “faults
 indicative of geothermal resources”: three geodetic strain-rate bands, two radiometric ratios, two
 thermal-discharge proximities, two seismicity densities, two magnetic bands, surface conductivity) —
-never from the data; run forward selection <b>inside each fold</b>; build the candidate from fold A’s
-model and score it with fold B’s, and vice versa; score the incumbent with the same out-of-fold model so
-the comparison is paired.</p>
+never from the fit; runs forward selection <b>inside each fold</b>; builds the candidate from fold A’s
+model and scores it with fold B’s, and vice versa; and scores the owner-reported d2.8 reference raster with the same out-of-fold
+model so the comparison is paired. The recorded 13-row fit includes H33-2-B2 at assumed DTI 0.2778;
+its score/file mapping is unverified, so the cross-fit is conditional.</p>
 <table>
 <tr><th>Fold</th><th>In-fold selected layers</th><th class="n">In-fold DTI</th>
-    <th class="n">Out-of-fold DTI</th><th class="n">Incumbent</th><th class="n">Paired Δ</th></tr>
+    <th class="n">Out-of-fold DTI</th><th class="n">Owner-reported d2.8 reference predicted DTI</th><th class="n">Paired Δ</th></tr>
 <tr><td>A train → B test</td>
     <td class="small">prox_d2.8, geod_shearrate, rad_ThK, tmi_hg, geod_dilaterate</td>
     <td class="n">0.5128</td><td class="n">0.1995</td><td class="n">0.2606</td>
@@ -151,9 +164,10 @@ the comparison is paired.</p>
     <td class="n"><b>−0.0450</b></td></tr>
 </table>
 <div class="callout bad">
-<b>The in-fold advantage evaporates by ≈0.30 DTI.</b> Note also that the two folds selected
-<i>different</i> layers from the same a-priori pool — which is itself the clearest possible evidence
-that the in-fold selection was fitting noise. Verdict: <b>SHIP = False</b>.
+<b>The in-fold advantage does not survive this conditional cross-fit.</b> The two paired deltas are
+−0.0611 and −0.0450; the fold-specific selections differ, indicating instability in this small
+observation set. Because H33 is an unverified assumed-score scenario, the result is conditional and is
+not a spatially blocked private-target validation. Verdict: <b>NOT PROMOTED; no slot authorized</b>.
 </div>
 
 <h2 id="bugs">7 · Two bugs the review passes caught</h2>
@@ -182,43 +196,44 @@ Dense and sparse implementations now agree to <b>1e-10</b>.</p>
 inflated <code>E[κ]</code> along all four edges and made the dense and sparse paths disagree by 29 %.
 The fill is now <code>1.0</code> (q = 0 outside), and the two paths agree exactly.</p>
 
-<h2>8 · Masking — settled by a natural experiment, not by reading</h2>
-<p>Staff said catalogue pixels are masked. The recovered bytes prove <i>how</i>.
-<code>8GEMSDOE_Hedge-v2_submission.tif</code> is byte-identical to
-<code>gemsdoe-ens12-adopted-7f00890a.tif</code> off the catalogue, and additionally carries all
-<b>60,988</b> catalogue pixels at p = 1. Both returned <b>exactly 0.1563</b>.</p>
-<ul class="small">
-<li>If masked mass could still donate credit to adjacent new-fault pixels, adding 54,533 dots hugging
-    the catalogue would have <i>raised</i> T measurably — new-fault geometry is by definition adjacent
-    to existing traces. It moved the fourth decimal by zero.</li>
-<li>If catalogue pixels were not masked at all, the score would have collapsed.</li>
-</ul>
-<p>Conclusion: masked pixels are zeroed before <b>both</b> sums. Implemented as
-<code>mask_mode="zero"</code> in <code>metric.score</code>, with the alternative reading
-(<code>"fp_only"</code>) retained and explicitly falsified.</p>
+<h2>8 · Masking — official clarification and limits of local comparisons</h2>
+<p>DrivenData staff states that known USGS/INGENIOUS pixels are excluded from evaluation and do not
+count toward penalty terms. The local <code>mask_mode="zero"</code> implementation removes masked
+predictions from the evaluated domain to represent that rule. The alternative <code>"fp_only"</code>
+mode is retained for audit/regression use only and is not the official interpretation.</p>
+<p>The recovered <code>8GEMSDOE_Hedge-v2_submission.tif</code> and
+<code>gemsdoe-ens12-adopted-7f00890a.tif</code> masks are byte-identical off the catalogue; Hedge-v2
+adds 54,533 positive pixels on catalogue pixels. Their scores are both owner-reported as 0.1563, with
+no organizer receipts. This is descriptive and consistent with the official exclusion rule, but it is
+not a controlled causal ablation and does not establish any H33-specific score gain.</p>
+<p>Under the official exclusion rule, predictions exactly on masked catalogue pixels cannot affect DTI;
+deleting them cannot improve DTI. Any effect of pruning nearby, unmasked pixels requires a controlled
+paired evaluation restricted to the unmasked evaluated domain.</p>
 <div class="callout warn">
 <b>A structural consequence worth stating.</b> Under <code>mask_mode="zero"</code> a blocked holdout whose
 truth <i>is</i> the given catalogue cannot be scored at all: <code>g &amp; evaluated</code> is empty,
-<code>K = 0</code>, and DTI ≡ 0 for every candidate. The sibling repositories report non-zero values on
-that frame, so their scorers do not apply the organiser’s mask. That is why F5 is reported here as
-scored <b>unmasked</b> and is never selected on.
+<code>K = 0</code>, and DTI ≡ 0 for every candidate. Some sibling repositories report non-zero local
+values on that frame, but those values are not organizer-authenticated evidence about the production
+scorer. F5 is therefore shown only as a contaminated diagnostic scored <b>unmasked</b> and is never
+selected on.
 </div>
 
 <h2>9 · Honest limits of LATI</h2>
 <ul class="small">
-<li>Thirteen scalars cannot identify 59 coefficients. The reported answer is a <b>ranking of layer
-    families</b>, not a map of <code>G</code>.</li>
-<li>Six of the thirteen are nested thinnings of one field, so the effective sample size is well below
-    thirteen. The three-equation solve on that nested triple alone had condition number 3,136 and
-    collapsed — a documented dead end.</li>
-<li>The thirteen DTIs are owner-reported transcriptions of the public board. No organiser receipt
-    exists. They are treated as exact and flagged.</li>
-<li><code>K</code> identified here is the <b>public-chunk</b> hidden mass. Whether scoring is restricted
-    to a public-chunk footprint, or runs over the whole raster with only public-chunk truth, is
-    unresolved — and it changes whether off-chunk mass is neutral or pure FP.</li>
-<li>LATI can tell us the truth is <i>near our best field</i>. It cannot tell us which geology that is.
-    That is why the positive controls are reported at the top of every screen instead of being quietly
-    excluded.</li>
+<li>Twelve owner-reported score/raster pairs cannot identify 59 coefficients. Any 13-row fit adds H33-2-B2
+    only as a conditional scenario under an unverified score/file mapping. The output is a <b>ranking of
+    layer families</b>, not a map of <code>G</code>.</li>
+<li>Six of the twelve owner-reported maps are nested thinnings or near-nested versions of one field,
+    so the effective sample size is below twelve. A three-equation solve on the nested triple alone had
+    condition number 3,136 and collapsed — a documented dead end.</li>
+<li>The twelve score/raster associations are owner-reported transcriptions, not organizer-authenticated
+    receipts. The H33 participant-score link is separately unverified. Treat the fits as exploratory.</li>
+<li><code>K</code> is a <b>model-derived mass for the evaluated public footprint under the fitted
+    assumptions</b>, not a verified hidden-label mass. Whether official scoring is restricted to a
+    public-chunk footprint or runs over the whole raster with only public-chunk truth remains unresolved.</li>
+<li>The fit associates owner-reported score/raster pairs with proximity to some reference fields. It
+    does not establish that hidden truth is near any particular field or identify a causal geology. The
+    same-data proximity diagnostics are shown explicitly rather than presented as independent controls.</li>
 </ul>
 
 </div>

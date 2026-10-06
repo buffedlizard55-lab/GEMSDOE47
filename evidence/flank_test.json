@@ -2,7 +2,7 @@
  "generated_utc": "2026-10-06T10:24:09Z",
  "Q1_flank_incremental": [
   {
-   "model": "incumbent-field-only",
+   "model": "owner-reported d2.8 reference-field-only",
    "layers": [
     "prox_d2.8"
    ],
@@ -30,7 +30,7 @@
    "max_abs_resid": 0.0460144993237019
   },
   {
-   "model": "incumbent+flank0_1.5",
+   "model": "d2.8 reference + flank 0-1.5px",
    "layers": [
     "prox_d2.8",
     "dcat_band_0_1.5"
@@ -60,7 +60,7 @@
    "max_abs_resid": 0.03260924822304634
   },
   {
-   "model": "incumbent+flank0_3",
+   "model": "d2.8 reference + flank 0-3px",
    "layers": [
     "prox_d2.8",
     "dcat_band_0_1.5",
@@ -92,7 +92,7 @@
    "max_abs_resid": 0.03243517636071863
   },
   {
-   "model": "incumbent+flank+sgmc",
+   "model": "d2.8 reference + flank + SGMC",
    "layers": [
     "prox_d2.8",
     "dcat_band_0_1.5",
@@ -126,7 +126,7 @@
    "max_abs_resid": 0.032801157655687585
   },
   {
-   "model": "flank+sgmc (no incumbent)",
+   "model": "flank + SGMC (no d2.8 reference field)",
    "layers": [
     "dcat_band_0_1.5",
     "dcat_band_1.5_3",
@@ -159,12 +159,13 @@
   }
  ],
  "Q1_verdict": {
-  "baseline_model": "incumbent-field-only",
+  "baseline_model": "owner-reported d2.8 reference-field-only",
   "baseline_loo": 0.014876394986618925,
-  "best_model": "incumbent+flank0_1.5",
+  "best_model": "d2.8 reference + flank 0-1.5px",
   "best_loo": 0.008124352117149715,
-  "flank_adds_signal": true,
-  "improvement": 0.00675204286946921
+  "flank_reduces_loo_error_in_exploratory_fit": true,
+  "loo_ssr_reduction": 0.00675204286946921,
+  "interpretation": "Exploratory LOO-error reduction for owner-reported score/raster associations only; not causal evidence, independent validation, or private-target performance."
  },
  "Q2_sgmc_offcatalogue_frame": {
   "K": 62122,
@@ -182,7 +183,7 @@
     "weighted_recall": 0.08963860857468847,
     "F_over_T": 7.4693396360870645,
     "inv_dti": 10.61859369795967,
-    "arm": "incumbent_d2.8 (live 0.2600)",
+    "arm": "owner-reported d2.8 reference (DTI 0.2600; no organizer receipt)",
     "n_dots": 44090
    },
    {
@@ -197,7 +198,7 @@
     "weighted_recall": 0.0888193667711875,
     "F_over_T": 6.383307822642153,
     "inv_dti": 10.483706188714104,
-    "arm": "h33-2-b2 (reported 0.2778)",
+    "arm": "H33-2-B2 reference raster (score/file mapping unverified)",
     "n_dots": 37654
    },
    {
@@ -236,36 +237,42 @@
   {
    "fold": "NW",
    "K": 29319,
-   "incumbent_d2.8 (live 0.2600)": 0.0,
-   "h33-2-b2 (reported 0.2778)": 0.0,
+   "owner-reported d2.8 reference (DTI 0.2600; no organizer receipt)": 0.0,
+   "H33-2-B2 reference raster (score/file mapping unverified)": 0.0,
    "flank_halo_only (all 383806 px)": 0.0,
    "sgmc_offcat_only (62122 px)": 0.0
   },
   {
    "fold": "NE",
    "K": 12596,
-   "incumbent_d2.8 (live 0.2600)": 0.0,
-   "h33-2-b2 (reported 0.2778)": 0.0,
+   "owner-reported d2.8 reference (DTI 0.2600; no organizer receipt)": 0.0,
+   "H33-2-B2 reference raster (score/file mapping unverified)": 0.0,
    "flank_halo_only (all 383806 px)": 0.0,
    "sgmc_offcat_only (62122 px)": 0.0
   },
   {
    "fold": "SW",
    "K": 9473,
-   "incumbent_d2.8 (live 0.2600)": 0.0,
-   "h33-2-b2 (reported 0.2778)": 0.0,
+   "owner-reported d2.8 reference (DTI 0.2600; no organizer receipt)": 0.0,
+   "H33-2-B2 reference raster (score/file mapping unverified)": 0.0,
    "flank_halo_only (all 383806 px)": 0.0,
    "sgmc_offcat_only (62122 px)": 0.0
   },
   {
    "fold": "SE",
    "K": 9600,
-   "incumbent_d2.8 (live 0.2600)": 0.0,
-   "h33-2-b2 (reported 0.2778)": 0.0,
+   "owner-reported d2.8 reference (DTI 0.2600; no organizer receipt)": 0.0,
+   "H33-2-B2 reference raster (score/file mapping unverified)": 0.0,
    "flank_halo_only (all 383806 px)": 0.0,
    "sgmc_offcat_only (62122 px)": 0.0
   }
  ],
  "caveat_Q3": "truth IS the given catalogue, so this frame rewards catalogue skill and structurally cannot reward a genuinely new fault (the same defect GEMSDOE42 logged in registry/irregularities.json)",
- "seconds": 82.5
+ "seconds": 82.5,
+ "observation_scope": {
+  "q1_owner_reported_pairs": 12,
+  "h33_score_file_mapping_verified": false,
+  "h33_used_as_score_observation": false,
+  "interpretation": "Q1 LOO and Q2/Q3 local frame results are exploratory diagnostics, not causal evidence or private-target validation"
+ }
 }

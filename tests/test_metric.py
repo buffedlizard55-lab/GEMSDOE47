@@ -133,11 +133,33 @@ def test_marginal_rule_reduces_to_k_gt_alpha_dti():
     assert M.breakeven_k(0.3262) == pytest.approx(0.06524)
 
 
-def test_required_recall_table():
-    # 1/DTI = alpha + alpha*(F/T) + beta*(K/T);  x = T/K = (a*rho+b)/(1/DTI-a)
+def test_required_recall_table_and_forward_inverse_regression():
+    # x = T/K and rho = F/K (not F/T): x = (alpha*rho+beta)/(1/DTI-alpha).
     assert M.required_recall(0.3262, 0.0) == pytest.approx(0.2791733, abs=1e-6)
     assert M.required_recall(0.3195, 0.0) == pytest.approx(0.2730476, abs=1e-6)
     assert M.required_recall(0.2600, 0.0) == pytest.approx(0.2194092, abs=1e-6)
+    assert M.required_recall(0.3195, 8.02) == pytest.approx(0.8205085, abs=1e-7)
+    assert M.required_recall(0.3774, 8.02) == pytest.approx(0.9813412, abs=1e-7)
+
+    # Reinsert every calculated (T/K, F/K) pair into the forward DTI equation.
+    # This catches both algebra mistakes and accidental denominator swaps.
+    targets = (0.2600, 0.2778, 0.3195, 0.3262, 0.3774)
+    ratios = (0.0, 1.0, 8.02)
+    for target in targets:
+        for f_over_k in ratios:
+            t_over_k = M.required_recall(target, f_over_k)
+            assert M.dti_from_TFK(t_over_k, f_over_k, 1.0) == pytest.approx(target, abs=1e-12)
+
+    # The boundary at full weighted recall is rho_max=(1/target-alpha-beta)/alpha.
+    for target in (0.3195, 0.3774):
+        rho_max = (1.0 / target - M.ALPHA - M.BETA) / M.ALPHA
+        assert M.required_recall(target, rho_max) == pytest.approx(1.0, abs=1e-12)
+
+
+def test_required_recall_rejects_invalid_inputs():
+    for dti, f_over_k in ((0.0, 1.0), (float("nan"), 1.0), (0.3, -1.0)):
+        with pytest.raises(ValueError):
+            M.required_recall(dti, f_over_k)
 
 
 def test_dti_is_monotone_in_credit_and_decreasing_in_waste():

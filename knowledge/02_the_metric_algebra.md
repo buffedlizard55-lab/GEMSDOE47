@@ -49,9 +49,10 @@ DTI   = T / (α·(T + S − Φ) + β·K)               ← the design equation
 1/DTI = α + α·(F/T) + β·(K/T)
 ```
 
-Everything about this competition is contained in that second line: the score is
-governed by **two ratios**, wasted-mass-to-credit `F/T` and truth-size-to-credit
-`K/T`. Neither is improved by emitting more mass.
+The score can be expressed using two ratios, wasted-mass-to-credit `F/T` and
+truth-size-to-credit `K/T`. Adding prediction mass changes both earned credit and
+false-positive mass; whether that helps depends on the added pixels' marginal
+credit, not on a blanket rule that more or less mass is always better.
 
 ## 3. The marginal rule
 
@@ -86,62 +87,109 @@ Both `T` and `F` are homogeneous of degree 1 in `p`, so
 DTI(λp) = λT / (λα(T + F) + βK)      ⇒      1/DTI(λ) is LINEAR in 1/λ
 ```
 
-Three returns from **one** file therefore solve for `T`, `F` and `K` in closed
-form:
+Three **score observations** from one reference setup could, under the stated assumptions, solve for
+`T`, `F` and `K` in closed form:
 
-* **S1 ANCHOR** — λ = 1, byte-identical to a known live raster, so it cannot cost rank
+* **S1 ANCHOR** — λ = 1, a reference raster with an owner-reported 0.2600 score; the TIFF/score association is not authenticated
 * **S2 SCALE** — λ = 0.5
 * **S3 NULL-ADD** — the anchor plus N dots placed where no truth is expected, so
-  their marginal credit is ≈ 0 and their cost is exactly α·N
+their marginal credit is approximately 0 and their cost is α·N
 
-Conditioning is **56×–1380× better** than reading four decimal places off a single
-return. All three probes can be constructed to score *below* the anchor, so they
-cannot cost leaderboard rank. Designed, verified, **never spent** (H47-5).
+The algebraic design was checked against the metric implementation, but the experiment has **not** been
+run. The three observations describe the measurement design, not a verified count of new portal uploads
+or submission slots. The accessible official competition/rules pages checked 2026-10-06 do not state the
+current per-user quota or slot accounting; the number and cost of any new uploads are unknown. Do not
+assume a free route. H47-5 is **NOT AUTHORIZED** under the current holdout-before-slot gate. Do not
+submit or run the portal probe without project approval and explicit organizer/portal confirmation.
 
-## 5. Required recall for a target score
+## 5. Inverting the metric: name the denominator
+
+Let `x = T/K` be weighted recall and `ρ = F/K` be false-positive mass per unit
+truth mass. From the forward DTI equation,
 
 ```
+1/DTI = α + (αρ + β)/x
 x = T/K = (αρ + β)/(1/DTI − α),     ρ = F/K
 ```
 
-| Target DTI | x at ρ = 0 | x at ρ = 1 | x at ρ = 8.02 (incumbent) |
-|---|---|---|---|
-| 0.2600 | 21.94 % | 27.43 % | 82.42 % |
-| 0.2708 | 22.90 % | 28.63 % | 86.03 % |
-| 0.2778 | 23.53 % | 29.41 % | 88.49 % |
-| **0.3195** | 27.30 % | 34.13 % | **102.73 % — impossible** |
-| 0.3262 | 27.92 % | 34.90 % | **104.98 % — impossible** |
+This `ρ = F/K` is **not** `f = F/T`. If the ratio is instead stated as
+`f = F/T`, the distinct identity is
 
-At the incumbent's waste ratio the 0.3195 target **cannot be reached at any
-recall** — recall cannot exceed 100 %. Reaching it requires `F/T` to roughly
-**halve**: same credit, half the wasted mass. It is a precision problem, not a
-coverage problem, and no amount of new detector mass solves it.
+```
+1/DTI = α(1 + f) + β/x
+x = T/K = β/[1/DTI − α(1 + f)]
+```
 
-A perfect-knowledge ceiling of ≈0.78 follows from the same equation. The community
-leader at 0.3262 is therefore at ≈42 % of the achievable ceiling, which says the
-binding constraint is **knowing where the faults are**, not method.
+The table below is a set of algebraic scenarios, not measurements of any
+incumbent. In particular, the provenance of `ρ = 8.02` is unverified; it is
+retained only to reproduce and correct the earlier illustrative column. Each
+entry follows the inverse formula and was checked by substituting `T = x`,
+`F = ρ`, `K = 1` into `dti_from_TFK()`.
 
-## 6. Why 0.2778 won
+| Target DTI | `T/K` at `ρ = F/K = 0` | at `ρ = 1` | at illustrative `ρ = 8.02` |
+|---|---:|---:|---:|
+| 0.2600 | 21.94 % | 27.43 % | 65.93 % |
+| 0.2708 | 22.90 % | 28.63 % | 68.83 % |
+| 0.2778 | 23.53 % | 29.41 % | 70.71 % |
+| **0.3195** | **27.30 %** | **34.13 %** | **82.05 %** |
+| 0.3262 (historical comparison) | 27.92 % | 34.90 % | 83.89 % |
+| 0.3774 (latest saved rank-1 row, 2026-10-06) | 32.66 % | 40.82 % | 98.13 % |
 
-It is not a discovery, it is precision. Emitted mass along the family's
-trajectory:
+Thus `ρ = 8.02` makes both 0.3195 and 0.3774 feasible under this model; it does
+not establish that either is an incumbent's actual ratio. With `T/K ≤ 1`, the
+largest feasible `F/K` at a target score is
 
-| Raster | Emitted px S | DTI | Covered 300 m kernel integral | Kernel credit retention |
-|---|---|---|---|---|
+```
+ρ_max = (1/DTI − α − β)/α = (1/DTI − 1)/α   (when α + β = 1)
+```
+
+which is **10.6495** at DTI 0.3195 and **8.2485** at DTI 0.3774. At a fixed
+`ρ = 8.02`, the model's maximum score at `T/K = 1` is about **0.3840**. With
+perfect truth placement (`T = K`, `F = 0`), the DTI is **1.0**; there is no
+0.78 “perfect-knowledge ceiling” implied by this equation.
+
+For a separate illustration using `f = F/T`, DTI 0.3195 requires `T/K ≈ 60.16 %`
+when `f = 8`, and `T/K ≈ 37.56 %` when `f = 4`. These are not the `ρ = F/K`
+table entries. Neither calculation identifies the real ratios behind a
+participant-level leaderboard score or maps that score to a TIFF.
+
+## 6. Artifact descriptors are not a causal explanation of 0.2778
+
+The following raster counts and covered-kernel integrals describe maps in the
+recovered artifact family. They do **not** prove that a particular deletion
+caused a DTI change. The alleged H33-2-B2-to-0.2778 association is unverified:
+the public leaderboard records participant-level scores, not TIFF hashes or
+filenames.
+
+| Raster label in the artifact collection | Emitted px `S` | Reported/associated DTI* | Covered 300 m kernel integral | Kernel credit retention |
+|---|---:|---:|---:|---:|
 | h19-5 solid backbone | 121,131 | 0.1922 | 449,693 | 1.000 |
 | d1.5 (Poisson thin, 1.5 px) | 60,069 | 0.2477 | 383,645 | 0.854 |
 | d2.8 (Poisson thin, 2.4 px) | 44,090 | **0.2600** | 341,261 | 0.759 |
 | h27-4-r1-solo (rank-1 corroboration) | 40,199 | 0.2708 | — | — |
-| h33-2-b2 (flank-pruned) | 37,654 | **0.2778** | 302,510 | — |
+| h33-2-b2 (flank-pruned; attribution contested) | 37,654 | **0.2778 not authenticated to this TIFF** | 302,510 | — |
 
-Mass fell **69 %** from h19-5 to h33-2-b2 while the covered kernel integral fell
-only **33 %**. Each step removed mass whose marginal credit was below `α·DTI`.
-The final step removed every dot within 2 px of the given catalogue — dots on
-**masked** pixels, which cannot earn credit at all.
+Across those file descriptors, emitted count fell **69 %** from h19-5 to h33-2-b2
+while the covered-kernel integral fell **33 %**. This is descriptive only: without
+a verified score-to-file mapping and a controlled paired ablation on evaluated
+pixels, it cannot explain a leaderboard improvement or establish what the hidden
+truth contains.
 
-Read against §2, that is the whole story: `1/DTI` fell because `F/T` fell, and
-`F/T` fell because mass with near-zero marginal credit was deleted, not because
-any new fault was found.
+**Masking correction.** Official DrivenData staff says known USGS/INGENIOUS fault
+pixels are excluded from evaluation and do not count toward penalty terms
+([thread 11516](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516)).
+Deleting predictions exactly on those masked pixels therefore cannot improve
+DTI. A two-pixel pruning neighborhood also removes evaluated, unmasked pixels;
+any effect of those pixels would need to be measured in a controlled ablation
+on the evaluated domain. No such causal gain is established by the contested
+H33 attribution.
+
+Earlier notes called the `Hedge-v2`/`ens12` raster comparison a “natural experiment”; that label is
+withdrawn. The rasters are byte-identical off the catalogue and differ on catalogue pixels, but the
+0.1563 values are owner-reported and no organizer receipts link them to those exact files. The byte
+comparison is descriptive, not an authenticated scoring experiment and not evidence of a causal gain
+from deleting masked or nearby unmasked pixels. The official staff clarification in thread 11516 is
+the basis for the stated masking rule.
 
 ## 7. Two numerical traps in the expectation algebra
 

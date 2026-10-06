@@ -24,7 +24,7 @@
 
 <div class="wrap">
 
-<h2>The grid, read back from the bytes</h2>
+<h2>Grid and footprint read back from mirror bytes</h2>
 <div class="panel kv">
 <div><b>Shape</b> 3730 rows × 3292 cols = 12,279,160 px</div>
 <div><b>CRS</b> EPSG:32611 (UTM zone 11N)</div>
@@ -42,11 +42,9 @@
     (<b>not</b> NaN — <code>np.isfinite</code> does not catch it); 5,164,312 valid px per band,
     3,061 missing inside the footprint</div>
 </div>
-<p class="small">Source: <code>src/gems47/grid.py</code> (<code>receipt()</code> re-derives every constant
-above from the restored bytes and asserts they match; <code>scripts/verify_grid.py</code>).
-Band order and descriptions are read from the TIFF metadata, not from documentation.</p>
+<p class="small">Source: the hash-pinned owner-supplied public mirror recorded in <code>registry/data_manifest.json</code>, not an authenticated organizer download. <code>src/gems47/grid.py</code> and <code>scripts/verify_grid.py</code> re-derive the constants from the restored mirror bytes and check their internal consistency; that does not authenticate the mirror. Band order and descriptions are read from TIFF metadata, not documentation. The published submission requirements were separately checked on the official task page.</p>
 
-<h2 id="why-02778">Why 0.2778 won — the arithmetic</h2>
+<h2 id="why-02778">Metric algebra and what artifact counts do—and do not—show</h2>
 <pre>1/DTI = α + α·(F/T) + β·(K/T)        α = 0.2, β = 0.8
 FN_w  = K − T          exactly
 FP_w  = S − Φ          exactly,  Φ = Σ_{x∈D} κ(x),  κ(x) = max_{g∈G} k(d(x,g))
@@ -58,27 +56,34 @@ marginal rule:  add a dot  ⇔  dT·(1/DTI − α) &gt; α·dF
                 k = 1 − d/3 px  ⇒  a dot pays only within ≈ 2.84 px ≈ 284 m of a truth pixel
 
 x = T/K required for a target DTI at waste ratio ρ = F/K:   x = (αρ + β)/(1/DTI − α)</pre>
-<p>The family’s trajectory is a <b>mass</b> story, not a discovery story:</p>
+<p>The artifact-family table below is <b>descriptive</b>, not a causal explanation of a leaderboard row.
+The public board is participant-level and does not authenticate TIFF-to-score mappings.</p>
 <table>
-<tr><th>Raster</th><th class="n">Emitted px S</th><th class="n">Live / reported DTI</th>
+<tr><th>Raster label in recovered artifacts</th><th class="n">Emitted px S</th><th class="n">Reported / associated DTI*</th>
     <th class="n">Covered 300 m kernel integral</th><th class="n">Kernel credit retention</th></tr>
 <tr><td>h19-5 solid backbone</td><td class="n">121,131</td><td class="n">0.1922</td><td class="n">449,693</td><td class="n">1.000</td></tr>
 <tr><td>d1.5 — Poisson thin at 1.5 px</td><td class="n">60,069</td><td class="n">0.2477</td><td class="n">383,645</td><td class="n">0.854</td></tr>
 <tr><td>d2.8 — Poisson thin at 2.4 px</td><td class="n">44,090</td><td class="n">0.2600</td><td class="n">341,261</td><td class="n">0.759</td></tr>
 <tr><td>h27-4-r1-solo (rank-1 corroboration)</td><td class="n">40,199</td><td class="n">0.2708</td><td class="n">—</td><td class="n">—</td></tr>
-<tr><td><b>h33-2-b2 (flank-pruned)</b></td><td class="n"><b>37,654</b></td><td class="n"><b>0.2778</b></td><td class="n">302,510</td><td class="n">—</td></tr>
+<tr><td><b>h33-2-b2 (flank-pruned; mapping contested)</b></td><td class="n"><b>37,654</b></td><td class="n"><b>0.2778 participant row; TIFF link unverified</b></td><td class="n">302,510</td><td class="n">—</td></tr>
 </table>
-<p>Emitted mass fell <b>69 %</b> from h19-5 to h33-2-b2 while the covered kernel integral fell only
-<b>33 %</b>. Each step removed mass whose marginal credit was below <code>α·DTI</code>. The final step
-removed every dot within 2 px of the given catalogue — dots on <b>masked</b> pixels, which cannot earn
-credit at all.</p>
+<p>Emitted count fell <b>69 %</b> from h19-5 to h33-2-b2 while the covered-kernel integral fell
+<b>33 %</b>. These are raster descriptors only; they do not show that deleting mass caused a score gain.
+The alleged h33-2-b2-to-0.2778 mapping remains unauthenticated.</p>
+<p><b>Masking correction.</b> DrivenData staff states that known USGS/INGENIOUS pixels are excluded from
+evaluation and do not count toward penalty terms
+(<a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">official reply</a>).
+Deleting predictions exactly on those masked pixels therefore cannot improve DTI. A two-pixel pruning
+neighborhood also removes unmasked evaluated pixels; its effect would require a controlled paired
+ablation on that evaluated domain. No such H33 score-to-file comparison is verified.</p>
 
-<h2>The thirteen observations</h2>
-<p class="small">Every row is a raster that was actually uploaded, restored byte-exactly and SHA-256
-verified, together with the DTI reported for it. <code>S</code> is the <b>evaluated</b> mass (dots on
-masked catalogue pixels excluded); “dots” is the raw count. F1–F5 are defined below the table.</p>
+<h2>The twelve owner-reported observations and one contested H33 scenario</h2>
+<p class="small">The twelve observations below are owner-reported raster/score pairs restored byte-exactly
+and SHA-256 checked; they are not organizer receipts. The H33 row is shown only as a contested,
+conditional scenario, not as an authenticated thirteenth observation. <code>S</code> is evaluated mass
+(dots on masked catalogue pixels excluded); “dots” is the raw count. F1–F5 are defined below.</p>
 <table>
-<tr><th>ID</th><th class="n">Reported DTI</th><th class="n">Dots</th><th class="n">S (evaluated)</th>
+<tr><th>ID</th><th class="n">Owner-reported DTI / assumed scenario</th><th class="n">Dots</th><th class="n">S (evaluated)</th>
     <th class="n">On catalogue</th><th class="n">Coverage</th><th class="n">F1</th><th class="n">F2</th>
     <th class="n">F3</th><th class="n">F4</th><th class="n">F5</th><th class="n">Annulus %</th></tr>
 <tr><td>d2.8</td><td class="n">0.2600</td><td class="n">44,090</td><td class="n">44,090</td><td class="n">0</td><td class="n">341,261</td><td class="n">0.2650</td><td class="n">0.2653</td><td class="n">0.0442</td><td class="n">0.0942</td><td class="n">0.1087</td><td class="n">44.8</td></tr>
@@ -93,18 +98,18 @@ masked catalogue pixels excluded); “dots” is the raw count. F1–F5 are defi
 <tr><td>h25-ctx</td><td class="n">0.1280</td><td class="n">174,232</td><td class="n">161,366</td><td class="n">12,866</td><td class="n">630,567</td><td class="n">0.1141</td><td class="n">0.1267</td><td class="n">0.0365</td><td class="n">0.0846</td><td class="n">0.1337</td><td class="n">58.1</td></tr>
 <tr><td>r13-lattice</td><td class="n">0.0904</td><td class="n">206,895</td><td class="n">204,504</td><td class="n">2,391</td><td class="n">1,898,314</td><td class="n">0.1297</td><td class="n">0.1074</td><td class="n">0.0904</td><td class="n">0.2499</td><td class="n">0.0716</td><td class="n">44.7</td></tr>
 <tr><td>placeholder</td><td class="n">0.0107</td><td class="n">343,816</td><td class="n">145,610</td><td class="n">2,074</td><td class="n">241,965</td><td class="n">0.0223</td><td class="n">0.0152</td><td class="n">0.0152</td><td class="n">0.0336</td><td class="n">0.0160</td><td class="n">46.7</td></tr>
-<tr><td><b>h33-2-b2</b> <span class="badge b-warn">contested</span></td><td class="n"><b>0.2778</b></td><td class="n">37,654</td><td class="n">37,654</td><td class="n">0</td><td class="n">302,510</td><td class="n">0.2470</td><td class="n">0.2592</td><td class="n">0.0421</td><td class="n">0.0954</td><td class="n">0.0046</td><td class="n">52.5</td></tr>
+<tr><td><b>h33-2-b2</b> <span class="badge b-warn">conditional only</span></td><td class="n"><b>0.2778 participant row; file link unverified</b></td><td class="n">37,654</td><td class="n">37,654</td><td class="n">0</td><td class="n">302,510</td><td class="n">0.2470</td><td class="n">0.2592</td><td class="n">0.0421</td><td class="n">0.0954</td><td class="n">0.0046</td><td class="n">52.5</td></tr>
 </table>
 <p class="small">
-<b>F1</b> LATI q, incumbent-field proximity only (13 obs, K = 20,069, SSR 0.009663, LOO 0.014401).
-<b>F2</b> LATI q, H47-GSA forward selection (K = 15,638, SSR 0.001107, LOO 0.001955).
-<b>F3</b> uniform q at the model-free K = 12,348.
-<b>F4</b> USGS SGMC faults &gt;300 m off the catalogue (62,122 truth px).
-<b>F5</b> mean over four quadrant-blocked catalogue folds, scored unmasked.
+<b>F1</b> conditional LATI q, owner-reported d2.8-reference-field proximity only (the 13-row scenario assumes H33 DTI 0.2778; mapping unverified; K = 20,069, SSR 0.009663, LOO 0.014401).
+<b>F2</b> conditional H47-GSA forward selection using the same assumed H33 association (K = 15,638, SSR 0.001107, LOO 0.001955).
+<b>F3</b> uniform diagnostic using K ≈ 12,348 from the owner-reported <code>r13-lattice</code> diffuse-pair inverse; not verified hidden-label mass.
+<b>F4</b> public USGS SGMC fault pixels &gt;300 m off the catalogue (62,122 descriptive reference pixels, not hidden-target labels).
+<b>F5</b> mean over four quadrant-blocked folds on the given catalogue, scored unmasked; contaminated diagnostic, not a valid selector.
 <b>Coverage</b> = Σ over evaluated px of max<sub>y∈D</sub> k(d(x,y)) — exact, needs no truth model.<br>
-Source: <code>evidence/shipped.json</code> (16 rows × all components).</p>
+Source: <code>evidence/shipped.json</code> (17 diagnostic rows: four candidate arms, twelve owner-reported references, and one conditional H33 scenario).</p>
 
-<h2>The masking natural experiment</h2>
+<h2>Descriptive artifact comparison and the official masking rule</h2>
 <div class="panel kv">
 <div><b>hedge-v2 positives</b> 227,507</div>
 <div><b>ens12 positives</b> 172,974</div>
@@ -116,18 +121,24 @@ Source: <code>evidence/shipped.json</code> (16 rows × all components).</p>
 <div><b>Reported DTI, both</b> <b>0.1563</b> — identical to four decimals</div>
 </div>
 <p class="small">Source: <code>scripts/lati_fit.py</code> observation loader, reproduced in
-<code>evidence/lati_fit.json</code>. Conclusion: masked pixels are zeroed before <b>both</b> sums
-(<code>mask_mode="zero"</code>).</p>
+<code>evidence/lati_fit.json</code>. The equal owner-reported scores, without organizer receipts, are
+descriptive and consistent with the official staff clarification that known-fault pixels are excluded
+from evaluation and penalty terms. The local <code>mask_mode="zero"</code> implementation represents
+that exclusion; this artifact comparison is not a controlled causal ablation and does not imply that
+deleting those pixels improves a score or explain the contested H33 association.</p>
 
-<h2>Model-free K from the diffuse probes</h2>
+<h2>Diffuse-probe inverse estimates under owner-reported score/raster associations</h2>
+<p class="small">The associations below are owner-reported and have no organizer score receipts. “Diffuse”
+means the raster pattern is intended to reduce dependence on a fitted spatial-intensity shape; it does not
+authenticate the DTI or make the inferred <code>K</code> a measured hidden-label quantity.</p>
 <table>
-<tr><th>Probe</th><th class="n">S (evaluated)</th><th class="n">Reported DTI</th>
-    <th class="n">Implied K</th><th>Why it is close to model-free</th></tr>
+<tr><th>Reference raster</th><th class="n">S (evaluated)</th><th class="n">Owner-reported DTI</th>
+    <th class="n">Exploratory implied K</th><th>Why the pattern is diffuse (conditional)</th></tr>
 <tr><td><code>r13-lattice</code></td><td class="n">204,504</td><td class="n">0.0904</td>
     <td class="n"><b>12,348</b></td>
     <td>A near-uniform lattice: its 300 m halo averages the whole footprint (coverage 1,898,314,
-        the largest of any raster), so its score measures mean truth density with almost no shape
-        assumption.</td></tr>
+        the largest of these rasters), so under the owner-reported association its score is less
+        sensitive to a fitted spatial shape. It is not an authenticated measure of mean hidden truth.</td></tr>
 <tr><td><code>placeholder</code></td><td class="n">145,610</td><td class="n">0.0107</td>
     <td class="n">7,931</td><td>A broad scatter, likewise shape-insensitive.</td></tr>
 <tr><td><code>h25-ctx</code></td><td class="n">161,366</td><td class="n">0.1280</td>
@@ -135,29 +146,40 @@ Source: <code>evidence/shipped.json</code> (16 rows × all components).</p>
     <td>Not diffuse enough — the single-observation solve ran to the upper bound and its own DTI
         (0.0946) did not reproduce the observation (0.1280). Discarded.</td></tr>
 <tr><td>Uniform q fitted on all 12</td><td class="n">—</td><td class="n">—</td><td class="n">12,626</td>
-    <td>Independent corroboration of the lattice value.</td></tr>
+    <td>Separate restricted fit to the same twelve owner-reported associations; not independent corroboration.</td></tr>
 <tr><td>Sibling repository’s separate inference</td><td class="n">—</td><td class="n">—</td>
-    <td class="n">12,691</td><td>Arrived at by a different route from owner-reported anchors.</td></tr>
+    <td class="n">12,691</td><td>Reported from a different route using owner-reported anchors; not authenticated independent confirmation.</td></tr>
 </table>
-<p class="small"><b>Adopted: K ≈ 12,348 px</b> in the scored split (model-free), with fitted-shape
-models preferring 15,638–21,477. Source: <code>evidence/lati_fit.json</code>,
-<code>evidence/flank_mass.json</code>.</p>
+<p class="small"><b>Exploratory diffuse-probe inverse: K ≈ 12,348 px</b> under the owner-reported
+<code>r13-lattice</code> score/raster association; selected fitted-shape models give approximately
+15,638–21,477 under their assumptions. These are conditional inverse/model outputs, not measured or
+organizer-verified hidden-label mass. “Shape-insensitive” refers only to the diffuse raster design.
+Source: <code>evidence/lati_fit.json</code>, <code>evidence/flank_mass.json</code>.</p>
 
-<h2>Required recall for each target</h2>
+<h2>Required weighted recall: keep <code>F/K</code> separate from <code>F/T</code></h2>
+<p>Let <code>x = T/K</code> and <code>ρ = F/K</code>. Then
+<code>x = (αρ + β)/(1/DTI − α)</code>. The <code>ρ = 8.02</code> column below is an
+<i>illustrative scenario only</i>; its provenance as an observed participant ratio is unverified.
+Every row was checked by substituting the derived <code>T/K</code> and <code>F/K</code> into the
+forward <code>dti_from_TFK()</code> equation (regression test in <code>tests/test_metric.py</code>).</p>
 <table>
-<tr><th>Target DTI</th><th class="n">T/K at ρ = F/K = 0</th><th class="n">at ρ = 1</th>
-    <th class="n">at ρ = 8.02 (incumbent)</th></tr>
-<tr><td>0.2600</td><td class="n">21.94 %</td><td class="n">27.43 %</td><td class="n">82.42 %</td></tr>
-<tr><td>0.2708</td><td class="n">22.90 %</td><td class="n">28.63 %</td><td class="n">86.03 %</td></tr>
-<tr><td>0.2778</td><td class="n">23.53 %</td><td class="n">29.41 %</td><td class="n">88.49 %</td></tr>
-<tr><td><b>0.3195</b></td><td class="n">27.30 %</td><td class="n">34.13 %</td>
-    <td class="n"><b>102.73 % — impossible</b></td></tr>
-<tr><td>0.3262</td><td class="n">27.92 %</td><td class="n">34.90 %</td>
-    <td class="n"><b>104.98 % — impossible</b></td></tr>
+<tr><th>Target DTI</th><th class="n">T/K at F/K = 0</th><th class="n">at F/K = 1</th>
+    <th class="n">at illustrative F/K = 8.02</th></tr>
+<tr><td>0.2600</td><td class="n">21.94 %</td><td class="n">27.43 %</td><td class="n">65.93 %</td></tr>
+<tr><td>0.2708</td><td class="n">22.90 %</td><td class="n">28.63 %</td><td class="n">68.83 %</td></tr>
+<tr><td>0.2778</td><td class="n">23.53 %</td><td class="n">29.41 %</td><td class="n">70.71 %</td></tr>
+<tr><td><b>0.3195</b></td><td class="n">27.30 %</td><td class="n">34.13 %</td><td class="n"><b>82.05 %</b></td></tr>
+<tr><td>0.3262 (historical comparison)</td><td class="n">27.92 %</td><td class="n">34.90 %</td><td class="n">83.89 %</td></tr>
+<tr><td>0.3774 (latest saved rank 1, 2026-10-06)</td><td class="n">32.66 %</td><td class="n">40.82 %</td><td class="n">98.13 %</td></tr>
 </table>
-<p class="small">x = (αρ + β)/(1/DTI − α), asserted in <code>tests/test_metric.py</code>.
-<b>At the incumbent’s waste ratio the brief’s 0.3195 target cannot be reached at any recall.</b>
-<code>F/T</code> must roughly halve.</p>
+<p class="small">At <code>T/K = 1</code>, the maximum <code>F/K</code> compatible with a target is
+<code>(1/DTI − α − β)/α</code>: 10.6495 for DTI 0.3195 and 8.2485 for DTI 0.3774. Thus an
+illustrative <code>F/K = 8.02</code> makes both targets feasible under this algebra; it does not establish an observed ratio for any
+score-associated submission. Separately, if <code>f = F/T</code>, then
+<code>T/K = β/[1/DTI − α(1 + f)]</code>: for target 0.3195, <code>f = 8</code> gives 60.16 %
+and <code>f = 4</code> gives 37.56 %. These are different denominator scenarios. No leaderboard score
+alone identifies either ratio or authenticates a TIFF mapping; see the dated
+<a href="leaderboard.html">participant-level snapshot</a>.</p>
 
 <h2>Layer screen — 12 observations</h2>
 <p class="small">Uniform baseline SSR = 0.176320. Controls are shown inline and were never used to build
@@ -184,13 +206,19 @@ a submission. Source: <code>evidence/lati_fit.json</code>.</p>
 <tr><td class="n">69</td><td><i>control</i> prox_placeholder</td><td class="n">0.175463</td><td class="n">+0.0009</td><td class="n">60,000</td><td class="n">+0.881</td></tr>
 <tr><td class="n">71</td><td><i>control</i> <b>shuffled LiDAR composite</b></td><td class="n">0.176132</td><td class="n">+0.0002</td><td class="n">60,000</td><td class="n">−12.00</td></tr>
 </table>
-<p class="small">The negative control sits at the uniform baseline. The instrument does not manufacture
-signal. Permutation nulls for the top 14 layers: all beaten <b>10/10</b>, z = +122 to +1562
-(<code>evidence/lati_controls.json</code>).</p>
+<p class="small">The spatially shuffled negative control sits near the uniform baseline. In this exploratory
+fit to owner-reported score/raster associations, each of the top 14 layers beat all <b>10 tested</b>
+spatial permutations (descriptive z = +122 to +1562; <code>evidence/lati_controls.json</code>). Ten draws
+are not a calibrated significance test. The result is consistent with spatial structure in the fitted
+associations; it does not authenticate pairings, prove the LATI instrument/model valid, establish a causal
+geological mechanism, or validate hidden-label performance.</p>
 
-<h2>Layer screen — 13 observations (adding the flank-pruned 0.2778 raster)</h2>
-<p class="small">Baseline (incumbent-field proximity only): K = 20,069, SSR 0.009663, LOO 0.014401.
-41 of 65 layers improved LOO. Source: <code>evidence/screen13.json</code>.</p>
+<h2>Conditional layer screen — 13 rows including the contested H33 scenario</h2>
+<p class="small"><b>Conditional sensitivity only:</b> this fit adds an assumed H33 score of 0.2778 to the
+twelve owner-reported rows. The H33-to-score mapping is unverified, so the resulting LOO ranks are not
+an authenticated observation, a causal verdict, or a validated prediction. Baseline (owner-reported d2.8-reference
+proximity only): K = 20,069, SSR 0.009663, LOO 0.014401. Source:
+<code>evidence/screen13.json</code>.</p>
 <table>
 <tr><th class="n">Rank</th><th>Layer</th><th class="n">β</th><th class="n">K</th><th class="n">SSR</th><th class="n">LOO</th><th class="n">LOO gain</th></tr>
 <tr><td class="n">1</td><td><b>geod_shearrate</b></td><td class="n">+6.497</td><td class="n">18,219</td><td class="n">0.004527</td><td class="n">0.007008</td><td class="n"><b>+51.3 %</b></td></tr>
@@ -208,43 +236,46 @@ signal. Permutation nulls for the top 14 layers: all beaten <b>10/10</b>, z = +1
 <tr><td class="n"><b>65</b></td><td><b>dcat_band_0_1.5</b> — <b>worst of all 65</b></td><td class="n">−0.042</td><td class="n">20,098</td><td class="n">0.009700</td><td class="n">0.047183</td><td class="n"><b>−227.6 %</b></td></tr>
 </table>
 
-<h2 id="flank">Flank sensitivity — the break-even for a contested number</h2>
-<p class="small">Sweeping the assumed DTI of the single flank-pruned observation. Source:
+<h2 id="flank">Conditional flank-model sensitivity to an assumed H33 score</h2>
+<p class="small">This is an exploratory leave-one-out model sensitivity, not a scored ablation or a
+causal test. The H33 score/file mapping is unverified. On this coarse grid, the fitted LOO comparison
+changes sign between assumed DTI 0.2200 and 0.2400; 0.2200 is the last tested value with a positive
+fit delta, <b>not an exact break-even</b>. No flank verdict follows from this sweep. Source:
 <code>evidence/flank_sensitivity.json</code>.</p>
 <table>
-<tr><th class="n">Assumed h33-2-b2 DTI</th><th class="n">Flank β</th><th class="n">LOO base</th>
-    <th class="n">LOO + flank</th><th class="n">Gain</th><th>Verdict</th></tr>
-<tr><td class="n">excluded (12 obs)</td><td class="n">+6.176</td><td class="n">0.014876</td><td class="n">0.006594</td><td class="n">+55.7 %</td><td><span class="badge b-good">supported</span></td></tr>
-<tr><td class="n">0.1800</td><td class="n">+5.078</td><td class="n">0.020630</td><td class="n">0.006535</td><td class="n">+68.3 %</td><td><span class="badge b-good">supported</span></td></tr>
-<tr><td class="n">0.2000</td><td class="n">+4.034</td><td class="n">0.017239</td><td class="n">0.008254</td><td class="n">+52.1 %</td><td><span class="badge b-good">supported</span></td></tr>
-<tr><td class="n"><b>0.2200 — break-even</b></td><td class="n">+3.180</td><td class="n">0.014930</td><td class="n">0.010903</td><td class="n">+27.0 %</td><td><span class="badge b-good">supported</span></td></tr>
-<tr><td class="n">0.2400</td><td class="n">+2.474</td><td class="n">0.013709</td><td class="n">0.014449</td><td class="n">−5.4 %</td><td><span class="badge b-bad">refuted</span></td></tr>
-<tr><td class="n">0.2600</td><td class="n">+1.880</td><td class="n">0.013584</td><td class="n">0.018892</td><td class="n">−39.1 %</td><td><span class="badge b-bad">refuted</span></td></tr>
-<tr><td class="n"><b>0.2778 — as reported</b></td><td class="n"><b>+1.423</b></td><td class="n">0.014401</td><td class="n">0.023618</td><td class="n"><b>−64.0 %</b></td><td><span class="badge b-bad">refuted</span></td></tr>
-<tr><td class="n">0.3000</td><td class="n">+0.925</td><td class="n">0.016658</td><td class="n">0.030568</td><td class="n">−83.5 %</td><td><span class="badge b-bad">refuted</span></td></tr>
+<tr><th class="n">Assumed H33 DTI</th><th class="n">Flank β</th><th class="n">LOO base</th>
+    <th class="n">LOO + flank</th><th class="n">Fit delta</th><th>Conditional readout</th></tr>
+<tr><td class="n">excluded (12 rows)</td><td class="n">+6.176</td><td class="n">0.014876</td><td class="n">0.006594</td><td class="n">+55.7 %</td><td>positive in this fit</td></tr>
+<tr><td class="n">0.1800</td><td class="n">+5.078</td><td class="n">0.020630</td><td class="n">0.006535</td><td class="n">+68.3 %</td><td>positive in this fit</td></tr>
+<tr><td class="n">0.2000</td><td class="n">+4.034</td><td class="n">0.017239</td><td class="n">0.008254</td><td class="n">+52.1 %</td><td>positive in this fit</td></tr>
+<tr><td class="n"><b>0.2200</b></td><td class="n">+3.180</td><td class="n">0.014930</td><td class="n">0.010903</td><td class="n">+27.0 %</td><td>positive in this fit</td></tr>
+<tr><td class="n">0.2400</td><td class="n">+2.474</td><td class="n">0.013709</td><td class="n">0.014449</td><td class="n">−5.4 %</td><td>negative in this fit</td></tr>
+<tr><td class="n">0.2600</td><td class="n">+1.880</td><td class="n">0.013584</td><td class="n">0.018892</td><td class="n">−39.1 %</td><td>negative in this fit</td></tr>
+<tr><td class="n"><b>0.2778 assumed only</b></td><td class="n"><b>+1.423</b></td><td class="n">0.014401</td><td class="n">0.023618</td><td class="n"><b>−64.0 %</b></td><td>negative if assumed</td></tr>
+<tr><td class="n">0.3000</td><td class="n">+0.925</td><td class="n">0.016658</td><td class="n">0.030568</td><td class="n">−83.5 %</td><td>negative in this fit</td></tr>
 </table>
 
-<h2>Fitted hidden-truth mass distribution under the 12-observation models</h2>
+<h2>Conditional fitted K estimates under 12 owner-reported associations</h2>
 <p class="small">Source: <code>evidence/flank_mass.json</code>. Zone areas: 0–150 m halo = 176,003 px
 (3.45 % of evaluated); 0–300 m = 383,806 px (7.52 %); 0–600 m = 766,764 px (15.02 %);
 SGMC off-catalogue = 62,122 px (1.22 %).</p>
 <table>
 <tr><th>Model</th><th class="n">K</th><th class="n">% of K in 0–150 m</th><th class="n">enrichment</th>
-    <th class="n">% on SGMC</th><th class="n">incumbent recall</th></tr>
+    <th class="n">% on SGMC</th><th class="n">modeled d2.8-reference recall</th></tr>
 <tr><td>uniform</td><td class="n">73,737</td><td class="n">3.4 %</td><td class="n">×1.0</td><td class="n">1.2 %</td><td class="n">0.0668</td></tr>
-<tr><td>incumbent-field proximity only</td><td class="n">21,477</td><td class="n">6.5 %</td><td class="n">×1.9</td><td class="n">1.6 %</td><td class="n">0.3092</td></tr>
+<tr><td>owner-reported d2.8-reference proximity only</td><td class="n">21,477</td><td class="n">6.5 %</td><td class="n">×1.9</td><td class="n">1.6 %</td><td class="n">0.3092</td></tr>
 <tr><td><b>+ catalogue halo 0–1.5 px</b></td><td class="n">17,293</td><td class="n"><b>67.1 %</b></td>
     <td class="n"><b>×19.5</b></td><td class="n">0.5 %</td><td class="n">0.3345</td></tr>
 <tr><td>+ halo + SGMC proximity</td><td class="n">17,223</td><td class="n">67.8 %</td><td class="n">×19.7</td><td class="n">0.6 %</td><td class="n">0.3384</td></tr>
 </table>
-<p class="small">Incumbent dot placement for comparison: 11.55 % of its dots in 0–150 m (covering 2.89 %
-of that zone), 19.52 % in 0–300 m, 1.70 % on SGMC off-catalogue. <b>This entire table is superseded by
-the 13-observation result above</b> — it is retained because it is the strongest-looking evidence the
-flank hypothesis ever had, and because seeing it overturned is the point.</p>
+<p class="small">Owner-reported d2.8 reference dot placement for comparison: 11.55 % of its dots in 0–150 m (covering 2.89 %
+of that zone), 19.52 % in 0–300 m, 1.70 % on SGMC off-catalogue. This table describes the
+12-row exploratory fit only; it is not a spatially independent validation and is not overturned by an
+unauthenticated H33 score association.</p>
 
-<h2>Strike decomposition — a clean negative</h2>
-<p class="small">Source: <code>evidence/strike_decomposition.json</code>. Baseline (incumbent field
-only): LOO 0.014876.</p>
+<h2>Strike decomposition — exploratory 12-row fit</h2>
+<p class="small">Source: <code>evidence/strike_decomposition.json</code>. Baseline (owner-reported d2.8
+reference field only; not the established spatially blocked holdout best): LOO 0.014876.</p>
 <table>
 <tr><th>Flank layer added</th><th class="n">K</th><th class="n">SSR</th><th class="n">LOO</th></tr>
 <tr><td>isotropic halo 0–1.5 px</td><td class="n">17,293</td><td class="n">0.003680</td><td class="n">0.008124</td></tr>
@@ -255,15 +286,15 @@ only): LOO 0.014876.</p>
 <tr><td>graded halo 0–3 px <span class="small">(adopted for parsimony)</span></td><td class="n">18,514</td><td class="n">0.003696</td><td class="n">0.006594</td></tr>
 <tr><td>along + across + tip</td><td class="n">18,215</td><td class="n">0.003608</td><td class="n">0.006753</td></tr>
 </table>
-<p class="small">All six single-layer variants lie within <b>0.006568 – 0.006657</b> — a 1.4 % spread,
-i.e. noise. Orientation carries no discriminating power beyond distance. Adding more flank layers made
-LOO worse. The strike model was therefore dropped on parsimony, before the thirteenth observation
-falsified the whole family.</p>
+<p class="small">All six single-layer variants lie within <b>0.006568 – 0.006657</b> — a 1.4 % spread.
+Within this exploratory fit, that small spread does not show useful orientation discrimination; adding
+more flank layers made LOO worse. This is a model-selection observation on the 12-row fit, not an
+independent geological verdict, and the contested H33 association does not establish a falsification.</p>
 
-<h2>Shipped files</h2>
+<h2>Retained research files</h2>
 <table>
 <tr><th>Role</th><th>File</th><th class="n">Bytes</th><th>SHA-256</th></tr>
-<tr><td><span class="badge b-good">PRIMARY</span></td>
+<tr><td>Historical primary at generation; current review flags zeros outside</td>
     <td><a href="downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif" download>gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif</a></td>
     <td class="n">245,652</td><td class="mono small">7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146</td></tr>
 <tr><td>secondary (NaN convention)</td>
@@ -277,28 +308,31 @@ falsified the whole family.</p>
     <td class="n">355,846</td><td class="mono small">1c6ff54bbc046371648ce04a7f219c3d47799d0f6137da1284d2708d4348c80a</td></tr>
 </table>
 <p class="small">All four: 1 band, float32, EPSG:32611, 3730 × 3292, values {0.0, 1.0}, 37,654 emitted
-pixels, 0 on masked catalogue pixels, 0 outside the footprint, 21/21 validator checks with 0 hard
-failures. The all-finite and NaN variants of each arm are pixel-identical where both are finite.
+pixels, 0 on masked catalogue pixels, and 0 emitted points outside the footprint. The all-finite variants
+write zeros outside the footprint and now fail the local null/NaN-outside check; the NaN variants encode
+outside pixels as NaN and follow the available mirrored sample convention. These variants are pixel-identical
+where finite, but the NaN variants fail a NaN-intolerant raw range comparison. No local result establishes
+organizer acceptance. The former 21/21 count excluded the outside-nodata requirement and is superseded.
 Source: <code>evidence/shipped.json</code>.</p>
 
 <h2>Evidence files</h2>
 <table>
 <tr><th>File</th><th>Contents</th></tr>
-<tr><td><code>evidence/shipped.json</code></td><td>The shipped arms, all five frames for all 16 rasters, belief models, distinctness against 13 priors, per-file validators</td></tr>
+<tr><td><code>evidence/shipped.json</code></td><td>Historical H47-MAXCOV/H47-GSA build arms (current status RESEARCH ONLY), local-frame results, conditional H33 fit, distinctness against local priors, and per-file local validation records (including the outside-nodata scope review)</td></tr>
 <tr><td><code>evidence/crossfit_validation.json</code></td><td>The honest test: a-priori pool, in-fold selection, out-of-fold scoring</td></tr>
 <tr><td><code>evidence/lati_fit.json</code></td><td>12-observation inversion: baseline, 72-layer screen, forward selection, 300 bootstrap replicates, dense verification</td></tr>
-<tr><td><code>evidence/lati_controls.json</code></td><td>Spatial-permutation nulls for the top 14 layers</td></tr>
-<tr><td><code>evidence/screen13.json</code></td><td>13-observation screen of 65 layers added to the baseline</td></tr>
-<tr><td><code>evidence/flank_mass.json</code></td><td>Fitted truth-mass distribution across the flank zones</td></tr>
-<tr><td><code>evidence/flank_robustness_13obs.json</code></td><td>The 12 → 13 observation flip</td></tr>
-<tr><td><code>evidence/flank_sensitivity.json</code></td><td>Break-even sweep over the contested 0.2778</td></tr>
+<tr><td><code>evidence/lati_controls.json</code></td><td>Finite spatial-permutation comparisons for 14 layers; descriptive fit diagnostic, not a calibrated significance test or model-validity proof</td></tr>
+<tr><td><code>evidence/screen13.json</code></td><td>Conditional 13-row screen: 12 owner-reported pairs plus H33 assumed at 0.2778; mapping unverified</td></tr>
+<tr><td><code>evidence/flank_mass.json</code></td><td>Conditional fitted-q/K allocation across flank zones; not measured hidden-truth mass</td></tr>
+<tr><td><code>evidence/flank_robustness_13obs.json</code></td><td>12 owner-reported pairs plus one conditional H33 scenario; no organizer receipts, H33 score/file link unverified</td></tr>
+<tr><td><code>evidence/flank_sensitivity.json</code></td><td>Coarse-grid H33 sensitivity bracket; no exact root or verdict</td></tr>
 <tr><td><code>evidence/strike_decomposition.json</code></td><td>Along / across / tip / bend head-to-head</td></tr>
 <tr><td><code>evidence/flank_test.json</code></td><td>Q1 flank incrementality, Q2 SGMC frame, Q3 blocked holdout</td></tr>
 <tr><td><code>evidence/range_error_diagnosis.json</code></td><td>29 sibling GeoTIFFs scanned for the range error</td></tr>
 <tr><td><code>evidence/scored_raster_stats.json</code></td><td>Per-raster dot counts, mass, catalogue distance histograms</td></tr>
 <tr><td><code>evidence/training_band_stats.json</code></td><td>All 19 supplied bands: valid counts, ranges, catalogue/evaluated means</td></tr>
 <tr><td><code>evidence/final_build.json</code> · <code>candidates.json</code> · <code>submission_build.json</code></td><td>Superseded exploratory builds, kept for the audit trail</td></tr>
-<tr><td><code>data/restore_receipt.json</code></td><td>22/22 SHA-256 verifications with per-file source, ref and URL</td></tr>
+<tr><td><code>data/restore_receipt.json</code></td><td>Historical 23-entry SHA-256 receipt; current manifest has 26 entries after three H47-B metadata/audit additions, so this receipt does not verify the full current scope</td></tr>
 </table>
 
 </div>

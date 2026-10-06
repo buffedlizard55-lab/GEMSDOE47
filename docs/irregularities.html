@@ -39,16 +39,17 @@
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
 <tr><td><b>IR-47-002</b></td>
-<td><b>The reported 0.2778 attribution is contested.</b> A sibling repository’s own records log
-    <code>attribution_conflict_site_says_unscored_official_board_has_unlinked_0.2778_row</code> for
-    <code>h33-h33-2-b2-…-zeros</code>.</td>
-<td>This single number is the <b>only</b> direct flank ablation in the whole 44-repository collection,
-    and it decides the H47-2 verdict. If it is wrong, the strongest-looking hypothesis this project
-    generated is alive again.</td>
-<td>Not resolved — it cannot be, without portal access. Instead of asserting a conclusion,
-    <code>scripts/flank_sensitivity.py</code> reports the <b>break-even</b>: the flank is supported only
-    if that file scored <b>≤ 0.2200</b>. Manual review: open the competition leaderboard and check
-    whether a 0.2778 row exists and which file it belongs to.</td>
+<td><b>The 0.2778 participant score is not authenticated to H33-2-B2.</b> A sibling repository records
+    <code>attribution_conflict_site_says_unscored_official_board_has_unlinked_0.2778_row</code>; its page
+    labels <code>h33-h33-2-b2-…-zeros</code> unscored.</td>
+<td>H33-2-B2 is a hash-pinned reference raster whose geometry can be compared descriptively with other
+    masks; it is not a controlled deletion experiment. The public leaderboard does not identify TIFFs,
+    and using 0.2778 as an assumed score changes exploratory LOO fits without validating or falsifying
+    the flank hypothesis.</td>
+<td>Keep the association unresolved. The sensitivity sweep is conditional: the coarse grid is positive
+    at assumed DTI 0.2200 and negative by 0.2400; 0.2200 is not an exact break-even. The leaderboard
+    cannot resolve the mapping. Manual review requires an organizer receipt or explicit, reliable owner
+    evidence tying the exact TIFF hash to the score.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
 <tr><td><b>IR-47-003</b></td>
@@ -102,14 +103,17 @@
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
 <tr><td><b>IR-47-007</b></td>
-<td><b>Optimizer’s curse measured at ≈0.30 DTI.</b> A candidate built by maximising a fitted belief
-    scored <b>0.6245</b> under that belief and <b>0.032–0.057</b> under four independent frames. Under
-    cross-fitting the same candidate returned <b>−0.0611</b> and <b>−0.0450</b> against the incumbent.</td>
+<td><b>In-fold optimism is large in the exploratory fit (about 0.30 DTI).</b> A candidate built by
+    maximising a fitted belief scored <b>0.6245</b> under that belief and <b>0.032–0.057</b> under four
+    local diagnostic frames. The conditional cross-fit yielded paired deltas <b>−0.0611</b> and
+    <b>−0.0450</b> against the owner-reported d2.8 reference field; it includes H33 at assumed DTI 0.2778
+    with an unverified score/file link.</td>
 <td>Any in-fold projection in this competition family — including a sibling repository’s
     “+0.0247 ± 0.0005, 12/12 draws positive” — is decorative. Several sibling repositories shipped
     candidates on the strength of such numbers.</td>
 <td><code>scripts/crossfit_validate.py</code> implements the honest test (a-priori pool, selection
-    inside each fold, out-of-fold scoring, paired against the incumbent). Its verdict gates shipping.
+    inside each fold, out-of-fold scoring, paired against the owner-reported d2.8 reference field).
+    Its verdict gates shipping.
     Note the two folds selected <i>different</i> layers from the same pool — direct evidence the
     in-fold selection was fitting noise.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
@@ -120,14 +124,16 @@
     that a rule covering that field better wins by +0.0247 with 12/12 draws positive.</td>
 <td>The model cannot falsify the field it was built from. Every downstream decision scored against it
     inherits the circularity.</td>
-<td>Replaced by LATI, which is calibrated on returned scores for rasters that were <i>not</i> built from
-    the model. Positive and negative controls are published alongside every screen.</td>
+<td>Replaced by an exploratory LATI-style inversion of twelve owner-reported score/raster pairs.
+    Raster hashes are pinned, but score-to-file associations have no organizer receipts; public
+    participant rows do not identify TIFFs. Same-data proximity checks and other diagnostics are
+    published, but they are not authenticated calibration or private-target validation.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
 <tr><td><b>IR-47-009</b></td>
 <td><b>Two sibling downloads were verified defective.</b> A “smooth-max-coverage” raster had
     <b>57.8 %</b> of its 44,090 dots off the belief support it claimed to pack, and a catalogue-proxy DTI
-    of 0.0163 against its own incumbent’s 0.1618. Root cause: blurring a 1-px binary ridge by σ = 1.85 px
+    of 0.0163 against its own associated reported reference score of 0.1618. Root cause: blurring a 1-px binary ridge by σ = 1.85 px
     and then running max-coverage on the blur shifts the peak.</td>
 <td>A file like that scores near zero. It was quarantined upstream but is still publicly downloadable.</td>
 <td>The rule is not reproduced. Emission here enforces <b>support confinement</b> (a dot may only be
@@ -148,13 +154,16 @@
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
 <tr><td><b>IR-47-011</b></td>
-<td><b>Whether scoring is restricted to a public-chunk footprint is unresolved.</b> No prior repository
-    answers it, and no statement from the organiser was found.</td>
-<td>If the whole raster is scored but only public-chunk truth exists, mass in private chunks is
-    <b>pure false positive</b>. That changes the optimal emission from “cover the footprint” to “cover
-    the public chunks”, and it could account for part of the gap between 0.28 and 0.3262.</td>
-<td>Flagged, not assumed. The λ-probe design (H47-5) would settle it in three submissions. Manual
-    review: ask in the forum, or read the rules page for a public/private split statement.</td>
+<td><b>The scored footprint boundary is unresolved.</b> No prior repository or retrieved organizer
+    statement establishes whether evaluation is restricted to public chunks or covers additional areas.</td>
+<td>The answer would affect how unlabelled regions should be interpreted, but this checkout has no
+    verified private-chunk labels and no promoted candidate. Do not infer hidden-region false positives,
+    an optimal emission budget, or a leaderboard explanation from the missing information.</td>
+<td>Flagged, not assumed. The λ-probe remains a diagnostic concept only; no portal submissions are
+authorized under the current gate. The design uses three score observations, but the λ=1 anchor is only
+owner-reported and exact incremental submission cost is unresolved; public official pages checked
+2026-10-06 do not state current quota/slot accounting. Confirm with the portal/organizer before any
+future probe design.</td>
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
 <tr><td><b>IR-47-012</b></td>
@@ -169,13 +178,14 @@
 <td><span class="badge b-bad">HIGH</span></td></tr>
 
 <tr><td><b>IR-47-013</b></td>
-<td><b>Six of the thirteen observations are nested thinnings of one field</b>
+<td><b>Six of the twelve owner-reported raster/score pairs are nested thinnings or near-nested versions of one field</b>
     (<code>d2.8 ⊂ h19-5</code>, <code>d1.5 ⊂ h19-5</code>, <code>d1.5 ⊂ tgc-v2</code>;
-    <code>h19-4</code>, <code>h16-1</code> near-identical to <code>h19-5</code> at 121k–124k dots).</td>
-<td>The effective sample size is well below thirteen. A three-equation solve on the nested triple alone
+    <code>h19-4</code>, <code>h16-1</code> near-identical to <code>h19-5</code> at 121k–124k dots).
+    H33-2-B2 is a separate, contested score/file scenario—not a thirteenth authenticated pair.</td>
+<td>The effective sample size is below the twelve-row count. A three-equation solve on the nested triple alone
     returned condition number <b>3,136</b> and a collapsed solution — a documented dead end.</td>
-<td>Reported rather than hidden. All fits use leave-one-<b>observation</b>-out CV, and the cross-fitted
-    test is stratified by reported DTI so each fold spans the range.</td>
+<td>Reported rather than hidden. The twelve-row fits use leave-one-<b>observation</b>-out CV; any fit
+    including H33 is explicitly conditional on an unverified assumed DTI.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 
 <tr><td><b>IR-47-014</b></td>
@@ -200,10 +210,11 @@
     (<code>venv*</code>, <code>.cache</code>). The sibling clones under <code>/home/user/refs</code> were
     lost too.</td>
 <td>Any result that depends on non-repo state is one recycle away from being unreproducible.</td>
-<td>Everything needed is re-derivable from committed files: <code>scripts/restore_data.py</code>
-    restores 22/22 hash-pinned bytes in ~30 s, <code>scripts/ship.py</code> was rewritten to compute its
-    four belief layers directly instead of rebuilding the 59-layer stack, and the one extra reference
-    raster is now pinned in <code>registry/data_manifest.json</code> with its SHA-256.</td>
+<td>Restore instructions and pins are committed, but the receipt is a 23-entry historical snapshot.
+    The current manifest has 26 entries after three H47-B metadata/audit additions; a fresh full restore
+    is needed to verify that complete scope. No fixed restore duration is claimed. <code>scripts/ship.py</code>
+    computes its four belief layers directly instead of rebuilding the 59-layer stack, and the H33
+    reference raster is hash-pinned without authenticating any score link.</td>
 <td><span class="badge b-warn">MEDIUM</span></td></tr>
 </table>
 

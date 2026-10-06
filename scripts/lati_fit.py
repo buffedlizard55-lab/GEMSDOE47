@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""LATI v2 - infer the hidden new-fault intensity from twelve returned DTIs.
+"""Exploratory LATI v2 fit to twelve owner-reported score/raster pairs.
+
+The raster hashes are pinned, but the score-to-file associations have no organizer
+receipts. Public leaderboard rows are participant-level and are not mapped to these
+TIFFs; results are not authenticated private-target performance.
 
 Model (see src/gems47/lati.py::BinnedSoftmax):
 
@@ -9,7 +13,7 @@ Model (see src/gems47/lati.py::BinnedSoftmax):
     T_i   = <q, w_i>   (exact),      Phi_i = <q, a_i>   (first order in q)
 
 Stages
-  0  uniform-q baseline; and the model-free K estimates from the two *diffuse*
+  0  uniform-q baseline; and the exploratory K estimates from two owner-reported *diffuse*
      probes (r13-lattice, placeholder) whose halos average over the footprint
   1  single-layer screen over 59 geological layers + 15 controls
   2  forward selection on leave-one-observation-out CV (geological layers only)
@@ -100,8 +104,15 @@ def main() -> int:
           f"n_eval={U.shape[1]:,} ({time.time()-t0:.0f}s)", flush=True)
 
     out = {
-        "instrument": "LATI v2 - leaderboard-anchored truth inversion (softmax intensity)",
+        "instrument": "LATI v2 - exploratory owner-reported score/raster fit (softmax intensity)",
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "observation_scope": {
+            "owner_reported_score_raster_pairs": len(obs),
+            "organizer_receipts_available": False,
+            "leaderboard_participant_rows_mapped_to_tiffs": False,
+            "h33_included_as_score_observation": False,
+            "interpretation": "exploratory fit only; score/file associations are owner-reported and unauthenticated",
+        },
         "model": {"form": "q(x) = K*exp(sum beta_m u_m(x)) / Z, u = rank percentile in [-0.5,0.5]",
                   "alpha": M.ALPHA, "beta_weight": M.BETA, "range_m": M.RANGE_M,
                   "T_exact": "T_i = <q, w_i>, w_i = max-filter of the submitted dot set",
@@ -127,10 +138,9 @@ def main() -> int:
         i = [o.id for o in obs].index(oid)
         g = fit(bm0, subset=[i])
         diffuse[oid] = dict(K=g["K"], dti_obs=obs[i].dti, dti_model=g["pred"][i],
-                            note="diffuse probe: its 300 m halo averages the footprint, "
-                                 "so its score is close to a model-free estimate of K")
-        print(f"   model-free K from {oid:<12} = {g['K']:>9,.0f}  "
-              f"(its own DTI {g['pred'][i]:.4f} vs observed {obs[i].dti:.4f})")
+                            note="exploratory inverse under an owner-reported score/raster association; its diffuse 300 m halo reduces spatial-shape sensitivity, but the score link is unauthenticated")
+        print(f"   exploratory K from {oid:<12} = {g['K']:>9,.0f}  "
+              f"(model DTI {g['pred'][i]:.4f} vs owner-reported {obs[i].dti:.4f})")
     out["K_from_diffuse_probes"] = diffuse
 
     # ---------------- stage 1 ----------------------------------------------
@@ -156,7 +166,7 @@ def main() -> int:
     for r in geo[:18]:
         print(f"   #{r['rank']:<3} {r['layer']:<28} SSR={r['ssr']:.6f} dSSR={r['dssr_vs_uniform']:+.6f} "
               f"K={r['K']:>9,.0f} beta={r['beta']:+.3f} maxres={r['max_abs_resid']:.4f}")
-    print("  CONTROLS (instrument validation, never used to build a submission):")
+    print("  CONTROLS (descriptive fit diagnostics; not model-validity tests):")
     for r in ctl:
         print(f"   #{r['rank']:<3} {r['layer']:<38} SSR={r['ssr']:.6f} K={r['K']:>9,.0f} beta={r['beta']:+.3f}")
 
@@ -228,7 +238,7 @@ def main() -> int:
               "p2.5": float(np.percentile(B[:, 0], 2.5)),
               "p50": float(np.percentile(B[:, 0], 50)),
               "p97.5": float(np.percentile(B[:, 0], 97.5))},
-        "beta": [{"layer": ("K (total hidden mass)" if i == 0 else names[chosen[i - 1]]),
+        "beta": [{"layer": ("K (modeled total truth mass; not measured)" if i == 0 else names[chosen[i - 1]]),
                   "mean": float(B[:, i].mean()), "sd": float(B[:, i].std()),
                   "p2.5": float(np.percentile(B[:, i], 2.5)),
                   "p97.5": float(np.percentile(B[:, i], 97.5)),

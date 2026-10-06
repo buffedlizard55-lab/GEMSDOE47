@@ -1,25 +1,19 @@
 #!/usr/bin/env python3
-"""Build, evaluate and ship the GEMSDOE47 submission (hypothesis H47-GSA).
+"""Legacy exploratory builder for the H47-GSA research artifact; never submit its output.
 
-Belief model: forward-selected on the FULL thirteen-observation LATI set (the
-twelve restored scored rasters plus the reported-0.2778 flank-pruned
-``h33-2-b2`` raster, which is the datum that falsified the earlier flank
-hypothesis).  Selection criterion is leave-one-observation-out CV, so the model
-is never chosen by a frame it was fitted on.
+The historical LATI fit contains twelve owner-reported score/raster pairs plus
+H33-2-B2 as a *conditional scenario* at assumed DTI 0.2778. The public
+participant-level row is not authenticated to that TIFF. Consequently, every
+13-row selection, fitted coefficient, cross-fit, and generated artifact that uses
+this row is conditional and must not be presented as a verified score/validation
+result. The H47-GSA cross-fit is negative and H33-dependent; H47-GSA is not
+promoted.
 
-PRE-REGISTERED SELECTION RULE (fixed before the arms were run):
-  R1  emit at the budget the metric's own marginal rule chooses, and also at the
-      two matched budgets 44,090 (the live-0.2600 incumbent) and 37,654 (the
-      reported-0.2778 arm), so every comparison is at equal mass;
-  R2  rank arms by F1 (the 13-observation LOO-best belief model) at matched
-      budget against the incumbent;
-  R3  reject any arm that is worse than the incumbent on F4 (the official,
-      independent USGS SGMC off-catalogue frame);
-  R4  reject any arm whose maximum Jaccard overlap with any prior raster in the
-      collection exceeds 0.90 - the deliverable must be a distinct submission.
-F3 (uniform q) and F5 (blocked catalogue holdout) are reported, never selected
-on: F3 makes no shape assumption and therefore penalises every concentrated
-field, and F5's truth IS the masked catalogue, so it rewards the opposite skill.
+The local R1-R4 filters recorded below are historical diagnostics only. They do
+not establish a gain over the current spatially blocked holdout best, and passing
+them cannot authorize a submission. This script now labels any generated TIFF as
+research-only and closes the project submission gate. Existing downloads are
+preserved.
 
     python3 scripts/build_final.py
 """
@@ -49,14 +43,22 @@ from gems47.submission import diff_report, validate_submission, write_submission
 
 L2, BMAX, KLO, KHI = 1e-5, 12.0, 2_000.0, 120_000.0
 LEVELS = {1: 256, 2: 64, 3: 32, 4: 20, 5: 14}
-H33 = Path("/home/user/refs/GEMSDOE32/docs/downloads/"
-           "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif")
+H33 = ROOT / ".cache" / "gems_data" / "reference" / "h33-2-b2-zeros.tif"
+H33_SHA256 = "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9"
+H33_ASSUMED_DTI = 0.2778
 MATCHED = [44_090, 37_654]
 
 
 def add_h33(obs12, t, ev, ev_idx, shape) -> list[lati.Obs]:
+    if not H33.is_file():
+        raise SystemExit(f"missing {H33}; restore registry entry ref_h33_2_b2 before running")
+    digest = hashlib.sha256(H33.read_bytes()).hexdigest()
+    if digest != H33_SHA256:
+        raise SystemExit(f"H33 SHA-256 mismatch: {digest} != {H33_SHA256}")
     with rasterio.open(H33) as s:
-        v = np.nan_to_num(s.read(1).astype(np.float32))
+        if s.count != 1 or not G.dataset_matches_template_grid(s, t):
+            raise SystemExit("H33 reference raster grid does not match the competition template")
+        v = np.nan_to_num(s.read(1).astype(np.float32), nan=0.0)
     pred = np.where(ev, v, 0.0)
     dm = pred > 0
     dflat = np.flatnonzero(dm.ravel())
@@ -66,14 +68,22 @@ def add_h33(obs12, t, ev, ev_idx, shape) -> list[lati.Obs]:
     a = np.zeros(shape)
     for dy, dx, k in zip(M.OFF_DY, M.OFF_DX, M.OFF_K):
         a += k * lati._shift_in(dm.astype(np.float64), dy, dx)
-    o = lati.Obs(id="h33-2-b2", dti=0.2778, site="GEMSDOE32",
-                 family="flank-pruned (reported 0.2778, attribution CONFLICTED)",
-                 sha256=hashlib.sha256(H33.read_bytes()).hexdigest(),
-                 S=float(pred[dm].sum()), n_dots=int((v > 0).sum()),
-                 n_on_catalogue=int((v > 0)[t.catalogue].sum()),
-                 w=w.ravel()[ev_idx].astype(np.float32), a=a.ravel()[ev_idx].astype(np.float32),
-                 dot_pos=pos[dflat], dot_flat=dflat,
-                 extras={"note": "13th observation; the datum that falsified the flank hypothesis"})
+    o = lati.Obs(
+        id="h33-2-b2",
+        dti=H33_ASSUMED_DTI,
+        site="GEMSDOE32",
+        family="flank-pruned reference raster; score/file mapping unverified",
+        sha256=digest,
+        S=float(pred[dm].sum()),
+        n_dots=int((v > 0).sum()),
+        n_on_catalogue=int((v > 0)[t.catalogue].sum()),
+        w=w.ravel()[ev_idx].astype(np.float32),
+        a=a.ravel()[ev_idx].astype(np.float32),
+        dot_pos=pos[dflat],
+        dot_flat=dflat,
+        extras={"assumed_dti_scenario": H33_ASSUMED_DTI,
+                "score_file_mapping_verified": False},
+    )
     return list(obs12) + [o]
 
 
@@ -109,7 +119,8 @@ def main() -> int:
     HL = HY.build_layers(t)
     d_cat = HL["_diag_d_catalogue"]
     halo3 = ev & (d_cat > 0) & (d_cat <= M.RANGE_PX)
-    print(f"[data] {len(obs)} observations (12 restored + h33-2-b2 @ reported 0.2778)")
+    print(f"[data] {len(obs12)} owner-reported pairs + 1 conditional H33 scenario "
+          f"(assumed DTI {H33_ASSUMED_DTI:.4f}; score/file mapping unverified)")
 
     def prox(oid, cap=40.0):
         o = [x for x in obs12 if x.id == oid][0]
@@ -125,13 +136,13 @@ def main() -> int:
         if not k.startswith("_diag"):
             layers[k] = rank_u8_inplace(v.ravel()[ev_idx].astype(np.float32))
 
-    # ---- forward selection on the 13-observation LOO ----------------------
+    # ---- conditional 13-row forward-selection scenario -------------------
     prev = json.loads((ROOT / "evidence" / "screen13.json").read_text())
     pool = [r["layer"] for r in prev["screen"][:14] if r["layer"] in layers]
     f_base, w_base = fit([PX], obs)
     q_base = np.zeros(shape[0] * shape[1]); q_base[ev_idx] = f_base["theta"][0] * w_base
     q_base = q_base.reshape(shape)
-    print(f"[base] incumbent-field-only model: K={f_base['theta'][0]:,.0f} "
+    print(f"[base] owner-reported d2.8-reference-field-only model: K={f_base['theta'][0]:,.0f} "
           f"SSR={f_base['ssr']:.6f} LOO={f_base['loo']:.6f}")
     cache = ROOT / ".cache" / "final_model_selection.json"
     if cache.exists():
@@ -215,19 +226,38 @@ def main() -> int:
             pass
     print(f"[frames] {len(priors)} prior rasters available for the distinctness test")
 
-    def evaluate(label, dots, reported=None):
+    def evaluate(
+        label,
+        dots,
+        *,
+        owner_reported_dti=None,
+        assumed_dti_scenario=None,
+        score_file_mapping_verified=None,
+    ):
         dots = dots & ev
         p = np.where(dots, 1.0, 0.0)
-        r = dict(arm=label, n_dots=int(dots.sum()), reported_live_dti=reported,
-                 on_catalogue=int((dots & t.catalogue).sum()),
-                 outside_footprint=int((dots & ~t.footprint).sum()),
-                 flank_0_300m=int((dots & halo3).sum()),
-                 flank_0_300m_pct=round(100 * (dots & halo3).sum() / max(int(dots.sum()), 1), 2),
-                 annulus_300m_2500m=int((dots & ev & (d_cat > 3) & (d_cat <= 25)).sum()),
-                 annulus_pct=round(100 * (dots & ev & (d_cat > 3) & (d_cat <= 25)).sum()
-                                   / max(int(dots.sum()), 1), 2),
-                 on_sgmc_offcat=int((dots & truth_sgmc).sum()))
-        for nm, q in (("F1_lati_selected", q1), ("F2_lati_incumbent", q_base), ("F3_lati_uniform", q3)):
+        r = dict(
+            arm=label,
+            n_dots=int(dots.sum()),
+            owner_reported_dti=owner_reported_dti,
+            assumed_dti_scenario=assumed_dti_scenario,
+            score_file_mapping_verified=score_file_mapping_verified,
+            score_attribution_status=(
+                "owner-reported; no organizer receipt" if owner_reported_dti is not None else None
+            ),
+            on_catalogue=int((dots & t.catalogue).sum()),
+            outside_footprint=int((dots & ~t.footprint).sum()),
+            flank_0_300m=int((dots & halo3).sum()),
+            flank_0_300m_pct=round(100 * (dots & halo3).sum() / max(int(dots.sum()), 1), 2),
+            annulus_300m_2500m=int((dots & ev & (d_cat > 3) & (d_cat <= 25)).sum()),
+            annulus_pct=round(
+                100 * (dots & ev & (d_cat > 3) & (d_cat <= 25)).sum()
+                / max(int(dots.sum()), 1),
+                2,
+            ),
+            on_sgmc_offcat=int((dots & truth_sgmc).sum()),
+        )
+        for nm, q in (("F1_lati_selected", q1), ("F2_lati_d2_8_reference", q_base), ("F3_lati_uniform", q3)):
             ps = E.predicted_score(q, dots)
             r[nm] = {k: (round(v, 6) if isinstance(v, float) else v) for k, v in ps.items()}
         s4 = M.score(p, truth_sgmc, ev).as_dict()
@@ -264,56 +294,86 @@ def main() -> int:
         r["dti_trace_last"] = (trace[-6:] if trace else None)
         rows.append(r)
     for nm in ("prior_d2.8", "prior_h33-2-b2", "prior_h19-5", "prior_r13-lattice", "prior_placeholder"):
-        if nm in priors:
-            rows.append(evaluate(nm, priors[nm][0], priors[nm][1]))
+        if nm not in priors:
+            continue
+        if nm == "prior_h33-2-b2":
+            rows.append(
+                evaluate(
+                    "H33-2-B2 reference raster (conditional assumed-DTI scenario; score/file mapping unverified)",
+                    priors[nm][0],
+                    assumed_dti_scenario=H33_ASSUMED_DTI,
+                    score_file_mapping_verified=False,
+                )
+            )
+        else:
+            rows.append(
+                evaluate(
+                    f"owner-reported reference {nm.removeprefix('prior_')}",
+                    priors[nm][0],
+                    owner_reported_dti=priors[nm][1],
+                    score_file_mapping_verified=False,
+                )
+            )
 
     print("\n=== multi-frame evaluation ===")
-    print(f"{'arm':<32}{'dots':>8}{'flank%':>8}{'annul%':>8}{'F1 sel':>9}{'F2 inc':>9}{'F3 unif':>9}"
+    print(f"{'arm':<32}{'dots':>8}{'flank%':>8}{'annul%':>8}{'F1 sel':>9}{'F2 d2.8ref':>10}{'F3 unif':>9}"
           f"{'F4 SGMC':>9}{'F5 CATQ':>9}{'maxJac':>9}")
     for r in rows:
         print(f"{r['arm']:<32}{r['n_dots']:>8,}{r['flank_0_300m_pct']:>8.1f}{r['annulus_pct']:>8.1f}"
-              f"{r['F1_lati_selected']['DTI']:>9.4f}{r['F2_lati_incumbent']['DTI']:>9.4f}"
+              f"{r['F1_lati_selected']['DTI']:>9.4f}{r['F2_lati_d2_8_reference']['DTI']:>9.4f}"
               f"{r['F3_lati_uniform']['DTI']:>9.4f}{r['F4_sgmc_offcatalogue']['DTI']:>9.4f}"
               f"{r['F5_catq_mean']:>9.4f}{r['max_jaccard_vs_any_prior']:>9.4f}")
 
-    inc = [r for r in rows if r["arm"] == "prior_d2.8"][0]
+    d28_reference_row = [r for r in rows if r["arm"] == "prior_d2.8"][0]
     cand_rows = [r for r in rows if r["arm"].startswith("GEMSDOE47")]
-    # R2/R3/R4 selection
-    ok = []
+    # Historical local diagnostics only; they do not constitute the project gate.
+    local_passed = []
     for r in cand_rows:
-        r2 = r["F1_lati_selected"]["DTI"] > inc["F1_lati_selected"]["DTI"]
-        r3 = r["F4_sgmc_offcatalogue"]["DTI"] >= inc["F4_sgmc_offcatalogue"]["DTI"]
+        r2 = r["F1_lati_selected"]["DTI"] > d28_reference_row["F1_lati_selected"]["DTI"]
+        r3 = (r["F4_sgmc_offcatalogue"]["DTI"]
+              >= d28_reference_row["F4_sgmc_offcatalogue"]["DTI"])
         r4 = r["max_jaccard_vs_any_prior"] <= 0.90
-        r["passes_R2_F1_beats_incumbent"] = bool(r2)
-        r["passes_R3_F4_not_worse"] = bool(r3)
-        r["passes_R4_distinct"] = bool(r4)
-        r["eligible"] = bool(r2 and r3 and r4)
-        if r["eligible"]:
-            ok.append(r)
-        print(f"[select] {r['arm']:<28} R2={r2} R3={r3} R4={r4} -> {'ELIGIBLE' if r['eligible'] else 'rejected'}")
-    ship = None
-    if ok:
-        matched = [r for r in ok if r["arm"].endswith(str(MATCHED[0])) or f"matched{MATCHED[0]}" in r["arm"]]
-        ship = max(matched or ok, key=lambda r: r["F1_lati_selected"]["DTI"])
+        r["passes_historical_R2_F1_beats_d2_8_reference"] = bool(r2)
+        r["passes_historical_R3_F4_not_worse"] = bool(r3)
+        r["passes_historical_R4_distinctness_threshold"] = bool(r4)
+        r["passes_historical_local_filters"] = bool(r2 and r3 and r4)
+        r["project_slot_eligible"] = False
+        if r["passes_historical_local_filters"]:
+            local_passed.append(r)
+        print(
+            f"[diagnostic] {r['arm']:<28} local R2={r2} R3={r3} R4={r4}; "
+            "project slot eligibility=False"
+        )
+    if local_passed:
+        matched = [r for r in local_passed if r["arm"].endswith(str(MATCHED[0]))
+                   or f"matched{MATCHED[0]}" in r["arm"]]
+        research_selected = max(
+            matched or local_passed,
+            key=lambda r: r["F1_lati_selected"]["DTI"],
+        )
     else:
-        ship = max(cand_rows, key=lambda r: r["F1_lati_selected"]["DTI"])
-        ship["shipped_despite_rejection"] = True
-    print(f"\n[ship] SELECTED: {ship['arm']}  dots={ship['n_dots']:,}  "
-          f"F1={ship['F1_lati_selected']['DTI']:.4f} (incumbent {inc['F1_lati_selected']['DTI']:.4f})")
+        research_selected = max(cand_rows, key=lambda r: r["F1_lati_selected"]["DTI"])
+        research_selected["passes_historical_local_filters"] = False
+    research_selected["project_slot_eligible"] = False
+    print(
+        f"\n[research-only] Selected for artifact audit: {research_selected['arm']} "
+        f"dots={research_selected['n_dots']:,}; slot eligibility=False; "
+        f"conditional F1={research_selected['F1_lati_selected']['DTI']:.4f} "
+        f"(owner-reported d2.8 reference {d28_reference_row['F1_lati_selected']['DTI']:.4f})"
+    )
 
     # ---- write -------------------------------------------------------------
     dots = np.zeros(shape, bool)
-    lbl = ship["arm"].split(" ", 1)[1]
-    for l2_, d2_, s2_, tr2_ in arms:
-        if f"GEMSDOE47 {l2_}" == ship["arm"]:
+    for l2_, d2_, _score_, _truth_ in arms:
+        if f"GEMSDOE47 {l2_}" == research_selected["arm"]:
             dots = d2_ & ev
     stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
     h = hashlib.sha256(np.ascontiguousarray(dots.view(np.uint8)).tobytes()).hexdigest()
-    slug = f"gems47-h47gsa-{'-'.join(c.replace('prox_d2.8','incumb') for c in sel['layers'][1:])}"[:88]
+    slug = f"gems47-h47gsa-research-only-{'-'.join(c.replace('prox_d2.8','d28ref') for c in sel['layers'][1:])}"[:100]
     base_name = f"{slug}-{int(dots.sum())}px-{stamp}-{h[:10]}"
     outdir = ROOT / "docs" / "downloads"
     outdir.mkdir(parents=True, exist_ok=True)
-    shipped = []
+    research_artifacts = []
     pvals = np.where(dots, np.float32(1.0), np.float32(0.0))
     for mode in ("allfinite", "nan"):
         fn = outdir / f"{base_name}-{mode}.tif"
@@ -321,43 +381,90 @@ def main() -> int:
                          np.where(t.footprint, pvals, np.float32(np.nan)), fn,
                          mode="zeros" if mode == "allfinite" else "nan", template=t)
         v = validate_submission(fn, template=t)
-        shipped.append(dict(mode=mode, filename=fn.name, primary=(mode == "allfinite"),
-                            sha256=hashlib.sha256(fn.read_bytes()).hexdigest(),
-                            bytes=fn.stat().st_size, validation=v))
-        print(f"[write] {fn.name} {fn.stat().st_size:,} B all_passed={v['all_checks_passed']} "
+        v["project_submission_authorized"] = False
+        v["project_gate_status"] = "CLOSED_RESEARCH_ONLY"
+        research_artifacts.append(dict(
+            mode=mode,
+            filename=fn.name,
+            passes_nan_intolerant_range_check=bool(v["passes_nan_intolerant_range_check"]),
+            sha256=hashlib.sha256(fn.read_bytes()).hexdigest(),
+            bytes=fn.stat().st_size,
+            research_only=True,
+            submission_authorized=False,
+            slot_eligible=False,
+            validation=v,
+        ))
+        print(f"[write] {fn.name} {fn.stat().st_size:,} B required_local_checks_passed={v['required_local_checks_passed']} "
               f"nan_intolerant_range_ok={v['passes_nan_intolerant_range_check']} "
-              f"recommended={v['recommended_for_upload']}")
+              "upload_recommendation=none "
+              "project_submission_authorized=False")
     dr = diff_report(outdir / f"{base_name}-allfinite.tif", outdir / f"{base_name}-nan.tif")
-    note = (f"GEMSDOE47 H47-GSA | 13-observation LATI forward selection "
-            f"({', '.join(sel['layers'][1:])}), K={f_sel['theta'][0]:,.0f}, exact-marginal-rule "
-            f"emission, {int(dots.sum())} dots, {ship['annulus_pct']:.0f}% in the 300 m-2.5 km "
-            f"catalogue annulus; UNSCORED")
-    out = dict(generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-               hypothesis="H47-GSA: geodetic-strain / hydrothermal-alteration / seismicity "
-                          "annulus model of the hidden new-fault population",
-               selection_rule="see this file's docstring (pre-registered R1-R4)",
-               forward_selection=hist, selected=dict(layers=sel["layers"], theta=f_sel["theta"],
-                                                     K=f_sel["theta"][0], ssr=f_sel["ssr"],
-                                                     loo=f_sel["loo"],
-                                                     loo_residuals=f_sel["loo_residuals"]),
-               baseline_model=dict(layers=["prox_d2.8"], theta=f_base["theta"], K=f_base["theta"][0],
-                                   ssr=f_base["ssr"], loo=f_base["loo"]),
-               frames=dict(
-                   F1="13-observation LOO-selected LATI belief q",
-                   F2="incumbent-field-only LATI q (favours the incumbent)",
-                   F3="uniform q at the model-free diffuse-probe K=12,348 (adversarial to any concentration)",
-                   F4="USGS SGMC faults >300 m off the catalogue (official, independent)",
-                   F5="4-quadrant blocked holdout on the given catalogue, scored unmasked (contaminated)"),
-               results=rows, shipped_arm=ship["arm"], shipped=shipped,
-               submission_name=base_name, submission_note=note,
-               allfinite_vs_nan_identical=dr["identical"],
-               n_priors_compared=len(priors),
-               seconds=round(time.time() - t0, 1))
-    (ROOT / "evidence" / "final_build.json").write_text(json.dumps(out, indent=1, default=float))
+    research_note = (
+        f"RESEARCH ONLY — NOT FOR PORTAL. H47-GSA conditional 13-row LATI fit "
+        f"(12 owner-reported pairs + H33 assumed DTI {H33_ASSUMED_DTI:.4f}; "
+        "score/file mapping unverified); "
+        f"selected layers {', '.join(sel['layers'][1:])}, K={f_sel['theta'][0]:,.0f}; "
+        f"{int(dots.sum())} dots, {research_selected['annulus_pct']:.0f}% in the "
+        "300 m–2.5 km catalogue annulus. No submission authorized."
+    )
+    out = dict(
+        generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        hypothesis="H47-GSA exploratory geodetic-strain / hydrothermal-alteration / seismicity model",
+        selection_rule="historical local R1-R4 diagnostics only; see docstring; passing them does not authorize a submission",
+        observation_scope=dict(
+            owner_reported_pairs=len(obs12),
+            conditional_h33_scenario_count=1,
+            h33_assumed_dti=H33_ASSUMED_DTI,
+            h33_score_file_mapping_verified=False,
+        ),
+        forward_selection=hist,
+        selected=dict(
+            layers=sel["layers"],
+            theta=f_sel["theta"],
+            K=f_sel["theta"][0],
+            ssr=f_sel["ssr"],
+            loo=f_sel["loo"],
+            loo_residuals=f_sel["loo_residuals"],
+            conditional_on_h33_assumption=True,
+        ),
+        baseline_model=dict(
+            layers=["prox_d2.8"],
+            theta=f_base["theta"],
+            K=f_base["theta"][0],
+            ssr=f_base["ssr"],
+            loo=f_base["loo"],
+            conditional_on_h33_assumption=True,
+        ),
+        frames=dict(
+            F1="conditional 13-row LOO-selected LATI belief q (H33 mapping unverified)",
+            F2="conditional owner-reported d2.8-reference-field-only LATI q",
+            F3="uniform diagnostic q at K=12,348 from an owner-reported diffuse-pair inverse; not verified hidden-label mass",
+            F4="USGS SGMC faults >300 m off the catalogue (local diagnostic)",
+            F5="4-quadrant blocked holdout on the given catalogue, scored unmasked (contaminated)"),
+        results=rows,
+        selected_research_arm=research_selected["arm"],
+        research_artifacts=research_artifacts,
+        research_artifact_name=base_name,
+        research_note=research_note,
+        submission_gate=dict(
+            status="CLOSED",
+            authorized=False,
+            slot_eligible=False,
+            reasons=[
+                "no candidate has demonstrated a gain over an established spatially blocked holdout best",
+                "H47-GSA cross-fit is negative and conditional on the unverified H33 mapping",
+                "local format validation and Jaccard distinctness do not establish predictive value",
+            ],
+        ),
+        allfinite_vs_nan_identical=dr["identical"],
+        n_priors_compared=len(priors),
+        seconds=round(time.time() - t0, 1),
+    )
+    (ROOT / "evidence" / "final_build.json").write_text(json.dumps(out, indent=1, default=float, allow_nan=False))
     np.save(ROOT / ".cache" / "final_dots.npy", dots)
     np.save(ROOT / ".cache" / "final_q1.npy", q1.astype(np.float32))
     print(f"\nwrote evidence/final_build.json ({time.time()-t0:.0f}s)")
-    print("NOTE:", note)
+    print("NOTE:", research_note)
     return 0
 
 

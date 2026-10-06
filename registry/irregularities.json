@@ -13,9 +13,9 @@
   {
    "id": "IR-47-002",
    "severity": "HIGH",
-   "what": "the reported 0.2778 attribution is contested",
-   "why_it_matters": "it is the only direct flank ablation in the collection and decides the H47-2 verdict",
-   "what_was_done": "break-even reported (0.2200) instead of a conclusion; manual review requested",
+   "what": "the public 0.2778 participant score is not authenticated to the H33-2-B2 TIFF",
+   "why_it_matters": "using the unverified H33-to-score association changes exploratory LOO fits but cannot independently validate or falsify the flank hypothesis",
+   "what_was_done": "kept the association unresolved; the coarse sensitivity grid changes sign between assumed DTI 0.2200 and 0.2400, and 0.2200 is not an exact break-even",
    "human_page": "docs/irregularities.html#ir-47-002"
   },
   {
@@ -87,23 +87,23 @@
    "severity": "HIGH",
    "what": "whether scoring is restricted to a public-chunk footprint is unresolved",
    "why_it_matters": "mass in private chunks may be pure FP",
-   "what_was_done": "flagged; the lambda-probe design would settle it in 3 submissions",
+   "what_was_done": "flagged; no lambda-probe submissions are authorized under the current gate. Public official pages checked 2026-10-06 do not publish current quota/slot accounting, so the design's exact incremental submission cost is unverified",
    "human_page": "docs/irregularities.html#ir-47-011"
   },
   {
    "id": "IR-47-012",
    "severity": "HIGH",
-   "what": "the 1 m DEM was never used",
-   "why_it_matters": "fault scarps are a metre-scale phenomenon; the top of the board is probably using it",
-   "what_was_done": "flagged as the single largest untested lever",
+   "what": "the 1 m DEM was not used in this checkout",
+   "why_it_matters": "native-resolution data may preserve scarp morphology lost in 100 m products, but its utility for this target is untested",
+   "what_was_done": "listed as a research option subject to official access, provenance checks, and the preregistered holdout gate",
    "human_page": "docs/irregularities.html#ir-47-012"
   },
   {
    "id": "IR-47-013",
    "severity": "MEDIUM",
-   "what": "6 of 13 observations are nested thinnings of one field",
-   "why_it_matters": "effective sample size well below 13; a 3-equation solve on the nested triple had condition number 3,136",
-   "what_was_done": "reported; LOO-CV and DTI-stratified cross-fitting used",
+   "what": "several of the 12 owner-reported score observations are nested thinnings of one field; H33 is a separate contested association",
+   "why_it_matters": "effective sample size is below the row count; a three-equation solve on the nested triple had condition number 3,136",
+   "what_was_done": "reported; keep the H33 score/file mapping conditional and treat LOO/cross-fit fits as exploratory until sensitivity-tested",
    "human_page": "docs/irregularities.html#ir-47-013"
   },
   {
@@ -119,7 +119,7 @@
    "severity": "MEDIUM",
    "what": "sandbox volatility: venv, .cache (1.2 GB) and the sibling clones were lost mid-project",
    "why_it_matters": "any result depending on non-repo state is one recycle from unreproducible",
-   "what_was_done": "restore_data.py rebuilds 22/22 in ~30 s; ship.py needs no 59-layer stack; the 13th raster is now hash-pinned in the manifest",
+   "what_was_done": "restore_data.py uses the current 26-entry manifest; the committed receipt verifies only 23 entries and predates three H47-B metadata/audit entries. A fresh full restore is needed for the complete current scope; no fixed duration is claimed. ship.py computes its four layers directly, and the H33 reference is pinned without authenticating a score link",
    "human_page": "docs/irregularities.html#ir-47-015"
   }
  ]

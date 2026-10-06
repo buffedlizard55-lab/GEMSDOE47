@@ -49,7 +49,7 @@ RAD_BANDS = ["K", "Th", "U", "TC"]              # per geodawn_rad.json
 EXT_BANDS = ["ThK", "UK", "UTh", "TMI_up150"]   # per geodawn_extensions.json
 
 ANNULUS_D_CAT_MIN = 3       # px; strictly beyond the 300 m kernel reach of a catalogue pixel
-BUDGET = 18524              # matched-mass with the incumbent submission (H1 validation plan)
+BUDGET = 18524              # matched-mass with H47-B research raster, not a spatial holdout best
 SEP_PX = 3.0                # non-overlap: one dot per kernel footprint
 LOG_SIGMA = 3.0             # curvature scale, px (H1: "3-5 px scale")
 

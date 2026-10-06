@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Decisive control experiment for the LATI single-layer screen.
+"""Exploratory permutation control for the LATI single-layer screen.
 
 The screen ranked ``dcat_band_0_1.5`` (evaluated pixels within 1.5 px of the
-given catalogue) first among geological layers.  That layer is *geometrically
-thin*, and a thin layer automatically produces a highly concentrated q, which
-by itself raises DTI for the concentrated submissions and lowers it for the
-diffuse ones.  So the ranking could be a **concentration artefact** rather than
-evidence of alignment with the hidden truth.
+given catalogue) first among geological layers. That layer is geometrically
+thin, and a thin layer can produce a concentrated fitted q; the in-sample rank
+may therefore reflect concentration as well as spatial alignment with the
+owner-reported score/raster associations.
 
-Control: for every geological layer, generate ``--n-random`` **spatially
-permuted** copies of that same layer.  A permutation preserves the layer's exact
-multiset of rank values (so it preserves its marginal distribution *and* its
-tie structure, hence its achievable concentration) while destroying all spatial
-information.  A layer is informative only if its SSR beats its own permutation
-null distribution.
+For each geological layer, generate ``--n-random`` spatially permuted copies.
+A permutation preserves the exact multiset of rank values and tie structure
+while disrupting spatial arrangement. Beating this finite permutation sample is
+a diagnostic of association under this fit only. It does not authenticate the
+score/file links, prove the LATI instrument or model valid, establish causality,
+or validate private-target performance; ten draws are not a calibrated
+significance test.
 
     python3 scripts/lati_controls.py [--n-random 12] [--top 20]
 """
@@ -85,7 +85,8 @@ def main() -> int:
            "n_random_draws": args.n_random,
            "null_construction": "spatial permutation of the layer's own rank values "
                                 "(preserves the marginal distribution and tie structure, "
-                                "destroys all spatial information)",
+                                "disrupts spatial arrangement)",
+           "interpretation_scope": "Finite-permutation diagnostic for owner-reported score/raster fit only; does not authenticate pairings, prove the LATI instrument/model valid, establish causality, or validate private-target performance. Ten draws are not a calibrated significance test.",
            "uniform_baseline_ssr": f0["ssr"], "uniform_baseline_K": f0["K"],
            "n_evaluated_pixels": int(n), "layers": []}
 
@@ -110,8 +111,9 @@ def main() -> int:
                    null_ssr_min=float(ns.min()), null_ssr_max=float(ns.max()),
                    null_K_mean=float(nk.mean()),
                    z_vs_null=z, draws_beaten=f"{beat}/{args.n_random}",
-                   verdict=("INFORMATIVE" if beat == args.n_random else
-                            ("WEAK" if beat >= args.n_random * 0.75 else "THINNESS_ARTEFACT")))
+                   verdict=("BEATS_ALL_TESTED_PERMUTATIONS" if beat == args.n_random else
+                            ("PARTIAL_PERMUTATION_COMPARISON" if beat >= args.n_random * 0.75
+                             else "NO_CLEAR_PERMUTATION_ADVANTAGE")))
         out["layers"].append(row)
         print(f"  {rec['layer']:<28} SSR={f['ssr']:.6f} K={f['K']:>8,.0f} | null "
               f"{ns.mean():.6f}+-{ns.std():.6f} (min {ns.min():.6f}) K_null={nk.mean():>8,.0f} "

@@ -33,33 +33,35 @@
 USGS/INGENIOUS’ and can include newly mapped geometry of an existing fault system.”</i>
 Combined with thread <a href="https://community.drivendata.org/t/scoring-clarification-masked-pixels-and-re-evaluation/11516">11516</a>
 (<i>“Pixels corresponding to known USGS/INGENIOUS faults are masked / excluded from evaluation”</i>),
-this means the target population is <b>off-catalogue</b>, and mass on catalogue pixels is free but
-useless. Every hypothesis below is aimed off-catalogue by construction.
+this means known-catalogue pixels are excluded from evaluation. Predictions there cannot earn target
+credit; no benefit is inferred from deleting them. Every hypothesis below is aimed at off-catalogue
+geometry by construction.
 </div>
 
 <h2>Ranking</h2>
-<p class="small">Expected DTI improvement is the LATI leave-one-observation-out gain of adding the
-hypothesis’s layers to the best-supported baseline model (13 observations, baseline LOO SSR
-0.014401). Implementation cost is measured in this environment: 2 vCPU, 3 GB RAM, and only the
-restored layers available.</p>
+<p class="small">The numeric LOO rankings are exploratory fits, not expected private-score improvements.
+Any “13-row” result assumes the disputed H33-2-B2 / 0.2778 score-to-file mapping, which is unverified;
+H33-based reversals and the H47-GSA cross-fit are conditional and require an H33-excluded sensitivity
+run. Implementation cost is measured in this environment: 2 vCPU, 3 GB RAM, and only the restored
+layers available.</p>
 <table>
-<tr><th>#</th><th>Hypothesis</th><th class="n">Expected gain<br>(LOO)</th><th class="n">Cost</th>
+<tr><th>#</th><th>Hypothesis</th><th class="n">Exploratory change<br>(LOO)</th><th class="n">Cost</th>
     <th>Verdict</th></tr>
 <tr><td>1</td><td><b>H47-1 GSA</b> — geodetic strain × hydrothermal alteration × thermal discharge</td>
-    <td class="n">+86.4 % in-fold<br><b>−0.053 out-of-fold</b></td><td class="n">Low</td>
-    <td><span class="badge b-warn">SHIPPED as the primary arm; cross-fit FAILED</span></td></tr>
+    <td class="n">+86.4 % in-fold<br><b>−0.053 out-of-fold*</b></td><td class="n">Low</td>
+    <td><span class="badge b-warn">NOT PROMOTED; cross-fit depends on H33 mapping</span></td></tr>
 <tr><td>2</td><td><b>H47-2 SAF</b> — strike-aligned catalogue-flank continuation</td>
-    <td class="n">+55.7 % on 12 obs<br><b>−64.0 % on 13</b></td><td class="n">Low</td>
-    <td><span class="badge b-bad">FALSIFIED — break-even 0.2200</span></td></tr>
+    <td class="n">+55.7 % on 12 rows<br><b>−64.0 % if H33 = 0.2778*</b></td><td class="n">Low</td>
+    <td><span class="badge b-warn">UNRESOLVED — H33 mapping unverified</span></td></tr>
 <tr><td>3</td><td><b>H47-3 SGMC transfer</b> — state geologic-map faults absent from the catalogue</td>
     <td class="n">LOO worsens<br>(0.008124 → 0.009279)</td><td class="n">Very low</td>
-    <td><span class="badge b-bad">FALSIFIED — 0.5 % of fitted K</span></td></tr>
+    <td><span class="badge b-warn">NOT SUPPORTED IN EXPLORATORY FIT</span></td></tr>
 <tr><td>4</td><td><b>H47-4 DMC</b> — deep-source magnetic continuity (TMI-UC150)</td>
     <td class="n">measured by the earlier session</td><td class="n">already paid</td>
     <td><span class="badge b-bad">ALREADY TESTED as H47-B — lost to a random control</span></td></tr>
-<tr><td>5</td><td><b>H47-5 λ-probe</b> — three designed submissions recover T, F, K in closed form</td>
-    <td class="n">exact, not statistical</td><td class="n">3 slots</td>
-    <td><span class="badge b-info">DESIGNED, NOT SPENT</span></td></tr>
+<tr><td>5</td><td><b>H47-5 λ-probe</b> — diagnostic concept using the scale identity</td>
+    <td class="n">algebraic, not predictive</td><td class="n">three-score design; incremental uploads/slot cost unverified</td>
+    <td><span class="badge b-warn">NOT AUTHORIZED — holdout gate not passed</span></td></tr>
 </table>
 
 <h2 id="h47-1">H47-1 · GSA — geodetic strain × hydrothermal alteration × thermal discharge</h2>
@@ -91,11 +93,13 @@ This is the first time they are the <b>primary</b> belief field, and the first t
 radiometric term is fitted rather than assumed. LATI fits <b>low</b> Th/K and <b>low</b>
 <code>tmi_vg</code>, which is the opposite of the “high geophysical contrast” prior every sibling
 repository used.</p>
-<p><b>Result.</b> In-fold LOO improved <b>+86.4 %</b> (0.014401 → 0.001960) over four forward-selection
-steps, K = 15,638. Under a pre-specified geological pool with selection <i>inside</i> each fold, the
-out-of-fold paired deltas were <b>−0.0611</b> and <b>−0.0450</b>. The in-fold advantage was
-optimizer’s curse and pool-selection bias. <b>Shipped as the primary arm for the unlimited-submission
-Final Prize Round; explicitly not recommended for a weekly slot.</b></p>
+<p><b>Result.</b> The conditional in-fold LOO fit improved <b>+86.4 %</b> (0.014401 → 0.001960)
+over four forward-selection steps, K = 15,638. The cross-fitted run returned paired out-of-fold
+deltas <b>−0.0611</b> and <b>−0.0450</b>, but its observation pool includes the unverified H33-to-0.2778
+association, so these values need an H33-excluded sensitivity rerun before they can be interpreted
+without that assumption. The cross-fit is observation-level, not a spatial holdout. Against the d2.8
+reference H47-GSA underperforms on four local frames; its F2 win is on its own in-fold fitted objective
+and is not independent evidence. It is <b>NOT PROMOTED</b>; no submission is authorized.</p>
 </div>
 
 <h2 id="h47-2">H47-2 · SAF — strike-aligned catalogue-flank continuation</h2>
@@ -114,25 +118,22 @@ buffer-shaped.</p>
 organiser’s own words — <i>“newly mapped geometry of an existing fault system”</i>. A trace that stops
 on the map but continues in the ground produces new-fault pixels immediately along-strike of the mapped
 endpoint, and those pixels are by definition not in USGS/INGENIOUS.</p>
-<p><b>How it differs from prior work.</b> Directly opposite. The reported-0.2778 arm was <i>built</i> by
-deleting every dot within 2 px of the catalogue; sibling arms <code>h32-1-prethin-tip-euler</code>
-(0.2649) and <code>h33d-analog-tip-stepover-r30</code> (0.2632) grew tips but scored <i>below</i> their
-own baselines. This hypothesis says those arms grew tips isotropically instead of along-strike.</p>
-<p><b>Result — FALSIFIED, and the falsification is quantified.</b> On the twelve flank-agnostic
-observations the halo layers were the strongest public predictors in the entire 72-layer screen
-(<code>dcat_band_0_1.5</code>: LOO gain +55.7 %, β = +6.18; the fitted truth put <b>67.1 %</b> of K
-within 150 m of a mapped fault, a zone that is 3.45 % of the evaluated area — ×19.5 enrichment, while
-the incumbent puts only 11.6 % of its dots there). Every layer beat its own spatial-permutation null
-10/10 with z = 122–1562, so this was not a thinness artefact. Then the thirteenth observation — the
-flank-<i>pruned</i> 0.2778 raster — inverted it: β collapsed from <b>+6.18</b> to <b>+1.42</b> and the
-LOO gain became <b>−64.0 %</b>. Sweeping that one file’s assumed score gives a
-<b>break-even of 0.2200</b>: the flank is supported only if the flank-pruned arm scored below 0.22,
-when it is reported at 0.2778 and its own unpruned base at 0.2708. In the 13-observation screen
-<code>dcat_band_0_1.5</code> became the <b>worst</b> of 65 layers (−227.6 %) while
-<code>dcat_band_3_6</code> (300–600 m) stayed positive (+26.7 %).
-<b>Not shipped.</b> Also: the strike decomposition itself added nothing — along-strike, across-strike,
-tip-extension and bend-splay were statistically tied (LOO 0.006568–0.006657) with the plain graded
-halo (0.006594), so the orientation model is unsupported independently of the falsification.</p>
+<p><b>How it differs from prior work.</b> Directly opposite. The H33-2-B2 <i>artifact</i> deletes every
+dot within 2 px of the catalogue; its association with the participant-level 0.2778 row is unverified.
+Sibling arms <code>h32-1-prethin-tip-euler</code> (owner-reported 0.2649) and
+<code>h33d-analog-tip-stepover-r30</code> (owner-reported 0.2632) grew tips but reportedly scored
+<i>below</i> their own baselines. This hypothesis says those arms grew tips isotropically instead of
+along-strike; all score comparisons remain participant/owner-reported unless artifact receipts exist.</p>
+<p><b>Result — unresolved; the H33 score/file association is not authenticated.</b> On twelve
+owner-reported rows, the exploratory halo fit showed a +55.7 % LOO improvement (β = +6.18); its
+fitted field placed 67.1 % of modeled K within 150 m of a mapped fault. Adding H33-2-B2 at an
+<i>assumed</i> DTI of 0.2778 changes the fit to −64.0 % LOO improvement (β = +1.42), but the public
+0.2778 participant row is not linked to this TIFF and the owner page labels H33 unscored. The
+sensitivity sweep uses a coarse grid: LOO improvement is positive at assumed 0.2200 and negative by
+0.2400. That brackets a sign change under this model; 0.2200 is not an exact break-even, and no
+flank verdict follows without a verified mapping and independent validation. The 12-row estimates,
+permutation checks, and strike-decomposition comparison remain exploratory fits, not evidence of
+private-target performance. <b>Not shipped.</b></p>
 </div>
 
 <h2 id="h47-3">H47-3 · SGMC transfer — catalogue-difference emission</h2>
@@ -148,13 +149,15 @@ definition, a candidate new fault.</p>
 possible confidence per pixel: these are mapped, real, published fault traces.</p>
 <p><b>How it differs from prior work.</b> A sibling repository specified this as <code>H60-2</code> and
 built <code>sgmc-off-catalogue-44k</code>, but the file was never scored, so the hypothesis was never
-tested. This project tests it against the leaderboard returns instead of shipping it blind.</p>
-<p><b>Result — FALSIFIED.</b> Adding SGMC proximity to the incumbent + flank model made LOO
-<i>worse</i> (0.008124 → 0.009279), and the fitted truth placed only <b>0.5 %</b> of K on SGMC
-off-catalogue pixels. The frame built from it is also self-defeating as a selector: a raster consisting
-of the SGMC pixels scores 1.0000 on it by tautology, and the near-uniform <code>r13-lattice</code>
-scores 0.2499 — better than the live-0.2600 incumbent’s 0.0942 — because the frame mostly measures
-coverage, not skill. <b>Not shipped.</b></p>
+tested. This project compares it only within an exploratory fit to owner-reported score/raster pairs;
+those associations are not organizer-authenticated leaderboard labels or private-target truth.</p>
+<p><b>Result — not supported in this exploratory fit; no general falsification claim.</b> Adding
+SGMC proximity to the owner-reported d2.8-reference + flank model made LOO <i>worse</i> (0.008124 → 0.009279), and the
+conditional fitted q allocates only <b>0.5 %</b> of its modeled K to SGMC off-catalogue pixels; this is not a measured hidden-truth proportion. The frame built from it is
+also self-defeating as a selector: a raster consisting of the SGMC pixels scores 1.0000 on it by
+tautology, and the near-uniform <code>r13-lattice</code> scores 0.2499 — better than the
+owner-reported 0.2600 d2.8 reference’s 0.0942 — because the frame mostly measures coverage, not skill. This is a
+model-specific screening result, not evidence the source can never help. <b>Not shipped.</b></p>
 </div>
 
 <h2 id="h47-4">H47-4 · DMC — deep-source magnetic continuity <span class="badge b-bad">ALREADY TESTED — FAILED</span></h2>
@@ -169,10 +172,11 @@ buried: no scarp, no topographic ridge, but a deep magnetic-offset signature tha
 The discriminator is the <i>ratio</i> of continued to uncontinued edge response, not either alone.</p>
 <p><b>Why it catches a fault MISSING from the catalogue.</b> The Quaternary compilation is
 geomorphology-driven, so a fault with zero surface expression under basin fill is systematically
-absent from it. LATI independently fits <b>high <code>tmi_hg</code> (β = +8.55)</b> with
-<b>low <code>tmi_vg</code> (β = −9.63)</b> — shallow horizontal-gradient contrast without the deep
-vertical-gradient expression — which is exactly the buried-structure signature, arrived at from the
-leaderboard rather than from the physics.</p>
+absent from it. An exploratory, H33-conditional LATI fit to owner-reported score/raster pairs associates
+<b>high <code>tmi_hg</code> (β = +8.55)</b> with <b>low <code>tmi_vg</code> (β = −9.63)</b>.
+That association is qualitatively compatible with the proposed contrast but does not physically validate
+buried faults or private-target performance. The observation-level cross-fit is conditional on H33 and
+H47-GSA is not promoted.</p>
 <p><b>How it differs from prior work.</b> Sibling arms used <code>tmi</code>, <code>rtp</code>,
 <code>tc</code> and tilt-angle zero crossings as <i>edge detectors</i> at a single scale. None used
 upward continuation as a <b>depth filter</b>, and none combined it with the vertical-gradient band as a
@@ -191,45 +195,50 @@ preregistered gate with a locked test block and nontrivial controls. Result
 <tr><td>Tuned single-scale baseline</td><td class="n">0.02564</td></tr>
 <tr><td><b>Fixed-seed random control</b></td><td class="n"><b>0.03716</b></td></tr>
 </table>
-The candidate <b>lost to random noise</b>, and its assumption-conditional conformal lower floor was
-<b>0.0</b>. Verdict: <b>NOT PROMOTED</b>. Its research-only GeoTIFF is still published at
+The candidate scored below the fixed-seed random control, and its split-conformal lower bound was
+<b>0.0</b> under unverified block-score exchangeability. Verdict: <b>NOT PROMOTED</b>. Its research-only GeoTIFF is still published at
 <a href="downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif">docs/downloads/</a>
 for review, marked not-for-submission.
 <br><br>
-The physics argument above is still sound and the LATI coefficients (<code>tmi_hg</code> β = +8.55 with
-<code>tmi_vg</code> β = −9.63) still point the same way — but a sound physical story that loses to a
-random control on a locked test block is a rejected hypothesis, not an unbuilt one. Recorded here so the
-next session does not pay to learn it twice.
+The physical rationale remains a hypothesis, not a validated finding. The reported LATI coefficients
+(<code>tmi_hg</code> β = +8.55; <code>tmi_vg</code> β = −9.63) come from a conditional 13-row fit that
+assumes the unverified H33 score/file link. A plausible physical story does not overcome H47-B's
+locked-test loss to the fixed-seed random control. Recorded here so a future session does not treat the
+idea as untested or promoted.
 </div>
 </div>
 
-<h2 id="h47-5">H47-5 · λ-probe — exact identification of T, F and K <span class="badge b-info">NOT SPENT</span></h2>
+<h2 id="h47-5">H47-5 · λ-probe — diagnostic scale-identity concept <span class="badge b-warn">NOT AUTHORIZED</span></h2>
 <div class="panel">
 <p><b>Layers.</b> None. This is a <b>measurement design</b>, not a detector.</p>
 <p><b>Physical signature targeted.</b> The metric’s own exact scale identity. Both <code>T</code> and
 <code>F</code> are homogeneous of degree 1 in the prediction, so
 <code>DTI(λp) = λT / (λα(T+F) + βK)</code> and <b><code>1/DTI(λ)</code> is linear in <code>1/λ</code></b>.
-Three returns from one file therefore solve for <code>T</code>, <code>F</code> and <code>K</code> in
-closed form:
-<b>S1 ANCHOR</b> (λ = 1, identical to the live 0.2600 raster, so it cannot cost rank),
-<b>S2 SCALE</b> (λ = 0.5), <b>S3 NULL-ADD</b> (the anchor plus 2,000 dots placed where no truth is
-expected, so their marginal credit is ~0 and their cost is exactly 0.2 × 2,000).</p>
-<p><b>Why it matters.</b> Every local frame in this project is a <i>model</i> of the truth. This is the
-only way to measure <code>K</code> and the incumbent’s <code>F/T</code> directly. Conditioning is
-56×–1380× better than reading four decimal places off a single return. All three probes are constructed
-to score <i>below</i> the anchor, so they cannot cost leaderboard rank.</p>
-<p><b>How it differs from prior work.</b> A sibling repository designed the identical probe set and
-built the three files — and never submitted them. This project independently re-derived the identity,
-verified it numerically to 1e-15 in <code>tests/test_metric.py</code>, and records why it was not spent:
-there are no credentials in this environment, and spending three weekly slots on measurement rather
-than on a candidate is a decision for the owner, not for an autonomous agent.</p>
-<p><b>Status.</b> Designed, verified, not spent. This is the highest-value next action available to
-anyone who does have credentials.</p>
+Under the scale assumptions, three score observations could solve for <code>T</code>, <code>F</code> and
+<code>K</code> in closed form: <b>S1 ANCHOR</b> (λ = 1, a reference raster with an owner-reported 0.2600
+score), <b>S2 SCALE</b> (λ = 0.5), and <b>S3 NULL-ADD</b> (the anchor plus 2,000 dots placed where truth
+is assumed unlikely). The S1 score/file association is not authenticated. The three observations describe the proposed
+measurement design, not a count of portal uploads or submission slots. The exact current per-user quota
+and slot accounting are not stated on the accessible official pages checked 2026-10-06; the number of
+new uploads and their slot cost are therefore unknown. Do not infer a fixed cost or a free route.</p>
+<p><b>Why it matters.</b> The identity is one possible way to estimate <code>T</code>, <code>F</code> and
+<code>K</code> if the scoring response follows the stated scale law and the reference raster is known.
+The reported conditioning comparison is algebraic; it does not establish that the probe is useful,
+non-scarce, or rank-neutral in the live competition.</p>
+<p><b>How it differs from prior work.</b> A sibling repository designed a similar probe set and built
+three files. This project independently re-derived the identity and tested it numerically to 1e-15 in
+<code>tests/test_metric.py</code>. No probe was submitted here. The number of new submissions cannot be
+fixed without an authenticated reusable S1 score; the portal's current quota/accounting must be checked
+before any experiment. The project gate does not authorize this diagnostic.</p>
+<p><b>Status.</b> Theoretical design only, not run and not authorized. Do not claim a fixed submission-slot
+cost or that the probe is free. Revisit only after portal/organizer confirmation and separate
+preregistration; this diagnostic is not a candidate promotion path.</p>
 </div>
 
 <h2>What was screened and rejected</h2>
-<p class="small">72 layers were screened on 12 observations (59 geological + 13 controls) and 65 on 13.
-Beyond the three falsified hypotheses above, these were tested and did not survive:</p>
+<p class="small">72 layers were screened on twelve owner-reported pairs (59 geological + 13 controls); the
+65-layer, 13-row screen adds H33 only under the unverified assumed-0.2778 mapping. These are exploratory
+low-ranking or negative results, not general falsifications:</p>
 <ul class="small">
 <li><b>LiDAR scarp morphology</b> (12 bands derived from 706 USGS 3DEP 1 m tiles): <code>lidar_upface_max</code>
     ranked 21st of 72 on 12 observations and did not enter the 13-observation forward selection.

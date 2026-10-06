@@ -1,6 +1,6 @@
 project,site_url,submission_or_label,user_reported_result,evidence_status
-GEMSDOE47,https://buffedlizard55-lab.github.io/GEMSDOE47/,gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite,UNSCORED,this_session_built_and_format_verified
-GEMSDOE47,https://buffedlizard55-lab.github.io/GEMSDOE47/,gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite,UNSCORED,this_session_built_and_format_verified
+GEMSDOE47,https://buffedlizard55-lab.github.io/GEMSDOE47/,gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite,UNSCORED,research_only; previous local validator omitted official null/NaN-outside check; zeros outside footprint; organizer acceptance unknown
+GEMSDOE47,https://buffedlizard55-lab.github.io/GEMSDOE47/,gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite,UNSCORED,research_only; previous local validator omitted official null/NaN-outside check; zeros outside footprint; organizer acceptance unknown
 GEMSDOE32,https://buffedlizard55-lab.github.io/GEMSDOE32/,h33-2-b2,0.2778,attribution_conflict
 GEMSDOE25,https://buffedlizard55-lab.github.io/GEMSDOE25/,d2.8,0.2600,restored_hash_verified_owner_report
 GEMSDOE24,https://buffedlizard55-lab.github.io/GEMSDOE24/,d1.5,0.2477,restored_hash_verified_owner_report

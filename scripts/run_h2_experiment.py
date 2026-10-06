@@ -22,6 +22,7 @@ import rasterio
 from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[1]
+DATA_MANIFEST_PATH = ROOT / "registry" / "data_manifest.json"
 sys.path.insert(0, str(ROOT))
 
 from gemsdoe47.magnetic import (
@@ -37,11 +38,14 @@ from gemsdoe47.validation import sha256_file, validate_submission
 from src.gems47_metric import dti
 
 WORK = ROOT / "work"
-EXT_PATH = WORK / "external" / "geodawn_extensions_u8.tif"
-EXT_MANIFEST = WORK / "external" / "geodawn_extensions.json"
-LABELS_PATH = WORK / "bridge" / "labels.tif"
-TEMPLATE_PATH = WORK / "bridge" / "sample_submission.tif"
-ACQ_PATH = WORK / "external" / "acquisition_block_id_100m.tif"
+DATA_DIR = ROOT / ".cache" / "gems_data"
+PINNED_SOURCE_REF = "07345ea0604953d7efb858d9cfbc21e20c7aca0b"
+EXT_PATH = DATA_DIR / "external" / "geodawn_extensions_u8.tif"
+EXT_MANIFEST = DATA_DIR / "external" / "geodawn_extensions.json"
+ACQ_PATH = DATA_DIR / "external" / "audit_sources" / "acquisition_block_id_100m.tif"
+ACQ_RECEIPT = DATA_DIR / "external" / "audit_sources" / "acquisition_blocks_receipt.json"
+LABELS_PATH = DATA_DIR / "labels.tif"
+TEMPLATE_PATH = DATA_DIR / "sample_submission.tif"
 OUT_DIR = WORK / "candidates"
 
 PINNED_HASHES = {
@@ -50,6 +54,8 @@ PINNED_HASHES = {
     "template": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
     "acquisition_blocks": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a",
 }
+EXT_MANIFEST_SHA256 = "56556f24c051043fd7a85587786118f8064624f2ad0604aaa3e6614f1a9f6d2f"
+ACQ_RECEIPT_SHA256 = "577076187434560514baa62995f6bb61b4d43f015b1abaf9a358936b94b5fb75"
 EXPECTED_GRID = {
     "shape": (3730, 3292),
     "crs": "EPSG:32611",
@@ -99,7 +105,52 @@ def _load_inputs() -> dict[str, Any]:
             actual_hashes[key] == PINNED_HASHES[key],
             f"{key} SHA-256 mismatch: {actual_hashes[key]} != {PINNED_HASHES[key]}",
         )
+
+    _require(DATA_MANIFEST_PATH.is_file(), f"missing registry data manifest: {DATA_MANIFEST_PATH}")
+    registry = json.loads(DATA_MANIFEST_PATH.read_text(encoding="utf-8"))
+    registry_by_id = {entry["id"]: entry for entry in registry["files"]}
+    expected_registry_entries = {
+        "labels": ("data/bridge/labels.tif", "labels.tif", PINNED_HASHES["labels"]),
+        "sample_submission": (
+            "data/bridge/sample_submission.tif", "sample_submission.tif", PINNED_HASHES["template"]
+        ),
+        "ext_geodawn_extensions_u8": (
+            "data/external/geodawn_extensions_u8.tif",
+            "external/geodawn_extensions_u8.tif",
+            PINNED_HASHES["features"],
+        ),
+        "ext_geodawn_extensions_manifest": (
+            "data/external/geodawn_extensions.json",
+            "external/geodawn_extensions.json",
+            EXT_MANIFEST_SHA256,
+        ),
+        "ext_acquisition_blocks_figure_derived": (
+            "data/external/audit_sources/acquisition_block_id_100m.tif",
+            "external/audit_sources/acquisition_block_id_100m.tif",
+            PINNED_HASHES["acquisition_blocks"],
+        ),
+        "ext_acquisition_blocks_receipt": (
+            "data/external/audit_sources/acquisition_blocks_receipt.json",
+            "external/audit_sources/acquisition_blocks_receipt.json",
+            ACQ_RECEIPT_SHA256,
+        ),
+    }
+    for entry_id, (source_path, dest, digest) in expected_registry_entries.items():
+        entry = registry_by_id.get(entry_id)
+        _require(entry is not None, f"registry/data_manifest.json lacks {entry_id}")
+        _require(
+            entry.get("repo") == "buffedlizard55-lab/GEMSDOE24"
+            and entry.get("ref") == PINNED_SOURCE_REF
+            and entry.get("path") == source_path
+            and entry.get("dest") == dest
+            and entry.get("sha256") == digest,
+            f"registry source/provenance mismatch for {entry_id}",
+        )
+
     _require(EXT_MANIFEST.is_file(), f"missing feature manifest: {EXT_MANIFEST}")
+    manifest_hash = sha256_file(EXT_MANIFEST)
+    _require(manifest_hash == EXT_MANIFEST_SHA256,
+             f"feature manifest SHA-256 mismatch: {manifest_hash} != {EXT_MANIFEST_SHA256}")
     manifest = json.loads(EXT_MANIFEST.read_text(encoding="utf-8"))
     _require(manifest.get("product_sha256") == PINNED_HASHES["features"],
              "feature manifest product hash does not match the pinned raster")
@@ -110,6 +161,25 @@ def _load_inputs() -> dict[str, Any]:
         and "rank" in str(manifest.get("quantisation", "")).lower(),
         "manifest does not document rank-encoded uint8 values",
     )
+
+    _require(ACQ_RECEIPT.is_file(), f"missing acquisition-block receipt: {ACQ_RECEIPT}")
+    receipt_hash = sha256_file(ACQ_RECEIPT)
+    _require(receipt_hash == ACQ_RECEIPT_SHA256,
+             f"acquisition-block receipt SHA-256 mismatch: {receipt_hash} != {ACQ_RECEIPT_SHA256}")
+    acq_receipt = json.loads(ACQ_RECEIPT.read_text(encoding="utf-8"))
+    _require(acq_receipt.get("status") == "derived_audited" and acq_receipt.get("label_free") is True,
+             "acquisition-block receipt does not match the pinned label-free derivation")
+    _require(acq_receipt.get("official_coordinates") is False,
+             "acquisition-block boundaries are not official coordinates")
+    _require(acq_receipt.get("raster", {}).get("sha256") == PINNED_HASHES["acquisition_blocks"],
+             "acquisition-block receipt does not pin the expected raster")
+    _require(acq_receipt.get("primary_audit_variant") == "a1_plus_a2_outside_area1",
+             "unexpected acquisition-block primary audit variant")
+    _require(acq_receipt.get("line_km_audit", {}).get(
+        "a1_plus_a2_outside_area1", {}).get("audit", {}).get("passed") is True,
+        "acquisition-block primary descriptive audit did not pass")
+    actual_hashes["feature_manifest"] = manifest_hash
+    actual_hashes["acquisition_blocks_receipt"] = receipt_hash
 
     with (
         rasterio.open(EXT_PATH) as feature_ds,
@@ -373,13 +443,19 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
     )
     reasons = [*metric_reasons, research_only_reason]
     status = "NOT_PROMOTED"
+    research_note = (
+        f"H47-B selected spacing={selected_spacing}px / {selected_spacing * 100}m; "
+        f"split-conformal nominal marginal coverage={conformal['nominal_coverage']:.1%} "
+        f"(n={conformal['n_calibration_blocks']}, rank={conformal['rank_1_based']}, "
+        "conditional on block-score exchangeability; unverified); "
+        f"clipped lower bound={floor:.3f}; public-mirror research screen only."
+    )
     portal_note = (
-        "RESEARCH ONLY — NOT FOR SUBMISSION. Public-mirror H47-B cannot confer slot eligibility."
+        "RESEARCH ONLY — NOT FOR SUBMISSION. Do not paste this note into the portal. "
+        + research_note
     )
     if metric_reasons:
         portal_note += " Metric-screen failures: " + "; ".join(metric_reasons) + "."
-    else:
-        portal_note += " Metric-screen results do not change this restriction."
 
     summaries = {
         "H47-B": _block_report_rows(h2_rows),
@@ -436,8 +512,16 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
         "protocol": "docs/preregistered-h2.md",
         "protocol_sha256": sha256_file(ROOT / "docs" / "preregistered-h2.md"),
         "source_data_provenance": "public group-hosted GitHub mirror; not direct organizer download",
+        "pinned_source_ref": PINNED_SOURCE_REF,
         "input_sha256": inputs["hashes"],
-        "feature_manifest_sha256": sha256_file(EXT_MANIFEST),
+        "feature_manifest_sha256": inputs["hashes"]["feature_manifest"],
+        "acquisition_block_audit_provenance": {
+            "receipt_sha256": inputs["hashes"]["acquisition_blocks_receipt"],
+            "receipt_path": str(ACQ_RECEIPT.relative_to(ROOT)),
+            "official_coordinates": False,
+            "label_free": True,
+            "use": "descriptive subgroup audit only; not used for feature construction, spacing selection, or promotion",
+        },
         "grid": {
             "height": EXPECTED_GRID["shape"][0],
             "width": EXPECTED_GRID["shape"][1],
@@ -499,6 +583,7 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
             "format_audit": audit,
             "positive_pixels": int(np.count_nonzero(selected_prediction == 1.0)),
             "unique_name": ARTIFACT_NAME,
+            "research_note": research_note,
             "portal_note": portal_note,
             "future_candidate_boundary": "Any future authorized-input detector must be a separately preregistered candidate with a new hypothesis ID, evidence record, and filename; this H47-B file remains research-only.",
         },

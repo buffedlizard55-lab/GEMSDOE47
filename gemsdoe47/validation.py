@@ -1,4 +1,10 @@
-"""Byte-level GeoTIFF checks for the official single-band submission contract."""
+"""Local byte-level checks for a strict NaN-outside GeoTIFF profile.
+
+This checker intentionally requires a NaN nodata tag and raw NaN values outside
+the supplied footprint. That is stricter than the published null-or-NaN wording
+and does not establish portal acceptance; the supplied template/reference inputs
+must be authenticated separately.
+"""
 from __future__ import annotations
 
 import hashlib
@@ -53,13 +59,15 @@ def validate_submission(
     features_path: str | Path | None = None,
     footprint_mask_path: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Validate persisted values and metadata; raise ValueError on any failure.
+    """Run a strict local NaN-outside profile; raise ValueError on any failure.
 
     Exactly one footprint source must be supplied. For ``features_path``, a
-    pixel counts as inside if any official feature band is finite and unmasked.
+    pixel counts as inside if any reference feature band is finite and unmasked.
     A binary ``footprint_mask_path`` uses nonzero valid values for inside.
     Pixels outside the footprint must be encoded as NaN, not a numeric nodata
-    sentinel. Range checks are made on float32 values read back from disk.
+    sentinel, and the raster must carry a NaN nodata tag. These are local policy
+    checks stricter than the published null-or-NaN wording; this is not a portal
+    oracle. Range checks are made on float32 values read back from disk.
     """
     if (features_path is None) == (footprint_mask_path is None):
         raise ValueError("provide exactly one of features_path or footprint_mask_path")
@@ -82,7 +90,7 @@ def validate_submission(
     max_value = -math.inf
     with rasterio.open(template_path) as template, rasterio.open(submission_path) as result:
         if template.count != 1:
-            raise ValueError(f"official template has {template.count} bands; expected 1")
+            raise ValueError(f"supplied template has {template.count} bands; expected 1")
         if result.count != 1:
             raise ValueError(f"submission has {result.count} bands; expected 1")
         if result.dtypes[0] != "float32":
@@ -94,7 +102,7 @@ def validate_submission(
 
         with rasterio.open(reference_path) as reference:
             if not _same_grid(template, reference):
-                raise ValueError("footprint/features grid does not match the official template")
+                raise ValueError("footprint/features grid does not match the supplied template")
             if features_path is not None and reference.count < 1:
                 raise ValueError("feature raster contains no bands")
             if footprint_mask_path is not None and reference.count != 1:
@@ -152,7 +160,9 @@ def validate_submission(
         raise ValueError("\n".join(f"- {failure}" for failure in failures))
 
     return {
-        "status": "PASS",
+        "status": "LOCAL_PASS",
+        "validation_scope": "strict local NaN-outside profile; not a portal oracle",
+        "organizer_acceptance_established": False,
         "submission": str(submission_path),
         "sha256": sha256_file(submission_path),
         "template": str(template_path),

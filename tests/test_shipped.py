@@ -1,7 +1,8 @@
-"""Verification of the ACTUAL shipped GeoTIFFs against the real competition grid.
+"""Re-check retained research GeoTIFFs and their closed submission gate.
 
-Marked ``needs_data``: requires the restored bytes (``scripts/restore_data.py
---group all``) so that CI can run the data-free suite without 1.2 GB.
+Marked ``needs_data``: uses the restored competition template/labels and the
+research TIFFs retained on the project site. The historical artifact records are
+not current submission authorization.
 """
 from __future__ import annotations
 
@@ -24,7 +25,7 @@ pytestmark = pytest.mark.needs_data
 def shipped():
     p = ROOT / "evidence" / "shipped.json"
     if not p.exists():
-        pytest.skip("evidence/shipped.json not built; run scripts/ship.py")
+        pytest.skip("evidence/shipped.json not built; run the research builder")
     return json.loads(p.read_text())
 
 
@@ -51,81 +52,138 @@ def test_sample_submission_footprint_and_ones(tmpl):
     assert np.array_equal(np.isfinite(ss), tmpl.footprint)
     ones = ss > 0
     assert int(ones.sum()) == 60_988
-    assert not (ones & ~tmpl.catalogue).any()      # IR-47-003: the "sample" is not all-zero
+    assert not (ones & ~tmpl.catalogue).any()  # The sample contains known faults, not an all-zero raster.
 
 
 def test_training_nodata_is_float32_min_not_nan():
-    with rasterio.open(G.data_dir() / "training_features.tif") as s:
+    path = G.data_dir() / "training_features.tif"
+    if not path.exists():
+        pytest.skip("training feature raster not restored")
+    with rasterio.open(path) as s:
         assert s.count == 19
-        b = s.read(1)
-    assert (b <= -1e30).any()                       # IR-47-001
-    assert np.isfinite(b[b <= -1e30]).all()         # ... and np.isfinite does NOT catch it
+        band = s.read(1)
+    assert (band <= -1e30).any()
+    assert np.isfinite(band[band <= -1e30]).all()
 
 
-def test_every_shipped_file_exists_and_matches_its_recorded_hash(shipped):
+def test_every_retained_research_file_matches_its_recorded_hash(shipped):
     for rec in shipped["shipped"]:
-        p = ROOT / "docs" / "downloads" / rec["filename"]
-        assert p.exists(), f"{rec['filename']} is referenced by the site but missing"
-        h = hashlib.sha256(p.read_bytes()).hexdigest()
-        assert h == rec["sha256"], f"{rec['filename']}: hash drift"
-        assert p.stat().st_size == rec["bytes"]
+        path = ROOT / "docs" / "downloads" / rec["filename"]
+        assert path.exists(), f"{rec['filename']} is referenced by the research record but missing"
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == rec["sha256"]
+        assert path.stat().st_size == rec["bytes"]
+        assert rec["submission_authorized"] is False
+        assert rec["slot_eligible"] is False
+        assert rec["primary_download"] is False
 
 
-def test_primary_download_passes_every_check_including_the_nan_intolerant_one(shipped, tmpl):
-    prim = [r for r in shipped["shipped"] if r["primary_download"]]
-    assert len(prim) == 1, "exactly one file may be the primary download"
-    rec = prim[0]
-    p = ROOT / "docs" / "downloads" / rec["filename"]
-    v = S.validate_submission(p, template=tmpl)
-    assert v["all_checks_passed"] is True
-    assert v["recommended_for_upload"] is True
-    assert v["passes_nan_intolerant_range_check"] is True   # the reported rejection
-    assert v["hard_failures"] == []
-    assert v["stats"]["n_nan"] == 0
-    assert v["stats"]["n_emitted"] == rec["n_dots"] == 37_654
-    assert v["stats"]["n_emitted_on_catalogue"] == 0
-    assert v["stats"]["n_emitted_outside_footprint"] == 0
-    assert v["stats"]["v_min"] == 0.0 and v["stats"]["v_max"] == 1.0
-    assert v["format"]["count"] == 1
-    assert v["format"]["dtype"] == "float32"
-    assert v["format"]["crs"] == "EPSG:32611"
+def test_status_overlay_keeps_gate_closed_and_observation_scope_qualified(shipped):
+    status = shipped["status_audit_2026_10_06"]
+    assert status["current_decision"] == "RESEARCH_ONLY_NOT_FOR_PORTAL"
+    assert status["submission_slot_authorized"] is False
+    assert status["h33_score_file_mapping_verified"] is False
+    assert status["owner_reported_score_raster_pairs"] == 12
+    assert shipped["observation_scope"]["model_rows"] == 13
+    assert shipped["observation_scope"]["owner_reported_pairs"] == 12
+    assert all("RESEARCH ONLY" in role for role in shipped["arm_roles"].values())
+    assert shipped["historical_fields_audit_2026_10_06"]["status"] == "SUPERSEDED_NOT_CURRENT"
+    cost_audit = shipped["submission_cost_audit"]
+    assert cost_audit["lambda_probe_design_score_observations"] == 3
+    assert cost_audit["lambda_1_anchor_score_file_mapping_verified"] is False
+    assert cost_audit["probe_authorized"] is False
+    assert "unverified" in cost_audit["current_per_user_quota_or_slot_accounting"].lower()
+
+
+def test_saved_validations_are_reconciled_with_outside_nodata_requirement(shipped):
+    review = shipped["format_review_2026_10_06"]
+    assert review["published_outside_bounds_requirement"] == "null or NaN"
+    assert review["organizer_acceptance_established"] is False
+    assert review["upload_recommendation"] == "none"
+    for record in shipped["shipped"]:
+        validation = record["validation"]
+        is_nan = record["mode"] == "nan"
+        assert validation["checks"]["outside_template_footprint_is_nodata"] is is_nan
+        assert validation["checks"]["no_infinite_values"] is True
+        assert validation["checks"]["masked_pixels_only_outside_footprint"] is True
+        assert validation["stats"]["n_infinite"] == 0
+        assert validation["required_local_checks_passed"] is is_nan
+        assert validation["all_checks_passed"] is is_nan
+        expected_diagnostics = (
+            {
+                "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))",
+                "all_pixels_finite",
+            }
+            if is_nan else set()
+        )
+        assert set(validation["diagnostic_failures"]) == expected_diagnostics
+        assert validation["recommended_for_upload"] is False
+        assert record["validation_at_generation_legacy"]["recommended_for_upload_now"] is False
+
+
+def test_allfinite_variant_passes_raw_range_but_fails_outside_nodata_requirement(shipped, tmpl):
+    variants = [r for r in shipped["shipped"] if r["mode"] == "allfinite"]
+    assert variants
+    for rec in variants:
+        validation = S.validate_submission(ROOT / "docs" / "downloads" / rec["filename"], template=tmpl)
+        assert validation["all_checks_passed"] is False
+        assert validation["passes_nan_intolerant_range_check"] is True
+        assert validation["checks"]["outside_template_footprint_is_nodata"] is False
+        assert validation["hard_failures"] == ["outside_template_footprint_is_nodata"]
+        assert validation["stats"]["n_nan"] == 0
+        assert validation["stats"]["n_emitted"] == rec["n_dots"] == 37_654
+        assert validation["stats"]["n_emitted_on_catalogue"] == 0
+        assert validation["stats"]["n_emitted_outside_footprint"] == 0
+        assert validation["stats"]["v_min"] == 0.0 and validation["stats"]["v_max"] == 1.0
+        assert validation["format"]["count"] == 1
+        assert validation["format"]["dtype"] == "float32"
+        assert validation["format"]["crs"] == "EPSG:32611"
+        # The validator only reports format suitability; the project's separate gate stays closed.
+        assert rec["submission_authorized"] is False
+        assert rec["slot_eligible"] is False
 
 
 def test_nan_variants_fail_only_the_nan_intolerant_check(shipped, tmpl):
     nans = [r for r in shipped["shipped"] if r["mode"] == "nan"]
     assert nans
     for rec in nans:
-        v = S.validate_submission(ROOT / "docs" / "downloads" / rec["filename"], template=tmpl)
-        assert v["passes_nan_intolerant_range_check"] is False
-        assert v["passes_nan_tolerant_range_check"] is True
-        assert v["recommended_for_upload"] is False
-        assert v["stats"]["n_nan"] == 7_111_787
-        assert v["hard_failures"] == []
+        validation = S.validate_submission(
+            ROOT / "docs" / "downloads" / rec["filename"], template=tmpl
+        )
+        assert validation["passes_nan_intolerant_range_check"] is False
+        assert validation["passes_nan_tolerant_range_check"] is True
+        assert validation["recommended_for_upload"] is False
+        assert validation["checks"]["outside_template_footprint_is_nodata"] is True
+        assert validation["all_checks_passed"] is True
+        assert validation["stats"]["n_nan"] == 7_111_787
+        assert validation["hard_failures"] == []
 
 
 def test_allfinite_and_nan_variants_of_an_arm_are_the_same_raster(shipped):
     by_arm = {}
-    for r in shipped["shipped"]:
-        by_arm.setdefault(r["arm"], {})[r["mode"]] = ROOT / "docs" / "downloads" / r["filename"]
+    for record in shipped["shipped"]:
+        by_arm.setdefault(record["arm"], {})[record["mode"]] = (
+            ROOT / "docs" / "downloads" / record["filename"]
+        )
     for arm, pair in by_arm.items():
-        d = S.diff_report(pair["allfinite"], pair["nan"])
-        assert d["identical"] is True, arm
-        assert d["jaccard"] == 1.0
+        assert set(pair) == {"allfinite", "nan"}
+        diff = S.diff_report(pair["allfinite"], pair["nan"])
+        assert diff["identical"] is True, arm
+        assert diff["jaccard"] == 1.0
+        with rasterio.open(pair["allfinite"]) as s0, rasterio.open(pair["nan"]) as s1:
+            zeros_outside = s0.read(1)
+            nodata_variant = s1.read(1)
+        outside = ~np.isfinite(nodata_variant)
+        assert outside.any()
+        assert np.isfinite(zeros_outside).all()
+        assert np.all(zeros_outside[outside] == 0.0)
+        assert np.array_equal(zeros_outside[~outside], nodata_variant[~outside])
 
 
-def test_the_primary_submission_is_distinct_from_every_prior_raster(shipped):
-    prim = [r for r in shipped["shipped"] if r["primary_download"]][0]
-    rows = [r for r in shipped["results"] if r["arm"].startswith("GEMSDOE47")
-            and str(prim["n_dots"]) and r["n_dots"] == prim["n_dots"]]
-    assert rows
-    best = min(r["max_jaccard_vs_any_prior"] for r in rows)
-    assert best < 0.90, f"primary arm is too close to a prior submission (Jaccard {best})"
-
-
-def test_no_shipped_file_carries_values_outside_the_unit_interval(shipped):
-    for rec in shipped["shipped"]:
-        with rasterio.open(ROOT / "docs" / "downloads" / rec["filename"]) as s:
-            v = s.read(1)
-        fin = np.isfinite(v)
-        assert float(v[fin].min()) >= 0.0 and float(v[fin].max()) <= 1.0
-        assert not (v[fin] <= -1e30).any()
+def test_no_retained_research_file_carries_values_outside_the_unit_interval(shipped):
+    for record in shipped["shipped"]:
+        with rasterio.open(ROOT / "docs" / "downloads" / record["filename"]) as dataset:
+            values = dataset.read(1)
+        finite = np.isfinite(values)
+        assert float(values[finite].min()) >= 0.0
+        assert float(values[finite].max()) <= 1.0
+        assert not (values[finite] <= -1e30).any()

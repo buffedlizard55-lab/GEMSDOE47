@@ -58,6 +58,14 @@ DTI = 5 × TPw / (TPw + FPw + 4 × Ng)
 
 `src/gems47_metric.py` implements that formula and includes regression checks, including the official worked-example components. This repository implementation has not been run by the organizer. Reducing the formula further to a function of a presumed dot count requires extra assumptions about prediction values and distance-weighted false positives; those assumptions do not authenticate old scores or identify a TIFF.
 
+### Corrected inverse-DTI algebra
+
+Let `x = T/K` and `ρ = F/K`. Then `x = (αρ + β)/(1/DTI − α)`. For the illustrative `ρ = 8.02` (not verified as an observed participant ratio), DTI 0.3195 requires `T/K = 82.05 %`; DTI 0.3774 requires 98.13 %. If instead `f = F/T`, the distinct identity is `T/K = β/[1/DTI − α(1 + f)]`; at DTI 0.3195, `f = 8` gives 60.16 % and `f = 4` gives 37.56 %. These ratios are not interchangeable, and neither is identified by a participant-level score. The inverse helper is regression-tested by substituting its result back into the forward `dti_from_TFK()` equation. Full table and boundary calculations: [`evidence.html`](evidence.html#why-02778) and [`knowledge/02_the_metric_algebra.md`](../knowledge/02_the_metric_algebra.md).
+
+Known USGS/INGENIOUS pixels are excluded from evaluation and penalty terms per the [official staff clarification](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516). Deleting predictions exactly on those pixels cannot improve DTI. Any effect from pruning a surrounding unmasked neighborhood requires a paired ablation on evaluated pixels.
+
+The reported 0.2778 leaderboard row is not authenticated to the H33-2-B2 TIFF. The LOO sensitivity that adds H33 is conditional on that disputed mapping; its coarse grid shows a sign change between assumed DTI 0.2200 and 0.2400, not an exact break-even or a causal/hypothesis verdict.
+
 ## What would change the decision
 
 A future candidate needs a preregistered, reproducible gain over the **current spatially blocked holdout best**, plus meaningful null/random and domain controls; sufficient label coverage; a conformal floor only if its assumptions are defensible; a fresh byte-level output audit; and a uniqueness check with explicit coverage limits. It must be a new prediction, not a pruned prior map. Until all gates pass, retain the slot. See the [validation protocol](validation-protocol.md), [submission guide](submit.html), and [irregularity register](irregularities.md).

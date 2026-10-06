@@ -162,6 +162,29 @@ class TestResearchArtifactContract(unittest.TestCase):
             any("public-mirror" in reason for reason in report["promotion"]["reasons_not_promoted"])
         )
 
+    def test_format_audit_is_explicitly_local_not_organizer_acceptance(self):
+        report = json.loads(H47B_REPORT.read_text(encoding="utf-8"))
+        review = report["format_audit_scope_review_2026_10_06"]
+        self.assertFalse(review["organizer_acceptance_established"])
+        self.assertFalse(review["experiment_rerun"])
+
+        audits = []
+        def collect(value):
+            if isinstance(value, dict):
+                if isinstance(value.get("format_audit"), dict):
+                    audits.append(value["format_audit"])
+                for child in value.values():
+                    collect(child)
+            elif isinstance(value, list):
+                for child in value:
+                    collect(child)
+        collect(report)
+        self.assertTrue(audits)
+        for audit in audits:
+            self.assertEqual(audit["status"], "LOCAL_PASS")
+            self.assertFalse(audit["organizer_acceptance_established"])
+            self.assertIn("not a portal oracle", audit["validation_scope"])
+
     def test_bounded_uniqueness_audit_matches_the_artifact_and_scope(self):
         audit = json.loads(UNIQUENESS_AUDIT.read_text(encoding="utf-8"))
         comparison = audit["comparison"]

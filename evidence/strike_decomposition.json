@@ -1,6 +1,6 @@
 [
  {
-  "model": "incumbent field only",
+  "model": "owner-reported d2.8 reference field only",
   "layers": [
    "prox_d2.8"
   ],

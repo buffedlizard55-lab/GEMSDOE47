@@ -2,6 +2,26 @@
 
 All dates are UTC. This log preserves the audit trail; a historical claim shown in a correction block is not current evidence.
 
+## Follow-up format and release review — 2026-10-06
+
+### Pass 1 — implement and verify
+
+- Rechecked the official [submission-format page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/): outside training-data bounds must be null or NaN; the file must be one float32 layer in EPSG:32611 at 100 m with in-bounds values in [0,1]. The available sample/template remains owner-mirrored, not organizer-authenticated.
+- `src/gems47/submission.py` now checks shape, literal 100 m resolution, in-footprint finiteness/unmasked pixels, no infinities, and null/NaN outside the supplied template footprint. Its default writer mode is NaN outside. The zero-outside writer remains an explicitly diagnostic mode. Local validation never recommends upload.
+- Existing H47-GSA/H47-MAXCOV research TIFFs were read back against the paired NaN-outside footprint; evidence records and site copy now distinguish raw-range diagnostics from the outside-nodata requirement. No model was rebuilt.
+
+### Pass 2 — bug and assumption review
+
+- The all-finite variants write zeros outside the supplied footprint and fail the published null/NaN-outside requirement. The NaN variants follow the available mirrored sample convention and pass local outside-nodata checks; neither mirror provenance nor portal acceptance is established. Exact rejected bytes remain unavailable, so the reported range-error cause is unknown.
+- Ruff exposed an undefined `inc` reference in `scripts/build_final.py`; it now compares the historical diagnostic against the explicitly named owner-reported d2.8 reference. The d2.8 raster is explicitly a reference input, not the established spatially blocked holdout best.
+- H33-2-B2's association with participant DTI 0.2778 remains unverified. H47-SAF sensitivity changes sign only between tested assumptions 0.2200 and 0.2400. No causal masking claim, exact break-even, portal recommendation, or slot-cost claim is made.
+
+### Pass 3 — final requirement and regression check
+
+- `ruff check .`: passed. `python -m compileall -q src scripts tests gemsdoe47`: passed. Strict JSON/JSONL parsing: 28 files / 40 records passed. `git diff --check`: passed.
+- Pytest: 112 passed, 7 skipped, 2 subtests passed. Unittest: 69 tests, 2 skipped. Skips depend on the absent restored data cache. Retained TIFF byte audits passed locally using the paired variant footprint; this is not organizer acceptance.
+- No full dataset restore, H47-B rerun, portal upload, competition-slot use, or λ-probe was performed or authorized. Pull-request and merge state are recorded by GitHub for the fixed Arena branch.
+
 ## Superseding correction — 2026-10-06
 
 An earlier project addendum incorrectly recommended the historical d-cat/annulus TIFF using a modeled score of 0.34912 and a claimed 0.34837 “75% conformal floor.” It treated three selected rungs from a monotone deletion family as exchangeable calibration examples and relied on unauthenticated participant-score-to-file mappings, including the alleged 0.2778 H33-2-B2 association. **Those performance and guarantee claims are withdrawn.** The TIFF is a delete-only subset of a published sibling network, not an independent detector. It is retained for historical review only and must not be uploaded.
