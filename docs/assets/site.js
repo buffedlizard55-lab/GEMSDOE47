@@ -34,13 +34,13 @@ async function refreshFeed() {
     const observed = board.observed_utc || board.observed_date || 'not retained';
     const stale = board.status !== 'FRESH_OFFICIAL_PARTICIPANT_OBSERVATION' || (board.observed_utc && Date.now() - Date.parse(board.observed_utc) > 36 * 3600 * 1000);
     const rows = Array.isArray(board.rows) ? board.rows : [];
-    text(byId('feed-status'), `${stale ? 'Dated / stale observation — not a fresh live score.' : 'Official participant table freshly fetched.'} Last observation: ${observed}. ${feed.fetch_failures || 0} fetch/parser failures were retained as failures, not fabricated facts.`);
-    text(byId('feed-timestamp'), `Last automatic attempt: ${feed.generated_utc || feed.generated_date || 'not recorded'}. Daily scheduled refresh. This does not re-run models or authorize submissions.`);
+    text(byId('feed-status'), `${stale ? 'Dated / stale observation — not a fresh live score.' : 'Official participant table freshly fetched.'} Last observation: ${observed}. ${feed.permission_boundary || ''} ${feed.fetch_failures || 0} fetch/parser failures; ${feed.policy_skips || 0} permission-policy skips.`);
+    text(byId('feed-timestamp'), `Last automation run: ${feed.generated_utc || feed.generated_date || 'not recorded'}. Daily scheduled refresh. This does not re-run models or authorize submissions.`);
     if (rows.length && typeof rows[0].score === 'number') document.querySelectorAll('.live-top-score').forEach(node => text(node, finiteScore(rows[0].score)));
     if (byId('leaderboard-table')) byId('leaderboard-table').replaceChildren(makeTable(['Rank','Participant / team','Public score'], rows.map(row => [row.rank, row.profile_url ? link(row.profile_url,row.participant || 'name not retained') : row.participant || 'name not retained', finiteScore(row.score)])));
     if (byId('source-feed-table')) byId('source-feed-table').replaceChildren(makeTable(['Source / evidence class','Last attempt / status','Last successful fetch / content SHA-256'], (feed.sources || []).map(source => {
       const name = document.createElement('div'); name.append(link(source.url, source.title)); const kind = document.createElement('div'); kind.className='tag'; kind.textContent=source.evidence_class; name.append(document.createElement('br'),kind);
-      const state = document.createElement('div'); state.textContent = source.status || 'no result'; const when = document.createElement('div'); when.className='hash-tiny'; when.textContent=source.last_attempt_utc || 'not recorded'; state.append(when); if (source.error_type) { const error=document.createElement('small'); error.textContent=source.error_type; state.append(error); }
+      const state = document.createElement('div'); state.textContent = source.status || 'no result'; const when = document.createElement('div'); when.className='hash-tiny'; when.textContent=source.last_attempt_utc || source.policy_checked_utc || 'not recorded'; state.append(when); if (source.error_type) { const error=document.createElement('small'); error.textContent=source.error_type; state.append(error); }
       const proof = document.createElement('div'); proof.className='hash-tiny'; proof.textContent=`${source.last_success_utc || 'no successful automated fetch'}\n${source.content_sha256 || 'no content hash acquired'}`;
       return [name,state,proof];
     })));

@@ -1,44 +1,139 @@
-# GEMSDOE47 — standing charter, current status, and two independent negative results
+# GEMSDOE47 — new inference, auditable evidence, no slot
 
-> **Decision as of 2026-10-06 UTC: no submission is eligible and no slot is recommended.**
-> This repository now contains the work of **two independent sessions on the same brief**. Both built a
-> detector, both preregistered a gate, and **both closed the gate**. The two downloadable artifacts are
-> format-valid, unique, and marked **RESEARCH ONLY — NOT FOR SUBMISSION**. A format pass is not a
-> scientific promotion.
->
-> **Core values:** **Maximize P(Win)** · **Own the Outcome**. Preserve the slot until a genuinely new,
-> unique prediction beats the current spatially blocked holdout best under a preregistered, adequately
-> controlled test.
+> **Read the standing brief below at the start of every work session.**
+> **Maximize P(Win)**: preserve a weekly slot until a genuinely new candidate beats the frozen spatial control.
+> **Own the Outcome**: publish negative results, corrections, actual bytes and limits — never an invented win.
 
-## Current decision record
+## New GeoTIFF — one-click download first
 
-| Item | Current evidence | Decision |
-|---|---|---|
-| **H47-GSA** — geodetic strain × hydrothermal alteration × thermal discharge *(later session)* | Cross-fitted LATI: paired out-of-fold deltas **−0.0611** and **−0.0450** vs the incumbent. Loses on **all five** truth frames, including the exact, model-free covered 300 m kernel integral (**99,916** vs **341,261**). In-fold advantage was **+0.30** — pure optimizer’s curse. | **NOT PROMOTED**; do not spend a slot. |
-| **H47-B** — cross-scale `TMI_up150` magnetic-edge persistence *(earlier session)* | Locked-test pooled DTI **0.02755**; tuned single-scale baseline **0.02564**; fixed-seed random control **0.03716**. The candidate **lost to random noise**. Assumption-conditional conformal lower floor **0.0**. | **NOT PROMOTED**; do not spend a slot. |
-| H47-SAF — strike-aligned catalogue-flank re-occupation *(later session)* | **+55.7 %** LOO on 12 observations (67.1 % of fitted `K` within 150 m of a mapped fault, ×19.5 enrichment, all 14 layers beat their permutation nulls 10/10 at z = +122…+1562) — then **FALSIFIED** by the 13th: the flank-*pruned* 0.2778 raster. β collapsed **+6.18 → +1.42**, LOO gain **+55.7 % → −64.0 %**, and the layer became the **worst of 65**. Break-even **0.2200**. | **FALSIFIED**; not built into an artifact. |
-| H47-SGMC — state geologic-map catalogue-difference transfer | Adding it **worsened** LOO (0.008124 → 0.009279); the fitted truth puts **0.5 %** of `K` there. | **FALSIFIED**. |
-| Downloadable artifacts | `gems47-h47gsa-…-allfinite.tif` — 1 band, float32, EPSG:32611, 3292 × 3730, 100 m, 37,654 positive pixels, values {0,1}, **0** on masked catalogue pixels, **0** outside the footprint, SHA-256 `7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146`, 21/21 checks, 0 hard failures. Earlier session: `gems47-h47b-tmiup150-…-research-not-submittable-20261006.tif`, SHA-256 `7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b`, 18,524 positive pixels. | Published for transparent review. **Not slot-eligible.** |
-| Uniqueness | Later session: max Jaccard **0.0457** against all 13 restored scored rasters. Earlier session: **zero** exact positive-mask matches against **334** exact-grid TIFFs in 55 visible `buffedlizard55-lab` GEMSDOE repositories; maximum equal-mass Jaccard **0.01119**. | Supports uniqueness against accessible artifacts. **Not a global uniqueness proof** and not a performance result. |
-| Public leaderboard | One-time read 2026-10-06: rank 1 **0.3774** (participant name not preserved), DARD **0.3195 at #7**, `extradr19` **0.2778 at #13**. An earlier same-date read gave rank 1 = 0.3345 and DARD at #5; the later observation supersedes it. | Participant scores do **not** identify TIFFs or receipts. No TIFF-to-score mapping is authenticated (IR-47-002). |
-| The reported `"Predicted values must be in range [0, 1]"` rejection | **Diagnosed and fixed.** 29 sibling GeoTIFFs scanned: **12/12** `-nan` variants fail `np.all((v>=0)&(v<=1))` because NaN fails both comparisons; **17/17** all-finite variants pass; **no file anywhere** has a value outside [0, 1]. | The primary artifact convention here is **all-finite** (zeros outside the footprint, nodata unset). `src/gems47/submission.py` runs every plausible reading separately. |
+**[Download the new H47-C1 single-band GeoTIFF](docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif)** ·
+[Single-TIFF ZIP](docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.zip) ·
+[Executive summary and official submission sequence](docs/executive-summary.html) ·
+[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
 
-Details: [H47-B validation report](docs/validation-h47b-20261006.md) ·
-[uniqueness audit](docs/h47b-uniqueness-audit-20261006.json) ·
-[LATI method](docs/method.html) · [cross-fitted validation](evidence/crossfit_validation.json) ·
-[flank sensitivity](evidence/flank_sensitivity.json) ·
-[leaderboard / source attribution](docs/analysis.md) ·
-[irregularity register (earlier session)](docs/irregularities.md) ·
-[IR-47-001…015 (later session)](docs/irregularities.html)
+**RESEARCH ONLY · NOT PROMOTED · DO NOT UPLOAD · NO SLOT AUTHORIZED.**
+This is new model inference, not a renamed/repacked historical submission. 532 prior-raster
+comparisons across 54 public commit-pinned owner inventories plus
+local history found **zero exact positive-mask or in-footprint-value matches**; max Jaccard
+**0.040617**. This is bounded uniqueness, not proof of all unpublished outputs or geological discoveries.
 
-**The site is [`docs/index.html`](docs/index.html).** The submission artifact and the gate verdict are
-the first things on it.
+- Filename: `gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif`
+- Name: `GEMSDOE47-C1-D2p8-bdf4508769c8`
+- Short Note (143 characters): `H47C1 odd-step/channel; d=2.8px/280m; 90% marginal proxy L=0.0000 (assumed exch.), not private; 37654 dots; finite+mask; UNSCORED; NOT PROMOTED`
+- TIFF SHA-256: `e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0`
+- Actual bytes: **152,396**. Full width **3292 × height 3730**, EPSG:32611, 100 m.
+- One float32 data band, 37,654 unit dots. All raw samples finite in [0,1]. Internal validity mask marks
+  exactly 7,111,787 outside-footprint pixels null. `nodata=None` keeps valid zeros valid. No sidecar mask.
+- **15/15 strict read-back checks pass. Organizer acceptance has not been tested.** The original rejected
+  file/parser receipt was not supplied, so its historical error cause is not claimed proved.
+
+## Actual validation decision — not a leaderboard projection
+
+| Locked comparison | Pooled public-catalogue DTI | Mean block DTI | Spacing |
+|---|---:|---:|---:|
+| H47-C1 odd-step/channel profile detector | 0.177872 | 0.177038 | **2.8 px / 280 m** |
+| Selection-only best raw/ordinary-terrain baseline | 0.180216 | 0.176051 | 3.6 px / 360 m |
+| Fixed-seed spaced random | 0.070924 | 0.060701 | 2.8 px / 280 m |
+
+**Selected spacing 2.8 px / 280 m · nominal 90% simultaneous marginal block band · lower floor 0.0000.**
+Selection / calibration = 21 / 21 disjoint-role blocks, max residual over all five settings,
+finite rank 20/21. Under exchangeability, rank coverage is at least 20/22=90.91%; geological
+exchangeability is **unverified**. This does **not** cover private new-fault labels, pooled map DTI,
+conditional geography, or the globally emitted 37,654-dot TIFF. No nonzero private guarantee exists.
+
+Candidate wins **11/22** truth-bearing test blocks; **15** required. Pooled loss and zero floor keep
+the gate closed despite a slightly favorable mean. Secondary SGMC distance>300 m diagnostic also loses
+to random (profile 0.073537 vs random 0.083174). No competition submission was made.
+
+This run has **not** surpassed the user target 0.3195 or the dated official leader 0.3774. Proxy values
+are not directly comparable to those competition scores. Reported GEMSDOE32/H33 0.2778 is preserved as
+user/owner history; participant rows do not authenticate the filename/hash. [Mechanism and limits](docs/analysis.html).
+
+## Preregistration, correction and review
+
+Five ranked physical hypotheses were written **before implementation** in
+[`docs/research/h47c-hypotheses-preregistered.md`](docs/research/h47c-hypotheses-preregistered.md).
+Protocol and tested implementation were committed at `cc14ad84fbace93bdd0c2a7bc8b520170e082bb3` before fit/scoring.
+
+A test-loop variable overwrote pre-test-selected **2.8** with final sweep value **5.8**. Pass 2 caught it
+before a TIFF was published. The first run is retained/retracted in `evidence/retired-profile-pass1/`.
+Technical correction `7aa938e` changed no features, models, split, seed, quota, spacing grid or gate.
+Every trained prediction-field hash and the full spacing history match byte-for-byte across runs;
+only final interpretation/emission now honors the original lock. See
+[correction/review notes](docs/research/h47c-review-notes.md) and
+[control-flow recheck](evidence/profile-control-flow-recheck.json).
+
+Other fixes: empty-truth EDT phantom corner credit; tensor half-angle / row-column strike geometry;
+zero-DTI marginal credit; portable H33 reference path; skipped-large restoration falsely labeled
+verified; CI missing function-based tests; inactive but dangerous legacy builders deleting/replacing
+all downloads. Retired LATI builders now require educational opt-in, write only ignored cache and
+cannot approve a slot. Historical orientation/model/hidden-mass evidence is not recertified.
+
+## Autonomous recovery / training / inference / validation
+
+No manually placed data is needed to reproduce the **mirror-based research** pipeline:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-dev.txt -r requirements-research-lock.txt
+.venv/bin/python scripts/restore_data.py --group all
+PYTHONPATH=src .venv/bin/python scripts/verify_grid.py
+PYTHONPATH=src .venv/bin/python scripts/run_profile_experiment.py
+PYTHONPATH=src .venv/bin/python scripts/build_profile_submission.py
+.venv/bin/python scripts/audit_prior_artifacts.py --candidate docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif
+.venv/bin/python scripts/publish_research_site.py
+PYTHONPATH=src .venv/bin/python -m pytest tests -q
+.venv/bin/python -m ruff check .
+```
+
+**23/23 files / ~507 MB restored and verified** by digest **and byte size**. Large arrays, model weights,
+raw archives and caches stay ignored. Reproducible pins establish mirror identity, not authenticated
+DrivenData provenance. Source recipes and exact numerical/parser versions are saved. The fixed screen
+runs in about four minutes on 2 CPU cores; scratch feature/model arrays are under 1 GB per content key.
+
+CI collects **all non-data pytest tests**, including physical mechanisms, block label isolation,
+finite conformal ranks, exact selected-choice regression, source-policy/failure handling and actual
+new TIFF/ZIP bytes. Restored-grid tests are run locally; they are explicitly marked `needs_data`.
+
+## Auditable automatic feed and source boundaries
+
+- `docs/data/` contains the actual deployed screen, spacing CSV, hash receipts and bounded source inventory;
+  no broken `../evidence` paths in the docs-only Pages deployment.
+- Pages refreshes permitted official-government/owner source availability and hashes on push/manual
+  dispatch and a daily schedule. Failures are retained as failures; stale observations are labeled.
+- **DrivenData Terms prohibit robot/spider monitoring**. No written permission or authorized API feed
+  is recorded, so automatic DrivenData queries are disabled. The dated participant board is retained,
+  not silently presented as live. This limitation narrows the automatic-feed requirement rather than
+  bypassing Terms. [Terms](https://www.drivendata.org/termsofuse/) · [Sources](docs/sources.html).
+- Public official archives are independently probed on a GitHub-hosted runner; availability/coverage
+  is whatever the receipt actually says, never implied by a green workflow. Those vectors do not train C1.
+- Staff withholds hidden data sources/types/coverage. Raw 1m_DEM_links.csv and 1 m DEM tiles were not
+  acquired. Quantized 100 m lidar descriptors are not raw lidar. Band 6 `tc` and band 15 depth metadata
+  remain disputed. [Irregularities](docs/irregularities.html).
+- The official overview currently lists **December 3, 2026, 23:59 UTC**. Up to three scoring submissions
+  per week; **one selected file is evaluated in both rounds**, not unlimited final-round submissions.
+- Generative-AI assistance by an Arena.ai coding agent must be disclosed in the official narrative.
+  Entrant eligibility, authorized account use and any organizer receipt cannot be certified here.
+
+## What to do next
+
+1. Keep the current slot closed. Do not rename or re-label this negative run as promoted.
+2. Use actual official-download coverage receipts to assess external-data feasibility; obtain the official
+   1 m tile CSV/coverage before calling a high-resolution detector viable. Process bounded tile windows,
+   not an unbounded hundreds-of-GB mosaic in Git.
+3. Preregister a new competing-explanation detector and an honestly fresh validation design. Known C1
+   test scores cannot become independent tuning data and a second untouched test.
+4. Require same-mass pooled and fold-level wins against comparable controls, a supported floor and
+   source/license audit. Only then prepare a new slot-eligible artifact and retain its organizer receipt.
+
+[Current next-session handoff](docs/next-session.md) · [Reusable knowledge](docs/knowledge.html) ·
+[Historical pre-C1 README (explicitly superseded)](docs/research/readme-preC1-20261006.md)
 
 ---
 
 ## 0. Read this first — the standing project brief
 
-This section is the user's brief. It is kept near the top on purpose: **re-read it at the start of every
+This is the structured user brief saved by the prior session (not a claimed verbatim chat transcript). It is kept near the top on purpose: **re-read it at the start of every
 session**, because every decision above is answerable to it.
 
 > ### MAXIMUM URGENCY / HIGHEST URGENCY MUST BE FOLLOWED
@@ -116,138 +211,140 @@ session**, because every decision above is answerable to it.
 
 ---
 
-## 1. What the later session concluded
 
-| Question | Answer | Evidence |
-|---|---|---|
-| Hidden new-fault mass `K` in the scored split | **12,348 px** model-free; 15,638–20,069 under fitted shapes | `evidence/lati_fit.json`, `evidence/flank_mass.json` |
-| Does the hidden truth hug the catalogue? | 12 observations say yes (67 % of `K` within 150 m, ×19.5). **The 13th falsifies it** | `evidence/flank_sensitivity.json` |
-| Does any *a priori* geological layer beat the incumbent out of fold? | **No.** In-fold +86.4 % LOO collapsed to −0.053 out of fold | `evidence/crossfit_validation.json` |
-| Why did 0.2778 win? | **Precision, not discovery.** Emitted mass fell 69 % from h19-5 while covered kernel integral fell only 33 % | `knowledge/02_the_metric_algebra.md` |
-| Can 0.3195 be reached at the incumbent’s waste ratio? | **No — it needs 102.7 % weighted recall.** `F/T` must roughly halve | `docs/evidence.html` |
-| What caused the range rejection? | **NaN pixels**, not out-of-range values | `evidence/range_error_diagnosis.json` |
+### Preservation note
 
-### LATI — the instrument the later session built
+The structured standing brief above was present in the checkout and is preserved here. The original
+word-for-word chat prompt was not present in the condensed continuation context or repository; this file
+does **not** pretend to reconstruct unavailable wording. All available supplied variant identifiers,
+reported scores and source URLs are retained below/in the linked registry. Re-read this whole section
+and the current decision at the start of every work session.
 
-Thirteen prior submissions were recovered byte-exactly together with the DTIs returned for them.
-**LATI** (Leaderboard-Anchored Truth Inversion) treats those thirteen numbers as *measurements of the
-hidden label set*: `T = ⟨q, w_p⟩` is exactly linear in the unknown truth intensity `q`, so each returned
-DTI is one equation in it. It replaces the earlier family’s self-referential truth model
-(`π ~ exp(−d(H19-5)/1.85 px)` — a scatter around the group’s own best field, which cannot falsify the
-field it was built from). It ships with positive controls (proximity to submitted rasters: ranks #1–#6
-of 72), a negative control (spatially shuffled layer: rank #71), permutation nulls (all 14 top layers
-beaten 10/10), and a 700× binned fast path verified to 1.1e-05 DTI. See [docs/method.html](docs/method.html).
+The brief's phrase “0.3195 current leaderboard top” is the original user target, **not** a current-board
+assertion. The saved official observation is 0.3774 at rank 1.
 
-## 2. Data provenance — no DrivenData credentials were needed
+## Preserved supplied score history — user claims, not organizer receipts
 
-Every byte is hash-pinned and reproducible. `scripts/restore_data.py` restores all **23** files (3
-official rasters, 7 external layers, 12 scored prior submissions, 1 reference raster) from the owner’s
-sibling repositories through the GitHub Contents API and verifies each SHA-256 and byte count before
-use:
+| User-reported submission label | User-reported public score | Source/context |
+|---|---:|---|
+| `gems-submission-20260925T001403Z-7f00890a` | 0.1563 | GEMSDOE |
+| `gems6_hgb88-topk03_33cec71ff0` | 0.0286 | 6GEMSDOE |
+| `pindrop-v4-nodes-20260925T152420Z-f347b70daa` | 0.1193 | GEMSDOE3 |
+| `pindrop-v4-discovery-20260925T152423Z-37f9d5b855` | 0.0830 | GEMSDOE3 |
+| `pindrop-v4-ridge-20260925T152422Z-4e03fc9705` | 0.1152 | GEMSDOE3 |
+| `gemsdoe2-dual-family-union-20260925T160406Z-f68e590f` | 0.1560 | GEMSDOE2 |
+| `gems-submission-20260926T163915Z-237f0063` | 0.0343 | GEMSDOE4 |
+| `gems-submission-20260926T175114Z-7f00890a` | 0.1563 | 5GEMSDOE |
+| `lidarscarp-ridge-top2pct-36c3a3f341c8` | 0.1461 | 7GEMSDOE |
+| `Hedge-v2_submission` | 0.1563 | 8GEMSDOE |
+| `2314b599` | 0.0107 | GEMSDOE9 |
+| `gems-structural-area06-v1` | 0.0202 | 11GEMSDOE |
+| `r7-nms3-dem10-scarp_0c9199f14e62` / `_allfinite` | 0.1294 | 12GEMSDOE |
+| `gems-tso1-20260929T005627Z-conj_alteration_mag` | 0.0782 | 15GEMSDOE |
+| `GEMS_r5-geom-horse-ensemble_20260929T154852Z_ccbe1de0_site_e96e942f` | 0.0020 | 14GEMSDOE |
+| `17GEMSDOE_F-ensemble-2pct_20260930T050626Z` | 0.0187 | 17GEMSDOE |
+| `H19-C_20260930T212401Z_c11e495e` | 0.0297 | 18GEMSDOE |
+| `h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan` | 0.1894 | 19GEMSDOE |
+| `h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan` | 0.1922 | 19GEMSDOE |
+| `h16-continuation-20260927T065521077735Z-3431b83c7c` | 0.0461 | GEMSDOE10 |
+| `h20-dem10-scarp-thin-20260927T155223039488Z-ffc91a1686` | 0.0921 | GEMSDOE10 |
+| `H25-ctx-ridge-20260927T232947704150Z-6452ae1d00` | 0.1280 | GEMSDOE10 |
+| `h28-dotted-ridge-20260928T020256236880Z-6452ae1d00` | 0.1839 | GEMSDOE10 |
+| `20261001_r13-lattice-s5_v2_nan-outside` | 0.0904 | 13GEMSDOE |
+| `h16-1-topo-geophys-baseline-ridges-20260930-df20f65e-nan` | 0.1855 | 16GEMSDOE |
+| `h18-3a-topo-geophys-x-complexity-prior-20260930-c502dfab-nan` | 0.0976 | 16GEMSDOE |
+| `h18-4-usgs-geologic-map-faults-gap-20260930-aef8f42c-nan` | 0.0360 | 16GEMSDOE |
+| `h16-continuation` | 0.0461 | GEMSDOE10 |
+| `h20-1-sarnnpu-powerlaw-pi0363-tilt-wingcrack-20260930-be0e8f6b-nan` | 0.1890 | 20GEMSDOE |
+| `h20-5-continuous-pu-proxy-unverified-20260930-824ce73a-nan` | 0.1859 | 20GEMSDOE |
+| `h23-a-dti-optimal-emission-6pct-20261002-e2ec4b49-nan` | 0.1002 | GEMSDOE22 |
+| `h23-b-dti-optimal-emission-10pct-20261002-86176698-nan` | 0.0748 | GEMSDOE22 |
+| `h30-arrangement-matched-habitat-20261002-0d4e02e8-nan` | 0.1352 | GEMSDOE23 |
+| `h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan` | 0.2477 | GEMSDOE24 |
+| `dotted-h19-5-d2-8-20261002-e56ea318af89-nan` | 0.2600 | GEMSDOE25 |
+| `dilcond-oof-v1-20261003-47629f496133-nan` | 0.1223 | GEMSDOE26 |
+| `topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan` | 0.2449 | GEMSDOE27 |
+| `h27-4-r1-solo-d2-8-20261003-8acb75e1f2cc-nan` | 0.2708 | GEMSDOE28 |
+| `h32-1-prethin-tip-euler-d2-8-20261003-31e35eee884e-nan` | 0.2649 | GEMSDOE28 |
+| `efd28-repro-20261003-1cc7dc534d51-nan` | 0.2600 | GEMSDOE29 |
+| `repo-c0-habitat-emission-20261003-a4d439b07426-nan` | 0.0041 | GEMSDOE29 |
+| `d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca` | 0.2600 | GEMSDOE30 |
+| `h27-4-solo-d28-20261004-8acb75e1-nan` | 0.2708 | GEMSDOE31 |
+| `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` | 0.2778 | GEMSDOE32 (filename/score link **not authenticated**) |
+| `h33d-analog-tip-stepover-r30-20261004-cb490425926e` | 0.2632 | GEMSDOE33 |
+| `h34-scatter-q50-arr-matched-20261004T223317Z` | 0.0778 | GEMSDOE34 |
+| `h35-06-aaa86efb25-20261004T225420098147Z-candidate` | 0.0418 | GEMSDOE35 |
+| `h40-e-disc-h40e-30k-zeros` | not supplied | GEMSDOE39 |
 
-```
-python3 scripts/restore_data.py --group all      # 23/23, ALL_VERIFIED=True, ~30 s
-```
+The prompt also listed several artifacts with no score. They remain “score not supplied,” not zero. The table intentionally preserves exact user-supplied identifiers and does not imply that similarly named TIFFs are byte-identical.
 
-Restored bytes live in `.cache/gems_data/` (**git-ignored**, ~507 MB). Nothing large is committed.
-Receipt: [`data/restore_receipt.json`](data/restore_receipt.json). The pins prove **mirror
-consistency, not organiser authentication** — the portal is login-walled.
 
-## 3. Layout
+## Preserved source URLs
 
-Two codebases coexist after the merge. Neither was rewritten; the earlier session’s files are
-byte-for-byte preserved.
+- **DrivenData GEMS overview** (official): https://www.drivendata.org/competitions/306/competition-doe-gems/
+- **Official target, metric and GeoTIFF format** (official): https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/
+- **Official background and research resources** (official): https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/
+- **Competition downloads (login required)** (official): https://www.drivendata.org/competitions/306/competition-doe-gems/data/
+- **Official participant leaderboard** (official): https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/
+- **September 2026 official rules** (official): https://docs.nlr.gov/docs/fy26osti/96647.pdf
+- **Staff clarification: catalogue pixels excluded in both rounds** (official): https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516
+- **Staff withholds test-data sources, types and coverage** (official): https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527?print=true
+- **USGS GeoDAWN data release** (official): https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and
+- **USGS Quaternary faults / current GIS downloads** (official): https://www.usgs.gov/programs/earthquake-hazards/faults
+- **USGS free elevation products** (official): https://www.usgs.gov/3d-elevation-program
+- **USGS ASTER hydrothermal alteration** (official): https://mrdata.usgs.gov/surficial-mineralogy/ofr-2013-1139/
+- **DOE GDR INGENIOUS, CC BY 4.0** (official): https://gdr.openei.org/submissions/1391
+- **Organizer-provided CPU/GPU reference solution** (official): https://github.com/drivendataorg/gems-prize-reference-solution
+- **Lei et al. split conformal, author manuscript** (primary_research_or_software): https://www.stat.berkeley.edu/~ryantibs/papers/conformal.pdf
+- **Sare et al. 2019 scarp templates** (primary_research_or_software): https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JB016886
+- **GDAL internal TIFF nodata masks** (primary_research_or_software): https://gdal.org/en/stable/drivers/raster/gtiff.html
+- **Rasterio nodata-mask documentation** (primary_research_or_software): https://rasterio.readthedocs.io/en/stable/topics/masks.html
+- **GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE/docs/index.html
+- **6GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/6GEMSDOE/
+- **GEMSDOE3** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE3/docs/index.html
+- **GEMSDOE2** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE2/docs/index.html
+- **GEMSDOE4** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE4/
+- **5GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/5GEMSDOE/docs/index.html
+- **7GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/7GEMSDOE/
+- **8GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/8GEMSDOE/
+- **GEMSDOE9** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE9/docs/index.html
+- **11GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/11GEMSDOE/docs/index.html
+- **12GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/12GEMSDOE/docs/index.html
+- **15GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/15GEMSDOE/docs/index.html
+- **14GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/14GEMSDOE/docs/index.html
+- **17GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/17GEMSDOE/
+- **18GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/18GEMSDOE/
+- **19GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/19GEMSDOE/docs/index.html
+- **GEMSDOE10** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE10/
+- **13GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/13GEMSDOE/
+- **16GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/16GEMSDOE/docs/index.html
+- **GEMSDOE21** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE21/
+- **20GEMSDOE** (secondary_owner_page): https://buffedlizard55-lab.github.io/20GEMSDOE/docs/index.html
+- **GEMSDOE22** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE22/docs/index.html
+- **GEMSDOE23** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE23/
+- **GEMSDOE24** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE24/
+- **GEMSDOE25** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE25/
+- **GEMSDOE26** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE26/
+- **GEMSDOE27** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE27/
+- **GEMSDOE28** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE28/
+- **GEMSDOE29** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE29/docs/index.html
+- **GEMSDOE30** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE30/
+- **GEMSDOE31** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE31/docs/
+- **GEMSDOE32** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html
+- **GEMSDOE33** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE33/
+- **GEMSDOE34** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE34/docs/index.html
+- **GEMSDOE35** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE35/docs/index.html
+- **GEMSDOE36** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE36/docs/
+- **GEMSDOE37** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE37/
+- **GEMSDOE38** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE38/docs/index.html
+- **GEMSDOE39** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE39/
+- **GEMSDOE40** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE40/docs/index.html
+- **GEMSDOE41** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE41/docs/index.html
+- **GEMSDOE42** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE42/docs/index.html
+- **GEMSDOE43** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE43/docs/index.html
+- **GEMSDOE44** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE44/docs/
+- **GEMSDOE45** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE45/
+- **GEMSDOE46** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE46/
+- **GEMSDOE47** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE47/
 
-```
-README.md                     this file - charter, decision record, standing brief
-index.html                    the earlier session's root landing page (site integrity tests gate it)
-docs/
-  index.html                  the canonical site: artifact + gate verdict first
-  executive-summary.html      how to submit, the promotion gate, why 0.2778 won, the ceiling
-  hypotheses.html             the five ranked hypotheses (later session)
-  method.html                 LATI: algebra, identifiability, controls, cross-fitting, two bugs
-  evidence.html               every number, with its file and its caveat
-  irregularities.html         IR-47-001 ... IR-47-015
-  leaderboard.html · analysis.{html,md} · sources.{html,md} · submit.html
-  portal-checklist.{html,md} · method.md · hypotheses.md · prior-results.md
-  irregularities.md · validation-protocol.md · validation-h47b-20261006.md
-  preregistered-h2.md · review-log.md · next-session.md · style.css
-                              the earlier session's pages, preserved in place
-  prev-session/               the three superseded landing pages, verbatim
-  downloads/                  both sessions' artifacts (all research-only)
-  prior-results.csv · prior-output-manifest.csv
-gemsdoe47/                    earlier session: candidate, magnetic, spatial, validation
-src/gems47_*.py               earlier session: metric, blocks, emit, verify_submission
-src/gems47/                   later session: grid, metric, features, hypotheses, lati,
-                              emitter, submission, scripts_common
-scripts/
-  restore_data.py             restore and SHA-256-verify all 23 inputs
-  verify_grid.py              re-derive every grid constant from the bytes (16 checks)
-  lati_fit.py · lati_controls.py · test_flank.py · flank_sensitivity.py · screen13.py
-  build_candidate.py · build_submission.py · build_final.py    (superseded exploratory)
-  crossfit_validate.py        the honest test: a-priori pool, selection inside each fold
-  ship.py                     the shipping path: build, evaluate, write, verify
-  build_h1_candidate.py · build_h47a.py · run_h2_experiment.py · package_submission.py
-  check_competition_data.py · validate_submission.py           (earlier session)
-tests/                        both suites: 68 unittest + 36 pytest (9 of them need data)
-registry/                     sources, data manifest, observations, irregularities
-knowledge/                    the reusable research base (brief item 11)
-notes/                        the earlier session's hypotheses, knowledge, results
-evidence/                     every machine-readable result quoted by the later session
-pyproject.toml                ruff config; per-file ignores scoped to src/gems47 and scripts only
-```
-
-## 4. Reproduce everything
-
-```bash
-python3 -m venv venv47 && ./venv47/bin/pip install -r requirements-dev.txt
-export PYTHONPATH=src
-
-python3 scripts/restore_data.py --group all     # 23/23 SHA-256 verified, ~30 s
-python3 scripts/verify_grid.py                  # 16/16 grid checks PASS
-python3 -m ruff check .                         # clean
-python3 -m unittest discover -s tests           # 68 tests OK (earlier session + site integrity)
-python3 -m pytest tests -q                      # 36 passed (later session)
-python3 scripts/ship.py                         # rebuild and re-verify the artifacts (~20 min)
-python3 scripts/crossfit_validate.py            # the gate that closed (~12 min)
-```
-
-Built under 2 vCPU, 3 GB RAM, ~19 GB disk, and a network that reaches only `pypi.org`, `github.com`,
-`api.github.com` and `codeload.github.com` from a shell.
-
-## 5. Remaining work
-
-1. **Use the 1 m DEM.** The competition supplies links to 716 USGS 3DEP 1 m tiles; only pre-derived
-   100 m LiDAR scarp rasters were reachable. Every LiDAR-derived layer ranked poorly here
-   (`lidar_coh100`, `lidar_strike`, `lidar_valid` among the worst of 72), which is exactly what
-   resampling metre-scale scarps to 100 m should do. Largest untested lever.
-2. **Spend three slots on the λ-probe.** `1/DTI(λ)` is linear in `1/λ`, so an anchor, a λ = 0.5 scaling
-   and a null-addition recover `T`, `F`, `K` **exactly** — conditioning 56×–1380× better than reading
-   four decimals. It would also settle whether scoring is restricted to a public chunk (IR-47-011).
-3. **Retrieve the staff answer in forum thread 11527** — which data the experts used. Retry via
-   `…/11527/10` or `…/11527?print=true` (IR-47-006).
-4. **Resolve the 0.2778 attribution** (IR-47-002). The leaderboard row belongs to participant
-   `extradr19`; the board does not identify TIFFs, so the file-level attribution is still an inference,
-   and it alone decides the flank verdict.
-5. **Do not re-test H47-4 / H47-B.** Deep-source magnetic continuity via `TMI_up150` was independently
-   proposed by both sessions; the earlier one built it, preregistered a gate, and it **lost to a
-   fixed-seed random control** (0.02755 vs 0.03716) with a conformal lower floor of 0.0. Closed.
-6. **Attack precision, not coverage.** The family’s whole gain from 0.1922 to 0.2778 came from cutting
-   emitted mass. Rank every dot by marginal credit and delete the tail below `α·DTI`.
-
-## 6. Honest limitations
-
-1. **Nothing was scored.** No DrivenData credentials exist here. Every projection is a model output and
-   is labelled UNSCORED.
-2. **Thirteen scalars are the entire ground truth**, six of them nested thinnings of one field. A
-   three-equation solve on that nested triple alone had condition number **3,136** and collapsed.
-3. **The 0.2778 attribution is contested** and decides a major verdict, so the break-even (0.2200) is
-   reported instead of a conclusion.
-4. **The local frames disagree.** SGMC ranks the near-uniform lattice best (0.2499) although it scored
-   0.0904 live; the blocked catalogue holdout ranks the flank-pruned arm worst (0.0046) although it is
-   reportedly the family best. No local instrument settles this.
-5. **Optimizer’s curse is ≈0.30 DTI** and was measured. Every in-fold number in this repository is
-   decorative.
-6. **The two sessions used different gates** (five truth frames + cross-fitting, vs a preregistered
-   locked-test / random-control / conformal-floor protocol). They agree on the verdict, but the
-   protocols are not yet unified — see `docs/next-session.md`.
+Named-only requested siblings: 48GEMSDOE/49GEMSDOE. The visible public inventory contains GEMSDOE48/GEMSDOE49; no nonexistent alternate Pages URL is fabricated.

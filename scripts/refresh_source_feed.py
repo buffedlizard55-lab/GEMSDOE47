@@ -74,8 +74,17 @@ def fetch_source(source: dict, *, fetcher=requests.get) -> tuple[dict, str | Non
     record = {"id": source["id"], "title": source["title"], "url": source["url"],
               "evidence_class": source["evidence_class"], "last_attempt_utc": attempt,
               "verified_claims": False}
-    # Only explicit HTTPS public URLs from the versioned registry are fetched.
+    # Only permitted HTTPS public URLs from the versioned registry are fetched.
+    # DrivenData Terms (Prohibited Uses) prohibit robot/spider monitoring. No
+    # written organizer permission or documented authorized feed is recorded.
+    # A public page and a user's research request are not that permission.
     parsed = urlparse(source["url"])
+    if parsed.hostname == "drivendata.org" or (parsed.hostname or "").endswith(".drivendata.org"):
+        record.pop("last_attempt_utc")
+        record["policy_checked_utc"] = attempt
+        return {**record, "status": "SKIPPED_TERMS_WRITTEN_PERMISSION_NOT_RECORDED",
+                "reason": "Automated DrivenData monitoring disabled; retain dated observation and official link.",
+                "terms_url": "https://www.drivendata.org/termsofuse/"}, None
     if parsed.scheme != "https" or parsed.username or parsed.password:
         return {**record, "status": "INVALID_PUBLIC_SOURCE_URL"}, None
     try:
@@ -141,8 +150,11 @@ def refresh(sources: list[dict], previous: dict, *, fetcher=requests.get, worker
         board["file_to_score_mapping_verified"] = False
     return {"schema_version": 1, "generated_utc": utc_now(),
             "policy": "Availability is not claim verification; secondary pages never authenticate a score-to-file mapping.",
-            "automation": "GitHub Pages refresh on push/manual dispatch and daily schedule; no competition uploads.",
+            "automation": "Daily Pages refresh of permitted official/owner sources; DrivenData monitoring disabled without written permission; no uploads.",
             "sources": records, "leaderboard": board,
+            "drivendata_automated_monitoring_enabled": False,
+            "permission_boundary": "DrivenData Terms prohibit robots/spiders; no written permission recorded. Saved dated board is not automatically refreshed.",
+            "policy_skips": sum(r["status"].startswith("SKIPPED_TERMS") for r in records),
             "fetch_failures": sum(r["status"] in ("FETCH_FAILED", "PARSER_FAILED_LAST_OBSERVATION_RETAINED") for r in records)}
 
 

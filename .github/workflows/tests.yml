@@ -30,7 +30,9 @@ jobs:
       - name: Run all pytest tests, including detector, conformal, exporter and feed
         env:
           PYTHONPATH: src
-        run: python -m pytest tests -q
+        run: python -m pytest tests -q -m 'not needs_data'
+      # Real restored-grid tests are run locally with all 23 verified inputs;
+      # CI still reopens the actual new release TIFF in test_current_artifact.py.
       # tests/test_shipped.py is marked needs_data: it re-verifies the shipped GeoTIFFs
       # against the real 3730x3292 competition grid, which requires the ~507 MB of
       # restored bytes. Run it locally after `scripts/restore_data.py --group all`.

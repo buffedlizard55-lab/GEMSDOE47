@@ -32,7 +32,7 @@ def test_layout_and_rank_anomalies_fail_instead_of_guessing(html):
 def test_ssl_failure_preserves_the_last_observation_and_marks_it_stale():
     def fail(*a, **kw):
         raise requests.exceptions.SSLError("test-only network failure")
-    sources = [{"id": "official-leaderboard", "title": "Official", "url": URL, "evidence_class": "official"}]
+    sources = [{"id": "official-leaderboard", "title": "Test fixture", "url": "https://example.org/permitted-fixture", "evidence_class": "official"}]
     previous = {"leaderboard": {"observed_utc": "2026-10-05T12:00:00Z", "rows": [{"rank": 1, "score": .3774}]},
                 "sources": [{"id": "official-leaderboard", "last_success_utc": "2026-10-05T12:00:00Z"}]}
     result = F.refresh(sources, previous, fetcher=fail)
@@ -47,7 +47,19 @@ def test_ssl_failure_preserves_the_last_observation_and_marks_it_stale():
 def test_initial_failure_produces_no_numeric_score():
     def fail(*a, **kw):
         raise requests.exceptions.ConnectionError()
-    source = {"id": "official-leaderboard", "title": "Official", "url": URL, "evidence_class": "official"}
+    source = {"id": "official-leaderboard", "title": "Test fixture", "url": "https://example.org/permitted-fixture", "evidence_class": "official"}
     result = F.refresh([source], {}, fetcher=fail)
     assert result["leaderboard"]["status"] == "UNAVAILABLE_NO_SCORE_INVENTED"
     assert "rows" not in result["leaderboard"]
+
+
+def test_drivendata_terms_disable_unpermitted_automatic_monitoring():
+    def forbidden(*a, **kw):
+        pytest.fail("no DrivenData request may be sent without recorded written permission")
+    source = {"id": "official-leaderboard", "title": "Official", "url": URL, "evidence_class": "official"}
+    record, body = F.fetch_source(source, fetcher=forbidden)
+    assert body is None and record["status"] == "SKIPPED_TERMS_WRITTEN_PERMISSION_NOT_RECORDED"
+    assert "http_status" not in record and "last_attempt_utc" not in record
+    result = F.refresh([source], {}, fetcher=forbidden)
+    assert result["policy_skips"] == 1
+    assert not result["drivendata_automated_monitoring_enabled"]
