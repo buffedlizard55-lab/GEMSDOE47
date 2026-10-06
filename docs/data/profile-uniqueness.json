@@ -1,11 +1,11 @@
 {
-  "generated_utc": "2026-10-06T20:26:01Z",
+  "generated_utc": "2026-10-06T22:00:33Z",
   "candidate_filename": "gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif",
   "candidate_sha256": "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0",
   "candidate_positive_pixels": 37654,
-  "inventory_sha256": "50c79d96e862b51e5e9057205c58e1b39832556c7e04610d83e62b7a0f6a25aa",
+  "inventory_sha256": "e4cf4deaec37af4a445bb7a438de64547d0c35d1836c3e6c066942f4f96f5a2d",
   "public_repositories_in_inventory": 54,
-  "comparisons": 532,
+  "comparisons": 561,
   "exact_matches": 0,
   "bounded_unique": true,
   "global_unique_proven": false,
@@ -818,7 +818,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_multiphysics_submission_06ca61e5.tif"
         }
       ],
@@ -837,7 +837,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_multiphysics_submission_06ca61e5.zip"
         }
       ],
@@ -1409,6 +1409,87 @@
       "exact_in_footprint_prediction_match": false
     },
     {
+      "git_blob_sha1": "50b86b69c33e16f837519aa91d85e75c4c0978d5",
+      "size_bytes": 753085,
+      "paths": [
+        {
+          "repository": "GEMSDOE51",
+          "commit": "6b43cfd264adb940b31f962a7f327e2fb7f37a6b",
+          "path": "docs/downloads/gems51-sbd-hridge-44090-20261006.tif"
+        },
+        {
+          "repository": "GEMSDOE51",
+          "commit": "6b43cfd264adb940b31f962a7f327e2fb7f37a6b",
+          "path": "submissions/gems51-sbd-hridge-44090-20261006.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "e527ac899dc0b6593b4b0db824a51678fad87111604e74845f5cd71990a1db55",
+      "positive_pixels": 227381,
+      "invalid_interior_pixels": 0,
+      "intersection": 5721,
+      "jaccard": 0.02206205604016752,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "57f1a3500d984b4f0e278119a40582246dbedb21",
+      "size_bytes": 2133002,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/diagnostics/gemsdoe48-h48-1-belief_dempster_mF_norm01.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "b748e0f97738a5e3b0feaf35dab340ff1dcedd6b8d2124f2b54b5f1b0f14d7d3",
+      "positive_pixels": 786170,
+      "invalid_interior_pixels": 0,
+      "intersection": 17502,
+      "jaccard": 0.0217059685832707,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "7a9957394ff7df095628863db84c78b21d1fc2ce",
+      "size_bytes": 2188829,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/diagnostics/gemsdoe48-h48-1-conflict_K.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "96737553f2c6322bdf9870759b0e14c4bedd55f11eb4ce8e0f1ffb3e5288dd28",
+      "positive_pixels": 749296,
+      "invalid_interior_pixels": 0,
+      "intersection": 16478,
+      "jaccard": 0.021386890114111868,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "1601f23e9650163a9b53d7187bcc8a9316bad31a",
+      "size_bytes": 1238649,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds48-belief.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "f7e5645f10ffb9961ad3199ff83c67cd3bc9375d75af971cf656253dae1057c5",
+      "positive_pixels": 793357,
+      "invalid_interior_pixels": 0,
+      "intersection": 17280,
+      "jaccard": 0.02123551886311324,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
       "git_blob_sha1": "6255d3e14dc93525438448a1ed7c87c3322b4b0a",
       "size_bytes": 355972,
       "paths": [
@@ -1443,6 +1524,25 @@
       "invalid_interior_pixels": 0,
       "intersection": 2495,
       "jaccard": 0.021173315681831683,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "328ab48aa7e0373c19bafec9296ac0696ccc5c1b",
+      "size_bytes": 1211081,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds48-conflict.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "b7e39108f9718021edaac2920680ee49d3ffdcacab93e38822081556407d6010",
+      "positive_pixels": 759687,
+      "invalid_interior_pixels": 0,
+      "intersection": 16373,
+      "jaccard": 0.02096500752911771,
       "exact_positive_mask_match": false,
       "exact_in_footprint_prediction_match": false
     },
@@ -2507,7 +2607,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62.tif"
         }
       ],
@@ -2526,7 +2626,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62.zip"
         }
       ],
@@ -2545,7 +2645,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62_allfinite.tif"
         }
       ],
@@ -2578,12 +2678,69 @@
       "exact_in_footprint_prediction_match": false
     },
     {
+      "git_blob_sha1": "ce647368b9d301d9bc1362bba590cad22b22fc2b",
+      "size_bytes": 180061,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds-belief-raw-20261006T201749Z-95897e3f8125.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "0daeb871557e8c77264f26abab24e8d6aa2cef316efabb0c290869a2ccd63e70",
+      "positive_pixels": 47905,
+      "invalid_interior_pixels": 0,
+      "intersection": 1578,
+      "jaccard": 0.01878996439670878,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "1343b158970e403c4ba2f83ff2afc9ef3fd86b9c",
+      "size_bytes": 179003,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds-dotted-x-tipstepover-20261006T201749Z-95897e3f8125-belief-zeros.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "1aef3f909aea5b6c792380f4498d834231fa8cc8f03cc677098bf9076e0edc73",
+      "positive_pixels": 47905,
+      "invalid_interior_pixels": 0,
+      "intersection": 1578,
+      "jaccard": 0.01878996439670878,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "a043fbe768ba65a320cf7d5c864a07c651bd99d2",
+      "size_bytes": 169061,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds-dotted-x-tipstepover-20261006T201749Z-95897e3f8125-decision-zeros.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "a913f633925e9e683be150ec7826d8dad6cca44589bf832ec5d8e689ccda5c52",
+      "positive_pixels": 47905,
+      "invalid_interior_pixels": 0,
+      "intersection": 1578,
+      "jaccard": 0.01878996439670878,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
       "git_blob_sha1": "211a4a69a4d49f12f0fe5f2265cde0c725063254",
       "size_bytes": 364121,
       "paths": [
         {
           "repository": "GEMSDOE48",
-          "commit": "829a82e624c5be6a207d811e50478e5bff00bc2d",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
           "path": "docs/downloads/gemsdoe48-h48-ds-yager-conflict-20261006.tif"
         }
       ],
@@ -2602,7 +2759,7 @@
       "paths": [
         {
           "repository": "GEMSDOE48",
-          "commit": "829a82e624c5be6a207d811e50478e5bff00bc2d",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
           "path": "docs/downloads/gemsdoe48-h48-ds-yager-conflict-20261006.zip"
         }
       ],
@@ -2664,7 +2821,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_r5-nms3-trace_055e9aac96b8.tif"
         }
       ],
@@ -2683,7 +2840,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_r5-nms3-trace_055e9aac96b8.zip"
         }
       ],
@@ -2702,7 +2859,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_r5-nms3-trace_055e9aac96b8_allfinite.tif"
         }
       ],
@@ -2721,7 +2878,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_r6-nms3-h28-texture_8721329b55c7.tif"
         }
       ],
@@ -2740,7 +2897,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_r6-nms3-h28-texture_8721329b55c7.zip"
         }
       ],
@@ -2759,7 +2916,7 @@
       "paths": [
         {
           "repository": "12GEMSDOE",
-          "commit": "ab3f66b620d6fb00a2cd176d943375cae6813140",
+          "commit": "6e27f060cc449326335efc257b6a5e589898e619",
           "path": "docs/downloads/12GEMSDOE_r6-nms3-h28-texture_8721329b55c7_allfinite.tif"
         }
       ],
@@ -3542,7 +3699,7 @@
       "paths": [
         {
           "repository": "GEMSDOE47",
-          "commit": "d39176bd856221411ab455783e2509cfd884a761",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
           "path": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif"
         }
       ],
@@ -3561,7 +3718,7 @@
       "paths": [
         {
           "repository": "GEMSDOE47",
-          "commit": "d39176bd856221411ab455783e2509cfd884a761",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
           "path": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif"
         }
       ],
@@ -3591,6 +3748,30 @@
       "positive_pixels": 37654,
       "intersection": 1214,
       "jaccard": 0.0163845925446055,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "be09882ac7d025282ec6ba7e34ed8f587d152e20",
+      "size_bytes": 249431,
+      "paths": [
+        {
+          "repository": "GEMSDOE47",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
+          "path": "docs/downloads/superseded/gems47-h48-mscl-conf-r1p5-44838px-20261006T201749Z-allfinite.tif"
+        },
+        {
+          "repository": "GEMSDOE47",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
+          "path": "docs/downloads/superseded/gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "4b06a5cc617d187000ec2cd9e682bb79b36df762f6d34c29b388385772b128f8",
+      "positive_pixels": 44838,
+      "invalid_interior_pixels": 0,
+      "intersection": 1319,
+      "jaccard": 0.016249245438754265,
       "exact_positive_mask_match": false,
       "exact_in_footprint_prediction_match": false
     },
@@ -4536,6 +4717,25 @@
       "exact_in_footprint_prediction_match": false
     },
     {
+      "git_blob_sha1": "df66ffd2d45dd5b4757362b89a1a533d2797e957",
+      "size_bytes": 97871,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds-conflict-20261006T201749Z-95897e3f8125.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "73b1e452ba18dcd56291652ad9b553cd85e7ca709778ebf1cee770e159d50fbf",
+      "positive_pixels": 16291,
+      "invalid_interior_pixels": 0,
+      "intersection": 793,
+      "jaccard": 0.014919476219145094,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
       "git_blob_sha1": "7582d23d5826f812628a70065bcdbf85ed5f68cf",
       "size_bytes": 148788,
       "paths": [
@@ -4712,6 +4912,44 @@
       "exact_in_footprint_prediction_match": false
     },
     {
+      "git_blob_sha1": "3a5c70697d856e2b84e69c9fe37168a48b6ef33c",
+      "size_bytes": 226886,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-h48-1-ds-fusion-b2xh32tip-20261006-407bb7f4-zeros.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "6cb2aab8dbd71335152dea7e2fa442126abffc609b426286f5a171f14353b454",
+      "positive_pixels": 37754,
+      "invalid_interior_pixels": 0,
+      "intersection": 1082,
+      "jaccard": 0.014557489976589618,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "afdac5729fafcdb8d3156eef85ac242a772565bd",
+      "size_bytes": 191885,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-h48-1-ds-fusion-b2xh32tip-20261006-407bb7f4-zeros.zip"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "6cb2aab8dbd71335152dea7e2fa442126abffc609b426286f5a171f14353b454",
+      "positive_pixels": 37754,
+      "invalid_interior_pixels": 0,
+      "intersection": 1082,
+      "jaccard": 0.014557489976589618,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
       "git_blob_sha1": "c00c2ca916c046544baeb6e40d1e782bf46f50c0",
       "size_bytes": 355443,
       "paths": [
@@ -4746,6 +4984,25 @@
       "invalid_interior_pixels": 0,
       "intersection": 1075,
       "jaccard": 0.014481430091738176,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "ad9afd560eb99f51663f69ff61c63fee7dbada35",
+      "size_bytes": 282876,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds48-emission.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "a579081d22eef2039605910a19d2351df775d9d33a278d8238badacd4c387a3c",
+      "positive_pixels": 37654,
+      "invalid_interior_pixels": 0,
+      "intersection": 1073,
+      "jaccard": 0.014454098471071597,
       "exact_positive_mask_match": false,
       "exact_in_footprint_prediction_match": false
     },
@@ -5345,6 +5602,44 @@
       "invalid_interior_pixels": 0,
       "intersection": 995,
       "jaccard": 0.013230679219190468,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "fec8970e99e2dc99c63fa92c18f26b5d1bf855eb",
+      "size_bytes": 357995,
+      "paths": [
+        {
+          "repository": "GEMSDOE52",
+          "commit": "5b69e7c7eb56bfe9cb173617175625edae9346ea",
+          "path": "docs/downloads/gemsdoe52-cotrain-a-b-disagreement-v2-flank3-20261006T204507Z-96ba9d57-nan.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "c8688bbea931d23b6316e502a9b09f7f68ede16eee7c09900edbd9f7fcc98325",
+      "positive_pixels": 40532,
+      "invalid_interior_pixels": 0,
+      "intersection": 1020,
+      "jaccard": 0.013218256745198663,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "5a5ec8c04cea9f37015fb0ce2ed0cabd645d0884",
+      "size_bytes": 222152,
+      "paths": [
+        {
+          "repository": "GEMSDOE52",
+          "commit": "5b69e7c7eb56bfe9cb173617175625edae9346ea",
+          "path": "docs/downloads/gemsdoe52-cotrain-a-b-disagreement-v2-flank3-20261006T204507Z-96ba9d57-zeros.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "78df8af098fa0d659bb128df1fbfd0448830e19f756b76fd76b0894867a1b814",
+      "positive_pixels": 40532,
+      "invalid_interior_pixels": 0,
+      "intersection": 1020,
+      "jaccard": 0.013218256745198663,
       "exact_positive_mask_match": false,
       "exact_in_footprint_prediction_match": false
     },
@@ -6038,12 +6333,50 @@
       "exact_in_footprint_prediction_match": false
     },
     {
+      "git_blob_sha1": "e6f8d2d6af38095c86d244e90e0a6824ae662535",
+      "size_bytes": 419609,
+      "paths": [
+        {
+          "repository": "GEMSDOE49",
+          "commit": "35af1a58bf46da47cb4f4bb582506eb4cd62014d",
+          "path": "docs/downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "bef0881aadc8366f1a08e13aac119cfa71492750e93426105b9e5745c7d701bf",
+      "positive_pixels": 40000,
+      "invalid_interior_pixels": 0,
+      "intersection": 855,
+      "jaccard": 0.011132957460383598,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "47f3463528bac382b1e6c96a4f4c1ee61563d49b",
+      "size_bytes": 258447,
+      "paths": [
+        {
+          "repository": "GEMSDOE49",
+          "commit": "35af1a58bf46da47cb4f4bb582506eb4cd62014d",
+          "path": "docs/downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-zeros.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "154003d9b7220c43a96052364a4380ce8b602a9f7e45c549354b1f73353ef867",
+      "positive_pixels": 40000,
+      "invalid_interior_pixels": 0,
+      "intersection": 855,
+      "jaccard": 0.011132957460383598,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
       "git_blob_sha1": "e0d20952d39575636f0df95ff79b13701d505d7f",
       "size_bytes": 245652,
       "paths": [
         {
           "repository": "GEMSDOE47",
-          "commit": "d39176bd856221411ab455783e2509cfd884a761",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
           "path": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif"
         }
       ],
@@ -6062,7 +6395,7 @@
       "paths": [
         {
           "repository": "GEMSDOE47",
-          "commit": "d39176bd856221411ab455783e2509cfd884a761",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
           "path": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif"
         }
       ],
@@ -6149,6 +6482,63 @@
       "invalid_interior_pixels": 0,
       "intersection": 841,
       "jaccard": 0.010948667543254397,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "ce08d24d86fbac151afba4e3e22584b058916a2f",
+      "size_bytes": 377092,
+      "paths": [
+        {
+          "repository": "GEMSDOE49",
+          "commit": "35af1a58bf46da47cb4f4bb582506eb4cd62014d",
+          "path": "docs/downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "c58fe0551e120678fff190239146985d0b2f7255255535fb5fb637a05cb40af3",
+      "positive_pixels": 40000,
+      "invalid_interior_pixels": 0,
+      "intersection": 830,
+      "jaccard": 0.0108039154430907,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "ab3927ff4ade32bba6fb1954a3d6aa9295734077",
+      "size_bytes": 230827,
+      "paths": [
+        {
+          "repository": "GEMSDOE49",
+          "commit": "35af1a58bf46da47cb4f4bb582506eb4cd62014d",
+          "path": "docs/downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-zeros.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "3722e26fbf9129874be1fb8c687825803952c57ef1154ed0a21029596bc412f1",
+      "positive_pixels": 40000,
+      "invalid_interior_pixels": 0,
+      "intersection": 830,
+      "jaccard": 0.0108039154430907,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "aeede883149efd45e1f2753e32bf1bccc5d1dd62",
+      "size_bytes": 377294,
+      "paths": [
+        {
+          "repository": "GEMSDOE49",
+          "commit": "35af1a58bf46da47cb4f4bb582506eb4cd62014d",
+          "path": "docs/downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z.zip"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "c58fe0551e120678fff190239146985d0b2f7255255535fb5fb637a05cb40af3",
+      "positive_pixels": 40000,
+      "invalid_interior_pixels": 0,
+      "intersection": 830,
+      "jaccard": 0.0108039154430907,
       "exact_positive_mask_match": false,
       "exact_in_footprint_prediction_match": false
     },
@@ -7656,12 +8046,107 @@
       "exact_in_footprint_prediction_match": false
     },
     {
+      "git_blob_sha1": "d89695181cadd18a7284241c571af6f82671bf6d",
+      "size_bytes": 2684197,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/diagnostics/gemsdoe48-h48-1-unassigned_dempster_mTheta.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "7b043c8bb7c49c2dfc3294d83f159ac3a922d948581bc854f3fc3386e85686c3",
+      "positive_pixels": 5167373,
+      "invalid_interior_pixels": 0,
+      "intersection": 37654,
+      "jaccard": 0.007286874781441169,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "1102512580ae652c866e0cf5754afd1531fac952",
+      "size_bytes": 2674878,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/diagnostics/gemsdoe48-h48-1-unassigned_yager_mTheta_incl_conflict.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "eb0411b295be3282b119597a0b52a277ea9aff3bd3d5a853b1ca788975b2b879",
+      "positive_pixels": 5167373,
+      "invalid_interior_pixels": 0,
+      "intersection": 37654,
+      "jaccard": 0.007286874781441169,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "1cb4f016b4876391236f4960822171a3820a7597",
+      "size_bytes": 244702,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds-plausibility-20261006T201749Z-95897e3f8125.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "0707aea945e02d2eb601d7d25456bf624261ab583a8d49f9988fed2de04409a4",
+      "positive_pixels": 5167373,
+      "invalid_interior_pixels": 0,
+      "intersection": 37654,
+      "jaccard": 0.007286874781441169,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "45469b332d0a742da90c159bac511936bb47134a",
+      "size_bytes": 157046,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "11c0e3b6569ef65ed2e311acfd37e6c91d0c325fc2ee803887cd6cebe06e031b",
+      "positive_pixels": 5167373,
+      "invalid_interior_pixels": 0,
+      "intersection": 37654,
+      "jaccard": 0.007286874781441169,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "b25bae2852d368c75c69ba486350187597fed0b3",
+      "size_bytes": 1189415,
+      "paths": [
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "docs/downloads/gemsdoe48-ds48-mtheta.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "0a7f1d02e509ace05626aae079cbc3f1205857b493386c98a97af16e48e51d21",
+      "positive_pixels": 5167373,
+      "invalid_interior_pixels": 0,
+      "intersection": 37654,
+      "jaccard": 0.007286874781441169,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
       "git_blob_sha1": "8c3d512092bfd9ea12ab22b259444e934031ab7d",
       "size_bytes": 392524,
       "paths": [
         {
           "repository": "GEMSDOE48",
-          "commit": "829a82e624c5be6a207d811e50478e5bff00bc2d",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
           "path": "docs/downloads/gemsdoe48-h48-ds-yager-conflict-20261006-unassigned-diagnostic.tif"
         }
       ],
@@ -8022,8 +8507,8 @@
       "paths": [
         {
           "repository": "GEMSDOE47",
-          "commit": "d39176bd856221411ab455783e2509cfd884a761",
-          "path": "docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif"
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
+          "path": "docs/downloads/superseded/gems47-dcat20-annulus-flankprune-n18524-20261006.tif"
         }
       ],
       "status": "compared",
@@ -8036,12 +8521,21 @@
       "exact_in_footprint_prediction_match": false
     },
     {
-      "status": "compared_local_history",
-      "path": "docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
-      "prior_file_sha256": "0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261",
-      "positive_pixels": 18524,
-      "intersection": 378,
-      "jaccard": 0.0067741935483870966,
+      "git_blob_sha1": "c13552ad9d7b6f015a6fc1661d21c629952ab976",
+      "size_bytes": 95223,
+      "paths": [
+        {
+          "repository": "GEMSDOE47",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
+          "path": "docs/downloads/superseded/gems47-h48-mscl-conf-r2p5-8176px-20261006T201338Z-allfinite.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "a2513d169be10adf985fcc93d0b8a0dd9937b4e12f029e4db94f47fc5f18d44c",
+      "positive_pixels": 8176,
+      "invalid_interior_pixels": 0,
+      "intersection": 308,
+      "jaccard": 0.006765959316374501,
       "exact_positive_mask_match": false,
       "exact_in_footprint_prediction_match": false
     },
@@ -9081,12 +9575,12 @@
       "paths": [
         {
           "repository": "GEMSDOE47",
-          "commit": "d39176bd856221411ab455783e2509cfd884a761",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
           "path": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif"
         },
         {
           "repository": "GEMSDOE47",
-          "commit": "d39176bd856221411ab455783e2509cfd884a761",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
           "path": "submission/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif"
         }
       ],
@@ -9094,6 +9588,16 @@
       "prior_file_sha256": "f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291",
       "positive_pixels": 37612,
       "invalid_interior_pixels": 0,
+      "intersection": 402,
+      "jaccard": 0.005369737123316948,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "status": "compared_local_history",
+      "path": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+      "prior_file_sha256": "f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291",
+      "positive_pixels": 37612,
       "intersection": 402,
       "jaccard": 0.005369737123316948,
       "exact_positive_mask_match": false,
@@ -9115,6 +9619,35 @@
       "invalid_interior_pixels": 0,
       "intersection": 470,
       "jaccard": 0.005317403749335325,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "529958a96ae8b2b22ad8d6cdb30ecff27622a098",
+      "size_bytes": 176159,
+      "paths": [
+        {
+          "repository": "GEMSDOE47",
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
+          "path": "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5",
+      "positive_pixels": 28124,
+      "invalid_interior_pixels": 0,
+      "intersection": 345,
+      "jaccard": 0.005272568887258722,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "status": "compared_local_history",
+      "path": "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif",
+      "prior_file_sha256": "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5",
+      "positive_pixels": 28124,
+      "intersection": 345,
+      "jaccard": 0.005272568887258722,
       "exact_positive_mask_match": false,
       "exact_in_footprint_prediction_match": false
     },
@@ -9822,6 +10355,44 @@
       "exact_in_footprint_prediction_match": false
     },
     {
+      "git_blob_sha1": "d014851c5c6221bbd00c24e5c252d84ae337352c",
+      "size_bytes": 193214,
+      "paths": [
+        {
+          "repository": "GEMSDOE50",
+          "commit": "0a0bd36ce2f8891127fed12a08d31a59cb0d2c50",
+          "path": "docs/downloads/gems50-seislin-44709-20261006T2041Z-79e260ae.tif"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "79e260ae223d7dfd96413da28a9c6fed30107285ab843795181a5c9e5dff7262",
+      "positive_pixels": 44709,
+      "invalid_interior_pixels": 0,
+      "intersection": 316,
+      "jaccard": 0.0038514509975989372,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
+      "git_blob_sha1": "bbdd8af54c516685ba2eb108bde08a0864e98281",
+      "size_bytes": 105850,
+      "paths": [
+        {
+          "repository": "GEMSDOE50",
+          "commit": "0a0bd36ce2f8891127fed12a08d31a59cb0d2c50",
+          "path": "docs/downloads/gems50-seislin-44709-20261006T2041Z-79e260ae.zip"
+        }
+      ],
+      "status": "compared",
+      "prior_file_sha256": "79e260ae223d7dfd96413da28a9c6fed30107285ab843795181a5c9e5dff7262",
+      "positive_pixels": 44709,
+      "invalid_interior_pixels": 0,
+      "intersection": 316,
+      "jaccard": 0.0038514509975989372,
+      "exact_positive_mask_match": false,
+      "exact_in_footprint_prediction_match": false
+    },
+    {
       "git_blob_sha1": "73a2762caa69ae2a7f9cf27af3484f9ea6287999",
       "size_bytes": 363453,
       "paths": [
@@ -10327,24 +10898,14 @@
       "paths": [
         {
           "repository": "GEMSDOE47",
-          "commit": "d39176bd856221411ab455783e2509cfd884a761",
-          "path": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif"
+          "commit": "750f3b72c87ff7697555114548c2e7f5d1d9316d",
+          "path": "docs/downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif"
         }
       ],
       "status": "compared",
       "prior_file_sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
       "positive_pixels": 18524,
       "invalid_interior_pixels": 0,
-      "intersection": 151,
-      "jaccard": 0.002695129134167455,
-      "exact_positive_mask_match": false,
-      "exact_in_footprint_prediction_match": false
-    },
-    {
-      "status": "compared_local_history",
-      "path": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
-      "prior_file_sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
-      "positive_pixels": 18524,
       "intersection": 151,
       "jaccard": 0.002695129134167455,
       "exact_positive_mask_match": false,
@@ -10706,6 +11267,21 @@
         {
           "repository": "GEMSDOE40",
           "commit": "0d2ab31e0b75e29c627ee93614940904b457f8c6",
+          "path": "data/sample_submission.tif"
+        },
+        {
+          "repository": "GEMSDOE48",
+          "commit": "f3207941990acda5249483edbd6c3cc589e9ce9c",
+          "path": "data/raw/sample_submission_template.tif"
+        },
+        {
+          "repository": "GEMSDOE50",
+          "commit": "0a0bd36ce2f8891127fed12a08d31a59cb0d2c50",
+          "path": "data/grid/sample_submission.tif"
+        },
+        {
+          "repository": "GEMSDOE51",
+          "commit": "6b43cfd264adb940b31f962a7f327e2fb7f37a6b",
           "path": "data/sample_submission.tif"
         }
       ],

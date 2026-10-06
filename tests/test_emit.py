@@ -28,7 +28,7 @@ from src.gems47_emit import (
 )
 from src.gems47_metric import dti
 
-RESEARCH_ARTIFACT = ROOT / "docs" / "downloads" / (
+RESEARCH_ARTIFACT = ROOT / "docs" / "downloads" / "superseded" / (
     "gems47-h47b-tmiup150-xscale-persist-n18524-"
     "research-not-submittable-20261006.tif"
 )

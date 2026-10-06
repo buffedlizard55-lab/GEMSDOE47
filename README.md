@@ -12,7 +12,7 @@
 [GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
 
 **RESEARCH ONLY · NOT PROMOTED · DO NOT UPLOAD · NO SLOT AUTHORIZED.**
-This is new model inference, not a renamed/repacked historical submission. 532 prior-raster
+This is new model inference, not a renamed/repacked historical submission. 561 prior-raster
 comparisons across 54 public commit-pinned owner inventories plus
 local history found **zero exact positive-mask or in-footprint-value matches**; max Jaccard
 **0.040617**. This is bounded uniqueness, not proof of all unpublished outputs or geological discoveries.
@@ -348,3 +348,26 @@ The prompt also listed several artifacts with no score. They remain “score not
 - **GEMSDOE47** (secondary_owner_page): https://buffedlizard55-lab.github.io/GEMSDOE47/
 
 Named-only requested siblings: 48GEMSDOE/49GEMSDOE. The visible public inventory contains GEMSDOE48/GEMSDOE49; no nonexistent alternate Pages URL is fabricated.
+
+## Additive reconciliation of concurrent main work
+
+While C1 ran, PRs #8–#11 merged session 3 and H48. Their code, data receipts, results and TIFFs are
+preserved additively: [Session 3](docs/session3.html), [H48 research](docs/research.html),
+[all historical artifacts](docs/all-downloads.html), [original session3 brief](README-session3.md).
+All remain non-promoted; no pooled/private score comparison across their differing proxy frames is
+valid. H48's adaptive-history floor is not recertified as finite-sample coverage by this merge.
+
+Namespace collision resolved without changing C1's frozen conformal bytes: H48's original implementation
+is preserved byte-for-byte as `src/gems47/h48_conformal.py`, with only its caller imports adjusted.
+The relocated H47-B/annulus files stay in `docs/downloads/superseded/`; references are synchronized.
+Current C1 artifact, original code/data/history hashes and gate result do not change. New artifact
+comparisons and the whole merged suite are rechecked before PR merge.
+
+
+### Official-source receipt update after additive reconciliation
+
+Runner 37536709561 verified all three public archives and coverage. USGS national traces: 82,841
+footprint cells (58,800 exact-catalogue); GDR traces: 82,871 (58,876 exact-catalogue); paleo point
+cells: 244. These all_touched pixel counts are not fault counts or expert-new truth. The earlier
+USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
+GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.

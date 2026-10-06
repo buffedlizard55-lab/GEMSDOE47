@@ -1,0 +1,62 @@
+{
+  "sgmc": {
+    "total": 82151,
+    "offcat_gt3px": 61664,
+    "components": 2077,
+    "median_comp": 13.0,
+    "mean_comp": 29.688974482426577,
+    "max_comp": 1569,
+    "mean_dist_to_cat_px": 29.74,
+    "median_dist": 23.19,
+    "frac_within_4px_of_cat": 0.2807,
+    "pct_of_footprint": 1.1933
+  },
+  "qfaults_v2": {
+    "total": 59065,
+    "offcat_gt3px": 1,
+    "components": 1,
+    "median_comp": 1.0,
+    "mean_comp": 1.0,
+    "max_comp": 1,
+    "mean_dist_to_cat_px": 3.61,
+    "median_dist": 3.61,
+    "frac_within_4px_of_cat": 1.0,
+    "pct_of_footprint": 0.0
+  },
+  "qf_prior": {
+    "total": 58251,
+    "offcat_gt3px": 0,
+    "components": 0,
+    "median_comp": null,
+    "mean_comp": null,
+    "max_comp": null,
+    "mean_dist_to_cat_px": NaN,
+    "median_dist": NaN,
+    "frac_within_4px_of_cat": 1.0,
+    "pct_of_footprint": 0.0
+  },
+  "volcanics": {
+    "total": 6776,
+    "offcat_gt3px": 6161,
+    "components": 30,
+    "median_comp": 93.0,
+    "mean_comp": 205.36666666666667,
+    "max_comp": 1714,
+    "mean_dist_to_cat_px": 29.07,
+    "median_dist": 19.24,
+    "frac_within_4px_of_cat": 0.1235,
+    "pct_of_footprint": 0.1192
+  },
+  "probes2m": {
+    "total": 2700,
+    "offcat_gt3px": 2382,
+    "components": 2115,
+    "median_comp": 1.0,
+    "mean_comp": 1.1262411347517731,
+    "max_comp": 129,
+    "mean_dist_to_cat_px": 29.36,
+    "median_dist": 23.33,
+    "frac_within_4px_of_cat": 0.1478,
+    "pct_of_footprint": 0.0461
+  }
+}

@@ -15,7 +15,7 @@ Core values: Maximize P(Win); Own the Outcome. No slot is authorized.
 - First-run spacing-variable overwrite retracted; correction honored the original 2.8px lock. All three
   prediction-field hashes and full score-history hash byte-identical across runs.
 - New 37,654-dot TIFF: 15/15 strict local checks, finite raw [0,1] plus exact internal null footprint mask.
-  532 prior-raster comparisons/54 public inventories, no exact match, max Jaccard .0406165. Research-only.
+  561 prior-raster comparisons/54 public inventories, no exact match, max Jaccard .0406165. Research-only.
 - Actual official GDR trace and paleogeothermal ZIPs acquired/rasterized on a GitHub runner. Traces cover
   82,871 footprint pixels; paleogeothermal points occupy 244 cells. Off-catalogue pixels are not new-fault
   ground truth; all_touched rasterization differs from provided labels. These datasets do not train C1.
@@ -55,3 +55,12 @@ December 3, 2026, 23:59 UTC. No unlimited final-round or 3-slot lambda-probe adv
 
 Continue from `profile-screen.json`, full spacing CSV, `current-submission.json`, `profile-uniqueness.json`,
 `profile-control-flow-recheck.json`, preregistration and `h47c-review-notes.md`; read their limits before edits.
+
+
+### Official-source receipt update after additive reconciliation
+
+Runner 37536709561 verified all three public archives and coverage. USGS national traces: 82,841
+footprint cells (58,800 exact-catalogue); GDR traces: 82,871 (58,876 exact-catalogue); paleo point
+cells: 244. These all_touched pixel counts are not fault counts or expert-new truth. The earlier
+USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
+GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.

@@ -25,7 +25,7 @@
 
 ## C1 pass 3 — original brief, scientific scope, release, CI
 
-- New research TIFF/ZIP, actual pixel/hash/grid/mask/range checks and 532 bounded historical comparisons.
+- New research TIFF/ZIP, actual pixel/hash/grid/mask/range checks and 561 bounded historical comparisons.
   No exact match, max Jaccard .0406165, 54 public inventories; 3 non-comparable objects explained.
 - Downloads precede the large introduction on both home and summary; confidence/floor adjacent to spacing.
   Root/deployed/nested HTML, local assets and JSON receipts checked inside docs-only Pages artifact.
@@ -49,3 +49,12 @@ Retired annulus .34912 / .34837 private floor is withdrawn; adaptive nested hist
 calibration, and deleting a prior mask is not a new detector. Saved .3345 rank-1 board is superseded by dated
 .3774. H33 .2778 filename/hash association is user/owner-reported, not an organizer receipt. No unlimited
 final-round or three-slot lambda probe advice. One selected file for both rounds; up to three scored slots/week.
+
+
+### Official-source receipt update after additive reconciliation
+
+Runner 37536709561 verified all three public archives and coverage. USGS national traces: 82,841
+footprint cells (58,800 exact-catalogue); GDR traces: 82,871 (58,876 exact-catalogue); paleo point
+cells: 244. These all_touched pixel counts are not fault counts or expert-new truth. The earlier
+USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
+GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.

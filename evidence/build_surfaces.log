@@ -1,0 +1,37 @@
+[grid] footprint 5167373  catalogue 60988  (1.0s)
+[grid] all-19-bands-finite 5164300 px  (46.2s)
+[H47] corroboration done: ['mag', 'grav', 'topo', 'strain', 'elec']  (142.7s)
+[H47] structure tensor done  (144.3s)
+[H47] A (vacancy inputs) + B (braid) done  (165.8s)
+[H47] C (drainage asymmetry) done  (196.9s)
+[H47] D (strain partitioning) done  (205.4s)
+[H47] E (signed basement step) done  (218.8s)
+
+wrote 26 cached arrays to /home/user/GEMSDOE47/data/surfaces
+receipt -> /home/user/GEMSDOE47/evidence/surfaces_receipt.json   total 226.6s
+  A_catalogue_density.npy      float32  min=0.0 max=0.4466 pos=2581925
+  A_physics_density.npy        float32  min=0.0 max=0.5191 pos=2582007
+  B_braid.npy                  float32  min=0.0 max=1.0 pos=5202710
+  B_braid_count.npy            float32  min=0.0 max=5.0 pos=5202710
+  C_drain_asym.npy             float32  min=0.0 max=1.0 pos=9222456
+  C_drain_mag.npy              float32  min=0.0 max=1.0 pos=5223267
+  D_ratio.npy                  float32  min=0.0 max=29279398.0 pos=12279160
+  D_strain.npy                 float32  min=0.0 max=1.0 pos=2582108
+  E_basement.npy               float32  min=0.0 max=1.0 pos=2582150
+  E_persistence.npy            float32  min=0.0 max=1.0 pos=5259342
+  E_signflip.npy               float32  min=0.0 max=1.0 pos=2041538
+  catalogue.npy                bool     min=0.0 max=1.0 pos=60988
+  coherence.npy                float32  min=0.0 max=0.5 pos=5378192
+  corr_count.npy               float32  min=0.0 max=5.0 pos=238616
+  corr_max.npy                 float32  min=0.0 max=1.0 pos=5162743
+  corr_mean.npy                float32  min=0.0 max=0.9055 pos=5162743
+  d_catalogue.npy              float32  min=0.0 max=1369.6847 pos=12218172
+  fam_elec.npy                 float32  min=0.0 max=1.0 pos=3902880
+  fam_grav.npy                 float32  min=0.0 max=1.0 pos=4719220
+  fam_mag.npy                  float32  min=0.0 max=1.0 pos=4773800
+  fam_strain.npy               float32  min=0.0 max=1.0 pos=3762701
+  fam_topo.npy                 float32  min=0.0 max=1.0 pos=3301925
+  footprint.npy                bool     min=0.0 max=1.0 pos=5167373
+  scored.npy                   bool     min=0.0 max=1.0 pos=5106385
+  theta.npy                    float32  min=-1.5708 max=1.5708 pos=2665523
+  valid.npy                    bool     min=0.0 max=1.0 pos=5164300

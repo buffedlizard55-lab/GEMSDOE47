@@ -8,7 +8,7 @@
       "id": "R01",
       "requirement": "Unique prediction",
       "status": "PASS_BOUNDED",
-      "evidence": "New independent profile inference; 532 comparisons/54 public inventories, 0 exact matches; global uniqueness not claimed."
+      "evidence": "New independent profile inference; 561 comparisons/54 public inventories, 0 exact matches; global uniqueness not claimed."
     },
     {
       "id": "R02",
@@ -73,8 +73,8 @@
     {
       "id": "R12",
       "requirement": "External-data feasibility",
-      "status": "PARTIAL_VERIFIED",
-      "evidence": "GDR official traces/paleo obtained/coverage measured on runner; USGS byte/format coverage receipt evolving; raw 1m CSV/tiles not obtained."
+      "status": "VERIFIED_ARCHIVES_RAW_DEM_DEFERRED",
+      "evidence": "All 3 USGS/GDR official archives acquired and coverage verified on runner; raw 1m CSV/tiles not acquired. No probe vector trains C1."
     },
     {
       "id": "R13",
@@ -109,8 +109,8 @@
     {
       "id": "R18",
       "requirement": "PR then merge main",
-      "status": "PENDING_REMOTE_FINAL",
-      "evidence": "Working-branch Tests run 37534139423 is green; final commit/PR/merge/deployment still to be recorded."
+      "status": "PR_OPEN_CHECKS_PENDING",
+      "evidence": "PR12 opened. Concurrent main750f3b7 reconciled additively on fixed branch; all gates closed; final checks/merge still to be recorded."
     },
     {
       "id": "R19",

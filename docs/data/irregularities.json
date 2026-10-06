@@ -217,6 +217,46 @@
       "why_it_matters": "Current scientific/artifact/data decision depends on this boundary.",
       "what_was_done": "Never disable certificate verification. Record failed attempts, retain dated last board, and run independent GitHub-hosted official data probes. Source listing alone is not obtainable bytes.",
       "human_page": "docs/irregularities.html#ir-c1-012"
+    },
+    {
+      "id": "IR-47-016",
+      "severity": "HIGH",
+      "what": "the belief model cannot score a novel field: its dominant feature is similarity to the incumbent field",
+      "why_it_matters": "theta = [K, prox_d2.8 +3.229, mscl +1.289, shearrate +0.635]; incumbent-shaped emissions score 0.18-0.20 and the novel H48-APEX set scores 0.086 regardless of geology",
+      "what_was_done": "documented; apex verdict reported as assumption-conditional and the blocked holdout frames quoted alongside",
+      "human_page": "docs/irregularities.md"
+    },
+    {
+      "id": "IR-47-017",
+      "severity": "HIGH",
+      "what": "the first H48 emission re-issued a prior submission",
+      "why_it_matters": "59.2 % of its pixels are the 0.2600 field's, 66.9 % of the reported-0.2778 field's; max equal-mass Jaccard 0.4400 vs the 13 prior rasters",
+      "what_was_done": "rejected on the uniqueness rule and moved to docs/downloads/superseded/; the novelty audit now runs before any promotion",
+      "human_page": "docs/downloads/superseded/README.md"
+    },
+    {
+      "id": "IR-47-018",
+      "severity": "HIGH",
+      "what": "a buggy build produced plausible-looking sweep numbers",
+      "why_it_matters": "the pre-fix build collapsed 44,090 base dots to 2,689 and drove the model DTI 0.196 -> 0.056; its predictions 0.0562-0.0649 are artifacts",
+      "what_was_done": "one-to-one assignment (emit_repack) and the superseded file kept with its SHA so the numbers cannot be quoted",
+      "human_page": "docs/downloads/superseded/README.md"
+    },
+    {
+      "id": "IR-47-019",
+      "severity": "MEDIUM",
+      "what": "with 12 returned scores and a swept family of 7, no non-vacuous family-wise guarantee exists above 46.15 %; at n=6 the level is exactly 0",
+      "why_it_matters": "alpha must satisfy alpha >= m/(n+1) and k = ceil((n+1)(1-alpha)) <= n; a 7-way sweep is therefore uncertifiable from a split half",
+      "what_was_done": "both channels reported; remedy is a pre-declared operating point (m=1: 92.31 % at n=12, 87.5 % at n=7)",
+      "human_page": "docs/executive-summary.html#h48"
+    },
+    {
+      "id": "IR-47-020",
+      "severity": "MEDIUM",
+      "what": "tests/test_site.py was failing at HEAD before this session touched the repository",
+      "why_it_matters": "two assertions referenced page text that the committed docs/index.html no longer contained, and one required exactly one TIFF link while the page offered three",
+      "what_was_done": "tests reconciled with the intended contract (one prominent download + docs/all-downloads.html register); suite green (59 unittest, 106 pytest)",
+      "human_page": "docs/irregularities.md"
     }
   ]
 }

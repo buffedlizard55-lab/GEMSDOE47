@@ -81,3 +81,12 @@ job with a successful source. Final scientific status remains NOT PROMOTED, zero
 Exact final remote check/PR/merge/deployment receipts are updated separately in the three-pass JSON.
 The original word-for-word chat is unavailable; README preserves the complete available structured
 brief and score/URL history without claiming a fabricated verbatim transcript. Winning goal unmet.
+
+
+### Official-source receipt update after additive reconciliation
+
+Runner 37536709561 verified all three public archives and coverage. USGS national traces: 82,841
+footprint cells (58,800 exact-catalogue); GDR traces: 82,871 (58,876 exact-catalogue); paleo point
+cells: 244. These all_touched pixel counts are not fault counts or expert-new truth. The earlier
+USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
+GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.
