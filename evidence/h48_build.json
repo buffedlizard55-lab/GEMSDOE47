@@ -765,7 +765,7 @@
   {
    "name": "r=1.5",
    "predicted_dti": 0.1859592882613959,
-   "certified_lower_bound": 0.2150375969112545,
+   "assumption_conditional_lower_bound": 0.2150375969112545,
    "n_dots": 44838,
    "n_kept": 38988,
    "n_added": 5850,
@@ -776,13 +776,13 @@
    "K_hat": 30288.472208127336,
    "marginal_bar": 0.05556,
    "surrogate_dti": 0.18421546005494802,
-   "lcb_single_predeclared": 0.04569745940511738,
-   "lcb_split_half": 0.18634747623076003
+   "conditional_lower_bound_single_predeclared": 0.04569745940511738,
+   "conditional_lower_bound_split_half": 0.18634747623076003
   },
   {
    "name": "r=2.0",
    "predicted_dti": 0.1859592882613959,
-   "certified_lower_bound": 0.2150375969112545,
+   "assumption_conditional_lower_bound": 0.2150375969112545,
    "n_dots": 44838,
    "n_kept": 38988,
    "n_added": 5850,
@@ -793,13 +793,13 @@
    "K_hat": 30288.472208127336,
    "marginal_bar": 0.05556,
    "surrogate_dti": 0.18421546005494802,
-   "lcb_single_predeclared": 0.04569745940511738,
-   "lcb_split_half": 0.18634747623076003
+   "conditional_lower_bound_single_predeclared": 0.04569745940511738,
+   "conditional_lower_bound_split_half": 0.18634747623076003
   },
   {
    "name": "r=2.5",
    "predicted_dti": 0.18208871290867573,
-   "certified_lower_bound": 0.21116702155853434,
+   "assumption_conditional_lower_bound": 0.21116702155853434,
    "n_dots": 39644,
    "n_kept": 38533,
    "n_added": 1111,
@@ -810,13 +810,13 @@
    "K_hat": 30288.472208127336,
    "marginal_bar": 0.05556,
    "surrogate_dti": 0.18035723036555673,
-   "lcb_single_predeclared": 0.041826884052397206,
-   "lcb_split_half": 0.18247690087803986
+   "conditional_lower_bound_single_predeclared": 0.041826884052397206,
+   "conditional_lower_bound_split_half": 0.18247690087803986
   },
   {
    "name": "r=3.0",
    "predicted_dti": 0.17651930750887532,
-   "certified_lower_bound": 0.20559761615873393,
+   "assumption_conditional_lower_bound": 0.20559761615873393,
    "n_dots": 35885,
    "n_kept": 35071,
    "n_added": 814,
@@ -827,13 +827,13 @@
    "K_hat": 30288.472208127336,
    "marginal_bar": 0.05556,
    "surrogate_dti": 0.17482678118925704,
-   "lcb_single_predeclared": 0.03625747865259679,
-   "lcb_split_half": 0.17690749547823945
+   "conditional_lower_bound_single_predeclared": 0.03625747865259679,
+   "conditional_lower_bound_split_half": 0.17690749547823945
   },
   {
    "name": "r=3.5",
    "predicted_dti": 0.16233574158411132,
-   "certified_lower_bound": 0.19141405023396993,
+   "assumption_conditional_lower_bound": 0.19141405023396993,
    "n_dots": 29254,
    "n_kept": 28789,
    "n_added": 465,
@@ -844,13 +844,13 @@
    "K_hat": 30288.472208127336,
    "marginal_bar": 0.05556,
    "surrogate_dti": 0.16076227794988365,
-   "lcb_single_predeclared": 0.022073912727832795,
-   "lcb_split_half": 0.16272392955347545
+   "conditional_lower_bound_single_predeclared": 0.022073912727832795,
+   "conditional_lower_bound_split_half": 0.16272392955347545
   },
   {
    "name": "r=4.5",
    "predicted_dti": 0.1380951365124,
-   "certified_lower_bound": 0.1671734451622586,
+   "assumption_conditional_lower_bound": 0.1671734451622586,
    "n_dots": 22870,
    "n_kept": 22602,
    "n_added": 268,
@@ -861,13 +861,13 @@
    "K_hat": 30288.472208127336,
    "marginal_bar": 0.05556,
    "surrogate_dti": 0.13674306646307266,
-   "lcb_single_predeclared": -0.0021666923438785346,
-   "lcb_split_half": 0.13848332448176412
+   "conditional_lower_bound_single_predeclared": -0.0021666923438785346,
+   "conditional_lower_bound_split_half": 0.13848332448176412
   },
   {
    "name": "r=6.0",
    "predicted_dti": 0.11513746007558856,
-   "certified_lower_bound": 0.14421576872544717,
+   "assumption_conditional_lower_bound": 0.14421576872544717,
    "n_dots": 18560,
    "n_kept": 18377,
    "n_added": 183,
@@ -878,14 +878,14 @@
    "K_hat": 30288.472208127336,
    "marginal_bar": 0.05556,
    "surrogate_dti": 0.11401102185197619,
-   "lcb_single_predeclared": -0.025124368780689965,
-   "lcb_split_half": 0.11552564804495269
+   "conditional_lower_bound_single_predeclared": -0.025124368780689965,
+   "conditional_lower_bound_split_half": 0.11552564804495269
   }
  ],
  "chosen": {
   "name": "r=1.5",
   "predicted_dti": 0.1859592882613959,
-  "certified_lower_bound": 0.2150375969112545,
+  "assumption_conditional_lower_bound": 0.2150375969112545,
   "n_dots": 44838,
   "n_kept": 38988,
   "n_added": 5850,
@@ -896,14 +896,14 @@
   "K_hat": 30288.472208127336,
   "marginal_bar": 0.05556,
   "surrogate_dti": 0.18421546005494802,
-  "lcb_single_predeclared": 0.04569745940511738,
-  "lcb_split_half": 0.18634747623076003
+  "conditional_lower_bound_single_predeclared": 0.04569745940511738,
+  "conditional_lower_bound_split_half": 0.18634747623076003
  },
- "incumbent_reference": {
+ "owner_reported_d2_8_reference_assumption": {
   "id": "d2.8",
   "observed_dti": 0.26,
   "predicted_dti": 0.19567234223971725,
-  "certified_lower_bound": 0.22475065088957585,
+  "assumption_conditional_lower_bound": 0.22475065088957585,
   "note": "the same certificate applied to the measured family-best field, for a like-for-like comparison"
  },
  "mscl": {
@@ -1030,7 +1030,7 @@
     "min_block_DTI": 0.0,
     "n_blocks_scored": 12
    },
-   "incumbent_h33_2_b2": {
+   "owner_reported_h33_2_b2_raster_unverified_score_link": {
     "pooled_DTI": 0.006698424894897517,
     "per_block": [
      {
@@ -1133,7 +1133,8 @@
     "mean_block_DTI": 0.006185774300144855,
     "min_block_DTI": 0.0,
     "n_blocks_scored": 12
-   }
+   },
+   "comparison_scope": "local proxy geometry only; H33 score-to-raster link unverified"
   },
   "sgmc_offcatalogue": {
    "candidate": {
@@ -1240,7 +1241,7 @@
     "min_block_DTI": 0.0,
     "n_blocks_scored": 12
    },
-   "incumbent_h33_2_b2": {
+   "owner_reported_h33_2_b2_raster_unverified_score_link": {
     "pooled_DTI": 0.09893469496140979,
     "per_block": [
      {
@@ -1343,7 +1344,8 @@
     "mean_block_DTI": 0.08759047290057732,
     "min_block_DTI": 0.0,
     "n_blocks_scored": 12
-   }
+   },
+   "comparison_scope": "local proxy geometry only; H33 score-to-raster link unverified"
   }
  },
  "holdout_note": "Proxy populations only. 'catalogue' is the given USGS/INGENIOUS catalogue, which the organiser masks out of scoring, so it rewards catalogue skill (IR-47-005). 'sgmc_offcatalogue' is state-geologic-map fault geometry >1.5 cells off the catalogue. Neither frame is the private expert label set.",
@@ -1380,11 +1382,18 @@
     "values_in_0_1": true,
     "zero_outside_footprint": true,
     "zero_on_catalogue": true,
-    "unique_values_within_0_1": true
+    "unique_values_within_0_1": true,
+    "outside_is_null_or_nan": false,
+    "published_outside_null_nan_requirement": false,
+    "legacy_zero_outside_encoding": true
    },
-   "all_pass": true,
    "n_positive": 44838,
-   "sha256": "4b06a5cc617d187000ec2cd9e682bb79b36df762f6d34c29b388385772b128f8"
+   "sha256": "4b06a5cc617d187000ec2cd9e682bb79b36df762f6d34c29b388385772b128f8",
+   "legacy_local_audit_passed": true,
+   "published_outside_null_nan_requirement_passed": false,
+   "required_local_checks_passed": false,
+   "all_pass": false,
+   "organizer_acceptance_established": false
   },
   "uniqueness": {
    "n_compared": 13,
@@ -1428,7 +1437,8 @@
      "equal_mass_exact": false
     }
    ]
-  }
+  },
+  "status": "RESEARCH_ONLY_NOT_PROMOTED"
  },
  "certificate_channel_used_for_selection": {
   "name": "cross_conformal_all_returns|family_7",
@@ -1448,13 +1458,24 @@
  "prediction_channel": "lati.BinnedSoftmax M2 extended with the candidate emissions as observations, so candidate predictions and calibration residuals share one estimator and one scale",
  "promotion": {
   "unique": false,
-  "beats_incumbent_both_holdout_frames": true,
-  "certified_floor_above_live_incumbent": false,
+  "beats_owner_reported_reference_on_both_local_holdout_frames": true,
+  "conditional_lower_bound_above_owner_reported_score_assumption": false,
   "shippable": false,
   "reasons": [
-   "max equal-mass Jaccard 0.4400 > novelty bar 0.0457 (the field overlaps a prior submission)",
-   "certified floor 0.2150 < live incumbent 0.26"
+   "H33-2-B2 / participant-DTI 0.2778 association is unverified; dependent results are conditional",
+   "all-finite published TIFF has zeros outside the supplied footprint and fails the null/NaN-outside requirement",
+   "assumption-conditional conformal calculations do not establish a supported private-score floor or slot eligibility",
+   "max equal-mass Jaccard 0.4400 > novelty bar 0.0457 (the field overlaps a prior submission)"
   ],
-  "note": "'shippable' means: unique against every prior artefact, ahead of the reported 0.2778 field on both blocked holdout frames, and certified above the live 0.2600 incumbent by the split-conformal floor. It is NOT a claim about the private expert label set."
+  "note": "Research-only local proxies. Score-to-TIFF attribution is unverified; exchangeability and score/raster mappings are assumptions. No organizer-authenticated score or private-label performance is established. Never authorize upload or slot use from this record.",
+  "eligible_for_slot": false,
+  "status": "RESEARCH_ONLY_UNVERIFIED_ATTRIBUTION"
+ },
+ "scope_notice": "H33-2-B2 is not authenticated to participant DTI 0.2778; related score-dependent fits are hypothetical/conditional. Local block comparisons use owner-reported reference geometry and are not leaderboard measurements. The stored all-finite TIFF writes zeros outside and fails the published null/NaN-outside requirement. Local checks do not establish organizer acceptance; all outputs are research-only and not slot-eligible.",
+ "organizer_acceptance_established": false,
+ "score_provenance": {
+  "classification": "owner-reported / unverified TIFF attribution",
+  "h33_2_b2_dti_0_2778": "hypothetical assumption, not authenticated",
+  "all_dependent_fits": "conditional research only; no slot eligibility"
  }
 }

@@ -1,47 +1,59 @@
 ---
-title: Results — corrected H33 and H49 evidence
+title: Corrected research results
 layout: default
 nav_order: 3
 ---
 
-# Results — current evidence, score attribution and limitations
+# Results — scoped to the evidence
 
-> **Correction notice (2026-10-06 local review):** an earlier results report treated the H33 0.2778 filename label as an authenticated organizer score and described the H27/H33 raster nesting as a scored natural experiment. That was not supported. The exact mask relationship is verified; the score-to-TIFF mapping is not. The old score-conditioned inversions remain in `evidence/inversion/live_anchor_inversion.json` as conditional owner-label arithmetic, not observed results.
+**No result in this file is a private leaderboard score or a submission authorization.** Earlier long-form output that treated owner-reported score/file pairs as authenticated has been preserved, prominently withdrawn, in [`docs/research/retired/`](research/retired/). The current concise record below supersedes it.
 
-## 1. H33/H27 byte-level relationship
+## H47-C1 — current primary research screen
 
-The H33 `GEMSDOE32` zero-outside TIFF (SHA-256 `c55bafc470054e8271d1cb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`) has 37,654 positive pixels. It is a strict subset of the 40,199-positive H27 parent from `GEMSDOE28` (SHA-256 `2fc94a38d77f74d4f4ed1a97a83e7bb71a1ceea090515ec641e6681cc47c44c8`): 2,545 parent-only pixels, no H33-only pixels. The removed pixels are exactly those within Euclidean distance ≤2 px of the given-catalogue mask (1,201 at 1 px and 1,344 at 2 px). A separate 41,507-positive `GEMSDOE27` all-increments raster is not this parent.
+- Pooled public-catalogue proxy DTI: **0.177872**; selection-only ordinary-terrain/raw-band baseline: **0.180216**; fixed-seed spaced random: **0.070924**.
+- Mean block proxy DTI: 0.177038 for H47-C1 and 0.176051 for the baseline. C1 wins **11/22** truth-bearing test blocks; **15** are required by the preregistered gate.
+- Selected spacing: **2.8 px / 280 m**. Nominal **90% simultaneous marginal block** calibration assumes exchangeability, which is unverified; the clipped assumption-conditional lower-bound estimate is **0.0000**. No private/global guarantee follows.
+- The secondary SGMC-distance diagnostic loses to random: 0.073537 vs 0.083174. No leaderboard score is attributed to the TIFF.
+- Decision: **research-only, not promoted, do not upload**. See [`docs/data/current-submission.json`](data/current-submission.json), [screen page](index.html), and [README](../README.md).
 
-These facts are reproduced in the [reusable knowledge record](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/05_why_02778_and_can_we_beat_it.md) and the pinned [mask audit](data/h47b-candidate-uniqueness-20261006.json). They establish a mask edit, not a score change.
+## H49 — retained mainline study, format-failing and not promoted
 
-## 2. Score receipt and causal interpretation
+H49's nominal 90% split-conformal calculation is a **0.03184 assumption-conditional lower-bound estimate** on public SGMC proxy blocks (`n=19`, `k=18`), not an unconditional/private/global floor. Block-score exchangeability is unverified, and the operating-point rule was amended after inspecting repeated-split results. The 0.2778 comparator is only an **owner-reported d2.8 reference**; score/file attribution is unverified, and it is not an authenticated leaderboard incumbent.
 
-The public participant-board snapshot contains a 0.2778 observation at rank 13 under `extradr19`; no organizer receipt maps that entry to the H33 TIFF hash. The H33 owner README at commit `b983924b57781edd29b8e249c4923bf33d9902f6` explicitly calls the file **UNSCORED** and 0.2747 a projection. The older 0.2708 label also has no receipt mapping to the exact 40,199-positive parent. Owner narratives and filenames are secondary evidence, not organizer score receipts.
+The exact artifact read-back has 12,279,160 finite cells, no NaNs, no NoData tag, and a valid mask on every cell. Against the original 5,167,373-cell owner-mirror footprint receipt, 7,111,787 outside cells are finite, so the TIFF **fails** the published null-or-NaN-outside requirement. The artifact and historical receipts are retained for audit, but H49 did not pass a common promotion test against the established spatially blocked holdout best. **Not slot-authorized; do not upload.** See [corrected H49 report](H49_RESULTS.md), [format audit](data/h49-format-contract-audit.json), and [artifact register](all-downloads.html).
 
-The published DTI algebra supports a marginal-credit rule: for a unit of added prediction mass that yields new kernel-weighted credit `w`, a local DTI increase requires `w > 0.2 × current DTI` (0.05556 at a hypothetical DTI of 0.2778). This does not identify the true hidden-label credit of the removed dots. Catalogue pixels are excluded exactly; there is no automatic 200 m neighborhood that becomes penalty-free. A nearby prediction still receives credit only if it covers hidden new-fault truth. See the [official metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric) and [staff clarification](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516).
+## H47-QC and H47-B — separate negative screens
 
-**Conclusion:** we cannot honestly answer “why did this exact H33 TIFF score 0.2778?” because that score-to-file link is unauthenticated. Reduced off-target mass is a plausible mechanism, not an established causal explanation.
+- H47-QC pooled public-catalogue proxy DTI: **0.0131689425**, below the geochemistry-only ablation at **0.0141948068**. Its nominal split-conformal level is 6/7 (85.7%) only under unverified block-score exchangeability; clipped assumption-conditional lower-bound estimate **0.0**. Research-only.
+- H47-B cross-scale screen: pooled proxy DTI **0.02755344**, below fixed-seed random **0.03715911**. The later single-scale H47-B screen scores **0.02563947**, below both cross-scale and random. Its clipped assumption-conditional conformal lower-bound estimate is zero. The H47-B mask comparison uses a public owner-supplied mirror; the sample-template and feature-derived masks disagree. No local result establishes organizer acceptance.
+- No H47-B rerun was performed for this review.
 
-## 3. H49 public-proxy result and slot decision
+## Legacy H47-GSA / H47-MAXCOV and H47-SAF
 
-H49 compares a signed-polarity scarp field with a public SGMC off-catalogue proxy. SGMC contains non-fault contacts; it is not the organizer’s hidden target. On this one sweep, the selected H49 arm has selection-half mean DTI 0.10329 versus 0.07108 for the H33 reference and 0.05750 for a mass-matched random mask. These are descriptive measurements from 20 selection blocks, not a leaderboard score or private-label forecast.
+All H47-GSA and H47-MAXCOV rasters remain **research-only and unpromoted**. H47-GSA observation-level cross-fit deltas **−0.0611** and **−0.0450** versus the **owner-reported d2.8 reference** are conditional on the disputed H33-2-B2/0.2778 association; they are not an authenticated leaderboard comparison or a spatial holdout. The participant leaderboard is not mapped to TIFF hashes by organizer receipts.
 
-The nominal 90% fixed-arm split-conformal absolute DTI order statistic is 0.03184 (Instrument B; 19 calibration blocks; k=18), with 0.01828 on PM0200. Exchangeability of spatial blocks and a rule fixed independently of calibration outcomes are assumptions. The H49 mean-rule arm was selected after review of the results; its prospective status is not independently verifiable in Git history. Four hundred re-partitions reuse the same 39 blocks and are sensitivity diagnostics, not new independent samples.
+H47-SAF sensitivity changes sign only **between tested assumed DTIs 0.2200 and 0.2400**. This is a coarse-grid bracket, not an exact break-even and not a causal result. The H33 association is unverified, so any dependent fit is a hypothetical scenario.
 
-Paired differences against the H33 reference have positive sample means and positive one-sided Student-t lower bounds, but the **90% split-conformal lower bound on fresh-block paired improvement is negative** for both candidate arms. The nominal absolute DTI floor is not a guarantee of improvement over the incumbent. The complete adaptive pipeline has no established conformal guarantee. **Do not spend a submission slot on H49.**
+## Metric and attribution limits
 
-Full per-arm tables are in [H49 results](H49_RESULTS.html); the machine-readable certificate and paired metrics are in the [current artifact receipt](data/current-artifact.json) and the [repository evidence file](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h49/conformal_certificate.json). Future candidates and their physical signatures, novelty, expected effect/cost and data-acquisition status are in [the ranked research queue](RESEARCH_HYPOTHESES.html).
+The DTI algebra distinguishes `ρ=F/K` from `f=F/T`; the denominators differ. For `x=T/K`, `ρ=F/K`, `α=0.2`, and `β=0.8`,
 
-## 4. Output validity is a separate gate
+```text
+x = (αρ + β) / (1/DTI − α)
+```
 
-The first published H49 copy failed the strict internal-mask contract: masked reads did not treat outside-footprint cells as null. The candidate was rebuilt and the exact published bytes were read back. Current file: `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif`, 409,124 bytes, SHA-256 `f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060`. All 19 gating checks pass; the separate informational whole-grid range flag is also true (20 recorded checks total). The TIFF is one float32 band, 3292 × 3730, EPSG:32611, exact official transform, with an internal mask matching all 5,167,373 official-footprint cells; masked reads are null exactly outside. Raw samples across the entire grid are finite in [0,1], with no nodata tag or sidecar; 37,612 cells are positive. These facts establish format validity for these bytes, not scientific promotion or organizer acceptance.
+For `f=F/T`, use instead
 
-A commit-pinned uniqueness audit covered 54 visible public repositories: 555 comparable inventory blobs plus 10 local-history rasters, zero exact mask/value matches, maximum Jaccard 0.292575 (against the prior GEMSDOE47 H49 raster). Three inventory entries were not directly comparable (two not single-band on the exact grid, one ZIP not containing a single TIFF); no repository inventory fetch failed. Global uniqueness is not proven, and inaccessible/unpublished files are outside scope. The full receipt is [`data/pinned-public-inventory-uniqueness.json`](data/pinned-public-inventory-uniqueness.json); the artifact pointer is [`data/current-artifact.json`](data/current-artifact.json). Scientific validation, bounded uniqueness and organizer acceptance remain separate; no score or acceptance is claimed.
+```text
+x = β / (1/DTI − α(1 + f))
+```
 
-## 5. Sources
+An illustrative ratio is not a verified participant measurement; this algebra does not establish that DTI 0.3195 is unreachable. Deleting predictions exactly on masked pixels cannot by itself improve DTI. No causal gain from deleting masked pixels is inferred; nearby evaluated-pixel pruning would require paired evaluation.
 
-- [Official competition overview](https://www.drivendata.org/competitions/306/competition-doe-gems/)
-- [Official metric and output format](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-- [DrivenData staff clarification on catalogue masking](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516)
-- [Pinned GEMSDOE32 owner README](https://github.com/buffedlizard55-lab/GEMSDOE32/blob/b983924b57781edd29b8e249c4923bf33d9902f6/README.md) — secondary owner source; its H33 section says unscored/projection.
-- [H33/H27 mask audit](data/h47b-candidate-uniqueness-20261006.json) — exact-grid mask comparison, not score authentication.
+A dated public leaderboard observation is participant-level. It does not authenticate a TIFF association. Three historical λ-scaling score observations are not a verified count of uploads or slots. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting; no diagnostic cost is inferred or called free.
+
+## Format status
+
+The published format page requires null or NaN outside the training-data bounds. H47-C1 has finite raw samples in [0,1] plus an internal validity mask that marks outside pixels null; its 15/15 local checks are not portal acceptance. Unmasked all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and older Session-3 variants write zeros outside and fail the explicit outside-nodata check. Separate NaN-outside variants follow available owner-supplied mirror conventions only; portal acceptance remains unverified. The previous rejected bytes and parser receipt are unavailable, so the historical range-error cause is unknown.
+
+[Official format requirements](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) · [Irregularities](irregularities.md) · [Three-pass review log](review-log.md)

@@ -1,3 +1,5 @@
+> **HISTORICAL ARCHIVE — not current submission advice.** Session 3 artifacts are research-only. H33-2-B2 → 0.2778 is unverified, dependent analyses are conditional, and the d2.8 raster is the owner-reported d2.8 reference (not an incumbent). The prior outside-zero format claim, quota advice, and causal pruning conclusions are withdrawn. See [current README](README.md).
+
 # GEMSDOE47 — DOE GEMS Prize (DrivenData competition 306), NW Nevada / GeoDAWN
 
 > **Read `README.md` first — it is the standing charter and the current decision record.**

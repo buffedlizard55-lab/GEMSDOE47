@@ -1,10 +1,11 @@
 """Candidate geological layers for the H47 hypothesis family.
 
-The LATI screen (evidence/lati_fit.json, evidence/lati_controls.json) says the
-single strongest public predictor of the hidden new-fault truth is the 0-1.5 px
-halo of the given USGS/INGENIOUS catalogue - the zone the reported-0.2778
-submission deliberately emptied.  But an *isotropic* halo is not a geological
-model.  The organiser's own definition is directional:
+The exploratory LATI screen (evidence/lati_fit.json, evidence/lati_controls.json)
+finds an association between owner-reported raster scores and the 0–1.5 px halo
+of the given USGS/INGENIOUS catalogue. The H33-2-B2 reference raster deletes
+near-catalogue dots, but its association with a participant-level 0.2778 score
+is unverified. This fit is not a private-target result or causal ablation. An
+*isotropic* halo is not a geological model; the organiser's definition is directional:
 
   "'new fault' means 'any fault pixel not already captured by USGS/INGENIOUS'
    and can include newly mapped geometry of an existing fault system."

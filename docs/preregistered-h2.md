@@ -6,14 +6,14 @@
 
 ## Data and provenance
 
-All files are from the group-hosted `buffedlizard55-lab/GEMSDOE24` GitHub mirror, not a direct authenticated DrivenData download. The public DrivenData data page redirects unauthenticated requests to login. The hashes below pin the exact bytes used; a mirror hash is not independent organizer authentication.
+The legacy runner resolves inputs from `GEMS_DATA_DIR` (default `.cache/gems_data`, matching `scripts/restore_data.py`); the historical run receipts pin these source hashes. All files are from the group-hosted `buffedlizard55-lab/GEMSDOE24` GitHub mirror, not a direct authenticated DrivenData download. The public DrivenData data page redirects unauthenticated requests to login. The hashes below pin the exact bytes used; a mirror hash is not independent organizer authentication.
 
 | file | SHA-256 | use |
 |---|---|---|
-| `work/external/geodawn_extensions_u8.tif` | `a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b` | Feature only; channel 4 is quantized `TMI_up150` |
-| `work/bridge/labels.tif` | `7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093` | Reference labels for diagnostic proxy only (`1` known catalogue trace, `0` background, `-1` nodata); not the hidden missing-fault target |
-| `work/bridge/sample_submission.tif` | `2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc` | Output grid and footprint template |
-| `work/external/acquisition_block_id_100m.tif` | `2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a` | Descriptive subgroup audit only; never a model input |
+| `.cache/gems_data/external/geodawn_extensions_u8.tif` | `a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b` | Feature only; channel 4 is quantized `TMI_up150` |
+| `.cache/gems_data/labels.tif` | `7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093` | Reference labels for diagnostic proxy only (`1` known catalogue trace, `0` background, `-1` nodata); not the hidden missing-fault target |
+| `.cache/gems_data/sample_submission.tif` | `2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc` | Output grid and footprint template |
+| `.cache/gems_data/external/audit_sources/acquisition_block_id_100m.tif` | `2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a` | Descriptive subgroup audit only; never a model input |
 
 The common grid is 3292 × 3730, EPSG:32611, 100 m pixels, GDAL-order geotransform `(243350, 100, 0, 4508550, 0, -100)`. The mirror manifest says band 4 is a contractor upward-continuation of total magnetic intensity to a 150 m grid. It also says the `uint8` values 1–255 are rank-encoded between per-channel 1st and 99th percentiles and 0 is nodata. **They are not physical magnetic units.** This protocol does not claim to implement the published tilt-depth method.
 
@@ -33,11 +33,11 @@ The common grid is 3292 × 3730, EPSG:32611, 100 m pixels, GDAL-order geotransfo
 - Report per-block DTI and positive-prediction count, mean block DTI, and pooled test DTI. **Promotion gate:** H47-B at its selection-picked spacing must beat the selection-picked single-scale comparator and the fixed-seed random control on the locked test blocks by pooled DTI. A tie, lower result, insufficient labels, or any mass mismatch closes the gate. No leaderboard score is imputed from this public-label screen.
 - Retain a separate per-acquisition-block breakdown as descriptive heterogeneity only; it cannot change the selected spacing or promotion decision.
 
-## Split-conformal floor
+## Assumption-conditional split-conformal lower-bound estimate
 
-For the selected H47-B spacing, let `μ` be its mean DTI on selection blocks. On the six calibration blocks, compute one-sided residuals `rᵢ = μ − DTIᵢ`; sort them and use rank `ceil((n+1)(1−α))` with `n=6`, `α=1/7`. The lower bound is `clip(μ − q, 0, 1)`. At this sample size the largest nontrivial nominal marginal level is **6/7 = 85.7%**. Report the raw residuals, rank, quantile and clipped floor.
+For the selected H47-B spacing, let `μ` be its mean DTI on selection blocks. On the six calibration blocks, compute one-sided residuals `rᵢ = μ − DTIᵢ`; sort them and use rank `ceil((n+1)(1−α))` with `n=6`, `α=1/7`. The lower bound is `clip(μ − q, 0, 1)`. At this sample size the largest nontrivial nominal marginal level is **6/7 = 85.7%**. Report the raw residuals, rank, quantile, nominal coverage level and clipped lower-bound estimate.
 
-This is a finite-sample lower prediction bound for a future comparable block's DTI against the same known-catalogue-mask proxy **only if** selection/calibration/future proxy-block scores are exchangeable. Spatial autocorrelation, acquisition shifts and geology make that assumption doubtful and unverified. Therefore the reported level is explicitly *assumption-conditional*, not a proven guarantee for every map cell, the hidden missing-fault target, the official private-label score, or the DrivenData leaderboard. If block scores are degenerate or the floor is zero, the hypothesis does not satisfy the promotion gate.
+This is a finite-sample lower prediction bound for a future comparable block's DTI against the same known-catalogue-mask proxy **only if** selection/calibration/future proxy-block scores are exchangeable. Spatial autocorrelation, acquisition shifts and geology make that assumption doubtful and unverified. Therefore the reported level is explicitly *assumption-conditional*, not a proven guarantee for every map cell, the hidden missing-fault target, the official private-label score, or the DrivenData leaderboard. If block scores are degenerate or the assumption-conditional lower-bound estimate is zero, the hypothesis does not satisfy the promotion gate.
 
 ## Known limitations before results
 

@@ -26,7 +26,7 @@ The construction
     half**.  The calibration half yields the conformal quantile
     ``q_hat = r_(k)`` with ``k = ceil((n+1)(1-alpha))`` (Lei et al. 2018, eq. 2.6;
     Vovk et al. 2005, ch. 2.2).  The selection half never enters the quantile.
-4.  The certified lower bound for any new candidate is
+4.  The assumption-conditional lower bound for any new candidate is
     ``LCB = DTI_hat(candidate) - q_hat``, and ``LCB <= DTI_true`` with probability
     at least ``1 - alpha`` **if** the calibration scores and the new candidate's
     score are exchangeable.
@@ -34,7 +34,7 @@ The construction
     candidates inflates the error probability by at most a factor ``m``: using
     ``alpha' = alpha / m`` (Bonferroni) keeps ``P(for all i, LCB_i <= DTI_i) >= 1 -
     alpha``, so the selected candidate's bound is still valid.  This is what makes
-    "pick the best spacing, then quote a floor for it" legitimate.
+    "pick the best spacing, then report its assumption-conditional lower bound" legitimate.
 
 What is **not** claimed
 -----------------------
@@ -73,6 +73,7 @@ __all__ = [
     "min_alpha",
     "min_alpha_family",
     "select_by_certified_floor",
+    "select_by_conditional_lower_bound",
 ]
 
 
@@ -228,7 +229,7 @@ class SplitConformal:
         return math.isfinite(self.quantile)
 
     def lcb(self, predicted: float) -> float:
-        """Certified lower bound on the true public-test DTI of a candidate."""
+        """Assumption-conditional lower bound on public-test DTI under exchangeability."""
         if self.one_sided:
             return float(predicted) + self.quantile
         return float(predicted) - self.quantile
@@ -295,21 +296,24 @@ class CertifiedCandidate:
 
     def to_dict(self) -> dict:
         return {"name": self.name, "predicted_dti": self.predicted,
-                "certified_lower_bound": self.lcb, **self.payload}
+                "assumption_conditional_lower_bound": self.lcb, **self.payload}
 
 
-def select_by_certified_floor(candidates, sc: SplitConformal) -> CertifiedCandidate:
-    """Pick the candidate with the highest certified lower bound.
+def select_by_conditional_lower_bound(candidates, sc: SplitConformal) -> CertifiedCandidate:
+    """Select the greatest assumption-conditional lower bound from a fixed family.
 
-    Validity: if ``P(LCB_i <= DTI_i) >= 1 - alpha/m`` for every ``i`` in a fixed
-    family of size ``m`` (which the Bonferroni-corrected ``sc.alpha_used``
-    provides), then ``P(LCB_istar <= DTI_istar) >= 1 - alpha`` where ``istar`` is
-    the argmax.  The bound is therefore valid *for the selected candidate*, which
-    is precisely what a naive "pick the best observed" rule cannot say.
+    The finite-sample statement applies only under the exchangeability and
+    calibration assumptions recorded in ``sc``; it is not a distribution-free
+    private-score floor or an upload gate.
     """
     if not candidates:
         raise ValueError("no candidates")
     return max(candidates, key=lambda c: c.lcb)
+
+
+def select_by_certified_floor(candidates, sc: SplitConformal) -> CertifiedCandidate:
+    """Deprecated compatibility alias; the output is assumption-conditional."""
+    return select_by_conditional_lower_bound(candidates, sc)
 
 
 def conformal_coverage_report(sc: SplitConformal, predicted, observed, ids=None) -> dict:

@@ -552,7 +552,7 @@ def run() -> dict[str, Any]:
             "conformal_lower_floor": single_floor,
             "submission_note_for_a_research_trial_only": (
                 "single-scale edge; d=5 px/500 m; catalogue-mask proxy conformal 6/7=85.7% nominal, "
-                "lower floor 0.000 (exchangeability unverified); RESEARCH ONLY"
+                "assumption-conditional lower-bound estimate 0.000 (exchangeability unverified); RESEARCH ONLY"
             ),
             "not_for_submission_because": promotion_reasons,
         },

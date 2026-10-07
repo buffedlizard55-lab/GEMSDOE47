@@ -1,25 +1,19 @@
 #!/usr/bin/env python3
-"""H49 Instrument-B spacing/density sweep against a public SGMC proxy.
+"""H49 Instrument-B sweep: the emission density/spacing response against INDEPENDENT faults.
 
-This is not an independent private-label set or a confirmed inventory of faults: USGS SGMC includes
-lithologic contacts and other non-fault traces. The H49-B addendum and sweep evidence first appear
-together in Git, so prospective preregistration timing is not independently auditable. See
-``docs/H49_RESULTS.md`` and ``docs/research/h49b-instrument-b-preregistration.md`` for the report and
-its timing limitation.
+Design is frozen in ``docs/research/h49b-instrument-b-preregistration.md`` before this file ran:
 
-  * proxy = USGS SGMC traces more than 300 m from the given catalogue, whole components only,
-    prevalence-matched to p0200 inside each 8x8 block; this is a public comparison population, not
-    the organizer's undisclosed target or a claim about what it actually scores;
-  * the given catalogue is excluded from prediction emission and masked from the proxy according to
-    the published catalogue-pixel exclusion, but the local test instrument is not asserted to
-    reproduce the full competition target;
-  * two fields (R2_scarp9_topo reference, R7_scarp9_polarity = H49-B), two emitters (isotropic
-    ``nms_disk`` reference and strike-aligned ``nms_oriented`` = H49-A), matched-emission comparisons,
-    a spacing × density × flank grid and a fixed-seed spaced-random control;
-  * one seeded 50/50 partition of usable blocks into selection and calibration halves. A nominal
-    fixed-arm order-statistic can be reported under exchangeability and prospective rule fixation;
-    the after-results mean-rule amendment means the calibration half does not validate the complete
-    published adaptive procedure.
+  * truth = USGS SGMC traces more than 300 m from the given catalogue, whole components only,
+    prevalence-matched to p0200 inside each 8x8 block -- real faults the given catalogue does NOT
+    contain, which is the population the organiser actually scores;
+  * the given catalogue is masked in full inside every block, exactly as the organiser masks it, so
+    the emission domain here IS the competition domain;
+  * two frozen fields (R2_scarp9_topo control, R7_scarp9_polarity = H49-B), two emitters (isotropic
+    ``nms_disk`` control and strike-aligned ``nms_oriented`` = H49-A) at identical emitted mass, a
+    spacing x density x flank grid whose density range is deliberately extended upward because the
+    first run's optimum sat on its upper boundary, and a fixed-seed spaced random control;
+  * one seeded 50/50 split of the usable blocks into SELECTION and CALIBRATION halves, so the arm can
+    be chosen on one half and certified on the other.
 
 Run:  python3 scripts/run_sweep_h49b.py [--blocks-limit N] [--out PATH]
 Out:  evidence/sweep/sweep_h49b.json

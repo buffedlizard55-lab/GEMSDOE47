@@ -1,18 +1,197 @@
-# GEMSDOE47 — a research TIFF, with the promotion gate closed
+# GEMSDOE47 — new inference, auditable evidence, no slot
 
-> **Re-read the standing brief (immediately below) at the start of every work session.**
-> **Maximize P(Win)**: never spend a weekly slot on an idea that has not beaten the holdout.
-> **Own the Outcome**: publish negative results, corrections, actual bytes and limits.
+> **Read the standing brief below at the start of every work session.**
+> **Maximize P(Win)**: preserve a weekly slot until a genuinely new candidate beats the frozen spatial control.
+> **Own the Outcome**: publish negative results, corrections, actual bytes and limits — never an invented win.
+
+## New GeoTIFF — one-click download first
+
+**[Download the new H47-C1 single-band GeoTIFF](docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif)** ·
+[Single-TIFF ZIP](docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.zip) ·
+[Executive summary and official submission sequence](docs/executive-summary.html) ·
+[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
+
+**RESEARCH ONLY · NOT PROMOTED · DO NOT UPLOAD · NO SLOT AUTHORIZED.**
+This is new model inference, not a renamed/repacked historical submission. 561 prior-raster
+comparisons across 54 public commit-pinned owner inventories plus
+local history found **zero exact positive-mask or in-footprint-value matches**; max Jaccard
+**0.040617**. This is bounded uniqueness, not proof of all unpublished outputs or geological discoveries.
+
+- Filename: `gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif`
+- Name: `GEMSDOE47-C1-D2p8-bdf4508769c8`
+- Short Note (143 characters): `H47C1 odd-step/channel; d=2.8px/280m; 90% marginal proxy L=0.0000 (assumed exch.), not private; 37654 dots; finite+mask; UNSCORED; NOT PROMOTED`
+- TIFF SHA-256: `e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0`
+- Actual bytes: **152,396**. Full width **3292 × height 3730**, EPSG:32611, 100 m.
+- One float32 data band, 37,654 unit dots. All raw samples finite in [0,1]. Internal validity mask marks
+  exactly 7,111,787 outside-footprint pixels null. `nodata=None` keeps valid zeros valid. No sidecar mask.
+- **15/15 strict read-back checks pass. Organizer acceptance has not been tested.** The original rejected
+  file/parser receipt was not supplied, so its historical error cause is not claimed proved.
+
+## Actual validation decision — not a leaderboard projection
+
+| Locked comparison | Pooled public-catalogue DTI | Mean block DTI | Spacing |
+|---|---:|---:|---:|
+| H47-C1 odd-step/channel profile detector | 0.177872 | 0.177038 | **2.8 px / 280 m** |
+| Selection-only best raw/ordinary-terrain baseline | 0.180216 | 0.176051 | 3.6 px / 360 m |
+| Fixed-seed spaced random | 0.070924 | 0.060701 | 2.8 px / 280 m |
+
+**Selected spacing 2.8 px / 280 m · nominal 90% simultaneous marginal block band · assumption-conditional lower-bound estimate 0.0000.**
+Selection / calibration = 21 / 21 disjoint-role blocks, max residual over all five settings,
+finite rank 20/21. Under exchangeability, rank coverage is at least 20/22=90.91%; geological
+exchangeability is **unverified**. This does **not** cover private new-fault labels, pooled map DTI,
+conditional geography, or the globally emitted 37,654-dot TIFF. No nonzero private guarantee exists.
+
+Candidate wins **11/22** truth-bearing test blocks; **15** required. Pooled loss and zero assumption-conditional lower bound keep
+the gate closed despite a slightly favorable mean. Secondary SGMC distance>300 m diagnostic also loses
+to random (profile 0.073537 vs random 0.083174). No competition submission was made.
+
+### Mainline H49 artifact — retained as research only, not promoted
+
+The H49 files received from `main` are preserved, but they do **not** replace H47-C1 as the primary research download and are not slot-authorized. H49's nominal split-conformal calculation is a **0.03184 lower-bound estimate at nominal 90%** for a public SGMC proxy block, conditional on unverified block-score exchangeability. The selection rule was amended after inspecting repeated-split results, so formal coverage for that post-hoc amended process is not established. The reported `0.2778` comparator is only an **owner-reported d2.8 reference**; its score/file association is unverified, and it is not an authenticated leaderboard incumbent.
+
+The exact H49 TIFF is retained at `docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` (SHA-256 `a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b`) for audit only. A fresh local read-back found all 12,279,160 grid cells finite, zero NaNs, no NoData tag, and a valid mask on every cell; against the original 5,167,373-cell owner-mirror footprint receipt, 7,111,787 outside cells are finite. That **fails** the published requirement that cells outside the data bounds be null or NaN. The earlier builder's all-finite check did not test this requirement. See [corrected H49 report](docs/H49_RESULTS.md), [format audit](evidence/h49/format-contract-audit.json), and the [artifact register](docs/all-downloads.html). **Do not upload H49 or use a submission slot.**
+
+This review did not restore source data, rerun H47-B or H49, upload, or use a competition slot.
+
+This run has **not** surpassed the user target 0.3195 or the dated official leader 0.3774. Proxy values
+are not directly comparable to those competition scores. Reported GEMSDOE32/H33 0.2778 is preserved as
+user/owner history; participant rows do not authenticate the filename/hash. [Mechanism and limits](docs/analysis.html).
+
+### Cross-session research status and claim boundaries
+
+**Every H47-GSA and H47-MAXCOV raster remains research-only; none is promoted or authorized for upload.** The
+H47-GSA model, fits, cross-fit comparisons and conditional score inversions are exploratory. Any result that
+uses the alleged H33-2-B2 / 0.2778 pairing is a hypothetical scenario, because no organizer receipt authenticates
+the participant score to that TIFF. Refer to the d2.8 raster as the **owner-reported d2.8 reference**, not an
+incumbent. Reserve “incumbent” for a separately established spatially blocked holdout best; a participant
+score or owner-supplied raster alone does not establish one.
+
+H47-SAF's tested sensitivity changes sign **between assumed DTI 0.2200 and 0.2400 only**. This is a coarse-grid
+bracket, not an exact break-even or a causal verdict; it depends on the unverified H33 association. No claim
+that deleting predictions on masked pixels caused a score gain is supported. Deleting predictions exactly on
+masked pixels cannot by itself improve DTI; effects of pruning nearby, evaluated pixels require paired
+measurement on the evaluated domain.
+
+**Format boundary:** Published instructions require null or NaN outside the data bounds. The unmasked all-finite H47-B single-scale diagnostic, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and older Session-3 files write zeros outside and fail the explicit outside-nodata check; they remain research-only. H48's future research writer now emits NaN outside, which
+follows an owner-supplied mirror convention only and does not establish portal acceptance. H47-C1 is
+different: it has finite raw samples plus an internal validity mask marking outside cells null; its local
+checks are not organizer acceptance.
+
+Keep the metric ratios distinct. With `x=T/K`, `ρ=F/K`, `α=0.2`, and `β=0.8`,
+`x=(αρ+β)/(1/DTI−α)`. With `f=F/T`, instead use
+`x=β/[1/DTI−α(1+f)]`. `ρ` and `f` have different denominators and are not interchangeable. For example,
+`ρ=8.02` is illustrative, not a verified participant ratio; these equations do **not** show that DTI 0.3195
+is unreachable. Three historical λ-scaling score observations are not a verified count of new uploads or slots;
+no upload cost is inferred and the diagnostic is not characterized as free. See [analysis](docs/analysis.html),
+[irregularities](docs/irregularities.md), and [next-session handoff](docs/next-session.md).
+
+
+## Earlier H47-QC screen — research-only, separate from H47-C1
+
+[Download the H47-QC 5,000-pixel GeoTIFF](docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif) ·
+[Short identification note](docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.md) ·
+[Full screen report](docs/h47qc-screen-20261006.json) ·
+[Bounded uniqueness audit](docs/h47qc-uniqueness-audit-20261006.json)
+
+**RESEARCH ONLY · FAILED PROMOTION GATE · DO NOT UPLOAD · NO SLOT AUTHORIZED.** H47-QC's locked-test
+pooled public-catalogue DTI was **0.0131689425**, below its geochemistry-only ablation (**0.0141948068**);
+selected spacing was **6 px / 600 m**. The nominal split-conformal level was 6/7 (85.7%) only under
+unverified block-score exchangeability; its clipped assumption-conditional lower-bound estimate was **0.0**, not a private-target or
+map-wide guarantee. The 5,000 binary float32 pixels are finite in [0,1] on the 100 m EPSG:32611 grid; the historical all-finite TIFF writes unmasked zeros outside the footprint and fails the published null/NaN-outside check.
+The TIFF SHA-256 is `3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2`.
+Its bounded public-inventory audit found no exact positive-mask match among inspected artifacts, but that is
+not global uniqueness or performance evidence. A separate post-merge check against all 12 other same-grid
+TIFFs currently published in this repository also found no exact mask match (maximum positive-support
+Jaccard 0.003175 against H47-GSA; H47-QC/H47-C1 Jaccard 0.000915). H47-QC is a separate earlier experiment,
+not a replacement for or promotion of the later H47-C1 result above.
+
+## Preregistration, correction and review
+
+Five ranked physical hypotheses were written **before implementation** in
+[`docs/research/h47c-hypotheses-preregistered.md`](docs/research/h47c-hypotheses-preregistered.md).
+Protocol and tested implementation were committed at `cc14ad84fbace93bdd0c2a7bc8b520170e082bb3` before fit/scoring.
+
+A test-loop variable overwrote pre-test-selected **2.8** with final sweep value **5.8**. Pass 2 caught it
+before a TIFF was published. The first run is retained/retracted in `evidence/retired-profile-pass1/`.
+Technical correction `7aa938e` changed no features, models, split, seed, emission budget, spacing grid or gate.
+Every trained prediction-field hash and the full spacing history match byte-for-byte across runs;
+only final interpretation/emission now honors the original lock. See
+[correction/review notes](docs/research/h47c-review-notes.md) and
+[control-flow recheck](evidence/profile-control-flow-recheck.json).
+
+Other fixes: empty-truth EDT phantom corner credit; tensor half-angle / row-column strike geometry;
+zero-DTI marginal credit; portable H33 reference path; skipped-large restoration falsely labeled
+verified; CI missing function-based tests; inactive but dangerous legacy builders deleting/replacing
+all downloads. Legacy LATI build entry points are now disabled by default; they exit before reading cache or writing artifacts. They cannot approve a slot. Historical orientation/model/hidden-mass evidence is not recertified.
+
+## Autonomous recovery / training / inference / validation
+
+No manually placed data is needed to reproduce the **mirror-based research** pipeline:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-dev.txt -r requirements-research-lock.txt
+.venv/bin/python scripts/restore_data.py --group all
+PYTHONPATH=src .venv/bin/python scripts/verify_grid.py
+PYTHONPATH=src .venv/bin/python scripts/run_profile_experiment.py
+PYTHONPATH=src .venv/bin/python scripts/build_profile_submission.py
+.venv/bin/python scripts/audit_prior_artifacts.py --candidate docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif
+PYTHONPATH=src .venv/bin/python -m pytest tests -q
+.venv/bin/python -m ruff check .
+```
+
+**23/23 files / ~507 MB restored and verified** by digest **and byte size**. Large arrays, model weights,
+raw archives and caches stay ignored. Reproducible pins establish mirror identity, not authenticated
+DrivenData provenance. Source recipes and exact numerical/parser versions are saved. The fixed screen
+runs in about four minutes on 2 CPU cores; scratch feature/model arrays are under 1 GB per content key.
+The legacy site renderer is retired because it can overwrite reviewed pages with stale claims; do not run it.
+
+CI collects **all non-data pytest tests**, including physical mechanisms, block label isolation,
+finite conformal ranks, exact selected-choice regression, source-policy/failure handling and actual
+new TIFF/ZIP bytes. Restored-grid tests are run locally; they are explicitly marked `needs_data`.
+
+## Auditable automatic feed and source boundaries
+
+- `docs/data/` contains the actual deployed screen, spacing CSV, hash receipts and bounded source inventory;
+  no broken `../evidence` paths in the docs-only Pages deployment.
+- Pages refreshes permitted official-government/owner source availability and hashes on push/manual
+  dispatch and a daily schedule. Failures are retained as failures; stale observations are labeled.
+- **DrivenData Terms prohibit robot/spider monitoring**. No written permission or authorized API feed
+  is recorded, so automatic DrivenData queries are disabled. The dated participant board is retained,
+  not silently presented as live. This limitation narrows the automatic-feed requirement rather than
+  bypassing Terms. [Terms](https://www.drivendata.org/termsofuse/) · [Sources](docs/sources.html).
+- Public official archives are independently probed on a GitHub-hosted runner; availability/coverage
+  is whatever the receipt actually says, never implied by a green workflow. Those vectors do not train C1.
+- Staff withholds hidden data sources/types/coverage. Raw 1m_DEM_links.csv and 1 m DEM tiles were not
+  acquired. Quantized 100 m lidar descriptors are not raw lidar. Band 6 `tc` and band 15 depth metadata
+  remain disputed. [Irregularities](docs/irregularities.html).
+- The official overview checked on 2026-10-06 listed **December 3, 2026, 23:59 UTC**. The public official
+  pages checked that day do **not** establish a current per-user quota or slot-accounting rule. They describe
+  one selected file for both rounds; verify the live portal/rules before any future action. Do not infer a
+  permitted upload count or cost from score observations.
+- Generative-AI assistance by an Arena.ai coding agent must be disclosed in the official narrative.
+  Entrant eligibility, authorized account use and any organizer receipt cannot be certified here.
+
+## What to do next
+
+1. Keep the current slot closed. Do not rename or re-label this negative run as promoted.
+2. Use actual official-download coverage receipts to assess external-data feasibility; obtain the official
+   1 m tile CSV/coverage before calling a high-resolution detector viable. Process bounded tile windows,
+   not an unbounded hundreds-of-GB mosaic in Git.
+3. Preregister a new competing-explanation detector and an honestly fresh validation design. Known C1
+   test scores cannot become independent tuning data and a second untouched test.
+4. Require same-mass pooled and fold-level wins against comparable controls, a supported assumption-conditional lower bound and
+   source/license audit. Only then prepare a new slot-eligible artifact and retain its organizer receipt.
+
+[Current next-session handoff](docs/next-session.md) · [Reusable knowledge](docs/knowledge.html) ·
+[Historical pre-C1 README (explicitly superseded)](docs/research/readme-preC1-20261006.md)
 
 ---
 
-
 ## 0. Read this first — the standing project brief
 
-This is the structured user brief saved by the prior session (a faithful structured record, not a claimed
-verbatim chat transcript — the original word-for-word prompt is not available to this checkout). It is
-reproduced here at the **top** of the README on purpose: **re-read it at the start of every work session**,
-because every decision in this repository is answerable to it.
+This section is the user's brief. It is kept near the top on purpose: **re-read it at the start of every
+session**, because every decision above is answerable to it.
 
 > ### MAXIMUM URGENCY / HIGHEST URGENCY MUST BE FOLLOWED
 >
@@ -77,160 +256,18 @@ because every decision in this repository is answerable to it.
 2. **Holdout before a slot.** Do not use a submission slot for an idea that has not beaten the current
    spatially blocked holdout best under a preregistered rule. Use equal prediction mass where
    appropriate, a ≥300 m guard consistent with the metric kernel, fold-level results, and nontrivial
-   controls. Ties, unstable folds, missing labels, failed controls, or a zero/unsupported lower floor
+   controls. Ties, unstable folds, missing labels, failed controls, or a zero or unsupported assumption-conditional lower bound
    keep the gate closed.
 3. **Conformal honesty.** Use split conformal only where the exchangeability unit and target are
    defensible. State sample count, rank, nominal level and assumptions. Never call an
    assumption-conditional result a distribution-free guarantee for private labels or a leaderboard
    score. Do not reuse the retired `0.34837` claim.
 4. **Valid output.** Read back the exact output bytes. Enforce a single-band GeoTIFF, official
-grid/CRS/transform, allowed nodata footprint, finite in-footprint values in [0, 1], and an audit
-receipt. A format pass does not establish scientific validity or organizer acceptance.
-
-### Active follow-up brief — re-read every session
-
-Review this repository and continue toward a **valid, genuinely distinct, easy-to-download TIFF**; do not use an earlier submission as the deliverable. Assess the H33 score explanation and newer H49 evidence honestly. Retain 3–5 ranked geological hypotheses with their layers, targeted physical signature, why each may reveal uncatalogued faults, novelty versus prior work, expected effect and implementation cost. Verify free official data access before depending on new data. Use spatially blocked holdout validation and split conformal on the spacing/DTI sweep; state the confidence beside the selected spacing, the exchangeability unit, target and assumptions. Do not claim an unconditional guarantee or infer a leaderboard score. Do not spend a weekly submission slot on a candidate that has not beaten the spatial-holdout best under a defensible, prospective rule. Preserve the obvious top-level website download, executive submission steps, research/source records, and a three-pass review (implement/verify; review/fix; re-check against the brief). Keep **Maximize P(Win)** and **Own the Outcome** central. Put this full available brief in `README.md` and re-read it at the start of each work session. Verify claims against trusted sources, link them, flag irregularities, and report remaining work and limitations. Reconcile the stale working branch with current `main`, then create and merge a PR. Do not claim organizer score or acceptance without a receipt.
-
-**Active evidence corrections and gate rules:** a public mask relationship is not an organizer score receipt; a nominal fixed-arm conformal floor is not a guarantee for an adaptive pipeline; re-splits that reuse blocks are diagnostics, not new samples; file-format validity, scientific validity, uniqueness scope and organizer acceptance are separate; a negative paired-improvement lower bound keeps the slot gate closed.
+   grid/CRS/transform, allowed nodata footprint, finite in-footprint values in [0, 1], and an audit
+   receipt. A format pass does not establish scientific validity or organizer acceptance.
 
 ---
 
-
-### Preservation note
-
-The structured standing brief above was present in the checkout and is preserved here. The original
-word-for-word chat prompt was not present in the condensed continuation context or repository; this file
-does **not** pretend to reconstruct unavailable wording. All available supplied variant identifiers,
-reported scores and source URLs are retained below/in the linked registry. Re-read this whole section
-and the current decision at the start of every work session.
-
-The brief's phrase “0.3195 current leaderboard top” is the original user target, **not** a current-board
-assertion. The saved official observation is 0.3774 at rank 1.
-
----
-
-## 1. Current research artifact — one-click download first
-
-*(Sections 0–2 are the current decision and artifact state. Later sections preserve history; recheck dates and receipts before treating them as current.)*
-
-**[⬇ Download `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif`](docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif)** ·
-[single-TIFF ZIP](docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.zip) ·
-[current format / gate receipt](docs/data/current-artifact.json) ·
-[pinned public-inventory audit](docs/data/pinned-public-inventory-uniqueness.json) ·
-[H49 results and limitations](docs/H49_RESULTS.html) ·
-[executive summary and exact future upload steps](docs/executive-summary.html) ·
-[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
-
-> **RESEARCH ONLY · PROMOTION GATE CLOSED · UNSCORED.** The file is available for review and download, but it did **not** beat the incumbent under the predeclared paired-improvement criterion. Do **not** spend a weekly submission slot on it. No organizer upload, score, or acceptance receipt exists.
-
-- Filename / submission name: `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` / `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3` · **409,124 bytes** · **37,612** positive unit dots.
-- TIFF SHA-256: `f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060`; byte-identical at `submission/` and `docs/downloads/`. The **255,252-byte ZIP** contains exactly that one TIFF.
-- Read-back format status: one float32 band, 3292 × 3730, EPSG:32611, 100 m and exact affine transform; the internal mask equals the official 5,167,373-cell footprint and masked reads are null exactly outside. All 12,279,160 raw cells are finite in [0,1], no nodata tag or sidecar, 37,612 positives. **All 19 gating checks pass**; the separate informational whole-grid range-guarantee flag is also true. This validates these bytes' format only.
-- Field / operating point: `R7_scarp9_polarity` · isotropic disk emitter · spacing **2.8 px / 280 m** · **7.37** dots per 1,000 scored pixels · 300 m catalogue-flank buffer. Portal note (168/200 characters): “H49 polarity-scarp field; 37,612 dots, 2.8px spacing. Nominal 90% Instrument-B split-conformal floor 0.0318; post-hoc rule provenance and exchangeability caveats apply.”
-- Split-conformal statement beside the spacing: nominal **90% fixed-arm** lower statistic **0.03184** on Instrument B; calibration unit = one 8×8 spatial block, n = 19, order statistic k = 18. The public target is block DTI on USGS SGMC traces >300 m from the given catalogue. Validity assumes exchangeable blocks and an arm fixed independently of calibration outcomes. SGMC includes non-fault contacts, geological-block exchangeability is unverified, and this rule was amended after results; therefore this is a **conditional diagnostic, not a guarantee for the full adaptive procedure, paired improvement, private labels, or leaderboard score**. PM0200 corroborating nominal floor: 0.01828.
-- Bounded uniqueness: the pinned inventory covers **54 visible public repositories**, with **555 comparable inventory blobs plus 10 local-history rasters** (565 comparisons), **zero exact mask/value matches**, and maximum Jaccard **0.292575** against the prior GEMSDOE47 H49 raster; local maximum containment is 0.452701. Three inventory entries were not directly comparable (two were not single-band exact-grid rasters; one ZIP did not contain a single TIFF); zero repository inventories failed. **Not global uniqueness**: inaccessible, unpublished, and non-inventoried work is out of scope.
-
-## 2. What the H33 and H49 evidence does—and does not—say
-
-### H33 score attribution
-
-The H33 zero-outside mask (37,654 positive pixels) is a strict subset of the 40,199-positive H27 parent: 2,545 parent-only pixels, all within 2 pixels of the given catalogue. The exact mask relation is verified against pinned files. The score attribution is not: the public board's 0.2778 row is not mapped by an organizer receipt to the H33 TIFF hash, and the pinned H33 owner README calls the file **UNSCORED** while describing 0.2747 as a projection. The earlier 0.2708 label is likewise not tied to the exact parent bytes.
-
-At a hypothetical DTI of 0.2778, the metric's marginal-credit bar is 0.2 × 0.2778 = 0.05556. That algebra is exact; it does not reveal the hidden-fault credit of the removed pixels. Catalogue pixels are excluded, but there is no automatic buffer that makes nearby dots penalty-free. Reduced off-target mass is a plausible mechanism, not a demonstrated causal explanation for an authenticated H33 score. See [`knowledge/05`](knowledge/05_why_02778_and_can_we_beat_it.md) and [`docs/RESULTS.md`](docs/RESULTS.html).
-
-### H49 public-proxy evidence and closed gate
-
-- H49-A (strike-aligned emitter minus disk) has mean paired DTI differences **−0.01856** on selection and **−0.00761** on calibration; it does not support the oriented emitter.
-- H49-B (R7 polarity field minus R2 topographic field) has positive sample means, **+0.006423** and **+0.002483**, but its 90% split-conformal lower bounds are **−0.00941** and **−0.01621**. These proxy results do not establish a robust geological improvement.
-- Against the H33-labelled reference, the shipped arm's paired mean differences are +0.03221 (selection) and +0.03890 (calibration), but its corresponding 90% paired-difference lower bounds are **−0.03342** and **−0.01050**. The saved floor-rule arm also has negative paired lower bounds. A positive sample mean or an absolute DTI floor is not proof of improvement over the incumbent.
-- The 400 re-partitions reuse the same 39 spatial blocks; they are sensitivity diagnostics, not new independent samples. The final mean-maximizing rule is a post-results amendment whose prospective timing is not independently auditable from Git history. **The promotion gate remains closed; do not upload this TIFF.**
-
-Full per-arm values and assumptions are in [`docs/H49_RESULTS.html`](docs/H49_RESULTS.html), machine-readable evidence in `evidence/h49/`, and the ranked forward queue in [`docs/RESEARCH_HYPOTHESES.md`](docs/RESEARCH_HYPOTHESES.html). Earlier H47-C1 and H47-QC remain research-only negative screens, not replacements for this candidate.
-
-## Preregistration, correction and review
-
-Five ranked physical hypotheses were written **before implementation** in
-[`docs/research/h47c-hypotheses-preregistered.md`](docs/research/h47c-hypotheses-preregistered.md).
-Protocol and tested implementation were committed at `cc14ad84fbace93bdd0c2a7bc8b520170e082bb3` before fit/scoring.
-
-A test-loop variable overwrote pre-test-selected **2.8** with final sweep value **5.8**. Pass 2 caught it
-before a TIFF was published. The first run is retained/retracted in `evidence/retired-profile-pass1/`.
-Technical correction `7aa938e` changed no features, models, split, seed, quota, spacing grid or gate.
-Every trained prediction-field hash and the full spacing history match byte-for-byte across runs;
-only final interpretation/emission now honors the original lock. See
-[correction/review notes](docs/research/h47c-review-notes.md) and
-[control-flow recheck](evidence/profile-control-flow-recheck.json).
-
-Other fixes: empty-truth EDT phantom corner credit; tensor half-angle / row-column strike geometry;
-zero-DTI marginal credit; portable H33 reference path; skipped-large restoration falsely labeled
-verified; CI missing function-based tests; inactive but dangerous legacy builders deleting/replacing
-all downloads. Retired LATI builders now require educational opt-in, write only ignored cache and
-cannot approve a slot. Historical orientation/model/hidden-mass evidence is not recertified.
-
-## Autonomous recovery / training / inference / validation
-
-No manually placed data is needed to reproduce the **mirror-based research** pipeline:
-
-```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements-dev.txt -r requirements-research-lock.txt
-.venv/bin/python scripts/restore_data.py --group all
-PYTHONPATH=src .venv/bin/python scripts/verify_grid.py
-.venv/bin/python scripts/build_surfaces.py
-.venv/bin/python scripts/run_sweep_h49.py
-.venv/bin/python scripts/run_sweep_h49b.py
-.venv/bin/python scripts/certify_h49.py
-.venv/bin/python scripts/build_submission_h49.py
-.venv/bin/python scripts/audit_prior_artifacts.py --candidate docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif
-.venv/bin/python scripts/publish_h49.py
-.venv/bin/python scripts/report_h49.py
-.venv/bin/python scripts/update_site_h49.py
-.venv/bin/python -m pytest tests -q
-.venv/bin/python -m ruff check .
-```
-
-**23/23 files / ~507 MB restored and verified** by digest **and byte size**. Large arrays, model weights,
-raw archives and caches stay ignored. Reproducible pins establish mirror identity, not authenticated
-DrivenData provenance. Source recipes and exact numerical/parser versions are saved. The older H47-C1
-fixed screen ran in about four minutes on 2 CPU cores; do not treat that runtime as a measurement of
-H49. Scratch feature/model arrays are under 1 GB per content key.
-
-CI collects **all non-data pytest tests**, including physical mechanisms, block label isolation,
-finite conformal ranks, exact selected-choice regression, source-policy/failure handling and actual
-new TIFF/ZIP bytes. Restored-grid tests are run locally; they are explicitly marked `needs_data`.
-
-## Auditable automatic feed and source boundaries
-
-- `docs/data/` contains the actual deployed screen, spacing CSV, hash receipts and bounded source inventory;
-  no broken `../evidence` paths in the docs-only Pages deployment.
-- Pages refreshes permitted official-government/owner source availability and hashes on push/manual
-  dispatch and a daily schedule. Failures are retained as failures; stale observations are labeled.
-- **DrivenData Terms prohibit robot/spider monitoring**. No written permission or authorized API feed
-  is recorded, so automatic DrivenData queries are disabled. The dated participant board is retained,
-  not silently presented as live. This limitation narrows the automatic-feed requirement rather than
-  bypassing Terms. [Terms](https://www.drivendata.org/termsofuse/) · [Sources](docs/sources.html).
-- Public official archives are independently probed on a GitHub-hosted runner; availability/coverage
-  is whatever the receipt actually says, never implied by a green workflow. Those vectors do not train C1.
-- Staff withholds hidden data sources/types/coverage. Raw 1m_DEM_links.csv and 1 m DEM tiles were not
-  acquired. Quantized 100 m lidar descriptors are not raw lidar. Band 6 `tc` and band 15 depth metadata
-  remain disputed. [Irregularities](docs/irregularities.html).
-- The official overview currently lists **December 3, 2026, 23:59 UTC**. Up to three scoring submissions
-  per week; **one selected file is evaluated in both rounds**, not unlimited final-round submissions.
-- Generative-AI assistance by an Arena.ai coding agent must be disclosed in the official narrative.
-  Entrant eligibility, authorized account use and any organizer receipt cannot be certified here.
-
-## What to do next
-
-1. **Keep the slot closed.** H49 has a format-valid TIFF and a positive descriptive proxy mean, but its 90% paired-difference split-conformal lower bounds versus the H33-labelled incumbent are negative. The post-results selection rule is not prospectively auditable. Do not submit the current file.
-2. Use a genuinely new spatially blocked evaluation or otherwise defensible independent holdout. Before scoring, preregister the physical hypothesis, arms, selection rule, split, matched-mass/shifted controls, paired-improvement criterion, confidence level and stopping rules. Do not count 400 re-partitions of the same 39 blocks as new samples.
-3. Continue from the four ranked, conditional hypotheses in [`docs/RESEARCH_HYPOTHESES.md`](docs/RESEARCH_HYPOTHESES.html): H49-E basement-depth/gravity edges, H49-C basin asymmetry, H49-D relay ramps, and H50 LiDAR only after the official files, coverage and bytes are actually obtainable. H50 is not fetchable in this sandbox and is not a current dependency.
-4. Only if a candidate beats the incumbent on the preregistered spatial holdout, controls pass, the exact TIFF validates, and bounded uniqueness is checked should a slot be reconsidered. Upload then requires an authorized DrivenData account and retention of the organizer receipt; none exists now. Use [`docs/executive-summary.html`](docs/executive-summary.html) for the future step sequence, not as permission to upload H49.
-5. Limits: the 1 m LiDAR inputs remain unobtained; band 6 `tc` / band 15 depth metadata remain disputed; geological-block exchangeability is assumed and unverified; SGMC includes non-fault contacts; the official target data are private. The phrase “0.3195 current leaderboard top” is the user's original target, not a current-board assertion; the saved official observation is 0.3774 at rank 1.
-
-[Current next-session handoff](docs/next-session.md) · [Reusable knowledge](docs/knowledge.html) ·
-[Historical pre-C1 README (explicitly superseded)](docs/research/readme-preC1-20261006.md)
-
----
 
 ## Preserved supplied score history — user claims, not organizer receipts
 
@@ -364,7 +401,7 @@ While C1 ran, PRs #8–#11 merged session 3 and H48. Their code, data receipts, 
 preserved additively: [Session 3](docs/session3.html), [H48 research](docs/research.html),
 [all historical artifacts](docs/all-downloads.html), [original session3 brief](README-session3.md).
 All remain non-promoted; no pooled/private score comparison across their differing proxy frames is
-valid. H48's adaptive-history floor is not recertified as finite-sample coverage by this merge.
+valid. H48's adaptive-history lower-bound calculation is not recertified as finite-sample coverage by this merge.
 
 Namespace collision resolved without changing C1's frozen conformal bytes: H48's original implementation
 is preserved byte-for-byte as `src/gems47/h48_conformal.py`, with only its caller imports adjusted.
@@ -383,7 +420,7 @@ GDB. No vector trained C1. Sources, hashes and runner attestation are in the dep
 
 ### Preserved H47-B follow-up — supplemental, not the current download
 
-The later single-scale H47-B control remains available as a [separate audit page and research-only TIFF](docs/h47b-mask-audit-20261006.html); it does **not** replace H47-C1 as the site’s current primary artifact. The single-scale locked pooled known-catalogue-mask proxy DTI was 0.02563947, below H47-B cross-scale (0.02755344) and fixed-seed random (0.03715911). The nominal 6/7 (~85.7%) split-conformal calculation assumes unverified block-score exchangeability and clips to a zero lower floor; it is not missing-fault or private-score coverage.
+The later single-scale H47-B control remains available as a [separate audit page and research-only TIFF](docs/h47b-mask-audit-20261006.html); it does **not** replace H47-C1 as the site’s current primary artifact. The single-scale locked pooled known-catalogue-mask proxy DTI was 0.02563947, below H47-B cross-scale (0.02755344) and fixed-seed random (0.03715911). The nominal 6/7 (~85.7%) split-conformal calculation assumes unverified block-score exchangeability and clips to a zero assumption-conditional lower-bound estimate; it is not missing-fault or private-score coverage.
 
 Its local strict format pass uses the explicit mirrored sample-template mask. That mask differs from the feature-derived footprint by 1,540 feature-valid cells outside and 3,061 sample/label cells invalid in features; official footprint semantics and portal acceptance remain unknown. The historical range-error cause is not proved. The paired all-finite TIFF is only an encoding diagnostic. See [IR-23](docs/irregularities.md) and the [complete artifact register](docs/all-downloads.html).
 

@@ -1,25 +1,16 @@
-"""GeoTIFF writer and an independent, fail-closed submission validator.
+"""GeoTIFF writer and local format validator — not a portal oracle.
 
-The portal rejects a submission with "Predicted values must be in range [0, 1]".
-Two distinct mechanisms produce that message and both are handled here:
+The published GEMS format page requires null or NaN outside the training-data
+bounds, one float32 layer, EPSG:32611, 100 m resolution, matching bounds, and
+predictions in [0, 1]. This module checks local bytes against those requirements;
+it cannot establish organizer acceptance or explain the earlier rejection.
 
-  1. a value outside [0, 1] (including the float32 nodata sentinel -3.4028234663852886e38,
-     which the official training_features.tif uses for its 7.1 M out-of-footprint cells);
-  2. a nodata TAG whose value is outside [0, 1] (e.g. NaN or the float32 sentinel) -- the
-     validator can read the tag as a "predicted value".
-
-The writer therefore offers two modes, and the validator re-opens the file from disk
-(it never trusts the in-memory array that was written). Both modes store the official
-footprint in a self-contained internal TIFF mask: masked reads return null outside,
-without a sidecar or out-of-range nodata tag.
-
-  mode="zeros"  every raw cell is finite and in [0, 1]; nodata tag is ABSENT. Outside
-                the footprint the raw sample is 0.0 and is marked invalid by the internal
-                mask, satisfying both range-safe and null-footprint readers.
-  mode="nan"    raw cells outside the footprint are NaN, as the official
-                example_submission.tif does ("data outside the bounds is null or nan").
-                The internal mask also marks them invalid; the range guarantee is only
-                for the footprint, not for raw masked-out samples.
+``mode="nan"`` writes NaN outside the supplied footprint, following the available
+owner-supplied mirror convention. That mirror is not organizer authentication.
+``mode="zeros"`` writes finite zeros outside the footprint; it is a diagnostic
+only and fails the published outside-null/NaN check. Neither sibling-file
+behavior nor a local range check proves portal acceptance. The cause of the
+previous rejection remains unknown.
 """
 from __future__ import annotations
 
@@ -38,17 +29,17 @@ TRANSFORM = from_origin(243350.0, 4508550.0, PIXEL_SIZE_M, PIXEL_SIZE_M)
 
 
 # --------------------------------------------------------------------------- writer
-def write_submission(values: np.ndarray, path: Path, mode: str = "zeros",
+def write_submission(values: np.ndarray, path: Path, mode: str = "nan",
                      footprint: np.ndarray | None = None) -> dict:
     """Write a single-band float32 GeoTIFF on the pinned grid.  Returns a receipt."""
     a = np.asarray(values, np.float64)
     if a.shape != (HEIGHT, WIDTH):
         raise ValueError(f"expected {(HEIGHT, WIDTH)}, got {a.shape}")
     if footprint is None:
-        footprint = np.isfinite(a)
+        raise ValueError("an explicit training-footprint mask is required; do not infer bounds from predictions")
     footprint = np.asarray(footprint, dtype=bool)
     if footprint.shape != a.shape:
-        raise ValueError(f"footprint shape {footprint.shape} differs from raster shape {a.shape}")
+        raise ValueError(f"footprint shape {footprint.shape} does not match raster {a.shape}")
     inside = a[footprint]
     if inside.size == 0:
         raise ValueError("empty footprint")
@@ -58,7 +49,7 @@ def write_submission(values: np.ndarray, path: Path, mode: str = "zeros",
         raise ValueError(f"value outside [0,1] inside the footprint: [{inside.min()}, {inside.max()}]")
 
     out = np.zeros((HEIGHT, WIDTH), np.float32)
-    out[footprint] = a[footprint].astype(np.float32)
+    out[footprint] = np.clip(a[footprint], 0.0, 1.0).astype(np.float32)
     if mode == "nan":
         out = out.astype(np.float32)
         out[~footprint] = np.float32("nan")
@@ -70,15 +61,13 @@ def write_submission(values: np.ndarray, path: Path, mode: str = "zeros",
     profile = dict(driver="GTiff", height=HEIGHT, width=WIDTH, count=1, dtype="float32",
                    crs=f"EPSG:{EPSG}", transform=TRANSFORM, compress="deflate",
                    tiled=False, BIGTIFF="NO")
-    # Deliberately NO nodata tag: any sentinel we could write (NaN, -3.4e38) is itself
-    # outside [0, 1] and is a second route to the portal's range rejection.
-    with rasterio.Env(GDAL_TIFF_INTERNAL_MASK=True), rasterio.open(path, "w", **profile) as ds:
+    # Raw NaN outside follows an available mirror convention; this is no claim
+    # about portal acceptance. No nodata tag is set.
+    with rasterio.open(path, "w", **profile) as ds:
         ds.write(out, 1)
-        ds.write_mask(footprint.astype(np.uint8) * 255)
         ds.set_band_description(1, "predicted confidence of an unmapped fault in [0,1]")
     return dict(path=str(path), mode=mode, bytes=path.stat().st_size,
-                sha256=_sha256(path), positive_pixels=int((out > 0).sum()),
-                valid_mask_pixels=int(footprint.sum()))
+                sha256=_sha256(path), positive_pixels=int((out > 0).sum()))
 
 
 def _sha256(path: Path) -> str:
@@ -107,12 +96,10 @@ class FormatReceipt:
     checks: dict = field(default_factory=dict)
     stats: dict = field(default_factory=dict)
 
-    #: Checks that gate acceptance.  ``validator_range_0_1_guaranteed`` is deliberately NOT in
-    #: this set: it asserts that EVERY cell of the grid is finite and in [0,1], which the
-    #: ``mode="nan"`` writer intentionally does not satisfy (the official page permits "null or
-    #: nan" outside the bounds, and three scored reference artifacts ship that way).  It is
-    #: reported separately as the strongest available guarantee, not as a pass/fail gate.
-    INFORMATIONAL = ("validator_range_0_1_guaranteed",)
+    #: Full-grid finiteness and a nodata-tag heuristic are diagnostics, not published
+    #: requirements. Local passes do not establish organizer acceptance.
+    INFORMATIONAL = ("all_grid_values_finite_in_unit_interval",
+                     "nodata_tag_in_unit_interval_diagnostic")
 
     @property
     def ok(self) -> bool:
@@ -120,34 +107,34 @@ class FormatReceipt:
         return bool(gating) and all(gating.values())
 
     @property
-    def strongest_guarantee(self) -> bool:
-        """True only for the all-finite, no-nodata-tag configuration actually shipped."""
-        return self.ok and bool(self.checks.get("validator_range_0_1_guaranteed"))
+    def all_grid_values_finite_and_unit_ranged(self) -> bool:
+        """Report an optional all-finite diagnostic; not an acceptance guarantee."""
+        return bool(self.checks.get("all_grid_values_finite_in_unit_interval"))
 
     def to_dict(self) -> dict:
         d = dict(path=self.path, sha256=self.sha256, bytes=self.bytes, driver=self.driver,
                  count=self.count, dtype=self.dtype, width=self.width, height=self.height,
                  crs=self.crs, crs_epsg=self.crs_epsg, transform=list(self.transform),
                  nodata=repr(self.nodata), checks=self.checks, stats=self.stats,
-                 all_checks_passed=self.ok,
+                 local_required_checks_passed=self.ok,
                  informational_checks=list(self.INFORMATIONAL),
-                 strongest_range_guarantee=self.strongest_guarantee)
+                 all_grid_values_finite_and_unit_ranged=self.all_grid_values_finite_and_unit_ranged,
+                 organizer_acceptance_established=False)
         return d
 
 
 def validate_submission(path: Path, footprint: np.ndarray | None = None,
                         catalogue: np.ndarray | None = None) -> FormatReceipt:
-    """Re-open the written file from disk and gate every published format requirement.
+    """Re-open bytes and check locally verifiable published format requirements.
 
-    Fail-closed: any check that cannot be evaluated is reported False.
+    A passing receipt is not portal acceptance. Fail closed when an available
+    format requirement cannot be verified.
     """
     path = Path(path)
     r = FormatReceipt(path=str(path))
     with rasterio.open(path) as ds:
         a = ds.read(1)
-        validity_mask = ds.read_masks(1) > 0
-        masked_read_mask = np.ma.getmaskarray(ds.read(1, masked=True))
-        self_contained_file = len(ds.files) == 1 and Path(ds.files[0]).resolve() == path.resolve()
+        read_mask = np.ma.getmaskarray(ds.read(1, masked=True))
         r.sha256 = _sha256(path)
         r.bytes = path.stat().st_size
         r.driver = ds.driver
@@ -160,24 +147,25 @@ def validate_submission(path: Path, footprint: np.ndarray | None = None,
         r.nodata = ds.nodata
 
     finite = np.isfinite(a)
-    fp_shape_matches = footprint is None or np.shape(footprint) == a.shape
+    footprint_supplied = footprint is not None
     fp = finite if footprint is None else np.asarray(footprint, bool)
-    if not fp_shape_matches:
-        fp = np.zeros(a.shape, dtype=bool)
+    if fp.shape != a.shape:
+        raise ValueError(f"footprint shape {fp.shape} does not match raster {a.shape}")
     inside = a[fp]
-    outside = a[~fp]
     finite_in = np.isfinite(inside)
     in_range = finite_in & (inside >= 0.0) & (inside <= 1.0)
-    nodata_is_nan = (r.nodata is not None) and isinstance(r.nodata, float) and np.isnan(r.nodata)
+    try:
+        nodata_is_nan = (r.nodata is not None) and bool(np.isnan(r.nodata))
+    except TypeError:
+        nodata_is_nan = False
+    # Diagnostic only: the published page allows null/NaN outside the bounds;
+    # it does not document how a portal treats a numeric nodata tag.
     nodata_bad = (r.nodata is not None) and not nodata_is_nan and not (0.0 <= float(r.nodata) <= 1.0)
 
-    outside_allowed = np.isnan(outside) | (np.isfinite(outside) & (outside >= 0.0) & (outside <= 1.0))
     r.stats = dict(
         full_grid_cells=int(a.size),
         finite_cells=int(finite.sum()),
         footprint_cells=int(fp.sum()),
-        validity_mask_cells=int(validity_mask.sum()),
-        invalid_mask_cells=int((~validity_mask).sum()),
         finite_in_footprint=int(finite_in.sum()),
         min_in_footprint=float(inside[finite_in].min()) if finite_in.any() else None,
         max_in_footprint=float(inside[finite_in].max()) if finite_in.any() else None,
@@ -197,23 +185,21 @@ def validate_submission(path: Path, footprint: np.ndarray | None = None,
         dimensions_3730x3292=(r.width == WIDTH and r.height == HEIGHT),
         crs_epsg_32611=r.crs_epsg == EPSG,
         transform_exact=r.transform == (100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0),
-        footprint_shape_matches_raster=fp_shape_matches,
-        mask_matches_footprint=bool(np.array_equal(validity_mask, fp)),
-        masked_read_null_exactly_outside=bool(np.array_equal(masked_read_mask, ~fp)),
-        self_contained_single_file=self_contained_file,
         in_footprint_all_finite=bool(finite_in.all()),
         in_footprint_zero_nan=int((~finite_in).sum()) == 0,
-        in_footprint_zero_inf=bool(np.isinf(inside[finite_in]).sum() == 0) if finite_in.any() else False,
+        in_footprint_zero_inf=bool(np.isinf(inside).sum() == 0),
         in_footprint_zero_sentinel=bool((inside[finite_in] > -1e38).all()) if finite_in.any() else False,
         in_footprint_range_0_1=bool(in_range.all()),
-        outside_samples_finite_or_nan_in_range=bool(outside_allowed.all()),
-        every_cell_finite_or_nan_outside=bool(finite[~fp].all() or np.isnan(a[~fp]).all()),
-        nodata_tag_not_out_of_range=not nodata_bad,
-        validator_range_0_1_guaranteed=bool(finite.all() and (a.min() >= 0.0) and (a.max() <= 1.0)),
+        footprint_supplied=footprint_supplied,
+        outside_is_null_or_nan=(
+            footprint_supplied and bool((np.isnan(a) | read_mask)[~fp].all())),
+        nodata_tag_in_unit_interval_diagnostic=not nodata_bad,
+        all_grid_values_finite_in_unit_interval=bool(
+            finite.all() and a.size > 0 and (a.min() >= 0.0) and (a.max() <= 1.0)),
         positive_pixels_present=int((a > 0).sum()) > 0,
     )
     if footprint is not None:
-        # only checkable when the caller supplies the official template footprint
+        # only checkable when the caller supplies a trusted template footprint
         checks["footprint_matches_template"] = int(fp.sum()) == FOOTPRINT_PIXELS
     r.checks = checks
     return r

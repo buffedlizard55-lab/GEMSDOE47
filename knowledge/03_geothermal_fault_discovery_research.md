@@ -36,9 +36,7 @@ repository that trades local-proxy score for physical plausibility is justified 
   fault types or coverage of the test faults; Phase-2 labels come from expert review of all
   Phase-1 submissions. `[FAMILY LEDGER]`
 
-**Consequence used everywhere below:** emitting mass on or beside the given catalogue earns
-nothing and costs `0.2` per unit. This is why `h33-2-b2` (0.2778) beats `h27-4-d2.8` (0.2708) —
-see `knowledge/05`.
+**Metric consequence:** in the stated off-catalogue target, known-catalogue pixels are not truth and prediction mass there can incur false-positive cost. Owner-reported H33-2-B2/H27-4 score labels are not organizer-authenticated to these rasters; no such score comparison is treated as verified here. See the corrected conditional analysis in `knowledge/05`.
 
 ---
 

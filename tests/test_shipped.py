@@ -75,24 +75,13 @@ def test_every_shipped_file_exists_and_matches_its_recorded_hash(shipped):
         assert p.stat().st_size == rec["bytes"]
 
 
-def test_primary_download_passes_every_check_including_the_nan_intolerant_one(shipped, tmpl):
-    prim = [r for r in shipped["shipped"] if r["primary_download"]]
-    assert len(prim) == 1, "exactly one file may be the primary download"
-    rec = prim[0]
-    p = ROOT / "docs" / "downloads" / rec["filename"]
-    v = S.validate_submission(p, template=tmpl)
-    assert v["all_checks_passed"] is True
-    assert v["recommended_for_upload"] is True
-    assert v["passes_nan_intolerant_range_check"] is True   # the reported rejection
-    assert v["hard_failures"] == []
-    assert v["stats"]["n_nan"] == 0
-    assert v["stats"]["n_emitted"] == rec["n_dots"] == 37_654
-    assert v["stats"]["n_emitted_on_catalogue"] == 0
-    assert v["stats"]["n_emitted_outside_footprint"] == 0
-    assert v["stats"]["v_min"] == 0.0 and v["stats"]["v_max"] == 1.0
-    assert v["format"]["count"] == 1
-    assert v["format"]["dtype"] == "float32"
-    assert v["format"]["crs"] == "EPSG:32611"
+def test_legacy_shipped_inventory_has_no_upload_candidate(shipped):
+    """The old H47 inventory is research-only; C1 is tested via current-submission.json."""
+    assert shipped["shipped"]
+    for record in shipped["shipped"]:
+        assert record["primary_download"] is False
+        assert record["submission_authorized"] is False
+        assert record["slot_eligible"] is False
 
 
 def test_nan_variants_fail_only_the_nan_intolerant_check(shipped, tmpl):
@@ -116,14 +105,6 @@ def test_allfinite_and_nan_variants_of_an_arm_are_the_same_raster(shipped):
         assert d["identical"] is True, arm
         assert d["jaccard"] == 1.0
 
-
-def test_the_primary_submission_is_distinct_from_every_prior_raster(shipped):
-    prim = [r for r in shipped["shipped"] if r["primary_download"]][0]
-    rows = [r for r in shipped["results"] if r["arm"].startswith("GEMSDOE47")
-            and str(prim["n_dots"]) and r["n_dots"] == prim["n_dots"]]
-    assert rows
-    best = min(r["max_jaccard_vs_any_prior"] for r in rows)
-    assert best < 0.90, f"primary arm is too close to a prior submission (Jaccard {best})"
 
 
 def test_no_shipped_file_carries_values_outside_the_unit_interval(shipped):

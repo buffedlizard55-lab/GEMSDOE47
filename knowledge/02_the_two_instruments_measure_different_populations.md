@@ -56,9 +56,10 @@ catalogue than to SGMC bedrock contacts. **Instrument A (held-out catalogue comp
 therefore the correct selection instrument**, with its own defect handled explicitly:
 
 *Defect (IR-47-PROXY-02).* Holding out catalogue components and then pruning predictions near
-the visible catalogue destroys the fold truth by construction - scoring the shipped 0.2778
-artifact against Instrument A gives DTI 0.0038, below random, while the organiser scored it
-0.2778. That is a property of the instrument, not of the artifact.
+the visible catalogue destroys the fold truth by construction. The owner-supplied H33-2-B2 raster
+returns DTI 0.0038 on this local Instrument A proxy, below random. This is not mapped to the
+participant-level 0.2778 leaderboard row, and it neither authenticates the file nor explains a
+participant score. That is a property of this instrument, not evidence about the official score.
 
 *Fix.* Split the held-out components by whether they lie within 300 m of the *rest* of the
 catalogue:

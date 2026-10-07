@@ -47,8 +47,10 @@ D(λp) = λT / (.2λ(T+F)+.8K)
 
 For K,T>0 lowering λ lowers D. Even exact measurements identify ratios F/T and K/T, not absolute
 T,F,K or a unique hidden map. Rounded, correlated/adaptive history with unverified file-score mapping
-is even less identifying. The old three-slot λ-probe recommendation and “model-free K=12,348” claim
-are withdrawn. No weekly slot is justified by an algebraic inversion experiment.
+is even less identifying. The old λ-probe recommendation and “model-free K=12,348” claim are withdrawn. Three historical λ-scaling
+score observations do not establish a count of new uploads or used slots, and do not establish a per-user
+quota. Public official pages checked 2026-10-06 leave current quota/slot accounting unknown. No diagnostic
+cost is inferred or called free; no slot is justified by an algebraic inversion experiment.
 
 ## What would be required to improve the reported 0.2778?
 
@@ -62,5 +64,6 @@ but the alleged H33/B2 .2778 filename/hash mapping is not organizer-authenticate
 
 A marginal prediction band for one future exchangeable block is not a confidence interval for pooled
 DTI, nor a conditional geographic/private guarantee. Simultaneous max-residual calibration protects
-five-setting choice only under its assumptions. C1's 21 calibration vectors yield rank 20 and **zero
-floors at every setting**; no difficult calibration block was discarded.
+five-setting choice only under its assumptions. C1's 21 calibration vectors yield rank 20 and **zero assumption-conditional lower-bound estimates
+at every setting**; no difficult calibration block was discarded. The nominal 90% marginal statement
+requires exchangeability, which is unverified.

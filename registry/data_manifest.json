@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "note": "Integrity-pinned mirror manifest. Pins prove mirror consistency, NOT organiser authentication: the competition portal is login-walled, so the three official rasters, the seven external layers, the twelve scored prior submissions and the one reference raster are restored from the owner's sibling repositories through the GitHub Contents API and verified by SHA-256 and byte count before use.",
+ "note": "Integrity-pinned mirror manifest. Pins prove mirror consistency, NOT organiser authentication: competition rasters, external features and H47-B descriptive inputs, scored prior submissions, and reference rasters are restored from owner-supplied sibling repositories through the GitHub Contents API and verified by SHA-256 and byte count before use.",
  "files": [
   {
    "id": "training_features",
@@ -253,13 +253,46 @@
   {
    "id": "ref_h33_2_b2",
    "repo": "buffedlizard55-lab/GEMSDOE32",
-   "ref": "main",
+   "ref": "b983924b57781edd29b8e249c4923bf33d9902f6",
    "path": "docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
    "dest": "reference/h33-2-b2-zeros.tif",
    "group": "reference",
    "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
    "bytes": 219065,
-   "provenance": "the reported-0.2778 flank-pruned arm; the 13th LATI observation and the only direct catalogue-flank ablation in the whole 44-repository collection. Its score is attribution-conflicted (IR-47-002), which is why scripts/flank_sensitivity.py reports a break-even rather than a conclusion."
+   "provenance": "flank-pruned reference raster from GEMSDOE32; the participant-level 0.2778 row is not authenticated to this TIFF, so this is not an observation pair and may be used only in an explicit assumed-DTI scenario (IR-47-002). The conditional sensitivity sweep brackets a tested-grid sign change between assumed DTI 0.2200 and 0.2400; it does not establish an exact root or a verdict."
+  },
+  {
+   "id": "ext_geodawn_extensions_manifest",
+   "repo": "buffedlizard55-lab/GEMSDOE24",
+   "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+   "path": "data/external/geodawn_extensions.json",
+   "dest": "external/geodawn_extensions.json",
+   "group": "external",
+   "sha256": "56556f24c051043fd7a85587786118f8064624f2ad0604aaa3e6614f1a9f6d2f",
+   "bytes": 8927,
+   "provenance": "Pinned metadata sidecar for ext_geodawn_extensions_u8; records band order and uint8 quantization. Mirror metadata, not organizer authentication."
+  },
+  {
+   "id": "ext_acquisition_blocks_figure_derived",
+   "repo": "buffedlizard55-lab/GEMSDOE24",
+   "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+   "path": "data/external/audit_sources/acquisition_block_id_100m.tif",
+   "dest": "external/audit_sources/acquisition_block_id_100m.tif",
+   "group": "external",
+   "sha256": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a",
+   "bytes": 85031,
+   "provenance": "Descriptive GeoDAWN acquisition-block raster derived from report Figure 3; receipt is pinned separately and states coordinates are approximate/non-official. Never a model input or selection/promotion criterion."
+  },
+  {
+   "id": "ext_acquisition_blocks_receipt",
+   "repo": "buffedlizard55-lab/GEMSDOE24",
+   "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+   "path": "data/external/audit_sources/acquisition_blocks_receipt.json",
+   "dest": "external/audit_sources/acquisition_blocks_receipt.json",
+   "group": "external",
+   "sha256": "577076187434560514baa62995f6bb61b4d43f015b1abaf9a358936b94b5fb75",
+   "bytes": 5736,
+   "provenance": "Derivation receipt for the descriptive acquisition-block raster; official_coordinates=false, boundaries read from a figure, and the primary descriptive kilometer audit is a1_plus_a2_outside_area1. Not a model input."
   }
  ]
 }

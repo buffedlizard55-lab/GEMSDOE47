@@ -223,7 +223,7 @@ def main() -> int:
                target_sizes={k: int(v.sum()) for k, v in targets.items()},
                n_valid=int(valid.sum()), n_candidates=len(rows),
                marginal_rule=("a dot pays iff its realised kernel weight w > 0.2*DTI; at the "
-                              "incumbent DTI 0.2778 that is w > 0.0556, i.e. within 2.83 px of a "
+                              "assumed owner-reported H33 DTI 0.2778 (unverified score/raster link), so w > 0.0556, i.e. within 2.83 px of a "
                               "truth pixel AND the best cover of it.  Read P@N curves against "
                               "that bar rather than a single P@40k."),
                fields=ranked)

@@ -1,16 +1,25 @@
 #!/usr/bin/env python3
-"""RETIRED LATI builders: educational reproduction only, never a slot candidate.
+"""Build and evaluate research-only GEMSDOE47 candidate arms.
 
-Both arms depend on adaptive, unauthenticated leaderboard observations and fitted
-truth models. Their scores are proxy beliefs, not organizer receipts. H47-GSA
-failed cross-fitting. H47-MAXCOV changes an emission rule, not the geology; its
-covered-kernel integral is not DTI without truth. Neither is approved.
+This lean path reads hash-pinned competition bytes from ``.cache/gems_data`` and
+one hash-pinned H33-2-B2 reference raster. The H33 file's link to the public
+participant-level 0.2778 score is *not verified*. The script includes it only as
+an assumed-DTI scenario alongside twelve owner-reported score/raster pairs.
 
-The official competition has up to three scoring submissions per week and ONE
-selected file for both prize rounds, not unlimited final-round submissions.
+H47-MAXCOV and H47-GSA outputs are exploratory artifacts, not submission
+recommendations. The project has not established a comparable current spatially
+blocked holdout champion that these arms beat; the H47-GSA cross-fit also depends
+on the unverified H33 mapping. No portal upload or submission slot is authorized.
 
-Opt-in: python scripts/ship.py --research-only
-Outputs go to ignored cache, never delete or replace the current research TIFF.
+The greedy emitter computes an exact covered-kernel objective for the public
+footprint, but that quantity is not a DTI estimate or a performance guarantee.
+The zeros-outside and NaN-outside files are local diagnostic variants: the former
+passes a NaN-intolerant raw range check but does not encode outside-footprint
+pixels as null/NaN; the latter follows the available mirrored sample convention
+but fails that raw check. Neither is recommended for upload or establishes
+organizer acceptance. Existing downloads are preserved when this script is run.
+
+    python3 scripts/ship.py [--budget 37654] [--budget2 44090]
 """
 
 from __future__ import annotations
@@ -34,18 +43,17 @@ from gems47 import emitter as E
 from gems47 import grid as G
 from gems47 import lati
 from gems47 import metric as M
-from gems47.research_policy import require_research_only
 from gems47.scripts_common import rank_u8_inplace
 from gems47.submission import diff_report, validate_submission, write_submission
 
 L2, BMAX, KLO, KHI = 1e-5, 12.0, 2_000.0, 120_000.0
 LEVELS = {1: 256, 2: 64, 3: 32, 4: 20, 5: 14}
 H33_REL = "reference/h33-2-b2-zeros.tif"
-# recorded by evidence/flank_sensitivity.json from the sibling clone, so the
-# restore is verifiable rather than trusted
+# The raster hash is pinned; its participant-score association is not.
 H33_SHA256 = "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9"
-H33_DTI = 0.2778
-K_UNIFORM = 12_348.0   # model-dependent approximation from an unauthenticated diffuse-probe score
+H33_ASSUMED_DTI = 0.2778
+H33_SCORE_FILE_MAPPING_VERIFIED = False
+K_UNIFORM = 12_348.0   # exploratory inverse under owner-reported r13-lattice score/raster association
 ARM2_LAYERS = ["prox_d2.8", "geod_shearrate", "rad_ThK", "thermal_warm_prox", "geod_dilaterate"]
 
 
@@ -105,13 +113,32 @@ def fit(rows_u8, obs):
     return f, s / s.sum()
 
 
+def read_reference_raster(path: Path, template: G.Template) -> np.ndarray:
+    """Read a single-band reference raster after strict grid/value checks.
+
+    NaN nodata is converted to zero only after infinities and the template grid
+    have been checked. H33's score association is not authenticated; this helper
+    validates raster structure, not its score attribution.
+    """
+    with rasterio.open(path) as src:
+        if src.count != 1:
+            raise ValueError("h33-2-b2 reference raster must have exactly one band")
+        if not G.dataset_matches_template_grid(src, template):
+            raise ValueError("h33-2-b2 reference raster grid does not match the template")
+        values = src.read(1).astype(np.float32)
+    if np.isinf(values).any():
+        raise ValueError("h33-2-b2 reference raster contains infinite values")
+    return np.nan_to_num(values, nan=0.0)
+
+
 def main() -> int:
-    require_research_only()
+    print("RETIRED: legacy LATI builder disabled; see README.md and docs/COMPLIANCE.md", file=sys.stderr)
+    return 2
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", type=int, default=37_654,
-                    help="matched to the reported-0.2778 arm: equal-mass comparison")
+                    help="research-only equal-mass comparison to the H33 raster; its score link is unverified")
     ap.add_argument("--budget2", type=int, default=44_090,
-                    help="matched to the live-0.2600 incumbent")
+                    help="matches the owner-reported d2.8 raster dot count (44,090; DTI 0.2600 has no organizer receipt)")
     args = ap.parse_args()
     t0 = time.time()
     data = G.data_dir()
@@ -123,7 +150,7 @@ def main() -> int:
     pos[ev_idx] = np.arange(ev_idx.size)
     print(f"[grid] {shape} evaluated={int(ev.sum()):,} catalogue={int(t.catalogue.sum()):,}")
 
-    # ---- the 13 observations ------------------------------------------------
+    # ---- twelve owner-reported pairs plus one conditional H33 scenario ------
     obs: list[lati.Obs] = []
     for rec in lati.OBSERVATIONS:
         p = data / "scored" / rec["file"]
@@ -139,12 +166,27 @@ def main() -> int:
     got = sha256_file(h33p)
     if got != H33_SHA256:
         raise SystemExit(f"h33-2-b2 hash mismatch: {got} != {H33_SHA256}")
-    with rasterio.open(h33p) as s:
-        v33 = np.nan_to_num(s.read(1).astype(np.float32))
-    obs.append(obs_from_dots(v33 > 0, H33_DTI, "h33-2-b2", "GEMSDOE32",
-                             "flank-pruned (reported 0.2778, attribution CONFLICTED)",
-                             got, t, ev_idx, pos, raw_pos=v33 > 0))
-    print(f"[obs] {len(obs)} observations; h33-2-b2 sha256 verified {got[:16]}...")
+    try:
+        v33 = read_reference_raster(h33p, t)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
+    obs.append(obs_from_dots(
+        v33 > 0,
+        H33_ASSUMED_DTI,
+        "h33-2-b2",
+        "GEMSDOE32",
+        "flank-pruned raster; assumed DTI 0.2778 scenario, score/file mapping unverified",
+        got,
+        t,
+        ev_idx,
+        pos,
+        raw_pos=v33 > 0,
+    ))
+    print(
+        f"[obs] {len(lati.OBSERVATIONS)} owner-reported pairs + 1 conditional H33 scenario; "
+        f"H33 SHA-256 verified {got[:16]}...; score/file mapping verified="
+        f"{H33_SCORE_FILE_MAPPING_VERIFIED}"
+    )
 
     # ---- belief layers (computed directly, no 59-layer stack needed) --------
     d28 = np.zeros(H * W, bool)
@@ -207,21 +249,37 @@ def main() -> int:
     print(f"[frames] SGMC off-catalogue truth={int(truth_sgmc.sum()):,} px; "
           f"{len(priors)} prior rasters for distinctness")
 
-    def evaluate(label, dots, reported=None):
+    def evaluate(
+        label,
+        dots,
+        *,
+        owner_reported_dti=None,
+        assumed_dti_scenario=None,
+        score_file_mapping_verified=None,
+    ):
         dots = dots & ev
         n = int(dots.sum())
         p = np.where(dots, 1.0, 0.0)
         cov = E.credit_field(dots.astype(np.float64))
-        r = dict(arm=label, n_dots=n, reported_live_dti=reported,
-                 on_catalogue=int((dots & t.catalogue).sum()),
-                 outside_footprint=int((dots & ~t.footprint).sum()),
-                 flank_0_300m=int((dots & halo3).sum()),
-                 flank_0_300m_pct=round(100 * (dots & halo3).sum() / max(n, 1), 2),
-                 annulus_300m_2500m=int((dots & annulus).sum()),
-                 annulus_pct=round(100 * (dots & annulus).sum() / max(n, 1), 2),
-                 on_sgmc_offcat=int((dots & truth_sgmc).sum()),
-                 covered_kernel_integral=round(float(cov[ev].sum()), 1),
-                 covered_evaluated_px=int((cov > 0)[ev].sum()))
+        r = dict(
+            arm=label,
+            n_dots=n,
+            owner_reported_dti=owner_reported_dti,
+            assumed_dti_scenario=assumed_dti_scenario,
+            score_file_mapping_verified=score_file_mapping_verified,
+            score_attribution_status=(
+                "owner-reported; no organizer receipt" if owner_reported_dti is not None else None
+            ),
+            on_catalogue=int((dots & t.catalogue).sum()),
+            outside_footprint=int((dots & ~t.footprint).sum()),
+            flank_0_300m=int((dots & halo3).sum()),
+            flank_0_300m_pct=round(100 * (dots & halo3).sum() / max(n, 1), 2),
+            annulus_300m_2500m=int((dots & annulus).sum()),
+            annulus_pct=round(100 * (dots & annulus).sum() / max(n, 1), 2),
+            on_sgmc_offcat=int((dots & truth_sgmc).sum()),
+            covered_kernel_integral=round(float(cov[ev].sum()), 1),
+            covered_evaluated_px=int((cov > 0)[ev].sum()),
+        )
         for nm, q in (("F1_arm1_belief", qA), ("F2_arm2_belief", qB), ("F3_uniform", qU)):
             ps = E.predicted_score(q, dots)
             r[nm] = {k: (round(v, 6) if isinstance(v, float) else v) for k, v in ps.items()}
@@ -259,8 +317,25 @@ def main() -> int:
         rr["emission_stopped_by"] = stops[lbl]
         rows_out.append(rr)
     for o in obs:
-        m = np.zeros(H * W, bool); m[o.dot_flat] = True
-        rows_out.append(evaluate(f"REFERENCE {o.id}", m.reshape(shape), o.dti))
+        m = np.zeros(H * W, bool)
+        m[o.dot_flat] = True
+        if o.id == "h33-2-b2":
+            label = f"CONDITIONAL SCENARIO {o.id} @ assumed {H33_ASSUMED_DTI:.4f}"
+            row = evaluate(
+                label,
+                m.reshape(shape),
+                assumed_dti_scenario=H33_ASSUMED_DTI,
+                score_file_mapping_verified=False,
+            )
+        else:
+            label = f"OWNER-REPORTED REFERENCE {o.id}"
+            row = evaluate(
+                label,
+                m.reshape(shape),
+                owner_reported_dti=o.dti,
+                score_file_mapping_verified=False,
+            )
+        rows_out.append(row)
 
     print("\n=== multi-frame evaluation ===")
     print(f"{'arm':<30}{'dots':>8}{'coverage':>11}{'F1 arm1':>9}{'F2 arm2':>9}{'F3 unif':>9}"
@@ -271,7 +346,8 @@ def main() -> int:
               f"{r['F3_uniform']['DTI']:>9.4f}{r['F4_sgmc_offcatalogue']['DTI']:>9.4f}"
               f"{r['F5_catq_mean']:>9.4f}{r['annulus_pct']:>8.1f}{r['max_jaccard_vs_any_prior']:>8.4f}")
     ref = {r["arm"]: r for r in rows_out}
-    i1, i2 = ref["REFERENCE d2.8"], ref["REFERENCE h33-2-b2"]
+    i1 = ref["OWNER-REPORTED REFERENCE d2.8"]
+    i2 = ref[f"CONDITIONAL SCENARIO h33-2-b2 @ assumed {H33_ASSUMED_DTI:.4f}"]
     print("\n=== paired comparison at matched budget ===")
     for lbl in (f"GEMSDOE47 arm1_maxcov_{args.budget}", f"GEMSDOE47 arm2_h47gsa_{args.budget}"):
         r = ref[lbl]
@@ -285,23 +361,36 @@ def main() -> int:
             b1 = i1[key[0]][key[1]] if key[0] else i1[key[1]]
             b2 = i2[key[0]][key[1]] if key[0] else i2[key[1]]
             print(f"     {frame:<26}{a:>13,.4f}  vs d2.8 {b1:>11,.4f} ({a-b1:+,.4f})  "
-                  f"vs h33 {b2:>11,.4f} ({a-b2:+,.4f})")
+                  f"vs conditional H33 scenario {b2:>11,.4f} ({a-b2:+,.4f})")
 
     # ---- write --------------------------------------------------------------
     stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
-    outdir = ROOT / ".cache" / "retired_lati_reproduction" / "ship"
+    outdir = ROOT / "docs" / "downloads"
     outdir.mkdir(parents=True, exist_ok=True)
-    removed = []  # historical reproduction must never delete published TIFFs
-    shipped = []
+    preexisting_downloads = [
+        dict(filename=old.name, bytes=old.stat().st_size, sha256=sha256_file(old))
+        for old in sorted(outdir.glob("*.tif"))
+    ]
+    research_outputs = []
     specs = [
-        ("arm1_maxcov", "h47maxcov", "RETIRED EDUCATIONAL REPRODUCTION - NOT PROMOTED, NO SLOT",
-         f"GEMSDOE47 H47-MAXCOV-{args.budget} | 13-observation LATI belief (incumbent-field "
-         f"proximity, K={f1['theta'][0]:,.0f}); exact-marginal-rule max-coverage emission at "
-         f"matched budget; changes the EMISSION RULE, not the geology; UNSCORED"),
-        ("arm2_h47gsa", "h47gsa", "RETIRED FAILED RESEARCH ARM - NOT PROMOTED, NO SLOT",
-         f"GEMSDOE47 H47-GSA-{args.budget} | LATI forward selection over an a-priori geothermal "
-         f"pool ({', '.join(ARM2_LAYERS[1:])}), K={f2['theta'][0]:,.0f}; FAILED cross-fitted "
-         f"validation (-0.061 / -0.045 out of fold); do NOT spend a weekly slot; UNSCORED"),
+        (
+            "arm1_maxcov",
+            "h47maxcov-research-only",
+            "RESEARCH ONLY — NOT FOR PORTAL; no submission slot authorized",
+            f"GEMSDOE47 H47-MAXCOV-{args.budget}; research-only 13-row LATI fit uses "
+            f"12 owner-reported pairs plus H33 assumed DTI 0.2778 (mapping unverified); "
+            f"owner-reported d2.8-reference-field proximity only, K={f1['theta'][0]:,.0f}; max-coverage emission "
+            "objective is not a DTI estimate or performance guarantee.",
+        ),
+        (
+            "arm2_h47gsa",
+            "h47gsa-research-only",
+            "RESEARCH ONLY — NOT FOR PORTAL; no submission slot authorized",
+            f"GEMSDOE47 H47-GSA-{args.budget}; research-only 13-row LATI fit uses "
+            f"12 owner-reported pairs plus H33 assumed DTI 0.2778 (mapping unverified); "
+            f"forward selection over {', '.join(ARM2_LAYERS[1:])}, K={f2['theta'][0]:,.0f}; "
+            "cross-fit is H33-dependent and negative in the reported folds. No upload authorized.",
+        ),
     ]
     for key, slug, role, note in specs:
         dots = arms[f"{key}_{args.budget}"] & ev
@@ -314,47 +403,94 @@ def main() -> int:
                              np.where(t.footprint, pvals, np.float32(np.nan)), fn,
                              mode="zeros" if mode == "allfinite" else "nan", template=t)
             v = validate_submission(fn, template=t)
-            shipped.append(dict(arm=key, slug=slug, role=role, budget=args.budget, mode=mode,
-                                primary_download=False, slot_authorized=False,
-                                filename=fn.name, name=base_name,
-                                sha256=sha256_file(fn), bytes=fn.stat().st_size,
-                                n_dots=int(dots.sum()), submission_note=note, validation=v))
+            v["project_submission_authorized"] = False
+            v["project_gate_status"] = "CLOSED_RESEARCH_ONLY"
+            v["project_gate_reasons"] = [
+                "no candidate has demonstrated a gain over an established spatially blocked holdout best",
+                "H47-GSA cross-fit depends on the unverified H33 score/file mapping",
+                "H47-B has no positive assumption-conditional conformal lower bound",
+            ]
+            research_outputs.append(
+                dict(
+                    arm=key,
+                    slug=slug,
+                    role=role,
+                    budget=args.budget,
+                    mode=mode,
+                    passes_nan_intolerant_range_check=bool(v["passes_nan_intolerant_range_check"]),
+                    filename=fn.name,
+                    name=base_name,
+                    sha256=sha256_file(fn),
+                    bytes=fn.stat().st_size,
+                    n_dots=int(dots.sum()),
+                    research_note=note,
+                    submission_authorized=False,
+                    slot_eligible=False,
+                    validation=v,
+                )
+            )
             print(f"\n[write] {fn.name}\n        {fn.stat().st_size:,} B  {role}")
-            print(f"        all_checks_passed={v['all_checks_passed']} "
+            print(f"        required_local_checks_passed={v['required_local_checks_passed']} "
                   f"nan_intolerant_range_ok={v['passes_nan_intolerant_range_check']} "
-                  f"recommended_for_upload={v['recommended_for_upload']} "
+                  "upload_recommendation=none "
+                  "project_submission_authorized=False "
                   f"hard_failures={v['hard_failures']}")
         dr = diff_report(outdir / f"{base_name}-allfinite.tif", outdir / f"{base_name}-nan.tif")
-        shipped[-1]["allfinite_vs_nan_identical"] = dr["identical"]
-        shipped[-2]["allfinite_vs_nan_identical"] = dr["identical"]
+        research_outputs[-1]["allfinite_vs_nan_identical"] = dr["identical"]
+        research_outputs[-2]["allfinite_vs_nan_identical"] = dr["identical"]
 
     cf = ROOT / "evidence" / "crossfit_validation.json"
     crossfit = json.loads(cf.read_text())["verdict"] if cf.exists() else None
-    out = dict(generated_utc=stamp, budget=args.budget, budget2=args.budget2,
-               n_observations=len(obs),
-               belief_models=dict(
-                   arm1=dict(name="H47-MAXCOV", layers=["prox_d2.8"], theta=f1["theta"],
-                             K=f1["theta"][0], ssr=f1["ssr"], loo=f1["loo"],
-                             loo_residuals=f1["loo_residuals"]),
-                   arm2=dict(name="H47-GSA", layers=ARM2_LAYERS, theta=f2["theta"],
-                             K=f2["theta"][0], ssr=f2["ssr"], loo=f2["loo"],
-                             loo_residuals=f2["loo_residuals"]),
-                   uniform_K=K_UNIFORM,
-                   uniform_K_provenance="assumption-dependent estimate from an unauthenticated r13-lattice probe "
-                                        "(its 300 m halo averages the whole footprint)"),
-               frames=dict(
-                   F1="13-observation LATI q, ARM 1 belief (incumbent-field proximity only)",
-                   F2="13-observation LATI q, ARM 2 belief (H47-GSA forward selection)",
-                   F3=f"uniform q at the assumed K={K_UNIFORM:,.0f} (adversarial to any concentration)",
-                   F4="USGS SGMC faults >300 m off the given catalogue (official, independent)",
-                   F5="4-quadrant blocked holdout on the given catalogue, scored unmasked (contaminated)",
-                   coverage="covered 300 m kernel integral over the evaluated footprint - exact, "
-                            "needs no truth model at all"),
-               results=rows_out, shipped=shipped, superseded_outputs_removed=removed,
-               crossfit_validation=crossfit, n_priors_compared=len(priors),
-               seconds=round(time.time() - t0, 1))
-    (outdir / "retired-lati-report.json").write_text(json.dumps(out, indent=1, default=float))
-    print(f"\nwrote ignored-cache retired-lati-report.json ({time.time()-t0:.0f}s)")
+    out = dict(
+        generated_utc=stamp,
+        budget=args.budget,
+        budget2=args.budget2,
+        owner_reported_pair_count=len(lati.OBSERVATIONS),
+        conditional_scenario_count=1,
+        conditional_scenario=dict(
+            observation_id="h33-2-b2",
+            assumed_dti=H33_ASSUMED_DTI,
+            score_file_mapping_verified=H33_SCORE_FILE_MAPPING_VERIFIED,
+        ),
+        belief_models=dict(
+            arm1=dict(name="H47-MAXCOV", layers=["prox_d2.8"], theta=f1["theta"],
+                      K=f1["theta"][0], ssr=f1["ssr"], loo=f1["loo"],
+                      loo_residuals=f1["loo_residuals"]),
+            arm2=dict(name="H47-GSA", layers=ARM2_LAYERS, theta=f2["theta"],
+                      K=f2["theta"][0], ssr=f2["ssr"], loo=f2["loo"],
+                      loo_residuals=f2["loo_residuals"],
+                      h33_dependent=True),
+            uniform_K=K_UNIFORM,
+            uniform_K_provenance="exploratory inverse under the owner-reported r13-lattice score/raster pair; "
+                                 "the diffuse halo reduces spatial-shape sensitivity but does not authenticate K"),
+        frames=dict(
+            F1="12 owner-reported pairs plus the H33 assumed-DTI scenario; H47-MAXCOV belief is proximity to the owner-reported d2.8 reference field",
+            F2="12 owner-reported pairs plus the H33 assumed-DTI scenario; H47-GSA forward selection is conditional",
+            F3=f"uniform diagnostic q at exploratory K={K_UNIFORM:,.0f} from an owner-reported diffuse-pair inverse; not verified hidden-label mass",
+            F4="public USGS SGMC faults >300 m off the given catalogue; descriptive reference, not authenticated hidden-target labels",
+            F5="4-quadrant blocked holdout on the given catalogue, scored unmasked (contaminated)",
+            coverage="deterministic 300 m kernel integral over the evaluated footprint; a raster/footprint coverage statistic, not DTI or hidden-target performance",
+        ),
+        submission_gate=dict(
+            status="CLOSED",
+            authorized=False,
+            slot_eligible=False,
+            reasons=[
+                "no candidate has demonstrated a gain over an established spatially blocked holdout best",
+                "H47-B did not pass promotion and its clipped conformal lower bound is zero",
+                "H47-GSA cross-fit depends on the unverified H33 score/file mapping",
+            ],
+        ),
+        results=rows_out,
+        research_outputs=research_outputs,
+        preexisting_downloads_preserved=preexisting_downloads,
+        crossfit_validation=crossfit,
+        crossfit_scope="conditional on H33 assumed DTI 0.2778; score-to-file mapping unverified",
+        n_priors_compared=len(priors),
+        seconds=round(time.time() - t0, 1),
+    )
+    (ROOT / "evidence" / "shipped.json").write_text(json.dumps(out, indent=1, default=float, allow_nan=False))
+    print(f"\nwrote evidence/shipped.json ({time.time()-t0:.0f}s)")
     return 0
 
 

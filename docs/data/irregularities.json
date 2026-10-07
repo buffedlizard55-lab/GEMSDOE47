@@ -1,6 +1,6 @@
 {
   "registry": "GEMSDOE47 irregularities",
-  "generated_utc": "2026-10-06T20:58:27Z",
+  "generated_utc": "2026-10-07T05:18:09Z",
   "irregularities": [
     {
       "id": "IR-47-001",
@@ -181,9 +181,9 @@
     {
       "id": "IR-C1-008",
       "severity": "WITHDRAWN",
-      "what": "Old unlimited-final-round and private guaranteed-floor advice contradicts rules/statistics.",
+      "what": "Prior unlimited-final-round, fixed-quota and \u03bb-probe advice was unsupported and is withdrawn.",
       "why_it_matters": "Current scientific/artifact/data decision depends on this boundary.",
-      "what_was_done": "One selected file for both prize rounds, up to 3 scoring submissions/week, current end Dec 3 2026 23:59UTC. Adaptive leaderboard history provides no conformal coverage; old positive private floors withdrawn.",
+      "what_was_done": "Public official pages checked 2026-10-06 describe one selected file for both rounds but do not establish current per-user quota or slot accounting. Three historical \u03bb-scaling score observations do not verify uploads or slots. No diagnostic cost is inferred or called free.",
       "human_page": "docs/irregularities.html#ir-c1-008"
     },
     {
@@ -221,17 +221,17 @@
     {
       "id": "IR-47-016",
       "severity": "HIGH",
-      "what": "the belief model cannot score a novel field: its dominant feature is similarity to the incumbent field",
-      "why_it_matters": "theta = [K, prox_d2.8 +3.229, mscl +1.289, shearrate +0.635]; incumbent-shaped emissions score 0.18-0.20 and the novel H48-APEX set scores 0.086 regardless of geology",
-      "what_was_done": "documented; apex verdict reported as assumption-conditional and the blocked holdout frames quoted alongside",
+      "what": "The H48 belief model is dominated by similarity to an owner-reported reference; this does not validate a novel field.",
+      "why_it_matters": "M2 theta = [K, prox_d2.8 +3.229, mscl +1.289, shearrate +0.635]. `control_prox_d2.8` ranks distance to the owner-reported d2.8 reference. Any resulting H48 score comparisons are conditional on owner-reported inputs and do not authenticate a private score or raster mapping.",
+      "what_was_done": "Comparisons were relabeled as assumption-conditional; H48 outputs remain research-only and are not candidates for a slot.",
       "human_page": "docs/irregularities.md"
     },
     {
       "id": "IR-47-017",
       "severity": "HIGH",
       "what": "the first H48 emission re-issued a prior submission",
-      "why_it_matters": "59.2 % of its pixels are the 0.2600 field's, 66.9 % of the reported-0.2778 field's; max equal-mass Jaccard 0.4400 vs the 13 prior rasters",
-      "what_was_done": "rejected on the uniqueness rule and moved to docs/downloads/superseded/; the novelty audit now runs before any promotion",
+      "why_it_matters": "59.2% of its pixels overlap the owner-reported d2.8 reference raster and 66.9% overlap the owner-reported H33-2-B2 raster; the H33-to-0.2778 association is unverified. Max equal-mass Jaccard is 0.4400 against the 13 inspected rasters.",
+      "what_was_done": "Rejected on bounded novelty comparison and moved to docs/downloads/superseded; no score attribution or submission eligibility follows.",
       "human_page": "docs/downloads/superseded/README.md"
     },
     {
@@ -245,9 +245,9 @@
     {
       "id": "IR-47-019",
       "severity": "MEDIUM",
-      "what": "with 12 returned scores and a swept family of 7, no non-vacuous family-wise guarantee exists above 46.15 %; at n=6 the level is exactly 0",
+      "what": "For the historical H48 family of seven and 12 assumed calibration observations, the formal rank threshold gives a nominal family level no higher than 46.15%; the six-row half is vacuous at the stated level.",
       "why_it_matters": "alpha must satisfy alpha >= m/(n+1) and k = ceil((n+1)(1-alpha)) <= n; a 7-way sweep is therefore uncertifiable from a split half",
-      "what_was_done": "both channels reported; remedy is a pre-declared operating point (m=1: 92.31 % at n=12, 87.5 % at n=7)",
+      "what_was_done": "This is rank arithmetic only, conditional on the calibration/score mapping and exchangeability assumptions; H33-2-B2 is not authenticated to participant DTI 0.2778 and no private-score floor follows. The observations do not verify upload/slot events. Do not seek new scores or infer quota/count without written authorization or an authorized feed.",
       "human_page": "docs/executive-summary.html#h48"
     },
     {
@@ -255,7 +255,7 @@
       "severity": "MEDIUM",
       "what": "tests/test_site.py was failing at HEAD before this session touched the repository",
       "why_it_matters": "two assertions referenced page text that the committed docs/index.html no longer contained, and one required exactly one TIFF link while the page offered three",
-      "what_was_done": "tests reconciled with the intended contract (one prominent download + docs/all-downloads.html register); suite green (59 unittest, 106 pytest)",
+      "what_was_done": "The prior failing-at-HEAD incident and its repair remain historical. Test counts from that earlier branch are not the current PR #17 verification; use the refreshed CI report for merge status.",
       "human_page": "docs/irregularities.md"
     },
     {
@@ -265,6 +265,12 @@
       "why_it_matters": "The sample and label masks each have 5,167,373 cells; the feature-derived mask has 5,165,852, with 1,540 feature-valid cells outside and 3,061 sample/label cells invalid in features. Official footprint semantics and the historical portal-error cause remain unknown.",
       "what_was_done": "Published the exact artifact hash, mask-source-specific validation, and footprint comparison; kept the artifact research-only with no slot authorized.",
       "human_page": "docs/irregularities.html#ir-47-021"
+    },
+    {
+      "id": "IR-C1-013",
+      "severity": "HIGH / format contract",
+      "what": "The H49 TIFF and several historical all-finite research GeoTIFFs were described as passing local format checks despite finite zeros outside the supplied footprint.",
+      "what_was_done": "The published format page requires null or NaN outside bounds. Exact H49 TIFF read-back SHA-256 a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b has 12,279,160 finite cells, zero NaNs, no NoData tag and a valid mask on every cell; against the original 5,167,373-cell owner-mirror footprint receipt, 7,111,787 outside cells remain finite. H49 fails the published requirement; see evidence/h49/format-contract-audit.json. The earlier all-finite check was insufficient. Unmasked all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and older Session-3 variants also fail. The H48 research writer emits NaN outside for future research outputs; separate NaN-outside variants follow owner-mirror conventions only. Neither a local check nor a mirror convention establishes organizer acceptance."
     }
   ]
 }

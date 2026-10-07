@@ -33,7 +33,7 @@ def main() -> int:
     parser.add_argument("--band-b", type=int, default=1, help="band index for magnetic B (default: 1)")
     parser.add_argument("--rad-band-a", type=int, default=1)
     parser.add_argument("--rad-band-b", type=int, default=1)
-    parser.add_argument("--template", required=True, type=Path, help="official one-band sample/template grid")
+    parser.add_argument("--template", required=True, type=Path, help="one-band sample/template grid; organizer provenance must be verified separately")
     parser.add_argument("--out", required=True, type=Path, help="local research output, e.g. data/derived/h47a.tif")
     parser.add_argument("--quantile", type=float, default=0.995)
     parser.add_argument("--artifact-penalty", type=float, default=0.0, help="holdout-tunable; defaults to no suppression")

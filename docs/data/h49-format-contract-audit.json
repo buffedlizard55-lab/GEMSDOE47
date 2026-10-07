@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "reviewed_date": "2026-10-07",
+  "artifact": {
+    "filename": "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+    "sha256": "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b",
+    "bytes": 316629,
+    "path": "docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
+  },
+  "published_requirement": {
+    "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "statement": "Data outside the training-data bounds must be null or NaN; one float32 layer; EPSG:32611; 100 m; matching bounds; values in [0,1].",
+    "retrieved_utc": "2026-10-06",
+    "source_scope": "Public problem-format page; confirms published instructions, not organizer acceptance of this artifact or authentication of local mirror bytes."
+  },
+  "readback": {
+    "driver": "GTiff",
+    "bands": 1,
+    "dtype": "float32",
+    "width": 3292,
+    "height": 3730,
+    "crs": "EPSG:32611",
+    "nodata_tag": null,
+    "grid_cells": 12279160,
+    "finite_cells": 12279160,
+    "nan_cells": 0,
+    "nonfinite_cells": 0,
+    "gdal_valid_mask_cells": 12279160,
+    "distinct_finite_values": [0.0, 1.0],
+    "positive_cells": 37612
+  },
+  "footprint_basis": {
+    "footprint_cells": 5167373,
+    "outside_cells": 7111787,
+    "basis": "footprint count recorded in the original H49 build receipt against an owner-supplied mirrored sample_submission.tif; the mask was not re-restored or independently re-derived during this review.",
+    "mirror_authenticated_by_organizer": false
+  },
+  "assessment": {
+    "status": "FAIL",
+    "outside_null_or_nan": false,
+    "reason": "The read-back has no NaN, no nodata tag, and a valid GDAL mask on all 12,279,160 cells. Relative to the recorded 5,167,373-cell mirrored footprint, 7,111,787 cells are outside but remain finite/valid. This does not meet the published null-or-NaN-outside requirement.",
+    "submission_eligible": false,
+    "slot_authorized": false,
+    "organizer_acceptance_established": false
+  },
+  "provenance_notes": [
+    "This review read the already-present TIFF only; it did not restore source data, rerun H47-B or H49, upload, or use a competition slot.",
+    "The earlier builder receipt's every-cell-finite check did not test that outside-footprint cells were null or NaN. Its all_checks_passed field is retained as historical evidence, not accepted as a published-format pass.",
+    "The mirror footprint count and TIFF geometry are owner-supplied repository evidence; their consistency does not authenticate organizer provenance."
+  ]
+}

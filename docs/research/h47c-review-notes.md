@@ -17,7 +17,7 @@ the pre-test lock log against the final report, **before a TIFF was published**.
 The original run's report, full spacing history and block assignments are preserved under
 `evidence/retired-profile-pass1/` with an explicit `retraction.json`. They are not eligible
 validation results. No model, feature, target, sampling seed, split, spacing grid, confidence level,
-incumbent selection, or gate threshold has been changed in response to their scores.
+fixed-baseline selection, or gate threshold has been changed in response to their scores.
 
 Correction: rename the loop variable to `sweep_spacing`; assert that final spacing equals both the
 recomputed conformal choice and the pre-test lock receipt; add the same check to the exporter.
@@ -35,9 +35,10 @@ This is a documented technical correction, not an independent second geological 
   Old orientation-specific evidence is not re-certified by this code correction.
 - The marginal-gain helper incorrectly rejected positive credit at zero DTI. The non-singular exact
   condition is `dT*(1-alpha*DTI) - alpha*DTI*dF > 0`, including DTI = 0.
-- Some documents and `ship.py` claimed unlimited separate Phase 2 submissions. Official rules §§3.2,
-  3.4–3.6 require up to three scoring submissions per week and **one selected file for both rounds**.
-  Failed research arms must not be recommended for a fictional unlimited-submission phase.
+- Some documents and `ship.py` claimed unlimited separate Phase 2 submissions. Official pages checked
+  2026-10-06 describe one selected file for both rounds but do not establish current per-user quota or slot
+  accounting. Failed research arms must not be recommended for a fictional unlimited-submission phase; verify
+  operative rules in the authenticated portal before any future action.
 - The sparse-dot shortcut `DTI=T/(0.2*N+0.8*G)` is not generally exact. The exact denominator is
   `0.2*(T+S-Phi)+0.8*G`. A dot can cover several truth pixels, so `T` need not equal `Phi`, even when
   prediction supports do not overlap. A one-dot/seven-truth-pixel regression test demonstrates it.
@@ -79,8 +80,8 @@ not used in C1 and not hidden labels. USGS byte/coverage limitations are separat
 job with a successful source. Final scientific status remains NOT PROMOTED, zero floor, no slot.
 
 Exact final remote check/PR/merge/deployment receipts are updated separately in the three-pass JSON.
-The original word-for-word chat is unavailable; README preserves the complete available structured
-brief and score/URL history without claiming a fabricated verbatim transcript. Winning goal unmet.
+The complete available user brief, source links, and score history remain in README and are to be reviewed
+at the start of future work. Winning goal unmet.
 
 
 ### Official-source receipt update after additive reconciliation

@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
-"""RETIRED H47-C1 Pages publisher; never run as the current H49 site build.
+"""Build the Pages research UI from the actual screen/export/audit receipts.
 
-This legacy program writes H47-C1 artifacts and reports into ``docs/`` and can overwrite the
-current H49 Pages content and download metadata. It is retained only for historical reproducibility.
-An explicit ``--allow-overwrite-of-h49-site`` flag is required before it writes anything. The
-current site is maintained by ``scripts/update_site_h49.py`` and ``scripts/build_site_s3.py``.
+No hand-entered prediction scores, no leaderboard-to-TIFF assertions, no slot
+promotion. Data receipts are copied INSIDE docs/data because Pages publishes docs
+only. The top download is exactly the newly inferred, strictly validated TIFF.
 """
 from __future__ import annotations
 
-import argparse
 import csv
 import hashlib
 import html
@@ -105,20 +103,6 @@ def make_preview(filename: str) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--allow-overwrite-of-h49-site",
-        action="store_true",
-        help="explicitly permit this retired H47-C1 publisher to replace current H49 Pages files",
-    )
-    args = parser.parse_args()
-    if not args.allow_overwrite_of_h49_site:
-        parser.error(
-            "retired H47-C1 publisher would overwrite current H49 Pages files; "
-            "use scripts/update_site_h49.py instead, or pass "
-            "--allow-overwrite-of-h49-site only when intentionally restoring historical output"
-        )
-
     DATA.mkdir(exist_ok=True); ASSETS.mkdir(exist_ok=True)
     screen = read("evidence/profile-screen.json")
     submission = read("evidence/current-submission.json")

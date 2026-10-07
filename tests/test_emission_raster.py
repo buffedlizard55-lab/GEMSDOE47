@@ -138,26 +138,22 @@ def test_oriented_blur_preserves_mass_better_than_isotropic_along_a_line():
 
 # --------------------------------------------------------------------- format gates
 @pytest.mark.needs_data
-def test_write_validate_roundtrip_all_finite(tmp_path):
-    from gems47s3.grid import Grid
+def test_write_validate_roundtrip_nan_outside(tmp_path):
     from gems47s3.spec import HEIGHT, WIDTH
-
-    footprint = Grid().footprint
     v = np.zeros((HEIGHT, WIDTH), np.float32)
-    ys, xs = np.nonzero(footprint)
-    y, x = int(np.median(ys)), int(np.median(xs))
-    v[y:y + 10, x:x + 10] = 1.0
+    v[100:110, 100:110] = 1.0
     p = tmp_path / "t.tif"
-    w = write_submission(v, p, mode="zeros", footprint=footprint)
+    from gems47s3.grid import Grid
+    fp = Grid().footprint
+    w = write_submission(v, p, mode="nan", footprint=fp)
     assert w["positive_pixels"] == 100
-    r = validate_submission(p, footprint=footprint)
+    r = validate_submission(p, footprint=fp)
     assert r.ok, {k: x for k, x in r.checks.items() if not x}
-    assert r.nodata is None, "no nodata tag: any sentinel is itself outside [0,1]"
+    assert r.nodata is None
     assert r.stats["nan_in_footprint"] == 0
     assert r.checks["footprint_matches_template"] is True
-    assert r.checks["mask_matches_footprint"] is True
-    assert r.checks["masked_read_null_exactly_outside"] is True
-    assert r.checks["self_contained_single_file"] is True
+    assert r.checks["outside_is_null_or_nan"] is True
+    assert r.all_grid_values_finite_and_unit_ranged is False
 
 
 def test_validator_rejects_out_of_range_values(tmp_path):
@@ -177,8 +173,8 @@ def test_validator_rejects_out_of_range_values(tmp_path):
 
 
 def test_validator_rejects_the_float32_sentinel(tmp_path):
-    """The official training_features.tif uses -3.4028234663852886e38 for out-of-footprint
-    cells; if that value reaches a submission the portal's range check fails."""
+    """The checked mirror training-feature raster has a float32 outside sentinel;
+    this test checks local rejection, not the cause of a portal response."""
     import rasterio
 
     from gems47s3.raster import TRANSFORM
@@ -192,7 +188,7 @@ def test_validator_rejects_the_float32_sentinel(tmp_path):
     r = validate_submission(p)
     assert r.ok is False
     assert r.checks["in_footprint_zero_sentinel"] is False
-    assert r.checks["validator_range_0_1_guaranteed"] is False
+    assert r.checks["all_grid_values_finite_in_unit_interval"] is False
 
 
 def test_writer_refuses_out_of_range_input():
@@ -255,27 +251,28 @@ def _real_footprint_and_a_dot_inside_it():
 
 
 @pytest.mark.needs_data
-def test_nan_mode_is_legal_but_not_the_strongest_guarantee(tmp_path):
-    """`mode="nan"` matches the official page ("data outside the bounds is null or nan") and
-    three scored reference artifacts ship that way, so the validator must not call it a failure
-    -- but it must also not claim the all-finite guarantee for it."""
+def test_nan_mode_follows_null_nan_requirement_but_not_portal_verified(tmp_path):
+    """NaN outside follows published wording and an available mirror convention; local pass only."""
     fp, v = _real_footprint_and_a_dot_inside_it()
     p = tmp_path / "nan.tif"
     write_submission(v, p, mode="nan", footprint=fp)
     r = validate_submission(p, footprint=fp)
     assert r.ok, {k: x for k, x in r.checks.items() if not x and k not in r.INFORMATIONAL}
-    assert r.strongest_guarantee is False
-    assert r.checks["validator_range_0_1_guaranteed"] is False
-    assert r.checks["nodata_tag_not_out_of_range"] is True   # no nodata tag at all
+    assert r.all_grid_values_finite_and_unit_ranged is False
+    assert r.checks["outside_is_null_or_nan"] is True
+    assert r.checks["all_grid_values_finite_in_unit_interval"] is False
+    assert r.checks["nodata_tag_in_unit_interval_diagnostic"] is True   # no nodata tag at all
 
 
 @pytest.mark.needs_data
-def test_zeros_mode_carries_the_strongest_guarantee(tmp_path):
+def test_zeros_mode_is_finite_but_fails_outside_null_requirement(tmp_path):
     fp, v = _real_footprint_and_a_dot_inside_it()
     p = tmp_path / "zeros.tif"
     write_submission(v, p, mode="zeros", footprint=fp)
     r = validate_submission(p, footprint=fp)
-    assert r.ok and r.strongest_guarantee
+    assert r.ok is False
+    assert r.checks["outside_is_null_or_nan"] is False
+    assert r.checks["all_grid_values_finite_in_unit_interval"] is True
 
 
 @pytest.mark.needs_data

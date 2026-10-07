@@ -52,17 +52,16 @@
   ]
  },
  "frames": {
-  "F1": "LATI LOO-best q (calibrated on 12 real returned DTIs)",
-  "F2": "LATI incumbent-field-only q (favours the incumbent)",
-  "F3": "uniform q at K=12,348 from the model-free r13-lattice diffuse probe (adversarial to any concentration)",
-  "F4": "USGS SGMC faults >300 m off the catalogue (official, independent). CAVEAT: the LOO-best LATI model puts only ~0.5% of the hidden truth here, so this frame is reported, not used to select.",
+  "F1": "Exploratory LATI LOO-best q (12 owner-reported score/raster pairs; no organizer receipts)",
+  "F2": "LATI d2.8-reference-field-only q; fits owner-reported associations and is not independent evidence",
+  "F3": "uniform diagnostic q at K=12,348 from the owner-reported r13-lattice diffuse-pair inverse; not verified hidden-label mass",
+  "F4": "Public USGS SGMC faults >300 m off the catalogue are a descriptive reference, not authenticated hidden-target labels. The conditional exploratory LATI model allocates ~0.5% of fitted K there; this is model output, not a hidden-truth measurement.",
   "F5": "4-quadrant blocked holdout on the given catalogue scored WITHOUT the organiser's mask. CAVEAT: its truth IS the catalogue, so it rewards the opposite skill; a candidate cannot even be scored on it under the organiser's stated masking (see evidence/irregularities IR-47-005)."
  },
  "results": [
   {
    "arm": "GEMSDOE47 CANDIDATE",
    "n_dots": 2000,
-   "reported_live_dti": null,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_150m": 1059,
@@ -79,17 +78,6 @@
     "weighted_recall": 0.023754,
     "credit_per_dot": 0.219892,
     "fp_fraction": 0.611586
-   },
-   "F2_lati_incumbent": {
-    "T": 136.166296,
-    "Phi": 309.715602,
-    "S": 2000.0,
-    "F": 1690.284398,
-    "K": 21477.408066,
-    "DTI": 0.00776,
-    "weighted_recall": 0.00634,
-    "credit_per_dot": 0.068083,
-    "fp_fraction": 0.845142
    },
    "F3_lati_uniform": {
     "T": 15.751384,
@@ -183,7 +171,7 @@
      "jaccard": 0.000454,
      "frac_of_candidate": 0.0335
     },
-    "prior_h33-2-b2_reported_0.2778": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 70,
      "jaccard": 0.001768,
      "frac_of_candidate": 0.035
@@ -195,12 +183,23 @@
     }
    },
    "max_jaccard_vs_any_prior": 0.009958,
-   "max_frac_overlap_vs_any_prior": 0.607
+   "max_frac_overlap_vs_any_prior": 0.607,
+   "owner_reported_dti": null,
+   "F2_lati_d2_8_reference": {
+    "T": 136.166296,
+    "Phi": 309.715602,
+    "S": 2000.0,
+    "F": 1690.284398,
+    "K": 21477.408066,
+    "DTI": 0.00776,
+    "weighted_recall": 0.00634,
+    "credit_per_dot": 0.068083,
+    "fp_fraction": 0.845142
+   }
   },
   {
    "arm": "prior_d2.8",
    "n_dots": 44090,
-   "reported_live_dti": 0.26,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_150m": 5092,
@@ -217,17 +216,6 @@
     "weighted_recall": 0.325421,
     "credit_per_dot": 0.136652,
     "fp_fraction": 0.872735
-   },
-   "F2_lati_incumbent": {
-    "T": 6640.820315,
-    "Phi": 6828.280262,
-    "S": 44090.0,
-    "F": 37261.719738,
-    "K": 21477.408066,
-    "DTI": 0.255786,
-    "weighted_recall": 0.3092,
-    "credit_per_dot": 0.15062,
-    "fp_fraction": 0.845129
    },
    "F3_lati_uniform": {
     "T": 825.219828,
@@ -321,7 +309,7 @@
      "jaccard": 0.007119,
      "frac_of_candidate": 0.030415
     },
-    "prior_h33-2-b2_reported_0.2778": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 37654,
      "jaccard": 0.854026,
      "frac_of_candidate": 0.854026
@@ -333,12 +321,25 @@
     }
    },
    "max_jaccard_vs_any_prior": 1.0,
-   "max_frac_overlap_vs_any_prior": 1.0
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "owner_reported_dti": 0.26,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false,
+   "F2_lati_d2_8_reference": {
+    "T": 6640.820315,
+    "Phi": 6828.280262,
+    "S": 44090.0,
+    "F": 37261.719738,
+    "K": 21477.408066,
+    "DTI": 0.255786,
+    "weighted_recall": 0.3092,
+    "credit_per_dot": 0.15062,
+    "fp_fraction": 0.845129
+   }
   },
   {
-   "arm": "prior_h33-2-b2_reported_0.2778",
+   "arm": "H33-2-B2 reference raster (score/file mapping unverified)",
    "n_dots": 37654,
-   "reported_live_dti": 0.2778,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_150m": 0,
@@ -355,17 +356,6 @@
     "weighted_recall": 0.195402,
     "credit_per_dot": 0.096079,
     "fp_fraction": 0.909257
-   },
-   "F2_lati_incumbent": {
-    "T": 5874.932679,
-    "Phi": 5963.627032,
-    "S": 37654.0,
-    "F": 31690.372968,
-    "K": 21477.408066,
-    "DTI": 0.2379,
-    "weighted_recall": 0.27354,
-    "credit_per_dot": 0.156024,
-    "fp_fraction": 0.84162
    },
    "F3_lati_uniform": {
     "T": 731.51459,
@@ -459,7 +449,7 @@
      "jaccard": 0.006077,
      "frac_of_candidate": 0.029399
     },
-    "prior_h33-2-b2_reported_0.2778": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 37654,
      "jaccard": 1.0,
      "frac_of_candidate": 1.0
@@ -471,12 +461,23 @@
     }
    },
    "max_jaccard_vs_any_prior": 1.0,
-   "max_frac_overlap_vs_any_prior": 1.0
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "score_file_mapping_verified": false,
+   "F2_lati_d2_8_reference": {
+    "T": 5874.932679,
+    "Phi": 5963.627032,
+    "S": 37654.0,
+    "F": 31690.372968,
+    "K": 21477.408066,
+    "DTI": 0.2379,
+    "weighted_recall": 0.27354,
+    "credit_per_dot": 0.156024,
+    "fp_fraction": 0.84162
+   }
   },
   {
    "arm": "prior_h19-5",
    "n_dots": 121131,
-   "reported_live_dti": 0.1922,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_150m": 13298,
@@ -493,17 +494,6 @@
     "weighted_recall": 0.403892,
     "credit_per_dot": 0.061734,
     "fp_fraction": 0.87443
-   },
-   "F2_lati_incumbent": {
-    "T": 8181.327072,
-    "Phi": 18291.018038,
-    "S": 121131.0,
-    "F": 102839.981962,
-    "K": 21477.408066,
-    "DTI": 0.207721,
-    "weighted_recall": 0.380927,
-    "credit_per_dot": 0.067541,
-    "fp_fraction": 0.848998
    },
    "F3_lati_uniform": {
     "T": 1087.423899,
@@ -597,7 +587,7 @@
      "jaccard": 0.013839,
      "frac_of_candidate": 0.030058
     },
-    "prior_h33-2-b2_reported_0.2778": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 37654,
      "jaccard": 0.310854,
      "frac_of_candidate": 0.310854
@@ -609,12 +599,25 @@
     }
    },
    "max_jaccard_vs_any_prior": 1.0,
-   "max_frac_overlap_vs_any_prior": 1.0
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "owner_reported_dti": 0.1922,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false,
+   "F2_lati_d2_8_reference": {
+    "T": 8181.327072,
+    "Phi": 18291.018038,
+    "S": 121131.0,
+    "F": 102839.981962,
+    "K": 21477.408066,
+    "DTI": 0.207721,
+    "weighted_recall": 0.380927,
+    "credit_per_dot": 0.067541,
+    "fp_fraction": 0.848998
+   }
   },
   {
    "arm": "prior_r13-lattice",
    "n_dots": 204504,
-   "reported_live_dti": 0.0904,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_150m": 7104,
@@ -631,17 +634,6 @@
     "weighted_recall": 0.350169,
     "credit_per_dot": 0.031702,
     "fp_fraction": 0.972837
-   },
-   "F2_lati_incumbent": {
-    "T": 7923.179847,
-    "Phi": 7270.772679,
-    "S": 204504.0,
-    "F": 197233.227321,
-    "K": 21477.408066,
-    "DTI": 0.136106,
-    "weighted_recall": 0.368908,
-    "credit_per_dot": 0.038743,
-    "fp_fraction": 0.964447
    },
    "F3_lati_uniform": {
     "T": 4590.405657,
@@ -735,7 +727,7 @@
      "jaccard": 0.017005,
      "frac_of_candidate": 0.028625
     },
-    "prior_h33-2-b2_reported_0.2778": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 1513,
      "jaccard": 0.006287,
      "frac_of_candidate": 0.007398
@@ -747,14 +739,42 @@
     }
    },
    "max_jaccard_vs_any_prior": 1.0,
-   "max_frac_overlap_vs_any_prior": 1.0
+   "max_frac_overlap_vs_any_prior": 1.0,
+   "owner_reported_dti": 0.0904,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false,
+   "F2_lati_d2_8_reference": {
+    "T": 7923.179847,
+    "Phi": 7270.772679,
+    "S": 204504.0,
+    "F": 197233.227321,
+    "K": 21477.408066,
+    "DTI": 0.136106,
+    "weighted_recall": 0.368908,
+    "credit_per_dot": 0.038743,
+    "fp_fraction": 0.964447
+   }
   }
  ],
- "shipped": [
+ "allfinite_vs_nan_identical": true,
+ "seconds": 145.2,
+ "observation_scope": {
+  "owner_reported_pairs_used_in_lati_fit": 12,
+  "h33_role": "reference mask for local comparison; not added as a score observation",
+  "h33_score_file_mapping_verified": false,
+  "interpretation": "H47-SAF LOO and local-frame values are exploratory; H33 attribution does not establish a flank verdict"
+ },
+ "submission_gate": {
+  "status": "CLOSED_RESEARCH_ONLY",
+  "authorized": false,
+  "slot_eligible": false,
+  "reason": "no candidate has demonstrated a gain over an established spatially blocked holdout best under the current project gate"
+ },
+ "research_outputs": [
   {
    "mode": "allfinite",
    "filename": "gems47-h47-saf-flank-reoccupation-2000px-20261006T105157Z-0c1c15f859-allfinite.tif",
-   "primary": true,
+   "primary": false,
    "sha256": "3b3a944018929ba3fc3bd5852bd9907b2da0ea9777fc2cad69f3e682cec4226f",
    "bytes": 197740,
    "validation": {
@@ -804,7 +824,8 @@
      "emitted_mass": 2000.0,
      "band_descriptions": [
       null
-     ]
+     ],
+     "n_infinite": 0
     },
     "checks": {
      "single_band": true,
@@ -820,16 +841,45 @@
      "no_nodata_sentinel_values": true,
      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": true,
      "RANGE_nan_tolerant: finite values within [0,1]": true,
-     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
      "RANGE_min_max_reported": true,
-     "RANGE_masked_read: read(masked=True) within [0,1]": true,
-     "RANGE_filled_then_checked": true
+     "RANGE_filled_then_checked": true,
+     "outside_template_footprint_is_nodata": false,
+     "no_infinite_values": true,
+     "RANGE_emitted_values_within_[0,1]": true,
+     "RANGE_masked_read: finite unmasked values within [0,1]": true,
+     "masked_pixels_only_outside_footprint": true
     },
-    "hard_failures": [],
+    "hard_failures": [
+     "outside_template_footprint_is_nodata"
+    ],
     "passes_nan_intolerant_range_check": true,
     "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": false,
+    "recommended_for_upload": false,
+    "project_submission_authorized": false,
+    "project_gate_status": "CLOSED_RESEARCH_ONLY",
+    "upload_recommendation_scope": "none; local validation is not a portal oracle",
+    "format_review_2026_10_06": {
+     "mode": "allfinite",
+     "outside_template_footprint_is_nodata": false,
+     "basis": "paired retained zero-outside/NaN-outside artifacts and their recorded generation mode",
+     "official_requirement": "null or NaN outside data bounds",
+     "organizer_acceptance_established": false,
+     "masked_pixels_only_outside_footprint": true
+    },
+    "required_local_checks_passed": false,
+    "diagnostic_failures": []
+   },
+   "historical_primary_at_generation": true,
+   "research_only": true,
+   "submission_authorized": false,
+   "slot_eligible": false,
+   "validation_at_generation_legacy": {
+    "scope": "pre-outside-nodata local validator; superseded for format decisions",
     "all_checks_passed": true,
-    "recommended_for_upload": true
+    "hard_failures": [],
+    "legacy_nan_intolerant_range_preference": true,
+    "recommended_for_upload_now": false
    }
   },
   {
@@ -847,7 +897,7 @@
      "crs": "EPSG:32611",
      "width": 3292,
      "height": 3730,
-     "nodata": NaN,
+     "nodata": "NaN",
      "shape": [
       3730,
       3292
@@ -885,7 +935,8 @@
      "emitted_mass": 2000.0,
      "band_descriptions": [
       null
-     ]
+     ],
+     "n_infinite": 0
     },
     "checks": {
      "single_band": true,
@@ -901,20 +952,61 @@
      "no_nodata_sentinel_values": true,
      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
      "RANGE_nan_tolerant: finite values within [0,1]": true,
-     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
      "RANGE_min_max_reported": true,
-     "RANGE_masked_read: read(masked=True) within [0,1]": true,
-     "RANGE_filled_then_checked": true
+     "RANGE_filled_then_checked": true,
+     "outside_template_footprint_is_nodata": true,
+     "no_infinite_values": true,
+     "RANGE_emitted_values_within_[0,1]": true,
+     "RANGE_masked_read: finite unmasked values within [0,1]": true,
+     "masked_pixels_only_outside_footprint": true
     },
     "hard_failures": [],
     "passes_nan_intolerant_range_check": false,
     "passes_nan_tolerant_range_check": true,
     "all_checks_passed": true,
-    "recommended_for_upload": false
+    "recommended_for_upload": false,
+    "project_submission_authorized": false,
+    "project_gate_status": "CLOSED_RESEARCH_ONLY",
+    "upload_recommendation_scope": "none; local validation is not a portal oracle",
+    "format_review_2026_10_06": {
+     "mode": "nan",
+     "outside_template_footprint_is_nodata": true,
+     "basis": "paired retained zero-outside/NaN-outside artifacts and their recorded generation mode",
+     "official_requirement": "null or NaN outside data bounds",
+     "organizer_acceptance_established": false,
+     "masked_pixels_only_outside_footprint": true
+    },
+    "required_local_checks_passed": true,
+    "diagnostic_failures": [
+     "all_pixels_finite",
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))"
+    ]
+   },
+   "historical_primary_at_generation": false,
+   "research_only": true,
+   "submission_authorized": false,
+   "slot_eligible": false,
+   "validation_at_generation_legacy": {
+    "scope": "pre-outside-nodata local validator; superseded for format decisions",
+    "all_checks_passed": true,
+    "hard_failures": [],
+    "legacy_nan_intolerant_range_preference": false,
+    "recommended_for_upload_now": false
    }
   }
  ],
- "submission_note": "GEMSDOE47 H47-SAF | LATI-inverted belief (graded 0-300 m catalogue halo x multiphysics ridge), K=18,514, exact-marginal-rule greedy emission, 2000 dots of which 1993 (53.0% in 0-150 m) re-occupy the catalogue flank the 0.2778 arm emptied; UNSCORED",
- "allfinite_vs_nan_identical": true,
- "seconds": 145.2
+ "historical_submission_note_at_generation": "Superseded research-build note: an earlier version linked a 0.2778 score to H33-2-B2 and described an 'emptied' flank. The participant score/file mapping is unverified, and that wording is not evidence of a causal flank effect. H47-SAF remains unresolved; do not submit.",
+ "research_note": "RESEARCH ONLY \u2014 NOT FOR PORTAL. H47-SAF remains unresolved; the H33 score/file mapping is unverified and no candidate is promoted.",
+ "status_reviewed_utc_date": "2026-10-06",
+ "format_review_2026_10_06": {
+  "reviewed_utc": "2026-10-06",
+  "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "published_outside_bounds_requirement": "null or NaN",
+  "scope": "metadata/local-format review of retained artifacts only; no candidate rerun, dataset restore, portal upload, or slot use",
+  "mirror_provenance": "the available sample template is from an owner-supplied mirror and is not organizer-authenticated",
+  "organizer_acceptance_established": false,
+  "prior_range_rejection_cause": "unknown; exact rejected TIFF bytes are unavailable",
+  "upload_recommendation": "none",
+  "inside_bounds_requirement": "finite unmasked values in [0,1]"
+ }
 }

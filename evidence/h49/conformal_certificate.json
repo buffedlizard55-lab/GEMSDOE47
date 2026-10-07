@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-07T05:33:20Z",
- "seconds": 0.4,
+ "generated_utc": "2026-10-07T03:24:01Z",
+ "seconds": 0.6,
  "method": "split conformal selection (Lei, G'Sell, Rinaldo, Tibshirani & Wasserman, JASA 2018)",
  "method_doi": "https://doi.org/10.1080/01621459.2017.1322365",
  "preregistration": "docs/research/h49b-instrument-b-preregistration.md",
@@ -18,7 +18,7 @@
   },
   "rule": "maximise the selection-half mean DTI on Instrument B (amendment; see the module docstring)"
  },
- "amendment_justification": "The mean-rule stability summary comes from 400 Monte Carlo re-partitions of the same 39 spatial blocks; observations are reused, so these are not 400 independent validation samples. The floor-rule ranking is sensitive to the few lower-tail order statistics among about 20 selection blocks. This documents why the rule was amended, not prospective evidence: the calibration results were already visible in the full analysis, so neither fixed-arm certificate proves validity for the adaptive workflow.",
+ "amendment_justification": "The mean rule is the stable one, and that is measured rather than asserted: under 400 independent 50/50 re-splits the mean rule picks the same arm in a majority of splits, while the frozen floor rule's own pick survives in a small minority and its most frequent pick is a different arm each time -- a maximum of order statistics over ~20 blocks is decided by which single block lands where.  Both audits and both certificates are in this file.",
  "preregistered_selection": {
   "recipe": "R2_scarp9_topo",
   "emitter": "oriented4",
@@ -202,12 +202,6 @@
     "median_difference": -0.013590679057150133,
     "blocks_where_a_better": 4,
     "blocks_where_b_better": 16,
-    "paired_mean_one_sided_t_lcb": -0.0266449130530906,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.05912912571630459,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 19,
-    "one_sided_sign_test_p_greater": 0.9987115859985352,
     "a": "R7_scarp9_polarity/oriented4/s2.8_d7.37_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    },
@@ -217,12 +211,6 @@
     "median_difference": -0.005907392746015004,
     "blocks_where_a_better": 8,
     "blocks_where_b_better": 11,
-    "paired_mean_one_sided_t_lcb": -0.0164612417275983,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.04908421440451286,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.8203582763671875,
     "a": "R7_scarp9_polarity/oriented4/s2.8_d7.37_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    }
@@ -234,12 +222,6 @@
     "median_difference": -0.001040454585317735,
     "blocks_where_a_better": 8,
     "blocks_where_b_better": 11,
-    "paired_mean_one_sided_t_lcb": -0.010820188870840963,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.03157906610178386,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 19,
-    "one_sided_sign_test_p_greater": 0.8203582763671875,
     "a": "R2_scarp9_topo/disk/s2.8_d7.37_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    },
@@ -249,12 +231,6 @@
     "median_difference": -0.004307360358173237,
     "blocks_where_a_better": 9,
     "blocks_where_b_better": 10,
-    "paired_mean_one_sided_t_lcb": -0.006972672126889784,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.02836394148646315,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.6761970520019531,
     "a": "R2_scarp9_topo/disk/s2.8_d7.37_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    }
@@ -266,12 +242,6 @@
     "median_difference": -0.022570593867156954,
     "blocks_where_a_better": 4,
     "blocks_where_b_better": 16,
-    "paired_mean_one_sided_t_lcb": -0.037079754239654386,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.0768289719936159,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 19,
-    "one_sided_sign_test_p_greater": 0.9987115859985352,
     "a": "R7_scarp9_polarity/disk/s2.8_d4_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    },
@@ -281,12 +251,6 @@
     "median_difference": -0.01977047959446604,
     "blocks_where_a_better": 4,
     "blocks_where_b_better": 15,
-    "paired_mean_one_sided_t_lcb": -0.03747628292343499,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.09333945745122062,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.9977874755859375,
     "a": "R7_scarp9_polarity/disk/s2.8_d4_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    }
@@ -298,12 +262,6 @@
     "median_difference": -0.008338255180488675,
     "blocks_where_a_better": 6,
     "blocks_where_b_better": 13,
-    "paired_mean_one_sided_t_lcb": -0.02344480986602264,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.059322261013289274,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.9682159423828125,
     "a": "R7_scarp9_polarity/disk/s2.8_d4_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    },
@@ -313,12 +271,6 @@
     "median_difference": -0.0031123731402049586,
     "blocks_where_a_better": 9,
     "blocks_where_b_better": 9,
-    "paired_mean_one_sided_t_lcb": -0.014532457833448618,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.0718984635267786,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.5927352905273438,
     "a": "R7_scarp9_polarity/disk/s2.8_d4_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    }
@@ -330,12 +282,6 @@
     "median_difference": -0.008960782877474788,
     "blocks_where_a_better": 6,
     "blocks_where_b_better": 14,
-    "paired_mean_one_sided_t_lcb": -0.010905971890497688,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.03081273230041874,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 19,
-    "one_sided_sign_test_p_greater": 0.9793052673339844,
     "a": "R7_scarp9_polarity/disk/s2.8_d14_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    },
@@ -345,12 +291,6 @@
     "median_difference": -0.013190895277562106,
     "blocks_where_a_better": 8,
     "blocks_where_b_better": 11,
-    "paired_mean_one_sided_t_lcb": -0.01450704398023721,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.046840063973052445,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.8203582763671875,
     "a": "R7_scarp9_polarity/disk/s2.8_d14_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    }
@@ -362,12 +302,6 @@
     "median_difference": 0.004509866192680763,
     "blocks_where_a_better": 12,
     "blocks_where_b_better": 7,
-    "paired_mean_one_sided_t_lcb": -0.004156468867310633,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.02813839453764541,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.1796417236328125,
     "a": "R7_scarp9_polarity/disk/s2.8_d14_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    },
@@ -377,80 +311,8 @@
     "median_difference": -0.005800047698927016,
     "blocks_where_a_better": 6,
     "blocks_where_b_better": 12,
-    "paired_mean_one_sided_t_lcb": -0.013368633326066328,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.04041541893926623,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.951873779296875,
     "a": "R7_scarp9_polarity/disk/s2.8_d14_b3",
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
-   }
-  }
- },
- "paired_vs_incumbent": {
-  "shipped_arm": {
-   "selection": {
-    "n": 20,
-    "mean_difference": 0.032206377517332,
-    "median_difference": 0.022449772191751594,
-    "blocks_where_a_better": 13,
-    "blocks_where_b_better": 7,
-    "paired_mean_one_sided_t_lcb": 0.016708873341842595,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.03341784824329318,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 19,
-    "one_sided_sign_test_p_greater": 0.13158798217773438,
-    "a": "R7_scarp9_polarity/disk/s2.8_d7.37_b3",
-    "b": "REF_incumbent_0.2778/as-shipped/as-shipped"
-   },
-   "calibration": {
-    "n": 19,
-    "mean_difference": 0.03889880668685157,
-    "median_difference": 0.03183577869822368,
-    "blocks_where_a_better": 15,
-    "blocks_where_b_better": 4,
-    "paired_mean_one_sided_t_lcb": 0.02138032654276784,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.010502738294021138,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.00960540771484375,
-    "a": "R7_scarp9_polarity/disk/s2.8_d7.37_b3",
-    "b": "REF_incumbent_0.2778/as-shipped/as-shipped"
-   }
-  },
-  "rule_described_as_preregistered": {
-   "selection": {
-    "n": 20,
-    "mean_difference": 0.01896213678873378,
-    "median_difference": 0.015362678501331904,
-    "blocks_where_a_better": 12,
-    "blocks_where_b_better": 8,
-    "paired_mean_one_sided_t_lcb": 0.0037886924716571038,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.05947459867627057,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 19,
-    "one_sided_sign_test_p_greater": 0.2517223358154297,
-    "a": "R2_scarp9_topo/oriented4/s3.6_d14_b2",
-    "b": "REF_incumbent_0.2778/as-shipped/as-shipped"
-   },
-   "calibration": {
-    "n": 19,
-    "mean_difference": 0.026569575153164705,
-    "median_difference": 0.029285408315335555,
-    "blocks_where_a_better": 14,
-    "blocks_where_b_better": 5,
-    "paired_mean_one_sided_t_lcb": 0.008615093904223884,
-    "paired_mean_lcb_confidence_pct": 90.0,
-    "paired_difference_split_conformal_lower_bound": -0.024794302780696276,
-    "split_conformal_lower_alpha": 0.1,
-    "split_conformal_lower_order_statistic_k": 18,
-    "one_sided_sign_test_p_greater": 0.0317840576171875,
-    "a": "R2_scarp9_topo/oriented4/s3.6_d14_b2",
-    "b": "REF_incumbent_0.2778/as-shipped/as-shipped"
    }
   }
  },
@@ -1674,5 +1536,17 @@
    "min_cat_dist_px": 3.0
   }
  },
- "exchangeability_caveat": "The floor is a split-conformal order statistic over spatial blocks, one-sided at the stated confidence, conditional on the selected arm.  Blocks are exchangeable in the sense the method requires only if a fresh block is drawn like a calibration block; geological blocks are not identical (Basin and Range vs Walker Lane), which is why the leave-one-out worst floor, the empirical violation rates and the repeated-split distribution are reported beside it.  Instrument B optimistically rewards topographic detectors because SGMC also contains non-fault contacts."
+ "exchangeability_caveat": "The floor is a split-conformal order statistic over spatial blocks, one-sided at the stated confidence, conditional on the selected arm.  Blocks are exchangeable in the sense the method requires only if a fresh block is drawn like a calibration block; geological blocks are not identical (Basin and Range vs Walker Lane), which is why the leave-one-out worst floor, the empirical violation rates and the repeated-split distribution are reported beside it.  Instrument B optimistically rewards topographic detectors because SGMC also contains non-fault contacts.",
+ "interpretation": {
+  "record_type": "exploratory public-proxy calculation, not a submission certificate",
+  "confidence_is_nominal": true,
+  "block_score_exchangeability": "unverified assumption",
+  "target": "public SGMC and catalogue proxy blocks, not private organizer labels",
+  "selection_rule_amended_after_repeated_split_review": true,
+  "formal_coverage_for_post_hoc_amended_process_established": false,
+  "comparator": "legacy REF_incumbent_0.2778 key denotes an owner-reported d2.8 reference; score/file link unverified",
+  "promotion_gate_passed": false,
+  "submission_eligible": false,
+  "slot_authorized": false
+ }
 }

@@ -7,8 +7,8 @@ Reads ``evidence/sweep/sweep_h49.json`` (never re-runs anything) and prints / wr
     halves, so a reviewer can see whether the chosen point is interior or a boundary artefact;
   * the mass-matched control comparison (isotropic ``nms_disk`` vs strike-aligned ``nms_oriented``
     at the identical operating point and identical emitted mass);
-  * the per-instrument pooled DTI, which is the closest available stand-in for the leaderboard's
-    single global denominator.
+  * the per-instrument pooled DTI on public proxy blocks. This is not a stand-in for the
+    leaderboard's hidden-label score or scoring population.
 
 Run:  python3 scripts/analyze_h49.py [--md docs/H49_EVIDENCE.md]
 """
@@ -69,9 +69,10 @@ def main() -> int:
     out(f"- rows: {len(sweep['rows'])}; generated {sweep['generated_utc']}")
     if sel:
         c = sel["chosen"]
-        out(f"- chosen by the frozen rule: **{c['recipe']} / {c['emitter']} / {c['op']}**; "
-            f"certified floor {sel['guarantee']['certified_floor_primary_instrument']:.5f} at "
-            f"{sel['confidence_pct']:.0f} % on {sel['primary_instrument']}")
+        out(f"- historical v1 choice (superseded for interpretation): **{c['recipe']} / {c['emitter']} / {c['op']}**; "
+            f"nominal lower-bound estimate {sel['guarantee']['certified_floor_primary_instrument']:.5f} at "
+            f"{sel['confidence_pct']:.0f} % on public proxy {sel['primary_instrument']}; "
+            "conditional on unverified exchangeability, not a private/global performance floor")
     out()
 
     keys = sorted({(r["recipe"], r["emitter"], r["op"]) for r in sweep["rows"]})
@@ -88,7 +89,8 @@ def main() -> int:
             sp = pooled_dti(pooled[(k, inst, "selection")]) if sel_v else float("nan")
             cp = pooled_dti(pooled[(k, inst, "calibration")]) if cal_v else float("nan")
             em = emitted.get((k, inst), [0])
-            out(f"| {k[0]} | {k[1]} | {k[2]} | {len(sel_v)} | "
+            recipe_label = k[0].replace("REF_incumbent_0.2778", "REF_owner_reported_d2.8")
+            out(f"| {recipe_label} | {k[1]} | {k[2]} | {len(sel_v)} | "
                 f"{sum(sel_v)/len(sel_v):.4f} | {sum(cal_v)/len(cal_v):.4f} | {sp:.4f} | {cp:.4f} | "
                 f"{sum(em)/len(em):.0f} |")
         out()

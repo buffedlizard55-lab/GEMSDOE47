@@ -1818,5 +1818,18 @@
   "random_selection_mean_primary": 0.055936,
   "chosen_pooled_dti_selection_primary": 0.076575,
   "checks_evaluated": 4
+ },
+ "interpretation": {
+  "record_type": "historical first-run public catalogue proxy calculation, superseded by the H49 Instrument-B addendum",
+  "confidence_is_nominal": true,
+  "block_score_exchangeability": "unverified assumption",
+  "target": "held-out public catalogue components, not private organizer labels",
+  "current_operating_point": false,
+  "promotion_gate_passed": false,
+  "submission_eligible": false,
+  "slot_authorized": false,
+  "comparator": "any legacy REF_incumbent_0.2778 key denotes an owner-reported d2.8 reference; score/file link unverified",
+  "legacy_gate_scope": "The adjacent legacy gates object is a historical first-run public-catalogue proxy comparison only. Its all_gates_pass=true field is not the current scientific promotion gate, submission eligibility, or slot authorization; the current interpretation fields below are false.",
+  "legacy_gate_comparator_semantics": "Any legacy REF_incumbent_0.2778 key refers only to an owner-reported d2.8 reference raster; the participant-score/file association is unverified and it is not an authenticated leaderboard incumbent."
  }
 }

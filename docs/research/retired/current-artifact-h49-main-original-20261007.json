@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "status": "CERTIFIED_HOLDOUT_PASS_UNSCORED",
+  "slot_authorized": true,
+  "hypothesis_ids": [
+    "H49-B (signed polarity coherence)",
+    "H49 round-2 emission control"
+  ],
+  "filename": "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+  "download_relative_to_docs": "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+  "submission_name": "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3",
+  "portal_note": "Signed-polarity scarp field; 37,612 dots, 2.8px/280m spacing, 300m off known-fault flanks; spacing certified by split conformal, 90% floor 0.0318.",
+  "portal_note_characters": 146,
+  "generated_utc": "2026-10-07T03:29:11Z",
+  "format_validation": {
+    "path": "/home/user/GEMSDOE47/submission/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+    "sha256": "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b",
+    "bytes": 316629,
+    "driver": "GTiff",
+    "count": 1,
+    "dtype": "float32",
+    "width": 3292,
+    "height": 3730,
+    "crs": "EPSG:32611",
+    "crs_epsg": 32611,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": "None",
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_exact": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_zero_nan": true,
+      "in_footprint_zero_inf": true,
+      "in_footprint_zero_sentinel": true,
+      "in_footprint_range_0_1": true,
+      "every_cell_finite_or_nan_outside": true,
+      "nodata_tag_not_out_of_range": true,
+      "validator_range_0_1_guaranteed": true,
+      "positive_pixels_present": true,
+      "footprint_matches_template": true
+    },
+    "stats": {
+      "full_grid_cells": 12279160,
+      "finite_cells": 12279160,
+      "footprint_cells": 5167373,
+      "finite_in_footprint": 5167373,
+      "min_in_footprint": 0.0,
+      "max_in_footprint": 1.0,
+      "cells_outside_0_1_in_footprint": 0,
+      "nan_in_footprint": 0,
+      "positive_cells": 37612,
+      "positive_cells_in_footprint": 37612,
+      "distinct_values": 2,
+      "positive_pixels_on_catalogue": 0
+    },
+    "all_checks_passed": true,
+    "informational_checks": [
+      "validator_range_0_1_guaranteed"
+    ],
+    "strongest_range_guarantee": true
+  },
+  "zip": {
+    "file": "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.zip",
+    "bytes": 210996,
+    "sha256": "312bb0b6470459993b862b8ebafbf5eeb4f920a15ad8b2ce202bd9f9d4e4ceb4",
+    "members": [
+      "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
+    ],
+    "single_geotiff_verified": true
+  },
+  "operating_point": {
+    "min_spacing_px": 2.8,
+    "min_spacing_m": 280.0,
+    "emitted_density_per_1000_scored": 7.37,
+    "catalogue_flank_buffer_px": 3.0,
+    "catalogue_flank_buffer_m": 300.0,
+    "budget": 37612,
+    "n_scored_domain": 5103406,
+    "emitted_px": 37612,
+    "thinned_px": 85196,
+    "emitted_pct_of_footprint": 0.72787,
+    "engine": "nms_disk (field-ordered isotropic NMS)"
+  },
+  "chosen_spacing_px": 2.8,
+  "chosen_spacing_m": 280.0,
+  "conformal_confidence_pct": 90.0,
+  "conformal_certified_floor_primary_instrument": 0.03183577869822368,
+  "conformal_primary_instrument": "B_sgmc_offcat",
+  "conformal_n_calibration_blocks": 19,
+  "conformal_order_statistic_k": 18,
+  "conformal_floors_by_alpha": {
+    "alpha=0.05": 0.01792858632893002,
+    "alpha=0.10": 0.03183577869822368,
+    "alpha=0.20": 0.057831106865825155,
+    "alpha=0.25": 0.05823628475914242,
+    "alpha=0.30": 0.07382900286950957
+  },
+  "conformal_corroborating_instrument": "PM0200",
+  "conformal_corroborating_floor": 0.018284546414574002,
+  "conformal_leave_one_out_worst_floor": 0.01792858632893002,
+  "conformal_repeated_split": {
+    "n_requested": 400,
+    "n_effective": 400,
+    "instrument": "B_sgmc_offcat",
+    "alpha": 0.1,
+    "selection_rule": "mean",
+    "floor_p05": 0.01792858632893002,
+    "floor_p25": 0.03183577869822368,
+    "floor_median": 0.038467456899675824,
+    "floor_mean": 0.04391297529559175,
+    "mean_violation_rate": 0.0806578947368421,
+    "median_violation_rate": 0.05263157894736842,
+    "share_of_splits_with_violation_above_alpha": 0.435,
+    "selection_frequency": {
+      "R7_scarp9_polarity/disk/s2.8_d7.37_b3": 221,
+      "R7_scarp9_polarity/disk/s2.8_d14_b3": 84,
+      "R2_scarp9_topo/oriented4/s2.8_d14_b3": 52,
+      "R2_scarp9_topo/disk/s2.8_d14_b3": 32,
+      "R2_scarp9_topo/disk/s2.8_d7.37_b3": 7,
+      "R7_scarp9_polarity/oriented4/s2.8_d14_b3": 2,
+      "R2_scarp9_topo/oriented4/s3.6_d14_b3": 2
+    },
+    "selection_frequency_share": {
+      "R7_scarp9_polarity/disk/s2.8_d7.37_b3": 0.5525,
+      "R7_scarp9_polarity/disk/s2.8_d14_b3": 0.21,
+      "R2_scarp9_topo/oriented4/s2.8_d14_b3": 0.13,
+      "R2_scarp9_topo/disk/s2.8_d14_b3": 0.08,
+      "R2_scarp9_topo/disk/s2.8_d7.37_b3": 0.0175,
+      "R7_scarp9_polarity/oriented4/s2.8_d14_b3": 0.005,
+      "R2_scarp9_topo/oriented4/s3.6_d14_b3": 0.005
+    }
+  },
+  "gates": {
+    "isotropic_control_arm": "R7_scarp9_polarity/disk/s2.8_d7.37_b3",
+    "control_present": true,
+    "emitted_mass_is_matched_by_construction": true,
+    "chosen_is_the_isotropic_emitter": true,
+    "positive_certified_floor": true,
+    "credible_at_alpha": true,
+    "beats_random_control_mean": true,
+    "random_control_selection_mean": 0.05749882633681783,
+    "beats_incumbent_selection_mean": true,
+    "incumbent_selection_mean": 0.07108456408391302
+  },
+  "selection": {
+    "shipped": {
+      "recipe": "R7_scarp9_polarity",
+      "emitter": "disk",
+      "op": "s2.8_d7.37_b3",
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 3.0
+      },
+      "rule": "maximise the selection-half mean DTI on Instrument B (amendment; see the module docstring)"
+    },
+    "preregistered": {
+      "recipe": "R2_scarp9_topo",
+      "emitter": "oriented4",
+      "op": "s3.6_d14_b2",
+      "params": {
+        "min_dist": 3.6,
+        "density_per_1000": 14.0,
+        "flank_b": 2.0
+      },
+      "rule": "maximise the selection-half 90 % floor on Instrument B"
+    },
+    "amendment": "The mean rule is the stable one, and that is measured rather than asserted: under 400 independent 50/50 re-splits the mean rule picks the same arm in a majority of splits, while the frozen floor rule's own pick survives in a small minority and its most frequent pick is a different arm each time -- a maximum of order statistics over ~20 blocks is decided by which single block lands where.  Both audits and both certificates are in this file."
+  },
+  "uniqueness": {
+    "n_prior_rasters_compared": 16,
+    "max_jaccard_vs_prior": 0.292575,
+    "max_containment_vs_prior": 0.452701,
+    "worst_jaccard_file": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+    "is_unique": true,
+    "thresholds": {
+      "jaccard": 0.5,
+      "containment": 0.9
+    },
+    "per_prior": [
+      {
+        "file": "docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif",
+        "other_positive_px": 37654,
+        "intersection": 399,
+        "jaccard": 0.005329,
+        "containment_of_other_in_ours": 0.010596,
+        "sha256": "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0"
+      },
+      {
+        "file": "docs/downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-allfinite.tif",
+        "other_positive_px": 18524,
+        "intersection": 174,
+        "jaccard": 0.003109,
+        "containment_of_other_in_ours": 0.009393,
+        "sha256": "c640b71c7c57066dd77bbd42fcb6c436d0a8c201de6b0ec1d88ab25976089501"
+      },
+      {
+        "file": "docs/downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif",
+        "other_positive_px": 18524,
+        "intersection": 174,
+        "jaccard": 0.003109,
+        "containment_of_other_in_ours": 0.009393,
+        "sha256": "dc71c807fbca2cd398f394bcd91b10ecec6b46fe89c2d61f5b1c058fef672811"
+      },
+      {
+        "file": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif",
+        "other_positive_px": 37654,
+        "intersection": 544,
+        "jaccard": 0.00728,
+        "containment_of_other_in_ours": 0.014447,
+        "sha256": "7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146"
+      },
+      {
+        "file": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif",
+        "other_positive_px": 37654,
+        "intersection": 544,
+        "jaccard": 0.00728,
+        "containment_of_other_in_ours": 0.014447,
+        "sha256": "c11744b1c4c5694c6485a287f7c6391b2da2ddaf2a90df70a63998c8aee57893"
+      },
+      {
+        "file": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif",
+        "other_positive_px": 37654,
+        "intersection": 653,
+        "jaccard": 0.008752,
+        "containment_of_other_in_ours": 0.017342,
+        "sha256": "fe434e1c784c7f8b21be7933bb89ee289908521c330030218ae77be4c72edb02"
+      },
+      {
+        "file": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif",
+        "other_positive_px": 37654,
+        "intersection": 653,
+        "jaccard": 0.008752,
+        "containment_of_other_in_ours": 0.017342,
+        "sha256": "1c6ff54bbc046371648ce04a7f219c3d47799d0f6137da1284d2708d4348c80a"
+      },
+      {
+        "file": "docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif",
+        "other_positive_px": 5000,
+        "intersection": 19,
+        "jaccard": 0.000446,
+        "containment_of_other_in_ours": 0.0038,
+        "sha256": "3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2"
+      },
+      {
+        "file": "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif",
+        "other_positive_px": 28124,
+        "intersection": 512,
+        "jaccard": 0.00785,
+        "containment_of_other_in_ours": 0.018205,
+        "sha256": "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5"
+      },
+      {
+        "file": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+        "other_positive_px": 37612,
+        "intersection": 17027,
+        "jaccard": 0.292575,
+        "containment_of_other_in_ours": 0.452701,
+        "sha256": "f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291"
+      },
+      {
+        "file": "docs/downloads/superseded/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
+        "other_positive_px": 18524,
+        "intersection": 253,
+        "jaccard": 0.004527,
+        "containment_of_other_in_ours": 0.013658,
+        "sha256": "0d8ba64c960a3f56720e3f45345e92a554064ae41c8d139c8f2fc224ccef6261"
+      },
+      {
+        "file": "docs/downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+        "other_positive_px": 18524,
+        "intersection": 181,
+        "jaccard": 0.003235,
+        "containment_of_other_in_ours": 0.009771,
+        "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b"
+      },
+      {
+        "file": "docs/downloads/superseded/gems47-h48-mscl-conf-r1p5-44838px-20261006T201749Z-allfinite.tif",
+        "other_positive_px": 44838,
+        "intersection": 717,
+        "jaccard": 0.008772,
+        "containment_of_other_in_ours": 0.015991,
+        "sha256": "4b06a5cc617d187000ec2cd9e682bb79b36df762f6d34c29b388385772b128f8"
+      },
+      {
+        "file": "docs/downloads/superseded/gems47-h48-mscl-conf-r2p5-8176px-20261006T201338Z-allfinite.tif",
+        "other_positive_px": 8176,
+        "intersection": 153,
+        "jaccard": 0.003353,
+        "containment_of_other_in_ours": 0.018713,
+        "sha256": "a2513d169be10adf985fcc93d0b8a0dd9937b4e12f029e4db94f47fc5f18d44c"
+      },
+      {
+        "file": "docs/downloads/superseded/gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif",
+        "other_positive_px": 44838,
+        "intersection": 717,
+        "jaccard": 0.008772,
+        "containment_of_other_in_ours": 0.015991,
+        "sha256": "4b06a5cc617d187000ec2cd9e682bb79b36df762f6d34c29b388385772b128f8"
+      },
+      {
+        "file": "submission/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+        "other_positive_px": 37612,
+        "intersection": 17027,
+        "jaccard": 0.292575,
+        "containment_of_other_in_ours": 0.452701,
+        "sha256": "f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291"
+      }
+    ]
+  },
+  "organizer_score": null,
+  "what_this_does_not_establish": [
+    "no leaderboard score is measured, predicted or implied",
+    "Instrument B is a public proxy built from SGMC, which also contains non-fault contacts",
+    "the certificate is conditional on the shipped arm and assumes block exchangeability",
+    "the previous artifact in this repository (gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif) was never scored by the organiser either"
+  ],
+  "data_authentication": "SHA-256 pinned repository mirrors, not authenticated DrivenData downloads",
+  "archive_interpretation": {
+    "status": "SUPERSEDED_ARCHIVE_ONLY",
+    "current_submission_eligible": false,
+    "current_slot_authorized": false,
+    "current_promotion_gate_passed": false,
+    "current_format_requirement_passed": false,
+    "reason": "The exact TIFF read-back is all-finite with no NoData tag; relative to the recorded owner-mirror footprint, 7,111,787 outside cells are finite. It fails the published null-or-NaN-outside requirement. No submission is eligible or slot-authorized.",
+    "do_not_copy_historical_portal_note": true,
+    "current_review": "docs/H49_RESULTS.md",
+    "current_format_audit": "docs/data/h49-format-contract-audit.json",
+    "portal_note_status": "withdrawn; preserve only for audit; do not copy"
+  }
+}

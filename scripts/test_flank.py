@@ -1,27 +1,25 @@
 #!/usr/bin/env python3
-"""Historical H47 flank diagnostics on catalogue and public SGMC proxies.
+"""Exploratory H47 flank-model comparison and public-frame diagnostics.
 
-This legacy script is not an independent evaluation of private labels. SGMC is a
-public geologic-map compilation that includes non-fault contacts and may omit
-faults; its off-catalogue traces are a proxy population only. It does not establish
-what the organizer scores. The reported H33 0.2778 value is a filename/board
-association without an organizer receipt mapping that value to exact TIFF bytes.
+Q1  Compare the 12-row owner-reported LATI LOO fit with and without catalogue
+    flank layers. This is a model-specific association screen, not a causal
+    ablation or private-target validation. H33-2-B2 is not included as an
+    authenticated score pair.
 
-Q1 fits catalogue-flank layers with and without the earlier field using the
-historical leave-one-observation-out setup. This is an exploratory diagnostic,
-not a prospective promotion test.
+Q2  Compare rasters on a public USGS SGMC off-catalogue frame. These are public
+    mapped faults, not organizer-authenticated hidden labels; the comparison is
+    descriptive and cannot alone promote or falsify a candidate.
 
-Q2 compares historical masks against the SGMC off-catalogue proxy using the
-published metric. It is not “real truth” for the private target.
-
-Q3 reports four spatial quadrants of the given-catalogue mask. This rewards
-catalogue similarity and cannot validate discovery of uncatalogued faults.
+Q3  Report a four-quadrant holdout on the given catalogue only as a contaminated
+    diagnostic: because its truth is the catalogue, it rewards the opposite
+    skill and is never used as the project promotion gate.
 
     python3 scripts/test_flank.py
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import time
@@ -77,7 +75,14 @@ def main() -> int:
     U, names = st["U"], list(st["names"])
     ev_idx, shape = st["ev_idx"], tuple(st["meta"]["shape"])
     t = G.load_template()
-    out = {"generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    out = {
+        "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "observation_scope": {
+            "owner_reported_pairs_in_q1": len(obs),
+            "h33_score_file_mapping_verified": False,
+            "interpretation": "Q1 is an exploratory 12-row LOO comparison; local SGMC/catalogue frames are screening proxies, not organizer-authenticated private truth",
+        },
+    }
 
     # ---------------- Q1 ----------------------------------------------------
     extra = {
@@ -88,15 +93,15 @@ def main() -> int:
         "sgmc_offcat": U[names.index("sgmc_offcat")],
     }
     combos = [
-        ("incumbent-field-only", ["prox_d2.8"]),
-        ("incumbent+flank0_1.5", ["prox_d2.8", "dcat_band_0_1.5"]),
-        ("incumbent+flank0_3", ["prox_d2.8", "dcat_band_0_1.5", "dcat_band_1.5_3"]),
-        ("incumbent+flank+sgmc", ["prox_d2.8", "dcat_band_0_1.5", "dcat_band_1.5_3",
-                                  "sgmc_offcat_prox"]),
-        ("flank+sgmc (no incumbent)", ["dcat_band_0_1.5", "dcat_band_1.5_3", "sgmc_offcat_prox"]),
+        ("owner-reported d2.8 reference-field-only", ["prox_d2.8"]),
+        ("d2.8 reference + flank 0-1.5px", ["prox_d2.8", "dcat_band_0_1.5"]),
+        ("d2.8 reference + flank 0-3px", ["prox_d2.8", "dcat_band_0_1.5", "dcat_band_1.5_3"]),
+        ("d2.8 reference + flank + SGMC", ["prox_d2.8", "dcat_band_0_1.5", "dcat_band_1.5_3",
+                                             "sgmc_offcat_prox"]),
+        ("flank + SGMC (no d2.8 reference field)", ["dcat_band_0_1.5", "dcat_band_1.5_3", "sgmc_offcat_prox"]),
     ]
     q1 = []
-    print("[Q1] does the catalogue flank add signal beyond the incumbent's own field?")
+    print("[Q1] does adding catalogue-flank features reduce LOO error in this exploratory fit to owner-reported rows?")
     for label, keys in combos:
         Ux = np.stack([extra[k] for k in keys])
         bm = lati.BinnedSoftmax(Ux, list(range(len(keys))), obs,
@@ -114,11 +119,11 @@ def main() -> int:
     out["Q1_verdict"] = dict(
         baseline_model=base["model"], baseline_loo=base["loo_ssr"],
         best_model=best["model"], best_loo=best["loo_ssr"],
-        flank_adds_signal=bool(best["loo_ssr"] < base["loo_ssr"] - 1e-9),
-        improvement=base["loo_ssr"] - best["loo_ssr"])
-    print(f"   -> best by LOO: {best['model']} ({best['loo_ssr']:.6f} vs baseline "
-          f"{base['loo_ssr']:.6f}); flank adds signal = "
-          f"{out['Q1_verdict']['flank_adds_signal']}")
+        flank_reduces_loo_error_in_exploratory_fit=bool(best["loo_ssr"] < base["loo_ssr"] - 1e-9),
+        loo_ssr_reduction=base["loo_ssr"] - best["loo_ssr"])
+    print(f"   -> lowest LOO error: {best['model']} ({best['loo_ssr']:.6f} vs baseline "
+          f"{base['loo_ssr']:.6f}); exploratory-fit reduction = "
+          f"{out['Q1_verdict']['flank_reduces_loo_error_in_exploratory_fit']}")
 
     # ---------------- Q2: SGMC off-catalogue frame --------------------------
     with rasterio.open(G.data_dir() / "external" / "derived_sgmc_faults_100m_u8.tif") as s:
@@ -126,8 +131,8 @@ def main() -> int:
     dcat = FEAT.dist_px(t.catalogue, 80.0)
     truth_s = (sgmc & t.evaluated & (dcat > M.RANGE_PX))
     K_S = int(truth_s.sum())
-    print(f"\n[Q2] SGMC off-catalogue proxy: {K_S:,} trace pixels "
-          f"(SGMC traces >300 m from the given catalogue, inside the footprint; contacts may occur)")
+    print(f"\n[Q2] SGMC off-catalogue frame: {K_S:,} truth pixels "
+          f"(USGS SGMC faults >300 m from the given catalogue, inside the footprint)")
     ev = t.evaluated
 
     def score_dots(dots, truth):
@@ -136,13 +141,17 @@ def main() -> int:
 
     arms = {}
     d28 = np.zeros(shape, bool); d28.ravel()[[o.dot_flat for o in obs if o.id == "d2.8"][0]] = True
-    arms["historical d2.8 field (score mapping unverified)"] = d28
-    h33 = ROOT.parent / "refs" / "GEMSDOE32" / "docs" / "downloads" / \
-        "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif"
+    arms["owner-reported d2.8 reference (DTI 0.2600; no organizer receipt)"] = d28
+    h33 = ROOT / ".cache" / "gems_data" / "reference" / "h33-2-b2-zeros.tif"
     if h33.exists():
+        digest = hashlib.sha256(h33.read_bytes()).hexdigest()
+        if digest != "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9":
+            raise SystemExit("H33 reference raster SHA-256 mismatch")
         with rasterio.open(h33) as s:
+            if s.count != 1 or not G.dataset_matches_template_grid(s, t):
+                raise SystemExit("H33 reference raster grid does not match the competition template")
             v = s.read(1)
-        arms["H33-labelled reference (score mapping unverified)"] = np.nan_to_num(v) > 0
+        arms["H33-2-B2 reference raster (score/file mapping unverified)"] = np.nan_to_num(v) > 0
     # flank arm: dots inside the 1-3 px catalogue halo, ranked by an SGMC/ridge composite
     halo = (dcat > 0) & (dcat <= M.RANGE_PX) & ev
     arms["flank_halo_only (all %d px)" % int(halo.sum())] = halo
@@ -158,10 +167,9 @@ def main() -> int:
         print(f"   {label:<38} dots={r['n_dots']:>7,} T={r['TP_w']:>9.1f} F={r['FP_w']:>10.1f} "
               f"recall={r['weighted_recall']:.4f} credit/dot={r['credit_per_unit_mass']:.4f} "
               f"DTI={r['DTI']:.4f}")
-    out["Q2_sgmc_offcatalogue_frame"] = dict(K=K_S, definition="USGS SGMC trace pixels "
-        ">300 m from the given catalogue and inside the supplied footprint. SGMC includes "
-        "non-fault contacts and is only a public proxy; this is not the hidden competition target.",
-        arms=q2)
+    out["Q2_sgmc_offcatalogue_frame"] = dict(K=K_S, definition="USGS SGMC fault pixels "
+        ">300 m from the competition catalogue, inside the sample_submission footprint, "
+        "excluding masked catalogue pixels", arms=q2)
 
     # ---------------- Q3: blocked catalogue holdout -------------------------
     H, W = shape
@@ -184,7 +192,7 @@ def main() -> int:
                         "(the same defect GEMSDOE42 logged in registry/irregularities.json)")
 
     out["seconds"] = round(time.time() - t0, 1)
-    (ROOT / "evidence" / "flank_test.json").write_text(json.dumps(out, indent=1, default=float))
+    (ROOT / "evidence" / "flank_test.json").write_text(json.dumps(out, indent=1, default=float, allow_nan=False))
     print(f"\nwrote evidence/flank_test.json ({time.time()-t0:.0f}s)")
     return 0
 

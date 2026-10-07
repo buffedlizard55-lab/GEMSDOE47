@@ -398,10 +398,22 @@ def run(output_path: Path, report_path: Path) -> dict[str, Any]:
             STATUS="RESEARCH_ONLY_NOT_FOR_PORTAL",
         )
     artifact_audit = S.validate_submission(output_path, template=template)
-    if not artifact_audit["recommended_for_upload"]:
-        raise ValueError(
-            "research TIFF did not pass the repository's NaN-intolerant format checks"
-        )
+    outside_cells = int(template.footprint.size - template.footprint.sum())
+    format_review = {
+        "status": "FAIL" if not artifact_audit["checks"]["outside_template_footprint_is_nodata"] else "LOCAL_CHECKS_PASS",
+        "published_requirement": "Cells outside the training-data bounds must be null or NaN.",
+        "outside_null_or_nan": artifact_audit["checks"]["outside_template_footprint_is_nodata"],
+        "footprint_cells": int(template.footprint.sum()),
+        "outside_cells": outside_cells,
+        "outside_cells_finite": int(artifact_audit["stats"]["n_finite"] - artifact_audit["stats"]["n_footprint"]),
+        "footprint_basis": "Owner-supplied mirror; not organizer-authenticated.",
+        "submission_eligible": False,
+        "slot_authorized": False,
+        "organizer_acceptance_established": False,
+        "reason": "This historical H47-QC writer uses finite zeros outside the mirror footprint; that fails the published null-or-NaN-outside requirement.",
+    }
+    if not artifact_audit["required_local_checks_passed"]:
+        print("[h47qc] format review failed; preserving this as research-only evidence; no upload is authorized", file=sys.stderr)
     artifact_hash = sha256_file(output_path)
 
     # The old H47-B number is useful context, but it used 18,524 points and is
@@ -461,6 +473,14 @@ def run(output_path: Path, report_path: Path) -> dict[str, Any]:
         "split_conformal_lower_bound": conformal,
         "matched_mass_comparators": comparators,
         "historical_h47b_different_mass_context": old_h47b_context,
+        "review_interpretation": {
+            "status": "RESEARCH_ONLY_NOT_PROMOTED",
+            "promotion_gate_passed": False,
+            "submission_eligible": False,
+            "slot_authorized": False,
+            "current_format_review": format_review["status"],
+            "reason": format_review["reason"],
+        },
         "promotion_gate": {
             "must_beat_all_matched_comparators_on_locked_test": True,
             "beats_every_comparator": beats_every_comparator,
@@ -478,6 +498,7 @@ def run(output_path: Path, report_path: Path) -> dict[str, Any]:
             "path": str(output_path.relative_to(ROOT)),
             "sha256": artifact_hash,
             "format_audit": artifact_audit,
+            "format_review": format_review,
             "emitted_on_public_catalogue_pixels": int(
                 artifact_audit["stats"]["n_emitted_on_catalogue"]
             ),

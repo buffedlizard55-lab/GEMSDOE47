@@ -94,7 +94,7 @@ hypothesis without saying so would be exactly the hallucination the brief forbid
   given catalogue, median `det_elev_slope` **13.0** vs **5.1**, median depth-to-basement **105 m**
   vs **321 m**. Optimising against SGMC builds a bedrock-contact detector.
 * **The contrarian use of SGMC is as a NEGATIVE control, not as truth.** A field that scores well
-  against SGMC-offcat but no better than the incumbent against held-out catalogue components has
+  against SGMC-offcat but no better than the fixed comparison baseline on held-out catalogue components has
   learned "mountain", not "fault". That test is exactly what caught the
   `lrm(det_elev_slope, r=9)` candidate, which was the best transform on SGMC-offcat (precision
   0.260) and only 0.106 on the given catalogue — barely above the 0.086 random baseline.

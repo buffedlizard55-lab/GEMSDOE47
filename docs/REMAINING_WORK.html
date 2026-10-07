@@ -1,78 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Remaining work and limitations — GEMSDOE47</title>
-<meta name="description" content="Current H49 slot decision, exact artifact and audit scope, conformal assumptions, and prioritized scientific and GitHub work remaining.">
-<link rel="stylesheet" href="assets/site.css">
-</head>
-<body>
-<header class="top"><div class="wrap">
-  <h1>GEMSDOE47 <span class="badge b-info">RESEARCH RECORD</span></h1>
-  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
-     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
-     Generated 2026-10-07 13:12 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
-    <a href="hypotheses.html">The five hypotheses</a>
-    <a href="method.html">LATI method</a>
-    <a href="evidence.html">Every number</a>
-    <a href="irregularities.html">Irregularities</a>
-    <a href="leaderboard.html">Leaderboard</a>
-    <a href="sources.html">Sources</a>
-    <a href="submit.html">Submit</a>
-    <a href="portal-checklist.html">Portal checklist</a>
-    <a href="analysis.html">Analysis</a>
-    <a href="validation-protocol.md">Validation protocol</a>
-    <a href="review-log.md">Review log</a>
-    <a href="next-session.md">Next session</a>
-    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
-  </nav>
-  <nav>
-    <a href="session3.html">Session 3 — submission</a>
-    <a href="HOW_TO_SUBMIT.html">How to submit — future candidate</a>
-    <a href="RESULTS.html">Results and score-attribution correction</a>
-    <a href="H49_RESULTS.html">H49 results</a>
-    <a href="RESEARCH_HYPOTHESES.html">Ranked H49 follow-up hypotheses</a>
-    <a href="why-02778.html">Why 0.2778</a>
-    <a href="hypotheses-s3.html">Hypotheses H47</a>
-    <a href="research.html">Research base and sources</a>
-    <a class="on" href="REMAINING_WORK.html">Remaining work and limitations</a>
-    <a href="COMPLIANCE.html">Compliance and review</a>
-  </nav>
-</div></header>
-<div class="wrap">
-<article>
-<h1 id="remaining-work-and-limitations">Remaining work and limitations</h1>
-<blockquote>
-<p><strong>Current decision: H49 is a downloadable research artifact, not an authorized competition submission.</strong> It did not clear the paired spatial-holdout improvement gate. Maximize P(Win): preserve the weekly slot until a prospectively specified candidate beats the current holdout best. Own the Outcome: keep the exact bytes, caveats, failures and source records reviewable.</p>
-</blockquote>
-<h2 id="current-h49-state">Current H49 state</h2>
-<p>The file <code>gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif</code> is 409,124 bytes, SHA-256 <code>f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060</code>, with 37,612 positive pixels. It is a one-band float32 GeoTIFF on the 3292 × 3730 EPSG:32611, 100 m official grid. Its self-contained internal mask matches the 5,167,373-cell footprint, and masked reads are null exactly outside. All 19 gating format/read-back checks pass; the whole-grid raw <code>[0,1]</code> check is reported separately as an informational flag. This is format validation for these bytes, not scientific validation or organizer acceptance.</p>
-<p>The pinned visible-public-inventory audit covered 54 repositories and 565 comparisons (555 inventory blobs plus 10 local-history rasters), with zero exact mask/value matches and maximum Jaccard 0.292575. Three inventory entries were excluded from direct pixel comparison, and no repository inventory fetch failed. The audit is bounded: inaccessible, unpublished, deleted, later-published and otherwise non-inventoried files are outside its scope. Do not claim global uniqueness.</p>
-<p>The nominal fixed-arm split-conformal order statistic is 0.03184 at 90% for spacing 2.8 px / 280 m. Its unit is one 8×8 spatial block; <code>n=19</code>, <code>k=18</code>; the target is block DTI on public USGS SGMC traces more than 300 m from the given catalogue. Validity assumes exchangeable blocks and a rule fixed independently of calibration outcomes. SGMC includes non-fault contacts, geological-block exchangeability is unverified, and the shipped mean-maximizing rule was amended after results. This is not a guarantee for the full adaptive procedure, private labels, paired improvement or leaderboard score.</p>
-<p>The H49 mean-rule arm has a positive descriptive public-proxy mean but its 90% split-conformal lower bounds on paired improvement over the H33-labelled reference are negative for both selection and calibration halves. The saved floor-rule arm also fails the paired-improvement criterion. <strong>Do not upload H49 or spend a weekly slot on it.</strong> No competition upload, organizer score receipt or acceptance receipt exists.</p>
-<h2 id="github-publication-status">GitHub publication status</h2>
-<p>The fixed session branch <code>arena/24b6e85a-gemsdoe47</code> has been reconciled with <code>origin/main</code> at <code>525dab76f10facca1382872d65b15fded04697ae</code>. PR <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/pull/21">#21</a> was opened from that branch. Both GitHub Tests runs passed on the initially opened head; the PR page is authoritative for checks on later commits and the final merge status/commit.</p>
-<h2 id="remaining-scientific-work-in-priority-order">Remaining scientific work, in priority order</h2>
-<ol>
-<li><strong>Find a genuinely stronger candidate.</strong> Write a prospective protocol before scoring. Use a fresh spatially blocked holdout not reused from the 39 H49 blocks, matched-mass and shifted/random controls, and a positive paired-improvement lower-bound criterion. Keep the slot gate closed on ties, unstable folds, failed controls or an unsupported/negative lower bound.</li>
-<li><strong>Verify higher-resolution data before depending on it.</strong> The ranked queue proposes a conditional USGS 3DEP / GeoDAWN H50 LiDAR idea, but exact 1 m files, license, bytes and footprint coverage are not verified in this sandbox. Do not treat H50 as viable until an official free source is actually obtained and checked.</li>
-<li><strong>Resolve H33 score attribution if an organizer receipt becomes available.</strong> The H33/H27 mask relationship is verified from pinned files, but no receipt maps 0.2778 to the H33 hash; its pinned owner README says unscored and calls 0.2747 a projection. Reduced off-target mass is a plausible mechanism, not an established causal explanation.</li>
-<li><strong>Refresh the old inversion only if its exact reference TIFFs are restored.</strong> <code>scripts/run_inversion.py</code> cannot produce a new JSON because <code>data/reference/</code> lacks required inputs. Existing score-conditioned values remain conditional owner-label arithmetic, not organizer observations.</li>
-<li><strong>Retain the research record and re-run checks after any artifact change.</strong> The exact TIFF hash, format receipt, conformal certificate, public audit, source references, ranked hypotheses and review checklist are linked from <code>README.md</code> and the Pages site. Any byte change requires rebuilding the receipt and both audits.</li>
-</ol>
-<h2 id="non-claims-and-scope-boundaries">Non-claims and scope boundaries</h2>
-<ul>
-<li>The public SGMC/PM0200 proxy is not the hidden competition target; SGMC contains non-fault contacts. No public-proxy DTI is a leaderboard forecast.</li>
-<li>A nominal fixed-arm split-conformal statistic is conditional on exchangeability and prospective rule fixation. Re-partitions reusing the same blocks are sensitivity diagnostics, not independent validation samples.</li>
-<li>A file-format pass does not establish scientific improvement, bounded uniqueness outside the recorded inventory, portal acceptance or an organizer score.</li>
-<li>The H33 filename-to-score mapping and all competition upload/score receipts remain unresolved in this repository.</li>
-<li><code>README.md</code> preserves the complete available structured brief and discloses that the original verbatim chat transcript was not present in the checkout; unavailable wording has not been reconstructed.</li>
-</ul>
-</article>
-</div>
-</body>
-</html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remaining work and limitations · GEMSDOE47</title><meta name="description" content="Corrected handoff: no artifact is approved for upload; assumptions and remaining work are explicit.">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body data-site-version="review" data-base=""><a class="skip" href="#main">Skip to remaining work</a>
+<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+<nav aria-label="Main navigation"><a href="index.html">Home</a><a href="evidence.html">Evidence</a><a href="irregularities.html">Limitations</a><a href="sources.html">Sources</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>Research-only · NOT PROMOTED</strong><span>No slot authorized. Do not upload.</span></div>
+<main id="main"><section class="page-heading"><span class="eyebrow">Corrected handoff · 6 October 2026</span><h1>Keep the gate closed.<br>Keep the evidence honest.</h1><p class="lede">No current artifact is approved for upload. This page replaces a stale handoff that advised uploading, assumed an exact quota, and overclaimed score attribution and causality.</p></section>
+<section><h2>Current decision</h2><p>H47-C1 failed its preregistered public-catalogue screen: pooled DTI 0.177872 versus the 0.180216 ordinary-terrain baseline; 11/22 truth-bearing blocks improve (15 required); nominal 90% marginal proxy lower-bound estimate 0.0000 under unverified exchangeability. The H49 artifact inherited from main is retained for audit but fails the published null-or-NaN-outside requirement: its exact TIFF is all-finite with no NoData tag and 7,111,787 outside cells remain finite relative to the recorded owner-mirror footprint. Its nominal 90% public-proxy estimate assumes unverified exchangeability, the operating rule was amended post-hoc, and the 0.2778 comparator is an owner-reported d2.8 reference. No common promotion gate against the established spatially blocked holdout best passed. H47-B and H47-QC are negative screens; H47-GSA/H47-MAXCOV and H48/session-3 artifacts remain research-only or superseded. No file has organizer acceptance or slot authorization.</p></section>
+<section><h2>Remaining work, only if authorized</h2><ol><li>Complete this repository review and verify CI/PR status.</li><li>Before any new submission idea, preregister a fresh spatially blocked test against a separately established holdout best, with equal-mass controls, adequate truth, and the required confidence level. C1's test results cannot be reused as an untouched test. A zero or unsupported assumption-conditional lower bound keeps the gate closed.</li><li>Keep the H33-2-B2 / participant-DTI 0.2778 association unverified; dependent fits are hypothetical. Call the raster the owner-reported d2.8 reference, not a separately established spatially blocked holdout best. H47-SAF's sign change is bracketed only between assumed DTI 0.2200 and 0.2400.</li><li>Use null or NaN outside the official bounds. H49's exact all-finite TIFF has no NaNs or NoData tag and fails the local check relative to its recorded owner-mirror footprint. Unmasked zero-outside all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and Session-3 variants also fail; separate NaN versions follow owner-supplied mirror conventions only. H47-C1 has a separate internal mask and 15/15 local checks; neither establishes portal acceptance.</li><li>Verify any current quota/slot rule in the authenticated portal. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting. Three historical λ-scaling score observations are not a count of uploads or slots; no diagnostic cost is inferred or called free.</li></ol></section>
+<section class="notice"><strong>NOT DONE OR AUTHORIZED</strong><p>No data restore, H47-B rerun, upload, competition-slot use, or λ-probe was performed for this review. Data-dependent tests remain skipped because the cache is absent.</p></section>
+<p><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">Standing brief</a> · <a href="COMPLIANCE.html">Requirements audit</a> · <a href="HOW_TO_SUBMIT.html">Submission readiness</a> · <a href="next-session.md">Next-session handoff</a></p></main>
+<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="irregularities.html">Limitations</a> · <a href="sources.html">Sources</a></div></footer></body></html>

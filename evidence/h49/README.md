@@ -1,0 +1,9 @@
+# H49 evidence — raw calculations, corrected interpretation
+
+The JSON files here were preserved from main to keep the H49 analysis auditable. Their historical field names (including `certified_floor`, `positive_certified_floor`, `all_gates_pass`, and the control key `REF_incumbent_0.2778`) are retained as provenance. In particular, the first-run `conformal_selection.json` `gates.all_gates_pass: true` refers only to its original public-proxy screening checks; it is **not** the current promotion decision, submission eligibility, or slot authorization. The root `interpretation` object marks those current decisions false. These legacy names are **not** claims of an unconditional certificate or an authenticated incumbent.
+
+Interpret the numeric fields only as nominal calculations over the recorded public proxy blocks, conditional on assumed block-score exchangeability. Geological exchangeability and relevance to the organizer's hidden scoring labels are unverified. The reported operating rule was amended after inspecting repeated-split results, and those re-splits reuse the same blocks; formal coverage for the post-hoc amended procedure is not established. The `0.2778` comparator is an **owner-reported d2.8 reference raster**, not a score-to-file-authenticated leaderboard incumbent.
+
+The written H49 GeoTIFF is retained in `docs/downloads/` for research review, but its local read-back is all-finite, has no NoData tag, and fails the published null-or-NaN-outside requirement. See the corrected overlay [`format-contract-audit.json`](format-contract-audit.json), deployed copy [`docs/data/h49-format-contract-audit.json`](../../docs/data/h49-format-contract-audit.json), and [`docs/H49_RESULTS.md`](../../docs/H49_RESULTS.md).
+
+No H49 file is submission-eligible or slot-authorized. Do not upload. No data restore, H47-B rerun, H49 experiment rerun, upload, or slot use was performed during this review.

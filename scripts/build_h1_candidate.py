@@ -49,7 +49,7 @@ RAD_BANDS = ["K", "Th", "U", "TC"]              # per geodawn_rad.json
 EXT_BANDS = ["ThK", "UK", "UTh", "TMI_up150"]   # per geodawn_extensions.json
 
 ANNULUS_D_CAT_MIN = 3       # px; strictly beyond the 300 m kernel reach of a catalogue pixel
-BUDGET = 18524              # matched-mass with the incumbent submission (H1 validation plan)
+BUDGET = 18524              # matched-mass with H47-B research raster, not a spatial holdout best
 SEP_PX = 3.0                # non-overlap: one dot per kernel footprint
 LOG_SIGMA = 3.0             # curvature scale, px (H1: "3-5 px scale")
 
@@ -172,7 +172,7 @@ def main() -> int:
     from src.gems47_blocks import blocked_scores
     truth = (lab == 1)
     rows = {"candidate": blocked_scores(out, truth, 2, 2),
-            "random_control": None, "incumbent_d28": None}
+            "random_control": None, "owner_reported_d2_8_reference": None}
     rng = np.random.default_rng(47)
     ctrl = np.zeros(lab.shape, np.float32)
     pick = rng.choice(flat, size=n, replace=False)
@@ -184,7 +184,7 @@ def main() -> int:
         with rasterio.open(base_p) as ds:
             b = ds.read(1)
         inc = np.isfinite(b) & (b > 0) & (d_cat > ANNULUS_D_CAT_MIN)
-        rows["incumbent_d28"] = blocked_scores(np.where(inc, 1.0, np.nan).astype(np.float32),
+        rows["owner_reported_d2_8_reference"] = blocked_scores(np.where(inc, 1.0, np.nan).astype(np.float32),
                                                truth, 2, 2)
     def _pooled(rs):
         tp = sum(r["TPw"] for r in rs); ng = sum(r["Ng"] for r in rs)

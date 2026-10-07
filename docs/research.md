@@ -4,6 +4,8 @@ layout: default
 nav_order: 6
 ---
 
+> **RESEARCH-ONLY / ATTRIBUTION LIMIT.** H33-2-B2 → participant DTI 0.2778 is unverified; H48 and other score-dependent work is hypothetical/conditional, not authenticated or conclusive. Use “owner-reported d2.8 reference”; reserve “incumbent” for a separately established spatially blocked holdout best. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting. Three λ-scaling score observations do not verify uploads/slots; no diagnostic cost is inferred or called free. See [current README](../README.md).
+
 # Research knowledge base
 
 *Generated 2026-10-06 20:13 UTC. The full text of each file is in `knowledge/` in the repository; this page is the index plus every official link, so a reviewer can check any claim without reading the code.*
@@ -18,7 +20,7 @@ nav_order: 6
 | [`03_geothermal_fault_discovery_research.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/03_geothermal_fault_discovery_research.md) | Knowledge base 03 — geothermal fault discovery: the verified literature |
 | [`03_next_steps_and_the_ceiling.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/03_next_steps_and_the_ceiling.md) | Next steps, ranked by expected value |
 | [`04_free_public_data_sources.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/04_free_public_data_sources.md) | Knowledge base 04 — overlooked free / public data sources, contrarian but grounded |
-| [`05_why_02778_and_can_we_beat_it.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/05_why_02778_and_can_we_beat_it.md) | H33/H27 byte-level mask relationship, unauthenticated 0.2778 score label, marginal-credit algebra, and evidence limits |
+| [`05_why_02778_and_can_we_beat_it.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/05_why_02778_and_can_we_beat_it.md) | Attribution limits and conditional algebra for the unverified H33-2-B2 / participant-DTI 0.2778 association |
 | [`06_hypotheses_H47.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/06_hypotheses_H47.md) | H47 — new geological hypotheses, measured, ranked, and honestly refuted where they failed |
 
 ---

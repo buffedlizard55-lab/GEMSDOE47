@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the exact persisted bytes of a prospective competition GeoTIFF."""
+"""Run strict local NaN-outside checks on a prospective GeoTIFF (not a portal oracle)."""
 from __future__ import annotations
 
 import argparse
@@ -15,9 +15,9 @@ from gemsdoe47.validation import validate_submission, write_json_report
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--submission", required=True, type=Path)
-    parser.add_argument("--template", required=True, type=Path, help="official sample-submission GeoTIFF (use its actual authorized-download path)")
+    parser.add_argument("--template", required=True, type=Path, help="sample-submission GeoTIFF; independently confirm organizer provenance before relying on the result")
     source = parser.add_mutually_exclusive_group(required=True)
-    source.add_argument("--features", type=Path, help="official training_features.tif; finite valid pixels define footprint")
+    source.add_argument("--features", type=Path, help="training_features.tif; finite valid pixels define footprint (verify provenance separately)")
     source.add_argument("--footprint-mask", type=Path, help="one-band binary mask; nonzero valid pixels define footprint")
     parser.add_argument("--report", type=Path, help="optional JSON report path")
     args = parser.parse_args()

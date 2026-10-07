@@ -1,10 +1,10 @@
-"""The submission writer and the range-check diagnosis, on a synthetic grid.
+"""The submission writer and local range-check behaviors, on a synthetic grid.
 
-These tests need no restored data, so they run in CI. The point of the range tests
-is to reproduce the reported portal rejection and prove the fix: a NaN-intolerant
-check of the form ``np.all((v>=0)&(v<=1))`` returns False for the ``-nan``
-convention and True for the all-finite one, even though every real value in both is
-exactly 0 or 1.
+These tests need no restored data, so they run in CI. They show that a local
+NaN-intolerant check of the form ``np.all((v>=0)&(v<=1))`` returns False for a
+file containing NaNs and True for an all-finite file with the same finite values.
+The earlier portal-rejected file's bytes are unavailable, so these tests do not
+identify the cause of that rejection or establish organizer acceptance.
 """
 from __future__ import annotations
 
@@ -50,13 +50,16 @@ def test_template_evaluated_excludes_catalogue_and_outside(tmpl):
     assert not (tmpl.evaluated & ~tmpl.footprint).any()
 
 
-def test_allfinite_variant_passes_every_range_reading(tmp_path, tmpl, dots):
+def test_allfinite_variant_passes_range_readings_but_fails_outside_nodata_check(tmp_path, tmpl, dots):
     p = _write(tmp_path, tmpl, dots, "zeros")
     v = S.validate_submission(p, template=tmpl)
-    assert v["all_checks_passed"] is True
-    assert v["recommended_for_upload"] is True
+    assert v["required_local_checks_passed"] is False
+    assert v["all_checks_passed"] is False  # historical alias for required local checks
+    assert v["recommended_for_upload"] is False
     assert v["passes_nan_intolerant_range_check"] is True
-    assert v["hard_failures"] == []
+    assert v["checks"]["outside_template_footprint_is_nodata"] is False
+    assert v["checks"]["masked_pixels_only_outside_footprint"] is True
+    assert v["hard_failures"] == ["outside_template_footprint_is_nodata"]
     assert v["stats"]["n_nan"] == 0
     assert v["stats"]["n_emitted"] == 400
     assert v["stats"]["v_min"] == 0.0 and v["stats"]["v_max"] == 1.0
@@ -68,24 +71,93 @@ def test_allfinite_variant_passes_every_range_reading(tmp_path, tmpl, dots):
         assert np.isfinite(s.read(1)).all()
 
 
-def test_nan_variant_is_the_documented_failure_mode(tmp_path, tmpl, dots):
+def test_nan_variant_fails_a_nan_intolerant_local_range_check(tmp_path, tmpl, dots):
     p = _write(tmp_path, tmpl, dots, "nan")
     v = S.validate_submission(p, template=tmpl)
     with rasterio.open(p) as s:
         arr = s.read(1)
-    # THE BUG: NaN fails both comparisons, so a NaN-intolerant check rejects a file
-    # whose every real value is exactly 0 or 1.
+    # NaN fails both comparisons, so this particular NaN-intolerant local check
+    # rejects the synthetic file even though its finite values are exactly 0 or 1.
+    # This demonstrates a possible failure mode, not the cause of the earlier portal rejection.
     assert np.all((arr >= 0) & (arr <= 1)) is np.False_
     assert v["passes_nan_intolerant_range_check"] is False
     assert v["recommended_for_upload"] is False
-    # ... while the NaN-tolerant reading passes, and no value is out of range.
+    # ... while the NaN-tolerant local reading passes, and no finite value is out of range.
     assert v["passes_nan_tolerant_range_check"] is True
-    assert v["all_checks_passed"] is True          # NaN is legal, just riskier
+    assert v["format"]["nodata"] == "NaN"       # JSON-safe representation of the TIFF metadata
+    assert v["checks"]["outside_template_footprint_is_nodata"] is True
+    assert v["checks"]["masked_pixels_only_outside_footprint"] is True
+    assert v["required_local_checks_passed"] is True
+    assert v["all_checks_passed"] is True          # historical alias; no portal claim
+    assert any("RANGE_nan_intolerant" in key for key in v["diagnostic_failures"])
     fin = np.isfinite(arr)
     assert set(np.unique(arr[fin]).tolist()) <= {0.0, 1.0}
     # NaN appears only outside the footprint
     assert ((~fin) & tmpl.footprint).sum() == 0
     assert np.array_equal(~fin, ~tmpl.footprint)
+
+
+def test_writer_defaults_to_nan_outside_footprint(tmp_path, tmpl, dots):
+    p = tmp_path / "default-mode.tif"
+    S.write_submission(np.where(dots, 1.0, 0.0).astype(np.float32), p, template=tmpl)
+    with rasterio.open(p) as src:
+        values = src.read(1)
+        assert np.isnan(src.nodata)
+    assert np.isnan(values[~tmpl.footprint]).all()
+    result = S.validate_submission(p, template=tmpl)
+    assert result["required_local_checks_passed"] is True
+    assert result["checks"]["outside_template_footprint_is_nodata"] is True
+    assert result["recommended_for_upload"] is False
+
+
+def test_raw_nan_outside_without_nodata_tag_is_locally_supported(tmp_path, tmpl, dots):
+    p = tmp_path / "raw-nan-no-tag.tif"
+    values = np.where(tmpl.footprint, np.where(dots, 1.0, 0.0), np.nan).astype(np.float32)
+    with rasterio.open(
+        p, "w", driver="GTiff", height=tmpl.shape[0], width=tmpl.shape[1],
+        count=1, dtype="float32", crs=tmpl.crs, transform=tmpl.transform,
+    ) as dst:
+        dst.write(values, 1)
+    with rasterio.open(p) as src:
+        assert src.nodata is None
+    result = S.validate_submission(p, template=tmpl)
+    assert result["checks"]["outside_template_footprint_is_nodata"] is True
+    assert result["checks"]["masked_pixels_only_outside_footprint"] is True
+    assert result["checks"]["RANGE_filled_then_checked"] is False
+    assert result["required_local_checks_passed"] is True
+    assert result["all_checks_passed"] is True
+    assert "RANGE_filled_then_checked" in result["diagnostic_failures"]
+    assert result["recommended_for_upload"] is False
+
+
+def test_validator_does_not_treat_infinity_as_null_or_nan(tmp_path, tmpl, dots):
+    p = _write(tmp_path, tmpl, dots, "nan")
+    with rasterio.open(p, "r+") as dst:
+        arr = dst.read(1)
+        arr[0, 0] = np.inf  # outside the footprint, but not a null/NaN marker
+        dst.write(arr, 1)
+    result = S.validate_submission(p, template=tmpl)
+    assert result["checks"]["no_infinite_values"] is False
+    assert result["checks"]["outside_template_footprint_is_nodata"] is False
+    assert result["stats"]["n_infinite"] == 1
+    assert "no_infinite_values" in result["hard_failures"]
+    assert "outside_template_footprint_is_nodata" in result["hard_failures"]
+    assert result["required_local_checks_passed"] is False
+
+
+def test_validator_rejects_nodata_mask_inside_footprint(tmp_path, tmpl, dots):
+    p = tmp_path / "nodata-inside.tif"
+    with rasterio.open(
+        p, "w", driver="GTiff", height=tmpl.shape[0], width=tmpl.shape[1],
+        count=1, dtype="float32", crs=tmpl.crs, transform=tmpl.transform,
+        nodata=0.0,
+    ) as dst:
+        dst.write(np.where(dots, 1.0, 0.0).astype(np.float32), 1)
+    result = S.validate_submission(p, template=tmpl)
+    assert result["checks"]["outside_template_footprint_is_nodata"] is True
+    assert result["checks"]["masked_pixels_only_outside_footprint"] is False
+    assert "masked_pixels_only_outside_footprint" in result["hard_failures"]
+    assert result["required_local_checks_passed"] is False
 
 
 def test_writer_zeroes_outside_footprint_but_reports_masked_pixels(tmp_path, tmpl, dots):
@@ -100,6 +172,7 @@ def test_writer_zeroes_outside_footprint_but_reports_masked_pixels(tmp_path, tmp
     # is reported rather than removed.
     assert v["stats"]["n_emitted_outside_footprint"] == 0
     assert v["stats"]["n_emitted_on_catalogue"] == int(tmpl.catalogue.sum())
+    assert v["checks"]["outside_template_footprint_is_nodata"] is False
 
 
 def test_writer_rejects_out_of_range_input(tmp_path, tmpl, dots):
@@ -114,6 +187,32 @@ def test_writer_rejects_out_of_range_input(tmp_path, tmpl, dots):
 def test_writer_rejects_wrong_shape(tmpl):
     with pytest.raises(ValueError):
         S.write_submission(np.zeros((3, 3), np.float32), "/tmp/x.tif", template=tmpl)
+
+
+def test_validator_rejects_non_100m_resolution(tmp_path, tmpl):
+    p = tmp_path / "wrong-resolution.tif"
+    with rasterio.open(
+        p, "w", driver="GTiff", height=tmpl.shape[0], width=tmpl.shape[1],
+        count=1, dtype="float32", crs=tmpl.crs,
+        transform=Affine(50.0, 0.0, 243350.0, 0.0, -50.0, 4508550.0),
+    ) as dst:
+        dst.write(np.zeros(tmpl.shape, np.float32), 1)
+    result = S.validate_submission(p, template=tmpl)
+    assert result["checks"]["resolution_100m"] is False
+    assert result["checks"]["transform_matches_template"] is False
+
+
+def test_validator_reports_wrong_shape_without_crashing(tmp_path, tmpl):
+    p = tmp_path / "wrong-shape.tif"
+    with rasterio.open(
+        p, "w", driver="GTiff", height=20, width=20, count=1, dtype="float32",
+        crs=tmpl.crs, transform=tmpl.transform,
+    ) as dst:
+        dst.write(np.zeros((20, 20), np.float32), 1)
+    result = S.validate_submission(p, template=tmpl)
+    assert result["checks"]["shape_matches_template"] is False
+    assert "outside_template_footprint_is_nodata" in result["hard_failures"]
+    assert result["stats"]["n_emitted_on_catalogue"] is None
 
 
 def test_writer_rejects_unknown_mode(tmpl, dots):

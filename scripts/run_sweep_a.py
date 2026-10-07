@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-"""Legacy H47 Instrument-A sweep on spatial blocks of the given-catalogue mask.
+"""The spacing / budget / flank-buffer sweep, scored on the Instrument-A holdout.
 
-Instrument A holds out whole 8-connected catalogue components inside contiguous spatial blocks,
-then reports DTI against that known catalogue. It is a catalogue-similarity diagnostic, not a
-validation set for discovery of uncatalogued faults or the organizer's hidden target. It is split
-into isolated components, flanking components and all components to expose how flank deletion can
-change scores on this proxy; it does not establish the corresponding effect on hidden truth.
+Instrument A holds out WHOLE 8-connected components of the given catalogue inside contiguous
+spatial blocks, masks the rest of the catalogue exactly as the organiser does, and scores the
+exact DTI on what is left.  It is run three ways:
 
-The H27/H33 masks are nested in the pinned files, but the labels 0.2708 and 0.2778 are not mapped
-to those exact bytes by organizer receipts. The old calculation in ``evidence/inversion/`` is
-conditional owner-label arithmetic, not an observed causal effect or a measured organizer score.
+    A1  held-out truth = ISOLATED components (alone in their 300 m dilation)
+    A2  held-out truth = FLANKING components (sharing a 300 m dilation with another trace)
+    AA  held-out truth = all components in the block
 
-Any split-conformal statistic computed from the blocks is nominal and conditional on exchangeability
-of the spatial-block scores and a prospectively fixed selection rule. Neither assumption is proved
-by this script; its four-way/legacy screen is not a guarantee for private labels or a leaderboard.
+A1 and A2 are reported separately. The often-cited 0.2708 → 0.2778 values are participant/owner-reported
+observations, not an authenticated nested score pair; their TIFF association is unverified. Any
+flank-pruning sensitivity that uses them is a conditional scenario, not a causal estimate. The local
+A1/A2 public-catalogue frames are descriptive proxy populations and do not establish private performance.
+
+The unit of exchangeability for the conformal guarantee is the BLOCK.
 
 Run:  python3 scripts/run_sweep_a.py [--quick]
 Out:  evidence/sweep/sweep_a.json
@@ -90,10 +91,10 @@ def recipes(quick: bool) -> list[Recipe]:
 # Emission is parameterised by (min spacing, emitted DENSITY per 1000 scored pixels), not by
 # a support quantile.  Density is the quantity the metric actually charges for, and it is
 # directly comparable across folds of different size and across the reference artifacts: the
-# shipped 0.2778 incumbent emits 37,654 px over 5,106,385 scored px = 7.37 per 1000.  The
-# family's whole score history sits between 7.4 and 23.7 per 1000 and was never extended
-# below 7.4, so the sweep straddles that value in both directions.
-INCUMBENT_DENSITY = 7.37
+# Owner-reported H33-2-B2 raster has 37,654 positive pixels; 7.37/1000 is its descriptive
+# density on the local scored grid. The participant DTI-to-raster mapping is unverified; this
+# is a geometry-matched research reference, not an incumbent or score anchor.
+OWNER_REFERENCE_DENSITY = 7.37
 
 
 def operating_points(quick: bool) -> tuple[list[float], list[float], list[float]]:
@@ -105,13 +106,10 @@ def operating_points(quick: bool) -> tuple[list[float], list[float], list[float]
 
 
 # --------------------------------------------------------------------------- folds
-# Prevalence-matched instruments.  The organiser's own scores bound the hidden public-chunk
-# truth at 5,764 <= |G| <= 15,179 px over a 5,167,373 px footprint, i.e. a prevalence of
-# 0.112 %-0.294 % (evidence/inversion/live_anchor_inversion.json).  The unmatched instruments
-# sit outside that range -- A1 (isolated components) at 0.056-0.104 % and A2 (flanking
-# components) at 0.35-0.90 % -- and the optimal emission density moves with truth prevalence,
-# so an unmatched fold would pick the wrong operating point.  PM* folds subsample WHOLE
-# components to land inside the identified range.
+# Prevalence-matched instruments. The 5,764..15,179 truth-size bracket in older evidence was
+# inverted from owner-reported scores and unverified file mappings; it is an assumption-dependent
+# scenario, not a measured or organizer-verified hidden-truth range. PM* folds test those scenario
+# prevalences only. They do not identify private labels or justify an upload.
 PM_PREVALENCES = {"PM0112": 0.00112, "PM0200": 0.00200, "PM0294": 0.00294}
 
 
@@ -233,12 +231,12 @@ def main() -> int:
         regs[r.name] = None
         print(f"[core] {r.name}: {len(r.terms)} terms  ({time.time()-t0:.0f}s)")
 
-    # ---- reference: the shipped 0.2778 incumbent artifact, scored on the same folds
-    incumbent = None
+    # ---- conditional geometry reference: owner-reported H33-2-B2 raster; score association unverified
+    owner_reference = None
     ip = DATA / "reference" / "scored_h33-2-b2_0.2778.tif"
     if ip.exists():
         with rasterio.open(ip) as ds:
-            incumbent = np.nan_to_num(ds.read(1).astype(np.float32)) > 0
+            owner_reference = np.nan_to_num(ds.read(1).astype(np.float32)) > 0
 
     rows: list[dict] = []
     for bi, f in enumerate(folds):
@@ -275,9 +273,9 @@ def main() -> int:
                                  emitted=int(mask.sum()), n_scored=int(_scored_c.sum()),
                                  **(extra or {})))
 
-            if incumbent is not None:
-                record("REF_incumbent_0.2778", "as-shipped",
-                       incumbent[y0:y1, x0:x1] & scored_c)
+            if owner_reference is not None:
+                record("REF_owner_reported_H33_2_B2_unverified", "owner-supplied raster geometry",
+                       owner_reference[y0:y1, x0:x1] & scored_c)
 
             for rec in recs:
                 core = cores[rec.name]
@@ -315,7 +313,7 @@ def main() -> int:
                calibration_block_indices=calib, selection_block_indices=select,
                instruments=insts, recipes=[r.to_dict() for r in recs],
                spacings=spacings, densities_per_1000=qs, flank_buffers=flanks,
-               incumbent_density_per_1000=INCUMBENT_DENSITY,
+               owner_reference_density_per_1000=OWNER_REFERENCE_DENSITY,
                fold_report=[dict(k=f["k"], crop=list(f["crop"]), n_components=f["n_components"],
                                  **{n: int(f["truth"][n].sum()) for n in
                                     ("A1", "A2", "AA", "PM0112", "PM0200", "PM0294")},

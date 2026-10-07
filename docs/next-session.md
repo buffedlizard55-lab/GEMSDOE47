@@ -1,32 +1,72 @@
-# Next-session handoff — H49 review and GitHub publication
+# Next session — current C1 state, not a setup TODO
 
-**Read `README.md` §0 before any work.** The complete available brief is preserved there, along with the current H49 decision, exact hashes and assumptions.
+**Read the entire current README standing brief first.** Reviewed 2026-10-06 UTC.
+Core values: Maximize P(Win); Own the Outcome. No slot is authorized.
 
-## Current decision
+## Completed
 
-The current research TIFF is `docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif`, SHA-256 `f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060`, 409,124 bytes, 37,612 positive pixels. It passes 19 gating format/read-back checks; the whole-grid range flag is informational. Its pinned public-inventory uniqueness audit is bounded to 54 visible repositories and 565 comparisons. It is **not** globally certified unique, scientifically promoted, organizer-scored or accepted.
+- All 23 pinned mirror inputs restored and digest/byte-size verified; grid 16/16.
+- Five geological hypotheses preregistered before code. New C1 odd-step/channel transform implemented;
+  raw/ordinary-terrain controls fitted, inference run, all spacings scored and calibration/test separated.
+- Frozen choice **2.8 px / 280 m**; nominal **90% marginal block** assumption-conditional lower-bound estimate **0.0000**. Exchangeability
+  unverified; band does not cover private labels, pooled DTI or the globally emitted artifact.
+- C1 pooled test .177872 vs ordinary-terrain .180216 vs random .070924; 11/22 fold wins, 15 required.
+  SGMC diagnostic .073537 vs random .083174. Negative result retained; no tuning or upload.
+- Earlier, separate H47-QC screen: 6 px / 600 m; pooled test DTI .0131689425 vs .0141948068 geochemistry-only.
+  Nominal split-conformal level 6/7 under unverified block-score exchangeability; clipped assumption-conditional lower-bound estimate 0.0.
+  Research-only; do not upload or spend a slot. Report, preregistration and bounded uniqueness audit are saved.
+- First-run spacing-variable overwrite retracted; correction honored the original 2.8px lock. All three
+  prediction-field hashes and full score-history hash byte-identical across runs.
+- New 37,654-dot TIFF: 15/15 strict local checks, finite raw [0,1] plus exact internal null footprint mask.
+  561 prior-raster comparisons/54 public inventories, no exact match, max Jaccard .0406165. Research-only.
+- Actual official GDR trace and paleogeothermal ZIPs acquired/rasterized on a GitHub runner. Traces cover
+  82,871 footprint pixels; paleogeothermal points occupy 244 cells. Off-catalogue pixels are not new-fault
+  ground truth; all_touched rasterization differs from provided labels. These datasets do not train C1.
+- Strict release tests collect in CI; source Terms respected; Pages automatic feed covers permitted
+  government/owner sources, not unpermitted DrivenData monitoring. Dated board stays labeled dated.
 
-**Do not upload this TIFF or spend a weekly submission slot.** The nominal fixed-arm 90% split-conformal statistic is 0.03184 at spacing 2.8 px / 280 m, based on 19 calibration 8×8 blocks and order statistic `k=18`, targeting public SGMC off-catalogue block DTI. Exchangeability and independent prospective fixation of the rule are assumptions; SGMC includes non-fault contacts; the final mean rule was amended after results. Both candidate arms have negative 90% paired-improvement lower bounds versus the H33-labelled reference.
+## Reproduce without manual data placement
 
-## Verified checks at handoff
+Use the README command sequence: create venv, install dev + exact research lock, restore group all,
+verify_grid, run_profile_experiment, build_profile_submission, audit_prior_artifacts, publish_research_site.
+`.cache` and `.venv` do not persist in workspace snapshots; regenerate rather than claiming missing setup.
+Never commit large raw archives, model arrays or tiles. Never call a mirror an authenticated portal file.
 
-- Focused TIFF/H49 tests: 29 passed.
-- Full suite: 254 passed, 1 known Rasterio `PendingDeprecationWarning`, 2 subtests passed.
-- Ruff: clean.
-- `scripts/update_site_h49.py --check`: 0 problems.
-- `scripts/build_site_s3.py --check`: 124 tracked docs files checked; all changes within declared owned pages or H49 marker blocks.
-- No DrivenData upload was made; there is no organizer score or acceptance receipt.
+## Next ordered work
 
-## GitHub publication record
+1. Keep this slot closed; do not rename/relabel the C1 output as promoted.
+2. Read actual `docs/data/official-download-probes.json` status, hashes, layers, coverage and runner link.
+   Verify USGS GIS supported format/coverage rather than treating a byte-only receipt as trace feasibility.
+3. Acquire official 1m_DEM_links.csv through an authorized route, or a documented free 3DEP source with
+   equivalent verified footprint. Record licensed bounded tiles and missing-data masks before proposing
+   a high-resolution detector as viable. No winner architecture or hidden-label-type assumptions.
+4. Preregister a distinct competing-explanation detector and fresh evaluation design. These C1 test values
+   are known; they are not a second untouched test for a modified C1 arm.
+5. Compare same-mass pooled and fold scores against comparable ordinary-terrain/random controls and
+   relevant off-catalogue diagnostics; retain difficult/empty blocks. State actual statistical scope.
+6. Only a passed and reviewed result with explicit authorization can justify any slot. Current per-user
+   quota is unknown from the checked public official pages. Re-audit exact TIFF bytes/mask/grid and bounded
+   uniqueness; retain the organizer acceptance/score receipt after an eligible upload.
 
-Work only on `arena/24b6e85a-gemsdoe47`. The branch was reconciled with `origin/main` at `525dab76f10facca1382872d65b15fded04697ae`, and PR [#21](https://github.com/buffedlizard55-lab/GEMSDOE47/pull/21) was opened. Both GitHub Tests runs passed on the initially opened head. Check the PR page for checks on later commits and the final merge status/commit before doing more GitHub work; do not infer merge from local Git state.
+## Source and task boundaries
 
-## Scientific work that remains
+The complete available user brief and source/score history are preserved in README and must be reviewed
+at the start of future work. Goal .3195/.3774 not achieved. Organizer acceptance of the internal mask is
+not tested. Staff withholds test sources/types/coverage. Official pages checked 2026-10-06 describe one
+selected file for both rounds but do not establish current per-user quota or slot accounting. The three
+historical λ-scaling score observations are not a verified count of uploads or slots; no diagnostic cost
+is inferred or described as free. The official overview checked that day listed December 3, 2026, 23:59 UTC.
 
-1. Keep the H49 slot gate closed.
-2. Define a prospective candidate protocol and collect a fresh spatially blocked holdout not reused from H49; require positive paired improvement over the holdout best plus matched-mass and shifted/random controls.
-3. Verify actual free official 1 m data files, licensing and footprint coverage before treating H50 LiDAR as viable.
-4. If an organizer receipt becomes available, resolve whether any H33 score maps to the exact H33 TIFF hash. Current owner evidence calls H33 unscored / 0.2747 projected.
-5. Rebuild old inversion outputs only after the missing exact `data/reference/` TIFFs are restored.
+Continue from `profile-screen.json`, full spacing CSV, `current-submission.json`, `profile-uniqueness.json`,
+`profile-control-flow-recheck.json`, C1 preregistration and `h47c-review-notes.md`; the separate H47-QC
+screen is `h47qc-screen-20261006.json` with its preregistration, shortlist, artifact note and bounded
+uniqueness audit. Read all relevant limits before edits.
 
-Re-read `docs/REMAINING_WORK.md`, `docs/COMPLIANCE.md`, `docs/H49_RESULTS.md` and `docs/RESEARCH_HYPOTHESES.md` before changing the artifact or decision.
+
+### Official-source receipt update after additive reconciliation
+
+Runner 37536709561 verified all three public archives and coverage. USGS national traces: 82,841
+footprint cells (58,800 exact-catalogue); GDR traces: 82,871 (58,876 exact-catalogue); paleo point
+cells: 244. These all_touched pixel counts are not fault counts or expert-new truth. The earlier
+USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
+GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.

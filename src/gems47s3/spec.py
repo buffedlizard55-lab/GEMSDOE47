@@ -3,10 +3,10 @@
 Provenance of the numbers below
 -------------------------------
 Geometry / counts were re-measured in this repository on 2026-10-06 by
-``scripts/verify_data.py`` directly from the official bytes, whose sha256 is pinned here.
-The sha256 pins themselves were inherited from the team's earlier verified restorations
-(``buffedlizard55-lab/GEMSDOE10`` ``data/README.md`` and ``src/gems10/spec.py``, measured
-2026-09-25) and re-checked here: all three files match byte-for-byte after restoration.
+``scripts/verify_data.py`` from hash-pinned owner-supplied public-mirror bytes. The pins
+were inherited from the team's earlier mirror restorations (``buffedlizard55-lab/GEMSDOE10``
+``data/README.md`` and ``src/gems10/spec.py``) and rechecked here. These hashes establish
+mirror-byte consistency only; they do not authenticate organizer provenance.
 
 Official statements these values are checked against
 (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#submission-format):
@@ -16,12 +16,11 @@ Official statements these values are checked against
   * same bounds as the training data; data outside the bounds is null or nan
   * a single layer, datatype 32-bit float, values between 0 and 1
 
-Official file names on the login-gated data tab
-(https://www.drivendata.org/competitions/306/competition-doe-gems/data/):
+Repository paths currently populated from the public mirror (not authenticated organizer bytes):
 
-  gems-geodawn-numerical-features.tif  -> data/training_features.tif
-  existing_faults.tif                  -> data/labels.tif
-  example_submission.tif               -> data/sample_submission.tif
+  data/training_features.tif
+  data/labels.tif
+  data/sample_submission.tif
 """
 
 from __future__ import annotations
@@ -38,8 +37,8 @@ BOUNDS = (243350.0, 4135550.0, 572550.0, 4508550.0)  # left, bottom, right, top
 TOTAL_PIXELS = WIDTH * HEIGHT          # 12,279,160
 
 # --- measured counts ---------------------------------------------------------
-FOOTPRINT_PIXELS = 5_167_373   # finite pixels in the official example_submission.tif
-NODATA_PIXELS = 7_111_787      # NaN pixels in the official example_submission.tif
+FOOTPRINT_PIXELS = 5_167_373   # finite pixels in the owner-supplied mirrored sample_submission.tif
+NODATA_PIXELS = 7_111_787      # NaN pixels in the owner-supplied mirrored sample_submission.tif
 LABEL_POSITIVE_PIXELS = 60_988  # labels.tif int8 == 1 (the USGS/INGENIOUS catalogue)
 FEATURES_ALL_BAND_VALID_PIXELS = 5_165_840
 
@@ -48,7 +47,7 @@ COVERAGE_OF_GRID = LABEL_POSITIVE_PIXELS / TOTAL_PIXELS             # 0.004967
 
 # --- sentinels ---------------------------------------------------------------
 FEATURE_SENTINEL = -3.4028234663852886e38   # float32 most-negative, used as nodata
-FEATURE_INVALID_BELOW = -1e38               # same rule the reference solution uses
+FEATURE_INVALID_BELOW = -1e38               # sentinel observed in the mirrored feature raster; portal handling is unknown
 LABEL_NODATA = -1
 SUBMISSION_NODATA = float("nan")
 
@@ -81,7 +80,7 @@ PINS: dict[str, dict] = {
 # Transport fallback: the 419 MB feature stack cannot live in one GitHub blob
 # (>100 MB limit), so it travels as five parts in a public team mirror.
 # This is a *transport* mirror, not an official publisher; the sha256 pins above
-# are what establish identity with the official bytes.
+# establish identity with the pinned mirror bytes only; organizer provenance is unverified.
 BRIDGE_REPO = "buffedlizard55-lab/6GEMSDOE"
 BRIDGE_COMMIT = "e2fe3f41c6f5dd2dcb2fc91958ee67698f114ada"
 BRIDGE_PARTS = [

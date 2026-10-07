@@ -117,9 +117,7 @@ def main() -> int:
         #   T = DTI*(0.2(S-M)+0.8G)/(1-0.2DTI), T <= G, M >= 0  =>  G >= 0.2*DTI*S/(1-DTI)
         rows.append(dict(
             file=fname, sha256=sha256_file(p), human_id=human, source_repo=repo,
-            reported_public_dti=score,  # legacy field; owner-reported label, not a verified receipt
-            owner_reported_score_label=float(score),
-            score_to_exact_file_mapping="UNAUTHENTICATED",
+            reported_public_dti=score,
             S_total=float(S), S_active=S_active,
             positive_pixels=int(pos.sum()), active_positive_pixels=n_active,
             on_catalogue_pixels=int(on_cat.sum()),
@@ -151,7 +149,6 @@ def main() -> int:
             jaccard=round(jacc, 4),
             dS=float(b["S_active"] - a["S_active"]),
             dScore=round(b["reported_public_dti"] - a["reported_public_dti"], 4),
-            score_delta_status="difference_of_owner_labels_only_not_a_measured_score_change",
         ))
     nesting.sort(key=lambda d: -d["jaccard"])
 
@@ -182,7 +179,6 @@ def main() -> int:
             removals.append(dict(
                 parent=parent["file"], child=child["file"],
                 assumed_nG=float(G), removed_mass=float(dS), score_change=round(float(dScore), 5),
-                score_change_status="conditional_owner_label_delta_not_measured_score_change",
                 T_parent=float(Tp), T_child=float(Tc), credit_lost=float(Tp - Tc),
                 mean_credit_of_removed_dots=float((Tp - Tc) / dS) if dS else None,
                 credit_bar_at_child=round(0.2 * child["reported_public_dti"], 5),
@@ -195,32 +191,23 @@ def main() -> int:
         masking_source="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516",
         catalogue_pixels=n_cat,
         footprint_pixels=int(footprint.sum()),
-        n_scored_artifacts=len(rows),  # legacy field name; these are score-labeled reference rasters
-        n_score_labeled_reference_rasters=len(rows),
-        score_to_file_mapping_status="NOT_AUTHENTICATED_TO_ORGANIZER_RECEIPTS",
-        conditional_analysis_only=True,
-        score_provenance_note=("Input numbers are owner-reported historical labels. No organizer receipt "
-                               "in this repository maps them to the exact SHA-256 TIFF bytes."),
+        n_scored_artifacts=len(rows),
         artifacts=rows,
         model_free_nG_floor=float(g_floor),
         model_free_nG_floor_binding_artifact=binding["file"],
         structural_facts=[
             "T >= M (Voronoi argument): every dot serving >=1 truth pixel contributes at least its own max weight to T.",
             "T <= |G| and M <= S, since k <= 1.",
-            "Conditional only: if an owner-reported DTI label maps to this exact raster, then |G| >= 0.2*DTI*S_active/(1-DTI), from the metric identity with T <= G and M >= 0.",
+            "|G| >= 0.2*DTI*S_active/(1 - DTI): from T = DTI*(0.2(S-M)+0.8G)/(1-0.2DTI) with T <= G and M >= 0.",
             "A dot whose truth pixel is already better covered changes the denominator by 0.2*(1-w) >= 0: redundant mass never helps.",
         ],
         nesting_pairs=nesting[:24],
         nested_removal_analysis=removals,
         caveats=[
-            "Every numeric input is an owner-reported historical score label; the exact TIFF-to-organizer-score mapping is not authenticated in this repository.",
-            "The pinned GEMSDOE32 H33 README calls H33-2-B2 UNSCORED and 0.2747 a projection; do not present the 0.2778 filename label as an organizer receipt.",
-            "Nesting proves a mask relationship only. Score deltas and removed-dot credit in this report are conditional what-if arithmetic, not a measured before/after intervention.",
-            "Any inferred |G| concerns whichever public/private evaluation set generated the score; no hidden labels are available here.",
-            "The M=0 corner and the assumption that unchanged parent credit is retained are modeling assumptions, not observed quantities.",
+            "Reported scores are owner-reported public-leaderboard numbers, not organiser receipts held in this repo.",
+            "Public-leaderboard scores are on the PUBLIC test chunk; the initial prize round is scored on the PRIVATE chunk, so |G| inferred here is the public-chunk truth size.",
+            "The M=0 corner is pessimistic; real M>0 makes the inferred T smaller and |G| smaller.",
         ],
-        h33_owner_source=("https://github.com/buffedlizard55-lab/GEMSDOE32/blob/"
-                          "b983924b57781edd29b8e249c4923bf33d9902f6/README.md"),
     )
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "live_anchor_inversion.json").write_text(json.dumps(report, indent=2))

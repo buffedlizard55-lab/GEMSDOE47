@@ -2288,7 +2288,7 @@
     "human_scientific_release_review_completed_by_runner": false,
     "upload_authorized": false,
     "passed": false,
-    "decision": "NOT PROMOTED \u2014 numerical screen fails; research only, do not upload or spend a slot"
+    "decision": "NOT PROMOTED — numerical screen fails; research only, do not upload or spend a slot"
   },
   "artifact": {
     "path": "docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif",
@@ -2361,16 +2361,38 @@
         "RANGE_masked_read: read(masked=True) within [0,1]": true,
         "RANGE_filled_then_checked": true
       },
-      "hard_failures": [],
+      "hard_failures": [
+        "outside_template_footprint_is_nodata"
+      ],
       "passes_nan_intolerant_range_check": true,
       "passes_nan_tolerant_range_check": true,
-      "all_checks_passed": true,
-      "recommended_for_upload": true
+      "all_checks_passed": false,
+      "recommended_for_upload": false,
+      "historical_recommended_for_upload_at_generation": true,
+      "historical_all_checks_passed_at_generation": true,
+      "recommendation_scope": "The prior local validator recommendation was based on its then-current checks and did not grant upload eligibility. Current review finds that the all-finite zero-outside raster fails the published null-or-NaN-outside requirement.",
+      "current_required_format_contract_passed": false,
+      "historical_hard_failures_at_generation": [],
+      "hard_failures_scope": "Current-format review; the historical validator did not include the published null/NaN-outside requirement."
     },
     "emitted_on_public_catalogue_pixels": 54,
     "emitted_public_catalogue_fraction": 0.0108,
-    "suggested_note_field_text": "H47-QC geothermometer consensus \u00d7 aligned RTP\u2013gravity edge; 5,000 binary pixels; RESEARCH ONLY",
-    "portal_note": "RESEARCH ONLY \u2014 NOT FOR SUBMISSION. H47-QC public-catalogue screen; locked-test/control and positive conformal-floor gate did not pass."
+    "suggested_note_field_text": "H47-QC geothermometer consensus × aligned RTP–gravity edge; 5,000 binary pixels; RESEARCH ONLY",
+    "portal_note": "RESEARCH ONLY — NOT FOR SUBMISSION. H47-QC public-catalogue screen; locked-test/control and positive conformal-floor gate did not pass.",
+    "format_review": {
+      "status": "FAIL",
+      "published_requirement": "Cells outside the training-data bounds must be null or NaN.",
+      "outside_null_or_nan": false,
+      "footprint_cells": 5167373,
+      "outside_cells": 7111787,
+      "outside_cells_finite": 7111787,
+      "footprint_basis": "Owner-supplied mirrored sample_submission.tif/recorded receipt; not organizer-authenticated.",
+      "reason": "The exact H47-QC TIFF is all-finite and writes zeros outside the recorded 5,167,373-cell owner-mirror footprint. The 7,111,787 outside cells are not null or NaN, so it fails the published outside-null/NaN requirement. The footprint derives from owner-supplied mirror evidence, not organizer authentication.",
+      "submission_eligible": false,
+      "slot_authorized": false,
+      "organizer_acceptance_established": false,
+      "legacy_format_audit_field": "artifact.format_audit.historical_all_checks_passed_at_generation"
+    }
   },
   "limitations": [
     "CSV and competition rasters are owner-hosted mirrors; hashes prove mirror consistency, not organizer authentication",
@@ -2385,5 +2407,13 @@
     "the bounded audit shows NaN can fail a NaN-intolerant range check, but the original rejected bytes are unavailable; this all-finite format is a precaution, not a diagnosis or organizer-confirmed acceptance",
     "no leaderboard score or >0.2778 / >0.3195 / >0.3774 claim is inferred"
   ],
-  "elapsed_seconds": 50.01
+  "elapsed_seconds": 50.01,
+  "review_interpretation": {
+    "status": "RESEARCH_ONLY_NOT_PROMOTED",
+    "promotion_gate_passed": false,
+    "submission_eligible": false,
+    "slot_authorized": false,
+    "reason": "The exact H47-QC TIFF is all-finite and writes zeros outside the recorded 5,167,373-cell owner-mirror footprint. The 7,111,787 outside cells are not null or NaN, so it fails the published outside-null/NaN requirement. The footprint derives from owner-supplied mirror evidence, not organizer authentication.",
+    "legacy_format_recommendation": "The nested historical format-only recommendation is preserved under artifact.format_audit.historical_recommended_for_upload_at_generation; it is not current upload advice."
+  }
 }

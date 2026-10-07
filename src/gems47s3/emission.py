@@ -29,9 +29,10 @@ Emitters
 ``oriented_blur``     blur the field along the LOCAL STRIKE only.  An isotropic Gaussian
                       (what GEMSDOE32's "scatter-smoothed" arm used) smears mass ACROSS the
                       trace, where the metric charges 0.2 per unit and pays nothing.
-``flank_prune``       delete emitted pixels within ``b`` of the given catalogue.  Measured
-                      by the organiser's own scores to be worth +0.0070 DTI at 2 px
-                      (0.2708 -> 0.2778); see evidence/inversion/.
+``flank_prune``       delete emitted pixels within ``b`` of the given catalogue.  Historical
+                      participant-level 0.2708/0.2778 labels are not authenticated to specific
+                      rasters; the d2.8 raster is an owner-reported reference, not an established
+                      incumbent. No causal score gain from flank pruning is claimed here.
 """
 from __future__ import annotations
 

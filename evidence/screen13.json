@@ -543,5 +543,12 @@
   }
  ],
  "seconds": 70.0,
- "conclusion": "41 of 65 candidate layers improve leave-one-observation-out error when added to the incumbent-field model on the full 13-observation set."
+ "conclusion": "Under the hypothetical H33 DTI 0.2778 scenario, 41 of 65 candidate layers reduce leave-one-observation-out error when added to the owner-reported d2.8-reference-field model. The score-to-file mapping is unverified; these are conditional exploratory results, not an authenticated observation set or validation.",
+ "observation_scope": {
+  "fit_rows": 13,
+  "owner_reported_raster_score_pairs": 12,
+  "additional_row": "H33-2-B2 assumed at DTI 0.2778 for sensitivity only",
+  "h33_score_file_mapping_verified": false,
+  "interpretation": "all 13-row coefficients, rankings, and gains are conditional exploratory fits; not organizer-authenticated, causal, or private-target validation"
+ }
 }

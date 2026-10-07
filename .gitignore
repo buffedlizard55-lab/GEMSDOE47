@@ -1,7 +1,8 @@
 # ---- large local datasets and derived rasters: deliberately NOT versioned ----
-# The restored competition bytes (~507 MB) live in .cache/ and are re-derivable in
-# ~30 s with `python3 scripts/restore_data.py --group all`, which verifies every
-# SHA-256 against registry/data_manifest.json before use.
+# The current 26-entry manifest is about 531 MB (507 MiB); restored bytes live
+# in .cache/ and are re-derivable with `python3 scripts/restore_data.py --group all`.
+# That command verifies each current entry against registry/data_manifest.json; no
+# fixed restore duration is promised. The committed receipt covers only 23 entries.
 .cache/
 /data/*
 !/data/README.md

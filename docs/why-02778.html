@@ -1,75 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>H33 0.2778 — what the evidence establishes — GEMSDOE47</title>
-<meta name="description" content="Evidence audit of the H33 0.2778 score label: exact raster nesting is verified, but no organizer receipt maps the score to those bytes; metric reasoning and limitations are stated.">
-<link rel="stylesheet" href="assets/site.css">
-</head>
-<body>
-<header class="top"><div class="wrap">
-  <h1>GEMSDOE47 <span class="badge b-info">RESEARCH RECORD</span></h1>
-  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
-     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
-     Generated 2026-10-07 13:12 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
-    <a href="hypotheses.html">The five hypotheses</a>
-    <a href="method.html">LATI method</a>
-    <a href="evidence.html">Every number</a>
-    <a href="irregularities.html">Irregularities</a>
-    <a href="leaderboard.html">Leaderboard</a>
-    <a href="sources.html">Sources</a>
-    <a href="submit.html">Submit</a>
-    <a href="portal-checklist.html">Portal checklist</a>
-    <a href="analysis.html">Analysis</a>
-    <a href="validation-protocol.md">Validation protocol</a>
-    <a href="review-log.md">Review log</a>
-    <a href="next-session.md">Next session</a>
-    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
-  </nav>
-  <nav>
-    <a href="session3.html">Session 3 — submission</a>
-    <a href="HOW_TO_SUBMIT.html">How to submit — future candidate</a>
-    <a href="RESULTS.html">Results and score-attribution correction</a>
-    <a href="H49_RESULTS.html">H49 results</a>
-    <a href="RESEARCH_HYPOTHESES.html">Ranked H49 follow-up hypotheses</a>
-    <a class="on" href="why-02778.html">Why 0.2778</a>
-    <a href="hypotheses-s3.html">Hypotheses H47</a>
-    <a href="research.html">Research base and sources</a>
-    <a href="REMAINING_WORK.html">Remaining work and limitations</a>
-    <a href="COMPLIANCE.html">Compliance and review</a>
-  </nav>
-</div></header>
-<div class="wrap">
-<article>
-<h1 id="h33-02778-evidence-not-an-assumed-score-receipt">H33 0.2778: evidence, not an assumed score receipt</h1>
-<blockquote>
-<p><strong>Bottom line:</strong> the H33 and H27 TIFF masks have a verified nesting relationship, but no organizer receipt in this repository maps the public 0.2778 observation to the exact H33 TIFF bytes. The pinned GEMSDOE32 owner README calls H33 <strong>UNSCORED</strong> and describes 0.2747 as a projection. We therefore cannot honestly explain 0.2778 as the measured score of this particular file or claim that its pruning caused a score increase.</p>
-</blockquote>
-<h2 id="1-what-is-verified-about-the-files">1. What is verified about the files</h2>
-<p>The pinned GEMSDOE32 H33 zero-outside TIFF has 37,654 positive cells (SHA-256 <code>c55bafc470054e8271d1cb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9</code>). It is an exact subset of the pinned GEMSDOE28 H27 parent with 40,199 positive cells (SHA-256 <code>2fc94a38d77f74d4f4ed1a97a83e7bb71a1ceea090515ec641e6681cc47c44c8</code>): 2,545 parent-only cells and no H33-only cells. All 2,545 removed cells are within two 100 m pixels of the given-catalogue mask (1,201 within one pixel and 1,344 in the two-pixel ring). A separate 41,507-positive GEMSDOE27 all-increments raster is not the parent in this comparison.</p>
-<p>These are byte- and mask-level facts, not evidence of hidden-label credit or a change in organizer score. The <a href="data/h47b-candidate-uniqueness-20261006.json">pinned mask audit</a> records the comparison. The pinned <a href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/b983924b57781edd29b8e249c4923bf33d9902f6/README.md">GEMSDOE32 README</a> is an owner source, not an organizer receipt; its H33 entry says unscored and gives 0.2747 as a projection.</p>
-<h2 id="2-what-the-metric-algebra-says">2. What the metric algebra says</h2>
-<p>For the published distance-weighted Tversky index, let <code>T</code> be weighted true credit, <code>S</code> the total prediction mass, <code>M</code> the prediction mass weighted by each prediction's best kernel to truth, and <code>|G|</code> the hidden-truth mass. The official formula simplifies to</p>
-<pre><code class="language-text">DTI = T / (0.2 · (T + S − M) + 0.8 · |G|)
-</code></pre>
-<p>Under the narrow marginal case where one added unit of prediction mass earns a new kernel-weighted credit <code>w</code> and becomes the best cover of that truth cell, adding it improves DTI only when <code>w &gt; 0.2 × DTI</code>. At a <strong>hypothetical</strong> DTI of 0.2778, the break-even credit is 0.05556. This is an algebraic condition, not a measurement of the 2,545 removed cells.</p>
-<p>The given-catalogue cells are excluded from scoring; there is no automatic 200 m buffer that makes neighboring predictions penalty-free. A nearby prediction can earn credit if it covers hidden new-fault truth, and otherwise remains subject to the metric's penalty. Thus reduced off-target mass is a plausible mechanism to test, but these data do not establish that all removed flank cells were useless, nor that pruning caused an authenticated score rise. See the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">official metric</a> and <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">DrivenData staff clarification</a>.</p>
-<h2 id="3-keep-the-score-records-distinct">3. Keep the score records distinct</h2>
-<p>A saved public participant-board row reports 0.2778 at rank 13 under <code>extradr19</code>; it does not expose a filename or TIFF hash. The owner-supplied H33 README says <strong>UNSCORED</strong>, while other family filenames and narratives attach differing values to related masks. The H27 0.2708 label likewise lacks a receipt mapping it to the exact 40,199-positive parent bytes. Mirror hashes establish which bytes were compared, not which bytes were uploaded or scored.</p>
-<p><strong>Conclusion:</strong> “Why did this exact H33 TIFF score 0.2778?” is not answerable from the current evidence because the premise is unauthenticated. A score receipt mapping exact bytes to an organizer result, or a prospectively locked experiment on a defensible holdout, is needed for a causal claim.</p>
-<h2 id="4-relation-to-current-h49-work">4. Relation to current H49 work</h2>
-<p>H49 is a separate public-proxy research experiment, not a reconstruction of the H33 score. Its SGMC proxy includes non-fault contacts and does not equal the hidden competition target. The shipped H49 arm has a positive descriptive mean against the H33-labelled reference, but the nominal fixed-arm absolute floor does not certify improvement; paired 90% conformal lower bounds on improvement are negative, the final mean rule was selected after outcomes, and prospective timing is not independently verifiable. <strong>The H49 slot gate remains closed.</strong></p>
-<ul>
-<li><a href="H49_RESULTS.html">Full H49 results and assumptions</a></li>
-<li><a href="RESULTS.html">Current result and file-format/uniqueness scope</a></li>
-<li><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/05_why_02778_and_can_we_beat_it.md">Reusable H33/H27 correction and metric reasoning</a></li>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition overview</a></li>
-</ul>
-</article>
-</div>
-</body>
-</html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What the reported 0.2778 establishes · GEMSDOE47</title><meta name="description" content="Participant-level score attribution is unverified; exact DTI algebra and conditional limits are explained.">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body data-site-version="review" data-base=""><a class="skip" href="#main">Skip to analysis</a>
+<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+<nav aria-label="Main navigation"><a href="index.html">Home</a><a href="analysis.html">Analysis</a><a href="evidence.html">Evidence</a><a href="irregularities.html">Limitations</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>Attribution unverified</strong><span>All dependent analyses are conditional.</span></div>
+<main id="main"><section class="page-heading"><span class="eyebrow">Score and raster are not linked</span><h1>What the reported 0.2778<br>does and does not establish</h1><p class="lede">The leaderboard is participant-level. No organizer receipt maps its 0.2778 row to H33-2-B2.</p></section>
+<section class="notice"><strong>WITHDRAWN: CAUSAL PRUNING CLAIM</strong><p>The earlier long-form report described an owner-supplied mask subset as a “natural experiment” proving that deletion caused a score gain. That inference was unsupported and is withdrawn. Local TIFF geometry does not authenticate a leaderboard score or establish causality.</p></section>
+<section><h2>What is verified</h2><ul><li>A saved public-board observation dated 2026-10-06 records participant scores, including 0.2778 at rank 13. It is not a TIFF/hash receipt.</li><li>The GEMSDOE32 owner material describes H33-2-B2 as an unscored candidate. Mirror hashes identify examined bytes only.</li><li>Call the d2.8 raster the <strong>owner-reported d2.8 reference</strong>, not a separately established spatially blocked holdout best. “Incumbent” is reserved for a separately established spatially blocked holdout best.</li></ul></section>
+<section><h2>Exact DTI algebra</h2><pre>F = S − Φ
+DTI = T / (α(T + F) + βK),   α = 0.2, β = 0.8</pre><p>At fixed truth and domain, removing evaluated prediction mass can improve DTI only if avoided false-positive cost exceeds lost weighted truth credit. This is a possible mechanism, not an explanation of any unverified score. Deleting predictions exactly on masked pixels cannot by itself improve DTI.</p></section>
+<section><h2>Do not conflate ratios</h2><p>With <code>x=T/K</code> and <code>ρ=F/K</code>, <code>x=(αρ+β)/(1/DTI−α)</code>. With <code>f=F/T</code>, instead <code>x=β/(1/DTI−α(1+f))</code>. The denominators differ. An illustrative ρ=8.02 is not a verified participant ratio; the algebra does not establish that DTI 0.3195 is unreachable.</p><p>H47-SAF's tested sign change is bracketed only between assumed DTI 0.2200 and 0.2400—not an exact break-even. H47-GSA and dependent results remain hypothetical and research-only.</p></section>
+<section><h2>Quota and probe limits</h2><p>Three historical λ-scaling score observations are not a verified count of uploads or slots. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting. No diagnostic cost is inferred or called free.</p><p><a href="analysis.html">Current analysis</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">Standing brief</a></p></section></main>
+<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="sources.html">Sources</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README</a></div></footer></body></html>

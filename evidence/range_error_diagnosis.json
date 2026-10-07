@@ -4,10 +4,9 @@
  "n_files_scanned": 29,
  "n_failing_nan_intolerant_check": 12,
  "n_failing_nan_tolerant_check": 0,
- "finding": "Every scanned sibling GeoTIFF is single-band float32 with min 0 and max 1 and no float32-min sentinel. The ONLY structural difference between the two published conventions is the out-of-footprint value: the '-nan' variants carry 7,111,787 NaN pixels and FAIL a NaN-intolerant range test np.all((v>=0)&(v<=1)) because NaN fails both comparisons, while the '-zeros' variants are all-finite and PASS it. Several sibling sites offered the '-nan' variant as the primary download.",
+ "finding": "All scanned sibling GeoTIFFs are single-band float32 with finite values in [0,1] and no float32-min sentinel. The scanned '-nan' variants carry 7,111,787 NaN pixels outside the represented footprint and fail the NaN-intolerant raw range test np.all((v>=0)&(v<=1)); the all-finite '-zeros' variants pass that comparison. Several sibling sites offered a '-nan' variant as the primary download. These observations do not establish portal acceptance or the cause of the reported rejection.",
  "mechanism": "np.all((v>=0)&(v<=1)) is False when v contains NaN",
- "fix": "Ship the all-finite variant: float32, single band, EPSG:32611, 100 m, template-matched geotransform and bounds, 0.0 outside the footprint, no NaN anywhere, nodata unset. src/gems47/submission.py writes both variants and validate_submission() reports each range reading separately; docs/index.html makes the all-finite file the primary download.",
- "corroborating_evidence": "Both conventions have been accepted by the portal historically ('-nan' files scored 0.2600/0.2477/0.1922..., '-zeros' files scored 0.2778/0.1294), so the rejection is intermittent or path-dependent; the all-finite variant passes every reading we could construct and is therefore the only safe default.",
+ "corroborating_evidence": "Owner-reported/public records associate scores with both conventions, but no organizer receipt ties the scores to these exact bytes. Those reports do not establish that every variant was accepted or that the earlier rejection was intermittent/path-dependent. A later format review found that the all-finite variant's zeros outside the supplied footprint do not match the official null/NaN-outside wording; neither convention is recommended for upload. The organizer's handling and the cause of the rejection remain unverified.",
  "files": [
   {
    "path": "GEMSDOE32/docs/downloads/gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
@@ -16,7 +15,7 @@
    "bytes": 1603424,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -58,7 +57,7 @@
    "bytes": 355310,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -184,7 +183,7 @@
    "bytes": 379333,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -226,7 +225,7 @@
    "bytes": 385762,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -268,7 +267,7 @@
    "bytes": 384916,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -310,7 +309,7 @@
    "bytes": 385772,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -352,7 +351,7 @@
    "bytes": 379319,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -394,7 +393,7 @@
    "bytes": 385688,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -436,7 +435,7 @@
    "bytes": 355443,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -478,7 +477,7 @@
    "bytes": 358154,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -520,7 +519,7 @@
    "bytes": 154757,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -541,7 +540,7 @@
    "bytes": 199257,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -583,7 +582,7 @@
    "bytes": 390058,
    "bands": 1,
    "dtype": "float32",
-   "nodata": NaN,
+   "nodata": "NaN",
    "shape": [
     3730,
     3292
@@ -618,5 +617,16 @@
    "passes_nan_tolerant_range_check": true,
    "has_float_min_sentinel": false
   }
- ]
+ ],
+ "official_submission_format_review_2026_10_06": {
+  "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "published_requirements": "EPSG:32611; 100 m; bounds from training data; one float32 layer; values [0,1]; data outside the bounds null or NaN",
+  "all_finite_zeros_outside": "does_not_match_published_null_or_nan_outside_wording",
+  "nan_outside": "matches_available_mirrored_sample_convention; mirror provenance and portal acceptance unverified; fails NaN-intolerant raw range comparison",
+  "prior_rejected_bytes_available": false,
+  "rejection_cause": "unknown",
+  "upload_recommendation": null,
+  "validator_scope": "local diagnostic only; not a portal oracle"
+ },
+ "historical_local_choice_superseded": "A prior note selected the all-finite variant as a conservative local choice because it passed a NaN-intolerant raw range test. That choice is superseded: zeros outside the supplied footprint do not match the published null/NaN-outside wording. The current validator flags this condition and never recommends upload."
 }

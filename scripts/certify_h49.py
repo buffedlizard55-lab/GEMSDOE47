@@ -1,24 +1,28 @@
 #!/usr/bin/env python3
-"""H49 arm selection and nominal split-conformal diagnostics on Instrument B.
+"""H49 public-proxy split-conformal calculations; not a submission certificate or slot gate.
 
-Two rules are reported, but their prospective status differs:
+Two selection rules are reproduced for audit, because the amendment between them is consequential.
+The resulting lower-bound numbers are nominal and conditional on unverified block-score
+exchangeability. The later mean-rule selection followed review of repeated-split results on the same
+blocks, so formal coverage for that post-hoc amended process is not established.
 
   ``preregistered_selection``
-      reproduces the rule described in ``docs/research/h49b-instrument-b-preregistration.md``:
-      maximise the 90 % conformal floor on the selection half. Git history first records that
-      addendum in the same commit as the sweep evidence, so the repository cannot independently
-      verify that it was fixed before results.
+      exactly the rule frozen in ``docs/research/h49b-instrument-b-preregistration.md``: maximise
+      the 90 % conformal floor computed inside the selection half of Instrument B, ties broken by
+      the selection-half mean on B, then the selection-half floor on Instrument A, then LOWER
+      density, then larger spacing, then the isotropic emitter.
 
-  ``shipped_selection``
-      an after-results amendment that maximises the selection-half mean DTI. The code's per-run
-      choice uses the selection rows only, but the workflow's decision to replace the floor rule
-      with the mean rule used full sweep/re-split evidence. The calibration half is therefore not
-      an auditable untouched holdout for the complete published procedure.
+  ``shipped_selection``  (post-hoc amendment; selection-half mean on Instrument B)
+      maximise the **selection-half mean DTI on Instrument B**, ties broken by lower density, then
+      larger spacing, then the isotropic emitter. The code records the original rationale, but the
+      assumption that this proxy mean matches the organizer's scoring objective is unverified.
+      Repeated-split results reuse the same blocks and are descriptive, not independent validation.
 
-The 400 repeated splits are Monte Carlo re-partitions of the same 39 spatial blocks. They are
-stability diagnostics, not 400 independent samples. This script reports fixed-arm absolute floors
-and paired-difference summaries; none proves the block-exchangeability assumption or a guarantee
-for the full adaptive selection procedure, private labels, or leaderboard score.
+For each fixed split, the code calculates order statistics from a calibration half that is disjoint
+from the selection half. Nominal coverage requires exchangeability of the proxy block scores, which
+is unverified; choosing the amended rule after reviewing re-splits means formal coverage for the
+post-hoc procedure is not established. This file cannot authorize a slot or establish private/global
+performance.
 
 Run:  python3 scripts/certify_h49.py
 Out:  evidence/h49/conformal_certificate.json
@@ -33,7 +37,6 @@ import time
 from pathlib import Path
 
 import numpy as np
-from scipy import stats
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -48,6 +51,8 @@ ALPHAS = (0.05, 0.10, 0.20, 0.25, 0.30)
 ALPHA = 0.10
 N_REPEATED_SPLITS = 400
 SEED = 20261007
+# Legacy machine key REF_incumbent_0.2778 refers to an owner-reported d2.8 raster only;
+# the participant score/file association is unverified, so it is not an authenticated incumbent.
 CONTROL_RECIPES = ("RANDOM_fixed_seed", "REF_incumbent_0.2778")
 
 
@@ -118,9 +123,8 @@ def half_report(per_inst: dict, instrument: str, alpha: float) -> dict:
     )
 
 
-def paired(arms: dict, instrument: str, key_a: tuple, key_b: tuple,
-           alpha: float = ALPHA) -> dict:
-    """Paired per-block difference a - b, with parametric and order-statistic summaries."""
+def paired(arms: dict, instrument: str, key_a: tuple, key_b: tuple) -> dict:
+    """Paired per-block difference a - b on both halves (same blocks, so it is a paired test)."""
     out = {}
     for half in ("selection", "calibration"):
         try:
@@ -134,27 +138,11 @@ def paired(arms: dict, instrument: str, key_a: tuple, key_b: tuple,
             out[half] = None
             continue
         d = np.array([a[c] - b_[c] for c in common], float)
-        non_tied = int((d != 0).sum())
-        t_lcb = (float(d.mean() - stats.t.ppf(1.0 - alpha, len(d) - 1)
-                       * d.std(ddof=1) / np.sqrt(len(d))) if len(d) > 1 else None)
-        out[half] = dict(
-            n=len(common),
-            mean_difference=float(d.mean()),
-            median_difference=float(np.median(d)),
-            blocks_where_a_better=int((d > 0).sum()),
-            blocks_where_b_better=int((d < 0).sum()),
-            paired_mean_one_sided_t_lcb=t_lcb,
-            paired_mean_lcb_confidence_pct=100.0 * (1.0 - alpha),
-            paired_difference_split_conformal_lower_bound=float(
-                conformal_quantile(d, alpha, side="lower")),
-            split_conformal_lower_alpha=alpha,
-            split_conformal_lower_order_statistic_k=conformal_order_statistic(len(d), alpha),
-            one_sided_sign_test_p_greater=(
-                float(stats.binomtest(int((d > 0).sum()), non_tied, 0.5,
-                                      alternative="greater").pvalue) if non_tied else 1.0),
-            a="/".join(key_a),
-            b="/".join(key_b),
-        )
+        out[half] = dict(n=len(common), mean_difference=float(d.mean()),
+                         median_difference=float(np.median(d)),
+                         blocks_where_a_better=int((d > 0).sum()),
+                         blocks_where_b_better=int((d < 0).sum()),
+                         a="/".join(key_a), b="/".join(key_b))
     return out
 
 
@@ -339,7 +327,6 @@ def main() -> int:
     iso = (shipped[0], "disk", shipped[2])
     other_field = (("R7_scarp9_polarity" if shipped[0] == "R2_scarp9_topo" else "R2_scarp9_topo"),
                    shipped[1], shipped[2])
-    incumbent = ("REF_incumbent_0.2778", "as-shipped", "as-shipped")
     densities = sorted({op_params(k[2])["density_per_1000"] for k in cands
                         if op_params(k[2])["density_per_1000"] < 1e8})
     sp, fb, d0 = (op_params(shipped[2])["min_dist"], op_params(shipped[2])["flank_b"],
@@ -379,8 +366,19 @@ def main() -> int:
     out = dict(
         generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         seconds=round(time.time() - t0, 1),
-        method="nominal fixed-arm split-conformal order-statistic diagnostics; adaptive-procedure validity is not established",
-        method_reference="Lei, G'Sell, Rinaldo, Tibshirani & Wasserman, JASA 2018",
+        interpretation=dict(
+            record_type="exploratory public-proxy calculation, not a submission certificate",
+            confidence_is_nominal=True,
+            block_score_exchangeability="unverified assumption",
+            target="public SGMC and catalogue proxy blocks, not private organizer labels",
+            selection_rule_amended_after_repeated_split_review=True,
+            formal_coverage_for_post_hoc_amended_process_established=False,
+            comparator="legacy REF_incumbent_0.2778 key denotes an owner-reported d2.8 reference; score/file link unverified",
+            promotion_gate_passed=False,
+            submission_eligible=False,
+            slot_authorized=False,
+        ),
+        method="split conformal selection (Lei, G'Sell, Rinaldo, Tibshirani & Wasserman, JASA 2018)",
         method_doi="https://doi.org/10.1080/01621459.2017.1322365",
         preregistration="docs/research/h49b-instrument-b-preregistration.md",
         alpha=args.alpha, confidence_pct=round(100.0 * (1.0 - args.alpha), 3),
@@ -390,12 +388,12 @@ def main() -> int:
                                rule="maximise the selection-half mean DTI on Instrument B "
                                     "(amendment; see the module docstring)"),
         amendment_justification=(
-            "The mean-rule stability summary comes from 400 Monte Carlo re-partitions of the same "
-            "39 spatial blocks; observations are reused, so these are not 400 independent "
-            "validation samples. The floor-rule ranking is sensitive to the few lower-tail order "
-            "statistics among about 20 selection blocks. This documents why the rule was amended, "
-            "not prospective evidence: the calibration results were already visible in the full "
-            "analysis, so neither fixed-arm certificate proves validity for the adaptive workflow."),
+            "The mean rule is the stable one, and that is measured rather than asserted: under 400 "
+            "independent 50/50 re-splits the mean rule picks the same arm in a majority of splits, "
+            "while the frozen floor rule's own pick survives in a small minority and its most "
+            "frequent pick is a different arm each time -- a maximum of order statistics over ~20 "
+            "blocks is decided by which single block lands where.  Both audits and both "
+            "certificates are in this file."),
         preregistered_selection=dict(recipe=frozen[0], emitter=frozen[1], op=frozen[2],
                                      params=op_params(frozen[2]),
                                      rule="maximise the selection-half 90 % floor on Instrument B"),
@@ -406,28 +404,18 @@ def main() -> int:
         gates=gates,
         paired_tests=dict(
             oriented_vs_disk_on_b=paired(arms_b, "B_sgmc_offcat",
-                                         ("R7_scarp9_polarity", "oriented4", shipped[2]), shipped,
-                                         args.alpha)
+                                         ("R7_scarp9_polarity", "oriented4", shipped[2]), shipped)
             if ("R7_scarp9_polarity", "oriented4", shipped[2]) in arms_b else None,
-            field_swap_on_b=paired(arms_b, "B_sgmc_offcat", other_field, shipped, args.alpha)
+            field_swap_on_b=paired(arms_b, "B_sgmc_offcat", other_field, shipped)
             if other_field in arms_b else None,
-            shipped_vs_lower_density_on_b=paired(arms_b, "B_sgmc_offcat", lower_density, shipped,
-                                                  args.alpha)
+            shipped_vs_lower_density_on_b=paired(arms_b, "B_sgmc_offcat", lower_density, shipped)
             if lower_density != shipped else None,
-            shipped_vs_lower_density_on_a=paired(arms_a, "PM0200", lower_density, shipped,
-                                                  args.alpha)
+            shipped_vs_lower_density_on_a=paired(arms_a, "PM0200", lower_density, shipped)
             if (lower_density in arms_a and shipped in arms_a and lower_density != shipped) else None,
-            shipped_vs_higher_density_on_b=paired(arms_b, "B_sgmc_offcat", higher_density, shipped,
-                                                   args.alpha)
+            shipped_vs_higher_density_on_b=paired(arms_b, "B_sgmc_offcat", higher_density, shipped)
             if (higher_density in arms_b and higher_density != shipped) else None,
-            shipped_vs_higher_density_on_a=paired(arms_a, "PM0200", higher_density, shipped,
-                                                   args.alpha)
+            shipped_vs_higher_density_on_a=paired(arms_a, "PM0200", higher_density, shipped)
             if (higher_density in arms_a and higher_density != shipped) else None,
-        ),
-        paired_vs_incumbent=dict(
-            shipped_arm=paired(arms_b, "B_sgmc_offcat", shipped, incumbent, args.alpha),
-            rule_described_as_preregistered=paired(arms_b, "B_sgmc_offcat", frozen, incumbent,
-                                                   args.alpha),
         ),
         arm_table=arm_table(arms_b, arms_a, common, args.alpha),
         instrument_a_pooled=instrument_a_pooled(

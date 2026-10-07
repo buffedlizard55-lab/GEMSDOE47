@@ -69,7 +69,7 @@ by accessible methods, not an exhaustive assertion about all competitors or unpu
   triangular-kernel proximity on *training blocks only*. Deterministically sample up to 180,000 training
   pixels (all positive kernel pixels, capped at 90,000; uniform sample from the remainder). Weight
   samples by inverse sampling probability. No calibration/test data choose model settings.
-- **Incumbent pool:** raw 19-band predictor; raw bands plus ordinary Gaussian elevation gradient,
+- **Fixed baseline pool:** raw 19-band predictor; raw bands plus ordinary Gaussian elevation gradient,
   Hessian invariants and tensor coherence. Select the better by selection-block pooled DTI only.
   This establishes a **local comparable baseline**, not authentication of a live-score file.
 - **Candidate:** the exact same raw-plus-standard features plus frozen signed-step/channel/profile
@@ -92,7 +92,7 @@ by accessible methods, not an exhaustive assertion about all competitors or unpu
   Spatial/geological exchangeability is unverified. Prior adaptive leaderboard scores are not valid
   calibration observations. No fabricated 0.34837 or other positive certified floor.
 - Locked-test screen: candidate pooled and unweighted mean DTI must exceed the selection-picked
-  incumbent and fixed-seed random; ≥2/3 of truth-bearing test blocks must improve; selected proxy floor
+  baseline and fixed-seed random; ≥2/3 of truth-bearing test blocks must improve; selected proxy lower-bound estimate
   must be positive. Label count and at least 10 truth-bearing test blocks are required. Report all failures.
 - A **secondary diagnostic** uses SGMC faults >300 m from the catalogue on the same test cores and
   compares candidate with raw/structural baseline, fixed random, and restored H33-2-B2 at matched mass

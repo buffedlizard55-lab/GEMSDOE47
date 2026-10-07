@@ -1,20 +1,20 @@
-"""LATI - Leaderboard-Anchored Truth Inversion.
+"""LATI — exploratory inversion of owner-reported score/raster associations.
 
 The project's previous "truth model" was *self-referential*: GEMSDOE32's
 ``evidence/truth_model_mc.json`` draws hidden truth as
 ``pi ~ exp(-d(H19-5)/1.85 px)`` - i.e. a scatter around **the group's own best
-field**.  Any rule that covers that field better then "wins" by construction
-(their measured +0.0247 is exactly that artefact).  It cannot falsify the field
-it was built from.
+field**. Any result that rewards that same field is circular and cannot
+independently assess it.
 
-LATI replaces it with **twelve real measurements**.  For each of the twelve
-prior submissions whose returned DTI is on the record we know the exact raster
-that was uploaded (hash-pinned in ``registry/data_manifest.json``) and the number
-the organiser sent back.  Those twelve numbers are *data about the hidden label
-set*, and they are the only such data the project has ever had.
+LATI instead fits twelve owner-reported score/raster pairs. The raster bytes are
+hash-pinned in ``registry/data_manifest.json``; the score-to-file associations
+are owner-reported, not authenticated by organizer receipts. Public leaderboard
+observations are participant-level and do not identify TIFF filenames or hashes.
+The twelve reported values are therefore exploratory inputs, not authenticated
+measurements of private or hidden-label performance.
 
 --------------------------------------------------------------------------
-Why twelve scalars identify anything at all
+What the twelve scalar inputs can and cannot identify
 --------------------------------------------------------------------------
 Write ``G`` for the hidden new-fault pixel set, ``K = |G|``, and
 ``q(x) = P(x in G)`` for its intensity.  For a submission ``p``:
@@ -32,20 +32,22 @@ O(q^2), and ``q ~ K/n ~ 2e-3`` here, so the error is ~0.2 %.  It is verified
 against the exact ring-product expectation in ``tests/test_lati.py``.
 
 Both are therefore **linear functionals of the same unknown ``q``**, and each
-returned DTI is one non-linear equation in them.  Twelve structurally different
-rasters (mass 44 k -> 344 k; lattice, ridge, hedge, dotted, far-scatter) probe
-twelve different "halo volumes" of ``q``.  Fitting
-``q(x) = expit(b0 + sum_m b_m u_m(x))`` against all twelve simultaneously asks a
-question no local holdout can ask: *which surface proxies does the hidden label
-set actually follow?*
+owner-reported DTI value supplies one nonlinear equation only if its association
+with the hash-pinned raster is correct. Twelve structurally different rasters
+(mass 44 k -> 344 k; lattice, ridge, hedge, dotted, far-scatter) probe twelve
+different "halo volumes" of ``q``. Fitting
+``q(x) = expit(b0 + sum_m b_m u_m(x))`` against all twelve asks which proxies
+best explain this small, owner-reported set; it does not authenticate private or
+hidden-target performance.
 
 Honest limits, stated up front:
   * twelve scalars cannot identify 59 coefficients - the fit is regularised and
-    forward-selected, and the reported answer is a **ranking of field families**,
-    not a map of G;
-  * the twelve DTIs are owner-reported transcriptions of the public board
-    (no organiser receipt exists) - they are treated as exact but flagged;
-  * K identified here is the **public-chunk** hidden mass, not the private one.
+    forward-selected, and the reported answer is an **exploratory ranking of
+    field families**, not a map of G;
+  * the twelve score/raster associations are owner-reported and have no organizer
+    receipt; exact raster hashes do not authenticate their score mapping;
+  * K is a model-derived quantity for the evaluated footprint under the fitted
+    assumptions, not a verified private-chunk hidden mass.
 """
 
 from __future__ import annotations
@@ -62,7 +64,7 @@ from . import grid as G
 from . import metric as M
 
 # ---------------------------------------------------------------------------
-# the twelve (raster, returned DTI) observations
+# the twelve owner-reported (raster, DTI) pairs; not organizer-authenticated
 # ---------------------------------------------------------------------------
 
 OBSERVATIONS: tuple[dict, ...] = (

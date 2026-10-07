@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""SUPERSEDED by scripts/run_sweep_a.py -- kept because it produced the measurement that
-superseded it.
+"""RETIRED exploratory sweep; superseded by newer research. Its H33 score/raster mapping is unverified.
 
 This script scores the sweep against INSTRUMENT B: whole components of USGS SGMC traces lying
 > 300 m from the given catalogue.  knowledge/02_the_two_instruments_measure_different_populations.md
@@ -173,6 +172,7 @@ def add_crop(folds):
 
 
 def main() -> int:
+    raise SystemExit("scripts/run_sweep.py is retired; its score-linked reference is unauthenticated. See docs/RESULTS.md")
     ap = argparse.ArgumentParser()
     ap.add_argument("--quick", action="store_true")
     ap.add_argument("--blocks", type=int, default=4, help="blocks per side (blocks = n^2)")
@@ -221,15 +221,15 @@ def main() -> int:
     ops = operating_points(args.quick)
     print(f"[sweep] {len(ops)} operating points")
 
-    # ------------------------------------------------------------- reference: incumbent artifact
-    incumbent = None
-    inc_path = REF / "scored_h33-2-b2_0.2778.tif"
-    if inc_path.exists():
+    # ------------------------------------------------------------- reference: owner-reported H33-2-B2 geometry (score mapping unverified)
+    owner_reference = None
+    reference_path = REF / "scored_h33-2-b2_0.2778.tif"
+    if reference_path.exists():
         import rasterio
-        with rasterio.open(inc_path) as ds:
+        with rasterio.open(reference_path) as ds:
             a = ds.read(1)
-        incumbent = (np.nan_to_num(a.astype(np.float32)) > 0)
-        print(f"[reference] incumbent 0.2778 artifact loaded: {int(incumbent.sum())} px")
+        owner_reference = (np.nan_to_num(a.astype(np.float32)) > 0)
+        print(f"[reference] owner-reported H33 raster loaded for geometry comparison: {int(owner_reference.sum())} px; score mapping unverified")
 
     results = []
     variant_names = None
@@ -285,17 +285,17 @@ def main() -> int:
                         offcat_enrichment=(enrich.get(vn, {}).get("enrichment_vs_uniform")
                                            if p == prevs[0] and fi == 0 else None),
                     ))
-            if incumbent is not None:
-                inc_sub = incumbent[y0:y1, x0:x1] & scored_sub
-                r = M.dti(inc_sub.astype(np.float32), truth_sub, valid=scored_sub)
+            if owner_reference is not None:
+                reference_sub = owner_reference[y0:y1, x0:x1] & scored_sub
+                r = M.dti(reference_sub.astype(np.float32), truth_sub, valid=scored_sub)
                 results.append(dict(prevalence=p, block=int(fold.k), block_index=fi,
                                     half=("calibration" if fi in calib_idx else "selection"),
-                                    variant="REF_incumbent_0.2778", op="as-shipped",
+                                    variant="REF_owner_reported_H33_2_B2_unverified", op="as-shipped",
                                     min_dist=None, support_q=None, flank_b=None, blur=None,
                                     sigma_along=None, sigma_across=None,
                                     dti=float(r["dti"]), tp=float(r["tp"]), fp=float(r["fp"]),
-                                    n_truth=int(r["n_truth"]), emitted=int(inc_sub.sum()),
-                                    emitted_before_flank=int(inc_sub.sum()),
+                                    n_truth=int(r["n_truth"]), emitted=int(reference_sub.sum()),
+                                    emitted_before_flank=int(reference_sub.sum()),
                                     coverage=float(r["coverage"]), offcat_enrichment=None))
             print(f"[sweep:{p}] block {fold.k} ({fi+1}/{len(folds)}) done  "
                   f"{len(results)} rows  ({time.time()-t0:.0f}s)")

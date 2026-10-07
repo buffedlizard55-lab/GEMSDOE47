@@ -6,8 +6,8 @@ shows .2778 but no TIFF. Preserve the report, not an invented mapping.
 
 For the fixed competition weights, D=T/(.2(T+F)+.8K). At fixed truth, a change improves score iff
 `ΔT(1−.2D)−.2DΔF>0`. Pruning low-credit/high-cost mass can help; it does not prove new geological signal.
-Prediction spacing alone does not imply T=Phi. Scaling confidence downward lowers positive-truth DTI.
-Scaling curves identify ratios, not absolute hidden mass or a unique map; no 3-slot lambda recommendation.
+Prediction spacing alone does not imply T=Phi. Keep `ρ=F/K` distinct from `f=F/T`; neither ratio can be substituted for the other. Scaling confidence downward lowers positive-truth DTI.
+Scaling curves identify ratios, not absolute hidden mass or a unique map. The old λ-probe recommendation is withdrawn: three historical λ-scaling score observations are not a verified count of new uploads or slots, and no diagnostic cost is inferred or called free. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting.
 
 Under the explicitly hypothetical fixed-F,K case, .3195 from .2778 needs about 16% more weighted T;
 .3774 about 39%. Those are scenarios, not predictions. The C1 catalogue proxy has not beaten either

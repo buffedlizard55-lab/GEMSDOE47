@@ -178,21 +178,20 @@ def score(pred: np.ndarray, truth: np.ndarray, evaluated: np.ndarray | None = No
     ``mask_mode`` controls how the organiser's masking of known USGS/INGENIOUS
     fault pixels enters the arithmetic:
 
-    ``"zero"`` (default, empirically supported)
-        The prediction is zeroed on masked pixels *before* both sums, so a masked
-        pixel can deliver neither a false positive nor credit to a neighbouring
-        truth pixel.  Evidence: the natural experiment in
-        ``evidence/masking_natural_experiment.json`` - ``8GEMSDOE_Hedge-v2`` is
-        byte-identical to ``gemsdoe-ens12-adopted-7f00890a`` off the catalogue and
-        additionally carries all 60,988 catalogue pixels at p = 1, yet both were
-        returned at exactly 0.1563.  If masked mass could still donate credit to
-        adjacent new-fault pixels, adding 54,533 dots hugging the catalogue would
-        have *raised* T measurably.  It did not move the fourth decimal.
+    ``"zero"`` (default; implementation of the official exclusion rule)
+        The prediction is zeroed on masked pixels before either sum. Official
+        DrivenData staff says known USGS/INGENIOUS pixels are masked/excluded from
+        evaluation and do not count toward penalty terms; the local scorer models
+        that exclusion by removing masked predictions from the evaluated domain.
+        The owner-reported Hedge-v2 / ens12 comparison is descriptive, not a
+        controlled causal ablation, and is not used to infer a gain from deleting
+        masked pixels.
 
     ``"fp_only"``
-        Masked pixels are dropped from the FP sum only and may still donate
-        credit.  Retained as the alternative reading of the staff answer, and
-        falsified by the natural experiment above.
+        Retained as an explicit alternate arithmetic for regression/audit use:
+        masked pixels are omitted from the FP sum but their predictions can still
+        contribute to nearby truth credit. This is not the official scoring
+        interpretation; do not use it for reported DTI results.
     """
     p = np.asarray(pred, dtype=np.float64)
     g = np.asarray(truth) > 0
@@ -265,8 +264,30 @@ def breakeven_k(dti: float, alpha: float = ALPHA) -> float:
 
 
 def required_recall(dti: float, f_over_k: float, alpha: float = ALPHA, beta: float = BETA) -> float:
-    """x = T/K implied by a target DTI at a given rho = F/K:  x = (a*rho+b)/(1/DTI - a)."""
-    return float((alpha * f_over_k + beta) / (1.0 / dti - alpha))
+    """Return ``x = T/K`` for a target DTI and ``rho = F/K``.
+
+    Inverting ``DTI = T / (alpha*(T + F) + beta*K)`` gives
+    ``x = (alpha*rho + beta) / (1/DTI - alpha)``. Here ``rho`` is
+    specifically ``F/K``; it is not the distinct ratio ``F/T``. A result
+    above 1 is returned unchanged and means the target is infeasible at that
+    ``F/K`` if weighted recall is constrained to ``T/K <= 1``. The function
+    is an algebraic scenario calculation and does not estimate an incumbent's
+    actual ratios.
+    """
+    values = (dti, f_over_k, alpha, beta)
+    if not all(np.isfinite(value) for value in values):
+        raise ValueError("dti, F/K, alpha, and beta must be finite")
+    if dti <= 0.0:
+        raise ValueError("dti must be positive")
+    if f_over_k < 0.0:
+        raise ValueError("F/K must be non-negative")
+    if alpha < 0.0 or beta < 0.0:
+        raise ValueError("alpha and beta must be non-negative")
+
+    denominator = 1.0 / dti - alpha
+    if denominator <= 0.0:
+        raise ValueError("target DTI gives a non-positive inverse-formula denominator")
+    return float((alpha * f_over_k + beta) / denominator)
 
 
 def worked_example() -> dict:

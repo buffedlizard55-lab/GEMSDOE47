@@ -105,7 +105,7 @@
    "title": "training_features.tif / labels.tif / sample_submission.tif",
    "provenance": "hash-pinned mirror in the owner's sibling repositories, restored via the GitHub Contents API",
    "verified_this_session": true,
-   "verification": "SHA-256 against registry/data_manifest.json; 22/22 ALL_VERIFIED=True",
+   "verification": "The committed data/restore_receipt.json is a historical 23-entry ALL_VERIFIED snapshot; the current 26-entry manifest adds three H47-B metadata/audit inputs and has not been fully restored in this review. SHA-256 pins are mirror-integrity checks, not organizer authentication.",
    "upstream": "USGS GeoDAWN, INGENIOUS, 3DEP - NOT independently re-verified this session"
   },
   {
@@ -141,8 +141,8 @@
   },
   {
    "id": "S-14",
-   "title": "h33-2-b2 reference raster (the reported-0.2778 flank-pruned arm)",
-   "provenance": "buffedlizard55-lab/GEMSDOE32 docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+   "title": "H33-2-B2 flank-pruned reference raster (participant-score mapping unverified)",
+   "provenance": "buffedlizard55-lab/GEMSDOE32@b983924b57781edd29b8e249c4923bf33d9902f6 docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
    "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
    "verified_this_session": true,
    "note": "IR-47-002: its reported score is attribution-conflicted"

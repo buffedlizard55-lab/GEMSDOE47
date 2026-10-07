@@ -6,19 +6,18 @@ are deployed. H47-B and [H47-QC](preregistered-h47qc-20261006.md) are separate h
 not the current pipeline. H47-QC's full [screen report](h47qc-screen-20261006.json) records the independent
 geothermometer-consensus screen and its failed gate: pooled test DTI 0.0131689425 versus 0.0141948068 for
 the geochemistry-only ablation, at 6 px / 600 m. Its nominal split-conformal level is 6/7 under unverified
-block-score exchangeability; clipped lower floor 0.0. It remains research-only, not for upload.
+block-score exchangeability; its assumption-conditional lower-bound estimate is 0.0. It remains research-only, not for upload.
 
 ## Fixed C1 rule and result
 
 Same mass/domain/truth across profile, selection-only best raw/terrain baseline, and fixed-seed random.
 Require pooled and mean wins over both controls, at least 10 truth-bearing test blocks, wins in at least
-2/3 of those blocks, and positive supported conformal proxy floor. C1 fails pooled baseline, fold wins and
-floor. **Not promoted; no slot.** Mirror-only data, unverified exchangeability and private-label mismatch
+2/3 of those blocks, and a positive assumption-conditional split-conformal lower-bound estimate for the declared proxy target. C1 fails the pooled-baseline and fold-win gates; its assumption-conditional lower-bound estimate is zero. **Not promoted; no slot.** Mirror-only data, unverified exchangeability and private-label mismatch
 are additional boundaries, not solved by a positive mean.
 
 Selection 21 blocks and calibration 21 are disjoint roles; test 23 is not a tuning set. Max-residual band is
 simultaneous over 5 settings at nominal 90%, rank 20. It predicts one exchangeable catalogue-block vector,
-not pooled map/private DTI. Every floor is 0.0000. No adaptive history or difficult-block deletion.
+not pooled map/private DTI. Every assumption-conditional lower-bound estimate is 0.0000. No adaptive history or difficult-block deletion.
 
 A documented control-flow bug first overwrote locked 2.8px with 5.8px. The original record is retracted;
 correction changed no trained predictions or per-setting scores, proved byte-for-byte. It is not a second

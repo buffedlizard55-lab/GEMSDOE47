@@ -6,10 +6,10 @@
   "sha256": "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5",
   "bytes": 176159,
   "n_positive": 28124,
-  "format_checks_passed": true,
+  "legacy_internal_format_checks_passed": true,
   "max_jaccard_vs_13_priors": 0.009507,
   "predicted_dti": 0.08578766591790139,
-  "certified_floor": 0.11486597456776,
+  "assumption_conditional_lower_bound": 0.11486597456776,
   "certificate": {
    "name": "cross_conformal_all_returns|family_7",
    "level": 0.46153846153846156,
@@ -26,34 +26,50 @@
   "blocked_holdout": {
    "catalogue": {
     "candidate": 0.03353242608843613,
-    "incumbent_h33_2_b2": 0.006698424894897517
+    "owner_reported_h33_2_b2_raster_unverified_score_link": 0.006698424894897517
    },
    "sgmc_offcatalogue": {
     "candidate": 0.08778773860542068,
-    "incumbent_h33_2_b2": 0.09893469496140979
+    "owner_reported_h33_2_b2_raster_unverified_score_link": 0.09893469496140979
    }
   },
   "promotion": {
    "unique": true,
-   "beats_incumbent_both_holdout_frames": false,
-   "certified_floor_above_live_incumbent": false,
+   "beats_owner_reported_reference_on_both_local_holdout_frames": false,
+   "conditional_lower_bound_above_owner_reported_score_assumption": false,
    "shippable": false,
    "reasons": [
-    "blocked holdout frame sgmc_offcatalogue: candidate 0.0878 <= incumbent 0.0989",
-    "certified floor 0.1149 < live incumbent 0.26"
+    "H33-2-B2 / participant-DTI 0.2778 association is unverified; dependent results are conditional",
+    "all-finite published TIFF has zeros outside the supplied footprint and fails the null/NaN-outside requirement",
+    "assumption-conditional conformal calculations do not establish a supported private-score floor or slot eligibility"
    ],
-   "note": "'shippable' means: unique against every prior artefact, ahead of the reported 0.2778 field on both blocked holdout frames, and certified above the live 0.2600 incumbent by the split-conformal floor. It is NOT a claim about the private expert label set."
-  }
+   "note": "Research-only local proxies. Score-to-TIFF attribution is unverified; exchangeability and score/raster mappings are assumptions. No organizer-authenticated score or private-label performance is established. Never authorize upload or slot use from this record.",
+   "eligible_for_slot": false,
+   "status": "RESEARCH_ONLY_UNVERIFIED_ATTRIBUTION"
+  },
+  "published_outside_null_nan_requirement_passed": false,
+  "current_format_status": "FAILS_PUBLISHED_OUTSIDE_NULL_OR_NAN_REQUIREMENT",
+  "organizer_acceptance_established": false
  },
  "rejected_repack_arm": {
   "file": "gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif",
   "max_jaccard_vs_13_priors": 0.440003,
   "predicted_dti": 0.1859592882613959,
-  "certified_floor": 0.2150375969112545,
-  "reason": "re-issues the incumbent field (44.0% pixel overlap with the reported-0.2778 raster) - evidence only"
+  "assumption_conditional_lower_bound": 0.2150375969112545,
+  "reason": "re-issues the owner-reported d2.8 reference raster (44.0% pixel overlap with the reported-0.2778 raster) - evidence only",
+  "published_outside_null_nan_requirement_passed": false,
+  "current_format_status": "FAILS_PUBLISHED_OUTSIDE_NULL_OR_NAN_REQUIREMENT",
+  "organizer_acceptance_established": false
  },
  "source": [
   "evidence/h48_apex_build.json",
   "evidence/h48_build.json"
- ]
+ ],
+ "scope_notice": "H33-2-B2 is not authenticated to participant DTI 0.2778; related score-dependent fits are hypothetical/conditional. Local block comparisons use owner-reported reference geometry and are not leaderboard measurements. The stored all-finite TIFF writes zeros outside and fails the published null/NaN-outside requirement. Local checks do not establish organizer acceptance; all outputs are research-only and not slot-eligible.",
+ "organizer_acceptance_established": false,
+ "score_provenance": {
+  "classification": "owner-reported / unverified TIFF attribution",
+  "h33_2_b2_dti_0_2778": "hypothetical assumption, not authenticated",
+  "all_dependent_fits": "conditional research only; no slot eligibility"
+ }
 }

@@ -1,4 +1,6 @@
-"""Split conformal selection of an emission operating point, with a finite-sample guarantee.
+"""Split-conformal calculations for an emission operating point.
+
+Any finite-sample coverage statement from this module is conditional on the chosen exchangeability unit actually being exchangeable; the module cannot establish that scientific assumption.
 
 Reference
 ---------
@@ -22,10 +24,10 @@ s(X,Y) be fitted on a proper subset.  With
 exactly, for every n, with no distributional, parametric or smoothness assumption beyond
 exchangeability.  The bound is finite-sample: it holds at n = 8 as well as at n = 8,000.
 
-How that becomes a *selection* rule with a guaranteed floor
+How a nominal block-level lower-bound calculation is used
 -----------------------------------------------------------
-The unit of exchangeability here is a **spatial block** of the holdout, not a configuration.
-That choice is what makes the guarantee real rather than decorative:
+The proposed unit of exchangeability is a **spatial block** of the holdout, not a configuration.
+That choice makes the assumption explicit; it does not prove that the blocks are exchangeable, representative, or drawn from the private scoring population:
 
   1. The holdout is partitioned into B spatial blocks.  Blocks are split at random into a
      CALIBRATION half (size n) and a SELECTION half (size m).
@@ -35,20 +37,21 @@ That choice is what makes the guarantee real rather than decorative:
   3. For the chosen operating point, the calibration-block DTIs are exchangeable with the
      selection-block DTIs of the same operating point (same rule, blocks drawn from the same
      spatial population, and the rule was fitted without the selection blocks).  Applying the
-     theorem with s(X,Y) = -DTI gives a one-sided (1-alpha) LOWER bound:
+     theorem with s(X,Y) = -DTI gives a nominal one-sided (1-alpha) LOWER bound, conditional on exchangeability:
 
          DTI_selection >= -q_hat   with probability >= 1 - alpha
          q_hat = the  ceil((n+1)alpha) / n  -th smallest of { -DTI_calibration,i }
 
      i.e. the floor is the  ceil((n+1)alpha) -th SMALLEST calibration-block DTI.
   4. The selection blocks are then scored once, to report whether the realised value cleared
-     the certified floor.  That is an audit, not a tuning step: the choice was already frozen.
+     the calculated lower-bound estimate. This comparison does not prove exchangeability or
+     validate a post-hoc change to the selection rule.
 
-Two guarantees are reported, because they answer two different reviewer questions:
+Two conditional quantities may be reported, because they answer different reviewer questions:
 
-  * ``floor_within_rule``  -- the conformal floor above: any single fresh block's DTI for the
-    chosen operating point is at least this value with probability >= 1-alpha.
-  * ``floor_mean_of_selected`` -- a lower bound on the MEAN DTI over blocks, from the
+  * ``floor_within_rule``  -- the conformal lower-bound estimate above: under exchangeability,
+    a fresh block from the same population is covered at nominal level 1-alpha.
+  * ``floor_mean_of_selected`` -- a lower-bound estimate on the MEAN DTI over blocks, from the
     Dvoretzky-Kiefer-Wolfowitz / Massart inequality applied to the calibration-block
     empirical CDF (also distribution-free, also finite-sample):
         P( sup_x |F_n(x) - F(x)| > eps ) <= 2 exp(-2 n eps^2)

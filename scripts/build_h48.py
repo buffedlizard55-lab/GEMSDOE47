@@ -1,23 +1,24 @@
 #!/usr/bin/env python3
-"""H48 - build, certify and audit a unique GEMS submission from a spacing sweep.
+"""RESEARCH-ONLY H48 exploratory sweep; not a submission or promotion pipeline.
 
-The pipeline, in order
-----------------------
+The historical exploratory pipeline, in order
+--------------------------------------------
   0  bytes         restore-free: read the hash-pinned competition rasters
   1  MSCL          multi-scale curvature lineament consensus (``gems47.h48``)
-  2  observations  the 13 previously returned public-leaderboard DTIs
+  2  observations  owner-reported participant-score/raster pairs, not organizer-authenticated
   3  split         calibration half / selection half of those observations
   4  fit           belief model q, fitted on the calibration half ONLY
   5  sweep         spacing sweep of emissions under q (min-separation rule)
-  6  conformal     split-conformal certified lower bound per spacing
-  7  holdout       spatially blocked holdout: candidate vs incumbent
-  8  emit          write the single-band float32 GeoTIFF (values in [0, 1])
+  6  conformal     assumption-conditional split-conformal lower-bound estimate per spacing
+  7  holdout       local proxy frames: candidate vs owner-reported reference geometry
+  8  emit          write a research-only diagnostic GeoTIFF (values in [0, 1])
   9  audit         read the bytes back, verify the format, check uniqueness
 
-Every number written to ``evidence/h48_build.json`` carries its provenance.
-Nothing here submits anything: the portal upload is manual and stays manual.
+Every score-dependent number is conditional on unverified owner-reported mappings. H33-2-B2 is
+not authenticated to participant DTI 0.2778; the d2.8 TIFF is the owner-reported d2.8 reference.
+All outputs are research-only, never slot-eligible, and cannot establish organizer acceptance.
 
-Run:
+Historical command (do not run without separate authorization):
     PYTHONPATH=src python3 scripts/build_h48.py --stage all
 """
 
@@ -68,19 +69,16 @@ BUDGET = 60_000
 #: that overlaps a prior submission more than this is a re-issue, not a submission.
 UNIQUE_BAR = 0.0457
 
-#: The live score the emitted field must be certified above to be worth a slot.
-DTI_INCUMBENT_LIVE = 0.2600
+#: Unverified owner-reported score used only in an illustrative sensitivity comparison; never a slot gate.
+DTI_OWNER_SCORE_ASSUMED = 0.2600
 
-#: The marginal rule is anchored to the family's best *reported* public score
-#: (GEMSDOE32 ``h33-h33-2-b2`` = 0.2778).  That attribution is owner-reported and
-#: contested - the live leaderboard row at 0.2778 belongs to participant
-#: ``extradr19`` and the handle ``buffedlizard55-lab`` does not appear in the
-#: visible top 50 - so the build also reports the certificate with the strongest
-#: *restored* return (d2.8 = 0.2600) as the anchor.  See docs/irregularities.md.
+#: The conditional marginal rule uses an assumed owner-reported DTI of 0.2778 for H33-2-B2.
+#: No organizer receipt links that participant-level row to the TIFF; the 0.2600 observation
+#: also has no authenticated raster mapping. All dependent fits and comparisons are hypothetical.
 DTI_BAR = 0.2778
 DTI_BAR_RESTORED_ONLY = 0.2600
 
-#: belief-model family, declared before fitting.  Row 0 is always the incumbent
+#: belief-model family, declared before fitting.  Row 0 is always the owner-reported reference
 #: proximity prior (the strongest single predictor in the project's own screen);
 #: "mscl" is the new H48 lineament-consensus signature.
 MODEL_FAMILY: dict[str, list[str]] = {
@@ -258,14 +256,12 @@ def q_field(Ue: np.ndarray, rows: list[int], theta, ev_idx, shape) -> np.ndarray
 def base_field(data: Path, shape) -> tuple[np.ndarray, np.ndarray]:
     """The base dot set the emission repacks, and the catalogue-exclusion mask.
 
-    The base is the family's highest-scoring measured field (``d2.8``, 0.2600
-    public).  The measured group's own next file (``h33-2-b2``, 0.2778 reported)
-    is exactly this set with everything within ~2 px of the catalogue removed, so
-    that disposition is reproduced here as an explicit, referenced rule rather
-    than re-derived: dots are never placed within ``1.5`` px of a catalogue cell
-    (a dot that close can only earn credit for truth that is itself adjacent to
-    the masked catalogue, and the family's own trajectory shows removing it
-    helped).
+    The base is the owner-reported d2.8 reference raster (its participant-score
+    association is not authenticated). The H33-2-B2 raster is also an owner-supplied
+    reference; the alleged 0.2778 mapping is unverified. Any apparent subset relation
+    is byte geometry only and does not establish a score effect. The 1.5 px catalogue
+    exclusion is an exploratory modeling choice, not evidence that pruning caused a
+    gain or that adjacent evaluated pixels have low truth credit.
     """
     with rasterio.open(data / "scored" / "gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif") as src:
         base = src.read(1) > 0
@@ -352,32 +348,38 @@ def blocked_holdout(pred: np.ndarray, truth: np.ndarray, footprint: np.ndarray,
 
 
 def write_tif(path: Path, dots: np.ndarray, footprint: np.ndarray) -> dict:
-    """Write the submission: single band, float32, EPSG:32611, all values in [0, 1].
+    """Write research-only predictions with NaN outside the supplied footprint.
 
-    The convention is **all-finite**: 0.0 outside the emission and 0.0 outside the
-    footprint (never NaN).  ``evidence/range_error_diagnosis.json`` shows that
-    ``np.all((v >= 0) & (v <= 1))`` is False for every NaN-bearing sibling file
-    and True for every all-finite one, which is exactly the error the portal
-    returned ("Predicted values must be in range [0, 1]").
+    The NaN-outside encoding follows the available owner-supplied mirror
+    convention; it does not establish organizer acceptance. All finite
+    predictions are 0/1 and the file remains research-only.
     """
     p = (dots & footprint).astype(np.float32)
+    p[~footprint] = np.float32("nan")
     path.parent.mkdir(parents=True, exist_ok=True)
     with rasterio.open(path, "w", driver="GTiff", height=G.HEIGHT, width=G.WIDTH,
                        count=1, dtype="float32", crs=G.CRS, transform=G.TRANSFORM,
-                       compress="deflate", predictor=3, tiled=True,
+                       nodata=np.nan, compress="deflate", predictor=3, tiled=True,
                        blockxsize=256, blockysize=256) as dst:
         dst.write(p, 1)
-        dst.set_band_description(1, "GEMS fault probability (H48-MSCL conformal emission)")
-    return {"path": str(path.relative_to(ROOT)), "n_positive": int(p.sum())}
+        dst.set_band_description(1, "GEMS fault probability (H48-MSCL research-only emission)")
+    return {"path": str(path.relative_to(ROOT)), "n_positive": int((p > 0).sum()),
+            "outside_encoding": "NaN; owner-supplied mirror convention only"}
 
 
 def audit_tif(path: Path, footprint: np.ndarray, labels: np.ndarray) -> dict:
     with rasterio.open(path) as src:
         a = src.read(1)
+        masked = src.read(1, masked=True)
+        read_mask = np.ma.getmaskarray(masked)
         meta = {"count": src.count, "dtype": src.dtypes[0], "crs": str(src.crs),
                 "shape": [src.height, src.width], "nodata": src.nodata,
                 "transform": [float(v) for v in src.transform[:6]]}
     fin = np.isfinite(a)
+    finite_values = a[fin]
+    inside = a[footprint]
+    finite_inside = np.isfinite(inside)
+    outside_null = (np.isnan(a) | read_mask)[~footprint]
     checks = {
         "single_band": meta["count"] == 1,
         "float32": meta["dtype"] == "float32",
@@ -386,13 +388,25 @@ def audit_tif(path: Path, footprint: np.ndarray, labels: np.ndarray) -> dict:
         "transform_matches": all(abs(x - y) < 1e-6 for x, y in
                                  zip(meta["transform"], [100.0, 0.0, 243350.0, 0.0, -100.0,
                                                          4508550.0])),
-        "all_finite": bool(fin.all()),
-        "values_in_0_1": bool(np.all((a >= 0.0) & (a <= 1.0))),
-        "zero_outside_footprint": bool((a[~footprint] == 0).all()),
+        "finite_predictions_within_0_1": bool(finite_inside.all() and
+                                               np.all((inside[finite_inside] >= 0.0) &
+                                                      (inside[finite_inside] <= 1.0))),
+        "no_nan_or_inf_inside_footprint": bool(finite_inside.all()),
+        "outside_is_null_or_nan": bool(outside_null.all()),
+        "nodata_tag_is_nan_diagnostic": bool(meta["nodata"] is not None and np.isnan(meta["nodata"])),
         "zero_on_catalogue": bool((a[labels == 1] == 0).all()),
-        "unique_values_within_0_1": bool(set(np.unique(a)).issubset({0.0, 1.0})),
+        "finite_values_binary_0_1": bool(set(np.unique(finite_values)).issubset({0.0, 1.0})),
     }
-    return {"meta": meta, "checks": checks, "all_pass": all(checks.values()),
+    required = ("single_band", "float32", "crs_epsg32611", "shape_3730x3292",
+                "transform_matches", "finite_predictions_within_0_1",
+                "no_nan_or_inf_inside_footprint", "outside_is_null_or_nan")
+    local_pass = all(checks[k] for k in required)
+    return {"meta": meta, "checks": checks,
+            "required_local_checks_passed": local_pass,
+            "all_pass": local_pass,  # historical alias; local only, not portal acceptance
+            "organizer_acceptance_established": False,
+            "outside_requirement_scope": "local check against supplied footprint only",
+            "n_finite": int(fin.sum()), "n_nan": int(np.isnan(a).sum()),
             "n_positive": int((a > 0).sum()),
             "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
 
@@ -434,7 +448,7 @@ def main() -> int:
     ap.add_argument("--half", default="A", choices=["A", "B"])
     ap.add_argument("--spacings", default=",".join(str(s) for s in SPACINGS))
     ap.add_argument("--source", default="prior", choices=["prior", "apex"],
-                    help="emission source: the family's measured-best field repacked "
+                    help="emission source: an owner-reported reference field used in a conditional research experiment "
                          "(prior) or H48-APEX, the detector's own consensus apex set")
     args = ap.parse_args()
     spacings = tuple(float(s) for s in args.spacings.split(","))
@@ -511,7 +525,7 @@ def main() -> int:
     print(f"[h48] support {int(allowed.sum()):,} px; add-candidates {int(add_cand.sum()):,} px")
     dti_bar = DTI_BAR
     selected_by = ("the rank threshold is the detector's own confidence axis; "
-                   "the spacing is held at the family's measured-best 2.5 px")
+                   "the spacing is held at a predeclared research value of 2.5 px")
     if args.source == "apex":
         # H48-APEX: emit the detector's OWN geometry.  No prior submission's dots
         # are used as a base, so the artefact cannot be a re-issue of d2.8/h33-2-b2.
@@ -592,12 +606,12 @@ def main() -> int:
     for c in cands:
         print(f"[h48]   {c.name:<10} dots={c.payload['n_dots']:<7} predicted={c.predicted:.4f} "
               f"LCB={c.lcb:.4f}", flush=True)
-    chosen = CF.select_by_certified_floor(cands, sc_sel)
-    print(f"[h48] CHOSEN {chosen.name}  floor {chosen.lcb:.4f} at level "
+    chosen = CF.select_by_conditional_lower_bound(cands, sc_sel)
+    print(f"[h48] CHOSEN {chosen.name}  assumption-conditional lower bound {chosen.lcb:.4f} at level "
           f"{sc_sel.level_used:.4f} (channel: cross-conformal family-of-{m}, "
           f"conformal rank {k_sel} of n={sc_sel.residuals.size}, m=1 reference level "
           f"{sc_pre.level_used:.4f})")
-    print(f"[h48] reference d2.8 predicted {ref_pred:.4f}, floor {ref_lcb:.4f}")
+    print(f"[h48] owner-reported d2.8 reference scenario: predicted {ref_pred:.4f}, assumption-conditional lower bound {ref_lcb:.4f}")
 
     result = {
         "generated_utc": UTC,
@@ -614,6 +628,9 @@ def main() -> int:
         "chosen_model": best_tag,
         "theta": [float(v) for v in theta],
         "K_hat": K_hat,
+        "score_provenance": {"classification": "owner-reported / unverified TIFF attribution",
+                             "h33_2_b2_dti_0_2778": "hypothetical assumption, not authenticated",
+                             "all_dependent_fits": "conditional research only; no slot eligibility"},
         "observations": [{"id": o.id, "dti": o.dti, "S": o.S, "site": o.site} for o in obs],
         "residuals": {"split_half": [float(v) for v in r_split],
                       "split_half_ids": [obs[i].id for i in sel],
@@ -626,11 +643,10 @@ def main() -> int:
                   for s in sweep],
         "candidates": [c.to_dict() for c in cands],
         "chosen": chosen.to_dict(),
-        "incumbent_reference": {"id": "d2.8", "observed_dti": 0.26,
+        "owner_reported_d2_8_reference_assumption": {"id": "d2.8", "assumed_participant_dti": 0.26,
                                 "predicted_dti": ref_pred,
-                                "certified_lower_bound": ref_lcb,
-                                "note": "the same certificate applied to the measured "
-                                        "family-best field, for a like-for-like comparison"},
+                                "assumption_conditional_lower_bound": ref_lcb,
+                                "note": "conditional scenario only; owner-reported d2.8 raster/score mapping is not organizer-authenticated"},
         "mscl": {"sigmas_px": list(h48.SIGMAS), "topo_bands": list(h48.TOPO_BANDS),
                  "geophys_bands": list(h48.GEOPHYS_BANDS), "topk_geophys": h48.TOPK_GEOPHYS},
         "seconds": round(time.time() - t_start, 1),
@@ -641,33 +657,32 @@ def main() -> int:
     frames = block_frames(data, shape)
     labels = np.where(t.catalogue, 1, 0).astype(np.int8)
     with rasterio.open(data / "reference" / "h33-2-b2-zeros.tif") as src:
-        incumbent = src.read(1) > 0
+        owner_reference_mask = src.read(1) > 0
     hold = {}
     for fname, truth in (("catalogue", frames["catalogue"]),
                          ("sgmc_offcatalogue", frames["sgmc_offcatalogue"])):
         hold[fname] = {"candidate": blocked_holdout(dots_best, truth, frames["footprint"]),
-                       "incumbent_h33_2_b2": blocked_holdout(incumbent, truth,
-                                                             frames["footprint"])}
+                       "owner_reported_h33_2_b2_raster_unverified": blocked_holdout(owner_reference_mask, truth,
+                                                                                   frames["footprint"])}
         c = hold[fname]["candidate"]["pooled_DTI"]
-        i = hold[fname]["incumbent_h33_2_b2"]["pooled_DTI"]
-        print(f"[h48] holdout[{fname}] candidate {c:.4f} vs incumbent {i:.4f}")
+        i = hold[fname]["owner_reported_h33_2_b2_raster_unverified"]["pooled_DTI"]
+        print(f"[h48] local holdout[{fname}] candidate {c:.4f} vs owner-reported reference geometry {i:.4f}")
     result["spatially_blocked_holdout"] = hold
     result["holdout_note"] = (
-        "Proxy populations only. 'catalogue' is the given USGS/INGENIOUS catalogue, which the "
-        "organiser masks out of scoring, so it rewards catalogue skill (IR-47-005). "
-        "'sgmc_offcatalogue' is state-geologic-map fault geometry >1.5 cells off the catalogue. "
-        "Neither frame is the private expert label set."
+        "Proxy populations only. Neither frame is the private expert label set. Owner-reported H33-2-B2 "
+        "geometry is compared locally; its association with participant DTI 0.2778 is unverified. "
+        "All score-dependent model conclusions are conditional research results."
     )
 
     # ---- 6. emit + audit -----------------------------------------------------
     tag = (f"apex-{chosen.name.split('>=')[1]}" if args.source == "apex"
            else f"repack-r{chosen.name.split('=')[1].replace('.', 'p')}")
-    name = f"gems47-h48-mscl-{tag}-{chosen.payload['n_dots']}px-{UTC}-allfinite.tif"
+    name = f"gems47-h48-mscl-{tag}-{chosen.payload['n_dots']}px-{UTC}-research-only-nan-outside.tif"
     out = ROOT / "docs" / "downloads" / name
     written = write_tif(out, dots_best, frames["footprint"])
     audit = audit_tif(out, frames["footprint"], labels)
     uniq = uniqueness(dots_best, data, data / "reference" / "h33-2-b2-zeros.tif")
-    result["artifact"] = {**written, "filename": name, "audit": audit, "uniqueness": uniq}
+    result["artifact"] = {**written, "filename": name, "audit": audit, "uniqueness": uniq, "status": "RESEARCH_ONLY_NOT_PROMOTED"}
     result["certificate_channel_used_for_selection"] = {
         "name": ("cross_conformal_all_returns|family_%d" % m) if sc_sel is sc_fam
                 else "cross_conformal_all_returns|single_predeclared",
@@ -693,24 +708,24 @@ def main() -> int:
                        f"{UNIQUE_BAR} (the field overlaps a prior submission)")
     for frame in ("catalogue", "sgmc_offcatalogue"):
         c = hold_c[frame]["candidate"]["pooled_DTI"]
-        i = hold_c[frame]["incumbent_h33_2_b2"]["pooled_DTI"]
+        i = hold_c[frame]["owner_reported_h33_2_b2_raster_unverified"]["pooled_DTI"]
         if not (c > i):
-            reasons.append(f"blocked holdout frame {frame}: candidate {c:.4f} <= incumbent {i:.4f}")
-    if chosen.lcb < DTI_INCUMBENT_LIVE:
-        reasons.append(f"certified floor {chosen.lcb:.4f} < live incumbent {DTI_INCUMBENT_LIVE}")
+            reasons.append(f"local proxy frame {frame}: candidate {c:.4f} <= owner-reported reference geometry {i:.4f}")
+    if chosen.lcb < DTI_OWNER_SCORE_ASSUMED:
+        reasons.append(f"assumption-conditional lower bound {chosen.lcb:.4f} < assumed owner-reported score {DTI_OWNER_SCORE_ASSUMED}")
     result["promotion"] = {
-        "unique": bool(uniq["max_jaccard"] <= UNIQUE_BAR),
-        "beats_incumbent_both_holdout_frames": not any(r.startswith("blocked") for r in reasons),
-        "certified_floor_above_live_incumbent": bool(chosen.lcb >= DTI_INCUMBENT_LIVE),
-        "shippable": not reasons,
-        "reasons": reasons,
-        "note": ("'shippable' means: unique against every prior artefact, ahead of the reported "
-                 "0.2778 field on both blocked holdout frames, and certified above the live "
-                 "0.2600 incumbent by the split-conformal floor. It is NOT a claim about the "
-                 "private expert label set."),
+        "unique_against_inspected_artifacts": bool(uniq["max_jaccard"] <= UNIQUE_BAR),
+        "beats_owner_reported_reference_on_both_local_frames": not any(r.startswith("local proxy") for r in reasons),
+        "conditional_lower_bound_above_owner_reported_score_assumption": bool(chosen.lcb >= DTI_OWNER_SCORE_ASSUMED),
+        "shippable": False,
+        "eligible_for_slot": False,
+        "status": "RESEARCH_ONLY_UNVERIFIED_ATTRIBUTION",
+        "reasons": ["H33-2-B2 / participant-DTI 0.2778 association is unverified; dependent results are conditional",
+                    "no artifact in this pipeline is authorized for upload"] + reasons,
+        "note": "Exploratory local proxy results only. No organizer-authenticated score-to-raster mapping or private-label performance is established.",
     }
     print(f"[h48] promotion shippable={result['promotion']['shippable']} reasons={reasons}")
-    print(f"[h48] wrote {out.name}: {written['n_positive']} px, all_pass={audit['all_pass']}, "
+    print(f"[h48] wrote {out.name}: {written['n_positive']} px, local_format_pass={audit['required_local_checks_passed']}, "
           f"max Jaccard {uniq['max_jaccard']}")
     receipt = EVID / ("h48_apex_build.json" if args.source == "apex" else "h48_build.json")
     receipt.write_text(json.dumps(result, indent=1))

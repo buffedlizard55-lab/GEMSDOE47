@@ -54,13 +54,16 @@ class SubmissionValidationTests(unittest.TestCase):
 
     def test_accepts_compliant_written_float32(self):
         report = validate_submission(self.output, self.template, features_path=self.features)
-        self.assertEqual(report["status"], "PASS")
+        self.assertEqual(report["status"], "LOCAL_PASS")
+        self.assertFalse(report["organizer_acceptance_established"])
+        self.assertIn("not a portal oracle", report["validation_scope"])
         self.assertEqual(report["dtype"], "float32")
         self.assertEqual(report["valid_pixels"], 29)
 
     def test_accepts_explicit_binary_footprint_mask(self):
         report = validate_submission(self.output, self.template, footprint_mask_path=self.mask_path)
-        self.assertEqual(report["status"], "PASS")
+        self.assertEqual(report["status"], "LOCAL_PASS")
+        self.assertFalse(report["organizer_acceptance_established"])
         self.assertEqual(report["outside_pixels"], 1)
 
     def test_requires_exactly_one_footprint_source(self):

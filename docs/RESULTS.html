@@ -1,78 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Results — corrected H33 and H49 evidence — GEMSDOE47</title>
-<meta name="description" content="H33 score-to-TIFF attribution limits, exact mask nesting, H49 public-proxy and paired-holdout results, nominal split-conformal assumptions, strict current TIFF format receipt, and bounded uniqueness scope.">
-<link rel="stylesheet" href="assets/site.css">
-</head>
-<body>
-<header class="top"><div class="wrap">
-  <h1>GEMSDOE47 <span class="badge b-info">RESEARCH RECORD</span></h1>
-  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
-     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
-     Generated 2026-10-07 13:12 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
-    <a href="hypotheses.html">The five hypotheses</a>
-    <a href="method.html">LATI method</a>
-    <a href="evidence.html">Every number</a>
-    <a href="irregularities.html">Irregularities</a>
-    <a href="leaderboard.html">Leaderboard</a>
-    <a href="sources.html">Sources</a>
-    <a href="submit.html">Submit</a>
-    <a href="portal-checklist.html">Portal checklist</a>
-    <a href="analysis.html">Analysis</a>
-    <a href="validation-protocol.md">Validation protocol</a>
-    <a href="review-log.md">Review log</a>
-    <a href="next-session.md">Next session</a>
-    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
-  </nav>
-  <nav>
-    <a href="session3.html">Session 3 — submission</a>
-    <a href="HOW_TO_SUBMIT.html">How to submit — future candidate</a>
-    <a class="on" href="RESULTS.html">Results and score-attribution correction</a>
-    <a href="H49_RESULTS.html">H49 results</a>
-    <a href="RESEARCH_HYPOTHESES.html">Ranked H49 follow-up hypotheses</a>
-    <a href="why-02778.html">Why 0.2778</a>
-    <a href="hypotheses-s3.html">Hypotheses H47</a>
-    <a href="research.html">Research base and sources</a>
-    <a href="REMAINING_WORK.html">Remaining work and limitations</a>
-    <a href="COMPLIANCE.html">Compliance and review</a>
-  </nav>
-</div></header>
-<div class="wrap">
-<article>
-<h1 id="results-current-evidence-score-attribution-and-limitations">Results — current evidence, score attribution and limitations</h1>
-<blockquote>
-<p><strong>Correction notice (2026-10-06 local review):</strong> an earlier results report treated the H33 0.2778 filename label as an authenticated organizer score and described the H27/H33 raster nesting as a scored natural experiment. That was not supported. The exact mask relationship is verified; the score-to-TIFF mapping is not. The old score-conditioned inversions remain in <code>evidence/inversion/live_anchor_inversion.json</code> as conditional owner-label arithmetic, not observed results.</p>
-</blockquote>
-<h2 id="1-h33h27-byte-level-relationship">1. H33/H27 byte-level relationship</h2>
-<p>The H33 <code>GEMSDOE32</code> zero-outside TIFF (SHA-256 <code>c55bafc470054e8271d1cb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9</code>) has 37,654 positive pixels. It is a strict subset of the 40,199-positive H27 parent from <code>GEMSDOE28</code> (SHA-256 <code>2fc94a38d77f74d4f4ed1a97a83e7bb71a1ceea090515ec641e6681cc47c44c8</code>): 2,545 parent-only pixels, no H33-only pixels. The removed pixels are exactly those within Euclidean distance ≤2 px of the given-catalogue mask (1,201 at 1 px and 1,344 at 2 px). A separate 41,507-positive <code>GEMSDOE27</code> all-increments raster is not this parent.</p>
-<p>These facts are reproduced in the <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/05_why_02778_and_can_we_beat_it.md">reusable knowledge record</a> and the pinned <a href="data/h47b-candidate-uniqueness-20261006.json">mask audit</a>. They establish a mask edit, not a score change.</p>
-<h2 id="2-score-receipt-and-causal-interpretation">2. Score receipt and causal interpretation</h2>
-<p>The public participant-board snapshot contains a 0.2778 observation at rank 13 under <code>extradr19</code>; no organizer receipt maps that entry to the H33 TIFF hash. The H33 owner README at commit <code>b983924b57781edd29b8e249c4923bf33d9902f6</code> explicitly calls the file <strong>UNSCORED</strong> and 0.2747 a projection. The older 0.2708 label also has no receipt mapping to the exact 40,199-positive parent. Owner narratives and filenames are secondary evidence, not organizer score receipts.</p>
-<p>The published DTI algebra supports a marginal-credit rule: for a unit of added prediction mass that yields new kernel-weighted credit <code>w</code>, a local DTI increase requires <code>w &gt; 0.2 × current DTI</code> (0.05556 at a hypothetical DTI of 0.2778). This does not identify the true hidden-label credit of the removed dots. Catalogue pixels are excluded exactly; there is no automatic 200 m neighborhood that becomes penalty-free. A nearby prediction still receives credit only if it covers hidden new-fault truth. See the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">official metric</a> and <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">staff clarification</a>.</p>
-<p><strong>Conclusion:</strong> we cannot honestly answer “why did this exact H33 TIFF score 0.2778?” because that score-to-file link is unauthenticated. Reduced off-target mass is a plausible mechanism, not an established causal explanation.</p>
-<h2 id="3-h49-public-proxy-result-and-slot-decision">3. H49 public-proxy result and slot decision</h2>
-<p>H49 compares a signed-polarity scarp field with a public SGMC off-catalogue proxy. SGMC contains non-fault contacts; it is not the organizer’s hidden target. On this one sweep, the selected H49 arm has selection-half mean DTI 0.10329 versus 0.07108 for the H33 reference and 0.05750 for a mass-matched random mask. These are descriptive measurements from 20 selection blocks, not a leaderboard score or private-label forecast.</p>
-<p>The nominal 90% fixed-arm split-conformal absolute DTI order statistic is 0.03184 (Instrument B; 19 calibration blocks; k=18), with 0.01828 on PM0200. Exchangeability of spatial blocks and a rule fixed independently of calibration outcomes are assumptions. The H49 mean-rule arm was selected after review of the results; its prospective status is not independently verifiable in Git history. Four hundred re-partitions reuse the same 39 blocks and are sensitivity diagnostics, not new independent samples.</p>
-<p>Paired differences against the H33 reference have positive sample means and positive one-sided Student-t lower bounds, but the <strong>90% split-conformal lower bound on fresh-block paired improvement is negative</strong> for both candidate arms. The nominal absolute DTI floor is not a guarantee of improvement over the incumbent. The complete adaptive pipeline has no established conformal guarantee. <strong>Do not spend a submission slot on H49.</strong></p>
-<p>Full per-arm tables are in <a href="H49_RESULTS.html">H49 results</a>; the machine-readable certificate and paired metrics are in the <a href="data/current-artifact.json">current artifact receipt</a> and the <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h49/conformal_certificate.json">repository evidence file</a>. Future candidates and their physical signatures, novelty, expected effect/cost and data-acquisition status are in <a href="RESEARCH_HYPOTHESES.html">the ranked research queue</a>.</p>
-<h2 id="4-output-validity-is-a-separate-gate">4. Output validity is a separate gate</h2>
-<p>The first published H49 copy failed the strict internal-mask contract: masked reads did not treat outside-footprint cells as null. The candidate was rebuilt and the exact published bytes were read back. Current file: <code>gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif</code>, 409,124 bytes, SHA-256 <code>f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060</code>. All 19 gating checks pass; the separate informational whole-grid range flag is also true (20 recorded checks total). The TIFF is one float32 band, 3292 × 3730, EPSG:32611, exact official transform, with an internal mask matching all 5,167,373 official-footprint cells; masked reads are null exactly outside. Raw samples across the entire grid are finite in [0,1], with no nodata tag or sidecar; 37,612 cells are positive. These facts establish format validity for these bytes, not scientific promotion or organizer acceptance.</p>
-<p>A commit-pinned uniqueness audit covered 54 visible public repositories: 555 comparable inventory blobs plus 10 local-history rasters, zero exact mask/value matches, maximum Jaccard 0.292575 (against the prior GEMSDOE47 H49 raster). Three inventory entries were not directly comparable (two not single-band on the exact grid, one ZIP not containing a single TIFF); no repository inventory fetch failed. Global uniqueness is not proven, and inaccessible/unpublished files are outside scope. The full receipt is <a href="data/pinned-public-inventory-uniqueness.json"><code>data/pinned-public-inventory-uniqueness.json</code></a>; the artifact pointer is <a href="data/current-artifact.json"><code>data/current-artifact.json</code></a>. Scientific validation, bounded uniqueness and organizer acceptance remain separate; no score or acceptance is claimed.</p>
-<h2 id="5-sources">5. Sources</h2>
-<ul>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition overview</a></li>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official metric and output format</a></li>
-<li><a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">DrivenData staff clarification on catalogue masking</a></li>
-<li><a href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/b983924b57781edd29b8e249c4923bf33d9902f6/README.md">Pinned GEMSDOE32 owner README</a> — secondary owner source; its H33 section says unscored/projection.</li>
-<li><a href="data/h47b-candidate-uniqueness-20261006.json">H33/H27 mask audit</a> — exact-grid mask comparison, not score authentication.</li>
-</ul>
-</article>
-</div>
-</body>
-</html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Corrected research results · GEMSDOE47</title><meta name="description" content="Scoped local research outcomes; no private score or submission eligibility is claimed.">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body data-site-version="review" data-base=""><a class="skip" href="#main">Skip to results</a>
+<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+<nav aria-label="Main navigation"><a href="index.html">Home</a><a href="evidence.html">Evidence</a><a href="analysis.html">Analysis</a><a href="irregularities.html">Limitations</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>Research-only</strong><span>No artifact is approved for upload.</span></div>
+<main id="main"><section class="page-heading"><span class="eyebrow">Corrected results · 6 October 2026</span><h1>Local evidence.<br>Bounded claims.</h1><p class="lede">Earlier long-form Results content that mapped owner-reported participant scores to TIFFs or inferred causal gains has been withdrawn and archived in <a href="research/retired/RESULTS-session3-original-20261006.md">the retired-report folder</a>.</p></section>
+<section><h2>H47-C1 — current primary research screen</h2><p>Pooled public-catalogue proxy DTI 0.177872; ordinary-terrain baseline 0.180216; fixed-seed random 0.070924. H47-C1 wins 11/22 truth-bearing blocks, below the 15 required. Selected spacing 2.8 px / 280 m; nominal 90% simultaneous marginal block calibration under unverified exchangeability; assumption-conditional lower bound is 0.0000. The secondary SGMC-distance diagnostic loses to random (0.073537 vs 0.083174). <strong>Gate closed; research-only.</strong></p></section>
+<section><h2>H49 — retained research artifact, format fail</h2><p>The nominal 90% split-conformal calculation is an assumption-conditional 0.03184 lower-bound estimate on public SGMC proxy blocks (<code>n=19, k=18</code>), not a private/global floor. Exchangeability is unverified and the selection rule was amended after repeated-split review. The 0.2778 comparison is to an <strong>owner-reported d2.8 reference</strong>, not an authenticated leaderboard incumbent. The exact TIFF is all-finite with no NoData tag: relative to its recorded 5,167,373-cell owner-mirror footprint, 7,111,787 outside cells remain finite, failing the published null-or-NaN-outside rule. H49 did not pass a common promotion gate against the established spatially blocked holdout best. <strong>Not slot-authorized; do not upload.</strong> See <a href="H49_RESULTS.html">corrected H49 review</a> and <a href="data/h49-format-contract-audit.json">format audit</a>.</p></section>
+<section><h2>Other research screens</h2><ul><li>H47-QC: pooled public-catalogue proxy DTI 0.0131689425 vs 0.0141948068 geochemistry-only ablation; nominal 6/7 split-conformal level under unverified exchangeability; assumption-conditional lower bound is 0.0.</li><li>H47-B cross-scale: 0.02755344 vs random 0.03715911. Later single-scale screen: 0.02563947, below cross-scale and random. Mask provenance differs between mirrored sample and feature masks; no portal acceptance follows.</li><li>H47-GSA paired OOF deltas −0.0611 and −0.0450 are conditional on the unverified H33-2-B2/0.2778 association and compare with the owner-reported d2.8 reference. Not an authenticated score comparison or a spatial holdout.</li><li>H47-SAF sign change is bracketed between tested assumed DTIs 0.2200 and 0.2400 only; no exact break-even.</li></ul></section>
+<section><h2>Format and attribution</h2><p>The published GeoTIFF requirements specify null or NaN outside bounds. H47-C1 uses an internal validity mask; its 15/15 local checks do not prove portal acceptance. H49 and the unmasked zero-outside all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and older Session-3 TIFFs fail the explicit outside-nodata check. Separate NaN-outside variants follow owner-supplied mirror conventions only; portal acceptance remains unverified. The prior rejected bytes are unavailable, so the rejection cause is unknown.</p><p>The 0.2778 leaderboard row is participant-level. No organizer receipt maps it to H33-2-B2. Any dependent inversion or model fit is hypothetical/conditional. Deleting masked pixels is not claimed to cause a score gain.</p></section>
+<section><h2>Scope</h2><p>Ratios <code>ρ=F/K</code> and <code>f=F/T</code> are distinct. Three historical λ-scaling score observations do not verify upload or slot counts. Public official pages checked 2026-10-06 do not establish current per-user quota/slot accounting; no diagnostic cost is inferred or called free. No data restore, H47-B rerun, upload, slot use, or λ-probe was performed for this review.</p><p><a href="RESULTS.md">Markdown results</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README</a> · <a href="irregularities.html">Irregularities</a></p></section></main>
+<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="sources.html">Sources</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README</a></div></footer></body></html>

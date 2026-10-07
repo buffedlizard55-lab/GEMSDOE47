@@ -2984,7 +2984,7 @@
     ]
   },
   "protocol_provenance": {
-    "current_clarified_document_sha256": "ce7554722d970bb43c98e7bbdb17cbaa6b23b15de28618df4e2a46feb440f41a",
+    "current_clarified_document_sha256": "8be7d3f85d8a4125481ef082ec29fe1afbfa63afdcd28c32d367ccc075295160",
     "original_frozen_document_sha256": "4cb65d953e575d942f0b1db8d258a36fbc2c8caea32e3409da127d36eaa0c6c6",
     "post_score_clarification_scope": "target interpretation only: labels.tif == 1 is the known-fault catalogue-mask proxy; no inputs, labels, splits, formulas, or scores changed"
   },

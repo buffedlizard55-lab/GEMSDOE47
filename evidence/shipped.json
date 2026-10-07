@@ -2,7 +2,6 @@
  "generated_utc": "20261006T153105Z",
  "budget": 37654,
  "budget2": 44090,
- "n_observations": 13,
  "belief_models": {
   "arm1": {
    "name": "H47-MAXCOV",
@@ -72,18 +71,17 @@
   "uniform_K_provenance": "model-free solve from the r13-lattice diffuse probe (its 300 m halo averages the whole footprint)"
  },
  "frames": {
-  "F1": "13-observation LATI q, ARM 1 belief (incumbent-field proximity only)",
-  "F2": "13-observation LATI q, ARM 2 belief (H47-GSA forward selection)",
-  "F3": "uniform q at the model-free K=12,348 (adversarial to any concentration)",
-  "F4": "USGS SGMC faults >300 m off the given catalogue (official, independent)",
+  "F1": "Conditional 13-row LATI q for the H47-MAXCOV belief; 12 owner-reported pairs plus unverified H33 scenario",
+  "F2": "Conditional 13-row LATI q for H47-GSA forward selection; H33-to-0.2778 score/file mapping unverified",
+  "F3": "uniform diagnostic q at exploratory K=12,348 from the owner-reported r13-lattice pair; not verified hidden-label mass",
+  "F4": "public USGS SGMC faults >300 m off the given catalogue; descriptive reference, not authenticated hidden-target labels",
   "F5": "4-quadrant blocked holdout on the given catalogue, scored unmasked (contaminated)",
-  "coverage": "covered 300 m kernel integral over the evaluated footprint - exact, needs no truth model at all"
+  "coverage": "deterministic 300 m kernel integral over the evaluated footprint; a coverage statistic, not DTI or hidden-target performance"
  },
  "results": [
   {
    "arm": "GEMSDOE47 arm1_maxcov_37654",
    "n_dots": 37654,
-   "reported_live_dti": null,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 3135,
@@ -216,12 +214,12 @@
    "max_jaccard_vs_any_prior": 0.194968,
    "max_frac_overlap_vs_any_prior": 0.688028,
    "distinct_from_every_prior": true,
-   "emission_stopped_by": "budget"
+   "emission_stopped_by": "budget",
+   "owner_reported_dti": null
   },
   {
    "arm": "GEMSDOE47 arm2_h47gsa_37654",
    "n_dots": 37654,
-   "reported_live_dti": null,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 4458,
@@ -354,12 +352,12 @@
    "max_jaccard_vs_any_prior": 0.045732,
    "max_frac_overlap_vs_any_prior": 0.184416,
    "distinct_from_every_prior": true,
-   "emission_stopped_by": "budget"
+   "emission_stopped_by": "budget",
+   "owner_reported_dti": null
   },
   {
    "arm": "GEMSDOE47 arm1_maxcov_44090",
    "n_dots": 44090,
-   "reported_live_dti": null,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 4086,
@@ -492,12 +490,12 @@
    "max_jaccard_vs_any_prior": 0.225648,
    "max_frac_overlap_vs_any_prior": 0.689907,
    "distinct_from_every_prior": true,
-   "emission_stopped_by": "budget"
+   "emission_stopped_by": "budget",
+   "owner_reported_dti": null
   },
   {
    "arm": "GEMSDOE47 arm2_h47gsa_44090",
    "n_dots": 40000,
-   "reported_live_dti": null,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 4713,
@@ -630,12 +628,12 @@
    "max_jaccard_vs_any_prior": 0.047142,
    "max_frac_overlap_vs_any_prior": 0.18135,
    "distinct_from_every_prior": true,
-   "emission_stopped_by": "dti_argmax_reached_at_n=40000"
+   "emission_stopped_by": "dti_argmax_reached_at_n=40000",
+   "owner_reported_dti": null
   },
   {
    "arm": "REFERENCE d2.8",
    "n_dots": 44090,
-   "reported_live_dti": 0.26,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 8607,
@@ -767,12 +765,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.26,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE d1.5",
    "n_dots": 60069,
-   "reported_live_dti": 0.2477,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 11938,
@@ -904,12 +904,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.2477,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE tgc-v2",
    "n_dots": 61328,
-   "reported_live_dti": 0.2449,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 12187,
@@ -1041,12 +1043,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.2449,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE h19-5",
    "n_dots": 121131,
-   "reported_live_dti": 0.1922,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 24167,
@@ -1178,12 +1182,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.1922,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE h19-4",
    "n_dots": 123779,
-   "reported_live_dti": 0.1894,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 24496,
@@ -1315,12 +1321,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.1894,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE h16-1",
    "n_dots": 123939,
-   "reported_live_dti": 0.1855,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 24393,
@@ -1452,12 +1460,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.1855,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE h28-ridge",
    "n_dots": 65236,
-   "reported_live_dti": 0.1839,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 14457,
@@ -1589,12 +1599,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.1839,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE hedge-v2",
    "n_dots": 166519,
-   "reported_live_dti": 0.1563,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 30859,
@@ -1726,12 +1738,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.1563,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE ens12",
    "n_dots": 166519,
-   "reported_live_dti": 0.1563,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 30859,
@@ -1863,12 +1877,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.1563,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE h25-ctx",
    "n_dots": 161366,
-   "reported_live_dti": 0.128,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 44810,
@@ -2000,12 +2016,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.128,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE r13-lattice",
    "n_dots": 204504,
-   "reported_live_dti": 0.0904,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 15368,
@@ -2137,12 +2155,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.0904,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
    "arm": "REFERENCE placeholder",
    "n_dots": 145610,
-   "reported_live_dti": 0.0107,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 13093,
@@ -2274,12 +2294,14 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "owner_reported_dti": 0.0107,
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "score_file_mapping_verified": false
   },
   {
-   "arm": "REFERENCE h33-2-b2",
+   "arm": "CONDITIONAL SCENARIO h33-2-b2 @ assumed 0.2778",
    "n_dots": 37654,
-   "reported_live_dti": 0.2778,
    "on_catalogue": 0,
    "outside_footprint": 0,
    "flank_0_300m": 2171,
@@ -2411,14 +2433,19 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "distinct_from_every_prior": false
+   "distinct_from_every_prior": false,
+   "score_file_mapping_verified": false,
+   "score_used_for_this_diagnostic": null,
+   "owner_reported_dti": null,
+   "assumed_dti_scenario": 0.2778,
+   "score_attribution_status": null
   }
  ],
  "shipped": [
   {
    "arm": "arm1_maxcov",
    "slug": "h47maxcov",
-   "role": "SECONDARY - conservative matched-budget re-emission of the incumbent belief",
+   "role": "RESEARCH ONLY \u2014 NOT FOR PORTAL; project gate closed",
    "budget": 37654,
    "mode": "allfinite",
    "primary_download": false,
@@ -2427,7 +2454,6 @@
    "sha256": "fe434e1c784c7f8b21be7933bb89ee289908521c330030218ae77be4c72edb02",
    "bytes": 304376,
    "n_dots": 37654,
-   "submission_note": "GEMSDOE47 H47-MAXCOV-37654 | 13-observation LATI belief (incumbent-field proximity, K=20,069); exact-marginal-rule max-coverage emission at matched budget; changes the EMISSION RULE, not the geology; UNSCORED",
    "validation": {
     "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif",
     "format": {
@@ -2475,7 +2501,8 @@
      "emitted_mass": 37654.0,
      "band_descriptions": [
       null
-     ]
+     ],
+     "n_infinite": 0
     },
     "checks": {
      "single_band": true,
@@ -2491,23 +2518,53 @@
      "no_nodata_sentinel_values": true,
      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": true,
      "RANGE_nan_tolerant: finite values within [0,1]": true,
-     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
      "RANGE_min_max_reported": true,
-     "RANGE_masked_read: read(masked=True) within [0,1]": true,
-     "RANGE_filled_then_checked": true
+     "RANGE_filled_then_checked": true,
+     "outside_template_footprint_is_nodata": false,
+     "no_infinite_values": true,
+     "RANGE_emitted_values_within_[0,1]": true,
+     "RANGE_masked_read: finite unmasked values within [0,1]": true,
+     "masked_pixels_only_outside_footprint": true
     },
-    "hard_failures": [],
+    "hard_failures": [
+     "outside_template_footprint_is_nodata"
+    ],
     "passes_nan_intolerant_range_check": true,
     "passes_nan_tolerant_range_check": true,
-    "all_checks_passed": true,
-    "recommended_for_upload": true
+    "all_checks_passed": false,
+    "recommended_for_upload": false,
+    "project_submission_authorized": false,
+    "project_gate_status": "CLOSED_RESEARCH_ONLY",
+    "upload_recommendation_scope": "none; local validation is not a portal oracle",
+    "format_review_2026_10_06": {
+     "mode": "allfinite",
+     "outside_template_footprint_is_nodata": false,
+     "basis": "paired retained zero-outside/NaN-outside artifacts and their recorded generation mode",
+     "official_requirement": "null or NaN outside data bounds",
+     "organizer_acceptance_established": false,
+     "masked_pixels_only_outside_footprint": true
+    },
+    "required_local_checks_passed": false,
+    "diagnostic_failures": []
    },
-   "allfinite_vs_nan_identical": true
+   "allfinite_vs_nan_identical": true,
+   "historical_role_at_generation": "SECONDARY - matched-budget re-emission of the owner-reported d2.8 reference-field belief",
+   "historical_primary_download_at_generation": false,
+   "submission_authorized": false,
+   "slot_eligible": false,
+   "historical_submission_note_at_generation": "GEMSDOE47 H47-MAXCOV-37654 | 13-observation LATI belief (owner-reported d2.8-reference-field proximity, K=20,069); exact-marginal-rule max-coverage emission at matched budget; changes the EMISSION RULE, not the geology; UNSCORED",
+   "validation_at_generation_legacy": {
+    "scope": "pre-outside-nodata local validator; superseded for format decisions",
+    "all_checks_passed": true,
+    "hard_failures": [],
+    "legacy_nan_intolerant_range_preference": true,
+    "recommended_for_upload_now": false
+   }
   },
   {
    "arm": "arm1_maxcov",
    "slug": "h47maxcov",
-   "role": "SECONDARY - conservative matched-budget re-emission of the incumbent belief",
+   "role": "RESEARCH ONLY \u2014 NOT FOR PORTAL; project gate closed",
    "budget": 37654,
    "mode": "nan",
    "primary_download": false,
@@ -2516,7 +2573,6 @@
    "sha256": "1c6ff54bbc046371648ce04a7f219c3d47799d0f6137da1284d2708d4348c80a",
    "bytes": 355846,
    "n_dots": 37654,
-   "submission_note": "GEMSDOE47 H47-MAXCOV-37654 | 13-observation LATI belief (incumbent-field proximity, K=20,069); exact-marginal-rule max-coverage emission at matched budget; changes the EMISSION RULE, not the geology; UNSCORED",
    "validation": {
     "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif",
     "format": {
@@ -2526,7 +2582,7 @@
      "crs": "EPSG:32611",
      "width": 3292,
      "height": 3730,
-     "nodata": NaN,
+     "nodata": "NaN",
      "shape": [
       3730,
       3292
@@ -2564,7 +2620,8 @@
      "emitted_mass": 37654.0,
      "band_descriptions": [
       null
-     ]
+     ],
+     "n_infinite": 0
     },
     "checks": {
      "single_band": true,
@@ -2580,32 +2637,62 @@
      "no_nodata_sentinel_values": true,
      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
      "RANGE_nan_tolerant: finite values within [0,1]": true,
-     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
      "RANGE_min_max_reported": true,
-     "RANGE_masked_read: read(masked=True) within [0,1]": true,
-     "RANGE_filled_then_checked": true
+     "RANGE_filled_then_checked": true,
+     "outside_template_footprint_is_nodata": true,
+     "no_infinite_values": true,
+     "RANGE_emitted_values_within_[0,1]": true,
+     "RANGE_masked_read: finite unmasked values within [0,1]": true,
+     "masked_pixels_only_outside_footprint": true
     },
     "hard_failures": [],
     "passes_nan_intolerant_range_check": false,
     "passes_nan_tolerant_range_check": true,
     "all_checks_passed": true,
-    "recommended_for_upload": false
+    "recommended_for_upload": false,
+    "project_submission_authorized": false,
+    "project_gate_status": "CLOSED_RESEARCH_ONLY",
+    "upload_recommendation_scope": "none; local validation is not a portal oracle",
+    "format_review_2026_10_06": {
+     "mode": "nan",
+     "outside_template_footprint_is_nodata": true,
+     "basis": "paired retained zero-outside/NaN-outside artifacts and their recorded generation mode",
+     "official_requirement": "null or NaN outside data bounds",
+     "organizer_acceptance_established": false,
+     "masked_pixels_only_outside_footprint": true
+    },
+    "required_local_checks_passed": true,
+    "diagnostic_failures": [
+     "all_pixels_finite",
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))"
+    ]
    },
-   "allfinite_vs_nan_identical": true
+   "allfinite_vs_nan_identical": true,
+   "historical_role_at_generation": "SECONDARY - matched-budget re-emission of the owner-reported d2.8 reference-field belief",
+   "historical_primary_download_at_generation": false,
+   "submission_authorized": false,
+   "slot_eligible": false,
+   "historical_submission_note_at_generation": "GEMSDOE47 H47-MAXCOV-37654 | 13-observation LATI belief (owner-reported d2.8-reference-field proximity, K=20,069); exact-marginal-rule max-coverage emission at matched budget; changes the EMISSION RULE, not the geology; UNSCORED",
+   "validation_at_generation_legacy": {
+    "scope": "pre-outside-nodata local validator; superseded for format decisions",
+    "all_checks_passed": true,
+    "hard_failures": [],
+    "legacy_nan_intolerant_range_preference": false,
+    "recommended_for_upload_now": false
+   }
   },
   {
    "arm": "arm2_h47gsa",
    "slug": "h47gsa",
-   "role": "PRIMARY - the unique GEMSDOE47 submission (Final Prize Round has unlimited submissions)",
+   "role": "RESEARCH ONLY \u2014 NOT FOR PORTAL; project gate closed",
    "budget": 37654,
    "mode": "allfinite",
-   "primary_download": true,
+   "primary_download": false,
    "filename": "gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif",
    "name": "gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e",
    "sha256": "7bfc92ac536cf83a5caf24a815353ba151862f5ad2fbec4461b89353bafb3146",
    "bytes": 245652,
    "n_dots": 37654,
-   "submission_note": "GEMSDOE47 H47-GSA-37654 | LATI forward selection over an a-priori geothermal pool (geod_shearrate, rad_ThK, thermal_warm_prox, geod_dilaterate), K=15,638; FAILED cross-fitted validation (-0.061 / -0.045 out of fold); do NOT spend a weekly slot; UNSCORED",
    "validation": {
     "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif",
     "format": {
@@ -2653,7 +2740,8 @@
      "emitted_mass": 37654.0,
      "band_descriptions": [
       null
-     ]
+     ],
+     "n_infinite": 0
     },
     "checks": {
      "single_band": true,
@@ -2669,23 +2757,53 @@
      "no_nodata_sentinel_values": true,
      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": true,
      "RANGE_nan_tolerant: finite values within [0,1]": true,
-     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
      "RANGE_min_max_reported": true,
-     "RANGE_masked_read: read(masked=True) within [0,1]": true,
-     "RANGE_filled_then_checked": true
+     "RANGE_filled_then_checked": true,
+     "outside_template_footprint_is_nodata": false,
+     "no_infinite_values": true,
+     "RANGE_emitted_values_within_[0,1]": true,
+     "RANGE_masked_read: finite unmasked values within [0,1]": true,
+     "masked_pixels_only_outside_footprint": true
     },
-    "hard_failures": [],
+    "hard_failures": [
+     "outside_template_footprint_is_nodata"
+    ],
     "passes_nan_intolerant_range_check": true,
     "passes_nan_tolerant_range_check": true,
-    "all_checks_passed": true,
-    "recommended_for_upload": true
+    "all_checks_passed": false,
+    "recommended_for_upload": false,
+    "project_submission_authorized": false,
+    "project_gate_status": "CLOSED_RESEARCH_ONLY",
+    "upload_recommendation_scope": "none; local validation is not a portal oracle",
+    "format_review_2026_10_06": {
+     "mode": "allfinite",
+     "outside_template_footprint_is_nodata": false,
+     "basis": "paired retained zero-outside/NaN-outside artifacts and their recorded generation mode",
+     "official_requirement": "null or NaN outside data bounds",
+     "organizer_acceptance_established": false,
+     "masked_pixels_only_outside_footprint": true
+    },
+    "required_local_checks_passed": false,
+    "diagnostic_failures": []
    },
-   "allfinite_vs_nan_identical": true
+   "allfinite_vs_nan_identical": true,
+   "historical_role_at_generation": "RETRACTED historical role note: an earlier draft called this a submission and assumed the Final Prize Round had unlimited submissions; that quota was not verified. Current status: research-only; no upload authorized.",
+   "historical_primary_download_at_generation": true,
+   "submission_authorized": false,
+   "slot_eligible": false,
+   "historical_submission_note_at_generation": "Superseded generation-time note. Earlier copy used weekly-slot language; current per-user quota/slot accounting is unverified. This raster is research-only, unscored, and not authorized for upload.",
+   "validation_at_generation_legacy": {
+    "scope": "pre-outside-nodata local validator; superseded for format decisions",
+    "all_checks_passed": true,
+    "hard_failures": [],
+    "legacy_nan_intolerant_range_preference": true,
+    "recommended_for_upload_now": false
+   }
   },
   {
    "arm": "arm2_h47gsa",
    "slug": "h47gsa",
-   "role": "PRIMARY - the unique GEMSDOE47 submission (Final Prize Round has unlimited submissions)",
+   "role": "RESEARCH ONLY \u2014 NOT FOR PORTAL; project gate closed",
    "budget": 37654,
    "mode": "nan",
    "primary_download": false,
@@ -2694,7 +2812,6 @@
    "sha256": "c11744b1c4c5694c6485a287f7c6391b2da2ddaf2a90df70a63998c8aee57893",
    "bytes": 296722,
    "n_dots": 37654,
-   "submission_note": "GEMSDOE47 H47-GSA-37654 | LATI forward selection over an a-priori geothermal pool (geod_shearrate, rad_ThK, thermal_warm_prox, geod_dilaterate), K=15,638; FAILED cross-fitted validation (-0.061 / -0.045 out of fold); do NOT spend a weekly slot; UNSCORED",
    "validation": {
     "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif",
     "format": {
@@ -2704,7 +2821,7 @@
      "crs": "EPSG:32611",
      "width": 3292,
      "height": 3730,
-     "nodata": NaN,
+     "nodata": "NaN",
      "shape": [
       3730,
       3292
@@ -2742,7 +2859,8 @@
      "emitted_mass": 37654.0,
      "band_descriptions": [
       null
-     ]
+     ],
+     "n_infinite": 0
     },
     "checks": {
      "single_band": true,
@@ -2758,18 +2876,49 @@
      "no_nodata_sentinel_values": true,
      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
      "RANGE_nan_tolerant: finite values within [0,1]": true,
-     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
      "RANGE_min_max_reported": true,
-     "RANGE_masked_read: read(masked=True) within [0,1]": true,
-     "RANGE_filled_then_checked": true
+     "RANGE_filled_then_checked": true,
+     "outside_template_footprint_is_nodata": true,
+     "no_infinite_values": true,
+     "RANGE_emitted_values_within_[0,1]": true,
+     "RANGE_masked_read: finite unmasked values within [0,1]": true,
+     "masked_pixels_only_outside_footprint": true
     },
     "hard_failures": [],
     "passes_nan_intolerant_range_check": false,
     "passes_nan_tolerant_range_check": true,
     "all_checks_passed": true,
-    "recommended_for_upload": false
+    "recommended_for_upload": false,
+    "project_submission_authorized": false,
+    "project_gate_status": "CLOSED_RESEARCH_ONLY",
+    "upload_recommendation_scope": "none; local validation is not a portal oracle",
+    "format_review_2026_10_06": {
+     "mode": "nan",
+     "outside_template_footprint_is_nodata": true,
+     "basis": "paired retained zero-outside/NaN-outside artifacts and their recorded generation mode",
+     "official_requirement": "null or NaN outside data bounds",
+     "organizer_acceptance_established": false,
+     "masked_pixels_only_outside_footprint": true
+    },
+    "required_local_checks_passed": true,
+    "diagnostic_failures": [
+     "all_pixels_finite",
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))"
+    ]
    },
-   "allfinite_vs_nan_identical": true
+   "allfinite_vs_nan_identical": true,
+   "historical_role_at_generation": "RETRACTED historical role note: an earlier draft called this a submission and assumed the Final Prize Round had unlimited submissions; that quota was not verified. Current status: research-only; no upload authorized.",
+   "historical_primary_download_at_generation": false,
+   "submission_authorized": false,
+   "slot_eligible": false,
+   "historical_submission_note_at_generation": "Superseded generation-time note. Earlier copy used weekly-slot language; current per-user quota/slot accounting is unverified. This raster is research-only, unscored, and not authorized for upload.",
+   "validation_at_generation_legacy": {
+    "scope": "pre-outside-nodata local validator; superseded for format decisions",
+    "all_checks_passed": true,
+    "hard_failures": [],
+    "legacy_nan_intolerant_range_preference": false,
+    "recommended_for_upload_now": false
+   }
   }
  ],
  "superseded_outputs_removed": [
@@ -2811,15 +2960,82 @@
   ],
   "mean_delta": -0.05307504420444903,
   "ship": false,
-  "rule": "ship only if the candidate beats the incumbent on the mean out-of-fold predicted DTI in BOTH folds",
-  "statement": "CROSS-FIT VALIDATION FAILED - the apparent in-fold advantage does not survive out-of-fold scoring, so the a-priori geological pool does NOT support a candidate that beats the incumbent. Under the project rule ('never spend a weekly submission slot on an idea that hasn't beaten the current holdout best') the honest deliverable is the incumbent-matched re-emission with the smallest out-of-fold deficit, plus the negative result."
+  "rule": "Current project gate: no submission unless a genuinely new candidate beats the established spatially blocked holdout best and controls under a preregistered rule.",
+  "statement": "This cross-fit uses a 13-row fit with twelve owner-reported pairs plus the unverified H33 score/file scenario. Its negative deltas are conditional and are not a validated private-target estimate; no submission is authorized.",
+  "historical_statement_at_generation": "Superseded historical statement: an earlier version invoked a weekly slot and recommended re-emitting the owner-reported d2.8 reference raster, inappropriately treating it as a leaderboard incumbent. Current quota/slot accounting is unverified, and no re-emission is authorized under the current promotion gate.",
+  "historical_rule_at_generation": "Superseded historical rule: compare against the owner-reported d2.8 reference raster on mean out-of-fold predicted DTI in both folds. That raster is not the established spatially blocked holdout best; the earlier incumbent label was inappropriate."
  },
  "n_priors_compared": 13,
  "seconds": 1180.7,
  "arm_roles": {
-  "arm2_h47gsa": "PRIMARY. The genuinely novel submission: a LATI-forward-selected geothermal-fault belief (geodetic shear strain rate, LOW Th/K hydrothermal alteration, GDR thermal-discharge proximity, dilatation rate) emitted by the exact marginal rule. Max Jaccard vs any of the 13 prior rasters = 0.0457, so it is not a copy of anything in the collection. It FAILED cross-fitted validation (-0.061 / -0.045 out of fold), which is why it is aimed at the Final Prize Round (3 Sep - 16 Oct, UNLIMITED submissions) rather than at a scarce weekly slot.",
-  "arm1_maxcov": "SECONDARY, and NOT RECOMMENDED. Its belief layer is proximity to the incumbent d2.8 raster, so the incumbent itself is the optimal emission under that belief - no re-emission can beat it, and indeed it loses on every frame including the exact, truth-model-free covered-kernel integral (219,259 / 258,661 vs the incumbent's 341,261). Kept as the low-variance control and as evidence for that argument."
+  "arm2_h47gsa": "RESEARCH ONLY, NOT PROMOTED. The 13-row model includes the unverified H33-to-0.2778 scenario; the cross-fit is negative and H33-dependent. No portal upload or submission slot is authorized.",
+  "arm1_maxcov": "RESEARCH ONLY, NOT PROMOTED. It is a matched-budget re-emission of an owner-reported d2.8-reference-field belief, not a new validated detector. No portal upload is authorized."
  },
- "headline_finding": "No GEMSDOE47 arm beats the live-0.2600 incumbent on ANY of the five frames. That is the honest result of this project, and it is consistent with the family's whole history: 44 sibling repositories converged on 0.26-0.28 and none reached the community top of 0.3262, because the missing information is not in the public 100 m layers they all used.",
- "recommendation": "Do NOT spend a weekly Development Round slot on either arm. Submit ARM 2 (H47-GSA) in the Final Prize Round, where submissions are unlimited and an unvalidated high-variance arm is free. If a weekly slot must be used, the evidence says to re-use the incumbent geometry rather than any GEMSDOE47 arm."
+ "headline_finding": "Current decision: no candidate is promoted. The local five-frame comparison in this historical build is exploratory and does not identify private leaderboard performance or a current spatially blocked best.",
+ "recommendation": "Do NOT submit either arm or use a competition slot. Preserve the slot until a genuinely new, unique candidate beats the established spatially blocked holdout best and controls under a preregistered rule with adequate label coverage.",
+ "historical_recommendation_at_generation": "RETRACTED historical recommendation. An earlier version assumed an unlimited Final Prize Round and described an unvalidated upload as free; neither quota nor cost was verified. Current recommendation: do not submit either arm. Current per-user quota and slot accounting are unknown.",
+ "historical_arm_roles_at_generation": {
+  "arm2_h47gsa": "RETRACTED historical arm role. An earlier version recommended submission based on a quota assumption and described the round as unlimited. The candidate failed conditional cross-fit, and no submission is authorized; quota and slot accounting remain unknown.",
+  "arm1_maxcov": "RETRACTED historical role analysis. The d2.8 reference-field-only arm is a local comparison, not the established spatially blocked holdout best or a performance argument. Current status: research-only; no upload authorized."
+ },
+ "status_audit_2026_10_06": {
+  "owner_reported_score_raster_pairs": 12,
+  "conditional_h33_scenario_rows": 1,
+  "h33_assumed_dti": 0.2778,
+  "h33_score_file_mapping_verified": false,
+  "crossfit_scope": "the paired out-of-fold deltas in this artifact include the unverified H33-to-0.2778 assumption",
+  "current_decision": "RESEARCH_ONLY_NOT_FOR_PORTAL",
+  "submission_slot_authorized": false,
+  "reason": "no candidate has demonstrated a gain over an established spatially blocked holdout best under the current gate"
+ },
+ "observation_scope": {
+  "model_rows": 13,
+  "owner_reported_pairs": 12,
+  "conditional_scenario": "H33-2-B2 assumed at DTI 0.2778; score/file mapping unverified",
+  "organizer_receipts_available": false
+ },
+ "status_reviewed_utc_date": "2026-10-06",
+ "historical_frames_at_generation": {
+  "F1": "13-observation LATI q, ARM 1 belief (owner-reported d2.8-reference-field proximity only)",
+  "F2": "13-observation LATI q, ARM 2 belief (H47-GSA forward selection)",
+  "F3": "uniform diagnostic q at exploratory K=12,348 from the owner-reported r13-lattice pair; not verified hidden-label mass",
+  "F4": "public USGS SGMC faults >300 m off the given catalogue; descriptive reference, not authenticated hidden-target labels",
+  "F5": "4-quadrant blocked holdout on the given catalogue, scored unmasked (contaminated)",
+  "coverage": "deterministic 300 m kernel integral over the evaluated footprint; a coverage statistic, not DTI or hidden-target performance"
+ },
+ "historical_fields_audit_2026_10_06": {
+  "status": "SUPERSEDED_NOT_CURRENT",
+  "scope": "Generation-time recommendations and arm roles are retained only as historical audit text.",
+  "unsupported_claims": [
+   "The claim of an unlimited Final Prize Round submission quota is not established by the accessible official pages reviewed.",
+   "The claim that an unvalidated submission is free of rank or opportunity cost is not established.",
+   "The phrase scarce weekly slot is not an authenticated current per-user quota for this competition."
+  ],
+  "current_recommendation": "Do not submit either arm or use a portal slot; no artifact is promoted."
+ },
+ "submission_cost_audit": {
+  "reviewed_utc_date": "2026-10-06",
+  "official_sources": [
+   "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+   "https://www.drivendata.org/competitions/306/competition-doe-gems/rules/"
+  ],
+  "lambda_probe_design_score_observations": 3,
+  "lambda_1_anchor_score_file_mapping_verified": false,
+  "current_per_user_quota_or_slot_accounting": "Not stated in the accessible official pages; exact platform cost unverified.",
+  "probe_authorized": false,
+  "portal_upload_count_and_slot_cost": "Unknown. Three score observations describe the theoretical measurement design; the lambda=1 score/file association is unverified, and accessible official pages do not establish current per-user quota or slot accounting.",
+  "no_cost_claim": "Do not call the diagnostic free or assign a fixed number of slots."
+ },
+ "model_rows": 13,
+ "format_review_2026_10_06": {
+  "reviewed_utc": "2026-10-06",
+  "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "published_outside_bounds_requirement": "null or NaN",
+  "scope": "metadata/local-format review of retained artifacts only; no candidate rerun, dataset restore, portal upload, or slot use",
+  "mirror_provenance": "the available sample template is from an owner-supplied mirror and is not organizer-authenticated",
+  "organizer_acceptance_established": false,
+  "prior_range_rejection_cause": "unknown; exact rejected TIFF bytes are unavailable",
+  "upload_recommendation": "none",
+  "inside_bounds_requirement": "finite unmasked values in [0,1]"
+ }
 }

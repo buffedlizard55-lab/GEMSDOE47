@@ -1,84 +1,74 @@
-# H49 round — blocked-sweep results, review findings, and limits
+# H49 round — exploratory public-proxy research (not a submission certificate)
 
-*Generated 2026-10-07 13:07 UTC by `scripts/report_h49.py` from the evidence files. Every figure below is read out of a committed JSON receipt; nothing here is typed by hand.*
+> **RESEARCH ONLY · NOT SLOT-AUTHORIZED · DO NOT UPLOAD.** The exact TIFF is preserved for auditability, but its local read-back has 12,279,160/12,279,160 finite cells, no NaNs, no NoData tag, and a valid GDAL mask on every cell. The original build receipt records a 5,167,373-cell footprint, leaving 7,111,787 outside cells finite rather than null/NaN. It fails the published outside-null/NaN requirement. See the [deployed format-audit copy](data/h49-format-contract-audit.json) and the [canonical evidence copy](../evidence/h49/format-contract-audit.json).
 
-## The two instruments
+The prior optional portal-note draft is withdrawn. **Do not copy it into a portal.** No submission slot was authorized or used. This report preserves the research measurements but corrects the prior promotion, attribution, and format claims.
 
-- **Instrument A** (`evidence/sweep/sweep_h49.json`): 39 usable 8×8 spatial blocks, 15,555 scored rows, five prevalence-matched instruments built from the *given* catalogue (PM0200, PM0112, PM0294, A1, A2). Truth = whole catalogue components held out of the visible catalogue. It measures *ordering against mapped faults* and is optimistic for any topographic field.
-- **Instrument B** (`evidence/sweep/sweep_h49b.json`): 39 usable 8×8 blocks, 4,719 scored rows, truth = USGS SGMC traces more than 3 px (300 m) from the given catalogue, whole components, prevalence-matched to `p0200`. The given catalogue is masked in full, consistent with the public scoring clarification, but SGMC includes lithologic contacts and other non-fault traces. Treat Instrument B as a public proxy, not the organizer's hidden target population.
+## Provenance and scope
 
-Both sweeps use one seeded 50/50 split: 20 selection blocks and 19 calibration blocks (with instrument-specific usable-block counts). The halves are disjoint for a fixed arm. However, the workflow later chose between the floor and mean rules after reviewing the full sweep/re-split results, so the calibration half is not an auditable untouched holdout for the final adaptive rule.
+The H49 inputs are hash-pinned **owner-supplied mirror** bytes, not organizer-authenticated inputs. Instrument A uses held-out components of the supplied public catalogue; Instrument B uses USGS SGMC traces more than 300 m from that catalogue. Both are public proxy instruments, not the competition's private truth or a verified sample of its scoring population. SGMC also includes pre-Quaternary and lithologic contacts, which can favor topographic detectors.
 
-## Selected operating point — research-only; slot gate closed
+The 0.2778 comparator is an **owner-reported d2.8 reference raster**. The association between that raster and a participant-reported score is unverified; it is not an authenticated leaderboard incumbent. All H49 comparisons with it are local proxy measurements only.
 
-The artifact remains downloadable for review, but **do not spend a submission slot**. The published selection procedure is not prospectively auditable from the repository, and the paired 90 % conformal lower bound on improvement over the incumbent is negative.
+## The two proxy instruments
 
-`R7_scarp9_polarity` · `disk` · spacing **2.8 px (280 m)** · density **7.37 per 1,000 scored px** · catalogue-flank buffer **3 px (300 m)**
+- **Instrument A** (`evidence/sweep/sweep_h49.json`): 39 usable 8×8 spatial blocks, 15,555 scored rows, and five prevalence-matched instruments built from the supplied catalogue (PM0200, PM0112, PM0294, A1, A2). It measures ordering against mapped catalogue components and is optimistic for topographic fields.
+- **Instrument B** (`evidence/sweep/sweep_h49b.json`): 39 usable 8×8 blocks, 4,719 scored rows; truth is whole USGS SGMC components more than 3 px (300 m) from the supplied catalogue, prevalence-matched to `p0200`. Masking the given catalogue reproduces a geometric mask used in the challenge; it does **not** make SGMC a proxy proven representative of hidden scoring labels.
 
-- shipped rule: maximise the selection-half mean DTI on Instrument B (amendment; see the module docstring)
-- saved floor-rule arm (`docs/research/h49b-instrument-b-preregistration.md`) selected `R2_scarp9_topo` / `oriented4` / `s3.6_d14_b2`; its nominal fixed-arm Instrument-B floor is 0.05519. The addendum says it was written before the sweep, but Git history cannot independently verify that: the addendum, sweep evidence and certificate first appear together in commit `409c407` (2026-10-07 03:35 UTC); the sweep file records generation at 03:17 UTC. This is not proof the draft was late, only that prospective timing is not auditable from this repository.
-- amendment: The mean-rule stability summary comes from 400 Monte Carlo re-partitions of the same 39 spatial blocks; observations are reused, so these are not 400 independent validation samples. The floor-rule ranking is sensitive to the few lower-tail order statistics among about 20 selection blocks. This documents why the rule was amended, not prospective evidence: the calibration results were already visible in the full analysis, so neither fixed-arm certificate proves validity for the adaptive workflow.
+The reported split allocated 20 blocks to selection and 19 to calibration. The split-conformal calculation below is **conditional on block-score exchangeability**, which is unverified geologically. It is a proxy estimate, not a guarantee for private labels, a full map, or a leaderboard score.
 
-## Nominal split-conformal diagnostic — assumptions and scope
+## Selected operating point and post-hoc amendment
 
-For a rule fixed independently of calibration outcomes, the Instrument-B order statistic is 0.03184 at nominal 90 % (α = 0.1, n = 19 calibration blocks, order statistic k = 18). This is conditional on exchangeable spatial blocks and a fixed rule. Since the mean-rule change was made after the sweep, and the same 39 blocks informed that change, do **not** interpret this as a prospective guarantee for the complete adaptive procedure, for a geographic subregion, or for the organizer's private labels.
+`R7_scarp9_polarity` · `disk` · spacing **2.8 px (280 m)** · density **7.37 per 1,000 scored pixels** · catalogue-flank buffer **3 px (300 m)**.
 
-| quantity | Instrument B (SGMC off-catalogue, primary) | Instrument A (PM0200, corroborating) |
+The H49-B addendum preregistered maximizing a nominal 90% floor on the selection half. The later reported operating point instead maximizes the selection-half mean on Instrument B, after an audit of 400 repeated splits was examined. That is a **post-hoc rule amendment**. Reusing these same 39 blocks for the repeated-split analysis does not create an independent validation set; formal coverage for the post-hoc amended selection process is not established. The preregistered choice (`R2_scarp9_topo` / `oriented4` / `s3.6_d14_b2`) had a separate calculated Instrument-B lower-bound estimate of 0.05519, also conditional on the same assumptions.
+
+## Nominal split-conformal calculation — assumption-conditional only
+
+The reported calculation is **nominal 90%** (`α = 0.10`, `n = 19` calibration blocks, order statistic `k = 18`). Its Instrument-B lower-bound estimate is **0.03184**; Instrument A's corresponding estimate is 0.01828. These numbers describe the calculation on this public proxy split only. Because exchangeability is unverified and the operating rule was amended after inspecting repeated-split results, do **not** call either number a certified, guaranteed, private-target, or map-wide performance floor.
+
+| Quantity | Instrument B (SGMC off-catalogue proxy) | Instrument A (PM0200 catalogue proxy) |
 |---|---:|---:|
-| nominal fixed-arm floor (α = 0.1) | **0.03184** | 0.01828 |
-| floor at α = 0.05 (95 %) | 0.01793 | vacuous |
-| floor at α = 0.20 (80 %) | 0.05783 | 0.03595 |
-| floor at α = 0.25 (75 %) | 0.05824 | 0.03893 |
-| floor at α = 0.30 (70 %) | 0.07383 | 0.04854 |
-| calibration-half mean | 0.10090 (min 0.01793) | 0.08607 |
-| selection-half mean | 0.10329 (min 0.00708) | 0.07553 |
-| leave-one-out worst floor | 0.01793 | 0.01828 |
-| DKW mean floor (mean over blocks, not a single block) | 0.04098 | 0.03801 |
-| blocks below the floor: calibration / selection (19 / 20) | 1 / 1 | 0 / 1 |
-| empirical violation rate: calibration / selection | 0.0526 / 0.0500 | 0.0000 / 0.0526 |
+| Assumption-conditional lower-bound estimate, nominal 90% | **0.03184** | 0.01828 |
+| Estimate at nominal 95% (`α = 0.05`) | 0.01793 | vacuous |
+| Estimate at nominal 80% (`α = 0.20`) | 0.05783 | 0.03595 |
+| Estimate at nominal 75% (`α = 0.25`) | 0.05824 | 0.03893 |
+| Estimate at nominal 70% (`α = 0.30`) | 0.07383 | 0.04854 |
+| Calibration-half mean (minimum) | 0.10090 (0.01793) | 0.08607 |
+| Selection-half mean (minimum) | 0.10329 (0.00708) | 0.07553 |
+| Leave-one-out worst estimate | 0.01793 | 0.01828 |
+| DKW mean estimate (mean over blocks, not one block) | 0.04098 | 0.03801 |
+| Calibration / selection blocks below the calculated estimate | 1 / 1 of 19 / 20 | 0 / 1 |
+| Empirical violation rate, calibration / selection | 0.0526 / 0.0500 | 0.0000 / 0.0526 |
 
-**Repeated-partition stability diagnostic** (400 Monte Carlo re-partitions of the same 39 blocks; block observations are reused, so these are not independent validation samples): floor p05 0.01793, median 0.03847, mean 0.04391; mean violation rate on the other half 0.0807 vs nominal α = 0.1. This summarizes sensitivity/stability only; it does not create new holdout evidence or restore prospective validity to the rule amendment.
+The reported repeated-split audit used 400 of 400 requested re-splits of the same blocks (selection included): lower-bound estimate p05 0.01793, median 0.03847, mean 0.04391; mean violation rate on the non-calibration half 0.0807 versus nominal `α = 0.10`, median 0.0526. **43.5%** of those re-splits had a violation rate above nominal alpha. These are descriptive stability diagnostics, not new independent samples or a validation of the amended rule.
 
-Across those reused-block re-partitions, the mean rule selects: `R7_scarp9_polarity/disk/s2.8_d7.37_b3` 221× (55 %), `R7_scarp9_polarity/disk/s2.8_d14_b3` 84× (21 %), `R2_scarp9_topo/oriented4/s2.8_d14_b3` 52× (13 %), `R2_scarp9_topo/disk/s2.8_d14_b3` 32× (8 %). The saved floor rule selects R2_scarp9_topo/disk/s2.8_d14_b3 129×, R7_scarp9_polarity/disk/s2.8_d14_b3 127×, R2_scarp9_topo/oriented4/s3.6_d14_b3 105×. These frequencies are conditional on this same set of 39 blocks and are not evidence from new geology.
+## Local proxy comparisons — not promotion gates
 
-### Paired differences versus the incumbent
+The archived calculations show a selection-half mean of 0.10329 for the selected point versus 0.05750 for a fixed-seed random proxy control. Against the **owner-reported d2.8 reference raster**, the corresponding local proxy mean is 0.07108. Neither comparison is a leaderboard comparison, an authenticated-incumbent comparison, or evidence that H49 beats the established spatially blocked holdout best.
 
-Positive means the candidate beats the H33 reference mask on that same block. The Student-t lower bound is assumption-dependent; the split-conformal lower bound is an order statistic for a fresh exchangeable block, conditional on a fixed arm. Both candidate arms have a negative conformal lower bound, so a positive per-block improvement is not established at 90 %, even though the sample mean is positive.
+| Historical calculation | Value | Correct interpretation |
+|---|---:|---|
+| Positive nominal 90% lower-bound estimate | 0.03184 | Proxy calculation, conditional on unverified exchangeability and subject to the post-hoc amendment |
+| Fixed-seed random proxy selection-half mean | 0.05750 | Local public-proxy control only |
+| Owner-reported d2.8 reference proxy selection-half mean | 0.07108 | Comparator identity/score mapping unverified; not a leaderboard incumbent |
+| Selected H49 proxy selection-half mean | 0.10329 | Public proxy result; not private/global performance |
 
-| arm | half | n | mean ΔDTI | candidate / incumbent wins | paired-mean one-sided 90% t LCB | paired-difference 90% conformal lower bound | sign-test p (greater) |
-|---|---|---:|---:|---:|---:|---:|---:|
-| shipped arm | selection | 20 | +0.03221 | 13 / 7 | +0.01671 | -0.03342 | 0.1316 |
-| shipped arm | calibration | 19 | +0.03890 | 15 / 4 | +0.02138 | -0.01050 | 0.0096 |
-| rule described as preregistered | selection | 20 | +0.01896 | 12 / 8 | +0.00379 | -0.05947 | 0.2517 |
-| rule described as preregistered | calibration | 19 | +0.02657 | 14 / 5 | +0.00862 | -0.02479 | 0.0318 |
+## Preserved artifact and bounded novelty check
 
-## Descriptive screen checks — not slot authorization
+- File: [`gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif`](downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif), retained as research evidence only.
+- SHA-256: `a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b`; 316,629 bytes.
+- Local grid read-back: one float32 band, 3292 × 3730, EPSG:32611, 100 m; 37,612 positive unit dots. These properties do not cure the outside-null/NaN failure above.
+- The earlier comparison covered 16 repository rasters: maximum Jaccard 0.292575 and maximum containment 0.452701. This is a **bounded local comparison**, not proof of global uniqueness or scientific novelty.
+- The previous `all_checks_passed` builder receipt is retained as historical evidence. Its finiteness check did not establish that outside-footprint cells were null or NaN. The corrected read-back and scope are recorded in [`format-contract-audit.json`](../evidence/h49/format-contract-audit.json).
 
-| gate | value | pass |
-|---|---|---|
-| positive nominal fixed-arm Instrument-B floor | 0.03184 | **True** |
-| credible at α (k ≤ n) | k = 18, n = 19 | **True** |
-| beats the fixed-seed random control on the B selection mean | 0.10329 vs 0.05750 | **True** |
-| descriptive B selection-half mean vs the 0.2778-labelled H33 reference | 0.10329 vs 0.07108 | **True** (post-selection comparison) |
-| shipped arm is the isotropic emitter itself | True | — |
-| independently auditable preregistration + positive 90% paired-improvement floor | not satisfied | **False — do not spend a slot** |
+### Density sweep retained from the original report
 
-## The written artifact
+These are reported block-sweep summaries, not performance forecasts. Instrument B remains a public SGMC proxy with the provenance and domain limitations described above.
 
-- `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` — 17 local/archive raster comparisons, maximum positive-mask Jaccard 0.292575 (`docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif`), maximum containment 0.452701, local exact-match flag `is_unique = True`. This bounded local check is not a global uniqueness proof.
-- Pinned public inventory: 54 commit-pinned public repositories; 555 comparable inventory blobs plus 10 local-history rasters (565 comparisons total); 0 exact mask/value matches; maximum Jaccard 0.292575 (GEMSDOE47/docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif); 3 entries excluded from direct comparison (2 not single band exact grid, 1 not single tiff zip); 0 repository inventories failed. The inventory is scoped to visible public owner repositories, not global; `global_unique_proven = False`. Full machine-readable receipt: `evidence/h49/pinned-public-inventory-uniqueness.json`. Website copy: `docs/data/pinned-public-inventory-uniqueness.json`.
-- 37,612 unit dots = 7.370 per 1,000 scored px = 0.7279 % of the footprint; engine `nms_disk (field-ordered isotropic NMS)`
-- exact published TIFF: 409,124 bytes, SHA-256 `f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060`; one float32 band, 3292 × 3730, EPSG:32611, no nodata tag; internal mask matches the 5,167,373-cell official footprint and masked reads are null outside.
-- format/read-back: 19/19 gating checks pass (`all_checks_passed = True`); informational whole-grid range flag is True; raw full-grid cells are finite in [0,1], with 37,612 positives. Binary values True; portal note 168/200 chars.
-- The largest local overlap is 0.2926 Jaccard and 0.4527 containment. It is a different mask, but still shares the same broad persistence/density detector lineage; the polarity-scored field and larger catalogue buffer are incremental changes, not an independent detector family. See the pinned public-inventory audit for a bounded exact-grid check.
+**Instrument B** — `R7_scarp9_polarity`, `disk`, 2.8 px, 300 m flank:
 
-## The density question this round actually settled
-
-Within these particular public proxies, the mapped-fault instrument tends to reward more emitted mass while the SGMC proxy has an interior peak. This is a descriptive sweep result, not evidence that the SGMC peak matches the organizer's hidden target or that the selected point is optimal on the leaderboard.
-
-**Instrument B (SGMC off-catalogue)** — recipe `R7_scarp9_polarity`, `disk`, 2.8 px, 300 m flank
-
-| density / 1,000 scored px | mean block DTI | pooled DTI | recall of the truth | emitted px (per block, mean) |
+| Density / 1,000 scored px | Mean block DTI | Pooled DTI | Truth recall | Emitted px per block (mean) |
 |---:|---:|---:|---:|---:|
 | 2 | 0.04705 | 0.04774 | 0.0464 | 261 |
 | 4 | 0.07595 | 0.07898 | 0.0905 | 523 |
@@ -87,38 +77,45 @@ Within these particular public proxies, the mapped-fault instrument tends to rew
 | 25 | 0.08995 | 0.08814 | 0.1983 | 2225 |
 | 40 | 0.08995 | 0.08814 | 0.1983 | 2225 |
 
-**Instrument A (PM0200)** — recipe `R7_scarp9_polarity`, `disk`, 2.8 px, 300 m flank
+**Instrument A** — `R7_scarp9_polarity`, `disk`, 2.8 px, 300 m flank:
 
-| density / 1,000 scored px | mean block DTI | pooled DTI | recall of the truth | emitted px (per block, mean) |
+| Density / 1,000 scored px | Mean block DTI | Pooled DTI | Truth recall | Emitted px per block (mean) |
 |---:|---:|---:|---:|---:|
 | 4 | 0.06990 | 0.06647 | 0.0777 | 549 |
 | 7.37 | 0.08066 | 0.07598 | 0.1123 | 1012 |
 | 14 | 0.07798 | 0.07499 | 0.1559 | 1921 |
 
-## Paired block comparisons (descriptive results; no private-label score)
+## Paired block comparisons of H49-A and H49-B
 
-| comparison | half | n blocks | mean difference | a better | b better |
+| Comparison | Half | Blocks | Mean difference | A better | B better |
 |---|---|---:|---:|---:|---:|
-| oriented_vs_disk_on_b — R7_scarp9_polarity/oriented4/s2.8_d7.37_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | selection | 20 | -0.01856 | 4 | 16 |
-| oriented_vs_disk_on_b — R7_scarp9_polarity/oriented4/s2.8_d7.37_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | calibration | 19 | -0.00761 | 8 | 11 |
-| field_swap_on_b — R2_scarp9_topo/disk/s2.8_d7.37_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | selection | 20 | -0.00642 | 8 | 11 |
-| field_swap_on_b — R2_scarp9_topo/disk/s2.8_d7.37_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | calibration | 19 | -0.00248 | 9 | 10 |
-| shipped_vs_lower_density_on_b — R7_scarp9_polarity/disk/s2.8_d4_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | selection | 20 | -0.02658 | 4 | 16 |
-| shipped_vs_lower_density_on_b — R7_scarp9_polarity/disk/s2.8_d4_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | calibration | 19 | -0.02576 | 4 | 15 |
-| shipped_vs_lower_density_on_a — R7_scarp9_polarity/disk/s2.8_d4_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | selection | 19 | -0.01562 | 6 | 13 |
-| shipped_vs_lower_density_on_a — R7_scarp9_polarity/disk/s2.8_d4_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | calibration | 18 | -0.00563 | 9 | 9 |
-| shipped_vs_higher_density_on_b — R7_scarp9_polarity/disk/s2.8_d14_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | selection | 20 | -0.00300 | 6 | 14 |
-| shipped_vs_higher_density_on_b — R7_scarp9_polarity/disk/s2.8_d14_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | calibration | 19 | -0.00265 | 8 | 11 |
-| shipped_vs_higher_density_on_a — R7_scarp9_polarity/disk/s2.8_d14_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | selection | 19 | +0.00196 | 12 | 7 |
-| shipped_vs_higher_density_on_a — R7_scarp9_polarity/disk/s2.8_d14_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3 | calibration | 18 | -0.00758 | 6 | 12 |
+| oriented vs disk, Instrument B | selection | 20 | -0.01856 | 4 | 16 |
+| oriented vs disk, Instrument B | calibration | 19 | -0.00761 | 8 | 11 |
+| field swap, Instrument B | selection | 20 | -0.00642 | 8 | 11 |
+| field swap, Instrument B | calibration | 19 | -0.00248 | 9 | 10 |
+| lower vs selected density, Instrument B | selection | 20 | -0.02658 | 4 | 16 |
+| lower vs selected density, Instrument B | calibration | 19 | -0.02576 | 4 | 15 |
+| lower vs selected density, Instrument A | selection | 19 | -0.01562 | 6 | 13 |
+| lower vs selected density, Instrument A | calibration | 18 | -0.00563 | 9 | 9 |
+| higher vs selected density, Instrument B | selection | 20 | -0.00300 | 6 | 14 |
+| higher vs selected density, Instrument B | calibration | 19 | -0.00265 | 8 | 11 |
+| higher vs selected density, Instrument A | selection | 19 | +0.00196 | 12 | 7 |
+| higher vs selected density, Instrument A | calibration | 18 | -0.00758 | 6 | 12 |
 
-The strike-aligned emitter does not show a robust gain over the disk emitter on these blocks. The candidate polarity field has a higher selection-half mean than the alternative field in this sweep, but its paired lower bound does not establish a fresh-block improvement; moreover, Instrument B is a mixed geological-contact proxy. These results do not establish that the polarity feature detects uncatalogued faults. The published mask uses the disk emitter with the R7 polarity-scored field, but its mean-rule choice was made after seeing the full analysis and remains research-only.
+The reported paired differences do not establish H49-A (strike-aligned emitter) or H49-B (signed-polarity transform); effects vary across comparisons and halves. Their calculated results are retained, including negative results.
 
-## What this round does *not* claim
+## What H49 does not establish
 
-- No organizer/leaderboard score is authenticated for this TIFF. The only score-like values here are block-level DTI measurements on public proxies.
-- Instrument B is SGMC-derived; lithologic contacts and other non-fault traces may act as false positives. It is not the private target map.
-- Spatial-block exchangeability is an assumption, not established fact. The 400 re-splits reuse the same 39 blocks and are sensitivity diagnostics only.
-- Git history cannot establish that the B rule was fixed before sweep results; the shipped mean rule is a post-results amendment. No full-procedure or unconditional conformal guarantee is claimed.
-- A positive sample mean/t lower bound is not a positive 90% conformal lower bound on paired improvement for a new block. Neither candidate arm passed that promotion criterion.
-- The H49-A strike-aligned emitter and H49-B polarity transform are descriptive hypotheses, not validated geological discoveries. See `docs/RESEARCH_HYPOTHESES.md`.
+- No competition leaderboard score was measured, predicted, or implied.
+- No evidence establishes that either public proxy follows the hidden-label sampling process, nor that spatial blocks are geologically exchangeable.
+- No H49 result is comparable as a private score to the earlier H47-C1 holdout; the evaluation targets and instruments differ.
+- The H49 artifact has **not** beaten the established spatially blocked holdout best under a common, preregistered promotion test.
+- No H49 artifact is submission-eligible or slot-authorized. Do not upload or use a competition slot.
+
+## Review links
+
+- [Published organizer format instructions](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- [Owner-mirror and comparator provenance](../data/reference/README.md)
+- [Complete artifact register](all-downloads.html)
+- [Current research-only landing page](index.html)
+- [Archived original H49 report, before corrections](research/retired/H49_RESULTS-main-original-20261007.md)

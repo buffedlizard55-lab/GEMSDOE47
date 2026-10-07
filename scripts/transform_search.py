@@ -12,9 +12,9 @@ tie-aware AUC 0.5655 against the mapped catalogue).
 
 ``scripts/diagnose_surfaces.py`` then measured the decision-relevant quantity -- precision of
 the top 40,000 pixels against USGS SGMC faults lying > 300 m from the given catalogue (real
-mapped faults the given catalogue lacks, which is the population the organiser scores) -- and
+mapped faults absent from the given catalogue, used here only as a public proxy population) -- and
 found the topographic family far ahead of everything else and ahead of every scored reference
-artifact (0.1772 vs 0.1253 for the 0.2778 incumbent).
+owner-reported H33-2-B2 raster geometry (0.1772 vs 0.1253 on this local frame; its 0.2778 score link is unverified).
 
 This script therefore searches the geomorphometric transform space over the topographic and
 magnetic bands at five scales, and scores every candidate with tie-aware statistics against

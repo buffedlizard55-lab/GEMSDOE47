@@ -11,7 +11,7 @@
  },
  "arms": [
   {
-   "arm": "prior_d2.8 (reported 0.26)",
+   "arm": "owner-reported d2.8 reference raster (DTI 0.26; no organizer receipt)",
    "n_dots": 44090,
    "on_catalogue": 0,
    "outside_footprint": 0,
@@ -91,7 +91,7 @@
      "jaccard": 0.007119,
      "frac_of_new": 0.030415
     },
-    "prior_h33-2-b2": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 37654,
      "jaccard": 0.854026,
      "frac_of_new": 0.854026
@@ -99,10 +99,12 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "reported_live_dti": 0.26
+   "score_attribution_status": "owner-reported; no organizer receipt",
+   "owner_reported_dti": 0.26,
+   "score_file_mapping_verified": false
   },
   {
-   "arm": "prior_h33-2-b2 (reported 0.2778)",
+   "arm": "H33-2-B2 reference raster (score/file mapping unverified)",
    "n_dots": 37654,
    "on_catalogue": 0,
    "outside_footprint": 0,
@@ -182,7 +184,7 @@
      "jaccard": 0.006077,
      "frac_of_new": 0.029399
     },
-    "prior_h33-2-b2": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 37654,
      "jaccard": 1.0,
      "frac_of_new": 1.0
@@ -190,7 +192,8 @@
    },
    "max_jaccard_vs_any_prior": 1.0,
    "max_frac_overlap_vs_any_prior": 1.0,
-   "reported_live_dti": 0.2778
+   "score_used_for_this_diagnostic": null,
+   "score_file_mapping_verified": false
   },
   {
    "arm": "ARM-A greedy (LATI)",
@@ -273,7 +276,7 @@
      "jaccard": 0.00095,
      "frac_of_new": 0.0355
     },
-    "prior_h33-2-b2": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 1,
      "jaccard": 2.4e-05,
      "frac_of_new": 0.00025
@@ -371,7 +374,7 @@
      "jaccard": 0.008603,
      "frac_of_new": 0.036698
     },
-    "prior_h33-2-b2": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 0,
      "jaccard": 0.0,
      "frac_of_new": 0.0
@@ -467,7 +470,7 @@
      "jaccard": 0.012981,
      "frac_of_new": 0.036512
     },
-    "prior_h33-2-b2": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 138,
      "jaccard": 0.001187,
      "frac_of_new": 0.001753
@@ -565,7 +568,7 @@
      "jaccard": 0.008576,
      "frac_of_new": 0.036584
     },
-    "prior_h33-2-b2": {
+    "reference_h33-2-b2_score-link-unverified": {
      "intersection": 0,
      "jaccard": 0.0,
      "frac_of_new": 0.0
@@ -581,7 +584,23 @@
    "lati_credit_per_dot": 0.49067
   }
  ],
- "shipped": [
+ "seconds": 374.1,
+ "historical_build_status": {
+  "generated_before_current_status_review": true,
+  "owner_reported_pairs_used_in_fit": 12,
+  "h33_role": "distinctness reference only; no score assigned to the TIFF",
+  "h33_score_file_mapping_verified": false,
+  "current_decision": "RESEARCH_ONLY_NOT_FOR_PORTAL",
+  "submission_authorized": false,
+  "slot_eligible": false
+ },
+ "submission_gate": {
+  "status": "CLOSED_RESEARCH_ONLY",
+  "authorized": false,
+  "slot_eligible": false,
+  "reason": "no candidate has demonstrated a gain over an established spatially blocked holdout best under the project gate"
+ },
+ "research_outputs": [
   {
    "mode": "zeros",
    "filename": "gems47-h47A-flank-reoccupation-20261006T103141Z-zeros.tif",
@@ -634,7 +653,8 @@
      "emitted_mass": 4000.0,
      "band_descriptions": [
       null
-     ]
+     ],
+     "n_infinite": 0
     },
     "checks": {
      "single_band": true,
@@ -650,16 +670,46 @@
      "no_nodata_sentinel_values": true,
      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": true,
      "RANGE_nan_tolerant: finite values within [0,1]": true,
-     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
      "RANGE_min_max_reported": true,
-     "RANGE_masked_read: read(masked=True) within [0,1]": true,
-     "RANGE_filled_then_checked": true
+     "RANGE_filled_then_checked": true,
+     "outside_template_footprint_is_nodata": false,
+     "no_infinite_values": true,
+     "RANGE_emitted_values_within_[0,1]": true,
+     "RANGE_masked_read: finite unmasked values within [0,1]": true,
+     "masked_pixels_only_outside_footprint": true
     },
-    "hard_failures": [],
+    "hard_failures": [
+     "outside_template_footprint_is_nodata"
+    ],
     "passes_nan_intolerant_range_check": true,
     "passes_nan_tolerant_range_check": true,
+    "all_checks_passed": false,
+    "recommended_for_upload": false,
+    "project_submission_authorized": false,
+    "project_gate_status": "CLOSED_RESEARCH_ONLY",
+    "upload_recommendation_scope": "none; local validation is not a portal oracle",
+    "format_review_2026_10_06": {
+     "mode": "zeros",
+     "outside_template_footprint_is_nodata": false,
+     "basis": "paired retained zero-outside/NaN-outside artifacts and their recorded generation mode",
+     "official_requirement": "null or NaN outside data bounds",
+     "organizer_acceptance_established": false,
+     "masked_pixels_only_outside_footprint": true
+    },
+    "required_local_checks_passed": false,
+    "diagnostic_failures": []
+   },
+   "historical_primary_at_generation": false,
+   "primary": false,
+   "research_only": true,
+   "submission_authorized": false,
+   "slot_eligible": false,
+   "validation_at_generation_legacy": {
+    "scope": "pre-outside-nodata local validator; superseded for format decisions",
     "all_checks_passed": true,
-    "recommended_for_upload": true
+    "hard_failures": [],
+    "legacy_nan_intolerant_range_preference": true,
+    "recommended_for_upload_now": false
    }
   },
   {
@@ -676,7 +726,7 @@
      "crs": "EPSG:32611",
      "width": 3292,
      "height": 3730,
-     "nodata": NaN,
+     "nodata": "NaN",
      "shape": [
       3730,
       3292
@@ -714,7 +764,8 @@
      "emitted_mass": 4000.0,
      "band_descriptions": [
       null
-     ]
+     ],
+     "n_infinite": 0
     },
     "checks": {
      "single_band": true,
@@ -730,19 +781,68 @@
      "no_nodata_sentinel_values": true,
      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
      "RANGE_nan_tolerant: finite values within [0,1]": true,
-     "RANGE_strict_interior: finite values within [0,1] and >0 where emitted": true,
      "RANGE_min_max_reported": true,
-     "RANGE_masked_read: read(masked=True) within [0,1]": true,
-     "RANGE_filled_then_checked": true
+     "RANGE_filled_then_checked": true,
+     "outside_template_footprint_is_nodata": true,
+     "no_infinite_values": true,
+     "RANGE_emitted_values_within_[0,1]": true,
+     "RANGE_masked_read: finite unmasked values within [0,1]": true,
+     "masked_pixels_only_outside_footprint": true
     },
     "hard_failures": [],
     "passes_nan_intolerant_range_check": false,
     "passes_nan_tolerant_range_check": true,
     "all_checks_passed": true,
-    "recommended_for_upload": false
+    "recommended_for_upload": false,
+    "project_submission_authorized": false,
+    "project_gate_status": "CLOSED_RESEARCH_ONLY",
+    "upload_recommendation_scope": "none; local validation is not a portal oracle",
+    "format_review_2026_10_06": {
+     "mode": "nan",
+     "outside_template_footprint_is_nodata": true,
+     "basis": "paired retained zero-outside/NaN-outside artifacts and their recorded generation mode",
+     "official_requirement": "null or NaN outside data bounds",
+     "organizer_acceptance_established": false,
+     "masked_pixels_only_outside_footprint": true
+    },
+    "required_local_checks_passed": true,
+    "diagnostic_failures": [
+     "all_pixels_finite",
+     "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))"
+    ]
+   },
+   "historical_primary_at_generation": false,
+   "primary": false,
+   "research_only": true,
+   "submission_authorized": false,
+   "slot_eligible": false,
+   "validation_at_generation_legacy": {
+    "scope": "pre-outside-nodata local validator; superseded for format decisions",
+    "all_checks_passed": true,
+    "hard_failures": [],
+    "legacy_nan_intolerant_range_preference": false,
+    "recommended_for_upload_now": false
    }
   }
  ],
- "shipped_note": "GEMSDOE47 H47-A flank-reoccupation | LATI-inverted belief field (prox_d2.8, dcat_band_0_1.5), K=17,293, greedy marginal-rule emission, 4000 dots of which 4000 in the 0-300 m catalogue halo; LATI-predicted DTI 0.1115; UNSCORED",
- "seconds": 374.1
+ "historical_note_at_generation": "GEMSDOE47 H47-A flank-reoccupation | LATI-inverted belief field (prox_d2.8, dcat_band_0_1.5), K=17,293, greedy marginal-rule emission, 4000 dots of which 4000 in the 0-300 m catalogue halo; LATI-predicted DTI 0.1115; UNSCORED",
+ "research_note": "Historical local screening outputs only. No portal submission or slot is authorized.",
+ "status_reviewed_utc_date": "2026-10-06",
+ "observation_scope": {
+  "owner_reported_score_raster_pairs": 12,
+  "organizer_receipts_available": false,
+  "h33_role": "raster-only local diagnostics and distinctness; no participant-level DTI assigned",
+  "h33_score_file_mapping_verified": false
+ },
+ "format_review_2026_10_06": {
+  "reviewed_utc": "2026-10-06",
+  "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "published_outside_bounds_requirement": "null or NaN",
+  "scope": "metadata/local-format review of retained artifacts only; no candidate rerun, dataset restore, portal upload, or slot use",
+  "mirror_provenance": "the available sample template is from an owner-supplied mirror and is not organizer-authenticated",
+  "organizer_acceptance_established": false,
+  "prior_range_rejection_cause": "unknown; exact rejected TIFF bytes are unavailable",
+  "upload_recommendation": "none",
+  "inside_bounds_requirement": "finite unmasked values in [0,1]"
+ }
 }

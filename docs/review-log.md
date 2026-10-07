@@ -44,7 +44,7 @@
 ## Separate H47-QC screen — three-pass review
 
 1. **Implement and verify:** four new geological hypotheses were ranked in [`hypotheses-round2-20261006.md`](hypotheses-round2-20261006.md) and the H47-QC protocol frozen in [`preregistered-h47qc-20261006.md`](preregistered-h47qc-20261006.md) before implementation. The candidate-building API does not read catalogue labels. The 5,000-pixel, 6 px / 600 m run and its inputs, split, score history and format checks are recorded in [`h47qc-screen-20261006.json`](h47qc-screen-20261006.json).
-2. **Review bugs, assumptions and edge cases:** checked the held-out comparison against the matched geochemistry-only, random, H47-B-persistence and single-scale magnetic baselines. The candidate's pooled test DTI 0.0131689425 loses to the geochemistry-only 0.0141948068 ablation. The nominal split-conformal level is 6/7 (85.7%) only under unverified block-score exchangeability; the clipped lower floor is zero, not a performance guarantee.
+2. **Review bugs, assumptions and edge cases:** checked the held-out comparison against the matched geochemistry-only, random, H47-B-persistence and single-scale magnetic baselines. The candidate's pooled test DTI 0.0131689425 loses to the geochemistry-only 0.0141948068 ablation. The nominal split-conformal level is 6/7 (85.7%) only under unverified block-score exchangeability; the assumption-conditional lower-bound estimate is zero, not a private or map-wide performance guarantee.
 3. **Re-check the brief, science and release:** the binary float32 artifact is finite and in [0,1] on the specified 100 m EPSG:32611 grid, but valid format is not scientific promotion or portal acceptance. The bounded audit found no exact positive-mask match in its inspected inventory; it does not prove global uniqueness. The local geochemistry table is a derived mirror, water-type/disequilibrium and exact field definitions remain limitations, and the labels are only a public-catalogue proxy. **H47-QC is a failed research screen: do not upload it or spend a slot.** Its TIFF hash and identification note are published in `docs/downloads/`.
 
 Exact final test/check/PR/merge timestamps are recorded in `data/three-pass-review.json` and GitHub receipts.
@@ -60,7 +60,7 @@ Exact final test/check/PR/merge timestamps are recorded in `data/three-pass-revi
 ### Pass 2 — recheck science, format assumptions and claims
 
 - Rechecked H47-B's negative locked-test comparison: pooled catalogue-mask proxy DTI 0.02563947 versus 0.02755344 for H47-B cross-scale and 0.03715911 for fixed-seed random. No leaderboard or missing-fault claim is made.
-- Rechecked nominal rank 6/6 = 6/7 ≈ 85.7% conformal arithmetic, its unverified block-score exchangeability assumption, two empty calibration blocks, and clipped lower floor 0.0. No private/global guarantee follows.
+- Rechecked nominal rank 6/6 = 6/7 ≈ 85.7% conformal arithmetic, its unverified block-score exchangeability assumption, two empty calibration blocks, and the assumption-conditional lower-bound estimate of 0.0. No private/global guarantee follows.
 - Reconciled the explicit mirrored sample-template mask with the feature-derived mask: 5,167,373 versus 5,165,852 valid cells, 1,540 feature-valid cells outside, 3,061 sample/label cells invalid in features. The official footprint and historical portal-error cause remain unknown; the finite diagnostic is not asserted to explain the old error.
 
 ### Pass 3 — integration and final release checks
@@ -75,8 +75,10 @@ Exact final test/check/PR/merge timestamps are recorded in `data/three-pass-revi
 
 Retired annulus .34912 / .34837 private floor is withdrawn; adaptive nested history is not exchangeable
 calibration, and deleting a prior mask is not a new detector. Saved .3345 rank-1 board is superseded by dated
-.3774. H33 .2778 filename/hash association is user/owner-reported, not an organizer receipt. No unlimited
-final-round or three-slot lambda probe advice. One selected file for both rounds; up to three scored slots/week.
+.3774. H33 .2778 filename/hash association is unverified, not an organizer receipt. The three λ-scaling score
+observations do not establish a count of new uploads or used slots; no λ-probe recommendation, upload cost, or
+“free diagnostic” claim remains. Public official pages checked 2026-10-06 do not establish current per-user
+quota or slot accounting. Official materials describe one selected file for both rounds; verify current rules.
 
 
 ### Official-source receipt update after additive reconciliation
@@ -86,3 +88,11 @@ footprint cells (58,800 exact-catalogue); GDR traces: 82,871 (58,876 exact-catal
 cells: 244. These all_touched pixel counts are not fault counts or expert-new truth. The earlier
 USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
 GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.
+
+
+## Repository review continuation — 6 October 2026 (local)
+
+- Corrected the published outside-null/NaN requirement across current guidance: unmasked all-finite zero-outside H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and Session-3 artifacts are research-only and fail that explicit check. The H48 research writer now emits NaN outside in future outputs; this follows an owner-supplied mirror convention only and does not establish portal acceptance.
+- Kept H33-2-B2 / participant DTI 0.2778 unverified and dependent fits conditional; renamed H48 report fields to assumption-conditional lower bounds and marked outputs not slot-eligible. Updated ratio and quota/λ-observation caveats.
+- Disabled the old score-ceiling runner and legacy site/submission renderers that could reproduce withdrawn assumptions. All legacy LATI build entry points now fail closed before cache reads or writes.
+- Validation did not restore data, rerun H47-B, upload, spend a slot, or run a λ-probe. Final test/lint/PR status is reported in the current PR record, not inherited from prior counts.

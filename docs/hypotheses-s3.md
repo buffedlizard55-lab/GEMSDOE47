@@ -1,3 +1,5 @@
+> **HISTORICAL RESEARCH NOTE — NOT SCORE AUTHENTICATION OR SLOT ADVICE.** H33-2-B2 is not authenticated to participant DTI 0.2778; score-dependent comparisons below are hypothetical/conditional local proxies. The d2.8 raster is the owner-reported reference, not an established leaderboard incumbent.
+
 ---
 title: Hypotheses H47
 layout: default
@@ -76,9 +78,9 @@ of new code and compute, both of which are already spent for the top three.
 * **Measured.** Precision-at-40k against expert-mapped Quaternary fault **0.5049** (5.9× random);
   at 10k **0.6543** (7.6×); tie-aware AUC **0.6183**. Interior optimum in the persistence radius
   (r=5: 0.4611, r=9: **0.5049**, r=13: 0.4691, r=17: 0.4403, r=31: 0.3880), so the 1.9 km
-  run-length is fitted, not chosen. The shipped 0.2778 artifact scores 0.1253 on the comparable
-  off-catalogue target and 0.0607 (below random) on the catalogue halo, the latter because it was
-  deliberately flank-pruned.
+  run-length is fitted, not chosen. The owner-supplied H33-2-B2 reference raster yields local proxy values 0.1253 on the off-catalogue
+  target and 0.0607 (below random) on the catalogue halo. These local scores do not authenticate any
+  association with the separate participant-level 0.2778 observation; the flank-pruning explanation is conditional.
 * **Cost.** ~60 lines in `src/gems47s3/geomorph.py`, ~30 s of compute. Already paid.
 
 ### H47-2 — Regional strain-rate veto prior (the corrected form of a refuted idea)
@@ -102,8 +104,8 @@ of new code and compute, both of which are already spent for the top three.
 * **Why it catches missing faults.** It cannot find a fault; it can *refuse* one. A topographic step
   on a basin floor with no strain-rate expression is far more likely to be a stream bank or an
   escarpment of erosion than a structure. Removing those is a pure precision gain, and precision is
-  the binding constraint at 0.2778 (the false-positive tax ≈6,757 exceeds the earned credit ≈3,870;
-  see `knowledge/05` §5.1).
+  the binding constraint under one owner-reported 0.2778 scenario (the false-positive tax ≈6,757 exceeds
+  the earned credit ≈3,870; see `knowledge/05` §5.1). The score-to-raster association remains unverified.
 * **Differs from.** The family used these bands as scalars or plain gradient magnitudes at fine
   scale (worthless, as measured), and H61-4 proposed a principal-axis matched filter on the strain
   tensor that was **never implemented**. Nobody used them as a kilometre-scale veto.
@@ -193,8 +195,7 @@ of new code and compute, both of which are already spent for the top three.
 
 ## 2. Validation gate: the top candidate on a spatially-blocked holdout
 
-The brief forbids spending a submission slot on an idea that has not beaten the current holdout
-best. The gate is implemented, not promised:
+The brief forbids spending a slot without beating a separately established spatially blocked holdout best. The gate is implemented, not promised:
 
 * **Blocking.** `Grid.spatial_folds` cuts the grid into contiguous rectangular blocks; whole
   8-connected catalogue components are assigned to one block by majority
@@ -204,19 +205,18 @@ best. The gate is implemented, not promised:
 * **Masking.** The remaining catalogue is masked pixel-exactly, exactly as the organiser masks it
   (DrivenData staff, thread 11516 post #2).
 * **Prevalence matching.** Folds are subsampled by whole component to 0.112 %, 0.200 % and 0.294 %
-  truth prevalence — the bracket inverted from the organiser's own published scores. Unmatched folds
+  truth prevalence — an illustrative bracket from participant-level score observations; no scores are mapped to TIFFs here. Unmatched folds
   are also reported (`A1` 0.056–0.104 %, `A2` 0.35–0.90 %) because the optimal emission density
   moves with prevalence and an unmatched fold would select the wrong operating point.
-* **Result.** On every prevalence-matched instrument the H47-1 field beats the shipped 0.2778
-  artifact by more than an order of magnitude (mean DTI 0.082 vs 0.0043 at 0.200 % prevalence), and
-  the holdout **reproduces the organiser's flank-buffer effect in the right direction** (b=2 ≥ b=0
-  on the mixed `PM*` folds, b=0 ≥ b=2 on the flanking-only `A2` folds) — which is the independent
-  check that the instrument is not merely flattering.
+* **Result.** On every prevalence-matched instrument the H47-1 field beats the owner-supplied H33-2-B2
+  reference raster on this local proxy (mean DTI 0.082 vs 0.0043 at 0.200 % prevalence). This is not a
+  leaderboard comparison; H33-2-B2 is not authenticated to participant DTI 0.2778. The local folds also
+  **show a flank-buffer pattern in the expected direction** (b=2 ≥ b=0
+  on the mixed `PM*` folds, b=0 ≥ b=2 on the flanking-only `A2` folds) — a descriptive result only; the catalogue-derived instrument does not validate the missing-fault target.
 * **Caveat, carried not hidden** (`IR-47-PROXY-02`). Fold truth is drawn from the catalogue, so this
   instrument cannot reward a genuinely new fault that no compilation contains, and it is structurally
-  invalid for arms that prune near the catalogue. It is an **ordering** instrument. The conformal
-  floor reported next to the chosen spacing is a floor *on this instrument* and is labelled that way
-  everywhere it appears.
+  invalid for arms that prune near the catalogue. It is an **ordering** instrument. The assumption-conditional split-conformal lower-bound estimate reported for this proxy instrument
+  is not a guarantee for a map-wide score or private labels; block-score exchangeability is unverified.
 
 ---
 

@@ -4,7 +4,7 @@
 
 ## Executive result
 
-H47-B ranked a rank-encoded `TMI_up150` magnetic edge-persistence field at 2, 4, and 8 pixels on the 100 m grid. Spacing was selected on five preregistered blocks, evaluated on six calibration blocks, then assessed on five locked blocks. The candidate beat a tuned single-scale edge baseline by a small margin on the pooled locked-test DTI, but **lost to a fixed-seed random control**. Its mechanically computed, assumption-conditional conformal lower floor was **zero**. Five of the 16 blocks contained no known-catalogue mask pixels, including two locked-test and two calibration blocks.
+H47-B ranked a rank-encoded `TMI_up150` magnetic edge-persistence field at 2, 4, and 8 pixels on the 100 m grid. Spacing was selected on five preregistered blocks, evaluated on six calibration blocks, then assessed on five locked blocks. The candidate beat a tuned single-scale edge baseline by a small margin on the pooled locked-test DTI, but **lost to a fixed-seed random control**. Its mechanically computed, assumption-conditional conformal lower-bound estimate was **zero**. Five of the 16 blocks contained no known-catalogue mask pixels, including two locked-test and two calibration blocks.
 
 | Locked-test measure | H47-B | Single-scale baseline | Fixed-seed random |
 |---|---:|---:|---:|
@@ -42,7 +42,7 @@ The locked blocks were IDs 2, 5, 8, 11, and 14. Only IDs 2, 5, and 14 contained 
 
 Across all 16 blocks, five were empty of known-catalogue mask pixels: selection block 7; locked-test blocks 8 and 11; calibration blocks 12 and 15. An empty proxy block's score of zero says nothing about whether a missing fault is present there.
 
-## Conformal calculation — not a positive floor
+## Conformal calculation — not a positive lower-bound estimate
 
 At selected spacing 5 px, selection mean DTI was `μ = 0.04860422299678556`. The six calibration DTI values were approximately `[0.04322934, 0.02420100, 0.03694814, 0.07157694, 0, 0]`. The one-sided residuals were `μ − DTIᵢ`; the preregistered order statistic was rank 6 of 6 at nominal `6/7 ≈ 85.7%` coverage **conditional on marginal block-score exchangeability**.
 

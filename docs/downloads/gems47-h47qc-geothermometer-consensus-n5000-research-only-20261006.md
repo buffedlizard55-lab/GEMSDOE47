@@ -21,7 +21,7 @@ Suggested optional-note text, **for identification only—not permission to subm
 
 H47-QC combined quality-screened INGENIOUS geothermometer consensus with aligned RTP/isostatic-gravity gradient strength. It selected 6 px / 600 m minimum spacing on five selection blocks. On the five locked public-catalogue test blocks, pooled DTI was **0.013169**. At the same 5,000-point budget, the geochemistry-only ablation scored **0.014195**; the random-within-candidate-support control scored **0.012858**; the matched H47-B persistence and single-scale magnetic baselines scored **0.007825** and **0.008130**. The candidate therefore did not beat every comparator.
 
-The six calibration blocks yield the largest preregistered nominal split-conformal level, **6/7 = 85.7%**, but the clipped lower holdout-DTI floor is **0.0**. This floor is vacuous; spatial block exchangeability is unverified. **The score is not a guaranteed performance level for the private target or leaderboard.**
+The six calibration blocks yield the largest preregistered nominal split-conformal level, **6/7 = 85.7%**, but the assumption-conditional lower-bound estimate is **0.0**. It is vacuous; spatial block exchangeability is unverified. **The score is not a guaranteed performance level for the private target or leaderboard.**
 
 Of the 5,000 selected cells, 54 coincide with known public-catalogue labels. The local proxy DTI counts those known-fault pixels as positive; it does not establish discovery of withheld new faults. See the full [machine-readable experiment report](../h47qc-screen-20261006.json), the frozen [preregistration](../preregistered-h47qc-20261006.md), and the [hypothesis shortlist](../hypotheses-round2-20261006.md).
 

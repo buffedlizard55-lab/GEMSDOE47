@@ -1,9 +1,9 @@
-# H49 research hypotheses — planning record (prospective timing unverified)
+# H49 research hypotheses — frozen before implementation
 
-> **Review correction:** this planning file and the sweep/certificate evidence first appear in one Git commit, so prospective timing cannot be independently audited. The H33 score premise below is superseded by [`knowledge/05`](../../knowledge/05_why_02778_and_can_we_beat_it.md): raster nesting is verified; score-to-file mapping is not. The H49 mean-rule arm was chosen after results, and the promotion gate is closed. Do not use this file as proof of a preregistration.
-
-**Created:** 2026-10-07 UTC. Read the README standing brief and the corrected [`why-02778`](../why-02778.md) analysis first.
+**Created:** 2026-10-07 UTC. Read the README standing brief and `docs/why-02778.md` first.
 **Core values:** Maximize P(Win); Own the Outcome. No automated competition uploads.
+
+> **Post-run correction notice (2026-10-07):** This file is retained as the historical hypothesis/preregistration record, not as evidence that any submission gate passed. The owner-supplied mirror inputs are not organizer-authenticated; the d2.8 raster is only an **owner-reported reference**, not an authenticated leaderboard incumbent. H49 proxy calculations are conditional on unverified block-score exchangeability and do not estimate private/global performance. The final reported operating rule was amended after review of repeated-split results; formal coverage for that post-hoc process is not established. The H49 TIFF also fails the published null-or-NaN-outside format requirement. See the [corrected H49 report](../H49_RESULTS.md) and [format audit](../data/h49-format-contract-audit.json). **No H49 submission is authorized.**
 
 ## What this round must answer
 
@@ -23,7 +23,10 @@ Two prior results bound the search, both reproduced in this round from the resto
    **`DTI = T / (0.2·S + 0.8·|G|)`**, so at fixed truth a submission is improved only by raising
    credit `T` or lowering emitted mass `S`. A single added dot pays iff its realised kernel weight
    `w > 0.2·DTI`.
-2. **What the H33 0.2778 label establishes:** not a verified organizer score-to-file mapping. The H33 reference mask is a strict subset of the H27 parent, but the H33 owner README calls it UNSCORED and 0.2747 a projection. Any sparse-emission explanation remains a hypothesis until a receipt maps the score to exact bytes; see `knowledge/05`.
+2. **Where the family's 0.2778 came from** (`docs/why-02778.md`): sparse emission and coherent
+   lineament placement, with catalogue-flank mass deleted. Its measured precision at 40 k pixels is
+   0.1253 against SGMC off-catalogue fault versus 0.5049 for `scarp(det_elev_slope, r=9)` — a 4×
+   precision gap on the only independent real-fault population available here.
 
 The two new hypotheses below both attack the **denominator**, not the numerator: they remove mass
 that cannot earn credit, or they make each unit of mass cover a *different* truth pixel. Neither

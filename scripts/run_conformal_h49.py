@@ -1,24 +1,12 @@
 #!/usr/bin/env python3
-"""Split-conformal selection and certification of the H49 operating point.
+"""Historical H49 v1 public-catalogue proxy analysis, retained but disabled.
 
-The rule was frozen in ``docs/research/h49-hypotheses-preregistered.md`` before the sweep ran:
+This earlier script predates the Instrument-B addendum and the later mean-rule amendment. Its
+original output can be useful for reproducing the earlier exploratory analysis, but it is not the
+final H49 report, does not establish block exchangeability, and cannot authorize a submission slot.
+The active CLI exits before reading evidence or overwriting the historical selection receipt.
 
-  * the block set is split once, by a seeded permutation, into a SELECTION half and a CALIBRATION
-    half (disjoint roles);
-  * the operating point is chosen using SELECTION-half scores only, by the primary instrument's
-    mean DTI, screened so that no instrument has a non-positive selection-half conformal floor;
-  * the floor is then computed on the CALIBRATION half, which the choice never saw.  Because the
-    choice is a function of the selection half alone, the calibration blocks and a fresh block are
-    exchangeable for the chosen arm, so Lei et al.'s order statistic is a genuine split-conformal
-    bound rather than a maximum of dependent statistics.
-
-Nothing here is tuned after reading the numbers: the alpha values, the instruments, the ranking key
-and the tie-breaks are all fixed by the preregistration, and the repeated-split audit re-runs the
-WHOLE procedure (selection included) so that a reviewer can see how much of the claim depends on the
-particular split.
-
-Run:  python3 scripts/run_conformal_h49.py
-Out:  evidence/h49/conformal_selection.json
+Historical implementation follows (not approved for rerun):
 """
 from __future__ import annotations
 
@@ -202,7 +190,7 @@ def gate_report(arms: dict, pooled: dict, chosen: tuple, sel: dict, cal: dict,
     return out
 
 
-def main() -> int:
+def _legacy_main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--sweep", default=str(ROOT / "evidence" / "sweep" / "sweep_h49.json"))
     ap.add_argument("--out", default=str(ROOT / "evidence" / "h49" / "conformal_selection.json"))
@@ -392,6 +380,11 @@ def main() -> int:
           f"vs nominal alpha {args.alpha}")
     print(f"wrote {p}  ({time.time() - t0:.1f}s)")
     return 0
+
+
+def main() -> int:
+    print("DISABLED: historical H49 v1 analysis is superseded; no evidence read or file written. See docs/H49_RESULTS.md.")
+    return 2
 
 
 if __name__ == "__main__":

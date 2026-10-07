@@ -8,18 +8,19 @@ preregistered a gate, and **both closed it**:
 
 * H47-B (cross-scale `TMI_up150` magnetic-edge persistence) scored pooled DTI **0.02755** on the
   locked test against a fixed-seed **random control of 0.03716** -- the candidate lost to random
-  noise.  Its assumption-conditional conformal lower floor was **0.0**.
+  noise.  Its assumption-conditional split-conformal lower-bound estimate was **0.0**.
 * H47-GSA (geodetic strain x hydrothermal alteration x thermal discharge) showed an in-fold
   advantage of **+0.30** that cross-fitting exposed as *optimizer's curse*: paired out-of-fold
-  deltas were **-0.0611** and **-0.0450** against the incumbent, losing on all five truth frames.
+  deltas were **-0.0611** and **-0.0450** against the owner-reported d2.8 reference; the comparison
+  is conditional on the unverified H33-2-B2 / participant 0.2778 association and is not a spatial holdout.
 
 The session that produced `docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif` swept
 180 operating points and 5 recipes on a catalogue-derived holdout and reported the new field
-beating the shipped 0.2778 artifact by 15-24x -- **but never ran a random or shuffled control at
+beating an owner-reported H33-2-B2 raster on a local proxy by 15–24×; its participant-score mapping is unverified -- **but never ran a random or shuffled control at
 matched mass on those folds.**  That is precisely the missing control.  This script supplies it.
 
 Controls, all at MATCHED mass, MATCHED spacing and MATCHED flank buffer on IDENTICAL folds
-    A  shipped      the dots actually in the shipped raster
+    A  shipped      the dots actually in the historical research raster
     B  random       a uniform random field put through the identical emitter (20 seeds)
     C  shifted      the shipped dot pattern translated by a large offset: preserves the field's
                     density and clustering, destroys its alignment with the geology
@@ -28,7 +29,7 @@ Controls, all at MATCHED mass, MATCHED spacing and MATCHED flank buffer on IDENT
 If A does not beat B and C by a margin far outside their spread, the candidate is not a signal and
 must be marked RESEARCH ONLY, exactly as `main` marked its own two artifacts.
 
-Needs only labels.tif and sample_submission.tif plus the shipped raster -- the 419 MB feature
+Needs only labels.tif and sample_submission.tif plus the historical research raster -- the 419 MB feature
 stack is not required, because the controls replace the field rather than rebuild it.
 
 Run:  python3 scripts/control_random_and_shifted.py
@@ -169,7 +170,7 @@ def main() -> int:
             # FAIRNESS: every arm must be restricted to the SAME emittable domain as the shipped
             # raster.  The shipped raster was pruned against the FULL catalogue (dcat > 2), so if
             # the controls are only pruned against the VISIBLE catalogue they may place dots
-            # within 2 px of the fold truth while the shipped raster structurally may not -- an
+            # within 2 px of the fold truth while the historical research raster structurally may not -- an
             # asymmetry that makes the candidate look like noise whatever it is.  The first run of
             # this script had exactly that bug and reported A/B = 0.28-0.31; it is fixed here by
             # pruning all arms against the full catalogue, and by reporting the A1 frame where the
