@@ -17,9 +17,9 @@ The current research TIFF is `docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d
 - `scripts/build_site_s3.py --check`: 124 tracked docs files checked; all changes within declared owned pages or H49 marker blocks.
 - No DrivenData upload was made; there is no organizer score or acceptance receipt.
 
-## Immediate GitHub task
+## GitHub publication record
 
-Work only on `arena/24b6e85a-gemsdoe47`. Fetch `origin/main`, reconcile it into this branch without switching branches, rerun validation on the reconciled tree, create a PR from this branch, check CI, and merge only if all required checks pass. Do not mark the PR complete until GitHub confirms the merge.
+Work only on `arena/24b6e85a-gemsdoe47`. The branch was reconciled with `origin/main` at `525dab76f10facca1382872d65b15fded04697ae`, and PR [#21](https://github.com/buffedlizard55-lab/GEMSDOE47/pull/21) was opened. Both GitHub Tests runs passed on the initially opened head. Check the PR page for checks on later commits and the final merge status/commit before doing more GitHub work; do not infer merge from local Git state.
 
 ## Scientific work that remains
 

@@ -12,7 +12,7 @@
   <h1>GEMSDOE47 <span class="badge b-info">RESEARCH RECORD</span></h1>
   <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
      306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
-     Generated 2026-10-07 13:07 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+     Generated 2026-10-07 13:12 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
   <nav>
     <a href="index.html">Home</a>
     <a href="executive-summary.html">Executive summary &amp; how to submit</a>
@@ -54,9 +54,10 @@
 <p>The pinned visible-public-inventory audit covered 54 repositories and 565 comparisons (555 inventory blobs plus 10 local-history rasters), with zero exact mask/value matches and maximum Jaccard 0.292575. Three inventory entries were excluded from direct pixel comparison, and no repository inventory fetch failed. The audit is bounded: inaccessible, unpublished, deleted, later-published and otherwise non-inventoried files are outside its scope. Do not claim global uniqueness.</p>
 <p>The nominal fixed-arm split-conformal order statistic is 0.03184 at 90% for spacing 2.8 px / 280 m. Its unit is one 8×8 spatial block; <code>n=19</code>, <code>k=18</code>; the target is block DTI on public USGS SGMC traces more than 300 m from the given catalogue. Validity assumes exchangeable blocks and a rule fixed independently of calibration outcomes. SGMC includes non-fault contacts, geological-block exchangeability is unverified, and the shipped mean-maximizing rule was amended after results. This is not a guarantee for the full adaptive procedure, private labels, paired improvement or leaderboard score.</p>
 <p>The H49 mean-rule arm has a positive descriptive public-proxy mean but its 90% split-conformal lower bounds on paired improvement over the H33-labelled reference are negative for both selection and calibration halves. The saved floor-rule arm also fails the paired-improvement criterion. <strong>Do not upload H49 or spend a weekly slot on it.</strong> No competition upload, organizer score receipt or acceptance receipt exists.</p>
-<h2 id="remaining-work-in-priority-order">Remaining work, in priority order</h2>
+<h2 id="github-publication-status">GitHub publication status</h2>
+<p>The fixed session branch <code>arena/24b6e85a-gemsdoe47</code> has been reconciled with <code>origin/main</code> at <code>525dab76f10facca1382872d65b15fded04697ae</code>. PR <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/pull/21">#21</a> was opened from that branch. Both GitHub Tests runs passed on the initially opened head; the PR page is authoritative for checks on later commits and the final merge status/commit.</p>
+<h2 id="remaining-scientific-work-in-priority-order">Remaining scientific work, in priority order</h2>
 <ol>
-<li><strong>Complete the requested GitHub review and merge.</strong> Fetch current <code>main</code>, reconcile this session branch without leaving it, run checks on the reconciled tree, create a PR, inspect CI and merge only if all required checks pass. Record the actual PR/merge result; do not infer it from local Git state.</li>
 <li><strong>Find a genuinely stronger candidate.</strong> Write a prospective protocol before scoring. Use a fresh spatially blocked holdout not reused from the 39 H49 blocks, matched-mass and shifted/random controls, and a positive paired-improvement lower-bound criterion. Keep the slot gate closed on ties, unstable folds, failed controls or an unsupported/negative lower bound.</li>
 <li><strong>Verify higher-resolution data before depending on it.</strong> The ranked queue proposes a conditional USGS 3DEP / GeoDAWN H50 LiDAR idea, but exact 1 m files, license, bytes and footprint coverage are not verified in this sandbox. Do not treat H50 as viable until an official free source is actually obtained and checked.</li>
 <li><strong>Resolve H33 score attribution if an organizer receipt becomes available.</strong> The H33/H27 mask relationship is verified from pinned files, but no receipt maps 0.2778 to the H33 hash; its pinned owner README says unscored and calls 0.2747 a projection. Reduced off-target mass is a plausible mechanism, not an established causal explanation.</li>
