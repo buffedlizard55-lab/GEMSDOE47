@@ -123,70 +123,56 @@ def dot_thin_raster(support: np.ndarray, min_dist: float) -> np.ndarray:
 
 def greedy_coverage(field: np.ndarray, mask: np.ndarray, n: int,
                     radius: float = M.RADIUS_PX) -> np.ndarray:
-    """Exact greedy maximisation of sum_y field[y] * max(0, k(|x-y|) - C[y]).
+    """Lazy greedy triangular-kernel coverage on exactly the allowed candidate set.
 
-    ``C`` is the coverage already supplied.  A lazy max-heap recomputes a candidate's gain
-    only when it is popped, which is exact for this monotone submodular objective (the
-    stored key is always an upper bound on the current gain).
+    Seed every allowed pixel, including zero-gain candidates. Never introduce neighbours
+    outside the mask. Coverage optimisation does NOT impose minimum dot spacing.
+    Deferred entries remain in the heap; selected entries are removed permanently.
     """
     import heapq
 
+    field = np.asarray(field, dtype=np.float64)
+    mask = np.asarray(mask, dtype=bool)
+    if field.ndim != 2 or field.shape != mask.shape:
+        raise ValueError("field and mask must be equal-shaped 2-D arrays")
+    if n < 0 or not np.isfinite(radius) or radius <= 0:
+        raise ValueError("nonnegative budget and positive finite radius required")
+    if not np.isfinite(field[mask]).all() or (field[mask] < 0).any():
+        raise ValueError("allowed field values must be finite and nonnegative")
+    out = np.zeros(mask.shape, bool)
+    if not n or not mask.any():
+        return out
     dy, dx, kw = M.kernel_offsets(radius)
-    f = np.where(mask, np.asarray(field, np.float32), 0.0)
-    C = np.zeros(f.shape, np.float32)
+    f = np.where(mask, field, 0.0)
+    coverage = np.zeros(f.shape, np.float64)
+    height, width = f.shape
 
-    def gain_of(y: int, x: int) -> float:
-        tot = 0.0
-        h, w = f.shape
-        for d, e, k in zip(dy, dx, kw):
-            ny, nx = y + int(d), x + int(e)
-            if 0 <= ny < h and 0 <= nx < w:
-                rem = k - C[ny, nx]
-                if rem > 0.0:
-                    tot += float(f[ny, nx]) * rem
-        return tot
+    def neighbours(y, x):
+        yy, xx = y + dy, x + dx
+        inside = (yy >= 0) & (yy < height) & (xx >= 0) & (xx < width)
+        return yy[inside], xx[inside], kw[inside]
 
-    # seed the heap with the top-quantile of the kernel-correlated field
-    corr = np.zeros(f.shape, np.float32)
+    # Exact initial gains, in float64, and ALL allowed candidate positions.
+    corr = np.zeros(f.shape, np.float64)
     for d, e, k in zip(dy, dx, kw):
-        corr += float(k) * ndi.shift(f, (-int(d), -int(e)), order=0, mode="constant", cval=0.0)
-    corr[~mask] = -np.inf
-    nseed = min(int(max(n * 8, 20000)), int(mask.sum()))
-    seed_idx = np.argpartition(corr.ravel(), -nseed)[-nseed:]
-    heap = [(-float(corr.ravel()[i]), int(i)) for i in seed_idx]
+        corr += float(k) * M._shift(f, -int(d), -int(e))
+    heap = [(-float(corr.flat[i]), int(i)) for i in np.flatnonzero(mask)]
     heapq.heapify(heap)
-
-    out = np.zeros(f.shape, bool)
-    w = f.shape[1]
     chosen = 0
-    stale: set[int] = set()
     while heap and chosen < n:
-        neg, flat = heapq.heappop(heap)
-        if flat in stale:
+        _, flat = heapq.heappop(heap)
+        y, x = divmod(flat, width)
+        yy, xx, weights = neighbours(y, x)
+        gain = float(np.sum(f[yy, xx] * np.maximum(weights - coverage[yy, xx], 0)))
+        # Other cached gains are upper bounds. Include raster-index tie breaking.
+        if heap and (-gain, flat) > heap[0]:
+            heapq.heappush(heap, (-gain, flat))
             continue
-        y, x = divmod(flat, w)
-        g = gain_of(y, x)
-        if g <= 0.0:
+        if gain <= 0:
             break
-        # lazily re-insert neighbours whose gain may now be the largest
-        if -neg - g > 1e-6 and chosen < n:
-            stale.add(flat)
-            heapq.heappush(heap, (-g, flat))
-            # also push the neighbourhood once, so better candidates can surface
-            for d, e, _ in zip(dy, dx, kw):
-                ny, nx = y + int(d), x + int(e)
-                if 0 <= ny < f.shape[0] and 0 <= nx < f.shape[1]:
-                    nf = ny * w + nx
-                    if not out[ny, nx] and nf not in stale:
-                        heapq.heappush(heap, (-gain_of(ny, nx), nf))
-                        stale.add(nf)
-            continue
         out[y, x] = True
         chosen += 1
-        for d, e, k in zip(dy, dx, kw):
-            ny, nx = y + int(d), x + int(e)
-            if 0 <= ny < f.shape[0] and 0 <= nx < f.shape[1]:
-                C[ny, nx] = max(C[ny, nx], float(k))
+        coverage[yy, xx] = np.maximum(coverage[yy, xx], weights)
     return out
 
 

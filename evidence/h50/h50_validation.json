@@ -1,0 +1,392 @@
+{
+  "generated_utc": "2026-10-07T15:33:39Z",
+  "seconds": 248.6,
+  "protocol": "docs/research/h50-hypotheses-preregistered.md",
+  "seed": 20261007,
+  "spacings_px": [
+    1.5,
+    2.8,
+    3.6,
+    4.6,
+    5.8
+  ],
+  "density_per_1000": 7.37,
+  "flank_buffers_px": [
+    2.0,
+    3.0
+  ],
+  "sigma_scatter_px": 1.85,
+  "instrument": "B: USGS SGMC > 300 m from given catalogue, whole components, p0200, 8x8 folds, catalogue masked",
+  "n_blocks": 39,
+  "selection_block_indices": [
+    1,
+    4,
+    5,
+    6,
+    8,
+    10,
+    11,
+    12,
+    13,
+    17,
+    18,
+    21,
+    22,
+    23,
+    28,
+    30,
+    31,
+    33,
+    35,
+    38
+  ],
+  "calibration_block_indices": [
+    0,
+    2,
+    3,
+    7,
+    9,
+    14,
+    15,
+    16,
+    19,
+    20,
+    24,
+    25,
+    26,
+    27,
+    29,
+    32,
+    34,
+    36,
+    37
+  ],
+  "h50_inputs": {
+    "corridor_prior": {
+      "n_rows_used": 8889,
+      "n_rows_skipped": 18203,
+      "n_cells_nonzero": 1553,
+      "raw_sum": 464.33673529411766,
+      "blurred_max": 0.006272653583437204
+    },
+    "kth_ridge": {
+      "source": "external/geodawn_rad_u8.tif bands K,Th (u8 quantised mirror)",
+      "transform": "scarp_step(log(K+1)-log(Th+1), 5) after sigma=2 smoothing"
+    }
+  },
+  "field_weights": {
+    "R7": {
+      "scarp": 3,
+      "polarity": 2,
+      "curv": 1,
+      "detrend": 1,
+      "slope_var": 1
+    },
+    "H50b_extra": {
+      "kth_ridge": 1.5,
+      "total": 9.5
+    },
+    "corridor_prior": {
+      "floor": 0.35,
+      "weight": 0.65,
+      "sigma_px": 40.0
+    }
+  },
+  "candidates": [
+    {
+      "arm": "H50a_corridor",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 3.0,
+      "selection_mean": 0.10787434885646766,
+      "calibration_mean": 0.10101503276078017,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50a_corridor",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 2.0,
+      "selection_mean": 0.10478928991316509,
+      "calibration_mean": 0.09107424902063892,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "R7_scarp9_polarity",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 3.0,
+      "selection_mean": 0.103312124871859,
+      "calibration_mean": 0.10089879159420888,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50a_corridor",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 3.0,
+      "selection_mean": 0.0998196163174017,
+      "calibration_mean": 0.0979165817745285,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "R7_scarp9_polarity",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 2.0,
+      "selection_mean": 0.09889264812175319,
+      "calibration_mean": 0.08771529444365853,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50c_both",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 3.0,
+      "selection_mean": 0.09865673667665648,
+      "calibration_mean": 0.10082511584637813,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "R2_scarp9_topo",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 3.0,
+      "selection_mean": 0.09688101063731208,
+      "calibration_mean": 0.09841579529758655,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50a_corridor",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 2.0,
+      "selection_mean": 0.09538402660096575,
+      "calibration_mean": 0.08509182908106719,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50c_both",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 2.0,
+      "selection_mean": 0.09517469718369104,
+      "calibration_mean": 0.0965961682102804,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "R2_scarp9_topo",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 3.0,
+      "selection_mean": 0.09474375442660396,
+      "calibration_mean": 0.09530981956452636,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "R7_scarp9_polarity",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 3.0,
+      "selection_mean": 0.09437418871933478,
+      "calibration_mean": 0.093730589510182,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "R2_scarp9_topo",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 2.0,
+      "selection_mean": 0.09354840569720603,
+      "calibration_mean": 0.08629958278529189,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "R2_scarp9_topo",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 2.0,
+      "selection_mean": 0.0919204412664591,
+      "calibration_mean": 0.085621734188775,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50b_kth_ridge",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 3.0,
+      "selection_mean": 0.0919176550525527,
+      "calibration_mean": 0.09279716379686827,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "R7_scarp9_polarity",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 2.0,
+      "selection_mean": 0.09034842247955191,
+      "calibration_mean": 0.08166473637209606,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50c_both",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 3.0,
+      "selection_mean": 0.09002062983938036,
+      "calibration_mean": 0.09366039299671722,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50b_kth_ridge",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 2.0,
+      "selection_mean": 0.08800016497935301,
+      "calibration_mean": 0.08456815126525509,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50c_both",
+      "emitter": "disk",
+      "spacing_px": 2.8,
+      "flank_b": 2.0,
+      "selection_mean": 0.08755416798553552,
+      "calibration_mean": 0.08383155149310996,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50b_kth_ridge",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 3.0,
+      "selection_mean": 0.08732351617594253,
+      "calibration_mean": 0.09734874038089776,
+      "n_selection": 20,
+      "n_calibration": 19
+    },
+    {
+      "arm": "H50b_kth_ridge",
+      "emitter": "disk",
+      "spacing_px": 1.5,
+      "flank_b": 2.0,
+      "selection_mean": 0.08326150755730667,
+      "calibration_mean": 0.09050538245375116,
+      "n_selection": 20,
+      "n_calibration": 19
+    }
+  ],
+  "chosen": {
+    "arm": "H50a_corridor",
+    "emitter": "disk",
+    "spacing_px": 1.5,
+    "flank_b": 3.0,
+    "selection_mean": 0.10787434885646766,
+    "calibration_mean": 0.10101503276078017,
+    "n_selection": 20,
+    "n_calibration": 19
+  },
+  "r7_operating_point_reproduction": {
+    "arm": "R7_scarp9_polarity",
+    "emitter": "disk",
+    "spacing_px": 2.8,
+    "flank_b": 3.0,
+    "selection_mean": 0.103312124871859,
+    "calibration_mean": 0.10089879159420888,
+    "n_selection": 20,
+    "n_calibration": 19
+  },
+  "h49_reported_holdout_best_selection_mean": 0.10329,
+  "random_selection_mean": 0.05685951984078617,
+  "conformal": {
+    "method": "split conformal one-sided lower prediction bound (Lei et al., JASA 2018)",
+    "nominal_level": 0.9,
+    "alpha": 0.1,
+    "exchangeability_unit": "8x8 spatial block (Instrument B)",
+    "n_calibration_blocks": 19,
+    "order_statistic_k": 2,
+    "rank_coverage": 0.9,
+    "lower_bound_estimate": 0.0,
+    "calibration_dti_sorted": [
+      0.0,
+      0.0,
+      0.0,
+      0.04718526630143163,
+      0.06327439920046814,
+      0.06413078490446185,
+      0.08147719747597096,
+      0.08790839156104854,
+      0.10039625657103551,
+      0.10143341371231228,
+      0.10675054733363791,
+      0.12458131417999053,
+      0.12466791516450713,
+      0.13553566434309824,
+      0.15165381020667174,
+      0.1724596145657848,
+      0.17461822049873557,
+      0.18153739822329404,
+      0.20167542821237416
+    ],
+    "selection_dti_sorted": [
+      0.028232588434045282,
+      0.03465703559911421,
+      0.04153342558876101,
+      0.044775555289303715,
+      0.04751792472744381,
+      0.051714576181065064,
+      0.05500489421909994,
+      0.057267420197834,
+      0.059805611725810254,
+      0.07376885213025211,
+      0.10440395503026542,
+      0.10764035707225572,
+      0.11898510772968544,
+      0.12766804508494148,
+      0.14350799480163845,
+      0.1471277161931458,
+      0.18741107279377756,
+      0.21395863067181042,
+      0.24550256336454468,
+      0.2670036502945584
+    ],
+    "scope": "assumption-conditional on unverified block-score exchangeability of the public SGMC-off-catalogue proxy; NOT a guarantee for private labels, map-wide DTI or any leaderboard score"
+  },
+  "gate": {
+    "beats_holdout_best": true,
+    "positive_conformal_floor": false,
+    "beats_random_by_3x": false,
+    "passed": false
+  },
+  "rows_file": "/home/user/GEMSDOE47/evidence/h50/spacing_sweep_h50.csv",
+  "n_rows": 4290,
+  "scope_notice": "public proxy measurements only; no leaderboard score, projection or slot authorization",
+  "review_status": "EXPLORATORY_NOT_PROMOTED",
+  "formal_coverage_established": false,
+  "review_corrections": [
+    "Same H49 blocks and seed reused; this is not fresh validation.",
+    "Budget capped, not exactly mass matched when NMS emits fewer than quota.",
+    "Row n_truth is before the feature-valid mask; dti_binary applies that mask. Do not pool from the pre-mask count.",
+    "H50b is a quantized-channel contrast, not physical K/Th or orientation concordance.",
+    "Global exported allocation is not the blockwise calibration target.",
+    "Post-hoc calibration-floor filtering is withdrawn; original mean-only H50a selection retained."
+  ]
+}
