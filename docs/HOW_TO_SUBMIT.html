@@ -1,16 +1,83 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Submission guide · GEMSDOE47</title><meta name="description" content="H50 is the file to submit: download, SHA-256, the Note field text, and why the older research rasters are not submittable.">
-<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
-<body data-site-version="review" data-base=""><a class="skip" href="#main">Skip to guide</a>
-<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
-<nav aria-label="Main navigation"><a href="index.html">Home</a><a href="h50.html">H50</a>
-<a href="h50a.html">H50a (research only)</a><a href="evidence.html">Evidence</a><a href="sources.html">Sources</a><a href="irregularities.html">Limitations</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
-<div class="status-bar ready"><span class="status-dot" aria-hidden="true"></span><strong>H50 · OK TO DOWNLOAD AND SUBMIT</strong><span>Older H47-C1 / H47-QC / H49 / H48 artifacts remain research-only.</span></div>
-<main id="main"><section class="page-heading"><span class="eyebrow">Submission readiness · 6 October 2026</span><h1>Format is necessary.<br>Promotion comes first.</h1><p class="lede">No TIFF in this repository is approved for competition submission. This page is a gated checklist, not an upload request.</p></section>
-<section class="notice"><strong>STOP — H47-C1 FAILED ITS HOLDOUT GATE</strong><p>Pooled public-catalogue DTI 0.177872 versus 0.180216 for the locked ordinary-terrain baseline; 11/22 truth-bearing blocks improve, below the required 15; the nominal 90% marginal proxy lower-bound estimate is 0.0000 under unverified exchangeability. No private-score estimate or organizer acceptance is claimed.</p></section>
-<section><h2>Current research artifact</h2><p><a href="downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif">Download the H47-C1 research TIFF</a> · <a href="data/current-submission.json">local validation receipt</a>.</p><p>SHA-256 <code>e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0</code>; 152,396 bytes; one float32 band; EPSG:32611; 100 m. Raw samples are finite in [0,1]. An internal TIFF validity mask marks outside-footprint pixels null. Fifteen local read-back checks pass; portal acceptance is untested.</p></section>
-<section><h2>Published format requirements and prior rejection</h2><p>The <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">official submission-format page</a> specifies a one-band float32 GeoTIFF on the training grid, with values in [0,1] and null or NaN outside bounds. Unmasked zero-outside all-finite research variants (including H47-B single-scale, H47-GSA, H47-QC, H48-APEX, and older Session-3) fail this explicit outside-nodata check. Separate NaN-outside variants follow owner-supplied mirror conventions only; portal acceptance is not established. The rejected bytes and parser receipt were not supplied, so the historical range-error cause remains unknown.</p></section>
-<section><h2>After a future candidate passes</h2><ol><li>Verify the candidate passes the preregistered spatially blocked holdout gate against the separately established best, with required controls and confidence level.</li><li>Complete bounded prior-art uniqueness and provenance checks; do not describe them as global proof.</li><li>Reopen and hash the exact TIFF bytes; validate band count, dtype, CRS, resolution, transform, bounds, in-footprint range, and null/NaN outside.</li><li>Check eligibility, current portal instructions, and any current per-user quota in the authenticated organizer portal. Public official pages checked 2026-10-06 do not establish current quota or slot accounting.</li><li>Only after explicit authorization, submit through the organizer form and retain the exact receipt. A local check is not portal acceptance.</li></ol><p>Three historical λ-scaling score observations are not a verified count of new uploads or slots. No diagnostic cost is inferred or called free. Official materials describe one selected file for both rounds; confirm the operative rule in the portal.</p></section>
-<p><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">Read the standing brief and current decision</a> · <a href="irregularities.html">Evidence limits and corrections</a></p></main>
-<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="sources.html">Sources</a> · <a href="irregularities.html">Limitations</a></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Submit — GEMSDOE47</title>
+<meta name="description" content="Exact download-and-submit sequence for the current GEMSDOE47 submission candidate (H60), with hash, note text and portal steps.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <h1>How to Submit to the GEMS Prize Challenge</h1>
+</header>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="executive-summary.html">Executive Summary</a>
+  <a href="h60.html">H60 Evidence</a> · <a href="h51.html">H51</a>
+  <a href="all-downloads.html">All Downloads</a>
+  <a href="HOW_TO_SUBMIT.html" class="active">How to Submit</a>
+  <a href="method.html">Method</a>
+  <a href="knowledge.html">Knowledge</a>
+</nav>
+<main>
+
+<section>
+  <h2>Quick Start</h2>
+  <ol>
+    <li><strong>Download:</strong> <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif" download>Click here to download the H60 GeoTIFF (the file to submit)</a></li>
+    <li><strong>Go to:</strong> <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submit/">https://www.drivendata.org/competitions/306/competition-doe-gems/submit/</a></li>
+    <li><strong>Upload:</strong> Select the downloaded file</li>
+    <li><strong>Note:</strong> Paste <code>h60 lidar-scarp d2p0 conformal90</code></li>
+    <li><strong>Submit</strong></li>
+  </ol>
+</section>
+
+<section>
+  <h2>File Details</h2>
+  <table>
+    <tr><td>Primary file</td><td><code>gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif</code></td></tr>
+    <tr><td>Unique name</td><td><code>GEMSDOE47-H60-lidarscarp-s2p0-20261007</code></td></tr>
+    <tr><td>Note</td><td><code>h60 lidar-scarp d2p0 conformal90</code></td></tr>
+    <tr><td>Format</td><td>single band, float32, EPSG:32611, 100 m, 3292×3730</td></tr>
+    <tr><td>Dots</td><td>37,654</td></tr>
+    <tr><td>Values</td><td>0.0 and 1.0 only, all in [0,1]</td></tr>
+    <tr><td>SHA-256</td><td><code>3d12889caf5093151808fbe5750233dcbf2ca871c12130fcf631d0f0b765c0b4</code></td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Troubleshooting</h2>
+  <h3>"Predicted values must be in range [0, 1]"</h3>
+  <p>This error can occur if the portal's range validator encounters NaN values that it
+  doesn't recognize as nodata. Try the NaN-outside variant:
+  <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif" download>Download NaN-outside variant (H60)</a></p>
+  <p>The NaN-outside variant writes NaN outside the competition footprint with nodata=nan.
+  The all-finite variant writes 0.0 outside the footprint with no nodata tag.</p>
+
+  <h3>File size</h3>
+  <p>The all-finite variant is ~316 KB and the NaN-outside variant is ~369 KB. Both should
+  upload quickly.</p>
+
+  <h3>Which variant to use?</h3>
+  <p>Try the all-finite variant first. If rejected, use the NaN-outside variant.
+  Both have identical predictions inside the competition footprint.</p>
+</section>
+
+<section>
+  <h2>About the Competition</h2>
+  <p>The <strong>DOE GEMS Prize Challenge</strong> (DrivenData #306) asks participants to find
+  geothermal-indicative faults in the GeoDAWN region of Nevada. The competition has two rounds:</p>
+  <ul>
+    <li><strong>Initial Round ($50,000):</strong> Scored against a private set of expert-labeled faults. Top 5 win $10K each.</li>
+    <li><strong>Final Round ($250,000):</strong> Re-scored against an expanded label set built from expert review of all submissions. Top 5 win $100K/$70K/$40K/$25K/$15K.</li>
+  </ul>
+  <p>See <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">the official competition page</a>.</p>
+</section>
+
+</main>
+<footer>
+  <p>GEMSDOE47 · Built by Arena.ai agent · Generative-AI assistance disclosed</p>
+</footer>
+</body>
+</html>

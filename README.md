@@ -76,6 +76,18 @@ IR-2026-10-07-B), the only local truth population whose DTI is *positively* rank
 owner-reported public scores. The current recommendation is H60, which beat H50 on **both** the primary
 instrument (+73 %) and the independent SGMC instrument (+59 %) under the same frozen 41-block design.
 
+### H51 (sibling session, merged from `main` 2026-10-07) — not recommended while H50 exists
+
+A sibling session published `docs/downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif`
+(multi-scale slope-anomaly persistence, 2.8 px, 37,654 dots; evidence page
+[docs/h51.html](docs/h51.html)). It passes the format checks, but its own receipt records
+**maximum mask Jaccard 0.8543** against a prior raster: 34,696 of its 37,654 dots are the H50
+slope-anomaly raster's dots (measured directly in this session). It is therefore a
+**near-duplicate of the published H50 emission**, not an independent candidate; submitting it
+while H50 exists would spend a slot on substantially the same prediction. It is retained for
+audit and is **not** the file to submit. H60's maximum Jaccard against every prior raster,
+including H51, is **0.0217**.
+
 - Filename: `gems47-h50-slopeanom-s2p8-20261007-allfinite.tif`
 - Name: `GEMSDOE47-H50-slopeanom-D2p8-20261007`
 - **Short Note for the DrivenData form: `h50 slope-anomaly d2p8 conformal90`** (31 characters)

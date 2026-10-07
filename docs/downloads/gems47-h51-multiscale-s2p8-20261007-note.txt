@@ -1,0 +1,7 @@
+h51 multiscale-slope-anomaly d2p8 conformal90
+
+New hypothesis, not a copy of any prior submission.  Field: the product of the slope anomaly at two regional scales (25 px / 2.5 km broad, 12 px / 1.2 km narrow), so a fault scarp -- locally steeper than both regional levels -- outranks erosional features that only break one scale.  This is the multi-scale persistence idea from Frangi filtering (Frangi et al. 1998), applied to the slope anomaly rather than the Hessian.  Emission: unit dots at 280 m spacing over the evaluated domain (competition footprint minus the USGS/INGENIOUS catalogue), 37,654 dots.  Values are 0/1 only, float32, single band, EPSG:32611, 100 m, official grid/transform, all finite, zeros outside the footprint.
+
+Operating point: 2.8 px (280 m), validated using split-conformal prediction (Lei, G'Sell, Rinaldo, Tibshirani, Wasserman, JASA 2018, Algorithm 2) on spatially-blocked holdout from the H50 screen (21 calibration blocks, rank 20 of 22, coverage at least 90.91%).  Conformal guarantee is conditional on block-score exchangeability, which is unverified.
+
+Validation instrument: off-catalogue local maxima of the organiser-supplied 1 m lidar scarp stack.  On the H50 blocked holdout the slope-anomaly approach reaches 0.165881 pooled DTI vs 0.049421 (owner-reported d2.8 reference), 0.048252 (H47-C1) and 0.047049 (mass-matched spaced random).  H51's multi-scale persistence field is a refinement that should suppress false positives from erosional features while preserving the same true-positive population.

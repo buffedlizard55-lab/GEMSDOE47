@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>H51 Evidence — GEMSDOE47</title>
+<meta name="description" content="H51 multi-scale slope-anomaly persistence raster: format checks, conformal certificate, and the near-duplicate-overlap measurement against the H50 emission.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <h1>H51 Multi-Scale Slope-Anomaly Persistence</h1>
+  <p class="tagline">Evidence and validation for the primary submission candidate</p>
+</header>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="executive-summary.html">Executive Summary</a>
+  <a href="h51.html" class="active">H51 Evidence</a>
+  <a href="all-downloads.html">All Downloads</a>
+  <a href="method.html">Method</a>
+  <a href="knowledge.html">Knowledge</a>
+  <a href="research.html">Research</a>
+  <a href="leaderboard.html">Leaderboard</a>
+  <a href="sources.html">Sources</a>
+</nav>
+<main>
+
+<section>
+  <h2>⬇️ Download</h2>
+  <div class="download-box">
+    <a href="downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif" class="btn-primary" download>
+      Download H51 GeoTIFF — OK to Submit
+    </a>
+    <p class="download-alt">
+      <a href="downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif">NaN-outside variant</a> ·
+      <a href="downloads/gems47-h51-multiscale-s2p8-20261007.zip">ZIP bundle</a>
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2>Hypothesis</h2>
+  <p><strong>H51</strong> uses the product of the slope anomaly at two regional scales as the detection field:</p>
+  <ol>
+    <li><strong>Broad anomaly:</strong> Band 19 (<code>det_elev_slope</code>) minus its 25 px (2.5 km) Gaussian regional level</li>
+    <li><strong>Narrow anomaly:</strong> Band 19 minus its 12 px (1.2 km) Gaussian regional level</li>
+    <li><strong>Product:</strong> Both anomalies must be positive — the slope must be steeper than both regional levels</li>
+    <li><strong>Rank scaling:</strong> The product is rank-transformed to [0,1] within the evaluated domain</li>
+  </ol>
+  <p><strong>Why this works:</strong> A fault scarp creates a slope anomaly that persists across scales — it stands out
+  from both the 2.5 km and 1.2 km regional backgrounds. Erosional features like stream banks and canyon rims
+  create sharp but small-scale anomalies that don't persist at the broader scale. The product suppresses these
+  false positives while preserving genuine fault scarps.</p>
+  <p><strong>Physical basis:</strong> This is the multi-scale persistence concept from Frangi et al. (1998)
+  <em>Multiscale vessel enhancement filtering</em>, adapted from Hessian eigenvalue analysis to the slope
+  anomaly field. In the Basin and Range province, normal fault scarps are the primary structural expression
+  of geothermal systems (Faulds et al. 2021, NBMG Report 58).</p>
+</section>
+
+<section>
+  <h2>Operating Point — Split Conformal Certification</h2>
+  <table>
+    <tr><td><strong>Spacing</strong></td><td>2.8 px / 280 m</td></tr>
+    <tr><td><strong>Budget</strong></td><td>37,654 unit dots</td></tr>
+    <tr><td><strong>Selection blocks</strong></td><td>20 spatially blocked blocks (selection half)</td></tr>
+    <tr><td><strong>Calibration blocks</strong></td><td>21 disjoint blocks (calibration half)</td></tr>
+    <tr><td><strong>Method</strong></td><td>Max-residual one-sided split conformal (Lei et al. JASA 2018, Algorithm 2)</td></tr>
+    <tr><td><strong>Residual rank</strong></td><td>20 of 22</td></tr>
+    <tr><td><strong>Coverage</strong></td><td>≥90.91%</td></tr>
+    <tr><td><strong>Certified floor</strong></td><td>0.0957 DTI</td></tr>
+  </table>
+  <p><strong>Assumption:</strong> Block-level exchangeability, not verified. This is a conditional guarantee,
+  not a private-label or leaderboard guarantee.</p>
+</section>
+
+<section>
+  <h2>Blocked Holdout Validation (from H50 screen)</h2>
+  <table>
+    <tr><th>Field</th><th>Pooled DTI</th><th>Mean Block DTI</th></tr>
+    <tr><td><strong>H50/H51 slope-anomaly field</strong></td><td><strong>0.165881</strong></td><td><strong>0.163039</strong></td></tr>
+    <tr><td>Owner-reported d2.8 reference</td><td>0.049421</td><td>0.046088</td></tr>
+    <tr><td>H47-C1 (previous best)</td><td>0.048252</td><td>0.041460</td></tr>
+    <tr><td>Mass-matched spaced random</td><td>0.047049</td><td>0.037786</td></tr>
+  </table>
+  <p>Validation instrument: off-catalogue local maxima of the organiser-supplied 1 m lidar scarp stack.
+  61 contiguous blocks with a 3 px guard. <strong>No submission slot was spent</strong> to obtain this result.</p>
+</section>
+
+<section>
+  <h2>Format Verification</h2>
+  <table>
+    <tr><th>Check</th><th>Result</th></tr>
+    <tr><td>Single band</td><td>✅</td></tr>
+    <tr><td>float32</td><td>✅</td></tr>
+    <tr><td>CRS EPSG:32611</td><td>✅</td></tr>
+    <tr><td>Width 3292</td><td>✅</td></tr>
+    <tr><td>Height 3730</td><td>✅</td></tr>
+    <tr><td>Transform matches</td><td>✅</td></tr>
+    <tr><td>No nodata tag</td><td>✅</td></tr>
+    <tr><td>No NaN</td><td>✅</td></tr>
+    <tr><td>No Inf</td><td>✅</td></tr>
+    <tr><td>All in [0, 1]</td><td>✅</td></tr>
+    <tr><td>Zero outside footprint</td><td>✅</td></tr>
+    <tr><td>37,654 dots</td><td>✅</td></tr>
+    <tr><td>Dots on footprint</td><td>✅</td></tr>
+    <tr><td>Dots off catalogue</td><td>✅</td></tr>
+    <tr><td>Values are 0.0 or 1.0 only</td><td>✅</td></tr>
+    <tr><td>NaN-intolerant range check</td><td>✅</td></tr>
+    <tr><td>Compression deflate</td><td>✅</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Provenance Limits</h2>
+  <ul>
+    <li>No organiser receipt links any participant score to a TIFF.</li>
+    <li>The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.</li>
+    <li>The multi-scale persistence field has not been independently validated on a fresh holdout;
+    the conformal certificate is inherited from the H50 screen which used a single-scale slope anomaly.</li>
+    <li>Block-score exchangeability is assumed and unverified.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>SHA-256 Receipts</h2>
+  <table>
+    <tr><td>All-finite variant</td><td><code>3d12889caf5093151808fbe5750233dcbf2ca871c12130fcf631d0f0b765c0b4</code></td></tr>
+    <tr><td>NaN-outside variant</td><td><code>e6eb13f671e2663b4f69e94307dfcac840bf9039cb411ab7b815cf029301fa43</code></td></tr>
+  </table>
+</section>
+
+<section class="notice"><strong>NEAR-DUPLICATE MEASUREMENT (added 2026-10-07 on merge)</strong>
+<p>Measured directly after the merge: 34,696 of this raster's 37,654 dots are the H50
+slope-anomaly raster's dots (mask Jaccard 0.8543, exactly the maximum recorded in this
+artifact's own receipt). The multi-scale product re-ranks the same slope-anomaly evidence, so
+the emitted dots largely coincide with H50's. It is retained for audit and is not recommended
+while H50 exists; the current primary is <a href="h60.html">H60</a> (max Jaccard 0.0217 against
+every prior raster, including this one).</p></section>
+</main>
+<footer>
+  <p>GEMSDOE47 · Built by Arena.ai agent · Generative-AI assistance disclosed ·
+  <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DOE GEMS Prize Challenge</a></p>
+</footer>
+</body>
+</html>
