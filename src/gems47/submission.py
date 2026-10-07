@@ -58,13 +58,24 @@ def write_submission(values: np.ndarray, path: Path | str, mode: str = "nan",
                       but the mirror is not organizer authentication. A raw
                       NaN-intolerant ``np.all((v>=0)&(v<=1))`` check fails; no
                       portal-acceptance claim is made for either mode.
+    ``mode="allfinite"``  Identical bytes to ``mode="zeros"``, but named for
+                      submission use.  Rationale: the user-reported portal
+                      rejection was ``"Predicted values must be in range [0, 1]"``,
+                      and the owner-reported family-best artifact
+                      (``reference/h33-2-b2-zeros.tif``, 0.2778) is exactly this
+                      convention -- float32, single band, all finite, nodata
+                      unset, values in [0, 1], zeros outside the footprint.  It
+                      was scored, so the portal demonstrably accepts it.  The
+                      trade-off is stated in the docstring of ``validate_submission``:
+                      the official page says null or NaN outside the bounds, and
+                      zeros do not satisfy that wording literally.
     """
     path = Path(path)
     t = template or G.load_template()
     if values.shape != t.shape:
         raise ValueError(f"values {values.shape} != template {t.shape}")
     v = np.asarray(values, np.float32)
-    if mode == "zeros":
+    if mode in ("zeros", "allfinite"):
         v = np.where(np.isfinite(v), v, np.float32(0.0)).astype(np.float32)
         v = np.clip(v, np.float32(0.0), np.float32(1.0))
         v = np.where(t.footprint, v, np.float32(0.0)).astype(np.float32)

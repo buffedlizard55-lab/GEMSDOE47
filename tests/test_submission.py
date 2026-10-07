@@ -38,9 +38,10 @@ def dots(tmpl):
     return d
 
 
-def _write(tmp_path, tmpl, dots, mode):
+def _write(tmp_path, tmpl, dots, mode, values=None):
     p = tmp_path / f"s-{mode}.tif"
-    S.write_submission(np.where(dots, 1.0, 0.0).astype(np.float32), p, mode=mode, template=tmpl)
+    arr = np.where(dots, 1.0, 0.0).astype(np.float32) if values is None else values
+    S.write_submission(arr, p, mode=mode, template=tmpl)
     return p
 
 
@@ -244,3 +245,29 @@ def test_sentinel_values_would_be_flagged(tmp_path, tmpl, dots):
     v = S.validate_submission(p, template=tmpl)
     assert v["checks"]["no_nodata_sentinel_values"] is False
     assert "no_nodata_sentinel_values" in v["hard_failures"]
+
+
+def test_allfinite_mode_writes_byte_identical_zeros_mode(tmp_path, tmpl, dots):
+    """``allfinite`` is the submission-named alias of the all-finite convention."""
+    a = _write(tmp_path, tmpl, dots, "zeros")
+    b = _write(tmp_path, tmpl, dots, "allfinite")
+    assert a.read_bytes() == b.read_bytes()
+    import numpy as np
+    with rasterio.open(b) as src:
+        v = src.read(1)
+        assert src.nodata is None
+        assert np.isfinite(v).all()
+        # the exact range reading a NaN-intolerant portal check applies
+        assert np.all((v >= 0) & (v <= 1))
+        assert (v[~tmpl.footprint] == 0).all()
+        assert float(v.max()) == 1.0 and float(v.min()) == 0.0
+
+
+def test_allfinite_mode_clips_and_sanitises(tmp_path, tmpl, dots):
+    bad = np.where(dots, np.float32(7.0), np.float32(np.nan)).astype(np.float32)
+    p = _write(tmp_path, tmpl, dots, "allfinite", values=bad)
+    with rasterio.open(p) as src:
+        v = src.read(1)
+    assert np.isfinite(v).all()
+    assert float(v.max()) <= 1.0 and float(v.min()) >= 0.0
+    assert (v[~tmpl.footprint] == 0).all()

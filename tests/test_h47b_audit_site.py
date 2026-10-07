@@ -18,12 +18,14 @@ class H47BAuditSiteTests(unittest.TestCase):
         summary = (ROOT / "docs" / "executive-summary.html").read_text(encoding="utf-8")
         audit = (ROOT / "docs" / "h47b-mask-audit-20261006.html").read_text(encoding="utf-8")
         downloads = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
-        current_tiff = "gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
-
+        # H47-B is a research-only arm: it stays registered with its exact bytes, and the
+        # two pages the user reads keep pointing at its audit, but the submittable artifact
+        # is now H50 rather than H47-C1.
         for current_page in (home, summary):
-            self.assertIn(current_tiff, current_page)
-            self.assertIn("No slot authorized", current_page)
+            self.assertIn("h50.html", current_page)
+            self.assertIn("OK TO DOWNLOAD AND SUBMIT", current_page)
             self.assertIn("h47b-mask-audit-20261006.html", current_page)
+            self.assertIn("RESEARCH-ONLY", current_page)
         self.assertIn(ARTIFACT, audit)
         self.assertIn(ARTIFACT_SHA256, audit)
         self.assertIn(ARTIFACT, downloads)
