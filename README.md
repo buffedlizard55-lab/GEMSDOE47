@@ -1,24 +1,80 @@
-# GEMSDOE47 — H50 is the submission: new inference, auditable evidence
+# GEMSDOE47 — H60 is the submission: new inference, auditable evidence
 
 > **Read the standing brief below at the start of every work session.**
 > **Maximize P(Win)**: publish a genuinely new candidate only after it beats every control on a
 > spatially blocked holdout — then submit it.
 > **Own the Outcome**: publish negative results, corrections, actual bytes and limits — never an invented win.
 
-## OK TO DOWNLOAD AND SUBMIT — the H50 GeoTIFF
+## OK TO DOWNLOAD AND SUBMIT — the H60 GeoTIFF
 
-**[Download the H50 single-band GeoTIFF (this is the file to submit)](docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif)** ·
-[ZIP with note + receipt](docs/downloads/gems47-h50-slopeanom-s2p8-20261007.zip) ·
-[H50 evidence page](docs/h50.html) ·
+**[Download the H60 single-band GeoTIFF (this is the file to submit)](docs/downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif)** ·
+[ZIP with note + receipt](docs/downloads/gems47-h60-lidarscarp-s2p0-20261007.zip) ·
+[H60 evidence page](docs/h60.html) ·
 [Executive summary and official submission sequence](docs/executive-summary.html) ·
 [GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
 
-A genuinely new hypothesis, **not a copy of any prior GEMSDOE submission**. The field is the rank
-of official band 19 (`det_elev_slope`) *above its own 25 px (2.5 km) Gaussian regional level*, so a
-fault scarp — a locally steep step on a gentle surface — outranks a uniformly steep mountain front.
-It is validated against **off-catalogue local maxima of the organiser-supplied 1 m lidar scarp
-stack**, the only local truth population whose DTI is *positively* rank-correlated with the
-owner-reported public scores.
+A genuinely new hypothesis, **not a copy of any prior GEMSDOE submission**. The field is the
+per-cell **maximum of the ranks of six scarp channels of the owner-derived 1 m lidar stack**
+(`step_max`, `lappos_max`, `lapneg_max`, `upface_max`, `downface_max`, `cross_max` — the stack was
+built by the owner's CI from USGS 3DEP 1 m DEM tiles on the competition's own tile list, pinned at
+`registry/data_manifest.json`; it is *not* organiser-supplied), restricted to cells at least
+**250 m from a TIGER road** and **150 m from a BLM closed mining claim**, so the detector sees
+tectonic steps rather than road cuts and mine scars. Every previous family field ranked a *proxy*
+of the scarp; H60 ranks the scarp evidence itself. The round was **preregistered** (slate, frozen
+design, six-condition gate committed at `5ea987b` **before** any score was computed:
+[docs/research/h60-hypotheses-preregistered.md](docs/research/h60-hypotheses-preregistered.md)).
+
+- Filename: `gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif`
+- Name: `GEMSDOE47-H60-lidarscarp-s2p0-20261007`
+- **Short Note for the DrivenData form: `h60 lidar-scarp d2p0 conformal90`** (34 characters)
+- TIFF SHA-256: `4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c`
+- Actual bytes: **298,994**. Full width **3292 × height 3730**, EPSG:32611, 100 m.
+- One float32 band, **37,654 unit dots** at 2.0 px / 200 m over the off-catalogue evaluated domain
+  intersected with the noise-masked valid-lidar domain (1,610,706 of 5,106,385 cells).
+- **Every one of the 12,279,160 cells is finite and inside [0,1]**; the values are 0.0 and 1.0 only.
+  No NoData tag; 0.0 outside the footprint. This is the direct answer to the reported portal
+  rejection `"Predicted values must be in range [0, 1]"`. A NaN-outside fallback is published
+  alongside it (`gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif`).
+- **17/17 strict read-back checks pass. Organizer acceptance has not been tested.**
+- **Bounded uniqueness:** 35 prior rasters compared — **zero exact matches**, maximum mask Jaccard
+  **0.0217** (the most novel artifact this repository has published).
+
+### The H60–H64 round (7 October 2026) — one winner, two refutations, one refinement
+
+| Arm (selection half, pooled DTI) | Primary: lidar lappos peaks | Independent: SGMC off-catalogue | Verdict |
+|---|---:|---:|---|
+| **H60 lidar scarp-crest field** | **0.287891** | **0.193813** | **PROMOTED (gate passed; winner)** |
+| H62 additive 50/50 mixture | 0.245762 | 0.184971 | passed, lost the SGMC tie-break |
+| H50 slope-anomaly anchor | 0.165881 | 0.122083 | reproduced bit-for-bit (design check) |
+| H61 per-trace reallocation of H50 | 0.163632 | 0.121525 | **refuted** — trace-proportional spreading does not help |
+| H63 catalogue-adjacency-gated lidar | 0.156660 | 0.162911 | **refuted** — hugging the catalogue hurts |
+| Owner-reported d2.8 reference | 0.049421 | 0.089879 | control |
+| Mass-matched spaced random | 0.046288 | 0.069761 | control |
+
+H64 (instrument refinement, 13 owner-reported artifacts, Spearman ρ vs reported DTI): **far-from-catalogue
+peaks correlate better than near ones** (lappos +0.581 far vs +0.273 near), **the road/claim masks improve
+the instrument-leaderboard correlation** (step +0.592 masked vs +0.449 unmasked), and `coh100` peaks
+anti-correlate (−0.532). These three facts are *why* H60's design choices won and why H63 failed.
+Evidence: `evidence/h60/` (screen, spacing history, instrument refinement, artifact profile) — deployed
+copies at `docs/data/h60-*.json`.
+
+Two implementation deviations are recorded rather than hidden (IR-2026-10-07-D): the preregistered H61
+min-1 per-trace allocation floor over-emitted (649 dots for a 294 budget) and was replaced by
+deterministic largest-remainder allocation; and the lidar-domain arms cap emission at domain capacity at
+small spacings (H60 placed 17,889 of the 21,198-dot selection budget at 2.0 px — it outperforms the
+anchor with 84 % of the mass).
+
+### H50 — valid fallback, superseded as primary by H60 on 2026-10-07
+
+**[Download the H50 GeoTIFF (labelled fallback)](docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif)** ·
+[H50 evidence page](docs/h50.html). H50 passed the same promotion gate in the previous round and remains a
+valid, format-checked, unique submission option. The field is the rank of official band 19
+(`det_elev_slope`) *above its own 25 px (2.5 km) Gaussian regional level*, validated against
+**off-catalogue local maxima of the owner-derived 1 m lidar scarp stack** (USGS 3DEP 1 m tiles; the
+"organiser-supplied" wording in earlier H50-era text was a provenance error — corrected, see
+IR-2026-10-07-B), the only local truth population whose DTI is *positively* rank-correlated with the
+owner-reported public scores. The current recommendation is H60, which beat H50 on **both** the primary
+instrument (+73 %) and the independent SGMC instrument (+59 %) under the same frozen 41-block design.
 
 - Filename: `gems47-h50-slopeanom-s2p8-20261007-allfinite.tif`
 - Name: `GEMSDOE47-H50-slopeanom-D2p8-20261007`
@@ -48,7 +104,7 @@ passes. Its nominal 90 % public-proxy floor is **0.0000** and its blocks were pr
 inspected, so its promotion gate is closed. **It is not the file to submit.** Full checks,
 receipts and the spacing sweep: [h50a.html](docs/h50a.html) and `evidence/h50/` on `main`.
 
-### Operating point, certified by split conformal prediction
+### H50 operating point (fallback), certified by split conformal prediction
 
 | Item | Value |
 |---|---|
@@ -65,7 +121,7 @@ certified it. Simultaneous over the seven spacings in the sweep. Geological exch
 **unverified**, so this is a conditional guarantee and **not** a private-label, pooled-map or
 leaderboard guarantee.
 
-### Blocked-holdout gate — it passed
+### H50 blocked-holdout gate — it passed (previous round)
 
 | Blocked-holdout comparison (selection half, off-catalogue lidar-scarp instrument) | Pooled DTI | Mean block DTI |
 |---|---:|---:|
@@ -74,7 +130,8 @@ leaderboard guarantee.
 | H47-C1, the previous holdout best | 0.048252 | 0.041460 |
 | Mass-matched fixed-seed spaced random | 0.047049 | 0.037786 |
 
-Sixty-one contiguous blocks with a 3 px guard; roles assigned before any score was computed; blocks
+Forty-one contiguous blocks (20 selection + 21 calibration) with a 3 px guard; roles assigned
+before any score was computed; blocks
 with few or no truth pixels kept. **No competition submission slot was spent** to obtain this result
 and no private label was read.
 
@@ -89,7 +146,8 @@ Full register with hashes and verdicts: [all-downloads.html](docs/all-downloads.
 
 ### Cross-session research status and claim boundaries
 
-H50 is the current primary artifact and is OK to download and submit. Every earlier artifact
+H60 is the current primary artifact and is OK to download and submit; H50 is the labelled
+fallback. Every earlier artifact
 (H47-C1, H47-QC, H48, H49, H47-B, H47-GSA, H47-MAXCOV) remains research-only and is retained
 for audit.
 
@@ -208,19 +266,27 @@ new TIFF/ZIP bytes. Restored-grid tests are run locally; they are explicitly mar
 
 ## What to do next
 
-1. **H50 is published and is the file to submit.** Confirm eligibility, upload instructions and any
-   per-user quota in the authenticated organiser portal before uploading; public pages do not
-   establish current quota. Retain the organiser's receipt, timestamp, filename and score.
-2. **Do not rename or re-label the earlier negative runs (H47-C1, H47-QC, H48, H49) as promoted.**
-   They stay research-only in the register.
-3. The H50 holdout instrument is a proxy that shares the slope quantity with the field's input band.
-   The highest-value next experiment is a **second, structurally independent instrument** for the
-   off-catalogue scarp population (for example a 1 m lidar channel family the field does not read,
-   or a manually compiled regional fault map), so the selection is not circular.
-4. H50's emission is isotropic. The strike-aligned anisotropic emitter was tested here and lost
-   (0.265–0.279 against 0.2917 on the union instrument); a per-trace budget reallocation, rather
-   than a per-pixel exclusion rule, is the untested variant.
-5. Obtain the official 1 m tile CSV/coverage before calling a high-resolution detector viable.
+1. **H60 is published and is the file to submit** (H50 is the labelled fallback). Confirm
+   eligibility, upload instructions and any per-user quota in the authenticated organiser portal
+   before uploading; public pages do not establish current quota. Retain the organiser's receipt,
+   timestamp, filename and score. Disclose generative-AI assistance in the required narrative.
+2. **Do not rename or re-label the earlier negative runs (H47-C1, H47-QC, H48, H49, H61, H63) as
+   promoted.** They stay research-only in the register; H61/H63 refutations are part of the H60
+   evidence.
+3. **Independent-instrument work remains the priority.** H60's primary instrument derives from the
+   same owner-built lidar stack the field reads, so its numbers are optimistic by construction.
+   The SGMC off-catalogue population is the current independent floor (0.1938 vs 0.0698 random).
+   A structurally independent instrument (regional fault map, Quaternary-fault compilation,
+   geologic map contact traces) would further de-circularise selection.
+4. **The spacing optimum may be below 2.0 px.** H60's selection-half mean is monotone down to the
+   sweep edge (0.2844 at 2.0, the smallest swept spacing); the preregistered sweep stopped there.
+   A preregistered 1.4–2.4 extension is a legitimate next screen, with the conformal guarantee
+   made simultaneous over the extended set.
+5. **Emission under-capacity is information, not noise.** At 2.0 px the noise-masked domain holds
+   only 17,889 of the 21,198-dot block budget on the selection half; the whole-map artifact
+   emitted the full 37,654. A budget-vs-domain-capacity trade-off (or larger mask radii with more
+   room per block) is untested.
+6. Obtain the official 1 m tile CSV/coverage before calling any higher-resolution detector viable.
    Process bounded tile windows, not an unbounded hundreds-of-GB mosaic in Git.
 
 [Current next-session handoff](docs/next-session.md) · [Reusable knowledge](docs/knowledge.html) ·

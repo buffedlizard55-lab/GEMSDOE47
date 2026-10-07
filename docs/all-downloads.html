@@ -11,7 +11,7 @@
 <header><div class="wrap">
   <p class="eyebrow">GEMSDOE47 · artifact register</p>
   <h1>Every artifact, every hash, every status</h1>
-  <p class="lede">The landing page leads with <strong>H50, which is OK to download and submit</strong>, and separately labels the earlier H47-C1, H47-QC, H50a, H48 and H49 research rasters as not for submission. The inherited H49 artifact is listed below as research-only: it fails the published null/NaN-outside requirement and is not slot-authorized. <strong>One file has passed its gate: the H50 slope-anomaly raster, which is OK to download and submit.</strong> This register lists every GeoTIFF currently published under <code>downloads/</code>, including superseded files, with exact hashes and status.</p>
+  <p class="lede">The landing page leads with <strong>H60, which is OK to download and submit</strong>, and separately labels the earlier H47-C1, H47-QC, H50a, H48 and H49 research rasters as not for submission. The inherited H49 artifact is listed below as research-only: it fails the published null/NaN-outside requirement and is not slot-authorized. <strong>Two files have passed their gates: the H60 lidar scarp-crest raster (primary recommendation) and the H50 slope-anomaly raster (valid fallback).</strong> This register lists every GeoTIFF currently published under <code>downloads/</code>, including superseded files, with exact hashes and status.</p>
   <nav><a href="index.html">Home</a> <a href="executive-summary.html">Executive summary</a>
   <a href="h50.html">H50 (submit this)</a>
   <a href="h50a.html">H50a (research only)</a>
@@ -20,13 +20,26 @@
 <main class="wrap">
 <table>
   <tr><th>File</th><th>Role</th><th>Pixels</th><th>Format</th><th>Bytes</th><th>SHA-256</th><th>Status</th></tr>
-  <!--h49:row-->  <tr>
+  <!--h60:row-->  <tr>
+    <td><a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif" download>gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif</a><br>
+    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007.zip">ZIP with note + receipt</a> ·
+    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-note.txt">Submission note (copy-paste)</a> ·
+    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-receipt.json">Receipt</a> ·
+    <a href="h60.html">Evidence page</a></td>
+    <td><strong>PRIMARY · OK TO DOWNLOAD AND SUBMIT</strong><br>H60 lidar scarp-crest field, road/claim masked, split-conformal 2.0 px, passed preregistered gate (primary + independent instruments)</td>
+    <td>37,654</td>
+    <td>float32 {0,1}, EPSG:32611, all-finite</td>
+    <td>298,994</td>
+    <td><code>4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c</code></td>
+    <td>PROMOTED</td>
+  </tr>
+  <!--h50:row-->  <tr>
     <td><a href="downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif" download>gems47-h50-slopeanom-s2p8-20261007-allfinite.tif</a><br>
     <a href="downloads/gems47-h50-slopeanom-s2p8-20261007.zip">ZIP with note + receipt</a> ·
     <a href="downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt">Submission note (copy-paste)</a> ·
     <a href="downloads/gems47-h50-slopeanom-s2p8-20261007-receipt.json">Receipt</a> ·
     <a href="h50.html">H50 evidence page</a></td>
-    <td><strong>H50 slope-anomaly detector · PRIMARY SUBMISSION CANDIDATE · OK TO DOWNLOAD AND SUBMIT</strong></td>
+    <td><strong>H50 slope-anomaly detector · VALID FALLBACK · OK TO DOWNLOAD AND SUBMIT</strong> (superseded as primary by H60 on 2026-10-07)</td>
     <td>37,654</td>
     <td>float32 binary, values 0/1 only; all cells finite, NoData unset; every value inside [0,1]; zeros outside the competition footprint</td>
     <td>291,321 B</td>
@@ -43,7 +56,7 @@
     <td>H50a same prediction mask (finite-mask range diagnostic)</td><td>37,612</td><td>float32; raw finite [0,1] with self-contained GDAL null mask; not sample NaN encoding</td><td>151,416 B</td>
     <td><code>c9a0e7aa5618c0733fa94882b778c2eb744df4633a07d050598a6a346065f4f5</code></td><td><strong>RESEARCH ONLY · DO NOT UPLOAD.</strong> Same positive mask as the template-format checkpoint. Retained to test a NaN-intolerant range reader; it is not a promotion or organizer-acceptance result.</td>
   </tr>
-  <tr>
+<!--h49:row-->  <tr>
     <td><a href="downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif" download>gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif</a><br><a href="downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.zip">Research archive ZIP — do not upload</a> · <a href="downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.json">Corrected receipt</a> · <a href="downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.txt">Withdrawn draft note — do not copy</a></td>
     <td>H49 signed-polarity scarp (historical research candidate; not current)</td><td>37,612</td><td>float32 binary; all cells finite, NoData unset; FAILS published null/NaN-outside requirement</td><td>316,629 B</td>
     <td><code>a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b</code></td><td><strong>RESEARCH ONLY · NOT SLOT-AUTHORIZED · DO NOT UPLOAD.</strong> Nominal 90% proxy lower-bound calculation is conditional on unverified exchangeability; the operating rule was amended post-hoc. The 0.2778 comparator is an owner-reported d2.8 reference, not an authenticated leaderboard incumbent. No common gate versus the established spatial holdout best passed. <a href="H49_RESULTS.html">Corrected review</a> · <a href="data/current-artifact.json">Status receipt</a> · <a href="data/h49-format-contract-audit.json">Format audit</a>.</td>
