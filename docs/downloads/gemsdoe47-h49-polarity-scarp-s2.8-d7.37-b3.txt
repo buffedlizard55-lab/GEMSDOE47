@@ -1,0 +1,4 @@
+RESEARCH ONLY — DO NOT COPY INTO A COMPETITION PORTAL.
+This historical H49 candidate is not slot-authorized or submission-eligible. Its local TIFF read-back found 12,279,160/12,279,160 finite cells, no NaNs, no NoData tag, and a valid mask on every cell; relative to the recorded owner-mirror footprint, 7,111,787 outside cells are finite. It fails the published null-or-NaN-outside requirement. The original optional portal-note draft is withdrawn.
+Withdrawn draft (historical only): Signed-polarity scarp field; 37,612 dots, 2.8px/280m spacing, 300m off known-fault flanks; spacing certified by split conformal, 90% floor 0.0318.
+See H49_RESULTS.html and evidence/h49/format-contract-audit.json for the corrected review.

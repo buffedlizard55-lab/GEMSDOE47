@@ -1,0 +1,2389 @@
+{
+  "generated_utc": "2026-10-06T17:19:09Z",
+  "seconds": 0.6,
+  "method": "split conformal prediction (Lei, G'Sell, Rinaldo, Tibshirani & Wasserman, JASA 2018)",
+  "method_doi": "https://doi.org/10.1080/01621459.2017.1322365",
+  "unit_of_exchangeability": "spatial holdout block",
+  "n_blocks": 25,
+  "calibration_blocks": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    8,
+    9,
+    11,
+    16,
+    18,
+    23,
+    24
+  ],
+  "selection_blocks": [
+    0,
+    5,
+    7,
+    10,
+    12,
+    13,
+    14,
+    15,
+    17,
+    19,
+    20,
+    21,
+    22
+  ],
+  "alpha": 0.1,
+  "alpha_requested": 0.1,
+  "alpha_used": 0.1,
+  "alpha_used_confidence_pct": 90.0,
+  "alpha_attainable_on_all_instruments": 0.3,
+  "attainable_by_alpha": {
+    "0.05": [],
+    "0.10": [
+      "PM0200",
+      "PM0112",
+      "PM0294",
+      "A1",
+      "A2"
+    ],
+    "0.20": [
+      "PM0200",
+      "PM0112",
+      "PM0294",
+      "A1",
+      "A2"
+    ],
+    "0.25": [
+      "PM0200",
+      "PM0112",
+      "PM0294",
+      "A1",
+      "A2"
+    ],
+    "0.30": [
+      "PM0200",
+      "PM0112",
+      "PM0294",
+      "A1",
+      "A2"
+    ]
+  },
+  "n_calibration_blocks_per_instrument": {
+    "PM0200": 12,
+    "PM0112": 11,
+    "PM0294": 12,
+    "A1": 10,
+    "A2": 12
+  },
+  "robustness_instruments": [
+    "PM0200",
+    "PM0112",
+    "PM0294",
+    "A1",
+    "A2"
+  ],
+  "degenerate_fold_filter": {
+    "min_truth_px": 50,
+    "dropped_instrument_block_folds": 1,
+    "blocks_affected": [
+      24
+    ]
+  },
+  "primary_instrument": "PM0200",
+  "primary_instrument_meaning": "catalogue components subsampled by whole component to a 0.200 % truth prevalence, the midpoint of the 0.112-0.294 % range inverted from the organiser's own published scores",
+  "instruments_scored": [
+    "PM0112",
+    "PM0200",
+    "PM0294",
+    "A1",
+    "A2"
+  ],
+  "recipes": [
+    {
+      "name": "R1_scarp9",
+      "terms": [
+        [
+          "det_elev_slope",
+          "scarp",
+          9.0,
+          1.0
+        ]
+      ],
+      "use_vacancy": false,
+      "vacancy_scale_px": 8.0,
+      "vacancy_power": 1.0,
+      "regional_bands": [],
+      "regional_sigma_px": 25.0,
+      "regional_power": 0.5,
+      "notes": "the single winning transform of scripts/search_scarp_radius.py"
+    },
+    {
+      "name": "R2_scarp9_topo",
+      "terms": [
+        [
+          "det_elev_slope",
+          "scarp",
+          9.0,
+          3.0
+        ],
+        [
+          "det_elev_slope",
+          "curv",
+          2.5,
+          1.0
+        ],
+        [
+          "det_elev_slope",
+          "detrend",
+          2.5,
+          1.0
+        ],
+        [
+          "det_elev_slope",
+          "slope_var",
+          5.0,
+          1.0
+        ]
+      ],
+      "use_vacancy": false,
+      "vacancy_scale_px": 8.0,
+      "vacancy_power": 1.0,
+      "regional_bands": [],
+      "regional_sigma_px": 25.0,
+      "regional_power": 0.5,
+      "notes": "scarp plus three corroborating fine-scale topographic terms"
+    },
+    {
+      "name": "R3_scarp9_topo_reg",
+      "terms": [
+        [
+          "det_elev_slope",
+          "scarp",
+          9.0,
+          3.0
+        ],
+        [
+          "det_elev_slope",
+          "curv",
+          2.5,
+          1.0
+        ],
+        [
+          "det_elev_slope",
+          "detrend",
+          2.5,
+          1.0
+        ],
+        [
+          "det_elev_slope",
+          "slope_var",
+          5.0,
+          1.0
+        ],
+        [
+          "geod_2ndinv",
+          "regional",
+          25.0,
+          1.5
+        ],
+        [
+          "geod_shearrate",
+          "regional",
+          25.0,
+          1.0
+        ]
+      ],
+      "use_vacancy": false,
+      "vacancy_scale_px": 8.0,
+      "vacancy_power": 1.0,
+      "regional_bands": [],
+      "regional_sigma_px": 25.0,
+      "regional_power": 0.5,
+      "notes": "R2 plus the two strongest regional strain-rate priors (A2 population)"
+    },
+    {
+      "name": "R4_scarp9_topo_reg_mag",
+      "terms": [
+        [
+          "det_elev_slope",
+          "scarp",
+          9.0,
+          3.0
+        ],
+        [
+          "det_elev_slope",
+          "curv",
+          2.5,
+          1.0
+        ],
+        [
+          "det_elev_slope",
+          "detrend",
+          2.5,
+          1.0
+        ],
+        [
+          "det_elev_slope",
+          "slope_var",
+          5.0,
+          1.0
+        ],
+        [
+          "geod_2ndinv",
+          "regional",
+          25.0,
+          1.5
+        ],
+        [
+          "geod_shearrate",
+          "regional",
+          25.0,
+          1.0
+        ],
+        [
+          "mag_anom",
+          "regional",
+          25.0,
+          1.0
+        ],
+        [
+          "tmi_hg",
+          "line",
+          2.5,
+          1.0
+        ]
+      ],
+      "use_vacancy": false,
+      "vacancy_scale_px": 8.0,
+      "vacancy_power": 1.0,
+      "regional_bands": [],
+      "regional_sigma_px": 25.0,
+      "regional_power": 0.5,
+      "notes": "R3 plus magnetic terms, which carry the A1 (isolated) population"
+    },
+    {
+      "name": "R5_scarp9_vacancy",
+      "terms": [
+        [
+          "det_elev_slope",
+          "scarp",
+          9.0,
+          3.0
+        ],
+        [
+          "det_elev_slope",
+          "curv",
+          2.5,
+          1.0
+        ],
+        [
+          "det_elev_slope",
+          "detrend",
+          2.5,
+          1.0
+        ],
+        [
+          "det_elev_slope",
+          "slope_var",
+          5.0,
+          1.0
+        ],
+        [
+          "geod_2ndinv",
+          "regional",
+          25.0,
+          1.5
+        ],
+        [
+          "geod_shearrate",
+          "regional",
+          25.0,
+          1.0
+        ],
+        [
+          "mag_anom",
+          "regional",
+          25.0,
+          1.0
+        ],
+        [
+          "tmi_hg",
+          "line",
+          2.5,
+          1.0
+        ]
+      ],
+      "use_vacancy": true,
+      "vacancy_scale_px": 8.0,
+      "vacancy_power": 0.5,
+      "regional_bands": [],
+      "regional_sigma_px": 25.0,
+      "regional_power": 0.5,
+      "notes": "R4 times the H47-A catalogue-vacancy gate at half power"
+    }
+  ],
+  "spacings": [
+    2.0,
+    2.8,
+    4.0
+  ],
+  "densities": [
+    2.0,
+    4.0,
+    7.37,
+    14.0,
+    24.0,
+    40.0
+  ],
+  "flank_buffers": [
+    0.0,
+    2.0
+  ],
+  "n_sweep_rows": 21539,
+  "per_instrument_best": {
+    "PM0112": {
+      "best_calibration_mean": 0.058708153912869404,
+      "best_calibration_floor_at_alpha": 0.028236699633130684,
+      "argmax_mean": [
+        "R2_scarp9_topo",
+        "s2_d7.37_b2"
+      ],
+      "argmax_floor": [
+        "R2_scarp9_topo",
+        "s2.8_d7.37_b2"
+      ]
+    },
+    "PM0200": {
+      "best_calibration_mean": 0.10398678949727934,
+      "best_calibration_floor_at_alpha": 0.04807506289571387,
+      "argmax_mean": [
+        "R2_scarp9_topo",
+        "s2_d7.37_b2"
+      ],
+      "argmax_floor": [
+        "R4_scarp9_topo_reg_mag",
+        "s4_d7.37_b2"
+      ]
+    },
+    "PM0294": {
+      "best_calibration_mean": 0.10572422622269197,
+      "best_calibration_floor_at_alpha": 0.06093579982953137,
+      "argmax_mean": [
+        "R2_scarp9_topo",
+        "s2_d7.37_b2"
+      ],
+      "argmax_floor": [
+        "R2_scarp9_topo",
+        "s2_d7.37_b2"
+      ]
+    },
+    "A1": {
+      "best_calibration_mean": 0.05830411616274463,
+      "best_calibration_floor_at_alpha": 0.016606721775307778,
+      "argmax_mean": [
+        "R2_scarp9_topo",
+        "s2_d7.37_b2"
+      ],
+      "argmax_floor": [
+        "R1_scarp9",
+        "s4_d4_b0"
+      ]
+    },
+    "A2": {
+      "best_calibration_mean": 0.1297896206729817,
+      "best_calibration_floor_at_alpha": 0.07253385037124173,
+      "argmax_mean": [
+        "R2_scarp9_topo",
+        "s2_d7.37_b0"
+      ],
+      "argmax_floor": [
+        "R2_scarp9_topo",
+        "s2_d7.37_b2"
+      ]
+    }
+  },
+  "chosen": {
+    "recipe": "R2_scarp9_topo",
+    "op": "s2.8_d7.37_b2",
+    "params": {
+      "min_dist": 2.8,
+      "density_per_1000": 7.37,
+      "flank_b": 2.0
+    },
+    "worst_normalised_floor": 0.9203871827810638,
+    "worst_normalised_mean": 0.9254280063333604,
+    "mean_risk_objective": 0.922907594557212,
+    "worst_instrument": "PM0294",
+    "normalised_floors": {
+      "PM0200": 0.9312376756429236,
+      "PM0112": 1.0,
+      "PM0294": 0.9203871827810638,
+      "A1": 0.9962203939896986,
+      "A2": 0.98899878171525
+    },
+    "normalised_means": {
+      "PM0200": 0.9311629089953125,
+      "PM0112": 0.943839108419793,
+      "PM0294": 0.9533248078182849,
+      "A1": 0.9271175722822866,
+      "A2": 0.9254280063333604
+    },
+    "empirical_violation_by_instrument": {
+      "PM0200": 0.23076923076923078,
+      "PM0112": 0.16666666666666666,
+      "PM0294": 0.23076923076923078,
+      "A1": 0.0,
+      "A2": 0.3076923076923077
+    },
+    "calibration_means": {
+      "PM0200": 0.09682864140536984,
+      "PM0112": 0.05541105164609464,
+      "PM0294": 0.1007895276454847,
+      "A1": 0.054054770630868235,
+      "A2": 0.12011094990216055
+    },
+    "floors_at_alpha": {
+      "PM0200": 0.04476930982739195,
+      "PM0112": 0.028236699633130684,
+      "PM0294": 0.05608452913561321,
+      "A1": 0.016543954909874422,
+      "A2": 0.0717358896502743
+    },
+    "alpha_used": 0.1
+  },
+  "guarantee": {
+    "chosen": "R2_scarp9_topo|s2.8_d7.37_b2",
+    "params": {
+      "min_dist": 2.8,
+      "density_per_1000": 7.37,
+      "flank_b": 2.0
+    },
+    "alpha": 0.1,
+    "n_calibration_blocks": 12,
+    "n_selection_blocks": 13,
+    "certified_floor": 0.04476930982739195,
+    "certified_confidence_pct": 90.0,
+    "calibration_mean": 0.09682864140536984,
+    "calibration_min": 0.04476930982739195,
+    "calibration_max": 0.1899761932371027,
+    "calibration_dtis": [
+      0.04476930982739195,
+      0.04691103715428874,
+      0.06902179159965581,
+      0.08382598821938676,
+      0.08638640124228839,
+      0.08729394046426073,
+      0.0901311534518922,
+      0.09135537179505757,
+      0.09141229334264475,
+      0.12474250477240699,
+      0.1561177117580617,
+      0.1899761932371027
+    ],
+    "selection_mean": 0.0606408108055388,
+    "selection_dtis": [
+      0.013432604862170865,
+      0.02018362569950256,
+      0.026371165568718526,
+      0.046660786982288587,
+      0.053455117470420505,
+      0.055309492319307686,
+      0.06508536846563671,
+      0.06629938730048195,
+      0.06677477126085891,
+      0.09029413698072274,
+      0.09051725316989398,
+      0.09253418156150552,
+      0.1014126488304958
+    ],
+    "cleared_floor": false,
+    "dkw_epsilon_mean": 0.3533018229004057,
+    "mean_floor_dkw": 0.04552678479903236,
+    "leave_one_out_worst_floor": 0.04476930982739195,
+    "vacuous": false,
+    "min_blocks_required_for_alpha": 9,
+    "all_floors_vacuous": false,
+    "exchangeability_note": "The guarantee P(fresh block DTI >= floor) >= 1-alpha is exact under exchangeability of holdout blocks. Geological blocks are NOT i.i.d.; the reported leave-one-out worst floor and the DKW mean floor show how much of the claim rests on that assumption.",
+    "runner_up": []
+  },
+  "alpha_sensitivity": {
+    "alpha=0.05": {
+      "confidence_pct": 95.0,
+      "order_statistic_k": 13,
+      "n_calibration_blocks": 12,
+      "certified_floor": -Infinity,
+      "vacuous": true
+    },
+    "alpha=0.10": {
+      "confidence_pct": 90.0,
+      "order_statistic_k": 12,
+      "n_calibration_blocks": 12,
+      "certified_floor": 0.04476930982739195,
+      "vacuous": false
+    },
+    "alpha=0.20": {
+      "confidence_pct": 80.0,
+      "order_statistic_k": 11,
+      "n_calibration_blocks": 12,
+      "certified_floor": 0.04691103715428874,
+      "vacuous": false
+    },
+    "alpha=0.25": {
+      "confidence_pct": 75.0,
+      "order_statistic_k": 10,
+      "n_calibration_blocks": 12,
+      "certified_floor": 0.06902179159965581,
+      "vacuous": false
+    },
+    "alpha=0.30": {
+      "confidence_pct": 70.0,
+      "order_statistic_k": 10,
+      "n_calibration_blocks": 12,
+      "certified_floor": 0.06902179159965581,
+      "vacuous": false
+    }
+  },
+  "alpha_delivered_on_selection_half": null,
+  "delivered_by_alpha": {
+    "alpha=0.05": {
+      "confidence_pct": 95.0,
+      "order_statistic_k": 13,
+      "n_calibration_blocks": 12,
+      "certified_floor": null,
+      "vacuous": true,
+      "empirical_violation_rate_selection_half": 0.0,
+      "calibrated": false
+    },
+    "alpha=0.10": {
+      "confidence_pct": 90.0,
+      "order_statistic_k": 12,
+      "n_calibration_blocks": 12,
+      "certified_floor": 0.044769,
+      "vacuous": false,
+      "empirical_violation_rate_selection_half": 0.2308,
+      "calibrated": false
+    },
+    "alpha=0.20": {
+      "confidence_pct": 80.0,
+      "order_statistic_k": 11,
+      "n_calibration_blocks": 12,
+      "certified_floor": 0.046911,
+      "vacuous": false,
+      "empirical_violation_rate_selection_half": 0.3077,
+      "calibrated": false
+    },
+    "alpha=0.25": {
+      "confidence_pct": 75.0,
+      "order_statistic_k": 10,
+      "n_calibration_blocks": 12,
+      "certified_floor": 0.069022,
+      "vacuous": false,
+      "empirical_violation_rate_selection_half": 0.6923,
+      "calibrated": false
+    },
+    "alpha=0.30": {
+      "confidence_pct": 70.0,
+      "order_statistic_k": 10,
+      "n_calibration_blocks": 12,
+      "certified_floor": 0.069022,
+      "vacuous": false,
+      "empirical_violation_rate_selection_half": 0.6923,
+      "calibrated": false
+    }
+  },
+  "repeated_split_robustness": {
+    "n_splits_target": 400,
+    "seed": 4242,
+    "n_blocks": 25,
+    "by_alpha": {
+      "alpha=0.05": {
+        "vacuous": true,
+        "n_splits": 0
+      },
+      "alpha=0.10": {
+        "confidence_pct": 90.0,
+        "n_splits": 400,
+        "n_calibration_blocks_median": 12,
+        "floor_min": 0.013433,
+        "floor_p05": 0.013433,
+        "floor_median": 0.020184,
+        "floor_p95": 0.046661,
+        "floor_max": 0.055309,
+        "mean_violation_rate": 0.0873,
+        "max_violation_rate": 0.5385,
+        "fraction_of_splits_calibrated": 0.705,
+        "nominal_alpha": 0.1
+      },
+      "alpha=0.20": {
+        "confidence_pct": 80.0,
+        "n_splits": 400,
+        "n_calibration_blocks_median": 12,
+        "floor_min": 0.020184,
+        "floor_p05": 0.020184,
+        "floor_median": 0.044769,
+        "floor_p95": 0.053548,
+        "floor_max": 0.066775,
+        "mean_violation_rate": 0.1642,
+        "max_violation_rate": 0.6923,
+        "fraction_of_splits_calibrated": 0.815,
+        "nominal_alpha": 0.2
+      },
+      "alpha=0.25": {
+        "confidence_pct": 75.0,
+        "n_splits": 400,
+        "n_calibration_blocks_median": 12,
+        "floor_min": 0.026371,
+        "floor_p05": 0.026371,
+        "floor_median": 0.046911,
+        "floor_p95": 0.066299,
+        "floor_max": 0.086386,
+        "mean_violation_rate": 0.2354,
+        "max_violation_rate": 0.8462,
+        "fraction_of_splits_calibrated": 0.62,
+        "nominal_alpha": 0.25
+      },
+      "alpha=0.30": {
+        "confidence_pct": 70.0,
+        "n_splits": 400,
+        "n_calibration_blocks_median": 12,
+        "floor_min": 0.026371,
+        "floor_p05": 0.026371,
+        "floor_median": 0.046911,
+        "floor_p95": 0.066299,
+        "floor_max": 0.086386,
+        "mean_violation_rate": 0.2354,
+        "max_violation_rate": 0.8462,
+        "fraction_of_splits_calibrated": 0.7825,
+        "nominal_alpha": 0.3
+      }
+    },
+    "reported_certified_floor": 0.013433,
+    "rationale": "the certified floor reported on the site is the 5th percentile of the floor distribution over NREPEAT independent random splits of the same blocks, so it is robust to split luck rather than conditional on one draw"
+  },
+  "mass_ceiling": {
+    "target_dti": 0.3195,
+    "assumed_nG_px": 8000,
+    "assumed_coverage": 0.6,
+    "s_max_px": 43117.37089201877,
+    "s_max_density_per_1000": 8.44381512401019,
+    "n_scored_domain_full_grid": 5106385,
+    "formula": "S_max = G*(c/target - 0.8)/0.2",
+    "sensitivity": {
+      "G=5764_c=0.48": 20241.65258215962,
+      "G=5764_c=0.6": 31066.065727699523,
+      "G=5764_c=0.8": 49106.75430359937,
+      "G=5764_c=1.0": 67147.44287949921,
+      "G=8000_c=0.48": 28093.896713615017,
+      "G=8000_c=0.6": 43117.37089201877,
+      "G=8000_c=0.8": 68156.4945226917,
+      "G=8000_c=1.0": 93195.61815336463,
+      "G=10335_c=0.48": 36293.8028169014,
+      "G=10335_c=0.6": 55702.253521126746,
+      "G=10335_c=0.8": 88049.67136150235,
+      "G=10335_c=1.0": 120397.08920187793,
+      "G=15179_c=0.48": 53304.65727699529,
+      "G=15179_c=0.6": 81809.8215962441,
+      "G=15179_c=0.8": 129318.42879499217,
+      "G=15179_c=1.0": 176827.0359937402
+    },
+    "operating_points_dropped": 90
+  },
+  "selection_rule": "hard pre-filters: (i) emitted mass must not exceed the algebraic ceiling S_max at which DTI can no longer reach the target, (ii) folds with truth < 50 px are dropped uniformly; then rank by 0.5*worst-normalised-calibration-mean + 0.5*worst-normalised-conformal-floor over the prevalence-matched instruments, ties broken toward the floor",
+  "robustness_instruments_used": [
+    "PM0200",
+    "PM0112",
+    "PM0294",
+    "A1",
+    "A2"
+  ],
+  "robustness_ranking": [
+    {
+      "recipe": "R2_scarp9_topo",
+      "op": "s2.8_d7.37_b2",
+      "mean_risk": 0.9229,
+      "worst_rel_mean": 0.9254,
+      "worst_rel_floor": 0.9204,
+      "worst_instrument": "PM0294",
+      "calib_means": {
+        "PM0200": 0.09682864140536984,
+        "PM0112": 0.05541105164609464,
+        "PM0294": 0.1007895276454847,
+        "A1": 0.054054770630868235,
+        "A2": 0.12011094990216055
+      },
+      "floors": {
+        "PM0200": 0.04476930982739195,
+        "PM0112": 0.028236699633130684,
+        "PM0294": 0.05608452913561321,
+        "A1": 0.016543954909874422,
+        "A2": 0.0717358896502743
+      },
+      "empirical_violation": {
+        "PM0200": 0.23076923076923078,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.23076923076923078,
+        "A1": 0.0,
+        "A2": 0.3076923076923077
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R4_scarp9_topo_reg_mag",
+      "op": "s2.8_d7.37_b2",
+      "mean_risk": 0.8241,
+      "worst_rel_mean": 0.8356,
+      "worst_rel_floor": 0.8127,
+      "worst_instrument": "A2",
+      "calib_means": {
+        "PM0200": 0.09316233189413163,
+        "PM0112": 0.05169561434082135,
+        "PM0294": 0.09306208756142069,
+        "A1": 0.04878162272980143,
+        "A2": 0.10845099887947314
+      },
+      "floors": {
+        "PM0200": 0.045374942087869005,
+        "PM0112": 0.02488785408097497,
+        "PM0294": 0.0577456643926146,
+        "A1": 0.013745658849632398,
+        "A2": 0.05894683089845027
+      },
+      "empirical_violation": {
+        "PM0200": 0.23076923076923078,
+        "PM0112": 0.25,
+        "PM0294": 0.3076923076923077,
+        "A1": 0.1,
+        "A2": 0.23076923076923078
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R2_scarp9_topo",
+      "op": "s2_d7.37_b0",
+      "mean_risk": 0.7962,
+      "worst_rel_mean": 0.9704,
+      "worst_rel_floor": 0.6219,
+      "worst_instrument": "PM0112",
+      "calib_means": {
+        "PM0200": 0.1033774992734583,
+        "PM0112": 0.05697106263761131,
+        "PM0294": 0.10352092969902722,
+        "A1": 0.05806212191442735,
+        "A2": 0.1297896206729817
+      },
+      "floors": {
+        "PM0200": 0.045354232531117804,
+        "PM0112": 0.0175617548328491,
+        "PM0294": 0.060856718558930246,
+        "A1": 0.011867886025084418,
+        "A2": 0.07216430747071996
+      },
+      "empirical_violation": {
+        "PM0200": 0.38461538461538464,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.5384615384615384,
+        "A1": 0.0,
+        "A2": 0.3076923076923077
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 7.37,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R2_scarp9_topo",
+      "op": "s2_d7.37_b2",
+      "mean_risk": 0.7953,
+      "worst_rel_mean": 0.9999,
+      "worst_rel_floor": 0.5907,
+      "worst_instrument": "PM0112",
+      "calib_means": {
+        "PM0200": 0.10398678949727934,
+        "PM0112": 0.058708153912869404,
+        "PM0294": 0.10572422622269197,
+        "A1": 0.05830411616274463,
+        "A2": 0.1297706086356322
+      },
+      "floors": {
+        "PM0200": 0.0460173957949955,
+        "PM0112": 0.016679818133599304,
+        "PM0294": 0.06093579982953137,
+        "A1": 0.016247418820575798,
+        "A2": 0.07253385037124173
+      },
+      "empirical_violation": {
+        "PM0200": 0.3076923076923077,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.5384615384615384,
+        "A1": 0.0,
+        "A2": 0.3076923076923077
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 7.37,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R2_scarp9_topo",
+      "op": "s2.8_d7.37_b0",
+      "mean_risk": 0.776,
+      "worst_rel_mean": 0.8979,
+      "worst_rel_floor": 0.6541,
+      "worst_instrument": "PM0112",
+      "calib_means": {
+        "PM0200": 0.09337480798007147,
+        "PM0112": 0.05390634889151282,
+        "PM0294": 0.09821172230581911,
+        "A1": 0.05461880691772625,
+        "A2": 0.12021623206670268
+      },
+      "floors": {
+        "PM0200": 0.0413659911780017,
+        "PM0112": 0.018468490972371437,
+        "PM0294": 0.05313166879263423,
+        "A1": 0.016543954909874422,
+        "A2": 0.0715492407460898
+      },
+      "empirical_violation": {
+        "PM0200": 0.3076923076923077,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.3076923076923077,
+        "A1": 0.0,
+        "A2": 0.3076923076923077
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R4_scarp9_topo_reg_mag",
+      "op": "s2.8_d7.37_b0",
+      "mean_risk": 0.6749,
+      "worst_rel_mean": 0.8242,
+      "worst_rel_floor": 0.5257,
+      "worst_instrument": "PM0112",
+      "calib_means": {
+        "PM0200": 0.08954352535140701,
+        "PM0112": 0.04838587724985037,
+        "PM0294": 0.09095090902032386,
+        "A1": 0.048452518666113456,
+        "A2": 0.1083353878076931
+      },
+      "floors": {
+        "PM0200": 0.046193612342625756,
+        "PM0112": 0.014843658416520591,
+        "PM0294": 0.05400491841722666,
+        "A1": 0.013745658849632398,
+        "A2": 0.05778279895720556
+      },
+      "empirical_violation": {
+        "PM0200": 0.38461538461538464,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.3076923076923077,
+        "A1": 0.1,
+        "A2": 0.15384615384615385
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R4_scarp9_topo_reg_mag",
+      "op": "s4_d7.37_b2",
+      "mean_risk": 0.6479,
+      "worst_rel_mean": 0.6746,
+      "worst_rel_floor": 0.6213,
+      "worst_instrument": "PM0112",
+      "calib_means": {
+        "PM0200": 0.07014582559939712,
+        "PM0112": 0.044883625123917706,
+        "PM0294": 0.07900485828528805,
+        "A1": 0.04691555379542829,
+        "A2": 0.08947682874947643
+      },
+      "floors": {
+        "PM0200": 0.04807506289571387,
+        "PM0112": 0.017544402273571773,
+        "PM0294": 0.04936919610812941,
+        "A1": 0.015067412603500146,
+        "A2": 0.06575803708006141
+      },
+      "empirical_violation": {
+        "PM0200": 0.15384615384615385,
+        "PM0112": 0.0,
+        "PM0294": 0.07692307692307693,
+        "A1": 0.0,
+        "A2": 0.07692307692307693
+      },
+      "params": {
+        "min_dist": 4.0,
+        "density_per_1000": 7.37,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R3_scarp9_topo_reg",
+      "op": "s2.8_d7.37_b0",
+      "mean_risk": 0.6108,
+      "worst_rel_mean": 0.787,
+      "worst_rel_floor": 0.4346,
+      "worst_instrument": "A1",
+      "calib_means": {
+        "PM0200": 0.08811552765195363,
+        "PM0112": 0.04865931714925273,
+        "PM0294": 0.09466684723230316,
+        "A1": 0.045882833529345135,
+        "A2": 0.11422592744463915
+      },
+      "floors": {
+        "PM0200": 0.03858884680957419,
+        "PM0112": 0.01698812459753005,
+        "PM0294": 0.04543532937552291,
+        "A1": 0.007217601598383612,
+        "A2": 0.05759943920172563
+      },
+      "empirical_violation": {
+        "PM0200": 0.3076923076923077,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.23076923076923078,
+        "A1": 0.0,
+        "A2": 0.15384615384615385
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R3_scarp9_topo_reg",
+      "op": "s2.8_d7.37_b2",
+      "mean_risk": 0.6088,
+      "worst_rel_mean": 0.783,
+      "worst_rel_floor": 0.4346,
+      "worst_instrument": "A1",
+      "calib_means": {
+        "PM0200": 0.09077780285219518,
+        "PM0112": 0.04978925305068536,
+        "PM0294": 0.09750371872435559,
+        "A1": 0.04565375409640425,
+        "A2": 0.11422092479975093
+      },
+      "floors": {
+        "PM0200": 0.03864351294991934,
+        "PM0112": 0.014977130248446588,
+        "PM0294": 0.042977760074524765,
+        "A1": 0.007217601598383612,
+        "A2": 0.05793300847684489
+      },
+      "empirical_violation": {
+        "PM0200": 0.23076923076923078,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.15384615384615385,
+        "A1": 0.0,
+        "A2": 0.15384615384615385
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R2_scarp9_topo",
+      "op": "s2.8_d4_b0",
+      "mean_risk": 0.6,
+      "worst_rel_mean": 0.7212,
+      "worst_rel_floor": 0.4788,
+      "worst_instrument": "A1",
+      "calib_means": {
+        "PM0200": 0.09093696223346374,
+        "PM0112": 0.050104109701280805,
+        "PM0294": 0.08312770136431268,
+        "A1": 0.05395773566399233,
+        "A2": 0.09360399816923294
+      },
+      "floors": {
+        "PM0200": 0.037817201018637274,
+        "PM0112": 0.013813842363371796,
+        "PM0294": 0.03497410817648176,
+        "A1": 0.007951935139852059,
+        "A2": 0.05160736849770769
+      },
+      "empirical_violation": {
+        "PM0200": 0.38461538461538464,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.23076923076923078,
+        "A1": 0.0,
+        "A2": 0.38461538461538464
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 4.0,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R2_scarp9_topo",
+      "op": "s2.8_d4_b2",
+      "mean_risk": 0.5995,
+      "worst_rel_mean": 0.7202,
+      "worst_rel_floor": 0.4788,
+      "worst_instrument": "A1",
+      "calib_means": {
+        "PM0200": 0.09224258599787176,
+        "PM0112": 0.052318819884852034,
+        "PM0294": 0.08372437812313753,
+        "A1": 0.05395773566399233,
+        "A2": 0.09347119078948268
+      },
+      "floors": {
+        "PM0200": 0.04120326200251124,
+        "PM0112": 0.01512464049135947,
+        "PM0294": 0.04332124568733592,
+        "A1": 0.007951935139852059,
+        "A2": 0.05160736849770769
+      },
+      "empirical_violation": {
+        "PM0200": 0.3076923076923077,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.46153846153846156,
+        "A1": 0.0,
+        "A2": 0.3076923076923077
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 4.0,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R2_scarp9_topo",
+      "op": "s2_d4_b2",
+      "mean_risk": 0.59,
+      "worst_rel_mean": 0.7183,
+      "worst_rel_floor": 0.4618,
+      "worst_instrument": "PM0112",
+      "calib_means": {
+        "PM0200": 0.0952619089744529,
+        "PM0112": 0.051192604085311275,
+        "PM0294": 0.08315906132704545,
+        "A1": 0.05671069655104444,
+        "A2": 0.09322775338319307
+      },
+      "floors": {
+        "PM0200": 0.04596340530922737,
+        "PM0112": 0.013038450203645885,
+        "PM0294": 0.029819134937110164,
+        "A1": 0.007951935139852059,
+        "A2": 0.053194002179157665
+      },
+      "empirical_violation": {
+        "PM0200": 0.5384615384615384,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.3076923076923077,
+        "A1": 0.1,
+        "A2": 0.38461538461538464
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 4.0,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R2_scarp9_topo",
+      "op": "s2_d4_b0",
+      "mean_risk": 0.5779,
+      "worst_rel_mean": 0.7203,
+      "worst_rel_floor": 0.4354,
+      "worst_instrument": "PM0294",
+      "calib_means": {
+        "PM0200": 0.09489863324359304,
+        "PM0112": 0.051175340575973616,
+        "PM0294": 0.08203535140155747,
+        "A1": 0.05628573398353307,
+        "A2": 0.09349154961942398
+      },
+      "floors": {
+        "PM0200": 0.045492165191359596,
+        "PM0112": 0.013038450203645885,
+        "PM0294": 0.026534097664117174,
+        "A1": 0.007951935139852059,
+        "A2": 0.05359846017115786
+      },
+      "empirical_violation": {
+        "PM0200": 0.5384615384615384,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.23076923076923078,
+        "A1": 0.1,
+        "A2": 0.38461538461538464
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 4.0,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R1_scarp9",
+      "op": "s2_d7.37_b2",
+      "mean_risk": 0.5523,
+      "worst_rel_mean": 0.573,
+      "worst_rel_floor": 0.5316,
+      "worst_instrument": "PM0200",
+      "calib_means": {
+        "PM0200": 0.059588953345655345,
+        "PM0112": 0.04103450165677539,
+        "PM0294": 0.06511685755687559,
+        "A1": 0.033497384595931545,
+        "A2": 0.07601742303556651
+      },
+      "floors": {
+        "PM0200": 0.025557818048280622,
+        "PM0112": 0.020718533001488522,
+        "PM0294": 0.04710300840430784,
+        "A1": 0.011229908141812552,
+        "A2": 0.04887745950735488
+      },
+      "empirical_violation": {
+        "PM0200": 0.07692307692307693,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.07692307692307693,
+        "A1": 0.0,
+        "A2": 0.07692307692307693
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 7.37,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R1_scarp9",
+      "op": "s2.8_d7.37_b2",
+      "mean_risk": 0.5216,
+      "worst_rel_mean": 0.5529,
+      "worst_rel_floor": 0.4902,
+      "worst_instrument": "A2",
+      "calib_means": {
+        "PM0200": 0.057494673114552815,
+        "PM0112": 0.041265494975786,
+        "PM0294": 0.06283290593318448,
+        "A1": 0.03487777462701545,
+        "A2": 0.07215813948172979
+      },
+      "floors": {
+        "PM0200": 0.03683801992971441,
+        "PM0112": 0.017651469958611006,
+        "PM0294": 0.03153434905990765,
+        "A1": 0.012449763436039846,
+        "A2": 0.03555962910999201
+      },
+      "empirical_violation": {
+        "PM0200": 0.15384615384615385,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.0,
+        "A1": 0.1,
+        "A2": 0.0
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R1_scarp9",
+      "op": "s2.8_d7.37_b0",
+      "mean_risk": 0.5098,
+      "worst_rel_mean": 0.5273,
+      "worst_rel_floor": 0.4923,
+      "worst_instrument": "A2",
+      "calib_means": {
+        "PM0200": 0.054831798812788025,
+        "PM0112": 0.035910789011047536,
+        "PM0294": 0.059785191241014175,
+        "A1": 0.03749639755961322,
+        "A2": 0.07243286155398485
+      },
+      "floors": {
+        "PM0200": 0.04099012105139708,
+        "PM0112": 0.018623002772839573,
+        "PM0294": 0.03198150025716682,
+        "A1": 0.013636919212525259,
+        "A2": 0.035709821854079615
+      },
+      "empirical_violation": {
+        "PM0200": 0.23076923076923078,
+        "PM0112": 0.16666666666666666,
+        "PM0294": 0.07692307692307693,
+        "A1": 0.1,
+        "A2": 0.0
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R4_scarp9_topo_reg_mag",
+      "op": "s2_d7.37_b2",
+      "mean_risk": 0.5086,
+      "worst_rel_mean": 0.7718,
+      "worst_rel_floor": 0.2454,
+      "worst_instrument": "PM0112",
+      "calib_means": {
+        "PM0200": 0.08655635070167111,
+        "PM0112": 0.04736878826558695,
+        "PM0294": 0.08372464883516305,
+        "A1": 0.04691740772307075,
+        "A2": 0.1001673644945419
+      },
+      "floors": {
+        "PM0200": 0.03813606966689208,
+        "PM0112": 0.006930006930006905,
+        "PM0294": 0.04642305804438894,
+        "A1": 0.005923774821734241,
+        "A2": 0.06162427095993732
+      },
+      "empirical_violation": {
+        "PM0200": 0.23076923076923078,
+        "PM0112": 0.08333333333333333,
+        "PM0294": 0.23076923076923078,
+        "A1": 0.0,
+        "A2": 0.23076923076923078
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 7.37,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R4_scarp9_topo_reg_mag",
+      "op": "s4_d7.37_b0",
+      "mean_risk": 0.5078,
+      "worst_rel_mean": 0.649,
+      "worst_rel_floor": 0.3666,
+      "worst_instrument": "PM0112",
+      "calib_means": {
+        "PM0200": 0.06748329532057033,
+        "PM0112": 0.0417290133309814,
+        "PM0294": 0.07464996898447201,
+        "A1": 0.047465966142405246,
+        "A2": 0.08993922282266975
+      },
+      "floors": {
+        "PM0200": 0.04465657578952202,
+        "PM0112": 0.010352392847012738,
+        "PM0294": 0.042289021583815894,
+        "A1": 0.015067412603500146,
+        "A2": 0.06659799695188155
+      },
+      "empirical_violation": {
+        "PM0200": 0.23076923076923078,
+        "PM0112": 0.0,
+        "PM0294": 0.0,
+        "A1": 0.0,
+        "A2": 0.07692307692307693
+      },
+      "params": {
+        "min_dist": 4.0,
+        "density_per_1000": 7.37,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R4_scarp9_topo_reg_mag",
+      "op": "s2_d7.37_b0",
+      "mean_risk": 0.5038,
+      "worst_rel_mean": 0.7621,
+      "worst_rel_floor": 0.2454,
+      "worst_instrument": "PM0112",
+      "calib_means": {
+        "PM0200": 0.08296914200619518,
+        "PM0112": 0.04474152324593239,
+        "PM0294": 0.08085741676755903,
+        "A1": 0.04565459890581802,
+        "A2": 0.09910748830675364
+      },
+      "floors": {
+        "PM0200": 0.03813606966689208,
+        "PM0112": 0.006930006930006905,
+        "PM0294": 0.04585808398849811,
+        "A1": 0.005381677793329936,
+        "A2": 0.06168250114420394
+      },
+      "empirical_violation": {
+        "PM0200": 0.3076923076923077,
+        "PM0112": 0.08333333333333333,
+        "PM0294": 0.23076923076923078,
+        "A1": 0.0,
+        "A2": 0.23076923076923078
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 7.37,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R1_scarp9",
+      "op": "s2_d7.37_b0",
+      "mean_risk": 0.4643,
+      "worst_rel_mean": 0.5384,
+      "worst_rel_floor": 0.3901,
+      "worst_instrument": "PM0200",
+      "calib_means": {
+        "PM0200": 0.055991645880389386,
+        "PM0112": 0.036562837233978955,
+        "PM0294": 0.0624913417169549,
+        "A1": 0.0381141797328068,
+        "A2": 0.0767993606888132
+      },
+      "floors": {
+        "PM0200": 0.018755000853923093,
+        "PM0112": 0.020718533001488522,
+        "PM0294": 0.0437701618969939,
+        "A1": 0.011493476614438164,
+        "A2": 0.048163404844380475
+      },
+      "empirical_violation": {
+        "PM0200": 0.07692307692307693,
+        "PM0112": 0.25,
+        "PM0294": 0.15384615384615385,
+        "A1": 0.0,
+        "A2": 0.07692307692307693
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 7.37,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R1_scarp9",
+      "op": "s2_d4_b0",
+      "mean_risk": 0.4141,
+      "worst_rel_mean": 0.4907,
+      "worst_rel_floor": 0.3374,
+      "worst_instrument": "PM0200",
+      "calib_means": {
+        "PM0200": 0.05320826319561448,
+        "PM0112": 0.04109502683708419,
+        "PM0294": 0.060169584718198076,
+        "A1": 0.04178392152690075,
+        "A2": 0.06369323996722906
+      },
+      "floors": {
+        "PM0200": 0.016220537192397265,
+        "PM0112": 0.025786236469220705,
+        "PM0294": 0.04054178560701394,
+        "A1": 0.010026460737443075,
+        "A2": 0.036705556083401474
+      },
+      "empirical_violation": {
+        "PM0200": 0.23076923076923078,
+        "PM0112": 0.5,
+        "PM0294": 0.3076923076923077,
+        "A1": 0.1,
+        "A2": 0.23076923076923078
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 4.0,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R4_scarp9_topo_reg_mag",
+      "op": "s4_d4_b2",
+      "mean_risk": 0.4044,
+      "worst_rel_mean": 0.5278,
+      "worst_rel_floor": 0.281,
+      "worst_instrument": "A1",
+      "calib_means": {
+        "PM0200": 0.06771161569194205,
+        "PM0112": 0.04169988581950368,
+        "PM0294": 0.06673594857206806,
+        "A1": 0.042855899055850605,
+        "A2": 0.06849774047580669
+      },
+      "floors": {
+        "PM0200": 0.03678087023621868,
+        "PM0112": 0.020722395780800536,
+        "PM0294": 0.03482680577666913,
+        "A1": 0.004667081518357165,
+        "A2": 0.03663843692008187
+      },
+      "empirical_violation": {
+        "PM0200": 0.38461538461538464,
+        "PM0112": 0.25,
+        "PM0294": 0.3076923076923077,
+        "A1": 0.0,
+        "A2": 0.15384615384615385
+      },
+      "params": {
+        "min_dist": 4.0,
+        "density_per_1000": 4.0,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R3_scarp9_topo_reg",
+      "op": "s2_d7.37_b2",
+      "mean_risk": 0.3974,
+      "worst_rel_mean": 0.7948,
+      "worst_rel_floor": 0.0,
+      "worst_instrument": "A1",
+      "calib_means": {
+        "PM0200": 0.09832095646250792,
+        "PM0112": 0.05348041284441145,
+        "PM0294": 0.10242438230356964,
+        "A1": 0.046342388592596324,
+        "A2": 0.11977754052713312
+      },
+      "floors": {
+        "PM0200": 0.03736092834605121,
+        "PM0112": 0.0027153300908523974,
+        "PM0294": 0.03634312936218568,
+        "A1": 0.0,
+        "A2": 0.06619473619020677
+      },
+      "empirical_violation": {
+        "PM0200": 0.23076923076923078,
+        "PM0112": 0.08333333333333333,
+        "PM0294": 0.15384615384615385,
+        "A1": 0.0,
+        "A2": 0.3076923076923077
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 7.37,
+        "flank_b": 2.0
+      }
+    },
+    {
+      "recipe": "R3_scarp9_topo_reg",
+      "op": "s2_d7.37_b0",
+      "mean_risk": 0.3918,
+      "worst_rel_mean": 0.7837,
+      "worst_rel_floor": 0.0,
+      "worst_instrument": "A1",
+      "calib_means": {
+        "PM0200": 0.09695589858910471,
+        "PM0112": 0.05213922809097447,
+        "PM0294": 0.10106714970418111,
+        "A1": 0.04569115348051815,
+        "A2": 0.11991499191752546
+      },
+      "floors": {
+        "PM0200": 0.03691947891488174,
+        "PM0112": 0.0027153300908523974,
+        "PM0294": 0.03465940999021652,
+        "A1": 0.0,
+        "A2": 0.06516472922938214
+      },
+      "empirical_violation": {
+        "PM0200": 0.23076923076923078,
+        "PM0112": 0.08333333333333333,
+        "PM0294": 0.15384615384615385,
+        "A1": 0.0,
+        "A2": 0.3076923076923077
+      },
+      "params": {
+        "min_dist": 2.0,
+        "density_per_1000": 7.37,
+        "flank_b": 0.0
+      }
+    },
+    {
+      "recipe": "R1_scarp9",
+      "op": "s2.8_d4_b0",
+      "mean_risk": 0.3895,
+      "worst_rel_mean": 0.4479,
+      "worst_rel_floor": 0.3311,
+      "worst_instrument": "PM0200",
+      "calib_means": {
+        "PM0200": 0.04978287664133756,
+        "PM0112": 0.039210645749877766,
+        "PM0294": 0.05493770954331636,
+        "A1": 0.039778713733339806,
+        "A2": 0.05813838105897406
+      },
+      "floors": {
+        "PM0200": 0.015915362635371518,
+        "PM0112": 0.022350835515162204,
+        "PM0294": 0.03486012996060401,
+        "A1": 0.014789503115072997,
+        "A2": 0.03232973219677005
+      },
+      "empirical_violation": {
+        "PM0200": 0.07692307692307693,
+        "PM0112": 0.3333333333333333,
+        "PM0294": 0.3076923076923077,
+        "A1": 0.1,
+        "A2": 0.07692307692307693
+      },
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 4.0,
+        "flank_b": 0.0
+      }
+    }
+  ],
+  "reference_incumbent": [
+    {
+      "instrument": "PM0200",
+      "block": 0,
+      "dti": 0.004168147422721769,
+      "emitted": 1189,
+      "n_truth": 298
+    },
+    {
+      "instrument": "PM0112",
+      "block": 0,
+      "dti": 0.00134500664401413,
+      "emitted": 1189,
+      "n_truth": 176
+    },
+    {
+      "instrument": "PM0294",
+      "block": 0,
+      "dti": 0.004207682550661874,
+      "emitted": 1189,
+      "n_truth": 436
+    },
+    {
+      "instrument": "A2",
+      "block": 0,
+      "dti": 0.005796465373584554,
+      "emitted": 1189,
+      "n_truth": 1316
+    },
+    {
+      "instrument": "PM0200",
+      "block": 1,
+      "dti": 0.0067283367770299835,
+      "emitted": 2705,
+      "n_truth": 676
+    },
+    {
+      "instrument": "PM0112",
+      "block": 1,
+      "dti": 0.0027775279262999904,
+      "emitted": 2705,
+      "n_truth": 409
+    },
+    {
+      "instrument": "PM0294",
+      "block": 1,
+      "dti": 0.0043809039407351116,
+      "emitted": 2705,
+      "n_truth": 1023
+    },
+    {
+      "instrument": "A1",
+      "block": 1,
+      "dti": 0.000885358434921943,
+      "emitted": 2705,
+      "n_truth": 285
+    },
+    {
+      "instrument": "A2",
+      "block": 1,
+      "dti": 0.010337654067077338,
+      "emitted": 2705,
+      "n_truth": 3520
+    },
+    {
+      "instrument": "PM0200",
+      "block": 2,
+      "dti": 0.005018765259173684,
+      "emitted": 2390,
+      "n_truth": 694
+    },
+    {
+      "instrument": "PM0112",
+      "block": 2,
+      "dti": 0.003581232151171919,
+      "emitted": 2390,
+      "n_truth": 371
+    },
+    {
+      "instrument": "PM0294",
+      "block": 2,
+      "dti": 0.005245029746918655,
+      "emitted": 2390,
+      "n_truth": 990
+    },
+    {
+      "instrument": "A1",
+      "block": 2,
+      "dti": 0.0009848701414720054,
+      "emitted": 2390,
+      "n_truth": 194
+    },
+    {
+      "instrument": "A2",
+      "block": 2,
+      "dti": 0.007231008618143318,
+      "emitted": 2390,
+      "n_truth": 2033
+    },
+    {
+      "instrument": "PM0200",
+      "block": 3,
+      "dti": 0.006236215043693317,
+      "emitted": 2729,
+      "n_truth": 686
+    },
+    {
+      "instrument": "PM0112",
+      "block": 3,
+      "dti": 0.0060099547481300775,
+      "emitted": 2729,
+      "n_truth": 461
+    },
+    {
+      "instrument": "PM0294",
+      "block": 3,
+      "dti": 0.007260951760911136,
+      "emitted": 2729,
+      "n_truth": 1001
+    },
+    {
+      "instrument": "A1",
+      "block": 3,
+      "dti": 0.003725461063865367,
+      "emitted": 2729,
+      "n_truth": 97
+    },
+    {
+      "instrument": "A2",
+      "block": 3,
+      "dti": 0.008349797938748276,
+      "emitted": 2729,
+      "n_truth": 2886
+    },
+    {
+      "instrument": "PM0200",
+      "block": 4,
+      "dti": 0.005877580221276452,
+      "emitted": 2143,
+      "n_truth": 682
+    },
+    {
+      "instrument": "PM0112",
+      "block": 4,
+      "dti": 0.005944300422541069,
+      "emitted": 2143,
+      "n_truth": 382
+    },
+    {
+      "instrument": "PM0294",
+      "block": 4,
+      "dti": 0.006078319003634358,
+      "emitted": 2143,
+      "n_truth": 1020
+    },
+    {
+      "instrument": "A1",
+      "block": 4,
+      "dti": 0.00506752297206932,
+      "emitted": 2143,
+      "n_truth": 610
+    },
+    {
+      "instrument": "A2",
+      "block": 4,
+      "dti": 0.006088806470703875,
+      "emitted": 2143,
+      "n_truth": 2548
+    },
+    {
+      "instrument": "PM0200",
+      "block": 5,
+      "dti": 0.005867380185135077,
+      "emitted": 2001,
+      "n_truth": 744
+    },
+    {
+      "instrument": "PM0112",
+      "block": 5,
+      "dti": 0.006187421545260208,
+      "emitted": 2001,
+      "n_truth": 456
+    },
+    {
+      "instrument": "PM0294",
+      "block": 5,
+      "dti": 0.010150527038810198,
+      "emitted": 2001,
+      "n_truth": 1067
+    },
+    {
+      "instrument": "A1",
+      "block": 5,
+      "dti": 0.007129700643743159,
+      "emitted": 2001,
+      "n_truth": 479
+    },
+    {
+      "instrument": "A2",
+      "block": 5,
+      "dti": 0.010576091605076375,
+      "emitted": 2001,
+      "n_truth": 1667
+    },
+    {
+      "instrument": "PM0200",
+      "block": 6,
+      "dti": 0.0008643056615621468,
+      "emitted": 2069,
+      "n_truth": 430
+    },
+    {
+      "instrument": "PM0112",
+      "block": 6,
+      "dti": 0.0031410376817517047,
+      "emitted": 2069,
+      "n_truth": 250
+    },
+    {
+      "instrument": "PM0294",
+      "block": 6,
+      "dti": 0.002588434104567744,
+      "emitted": 2069,
+      "n_truth": 592
+    },
+    {
+      "instrument": "A1",
+      "block": 6,
+      "dti": 0.0023366174790460676,
+      "emitted": 2069,
+      "n_truth": 150
+    },
+    {
+      "instrument": "A2",
+      "block": 6,
+      "dti": 0.005647804920056231,
+      "emitted": 2069,
+      "n_truth": 2613
+    },
+    {
+      "instrument": "PM0200",
+      "block": 7,
+      "dti": 0.0027214883540662748,
+      "emitted": 2525,
+      "n_truth": 672
+    },
+    {
+      "instrument": "PM0112",
+      "block": 7,
+      "dti": 0.0033782826885650204,
+      "emitted": 2525,
+      "n_truth": 386
+    },
+    {
+      "instrument": "PM0294",
+      "block": 7,
+      "dti": 0.0043023955746585955,
+      "emitted": 2525,
+      "n_truth": 990
+    },
+    {
+      "instrument": "A1",
+      "block": 7,
+      "dti": 0.0020548166555230184,
+      "emitted": 2525,
+      "n_truth": 352
+    },
+    {
+      "instrument": "A2",
+      "block": 7,
+      "dti": 0.0063371144828543715,
+      "emitted": 2525,
+      "n_truth": 4125
+    },
+    {
+      "instrument": "PM0200",
+      "block": 8,
+      "dti": 0.004988778186998596,
+      "emitted": 1501,
+      "n_truth": 704
+    },
+    {
+      "instrument": "PM0112",
+      "block": 8,
+      "dti": 0.005645218087190262,
+      "emitted": 1501,
+      "n_truth": 384
+    },
+    {
+      "instrument": "PM0294",
+      "block": 8,
+      "dti": 0.002106877716479238,
+      "emitted": 1501,
+      "n_truth": 969
+    },
+    {
+      "instrument": "A1",
+      "block": 8,
+      "dti": 0.007392114215122401,
+      "emitted": 1501,
+      "n_truth": 382
+    },
+    {
+      "instrument": "A2",
+      "block": 8,
+      "dti": 0.0027382087857606807,
+      "emitted": 1501,
+      "n_truth": 3221
+    },
+    {
+      "instrument": "PM0200",
+      "block": 9,
+      "dti": 0.00569384669563771,
+      "emitted": 906,
+      "n_truth": 240
+    },
+    {
+      "instrument": "PM0112",
+      "block": 9,
+      "dti": 0.006772394992987094,
+      "emitted": 906,
+      "n_truth": 134
+    },
+    {
+      "instrument": "PM0294",
+      "block": 9,
+      "dti": 0.006445791456060263,
+      "emitted": 906,
+      "n_truth": 367
+    },
+    {
+      "instrument": "A1",
+      "block": 9,
+      "dti": 0.008102524361960389,
+      "emitted": 906,
+      "n_truth": 167
+    },
+    {
+      "instrument": "A2",
+      "block": 9,
+      "dti": 0.007282073341393474,
+      "emitted": 906,
+      "n_truth": 1286
+    },
+    {
+      "instrument": "PM0200",
+      "block": 10,
+      "dti": 0.0032321837827955216,
+      "emitted": 767,
+      "n_truth": 170
+    },
+    {
+      "instrument": "PM0112",
+      "block": 10,
+      "dti": 0.004106281654436678,
+      "emitted": 767,
+      "n_truth": 93
+    },
+    {
+      "instrument": "PM0294",
+      "block": 10,
+      "dti": 0.003925354254093635,
+      "emitted": 767,
+      "n_truth": 260
+    },
+    {
+      "instrument": "A1",
+      "block": 10,
+      "dti": 0.009820255858160251,
+      "emitted": 767,
+      "n_truth": 209
+    },
+    {
+      "instrument": "A2",
+      "block": 10,
+      "dti": 0.0049510681787709515,
+      "emitted": 767,
+      "n_truth": 703
+    },
+    {
+      "instrument": "PM0200",
+      "block": 11,
+      "dti": 0.009112486190229885,
+      "emitted": 727,
+      "n_truth": 265
+    },
+    {
+      "instrument": "PM0112",
+      "block": 11,
+      "dti": 0.005380307336980631,
+      "emitted": 727,
+      "n_truth": 108
+    },
+    {
+      "instrument": "PM0294",
+      "block": 11,
+      "dti": 0.005504466007940642,
+      "emitted": 727,
+      "n_truth": 308
+    },
+    {
+      "instrument": "A1",
+      "block": 11,
+      "dti": 0.004757863962533059,
+      "emitted": 727,
+      "n_truth": 64
+    },
+    {
+      "instrument": "A2",
+      "block": 11,
+      "dti": 0.00721050855691619,
+      "emitted": 727,
+      "n_truth": 727
+    },
+    {
+      "instrument": "PM0200",
+      "block": 12,
+      "dti": 0.001196537737055606,
+      "emitted": 914,
+      "n_truth": 157
+    },
+    {
+      "instrument": "PM0112",
+      "block": 12,
+      "dti": 0.0012594303954685194,
+      "emitted": 914,
+      "n_truth": 81
+    },
+    {
+      "instrument": "PM0294",
+      "block": 12,
+      "dti": 0.0024640528846123313,
+      "emitted": 914,
+      "n_truth": 217
+    },
+    {
+      "instrument": "A1",
+      "block": 12,
+      "dti": 0.003261611868446719,
+      "emitted": 914,
+      "n_truth": 130
+    },
+    {
+      "instrument": "A2",
+      "block": 12,
+      "dti": 0.004244931632650803,
+      "emitted": 914,
+      "n_truth": 639
+    },
+    {
+      "instrument": "PM0200",
+      "block": 13,
+      "dti": 0.002053420801582973,
+      "emitted": 2301,
+      "n_truth": 649
+    },
+    {
+      "instrument": "PM0112",
+      "block": 13,
+      "dti": 0.0012449989636628938,
+      "emitted": 2301,
+      "n_truth": 338
+    },
+    {
+      "instrument": "PM0294",
+      "block": 13,
+      "dti": 0.0022655989321302837,
+      "emitted": 2301,
+      "n_truth": 913
+    },
+    {
+      "instrument": "A1",
+      "block": 13,
+      "dti": 0.003222277271534164,
+      "emitted": 2301,
+      "n_truth": 612
+    },
+    {
+      "instrument": "A2",
+      "block": 13,
+      "dti": 0.0037576681514868322,
+      "emitted": 2301,
+      "n_truth": 3696
+    },
+    {
+      "instrument": "PM0200",
+      "block": 14,
+      "dti": 0.004354415410204705,
+      "emitted": 2372,
+      "n_truth": 651
+    },
+    {
+      "instrument": "PM0112",
+      "block": 14,
+      "dti": 0.001957588350199168,
+      "emitted": 2372,
+      "n_truth": 366
+    },
+    {
+      "instrument": "PM0294",
+      "block": 14,
+      "dti": 0.0028680020713616624,
+      "emitted": 2372,
+      "n_truth": 963
+    },
+    {
+      "instrument": "A1",
+      "block": 14,
+      "dti": 0.0014570260871976841,
+      "emitted": 2372,
+      "n_truth": 428
+    },
+    {
+      "instrument": "A2",
+      "block": 14,
+      "dti": 0.006538316409061507,
+      "emitted": 2372,
+      "n_truth": 4834
+    },
+    {
+      "instrument": "PM0200",
+      "block": 15,
+      "dti": 0.004270785383502093,
+      "emitted": 345,
+      "n_truth": 113
+    },
+    {
+      "instrument": "PM0112",
+      "block": 15,
+      "dti": 0.0025105173119143757,
+      "emitted": 345,
+      "n_truth": 69
+    },
+    {
+      "instrument": "PM0294",
+      "block": 15,
+      "dti": 0.004918648836845943,
+      "emitted": 345,
+      "n_truth": 166
+    },
+    {
+      "instrument": "A2",
+      "block": 15,
+      "dti": 0.006726257008369298,
+      "emitted": 345,
+      "n_truth": 889
+    },
+    {
+      "instrument": "PM0200",
+      "block": 19,
+      "dti": 0.006851168005075535,
+      "emitted": 334,
+      "n_truth": 144
+    },
+    {
+      "instrument": "PM0112",
+      "block": 19,
+      "dti": 0.018768688446222894,
+      "emitted": 334,
+      "n_truth": 71
+    },
+    {
+      "instrument": "PM0294",
+      "block": 19,
+      "dti": 0.01620775920844033,
+      "emitted": 334,
+      "n_truth": 220
+    },
+    {
+      "instrument": "A2",
+      "block": 19,
+      "dti": 0.014562252997371234,
+      "emitted": 334,
+      "n_truth": 393
+    },
+    {
+      "instrument": "PM0200",
+      "block": 20,
+      "dti": 0.003712459088157059,
+      "emitted": 2709,
+      "n_truth": 698
+    },
+    {
+      "instrument": "PM0112",
+      "block": 20,
+      "dti": 0.003623862747563932,
+      "emitted": 2709,
+      "n_truth": 339
+    },
+    {
+      "instrument": "PM0294",
+      "block": 20,
+      "dti": 0.00497903606830836,
+      "emitted": 2709,
+      "n_truth": 1080
+    },
+    {
+      "instrument": "A1",
+      "block": 20,
+      "dti": 0.0032747121751620016,
+      "emitted": 2709,
+      "n_truth": 491
+    },
+    {
+      "instrument": "A2",
+      "block": 20,
+      "dti": 0.008197460408523316,
+      "emitted": 2709,
+      "n_truth": 3815
+    },
+    {
+      "instrument": "PM0200",
+      "block": 21,
+      "dti": 0.0037508124787729484,
+      "emitted": 1012,
+      "n_truth": 296
+    },
+    {
+      "instrument": "PM0112",
+      "block": 21,
+      "dti": 0.0034193553170814178,
+      "emitted": 1012,
+      "n_truth": 182
+    },
+    {
+      "instrument": "PM0294",
+      "block": 21,
+      "dti": 0.002504816155555111,
+      "emitted": 1012,
+      "n_truth": 455
+    },
+    {
+      "instrument": "A1",
+      "block": 21,
+      "dti": 0.00019373630900384935,
+      "emitted": 1012,
+      "n_truth": 116
+    },
+    {
+      "instrument": "A2",
+      "block": 21,
+      "dti": 0.007347635420078772,
+      "emitted": 1012,
+      "n_truth": 2340
+    },
+    {
+      "instrument": "PM0200",
+      "block": 26,
+      "dti": 0.003428538894889558,
+      "emitted": 1458,
+      "n_truth": 255
+    },
+    {
+      "instrument": "PM0112",
+      "block": 26,
+      "dti": 0.004947512505718144,
+      "emitted": 1458,
+      "n_truth": 150
+    },
+    {
+      "instrument": "PM0294",
+      "block": 26,
+      "dti": 0.00299771260568006,
+      "emitted": 1458,
+      "n_truth": 381
+    },
+    {
+      "instrument": "A1",
+      "block": 26,
+      "dti": 0.0052870848496916764,
+      "emitted": 1458,
+      "n_truth": 171
+    },
+    {
+      "instrument": "A2",
+      "block": 26,
+      "dti": 0.007471211359988341,
+      "emitted": 1458,
+      "n_truth": 2787
+    },
+    {
+      "instrument": "PM0200",
+      "block": 27,
+      "dti": 0.0018623903480644336,
+      "emitted": 2188,
+      "n_truth": 632
+    },
+    {
+      "instrument": "PM0112",
+      "block": 27,
+      "dti": 0.0010193925257800751,
+      "emitted": 2188,
+      "n_truth": 358
+    },
+    {
+      "instrument": "PM0294",
+      "block": 27,
+      "dti": 0.0023611357205372426,
+      "emitted": 2188,
+      "n_truth": 969
+    },
+    {
+      "instrument": "A1",
+      "block": 27,
+      "dti": 0.001067849576935302,
+      "emitted": 2188,
+      "n_truth": 250
+    },
+    {
+      "instrument": "A2",
+      "block": 27,
+      "dti": 0.0031200024511527998,
+      "emitted": 2188,
+      "n_truth": 2836
+    },
+    {
+      "instrument": "PM0200",
+      "block": 28,
+      "dti": 0.00501250212150999,
+      "emitted": 47,
+      "n_truth": 66
+    },
+    {
+      "instrument": "PM0294",
+      "block": 28,
+      "dti": 0.005752198730005996,
+      "emitted": 47,
+      "n_truth": 56
+    },
+    {
+      "instrument": "A2",
+      "block": 28,
+      "dti": 0.00501250212150999,
+      "emitted": 47,
+      "n_truth": 66
+    },
+    {
+      "instrument": "PM0200",
+      "block": 32,
+      "dti": 0.0,
+      "emitted": 292,
+      "n_truth": 104
+    },
+    {
+      "instrument": "PM0112",
+      "block": 32,
+      "dti": 0.0,
+      "emitted": 292,
+      "n_truth": 109
+    },
+    {
+      "instrument": "PM0294",
+      "block": 32,
+      "dti": 0.0012433789428714299,
+      "emitted": 292,
+      "n_truth": 183
+    },
+    {
+      "instrument": "A1",
+      "block": 32,
+      "dti": 0.007417132547172103,
+      "emitted": 292,
+      "n_truth": 194
+    },
+    {
+      "instrument": "A2",
+      "block": 32,
+      "dti": 0.001561315502740589,
+      "emitted": 292,
+      "n_truth": 1379
+    },
+    {
+      "instrument": "PM0200",
+      "block": 33,
+      "dti": 0.00555812007105049,
+      "emitted": 1869,
+      "n_truth": 603
+    },
+    {
+      "instrument": "PM0112",
+      "block": 33,
+      "dti": 0.003326055446017393,
+      "emitted": 1869,
+      "n_truth": 310
+    },
+    {
+      "instrument": "PM0294",
+      "block": 33,
+      "dti": 0.0035880276179543146,
+      "emitted": 1869,
+      "n_truth": 885
+    },
+    {
+      "instrument": "A1",
+      "block": 33,
+      "dti": 0.003025943491113196,
+      "emitted": 1869,
+      "n_truth": 634
+    },
+    {
+      "instrument": "A2",
+      "block": 33,
+      "dti": 0.005408189972069666,
+      "emitted": 1869,
+      "n_truth": 2715
+    },
+    {
+      "instrument": "PM0200",
+      "block": 34,
+      "dti": 0.01767713862886215,
+      "emitted": 145,
+      "n_truth": 180
+    },
+    {
+      "instrument": "PM0112",
+      "block": 34,
+      "dti": 0.0009135935849510481,
+      "emitted": 145,
+      "n_truth": 42
+    },
+    {
+      "instrument": "PM0294",
+      "block": 34,
+      "dti": 0.02152294379869974,
+      "emitted": 145,
+      "n_truth": 138
+    },
+    {
+      "instrument": "A2",
+      "block": 34,
+      "dti": 0.01767713862886215,
+      "emitted": 145,
+      "n_truth": 180
+    }
+  ],
+  "exchangeability_caveat": "The guarantee P(fresh block DTI >= floor) >= 1-alpha is exact under exchangeability of holdout blocks. Geological blocks are NOT i.i.d.; the reported leave-one-out worst floor and the DKW mean floor show how much of the claim rests on that assumption."
+}

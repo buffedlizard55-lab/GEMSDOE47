@@ -1,0 +1,99 @@
+{
+  "started_utc": "2026-10-06T17:30:34Z",
+  "transport": "gh api (GitHub REST, raw accept header)",
+  "note": "Identity is established by sha256 against src/gems47s3/spec.py::PINS. The source repositories are team transport mirrors, not official publishers; the official files are the three named on the competition Data tab.",
+  "steps": [
+    {
+      "action": "skip",
+      "file": "training_features.tif",
+      "reason": "pin matched"
+    },
+    {
+      "action": "skip",
+      "file": "labels.tif",
+      "reason": "pin matched"
+    },
+    {
+      "action": "skip",
+      "file": "sample_submission.tif",
+      "reason": "pin matched"
+    }
+  ],
+  "seconds": 0.9,
+  "verification": {
+    "training_features.tif": {
+      "file": "training_features.tif",
+      "path": "/home/user/GEMSDOE47/data/training_features.tif",
+      "exists": true,
+      "expected_bytes": 418912844,
+      "expected_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "official_data_tab_name": "gems-geodawn-numerical-features.tif",
+      "bytes": 418912844,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "bytes_match": true,
+      "sha256_match": true,
+      "ok": true
+    },
+    "labels.tif": {
+      "file": "labels.tif",
+      "path": "/home/user/GEMSDOE47/data/labels.tif",
+      "exists": true,
+      "expected_bytes": 425830,
+      "expected_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "official_data_tab_name": "existing_faults.tif",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes_match": true,
+      "sha256_match": true,
+      "ok": true
+    },
+    "sample_submission.tif": {
+      "file": "sample_submission.tif",
+      "path": "/home/user/GEMSDOE47/data/sample_submission.tif",
+      "exists": true,
+      "expected_bytes": 1599597,
+      "expected_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "official_data_tab_name": "example_submission.tif",
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "bytes_match": true,
+      "sha256_match": true,
+      "ok": true
+    }
+  },
+  "grid_assertions": {
+    "features": {
+      "width": 3292,
+      "height": 3730,
+      "count": 19,
+      "dtype": "float32",
+      "crs_epsg": 32611,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "ok": true
+    },
+    "labels": {
+      "width": 3292,
+      "height": 3730,
+      "dtype": "int8",
+      "nodata": -1.0,
+      "positive_pixels": 60988,
+      "ok": true
+    },
+    "sample_submission": {
+      "width": 3292,
+      "height": 3730,
+      "dtype": "float32",
+      "nodata": NaN,
+      "footprint_pixels": 5167373,
+      "ok": true
+    }
+  },
+  "all_pins_matched": true
+}

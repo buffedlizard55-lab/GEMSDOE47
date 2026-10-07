@@ -5,13 +5,13 @@
   "decision": {
     "submission_slot_eligible": false,
     "slot_recommended": false,
-    "reason": "H47-B failed its preregistered locked-test/random-control and conformal-floor gate; no other candidate has established a comparable current spatially blocked holdout win."
+    "reason": "H47-B failed its preregistered locked-test/random-control and conformal lower-bound gate; no other candidate has established a comparable current spatially blocked holdout win."
   },
   "submission": null,
   "research_artifacts": [
     {
       "hypothesis_id": "H47-B",
-      "file": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+      "file": "docs/downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
       "status": "RESEARCH_ONLY_NOT_FOR_PORTAL",
       "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
       "positive_pixels": 18524,
@@ -22,15 +22,25 @@
         "height": 3730,
         "width": 3292,
         "resolution_m": 100,
-        "transform_gdal": [243350.0, 100.0, 0.0, 4508550.0, 0.0, -100.0],
+        "transform_gdal": [
+          243350.0,
+          100.0,
+          0.0,
+          4508550.0,
+          0.0,
+          -100.0
+        ],
         "nodata": "NaN",
-        "in_footprint_range": [0.0, 1.0],
+        "in_footprint_range": [
+          0.0,
+          1.0
+        ],
         "outside_footprint": "NaN"
       },
       "local_format_audit": "PASS; does not imply organizer acceptance or scientific promotion"
     },
     {
-      "file": "docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
+      "file": "docs/downloads/superseded/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
       "status": "HISTORICAL_NOT_FOR_PORTAL",
       "lineage": "Delete-only subset of a published sibling mask; not an independent detector."
     }
@@ -53,13 +63,19 @@
       "mean_block_dti_fixed_seed_random": 0.02181179402839894,
       "candidate_beats_baseline": true,
       "candidate_beats_random": false,
-      "empty_locked_test_blocks": [8, 11]
+      "empty_locked_test_blocks": [
+        8,
+        11
+      ]
     },
     "calibration": {
       "n_blocks": 6,
       "nominal_coverage_if_exchangeable": 0.8571428571428571,
       "exchangeability_verified": false,
-      "empty_calibration_blocks": [12, 15],
+      "empty_calibration_blocks": [
+        12,
+        15
+      ],
       "clipped_lower_bound": 0.0,
       "interpretation": "No positive defensible performance floor; not a guarantee for private labels or leaderboard score."
     },
@@ -103,5 +119,74 @@
     "status": "WITHDRAWN_UNSUPPORTED",
     "preserved_record": "notes/results-retired-unverified-20261006.json",
     "reason": "Unauthenticated score-to-file mapping, non-exchangeable selected rungs, and long extrapolation; not a valid distribution-free performance guarantee."
+  },
+  "H48": {
+    "session": "2026-10-06",
+    "pipeline": "scripts/build_h48.py --stage all [--source prior|apex]",
+    "detector": "MSCL - multi-scale curvature lineament consensus (structure tensor, 3 apertures x 5 bands, cross-domain agreement)",
+    "arms": {
+      "apex": {
+        "file": "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif",
+        "sha256": "8ccde09e97c631c9ac5df0d7aed4ee0850ea0480fe3c4c2831d399e05e0e08d5",
+        "n_positive": 28124,
+        "legacy_internal_format_checks_passed": true,
+        "max_jaccard_vs_13_priors": 0.009507,
+        "predicted_dti": 0.08578766591790139,
+        "assumption_conditional_lower_bound": 0.11486597456776,
+        "certificate_level": 0.46153846153846156,
+        "certificate_rank_k": 6,
+        "n_calibration": 12,
+        "m_candidates": 7,
+        "quantile": 0.02907830864985861,
+        "holdout": {
+          "catalogue": {
+            "candidate": 0.0335,
+            "owner_reported_h33_2_b2_raster_unverified_score_link": 0.0067
+          },
+          "sgmc_offcatalogue": {
+            "candidate": 0.0878,
+            "owner_reported_h33_2_b2_raster_unverified_score_link": 0.0989
+          }
+        },
+        "status": "NOT PROMOTED - gate closed (SGMC frame loss; assumption-conditional lower bound below the owner-reported DTI 0.2600 scenario)",
+        "published_outside_null_nan_requirement_passed": false,
+        "current_format_status": "FAILS_PUBLISHED_OUTSIDE_NULL_OR_NAN_REQUIREMENT",
+        "organizer_acceptance_established": false
+      },
+      "repack": {
+        "file": "docs/downloads/superseded/gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif",
+        "n_positive": 44838,
+        "legacy_internal_format_checks_passed": true,
+        "max_jaccard_vs_13_priors": 0.440003,
+        "predicted_dti": 0.1859,
+        "assumption_conditional_lower_bound": 0.215,
+        "holdout": {
+          "catalogue": {
+            "candidate": 0.0404,
+            "owner_reported_h33_2_b2_raster_unverified_score_link": 0.0067
+          },
+          "sgmc_offcatalogue": {
+            "candidate": 0.1081,
+            "owner_reported_h33_2_b2_raster_unverified_score_link": 0.0989
+          }
+        },
+        "status": "REJECTED on novelty (re-issues a prior submission) - evidence only",
+        "published_outside_null_nan_requirement_passed": false,
+        "current_format_status": "FAILS_PUBLISHED_OUTSIDE_NULL_OR_NAN_REQUIREMENT",
+        "organizer_acceptance_established": false
+      }
+    },
+    "receipts": [
+      "evidence/h48_apex_build.json",
+      "evidence/h48_build.json",
+      "docs/h48.json"
+    ],
+    "open_issues": [
+      "IR-47-016",
+      "IR-47-017",
+      "IR-47-018",
+      "IR-47-019"
+    ],
+    "scope_notice": "H33-2-B2 / participant DTI 0.2778 attribution is unverified; H48 score-dependent results are conditional. Stored all-finite files write zeros outside and fail the published null/NaN-outside requirement; legacy local checks do not establish acceptance. The reported lower bound is assumption-conditional and is not a supported private-score floor. No slot is eligible."
   }
 }

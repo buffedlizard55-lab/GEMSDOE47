@@ -349,5 +349,5 @@ def split_conformal_lower_bound(
         "quantile": quantile,
         "lower_bound_clipped": lower,
         "assumption": "marginal block-score exchangeability; unverified under spatial dependence",
-        "scope": "future comparable public-catalogue block DTI, not private-label/leaderboard DTI",
+        "scope": "future comparable block-level score for the same calibration target; not a different private-label/leaderboard target",
     }

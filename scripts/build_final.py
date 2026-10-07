@@ -109,6 +109,8 @@ def fit(rows_u8, obs):
 
 
 def main() -> int:
+    print("RETIRED: legacy LATI builder disabled; see README.md and docs/COMPLIANCE.md", file=sys.stderr)
+    return 2
     t0 = time.time()
     t = G.load_template()
     ev, shape = t.evaluated, t.shape

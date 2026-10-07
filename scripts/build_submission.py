@@ -81,6 +81,8 @@ def dense_q(shape, ev_idx, w_norm, K):
 
 
 def main() -> int:
+    print("RETIRED: legacy LATI builder disabled; see README.md and docs/COMPLIANCE.md", file=sys.stderr)
+    return 2
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", type=int, default=44_090,
                     help="dot budget; default matches the owner-reported d2.8 raster count (44,090; DTI 0.2600 has no organizer receipt)")

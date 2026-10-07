@@ -1,129 +1,40 @@
-# The GEMS target population — what the hidden labels actually are
+# GEMS target population — established facts and unknowns
 
-Reusable research base. Everything here is sourced; see `registry/sources.json`
-for the `verified_this_session` flag on each item.
+Reviewed 2026-10-06. Official requirements and geological hypotheses are separate.
 
-## 1. The task
+## What is established
 
-Find **newly identified faults indicative of geothermal resources** in the Nevada
-Great Basin, on a 100 m grid, as a per-pixel probability in `[0, 1]`. The supplied
-labels are faults from the **USGS Quaternary fault compilation** and **INGENIOUS**.
-The scoring targets faults that are **not** in those compilations.
+- The target is geological fault structures indicative of geothermal resources, not springs/wells themselves.
+  [Official problem](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/).
+- Supplied labels come from USGS Quaternary faults and INGENIOUS. Organizer experts labeled additional
+  fault pixels; the region is spatially split into public/private test chunks. Participant scores do not
+  identify a TIFF. One selected submission is evaluated in both prize rounds.
+- Existing catalogue pixels are excluded from scoring in both rounds, per
+  [staff clarification 11516](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516).
+  Off-catalogue does not necessarily mean distant from a known fault: new geometry can be near or far.
+- Staff explicitly withholds test data sources, fault types and coverage in
+  [thread 11527](https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527?print=true).
+  Do not infer that hidden labels primarily use lidar or that winners use a particular architecture.
+- Grid read from pinned mirrors: EPSG:32611, 100 m, width 3292 × height 3730; 5,167,373 footprint and
+  60,988 catalogue pixels. These hashes prove mirror consistency, not organizer authentication.
 
-## 2. The definition of "new fault" — the single most actionable fact
+## What does not follow
 
-> "'new fault' means 'any fault pixel not already captured by USGS/INGENIOUS' and
-> **can include newly mapped geometry of an existing fault system**."
-> — DrivenData staff (`chrisk-dd`), community thread 11536, 2026-09-23
-> https://community.drivendata.org/t/where-do-you-draw-the-line/11536
+“New geometry may adjoin a known system” does **not** imply the hidden target is primarily a 0–300 m halo.
+Nor does an incomplete catalogue mean every linear terrain/geophysical edge is tectonic. Roads, channels,
+lithologic contacts, erosion and survey/resampling boundaries need explicit competing explanations.
 
-Two consequences that dominate every design decision:
+A catalogue-supervised model may learn regional sampling and mapped-fault bias rather than missing-fault
+physics. H47-C1 is a concrete example: it beats random on catalogue cores but fails the frozen pooled
+terrain-control comparison and loses to random on the distant SGMC diagnostic. It is not promoted.
 
-1. The target population is **off-catalogue**. Pixels already in USGS/INGENIOUS
-   are not "new faults" no matter how confident the detection.
-2. But "off-catalogue" is **not** "far from the catalogue". Newly mapped geometry
-   *of an existing system* — trace continuations past mapped endpoints, splays,
-   relay ramps, parallel strands, stepovers — sits immediately adjacent to mapped
-   traces. The target is a **halo that is adjacent to but not on** the catalogue.
+## Scientific next directions, not validated discoveries
 
-## 3. Masking — and how it was confirmed empirically
+Raw 1 m elevation could preserve narrow landforms missing in a coarse feature product; the public
+[USGS 3DEP page](https://www.usgs.gov/3d-elevation-program) states products are free without use restrictions.
+Exact tile bytes, footprint and the competition tile-link CSV remain unacquired here. Persistent step heights
+can survive averaging; do not claim every metre-scale throw is attenuated by a universal percentage.
 
-> "Pixels corresponding to known USGS/INGENIOUS faults are masked / excluded from
-> evaluation, so they do not count towards penalty terms. ... for scoring purposes
-> it should not matter whether these known faults are included with predictions or
-> not."
-> — DrivenData staff (`chrisk-dd`), thread 11516, 2026-09-16
-> https://community.drivendata.org/t/scoring-clarification-masked-pixels-and-re-evaluation/11516
-
-Under the staff clarification, known USGS/INGENIOUS pixels are excluded from
-evaluation and penalty terms: predictions exactly on those masked pixels earn no
-credit and incur no penalty. This is a statement about the organizer's stated
-scoring rule, not a reason to infer any benefit from deleting a neighborhood of
-unmasked pixels.
-
-Earlier notes called a recovered raster comparison a “natural experiment.” That
-label is withdrawn. `8GEMSDOE_Hedge-v2_submission.tif` is byte-identical to
-`gemsdoe-ens12-adopted-7f00890a.tif` off the catalogue and additionally carries
-60,988 catalogue pixels at p = 1; owner-reported records list the same DTI. But
-there are no organizer receipts linking those score reports to the exact TIFFs.
-This descriptive byte comparison is not an authenticated scoring experiment,
-does not establish a causal effect of adding/deleting masked mass, and does not
-measure an effect from changing nearby unmasked pixels. The official staff
-clarification, not this comparison, is the basis for the masking interpretation.
-
-### A structural consequence most people miss
-
-Under that masking, **a blocked holdout whose truth is the given catalogue cannot
-be scored at all**: `truth & evaluated` is empty, `K = 0`, and DTI ≡ 0 for every
-candidate. Sibling repositories report non-zero values on exactly that frame, so
-their scorers do not apply the organiser's mask — and the frame rewards catalogue
-skill, which is the *opposite* of the target skill. It is structurally unfit for
-selecting candidates in this competition. (IR-47-005.)
-
-## 4. The grid
-
-| Quantity | Value |
-|---|---|
-| Shape | 3730 × 3292 = 12,279,160 px |
-| CRS | EPSG:32611 (UTM 11N) |
-| Geotransform | (100.0, 0.0, 243350.0, 0.0, −100.0, 4508550.0) |
-| Bounds (m) | 243350 / 4135550 / 572550 / 4508550 |
-| Resolution | 100 m |
-| Footprint (`labels != −1`) | 5,167,373 px — identical to `isfinite(sample_submission)` |
-| Catalogue (`labels == 1`, masked) | 60,988 px |
-| **Evaluated** (footprint ∧ ¬catalogue) | **5,106,385 px** |
-| `labels.tif` | int8, nodata −1 |
-| `sample_submission.tif` | float32, 1 band, nodata nan, values {0,1}, **60,988 ones — all on `labels==1`, so it is not all-zero** |
-| `training_features.tif` | float32, 19 bands, nodata **−3.4028234663852886e+38** |
-
-**The nodata sentinel is not NaN.** `np.isfinite()` returns True for the float32
-minimum, so any statistic computed without special-casing it treats −3.4e38 as a
-measurement. All 19 bands carry it; 3,061 pixels inside the footprint do too.
-(IR-47-001.)
-
-### The 19 supplied bands, in file order
-
-`mag_anom`, `rtp`, `tmi_hg`, `geod_2ndinv`, `iso_grav_anom_slope`, `tc`,
-`geod_shearrate`, `geod_dilaterate`, `tmi_vg`, `deq_n100a15`, `iso_grav_anom_vg`,
-`det_elev`, `iso_grav_anom`, `tmi`, `depth_to_base_surf`, `ieq_n100a15`,
-`cond_surf`, `iso_grav_anom_hg`, `det_elev_slope`.
-
-Read back from the TIFF descriptions rather than from documentation. Per-band
-valid counts and ranges: `evidence/training_band_stats.json`.
-
-## 5. What was NOT retrieved
-
-The staff answer in thread **11527** ("How were the new test faults identified?
-Data sources and fault types") did not render — the page shows a collapsed post
-list and only the two questions plus two non-staff replies came through. That
-answer would state directly which data the NLR/USGS experts used, and is the
-single most valuable missing fact in this competition. Retry via the last-post URL
-(`…/11527/10`) or the print view (`…/11527?print=true`). Nothing was guessed at in
-its place. (IR-47-006.)
-
-## 6. The organiser's reference solution does not optimise the metric
-
-`drivendataorg/gems-prize-reference-solution` (U-Net + Monte-Carlo CV benchmark,
-John Lipor, PSU) trains with
-`smp.losses.TverskyLoss(alpha=0.2, beta=0.8, mode="binary")` — a **patch-level,
-unweighted, undistanced** Tversky loss. The notebook contains **no DTI scorer at
-all**: no `k(d) = max(1 − d/R, 0)`, no 300 m buffer, no global max-over-neighbours
-reduction. Patch-level Tversky and global distance-weighted Tversky have different
-optima. (IR-47-004.)
-
-Config, for reuse: `MC=5`, `patch_size=128`, `test_proportion=0.5`,
-`batch_size=32`, `epochs=5`, `init_lr=1e-4`, `smp.Unet(resnet18, imagenet)`,
-`AdamW`, augmentations `RandomResizedCrop(scale 0.5–1.0, ratio 0.75–1.33,
-bilinear) + HFlip + VFlip + RandomRotation(30)`.
-
-## 7. Derived layers available in this project's mirror
-
-| Layer | Bands | Notes |
-|---|---|---|
-| `lidar_scarp_features_u8.tif` | `ex_max, ex_mean, step_max, lapneg_max, lappos_max, downface_max, upface_max, cross_max, relief, coh100, strike, valid` | derived from 706 USGS 3DEP **1 m** tiles, then resampled to 100 m — which destroys the discriminating signal (IR-47-012) |
-| `geodawn_rad_u8.tif` | `K, Th, U, TC` | GeoDAWN radiometrics |
-| `geodawn_extensions_u8.tif` | `ThK, UK, UTh, TMI_up150` | ratios + **150 m upward-continued TMI** — the depth filter nobody used |
-| `derived_sgmc_faults_100m_u8.tif` | 1 | 83,593 px, of which **62,122 px** lie >300 m off the given catalogue |
-| `gdr_qfaults_traces.csv` | — | 1,126 traces with slip rate, recency, dip, slip sense, length, centroids |
-| `gdr_wellspring_in_footprint.csv` | — | 27,092 spring-chemistry / water-well points with temperature and three geothermometers |
-| `gdr_volcanic_vents_in_footprint.csv` | — | 21 vents (too few to carry signal) |
+[Sare et al. 2019](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JB016886) used ≤2 m topography
+for scarp-template detection. C1's 100 m, four-direction bank is a heuristic adaptation, not a replication
+or a morphologic age estimator. Its widths are sampling steps, with √2-longer diagonal spacing.

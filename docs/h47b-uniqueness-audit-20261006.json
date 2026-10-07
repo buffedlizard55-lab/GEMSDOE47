@@ -4112,9 +4112,11 @@
       "height": 3730,
       "width": 3292
     },
-    "path": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+    "path": "docs/downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
     "positive_pixels": 18524,
-    "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b"
+    "sha256": "7e5df9d01689e438e8379ebd4763ed803de02e94826f43da37c33c16380d669b",
+    "original_audit_path": "docs/downloads/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+    "relocation_note": "Main PR11 moved unchanged bytes to superseded; SHA/results unchanged."
   },
   "caveat": "This checks pixel masks against visible GitHub artifacts only; it does not prove global uniqueness or any score-to-file attribution.",
   "comparison": {
@@ -8353,7 +8355,7 @@
     "Two blobs were read but excluded because their grids did not match exactly; reasons and observed grids are listed above.",
     "The comparison measures binary positive support, not raster-value equality, geological validity, label quality, or score.",
     "No public participant leaderboard row was mapped to any artifact or upload receipt by this audit.",
-    "A uniqueness result does not promote H47-B; it failed the preregistered public-catalogue holdout gate and is not for submission."
+    "A uniqueness result does not promote H47-B; its diagnostic screen against the known-fault catalogue-mask proxy failed, and this proxy is not the hidden missing-fault target; the TIFF is not for submission."
   ],
   "observation_date": "2026-10-06",
   "observation_time_utc": null,

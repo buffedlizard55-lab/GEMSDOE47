@@ -172,7 +172,7 @@ def main() -> int:
     from src.gems47_blocks import blocked_scores
     truth = (lab == 1)
     rows = {"candidate": blocked_scores(out, truth, 2, 2),
-            "random_control": None, "incumbent_d28": None}
+            "random_control": None, "owner_reported_d2_8_reference": None}
     rng = np.random.default_rng(47)
     ctrl = np.zeros(lab.shape, np.float32)
     pick = rng.choice(flat, size=n, replace=False)
@@ -184,7 +184,7 @@ def main() -> int:
         with rasterio.open(base_p) as ds:
             b = ds.read(1)
         inc = np.isfinite(b) & (b > 0) & (d_cat > ANNULUS_D_CAT_MIN)
-        rows["incumbent_d28"] = blocked_scores(np.where(inc, 1.0, np.nan).astype(np.float32),
+        rows["owner_reported_d2_8_reference"] = blocked_scores(np.where(inc, 1.0, np.nan).astype(np.float32),
                                                truth, 2, 2)
     def _pooled(rs):
         tp = sum(r["TPw"] for r in rs); ng = sum(r["Ng"] for r in rs)

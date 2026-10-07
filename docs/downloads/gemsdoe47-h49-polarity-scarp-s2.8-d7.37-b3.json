@@ -1,0 +1,260 @@
+{
+ "schema_version": 1,
+ "generated_utc": "2026-10-07T03:29:11Z",
+ "file": "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+ "bytes": 316629,
+ "sha256": "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b",
+ "zip": {
+  "file": "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.zip",
+  "bytes": 210996,
+  "sha256": "312bb0b6470459993b862b8ebafbf5eeb4f920a15ad8b2ce202bd9f9d4e4ceb4",
+  "members": [
+   "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
+  ],
+  "single_geotiff_verified": true,
+  "role": "Research archive only; not a submission package."
+ },
+ "operating_point": {
+  "min_spacing_px": 2.8,
+  "min_spacing_m": 280.0,
+  "emitted_density_per_1000_scored": 7.37,
+  "catalogue_flank_buffer_px": 3.0,
+  "catalogue_flank_buffer_m": 300.0,
+  "budget": 37612,
+  "n_scored_domain": 5103406,
+  "emitted_px": 37612,
+  "thinned_px": 85196,
+  "emitted_pct_of_footprint": 0.72787,
+  "engine": "nms_disk (field-ordered isotropic NMS)"
+ },
+ "conformal": {
+  "framework": "split conformal selection, Lei, G'Sell, Rinaldo, Tibshirani & Wasserman, JASA 2018 (https://doi.org/10.1080/01621459.2017.1322365)",
+  "alpha": 0.1,
+  "confidence_pct": 90.0,
+  "primary_instrument": "B_sgmc_offcat",
+  "n_calibration_blocks": 19,
+  "n_selection_blocks": 20,
+  "order_statistic_k": 18,
+  "floors_by_alpha": {
+   "alpha=0.05": 0.01792858632893002,
+   "alpha=0.10": 0.03183577869822368,
+   "alpha=0.20": 0.057831106865825155,
+   "alpha=0.25": 0.05823628475914242,
+   "alpha=0.30": 0.07382900286950957
+  },
+  "corroborating_instrument_floor": 0.018284546414574002,
+  "leave_one_out_worst_floor": 0.01792858632893002,
+  "dkw_mean_floor": 0.040976151820056164,
+  "empirical_violation_on_calibration_half": 0.05263157894736842,
+  "empirical_violation_on_selection_half": 0.05,
+  "repeated_split_of_the_shipped_rule": {
+   "n_requested": 400,
+   "n_effective": 400,
+   "instrument": "B_sgmc_offcat",
+   "alpha": 0.1,
+   "selection_rule": "mean",
+   "floor_p05": 0.01792858632893002,
+   "floor_p25": 0.03183577869822368,
+   "floor_median": 0.038467456899675824,
+   "floor_mean": 0.04391297529559175,
+   "mean_violation_rate": 0.0806578947368421,
+   "median_violation_rate": 0.05263157894736842,
+   "share_of_splits_with_violation_above_alpha": 0.435,
+   "selection_frequency": {
+    "R7_scarp9_polarity/disk/s2.8_d7.37_b3": 221,
+    "R7_scarp9_polarity/disk/s2.8_d14_b3": 84,
+    "R2_scarp9_topo/oriented4/s2.8_d14_b3": 52,
+    "R2_scarp9_topo/disk/s2.8_d14_b3": 32,
+    "R2_scarp9_topo/disk/s2.8_d7.37_b3": 7,
+    "R7_scarp9_polarity/oriented4/s2.8_d14_b3": 2,
+    "R2_scarp9_topo/oriented4/s3.6_d14_b3": 2
+   },
+   "selection_frequency_share": {
+    "R7_scarp9_polarity/disk/s2.8_d7.37_b3": 0.5525,
+    "R7_scarp9_polarity/disk/s2.8_d14_b3": 0.21,
+    "R2_scarp9_topo/oriented4/s2.8_d14_b3": 0.13,
+    "R2_scarp9_topo/disk/s2.8_d14_b3": 0.08,
+    "R2_scarp9_topo/disk/s2.8_d7.37_b3": 0.0175,
+    "R7_scarp9_polarity/oriented4/s2.8_d14_b3": 0.005,
+    "R2_scarp9_topo/oriented4/s3.6_d14_b3": 0.005
+   }
+  },
+  "evidence": "/home/user/GEMSDOE47/evidence/sweep/sweep_h49b.json",
+  "selection_file": "evidence/h49/conformal_certificate.json",
+  "claim": "a fresh 8x8 spatial holdout block of the same instrument scores DTI >= the quoted floor with probability at least confidence_pct, conditional on the shipped arm; blocks are assumed exchangeable, an assumption the file audits but cannot prove",
+  "assumption_conditional_lower_bound_estimate": 0.03183577869822368,
+  "interpretation": "Nominal split-conformal calculation for a comparable public proxy block under assumed exchangeability; exchangeability is unverified. The shipped rule was amended after examining repeated-split results, so formal coverage for the post-hoc amended selection process is not established. No private/global performance floor.",
+  "promotion_eligible": false,
+  "slot_authorized": false
+ },
+ "values_are_binary": true,
+ "recipe": {
+  "name": "R7_scarp9_polarity",
+  "terms": [
+   [
+    "det_elev_slope",
+    "scarp",
+    9.0,
+    3.0
+   ],
+   [
+    "det_elev_slope",
+    "polarity",
+    9.0,
+    2.0
+   ],
+   [
+    "det_elev_slope",
+    "curv",
+    2.5,
+    1.0
+   ],
+   [
+    "det_elev_slope",
+    "detrend",
+    2.5,
+    1.0
+   ],
+   [
+    "det_elev_slope",
+    "slope_var",
+    5.0,
+    1.0
+   ]
+  ],
+  "use_vacancy": false,
+  "vacancy_scale_px": 8.0,
+  "vacancy_power": 1.0,
+  "regional_bands": [],
+  "regional_sigma_px": 25.0,
+  "regional_power": 0.5,
+  "notes": "H49-B: control recipe plus signed two-scale polarity coherence at half the scarp weight"
+ },
+ "evidence": {
+  "bundle": "evidence/submission/bundle_h49.json",
+  "certificate": "evidence/h49/conformal_certificate.json",
+  "sweep_a": "/home/user/GEMSDOE47/evidence/sweep/sweep_h49.json",
+  "sweep_b": "/home/user/GEMSDOE47/evidence/sweep/sweep_h49b.json"
+ },
+ "status": "RESEARCH_ONLY_FORMAT_REQUIREMENT_FAIL",
+ "submission_eligible": false,
+ "slot_authorized": false,
+ "not_for_upload": true,
+ "historical_candidate_name": "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3",
+ "withdrawn_portal_note": "Signed-polarity scarp field; 37,612 dots, 2.8px/280m spacing, 300m off known-fault flanks; spacing certified by split conformal, 90% floor 0.0318.",
+ "research_archive_zip": {
+  "file": "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.zip",
+  "bytes": 210996,
+  "sha256": "312bb0b6470459993b862b8ebafbf5eeb4f920a15ad8b2ce202bd9f9d4e4ceb4",
+  "members": [
+   "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
+  ],
+  "single_geotiff_verified": true,
+  "role": "Research archive only; not a submission package."
+ },
+ "historical_builder_format_receipt": {
+  "path": "/home/user/GEMSDOE47/submission/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+  "sha256": "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b",
+  "bytes": 316629,
+  "driver": "GTiff",
+  "count": 1,
+  "dtype": "float32",
+  "width": 3292,
+  "height": 3730,
+  "crs": "EPSG:32611",
+  "crs_epsg": 32611,
+  "transform": [
+   100.0,
+   0.0,
+   243350.0,
+   0.0,
+   -100.0,
+   4508550.0
+  ],
+  "nodata": "None",
+  "checks": {
+   "single_band": true,
+   "dtype_float32": true,
+   "dimensions_3730x3292": true,
+   "crs_epsg_32611": true,
+   "transform_exact": true,
+   "in_footprint_all_finite": true,
+   "in_footprint_zero_nan": true,
+   "in_footprint_zero_inf": true,
+   "in_footprint_zero_sentinel": true,
+   "in_footprint_range_0_1": true,
+   "every_cell_finite_or_nan_outside": true,
+   "nodata_tag_not_out_of_range": true,
+   "validator_range_0_1_guaranteed": true,
+   "positive_pixels_present": true,
+   "footprint_matches_template": true
+  },
+  "stats": {
+   "full_grid_cells": 12279160,
+   "finite_cells": 12279160,
+   "footprint_cells": 5167373,
+   "finite_in_footprint": 5167373,
+   "min_in_footprint": 0.0,
+   "max_in_footprint": 1.0,
+   "cells_outside_0_1_in_footprint": 0,
+   "nan_in_footprint": 0,
+   "positive_cells": 37612,
+   "positive_cells_in_footprint": 37612,
+   "distinct_values": 2,
+   "positive_pixels_on_catalogue": 0
+  },
+  "all_checks_passed": true,
+  "informational_checks": [
+   "validator_range_0_1_guaranteed"
+  ],
+  "strongest_range_guarantee": true
+ },
+ "format_review": {
+  "status": "FAIL",
+  "outside_null_or_nan": false,
+  "reason": "The read-back has no NaN, no nodata tag, and a valid GDAL mask on all 12,279,160 cells. Relative to the recorded 5,167,373-cell mirrored footprint, 7,111,787 cells are outside but remain finite/valid. This does not meet the published null-or-NaN-outside requirement.",
+  "submission_eligible": false,
+  "slot_authorized": false,
+  "organizer_acceptance_established": false,
+  "sha256": "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b",
+  "readback": {
+   "driver": "GTiff",
+   "bands": 1,
+   "dtype": "float32",
+   "width": 3292,
+   "height": 3730,
+   "crs": "EPSG:32611",
+   "nodata_tag": null,
+   "grid_cells": 12279160,
+   "finite_cells": 12279160,
+   "nan_cells": 0,
+   "nonfinite_cells": 0,
+   "gdal_valid_mask_cells": 12279160,
+   "distinct_finite_values": [
+    0.0,
+    1.0
+   ],
+   "positive_cells": 37612
+  },
+  "footprint_basis": {
+   "footprint_cells": 5167373,
+   "outside_cells": 7111787,
+   "basis": "footprint count recorded in the original H49 build receipt against an owner-supplied mirrored sample_submission.tif; the mask was not re-restored or independently re-derived during this review.",
+   "mirror_authenticated_by_organizer": false
+  },
+  "audit_file": "evidence/h49/format-contract-audit.json"
+ },
+ "bounded_local_novelty_screen": {
+  "rasters_compared": 16,
+  "max_jaccard": 0.292575,
+  "max_containment": 0.452701,
+  "worst_jaccard_file": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+  "thresholds": {
+   "jaccard": 0.5,
+   "containment": 0.9
+  },
+  "global_uniqueness_proven": false,
+  "promotion_gate_passed": false
+ },
+ "review_note": "The historical builder receipt did not test the published null-or-NaN-outside requirement. The exact TIFF is preserved but not eligible or authorized for a submission slot."
+}

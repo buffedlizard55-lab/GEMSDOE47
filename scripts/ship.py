@@ -132,6 +132,8 @@ def read_reference_raster(path: Path, template: G.Template) -> np.ndarray:
 
 
 def main() -> int:
+    print("RETIRED: legacy LATI builder disabled; see README.md and docs/COMPLIANCE.md", file=sys.stderr)
+    return 2
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", type=int, default=37_654,
                     help="research-only equal-mass comparison to the H33 raster; its score link is unverified")

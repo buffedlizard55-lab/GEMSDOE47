@@ -1,0 +1,47 @@
+{
+  "generated_utc": "2026-10-06T21:01:46Z",
+  "sources": [
+    {
+      "id": "usgs_qffd",
+      "publisher": "USGS",
+      "license": "USGS public data; source attribution retained",
+      "source_page": "https://www.usgs.gov/programs/earthquake-hazards/faults",
+      "url": "https://earthquake.usgs.gov/static/lfs/nshm/qfaults/Qfaults_GIS.zip",
+      "attempt_utc": "2026-10-06T21:01:45Z",
+      "used_in_h47c_prediction": false,
+      "hidden_truth_verified": false,
+      "status": "NOT_ACQUIRED_OR_NOT_COVERAGE_VERIFIED",
+      "error_type": "SSLError",
+      "error": "HTTPSConnectionPool(host='earthquake.usgs.gov', port=443): Max retries exceeded with url: /static/lfs/nshm/qfaults/Qfaults_GIS.zip (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "ingenious_qfaults",
+      "publisher": "DOE Geothermal Data Repository / INGENIOUS",
+      "license": "CC BY 4.0 per GDR submission 1391",
+      "source_page": "https://gdr.openei.org/submissions/1391",
+      "url": "https://gdr.openei.org/files/1391/qfaults_ingenious_nad83conus117_2023-06-27.zip",
+      "attempt_utc": "2026-10-06T21:01:45Z",
+      "used_in_h47c_prediction": false,
+      "hidden_truth_verified": false,
+      "status": "NOT_ACQUIRED_OR_NOT_COVERAGE_VERIFIED",
+      "error_type": "SSLError",
+      "error": "HTTPSConnectionPool(host='gdr.openei.org', port=443): Max retries exceeded with url: /files/1391/qfaults_ingenious_nad83conus117_2023-06-27.zip (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "ingenious_paleo",
+      "publisher": "DOE Geothermal Data Repository / INGENIOUS",
+      "license": "CC BY 4.0 per GDR submission 1391",
+      "source_page": "https://gdr.openei.org/submissions/1391",
+      "url": "https://gdr.openei.org/files/1391/paleo_geothermal_regional.zip",
+      "attempt_utc": "2026-10-06T21:01:45Z",
+      "used_in_h47c_prediction": false,
+      "hidden_truth_verified": false,
+      "status": "NOT_ACQUIRED_OR_NOT_COVERAGE_VERIFIED",
+      "error_type": "SSLError",
+      "error": "HTTPSConnectionPool(host='gdr.openei.org', port=443): Max retries exceeded with url: /files/1391/paleo_geothermal_regional.zip (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    }
+  ],
+  "all_obtained_and_coverage_checked": false,
+  "scope": "Official public downloads, feasibility only; no inference features or private labels.",
+  "competition_core_inputs_remain_mirrors": true
+}

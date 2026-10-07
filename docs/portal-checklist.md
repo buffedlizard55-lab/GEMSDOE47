@@ -1,18 +1,16 @@
-# Pre-upload checklist (future promoted candidates only)
+# Portal checklist — no current candidate is authorized for upload
 
-> **Current decision: STOP. Do not upload H47-B or the historical d-cat/annulus TIFF.** H47-B failed its holdout/control gate; the older TIFF is derived by pruning a published mask.
+Use [the current submission guide](submit.html#submit-steps) or [executive summary](executive-summary.html#submit-steps).
+The current H47-C1 research TIFF passed local format checks, but local mask compatibility does not establish organizer acceptance. It is **RESEARCH ONLY / NOT PROMOTED / NO SLOT**.
 
-Use this list only after a new candidate has passed independent scientific review:
+The separate H49 candidate `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` inherited from main is also **NOT SLOT-AUTHORIZED** and fails the published null-or-NaN-outside requirement: its exact TIFF read-back is all-finite with no NoData tag. Its nominal 90% public-proxy lower-bound calculation assumes unverified exchangeability, the operating rule was amended post-hoc, and its 0.2778 comparator is an owner-reported d2.8 reference rather than an authenticated leaderboard incumbent. See the [corrected H49 report](H49_RESULTS.md), [format audit](data/h49-format-contract-audit.json), and [artifact register](all-downloads.html). Do not upload either current research candidate or use a slot.
 
-- [ ] Candidate prediction is genuinely new, not copied or pruned from a prior submission.
-- [ ] Authorized input provenance, code revision, preregistration, fold assignment and output are hash-pinned.
-- [ ] Candidate beats the current spatially blocked holdout best and appropriate controls under a frozen rule; guard is at least 300 m, mass is matched or justified, and label coverage is adequate.
-- [ ] Per-fold and pooled results, negative controls, failure regions and missing-label blocks are reported.
-- [ ] Any conformal result states calibration count, quantile rank, nominal coverage, target, and unverified assumptions; it is not overstated as a guarantee.
-- [ ] Accessible historical artifacts were compared, with exact/similarity results and scope limitations.
-- [ ] Final file is reopened and audited against the current official sample-submission template: one band, required type, CRS, shape, transform, nodata convention and every in-footprint value in [0,1].
-- [ ] Unique descriptive filename and truthful short note are recorded with the exact file SHA-256.
-- [ ] Current official competition rules, portal instructions, accepted archive types and slot limits are checked manually immediately before the upload.
-- [ ] An authorized team member submits manually and saves the organizer receipt ID, timestamp, exact uploaded hash, status and returned score.
+For a future approved candidate only: enroll via Compete!, certify your eligibility/read rules, verify
+predeclared holdout gate and exact hash/grid/range/null footprint, select Submit → Make new submission,
+choose the approved GeoTIFF (one-TIFF ZIP only if the authenticated form requests it), paste its actual
+unique name/note, verify any current per-user quota in the authenticated portal (public official pages
+checked 2026-10-06 do not establish it), and retain the organizer receipt. Official materials describe one
+selected file for both rounds; verify the operative rule and deadline in the portal; disclose AI assistance and preserve reproducible assets/licenses.
 
-See [`submit.html`](submit.html) for the step-by-step manual guide and [`validation-h47b-20261006.md`](validation-h47b-20261006.md) for the current negative screen.
+Internal-mask acceptance is not portal-tested. Preserve exact rejected bytes/error if any; do not infer
+the historical range rejection's cause or spend another slot on a guess. Three historical λ-scaling score observations are not a verified count of uploads or slots; no diagnostic cost is inferred or called free. No credentials are requested here.

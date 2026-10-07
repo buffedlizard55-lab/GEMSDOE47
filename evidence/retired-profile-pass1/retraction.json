@@ -1,0 +1,12 @@
+{
+  "superseded": true,
+  "reason": "Test-loop variable overwrote pre-test-selected 2.8px with final sweep value 5.8px. Not an eligible selection or validation result.",
+  "original_selected_spacing_in_lock_receipt": 2.8,
+  "incorrect_final_spacing": 5.8,
+  "original_prediction_field_sha256": {
+    "raw": "20f8abd405eeafbaf7c03dbcc6883cdda5c0a9a8d5e71034d1d07c0a7cebb237",
+    "structural": "64a7542311b9bc7a23da0395c73501eb4d74ae1a625c7f2669c8a24eabc52c17",
+    "profile": "b0e9d92d6c6e450e26ffda6983c717c800d830fedea0f716f1ef6fe0e5bac144"
+  },
+  "no_tiff_published_from_this_run": true
+}

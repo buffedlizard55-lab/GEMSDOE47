@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
@@ -27,12 +28,13 @@ from src.gems47_emit import (
 )
 from src.gems47_metric import dti
 
-RESEARCH_ARTIFACT = ROOT / "docs" / "downloads" / (
+RESEARCH_ARTIFACT = ROOT / "docs" / "downloads" / "superseded" / (
     "gems47-h47b-tmiup150-xscale-persist-n18524-"
     "research-not-submittable-20261006.tif"
 )
-LABELS = ROOT / "work" / "bridge" / "labels.tif"
-TEMPLATE = ROOT / "work" / "bridge" / "sample_submission.tif"
+DATA_DIR = Path(os.environ.get("GEMS_DATA_DIR", ROOT / ".cache" / "gems_data"))
+LABELS = DATA_DIR / "labels.tif"
+TEMPLATE = DATA_DIR / "sample_submission.tif"
 RESULTS = ROOT / "notes" / "results.json"
 H47B_REPORT = ROOT / "docs" / "h47b-screen-report-20261006.json"
 UNIQUENESS_AUDIT = ROOT / "docs" / "h47b-uniqueness-audit-20261006.json"
@@ -162,28 +164,22 @@ class TestResearchArtifactContract(unittest.TestCase):
             any("public-mirror" in reason for reason in report["promotion"]["reasons_not_promoted"])
         )
 
-    def test_format_audit_is_explicitly_local_not_organizer_acceptance(self):
+    def test_screen_report_preserves_the_frozen_protocol_and_proxy_semantics(self):
         report = json.loads(H47B_REPORT.read_text(encoding="utf-8"))
-        review = report["format_audit_scope_review_2026_10_06"]
-        self.assertFalse(review["organizer_acceptance_established"])
-        self.assertFalse(review["experiment_rerun"])
-
-        audits = []
-        def collect(value):
-            if isinstance(value, dict):
-                if isinstance(value.get("format_audit"), dict):
-                    audits.append(value["format_audit"])
-                for child in value.values():
-                    collect(child)
-            elif isinstance(value, list):
-                for child in value:
-                    collect(child)
-        collect(report)
-        self.assertTrue(audits)
-        for audit in audits:
-            self.assertEqual(audit["status"], "LOCAL_PASS")
-            self.assertFalse(audit["organizer_acceptance_established"])
-            self.assertIn("not a portal oracle", audit["validation_scope"])
+        target = report["block_protocol"]["evaluation_target"].lower()
+        clarification = report["protocol_post_score_clarification"]
+        self.assertIn("labels.tif == 1", target)
+        self.assertIn("known usgs/ingenious", target)
+        self.assertIn("not the hidden missing-fault target", target)
+        self.assertEqual(
+            report["protocol_sha256"],
+            "4cb65d953e575d942f0b1db8d258a36fbc2c8caea32e3409da127d36eaa0c6c6",
+        )
+        self.assertTrue(clarification["original_frozen_protocol_sha256_preserved"])
+        self.assertEqual(
+            clarification["current_document_sha256"],
+            hashlib.sha256((ROOT / "docs" / "preregistered-h2.md").read_bytes()).hexdigest(),
+        )
 
     def test_bounded_uniqueness_audit_matches_the_artifact_and_scope(self):
         audit = json.loads(UNIQUENESS_AUDIT.read_text(encoding="utf-8"))

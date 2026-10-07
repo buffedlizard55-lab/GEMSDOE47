@@ -1,0 +1,198 @@
+{
+  "generated_utc": "2026-10-06T11:03:56Z",
+  "seconds": 52.4,
+  "random_baseline_P40k_offcat": 0.08294,
+  "n_off3": 428326,
+  "n_cat3": 444794,
+  "n_background": 4314584,
+  "controls": [
+    {
+      "field": "lrm_slope_r9",
+      "precision_top40k_offcat": 0.26027,
+      "precision_top40k_catalogue": 0.10593,
+      "auc_off": 0.7824,
+      "auc_cat": 0.5984
+    },
+    {
+      "field": "lrm_elev_r9",
+      "precision_top40k_offcat": 0.20133,
+      "precision_top40k_catalogue": 0.032,
+      "auc_off": 0.7867,
+      "auc_cat": 0.5935
+    },
+    {
+      "field": "scarp_slope_r2",
+      "precision_top40k_offcat": 0.1661,
+      "precision_top40k_catalogue": 0.24675,
+      "auc_off": 0.7688,
+      "auc_cat": 0.6119
+    },
+    {
+      "field": "ruggedness_only",
+      "precision_top40k_offcat": 0.2182,
+      "precision_top40k_catalogue": 0.00122,
+      "auc_off": 0.7928,
+      "auc_cat": 0.5773
+    },
+    {
+      "field": "height_only",
+      "precision_top40k_offcat": 0.33245,
+      "precision_top40k_catalogue": 0.00112,
+      "auc_off": 0.7106,
+      "auc_cat": 0.5198
+    },
+    {
+      "field": "lrm_x_rugged",
+      "precision_top40k_offcat": 0.28095,
+      "precision_top40k_catalogue": 0.023,
+      "auc_off": 0.789,
+      "auc_cat": 0.5949
+    },
+    {
+      "field": "lrm_over_rugged",
+      "precision_top40k_offcat": 0.10138,
+      "precision_top40k_catalogue": 0.136,
+      "auc_off": 0.6921,
+      "auc_cat": 0.5531
+    }
+  ],
+  "stratified": {
+    "mean_slope_decile": {
+      "within_stratum_auc": [
+        {
+          "stratum": 0,
+          "n_off": 1162,
+          "n_bg": 490568,
+          "auc_lrm_within": 0.6353
+        },
+        {
+          "stratum": 1,
+          "n_off": 1613,
+          "n_bg": 491185,
+          "auc_lrm_within": 0.5898
+        },
+        {
+          "stratum": 2,
+          "n_off": 4374,
+          "n_bg": 485075,
+          "auc_lrm_within": 0.5625
+        },
+        {
+          "stratum": 3,
+          "n_off": 8895,
+          "n_bg": 468967,
+          "auc_lrm_within": 0.5933
+        },
+        {
+          "stratum": 4,
+          "n_off": 18438,
+          "n_bg": 441902,
+          "auc_lrm_within": 0.5763
+        },
+        {
+          "stratum": 5,
+          "n_off": 37876,
+          "n_bg": 409594,
+          "auc_lrm_within": 0.5494
+        },
+        {
+          "stratum": 6,
+          "n_off": 58635,
+          "n_bg": 390440,
+          "auc_lrm_within": 0.5384
+        },
+        {
+          "stratum": 7,
+          "n_off": 80998,
+          "n_bg": 378712,
+          "auc_lrm_within": 0.519
+        },
+        {
+          "stratum": 8,
+          "n_off": 99907,
+          "n_bg": 374862,
+          "auc_lrm_within": 0.5179
+        },
+        {
+          "stratum": 9,
+          "n_off": 116186,
+          "n_bg": 383279,
+          "auc_lrm_within": 0.529
+        }
+      ],
+      "mean_within_stratum_auc": 0.5611,
+      "strata_adjusted_precision_top40k_offcat": 0.12345,
+      "strata_adjusted_precision_top40k_catalogue": 0.1143,
+      "strata_adjusted_auc_off": 0.5255
+    },
+    "mean_elevation_decile": {
+      "within_stratum_auc": [
+        {
+          "stratum": 0,
+          "n_off": 13041,
+          "n_bg": 467531,
+          "auc_lrm_within": 0.811
+        },
+        {
+          "stratum": 1,
+          "n_off": 15081,
+          "n_bg": 465249,
+          "auc_lrm_within": 0.8455
+        },
+        {
+          "stratum": 2,
+          "n_off": 17725,
+          "n_bg": 462735,
+          "auc_lrm_within": 0.8649
+        },
+        {
+          "stratum": 3,
+          "n_off": 17350,
+          "n_bg": 456820,
+          "auc_lrm_within": 0.865
+        },
+        {
+          "stratum": 4,
+          "n_off": 21418,
+          "n_bg": 443743,
+          "auc_lrm_within": 0.8426
+        },
+        {
+          "stratum": 5,
+          "n_off": 42260,
+          "n_bg": 419791,
+          "auc_lrm_within": 0.7427
+        },
+        {
+          "stratum": 6,
+          "n_off": 53922,
+          "n_bg": 406109,
+          "auc_lrm_within": 0.7012
+        },
+        {
+          "stratum": 7,
+          "n_off": 63448,
+          "n_bg": 399829,
+          "auc_lrm_within": 0.6541
+        },
+        {
+          "stratum": 8,
+          "n_off": 79236,
+          "n_bg": 398538,
+          "auc_lrm_within": 0.5854
+        },
+        {
+          "stratum": 9,
+          "n_off": 104603,
+          "n_bg": 394239,
+          "auc_lrm_within": 0.5594
+        }
+      ],
+      "mean_within_stratum_auc": 0.7472,
+      "strata_adjusted_precision_top40k_offcat": 0.22655,
+      "strata_adjusted_precision_top40k_catalogue": 0.2199,
+      "strata_adjusted_auc_off": 0.6749
+    }
+  },
+  "interpretation": "If LRM were only a ruggedness proxy, mean_within_stratum_auc would be ~0.50 and the strata-adjusted precision would fall to the random baseline.  Read those two numbers against controls[ruggedness_only] and random_baseline_P40k_offcat."
+}

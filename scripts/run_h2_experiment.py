@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -23,6 +24,7 @@ from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_MANIFEST_PATH = ROOT / "registry" / "data_manifest.json"
+DATA_DIR = Path(os.environ.get("GEMS_DATA_DIR", str(ROOT / ".cache" / "gems_data"))).resolve()
 sys.path.insert(0, str(ROOT))
 
 from gemsdoe47.magnetic import (
@@ -38,7 +40,6 @@ from gemsdoe47.validation import sha256_file, validate_submission
 from src.gems47_metric import dti
 
 WORK = ROOT / "work"
-DATA_DIR = ROOT / ".cache" / "gems_data"
 PINNED_SOURCE_REF = "07345ea0604953d7efb858d9cfbc21e20c7aca0b"
 EXT_PATH = DATA_DIR / "external" / "geodawn_extensions_u8.tif"
 EXT_MANIFEST = DATA_DIR / "external" / "geodawn_extensions.json"
@@ -48,14 +49,14 @@ LABELS_PATH = DATA_DIR / "labels.tif"
 TEMPLATE_PATH = DATA_DIR / "sample_submission.tif"
 OUT_DIR = WORK / "candidates"
 
+EXT_MANIFEST_SHA256 = "56556f24c051043fd7a85587786118f8064624f2ad0604aaa3e6614f1a9f6d2f"
+ACQ_RECEIPT_SHA256 = "577076187434560514baa62995f6bb61b4d43f015b1abaf9a358936b94b5fb75"
 PINNED_HASHES = {
     "features": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
     "labels": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
     "template": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
     "acquisition_blocks": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a",
 }
-EXT_MANIFEST_SHA256 = "56556f24c051043fd7a85587786118f8064624f2ad0604aaa3e6614f1a9f6d2f"
-ACQ_RECEIPT_SHA256 = "577076187434560514baa62995f6bb61b4d43f015b1abaf9a358936b94b5fb75"
 EXPECTED_GRID = {
     "shape": (3730, 3292),
     "crs": "EPSG:32611",
@@ -105,35 +106,16 @@ def _load_inputs() -> dict[str, Any]:
             actual_hashes[key] == PINNED_HASHES[key],
             f"{key} SHA-256 mismatch: {actual_hashes[key]} != {PINNED_HASHES[key]}",
         )
-
     _require(DATA_MANIFEST_PATH.is_file(), f"missing registry data manifest: {DATA_MANIFEST_PATH}")
     registry = json.loads(DATA_MANIFEST_PATH.read_text(encoding="utf-8"))
     registry_by_id = {entry["id"]: entry for entry in registry["files"]}
     expected_registry_entries = {
         "labels": ("data/bridge/labels.tif", "labels.tif", PINNED_HASHES["labels"]),
-        "sample_submission": (
-            "data/bridge/sample_submission.tif", "sample_submission.tif", PINNED_HASHES["template"]
-        ),
-        "ext_geodawn_extensions_u8": (
-            "data/external/geodawn_extensions_u8.tif",
-            "external/geodawn_extensions_u8.tif",
-            PINNED_HASHES["features"],
-        ),
-        "ext_geodawn_extensions_manifest": (
-            "data/external/geodawn_extensions.json",
-            "external/geodawn_extensions.json",
-            EXT_MANIFEST_SHA256,
-        ),
-        "ext_acquisition_blocks_figure_derived": (
-            "data/external/audit_sources/acquisition_block_id_100m.tif",
-            "external/audit_sources/acquisition_block_id_100m.tif",
-            PINNED_HASHES["acquisition_blocks"],
-        ),
-        "ext_acquisition_blocks_receipt": (
-            "data/external/audit_sources/acquisition_blocks_receipt.json",
-            "external/audit_sources/acquisition_blocks_receipt.json",
-            ACQ_RECEIPT_SHA256,
-        ),
+        "sample_submission": ("data/bridge/sample_submission.tif", "sample_submission.tif", PINNED_HASHES["template"]),
+        "ext_geodawn_extensions_u8": ("data/external/geodawn_extensions_u8.tif", "external/geodawn_extensions_u8.tif", PINNED_HASHES["features"]),
+        "ext_geodawn_extensions_manifest": ("data/external/geodawn_extensions.json", "external/geodawn_extensions.json", EXT_MANIFEST_SHA256),
+        "ext_acquisition_blocks_figure_derived": ("data/external/audit_sources/acquisition_block_id_100m.tif", "external/audit_sources/acquisition_block_id_100m.tif", PINNED_HASHES["acquisition_blocks"]),
+        "ext_acquisition_blocks_receipt": ("data/external/audit_sources/acquisition_blocks_receipt.json", "external/audit_sources/acquisition_blocks_receipt.json", ACQ_RECEIPT_SHA256),
     }
     for entry_id, (source_path, dest, digest) in expected_registry_entries.items():
         entry = registry_by_id.get(entry_id)
@@ -174,7 +156,7 @@ def _load_inputs() -> dict[str, Any]:
     _require(acq_receipt.get("raster", {}).get("sha256") == PINNED_HASHES["acquisition_blocks"],
              "acquisition-block receipt does not pin the expected raster")
     _require(acq_receipt.get("primary_audit_variant") == "a1_plus_a2_outside_area1",
-             "unexpected acquisition-block primary audit variant")
+             "unexpected acquisition-block primary descriptive variant")
     _require(acq_receipt.get("line_km_audit", {}).get(
         "a1_plus_a2_outside_area1", {}).get("audit", {}).get("passed") is True,
         "acquisition-block primary descriptive audit did not pass")
@@ -400,6 +382,10 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
         [selected_by_id[index]["dti"] for index in SELECTION_BLOCKS],
         calibration_scores,
     )
+    conformal["scope"] = (
+        "future comparable block-level DTI against the same known-fault catalogue-mask "
+        "proxy only; not the hidden missing-fault target or leaderboard score"
+    )
 
     selected_prediction = _make_map(
         h2_order, h2_score.shape, spacing=selected_spacing, budget=BUDGET,
@@ -443,19 +429,13 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
     )
     reasons = [*metric_reasons, research_only_reason]
     status = "NOT_PROMOTED"
-    research_note = (
-        f"H47-B selected spacing={selected_spacing}px / {selected_spacing * 100}m; "
-        f"split-conformal nominal marginal coverage={conformal['nominal_coverage']:.1%} "
-        f"(n={conformal['n_calibration_blocks']}, rank={conformal['rank_1_based']}, "
-        "conditional on block-score exchangeability; unverified); "
-        f"clipped lower bound={floor:.3f}; public-mirror research screen only."
-    )
     portal_note = (
-        "RESEARCH ONLY — NOT FOR SUBMISSION. Do not paste this note into the portal. "
-        + research_note
+        "RESEARCH ONLY — NOT FOR SUBMISSION. Public-mirror H47-B cannot confer slot eligibility."
     )
     if metric_reasons:
         portal_note += " Metric-screen failures: " + "; ".join(metric_reasons) + "."
+    else:
+        portal_note += " Metric-screen results do not change this restriction."
 
     summaries = {
         "H47-B": _block_report_rows(h2_rows),
@@ -474,7 +454,7 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
                 "selection" if block_id in SELECTION_BLOCKS else
                 "calibration" if block_id in CALIBRATION_BLOCKS else "locked_test"
             ),
-            "positive_truth_pixels": int(selected_by_id[block_id]["Ng"]),
+            "catalogue_mask_pixels": int(selected_by_id[block_id]["Ng"]),
             "H47B_dti": float(selected_by_id[block_id]["dti"]),
             "H47B_positive_predictions": int(selected_by_id[block_id]["n_pred_pos"]),
             "baseline_dti": float(baseline_by_id[block_id]["dti"]),
@@ -494,7 +474,7 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
         "H47B_dti_against_mirrored_catalogue": float(dti(selected_prediction, truth)["dti"]),
         "baseline_dti_against_mirrored_catalogue": float(dti(baseline_prediction, truth)["dti"]),
         "random_dti_against_mirrored_catalogue": float(dti(random_prediction, truth)["dti"]),
-        "interpretation": "descriptive full-label alignment only; not a spatial holdout or hidden-target score",
+        "interpretation": "descriptive full-domain DTI against the known-fault catalogue-mask proxy only; not a spatial holdout or hidden missing-fault target score",
     }
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -512,16 +492,12 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
         "protocol": "docs/preregistered-h2.md",
         "protocol_sha256": sha256_file(ROOT / "docs" / "preregistered-h2.md"),
         "source_data_provenance": "public group-hosted GitHub mirror; not direct organizer download",
-        "pinned_source_ref": PINNED_SOURCE_REF,
-        "input_sha256": inputs["hashes"],
-        "feature_manifest_sha256": inputs["hashes"]["feature_manifest"],
-        "acquisition_block_audit_provenance": {
-            "receipt_sha256": inputs["hashes"]["acquisition_blocks_receipt"],
-            "receipt_path": str(ACQ_RECEIPT.relative_to(ROOT)),
-            "official_coordinates": False,
-            "label_free": True,
-            "use": "descriptive subgroup audit only; not used for feature construction, spacing selection, or promotion",
+        "source_links": {
+            "competition_problem": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+            "known_catalogue_mask_clarification": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516",
         },
+        "input_sha256": inputs["hashes"],
+        "feature_manifest_sha256": sha256_file(EXT_MANIFEST),
         "grid": {
             "height": EXPECTED_GRID["shape"][0],
             "width": EXPECTED_GRID["shape"][1],
@@ -534,6 +510,10 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
         "block_protocol": {
             "nrows": BLOCK_SHAPE[0],
             "ncols": BLOCK_SHAPE[1],
+            "evaluation_target": (
+                "labels.tif == 1, known-fault catalogue mask; diagnostic resemblance "
+                "proxy only, not the hidden missing-fault competition target"
+            ),
             "guard_px": GUARD_PX,
             "guard_m": GUARD_PX * 100,
             "selection_block_ids": list(SELECTION_BLOCKS),
@@ -583,7 +563,6 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
             "format_audit": audit,
             "positive_pixels": int(np.count_nonzero(selected_prediction == 1.0)),
             "unique_name": ARTIFACT_NAME,
-            "research_note": research_note,
             "portal_note": portal_note,
             "future_candidate_boundary": "Any future authorized-input detector must be a separately preregistered candidate with a new hypothesis ID, evidence record, and filename; this H47-B file remains research-only.",
         },
@@ -591,7 +570,7 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
             "the mirrored catalogue labels and sample template were not independently authenticated against organizer downloads",
             "TMI_up150 is one quantized upward-continuation channel, not raw magnetic data or a physical tilt-depth solution",
             "block scores are spatially dependent; conformal level is conditional on an unverified exchangeability assumption",
-            "the public label catalogue is not the private target of newly mapped faults",
+            "labels.tif == 1 marks known USGS/INGENIOUS catalogue faults that the organizer masks from the off-catalogue target; all local DTI values are diagnostic resemblance-proxy scores, not missing-fault validation",
             "no official leaderboard score or 0.2778 TIFF mapping is inferred from this experiment",
             "this script always marks H47-B as not slot-eligible and never publishes a non-research filename",
         ],
@@ -626,7 +605,7 @@ def run(*, publish_research_only: bool = False) -> dict[str, Any]:
     print(f"status: {status}")
     print(f"selected spacing: {selected_spacing}px ({selected_spacing * 100}m)")
     print(f"selection mean DTI: {selection_mean:.6f}")
-    print(f"calibrated lower floor: {floor:.6f} at nominal {conformal['nominal_coverage']:.1%} coverage (exchangeability conditional)")
+    print(f"assumption-conditional split-conformal lower-bound estimate: {floor:.6f} at nominal {conformal['nominal_coverage']:.1%} coverage (exchangeability conditional)")
     print(f"locked-test pooled DTI H47-B / baseline / random: {h2_test_pooled:.6f} / {baseline_test_pooled:.6f} / {random_test_pooled:.6f}")
     print(f"candidate SHA-256: {candidate_sha}")
     print(f"report: {report_path.relative_to(ROOT)}")

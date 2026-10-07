@@ -1,0 +1,336 @@
+{
+  "submission_name": "gemsdoe47-scarp9-persistence-s2.8-d7.37-b2",
+  "note_optional": "Across-strike slope step persisted 1.9km; binary dots, 280m spacing, 200m off known-fault flanks; 37.6k px; spacing fixed by split conformal, 90% floor.",
+  "note_length": 152,
+  "generated_utc": "2026-10-06T17:43:17Z",
+  "seconds": 36.6,
+  "files": [
+    "/home/user/GEMSDOE47/submission/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+    "/home/user/GEMSDOE47/docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif"
+  ],
+  "sha256": [
+    "f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291",
+    "f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291"
+  ],
+  "recipe": {
+    "name": "R2_scarp9_topo",
+    "terms": [
+      [
+        "det_elev_slope",
+        "scarp",
+        9.0,
+        3.0
+      ],
+      [
+        "det_elev_slope",
+        "curv",
+        2.5,
+        1.0
+      ],
+      [
+        "det_elev_slope",
+        "detrend",
+        2.5,
+        1.0
+      ],
+      [
+        "det_elev_slope",
+        "slope_var",
+        5.0,
+        1.0
+      ]
+    ],
+    "use_vacancy": false,
+    "vacancy_scale_px": 8.0,
+    "vacancy_power": 1.0,
+    "regional_bands": [],
+    "regional_sigma_px": 25.0,
+    "regional_power": 0.5,
+    "notes": "scarp plus three corroborating fine-scale topographic terms"
+  },
+  "operating_point": {
+    "min_spacing_px": 2.8,
+    "emitted_density_per_1000_scored": 7.37,
+    "catalogue_flank_buffer_px": 2.0,
+    "catalogue_flank_buffer_m": 200.0,
+    "budget": 37612,
+    "n_scored_domain": 5103406,
+    "emitted_px": 37612,
+    "emitted_pct_of_footprint": 0.72787,
+    "engine": "nms_disk (field-ordered non-maximum suppression)"
+  },
+  "conformal": {
+    "certified_floor_quoted": 0.013433,
+    "floor_basis": "repeated_split_p05",
+    "alpha": 0.1,
+    "primary_instrument": "PM0200",
+    "certified_floor": 0.04476930982739195,
+    "certified_confidence_pct": 90.0,
+    "n_calibration_blocks": 12,
+    "n_selection_blocks": 13,
+    "selection_half_mean_dti": 0.0606408108055388,
+    "cleared_floor": false,
+    "leave_one_out_worst_floor": 0.04476930982739195,
+    "dkw_mean_floor": 0.04552678479903236,
+    "vacuous": false,
+    "alpha_sensitivity": {
+      "alpha=0.05": {
+        "confidence_pct": 95.0,
+        "order_statistic_k": 13,
+        "n_calibration_blocks": 12,
+        "certified_floor": -Infinity,
+        "vacuous": true
+      },
+      "alpha=0.10": {
+        "confidence_pct": 90.0,
+        "order_statistic_k": 12,
+        "n_calibration_blocks": 12,
+        "certified_floor": 0.04476930982739195,
+        "vacuous": false
+      },
+      "alpha=0.20": {
+        "confidence_pct": 80.0,
+        "order_statistic_k": 11,
+        "n_calibration_blocks": 12,
+        "certified_floor": 0.04691103715428874,
+        "vacuous": false
+      },
+      "alpha=0.25": {
+        "confidence_pct": 75.0,
+        "order_statistic_k": 10,
+        "n_calibration_blocks": 12,
+        "certified_floor": 0.06902179159965581,
+        "vacuous": false
+      },
+      "alpha=0.30": {
+        "confidence_pct": 70.0,
+        "order_statistic_k": 10,
+        "n_calibration_blocks": 12,
+        "certified_floor": 0.06902179159965581,
+        "vacuous": false
+      }
+    },
+    "worst_normalised_floor_across_instruments": 0.9203871827810638,
+    "worst_instrument": "PM0294",
+    "calibration_means_by_instrument": {
+      "PM0200": 0.09682864140536984,
+      "PM0112": 0.05541105164609464,
+      "PM0294": 0.1007895276454847,
+      "A1": 0.054054770630868235,
+      "A2": 0.12011094990216055
+    },
+    "exchangeability_caveat": "The guarantee P(fresh block DTI >= floor) >= 1-alpha is exact under exchangeability of holdout blocks. Geological blocks are NOT i.i.d.; the reported leave-one-out worst floor and the DKW mean floor show how much of the claim rests on that assumption."
+  },
+  "format_receipt": {
+    "path": "/home/user/GEMSDOE47/submission/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+    "sha256": "f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291",
+    "bytes": 316497,
+    "driver": "GTiff",
+    "count": 1,
+    "dtype": "float32",
+    "width": 3292,
+    "height": 3730,
+    "crs": "EPSG:32611",
+    "crs_epsg": 32611,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": "None",
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_exact": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_zero_nan": true,
+      "in_footprint_zero_inf": true,
+      "in_footprint_zero_sentinel": true,
+      "in_footprint_range_0_1": true,
+      "every_cell_finite_or_nan_outside": true,
+      "nodata_tag_not_out_of_range": true,
+      "validator_range_0_1_guaranteed": true,
+      "positive_pixels_present": true,
+      "footprint_matches_template": true
+    },
+    "stats": {
+      "full_grid_cells": 12279160,
+      "finite_cells": 12279160,
+      "footprint_cells": 5167373,
+      "finite_in_footprint": 5167373,
+      "min_in_footprint": 0.0,
+      "max_in_footprint": 1.0,
+      "cells_outside_0_1_in_footprint": 0,
+      "nan_in_footprint": 0,
+      "positive_cells": 37612,
+      "positive_cells_in_footprint": 37612,
+      "distinct_values": 2,
+      "positive_pixels_on_catalogue": 0
+    },
+    "all_checks_passed": true,
+    "informational_checks": [
+      "validator_range_0_1_guaranteed"
+    ],
+    "strongest_range_guarantee": true
+  },
+  "uniqueness": {
+    "max_jaccard_vs_reference": 0.014412,
+    "max_containment_vs_reference": 0.027726,
+    "is_unique": true,
+    "threshold_jaccard": 0.5,
+    "threshold_containment": 0.9,
+    "per_reference": [
+      {
+        "file": "derived_gdr_2m_probes_100m_u8.tif",
+        "other_positive_px": 2700,
+        "intersection": 10,
+        "jaccard": 0.000248,
+        "containment_of_other_in_ours": 0.003704,
+        "sha256": "7ac3cfdf2412f7f8a8b82d928115888c510f106f0254fb0b3988448db2f3b6ec"
+      },
+      {
+        "file": "derived_gdr_paleo_100m_u8.tif",
+        "other_positive_px": 244,
+        "intersection": 3,
+        "jaccard": 7.9e-05,
+        "containment_of_other_in_ours": 0.012295,
+        "sha256": "d6a3609bd7943fa5f1126a3cc688441aeceee261a76cd6a90a206830400066a4"
+      },
+      {
+        "file": "derived_gdr_qfaults_v2_100m_u8.tif",
+        "other_positive_px": 59065,
+        "intersection": 0,
+        "jaccard": 0.0,
+        "containment_of_other_in_ours": 0.0,
+        "sha256": "82bdf4e67f16de893caa7a7c16bfe51eac0a712b87db93fff60c1eebef701eb9"
+      },
+      {
+        "file": "derived_gdr_volcanics_100m_u8.tif",
+        "other_positive_px": 6776,
+        "intersection": 51,
+        "jaccard": 0.00115,
+        "containment_of_other_in_ours": 0.007527,
+        "sha256": "c219bd644e6f7a4071dc429e29b909a2296967b0657bf456bb6675413ee76cb2"
+      },
+      {
+        "file": "derived_sgmc_faults_100m_u8.tif",
+        "other_positive_px": 82151,
+        "intersection": 1170,
+        "jaccard": 0.009866,
+        "containment_of_other_in_ours": 0.014242,
+        "sha256": "26d142c4c93282cd94f6950ab96f22aeff59fbbea523d43d662e76fa1b161b5c"
+      },
+      {
+        "file": "qfaults_prior_u8.tif",
+        "other_positive_px": 138416,
+        "intersection": 0,
+        "jaccard": 0.0,
+        "containment_of_other_in_ours": 0.0,
+        "sha256": "538b45735833b341fc455dbbf06c47bc82a8bd8943c254ae6d3a5a07e72e22ca"
+      },
+      {
+        "file": "scored_d28-poisson-offcat_0.2600.tif",
+        "other_positive_px": 44090,
+        "intersection": 549,
+        "jaccard": 0.006765,
+        "containment_of_other_in_ours": 0.012452,
+        "sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd"
+      },
+      {
+        "file": "scored_h19-5-d1.5_0.2477.tif",
+        "other_positive_px": 60069,
+        "intersection": 737,
+        "jaccard": 0.007602,
+        "containment_of_other_in_ours": 0.012269,
+        "sha256": "3e0730e8d4f7db095dd80246a98cba3bc0fc9a28f436b91db27ca34df4d0d1ce"
+      },
+      {
+        "file": "scored_h19-5-d2.8_0.2600.tif",
+        "other_positive_px": 44090,
+        "intersection": 549,
+        "jaccard": 0.006765,
+        "containment_of_other_in_ours": 0.012452,
+        "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30"
+      },
+      {
+        "file": "scored_h19-5-solid_0.1922.tif",
+        "other_positive_px": 121131,
+        "intersection": 1622,
+        "jaccard": 0.010323,
+        "containment_of_other_in_ours": 0.01339,
+        "sha256": "ef2ae808eb7179861b9f1ff753fd3ded625ace7b7c158e29cec45bbd8fa3cfaa"
+      },
+      {
+        "file": "scored_h27-4-d2.8_0.2708.tif",
+        "other_positive_px": 40199,
+        "intersection": 549,
+        "jaccard": 0.007106,
+        "containment_of_other_in_ours": 0.013657,
+        "sha256": "acd853936e5a7170b207f23411b1844caa0e7cfdfc303c600e520ccfe75159e6"
+      },
+      {
+        "file": "scored_h30-arr-habitat_0.1352.tif",
+        "other_positive_px": 91533,
+        "intersection": 930,
+        "jaccard": 0.007253,
+        "containment_of_other_in_ours": 0.01016,
+        "sha256": "d07cbb6f69076e76f1a8a4806ddc5639421bc9a59b10d80a09b9fb423bb99427"
+      },
+      {
+        "file": "scored_h33-2-b2_0.2778.tif",
+        "other_positive_px": 37654,
+        "intersection": 549,
+        "jaccard": 0.007348,
+        "containment_of_other_in_ours": 0.01458,
+        "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9"
+      },
+      {
+        "file": "scored_h33d-tip-stepover_0.2632.tif",
+        "other_positive_px": 41865,
+        "intersection": 556,
+        "jaccard": 0.007045,
+        "containment_of_other_in_ours": 0.013281,
+        "sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757"
+      },
+      {
+        "file": "scored_h34-scatter-q50_0.0778.tif",
+        "other_positive_px": 37654,
+        "intersection": 800,
+        "jaccard": 0.010743,
+        "containment_of_other_in_ours": 0.021246,
+        "sha256": "acf00361263a14c29fc6292bce2f10f862ec3ac258e1cd123a8a17c37bd5d203"
+      },
+      {
+        "file": "scored_h35-06_0.0418.tif",
+        "other_positive_px": 39530,
+        "intersection": 1096,
+        "jaccard": 0.014412,
+        "containment_of_other_in_ours": 0.027726,
+        "sha256": "465935789e62e6a042881a0e2dd11f96dc89d0913a29d3079455c2833c1bc464"
+      },
+      {
+        "file": "scored_topo-gap-d1.5_0.2449.tif",
+        "other_positive_px": 61328,
+        "intersection": 745,
+        "jaccard": 0.007587,
+        "containment_of_other_in_ours": 0.012148,
+        "sha256": "a9bf76b57453a5b3af74c8eef837df53c29a0931162aa540b8763220b36ba3bb"
+      },
+      {
+        "file": "unscored_h33-2b2-plus-h33-1.tif",
+        "other_positive_px": 38554,
+        "intersection": 558,
+        "jaccard": 0.00738,
+        "containment_of_other_in_ours": 0.014473,
+        "sha256": "91c2e7764beada782e1f2d8f0d5c940f078d0e328de6f5868e6d552dbc50832e"
+      }
+    ]
+  },
+  "values_are_binary": true,
+  "why_binary": "dDTI > 0 for a pixel of value v and best-cover weight w depends on w alone, not on v; down-weighting a pixel that clears the bar only shrinks its gain. Binary is the optimum of the soft family. See tests/test_metric_s3.py."
+}

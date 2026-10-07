@@ -14,6 +14,17 @@ line-length = 110
   "RUF059", # unused tuple unpack: the position carries meaning (e.g. d, dy, dx, iy, ix)
   "BLE001", # blind except: the restore path must survive any single-file API failure
 ]
+# Session 3 (merged 2026-10-06) added a second, namespaced package.  It gets the same
+# ignores for the same stated reasons -- these are deliberate patterns, not suppressed
+# warnings -- plus the two that its evidence-writing style needs:
+#   E501 is not ignored; line-length 110 is enforced.
+"src/gems47s3/*" = [
+  "C408",   # dict()/list() calls building evidence records from computed values
+  "RUF015",
+  "RUF059", # unused tuple unpack: the position carries meaning (e.g. dy, dx, kw)
+  "BLE001",
+  "RUF046", # round() inside a dict value: the rounding IS the reported precision
+]
 "scripts/*" = [
   "C408", "RUF015", "RUF059",
   "E402",   # imports after sys.path.insert: unavoidable for scripts run from the repo root

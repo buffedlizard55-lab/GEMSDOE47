@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>H49 review — research only · GEMSDOE47</title>
+<meta name="description" content="Corrected H49 public-proxy results, format failure, provenance limits and closed submission gate.">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
+</head>
+<body data-site-version="review" data-base="">
+<a class="skip" href="#main">Skip to H49 review</a>
+<header class="masthead">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+  <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="executive-summary.html">Executive summary</a><a href="RESULTS.html">Results</a><a href="all-downloads.html">Artifact register</a></nav>
+  <a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a>
+</header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>H49 · RESEARCH ONLY</strong><span>Format requirement failed · no slot authorized · do not upload.</span></div>
+<main id="main">
+<section class="page-heading"><span class="eyebrow">Corrected H49 review · 7 October 2026</span><h1>Keep the evidence.<br>Close the gate.</h1><p class="lede">H49 research assets from main are preserved, but the earlier “certified” and submission-ready claims are withdrawn. This artifact is not the current primary download and is not eligible for a competition slot.</p></section>
+<section class="notice"><h2>Published format requirement: FAIL</h2><p>The exact TIFF read-back contains 12,279,160 finite cells, zero NaNs, no NoData tag, and a valid GDAL mask on every cell. The original build receipt records a 5,167,373-cell owner-mirror footprint; relative to that mask, 7,111,787 outside cells remain finite. The official format page requires values outside the data bounds to be null or NaN. The historical all-finite check did not test this condition.</p><p><a href="data/h49-format-contract-audit.json">Read the exact-byte format audit</a> · <a href="all-downloads.html">Artifact register (H49 row labeled do not upload)</a></p></section>
+<section><h2>Proxy results, not a private-score guarantee</h2><p>The reported operating point is <code>R7_scarp9_polarity</code>, isotropic disk emitter, 2.8 px / 280 m spacing, density 7.37 per 1,000 scored pixels, and a 3 px / 300 m catalogue-flank buffer. The split-conformal arithmetic reports a <strong>nominal 90% lower-bound estimate of 0.03184</strong> using 19 calibration blocks and order statistic <code>k=18</code>. It is conditional on block-score exchangeability, which is unverified; the input is public SGMC proxy data, not the hidden competition target.</p><p>The final operating rule was amended after repeated-split results were examined. The 400 re-splits reuse the same 39 blocks and are not an independent validation set. Formal coverage for the post-hoc amended selection process is not established. Do not call 0.03184 a certified, guaranteed, private-target, global, or map-wide performance floor.</p></section>
+<section><h2>Correct comparator attribution</h2><p>The 0.2778 comparator is an <strong>owner-reported d2.8 reference raster</strong>. The relationship between that raster and the participant-reported score is unverified. It is not an authenticated leaderboard incumbent. H49's local comparison with its proxy score is not a leaderboard comparison and does not show that H49 beats the established spatially blocked holdout best.</p></section>
+<section><h2>Preserved details and limits</h2><ul><li>Exact TIFF SHA-256: <code>a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b</code>; 316,629 bytes; 37,612 unit dots.</li><li>The original bounded novelty check covered 16 repository rasters (maximum Jaccard 0.292575); it does not prove global uniqueness.</li><li>Instrument A is a public-catalogue holdout proxy; Instrument B is a public SGMC off-catalogue proxy and may include lithologic contacts. Neither is shown to represent private scoring labels.</li><li>H49-A and H49-B paired results are retained, including negative results; they do not establish either hypothesis.</li><li>Inputs are owner-supplied mirror bytes, not organizer-authenticated source data.</li></ul><p>No upload, slot use, source-data restore, H47-B rerun, or H49 experiment rerun was performed during this review.</p><p><a href="H49_RESULTS.md">Full corrected numeric report, tables and paired comparisons (Markdown)</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/data/reference/README.md">Owner-mirror provenance ↗</a></p></section>
+</main>
+<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official format requirements ↗</a><br><a href="all-downloads.html">Artifact register</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">Project README ↗</a></div></footer>
+</body>
+</html>
