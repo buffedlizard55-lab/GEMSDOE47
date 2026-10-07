@@ -29,7 +29,7 @@ def test_strike_classes_match_the_documented_convention() -> None:
     z_ew = _ridge().T.copy()
     y, x = np.mgrid[0:240, 0:240]
     z_ne = np.zeros((240, 240), np.float32)
-    z_ne[np.abs((y - x)) <= 1] = 1.0                      # NE-SW trace: along = (1, 1)
+    z_ne[np.abs(y - x) <= 1] = 1.0                      # NE-SW trace: along = (1, 1)
     z_nw = np.zeros((240, 240), np.float32)
     z_nw[np.abs((y + x) - 240) <= 1] = 1.0                # NW-SE trace: along = (1, -1)
     mid = (120, 120)

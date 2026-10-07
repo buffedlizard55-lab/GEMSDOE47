@@ -37,12 +37,13 @@ from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3 import emission as E                    # noqa: E402
-from gems47s3.detector import Bands, build_core       # noqa: E402
-from gems47s3.geomorph import orientation             # noqa: E402
-from gems47s3.grid import Grid                        # noqa: E402
-from gems47s3.raster import receipt_json, validate_submission, write_submission  # noqa: E402
-from gems47s3.spec import FOOTPRINT_PIXELS, HEIGHT, WIDTH  # noqa: E402
+from gems47s3 import emission as E
+from gems47s3.detector import Bands, build_core
+from gems47s3.geomorph import orientation
+from gems47s3.grid import Grid
+from gems47s3.raster import receipt_json, validate_submission, write_submission
+from gems47s3.spec import FOOTPRINT_PIXELS, HEIGHT, WIDTH
+
 
 def _data_dir() -> Path:
     """Same resolution as the sweeps: an explicit env override, else ``data/`` if it carries the
@@ -102,7 +103,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--selection", default=str(ROOT / "evidence" / "h49" /
                                                "conformal_certificate.json"))
-    ap.add_argument("--name", default="gemsdoe47-h49-trace-aligned-s2.8-d7.37-b2")
+    ap.add_argument("--name", default="gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3",
+                    help="the shipped artifact name; a different name writes a different file")
     ap.add_argument("--note", default="")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
@@ -142,7 +144,7 @@ def main() -> int:
     n_scored = int(scored.sum())
     d_cat = ndi.distance_transform_edt(~g.catalogue).astype(np.float32)
     emask = scored if flank_b <= 0 else (scored & (d_cat > flank_b))
-    budget = int(round(density * n_scored / 1000.0))
+    budget = round(density * n_scored / 1000.0)
     print(f"[emit] emitter={emitter} domain {int(emask.sum())} px of {n_scored} scored px; "
           f"budget {budget}")
 
@@ -171,7 +173,7 @@ def main() -> int:
         try:
             with rasterio.open(rp) as ds:
                 other = ds.read(1)
-        except Exception as exc:                                    # noqa: BLE001
+        except Exception as exc:
             uniq.append(dict(file=str(rp.relative_to(ROOT)), unreadable=str(exc)[:120]))
             continue
         if other.shape != mask.shape:
