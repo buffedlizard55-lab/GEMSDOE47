@@ -36,6 +36,7 @@ def test_h50_artifact_contract_and_no_promotion():
 
     receipt = json.loads((ROOT/'docs/data/h50-submission.json').read_text())
     path = ROOT/'docs/downloads'/receipt['filename']
+    assert receipt['artifact_role'] == 'finite_internal_mask_range_diagnostic'
     assert not receipt['slot_authorized']
     assert not receipt['submission_eligible']
     assert not receipt['conformal']['formal_coverage_established']
@@ -60,3 +61,43 @@ def test_h50_artifact_contract_and_no_promotion():
         assert z.read(path.name) == path.read_bytes()
     assert receipt['uniqueness']['exact_matches'] == 0
     assert all(not c['exact'] for c in receipt['uniqueness']['comparisons'])
+
+
+def test_h50_template_nanoutside_checkpoint_matches_the_mirrored_template_but_is_not_promoted():
+    import hashlib
+    import json
+    import math
+    import zipfile
+
+    import numpy as np
+    import rasterio
+
+    receipt = json.loads((ROOT/'docs/data/h50-template-nanoutside.json').read_text())
+    path = ROOT/'docs/downloads'/receipt['filename']
+    assert receipt['artifact_role'] == 'template_nanoutside_format_checkpoint'
+    assert receipt['format_status'] == 'LOCAL_TEMPLATE_MATCH_PASS; ORGANIZER_ACCEPTANCE_UNVERIFIED'
+    assert not receipt['slot_authorized']
+    assert not receipt['submission_eligible']
+    assert receipt['same_prediction_mask_as'].endswith('research-finite-mask.tif')
+    assert receipt['strict_template_validation']['status'] == 'LOCAL_PASS'
+    assert receipt['strict_template_validation']['non_nan_outside_pixels'] == 0
+    assert receipt['strict_template_validation']['below_zero_pixels'] == 0
+    assert receipt['strict_template_validation']['above_one_pixels'] == 0
+    assert receipt['format_validation']['required_local_checks_passed']
+    assert not receipt['format_validation']['passes_nan_intolerant_range_check']
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == receipt['strict_template_validation']['sha256']
+    with rasterio.open(path) as ds:
+        values = ds.read(1)
+        mask = ds.read_masks(1) > 0
+        assert ds.count == 1 and ds.dtypes == ('float32',)
+        assert ds.shape == (3730, 3292)
+        assert ds.crs.to_epsg() == 32611
+        assert math.isnan(ds.nodata)
+        assert np.isfinite(values[mask]).all()
+        assert ((values[mask] >= 0) & (values[mask] <= 1)).all()
+        assert int(np.isnan(values).sum()) == 7111787
+        assert not mask[~np.isfinite(values)].any()
+        assert int((values > 0).sum()) == 37612
+    with zipfile.ZipFile(path.with_suffix('.zip')) as z:
+        assert z.namelist() == [path.name]
+        assert z.read(path.name) == path.read_bytes()

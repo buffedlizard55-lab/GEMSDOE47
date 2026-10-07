@@ -6,17 +6,21 @@ nav_order: 2
 
 # Submission guide — gated; not an upload request
 
-> **Stop: no file in this repository is currently approved for submission. Do not upload the research TIFFs or spend a competition slot.** The prominent H47-C1 file is research-only and failed its predeclared holdout gate. H47-B, H47-QC, H47-GSA, H47-MAXCOV, and H48 artifacts are also research-only or superseded.
+> **Stop: no file in this repository is currently approved for submission. Do not upload the research TIFFs or spend a competition slot.** The newest H50a template-format checkpoint passes a strict local **file** check but failed the scientific/promotion gate. H47-C1, H47-B, H47-QC, H47-GSA, H47-MAXCOV, and H48 artifacts are also research-only or superseded.
 
-## Current artifact and local format status
+## Current format checkpoint and local status
 
-The H47-C1 file is [`gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif`](downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif), SHA-256 `e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0`, 152,396 bytes. It has one float32 band on the EPSG:32611, 100 m grid with matching dimensions/bounds. Raw samples are finite and in [0,1]; an internal TIFF validity mask marks the outside-footprint pixels null. Its 15/15 local read-back checks are not an organizer test or acceptance receipt.
+The newest H50a template-format checkpoint is [`gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif`](downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif), SHA-256 `6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5`, 387,724 bytes. It is a unique H50a model inference within the bounded 31-raster local/restored comparison (zero exact masks; maximum Jaccard 0.213897), not a global uniqueness proof.
 
-The published [official format instructions](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) specify null or NaN outside the data bounds. Unmasked zero-outside all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and older Session-3 variants fail the explicit outside-nodata check. Separate NaN-outside variants follow owner-supplied mirror conventions only; portal acceptance is unverified. The bytes and parser receipt for the earlier rejection are unavailable, so its cause remains unknown.
+The file has one float32 band on the 3292 × 3730, EPSG:32611, 100 m grid. It has a NaN NoData tag; 5,167,373 in-footprint raw values are finite in [0,1], and exactly 7,111,787 raw values are NaN outside the **mirrored** sample-template mask. The exact local template-mask checker reports zero invalid in-footprint, non-NaN outside, below-zero, and above-one cells; its ZIP contains exactly that TIFF. See the [format receipt](data/h50-template-nanoutside.json). This local match does not authenticate the mirror or prove organizer acceptance.
+
+The published [official format instructions](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) specify null or NaN outside the data bounds. The paired H50a finite-mask file keeps the same prediction pixels with finite raw samples and a GDAL internal mask; it is only a diagnostic for a NaN-intolerant reader, not the mirrored sample's NaN/no-data encoding. The raw all-cells test `np.all((v>=0)&(v<=1))` is false for a NaN-null file by definition. The exact bytes and parser receipt for the earlier range rejection are unavailable, so no root cause is asserted.
 
 ## Promotion gate
 
-H47-C1 pooled public-catalogue DTI is 0.177872 versus 0.180216 for the locked ordinary-terrain baseline. It wins 11/22 truth-bearing test blocks (15 required); the nominal 90% marginal block lower-bound estimate is zero under unverified block exchangeability. These are public-catalogue proxy results, not estimates of a private score. The gate is closed.
+H50a was selected at 1.5 px / 150 m from the selection half. On the same previously inspected H49 public SGMC-proxy blocks, its nominal 90% lower statistic is 0.0000 (n=19, second-smallest calibration score) under unverified block exchangeability. Its global emission is not covered by that block calculation, and no fresh spatially blocked holdout beat is established. **The gate is closed; this is not an approved upload.**
+
+H47-C1 pooled public-catalogue DTI is 0.177872 versus 0.180216 for the locked ordinary-terrain baseline. It wins 11/22 truth-bearing test blocks (15 required); its nominal 90% marginal block lower-bound estimate is also zero under unverified block exchangeability. These are public-catalogue proxy results, not estimates of a private score. It remains closed.
 
 H47-GSA results remain exploratory; results that include H33-2-B2 at assumed DTI 0.2778 are conditional because the participant-level score is not authenticated to that TIFF. The d2.8 raster is the **owner-reported d2.8 reference**, not a separately established spatially blocked holdout best. H47-SAF's sensitivity sign change is bracketed only between tested assumed DTIs 0.2200 and 0.2400. Neither item changes the closed gate.
 

@@ -3,81 +3,7 @@
   "slot_authorized": false,
   "submission_eligible": false,
   "organizer_acceptance_verified": false,
-  "filename": "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif",
   "name": "GEMSDOE47-H50a-4096e1f9d19b",
-  "note": "H50a corridor; s=1.5px/150m; nominal 90% proxy floor=0.0000; coverage unverified; finite+mask; UNSCORED; NOT PROMOTED; DO NOT UPLOAD",
-  "format_validation": {
-    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif",
-    "sha256": "c9a0e7aa5618c0733fa94882b778c2eb744df4633a07d050598a6a346065f4f5",
-    "bytes": 151416,
-    "format_valid": true,
-    "checks": {
-      "driver_gtiff": true,
-      "single_band": true,
-      "dtype_float32": true,
-      "crs_matches_template": true,
-      "shape_matches_template": true,
-      "transform_matches_template": true,
-      "bounds_match_template": true,
-      "raw_all_finite": true,
-      "raw_range_0_1": true,
-      "nodata_tag_unset": true,
-      "mask_matches_official_template_footprint": true,
-      "outside_raw_zero": true,
-      "one_self_contained_file": true,
-      "masked_read_null_exactly_outside": true,
-      "masked_read_range_0_1": true
-    },
-    "failed_checks": [],
-    "stats": {
-      "pixels": 12279160,
-      "positive_pixels": 37612,
-      "raw_nonfinite_pixels": 0,
-      "raw_out_of_range_pixels": 0,
-      "invalid_mask_pixels": 7111787,
-      "min": 0.0,
-      "max": 1.0,
-      "positive_on_catalogue": 0,
-      "positive_outside_footprint": 0
-    },
-    "profile": {
-      "shape": [
-        3730,
-        3292
-      ],
-      "count": 1,
-      "dtype": [
-        "float32"
-      ],
-      "crs": "EPSG:32611",
-      "transform": [
-        100.0,
-        0.0,
-        243350.0,
-        0.0,
-        -100.0,
-        4508550.0
-      ],
-      "bounds": [
-        243350.0,
-        4135550.0,
-        572550.0,
-        4508550.0
-      ],
-      "internal_mask": true
-    },
-    "organizer_acceptance_verified": false,
-    "scientific_eligibility_not_decided_by_this_validator": true
-  },
-  "zip": {
-    "filename": "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.zip",
-    "sha256": "bce9e4bac2fafdf8987aee9376ea7cb30380bfface6e041d185ca524934af904",
-    "bytes": 104985,
-    "members": [
-      "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif"
-    ],
-    "single_geotiff_verified": true
-  },
   "selection": {
     "arm": "H50a_corridor",
     "emitter": "disk",
@@ -329,11 +255,89 @@
     ],
     "exact_matches": 0,
     "max_jaccard": 0.2138972712162533,
-    "scope": "Only listed local/restored rasters; not the old 561-comparison C1 audit"
+    "scope": "Only listed local/restored rasters; not a global uniqueness proof."
   },
   "emission": {
+    "prediction_mask_sha256": "4096e1f9d19b1b85754d9263356a57052568a00b660906ad7ca6f60599bd1059",
     "n_dots": 37612,
     "budget": 37612,
     "global_emission_not_block_certificate": true
-  }
+  },
+  "warning": "DO NOT UPLOAD: the spatial validation/promotion gate is closed.",
+  "note": "H50a corridor finite-mask diagnostic; s=1.5px/150m; nominal 90% proxy floor=0.0000; coverage unverified; UNSCORED; NOT PROMOTED; DO NOT UPLOAD",
+  "artifact_role": "finite_internal_mask_range_diagnostic",
+  "filename": "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif",
+  "format_validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif",
+    "sha256": "c9a0e7aa5618c0733fa94882b778c2eb744df4633a07d050598a6a346065f4f5",
+    "bytes": 151416,
+    "format_valid": true,
+    "checks": {
+      "driver_gtiff": true,
+      "single_band": true,
+      "dtype_float32": true,
+      "crs_matches_template": true,
+      "shape_matches_template": true,
+      "transform_matches_template": true,
+      "bounds_match_template": true,
+      "raw_all_finite": true,
+      "raw_range_0_1": true,
+      "nodata_tag_unset": true,
+      "mask_matches_official_template_footprint": true,
+      "outside_raw_zero": true,
+      "one_self_contained_file": true,
+      "masked_read_null_exactly_outside": true,
+      "masked_read_range_0_1": true
+    },
+    "failed_checks": [],
+    "stats": {
+      "pixels": 12279160,
+      "positive_pixels": 37612,
+      "raw_nonfinite_pixels": 0,
+      "raw_out_of_range_pixels": 0,
+      "invalid_mask_pixels": 7111787,
+      "min": 0.0,
+      "max": 1.0,
+      "positive_on_catalogue": 0,
+      "positive_outside_footprint": 0
+    },
+    "profile": {
+      "shape": [
+        3730,
+        3292
+      ],
+      "count": 1,
+      "dtype": [
+        "float32"
+      ],
+      "crs": "EPSG:32611",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "internal_mask": true
+    },
+    "organizer_acceptance_verified": false,
+    "scientific_eligibility_not_decided_by_this_validator": true
+  },
+  "zip": {
+    "filename": "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.zip",
+    "sha256": "bce9e4bac2fafdf8987aee9376ea7cb30380bfface6e041d185ca524934af904",
+    "bytes": 104985,
+    "members": [
+      "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif"
+    ],
+    "single_geotiff_verified": true
+  },
+  "format_encoding": "finite raw [0,1] plus internal GDAL null mask; not the sample's NaN-nodata encoding"
 }

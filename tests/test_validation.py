@@ -22,7 +22,9 @@ class SubmissionValidationTests(unittest.TestCase):
         self.mask[0, 0] = 0
         self.features_data = np.ones((5, 6), dtype=np.float32)
         self.features_data[0, 0] = np.nan
-        self._write(self.template, np.zeros((5, 6), dtype=np.float32), nodata=np.nan)
+        template_data = np.zeros((5, 6), dtype=np.float32)
+        template_data[0, 0] = np.nan
+        self._write(self.template, template_data, nodata=np.nan)
         self._write(self.features, self.features_data, nodata=np.nan)
         self.mask_data = np.ones((5, 6), dtype=np.uint8)
         self.mask_data[0, 0] = 0
@@ -64,6 +66,13 @@ class SubmissionValidationTests(unittest.TestCase):
         report = validate_submission(self.output, self.template, footprint_mask_path=self.mask_path)
         self.assertEqual(report["status"], "LOCAL_PASS")
         self.assertFalse(report["organizer_acceptance_established"])
+        self.assertEqual(report["outside_pixels"], 1)
+
+    def test_accepts_the_template_internal_mask_as_the_footprint_source(self):
+        report = validate_submission(self.output, self.template, template_footprint=True)
+        self.assertEqual(report["status"], "LOCAL_PASS")
+        self.assertIn("template_internal_mask:", report["footprint_source"])
+        self.assertEqual(report["valid_pixels"], 29)
         self.assertEqual(report["outside_pixels"], 1)
 
     def test_requires_exactly_one_footprint_source(self):

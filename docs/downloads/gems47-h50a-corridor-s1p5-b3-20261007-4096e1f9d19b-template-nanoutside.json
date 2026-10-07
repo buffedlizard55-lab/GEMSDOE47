@@ -264,53 +264,23 @@
     "global_emission_not_block_certificate": true
   },
   "warning": "DO NOT UPLOAD: the spatial validation/promotion gate is closed.",
-  "note": "H50a corridor finite-mask diagnostic; s=1.5px/150m; nominal 90% proxy floor=0.0000; coverage unverified; UNSCORED; NOT PROMOTED; DO NOT UPLOAD",
-  "artifact_role": "finite_internal_mask_range_diagnostic",
-  "filename": "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif",
+  "note": "H50a corridor; s=1.5px/150m; template NaN outside; nominal 90% proxy floor=0.0000; coverage unverified; UNSCORED; NOT PROMOTED; DO NOT UPLOAD",
+  "artifact_role": "template_nanoutside_format_checkpoint",
+  "filename": "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif",
   "format_validation": {
-    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif",
-    "sha256": "c9a0e7aa5618c0733fa94882b778c2eb744df4633a07d050598a6a346065f4f5",
-    "bytes": 151416,
-    "format_valid": true,
-    "checks": {
-      "driver_gtiff": true,
-      "single_band": true,
-      "dtype_float32": true,
-      "crs_matches_template": true,
-      "shape_matches_template": true,
-      "transform_matches_template": true,
-      "bounds_match_template": true,
-      "raw_all_finite": true,
-      "raw_range_0_1": true,
-      "nodata_tag_unset": true,
-      "mask_matches_official_template_footprint": true,
-      "outside_raw_zero": true,
-      "one_self_contained_file": true,
-      "masked_read_null_exactly_outside": true,
-      "masked_read_range_0_1": true
-    },
-    "failed_checks": [],
-    "stats": {
-      "pixels": 12279160,
-      "positive_pixels": 37612,
-      "raw_nonfinite_pixels": 0,
-      "raw_out_of_range_pixels": 0,
-      "invalid_mask_pixels": 7111787,
-      "min": 0.0,
-      "max": 1.0,
-      "positive_on_catalogue": 0,
-      "positive_outside_footprint": 0
-    },
-    "profile": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif",
+    "format": {
+      "driver": "GTiff",
+      "count": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "nodata": "NaN",
       "shape": [
         3730,
         3292
       ],
-      "count": 1,
-      "dtype": [
-        "float32"
-      ],
-      "crs": "EPSG:32611",
       "transform": [
         100.0,
         0.0,
@@ -324,20 +294,108 @@
         4135550.0,
         572550.0,
         4508550.0
-      ],
-      "internal_mask": true
+      ]
     },
-    "organizer_acceptance_verified": false,
-    "scientific_eligibility_not_decided_by_this_validator": true
+    "stats": {
+      "n_pixels": 12279160,
+      "n_finite": 5167373,
+      "n_nan": 7111787,
+      "n_infinite": 0,
+      "n_footprint": 5167373,
+      "n_emitted": 37612,
+      "n_emitted_on_catalogue": 0,
+      "n_emitted_outside_footprint": 0,
+      "v_min": 0.0,
+      "v_max": 1.0,
+      "v_unique_count": 2,
+      "v_unique_values": [
+        0.0,
+        1.0
+      ],
+      "emitted_mass": 37612.0,
+      "band_descriptions": [
+        null
+      ]
+    },
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "crs_epsg32611": true,
+      "shape_matches_template": true,
+      "transform_matches_template": true,
+      "resolution_100m": true,
+      "bounds_match_template": true,
+      "nan_only_outside_footprint": true,
+      "no_infinite_values": true,
+      "outside_template_footprint_is_nodata": true,
+      "masked_pixels_only_outside_footprint": true,
+      "all_pixels_finite": false,
+      "finite_where_footprint": true,
+      "no_nodata_sentinel_values": true,
+      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
+      "RANGE_nan_tolerant: finite values within [0,1]": true,
+      "RANGE_emitted_values_within_[0,1]": true,
+      "RANGE_min_max_reported": true,
+      "RANGE_masked_read: finite unmasked values within [0,1]": true,
+      "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "diagnostic_failures": [
+      "all_pixels_finite",
+      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))"
+    ],
+    "passes_nan_intolerant_range_check": false,
+    "passes_nan_tolerant_range_check": true,
+    "required_local_checks_passed": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": false,
+    "upload_recommendation_scope": "not established by a local validator; check the current official requirements and portal behavior"
+  },
+  "strict_template_validation": {
+    "status": "LOCAL_PASS",
+    "validation_scope": "strict local NaN-outside profile; not a portal oracle",
+    "organizer_acceptance_established": false,
+    "submission": "/home/user/GEMSDOE47/docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif",
+    "sha256": "6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5",
+    "template": "/home/user/GEMSDOE47/.cache/gems_data/sample_submission.tif",
+    "footprint_source": "template_internal_mask:/home/user/GEMSDOE47/.cache/gems_data/sample_submission.tif",
+    "width": 3292,
+    "height": 3730,
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": "NaN",
+    "valid_pixels": 5167373,
+    "outside_pixels": 7111787,
+    "invalid_inside_pixels": 0,
+    "non_nan_outside_pixels": 0,
+    "below_zero_pixels": 0,
+    "above_one_pixels": 0,
+    "min_in_footprint": 0.0,
+    "max_in_footprint": 1.0,
+    "range": [
+      0.0,
+      1.0
+    ]
   },
   "zip": {
-    "filename": "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.zip",
-    "sha256": "bce9e4bac2fafdf8987aee9376ea7cb30380bfface6e041d185ca524934af904",
-    "bytes": 104985,
+    "filename": "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.zip",
+    "sha256": "24dedf9fdbd93ec8c161f094039bb8642ae52442d42c7f0689b335f1e366bc69",
+    "bytes": 235441,
     "members": [
-      "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif"
+      "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif"
     ],
     "single_geotiff_verified": true
   },
-  "format_encoding": "finite raw [0,1] plus internal GDAL null mask; not the sample's NaN-nodata encoding"
+  "format_encoding": "float32 with NaN nodata and raw NaN exactly outside the mirrored sample template mask",
+  "same_prediction_mask_as": "gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif",
+  "format_status": "LOCAL_TEMPLATE_MATCH_PASS; ORGANIZER_ACCEPTANCE_UNVERIFIED"
 }
