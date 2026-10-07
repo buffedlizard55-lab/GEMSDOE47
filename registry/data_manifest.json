@@ -293,6 +293,28 @@
    "sha256": "577076187434560514baa62995f6bb61b4d43f015b1abaf9a358936b94b5fb75",
    "bytes": 5736,
    "provenance": "Derivation receipt for the descriptive acquisition-block raster; official_coordinates=false, boundaries read from a figure, and the primary descriptive kilometer audit is a1_plus_a2_outside_area1. Not a model input."
+  },
+  {
+   "id": "ext_tiger_road_distance_m",
+   "repo": "buffedlizard55-lab/GEMSDOE24",
+   "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+   "path": "data/external/audit_sources/tiger_road_distance_m.tif",
+   "dest": "external/audit_sources/tiger_road_distance_m.tif",
+   "group": "external",
+   "sha256": "e5350423508968fa2d32b0a6ae0d3fb4ae3ea645e3b8736f0c8e7ad9ff2f2988",
+   "bytes": 10492276,
+   "provenance": "US Census TIGER road lines rasterised by the owner's CI to a per-cell distance (m) on the competition grid; noise mask for lidar scarp detection"
+  },
+  {
+   "id": "ext_blm_closed_claim_distance_m",
+   "repo": "buffedlizard55-lab/GEMSDOE24",
+   "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+   "path": "data/external/audit_sources/blm_closed_claim_distance_m.tif",
+   "dest": "external/audit_sources/blm_closed_claim_distance_m.tif",
+   "group": "external",
+   "sha256": "a88356423c03fc8b6510a84f77cee2b1d38c4ccbd7761bc95c1ca8332a2e166a",
+   "bytes": 5752587,
+   "provenance": "BLM closed mining-claim locations rasterised by the owner's CI to a per-cell distance (m) on the competition grid; noise mask for lidar scarp detection"
   }
  ]
 }

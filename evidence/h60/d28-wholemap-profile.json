@@ -1,0 +1,28 @@
+{
+ "lappos_t200_d3": [
+  0.05546,
+  14241
+ ],
+ "lapneg_t200_d3": [
+  0.06471,
+  17247
+ ],
+ "union_t200_d3": [
+  0.06876,
+  35326
+ ],
+ "sgmc_offcat": [
+  0.09539,
+  62122
+ ],
+ "step_t150_d3": [
+  0.0745,
+  18531
+ ],
+ "cross_t200_d3": [
+  0.0148,
+  4588
+ ],
+ "question": "whole-map DTI of the owner-reported d2.8 reference raster against proxy populations",
+ "raster": "reference/h33-2-b2-zeros.tif (owner-reported public DTI 0.2778)"
+}

@@ -1,40 +1,32 @@
 {
  "schema_version": 1,
  "target_dir": "/home/user/GEMSDOE47/.cache/gems_data",
- "generated_utc": "2026-10-07T21:05:16Z",
+ "generated_utc": "2026-10-07T20:50:12Z",
  "scope": "requested manifest subset, not organizer authentication",
- "requested_group": "core",
- "only_ids": [],
+ "requested_group": "all",
+ "only_ids": [
+  "ext_blm_closed_claim_distance_m",
+  "ext_tiger_road_distance_m"
+ ],
  "files": [
   {
-   "id": "training_features",
-   "dest": "training_features.tif",
-   "group": "core",
-   "status": "restored",
-   "bytes": 418912844,
-   "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
-   "seconds": 14.89
+   "id": "ext_tiger_road_distance_m",
+   "dest": "external/audit_sources/tiger_road_distance_m.tif",
+   "group": "external",
+   "status": "present",
+   "bytes": 10492276,
+   "sha256": "e5350423508968fa2d32b0a6ae0d3fb4ae3ea645e3b8736f0c8e7ad9ff2f2988"
   },
   {
-   "id": "labels",
-   "dest": "labels.tif",
-   "group": "core",
-   "status": "restored",
-   "bytes": 425830,
-   "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
-   "seconds": 0.72
-  },
-  {
-   "id": "sample_submission",
-   "dest": "sample_submission.tif",
-   "group": "core",
-   "status": "restored",
-   "bytes": 1599597,
-   "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
-   "seconds": 0.65
+   "id": "ext_blm_closed_claim_distance_m",
+   "dest": "external/audit_sources/blm_closed_claim_distance_m.tif",
+   "group": "external",
+   "status": "present",
+   "bytes": 5752587,
+   "sha256": "a88356423c03fc8b6510a84f77cee2b1d38c4ccbd7761bc95c1ca8332a2e166a"
   }
  ],
  "all_verified": true,
- "verified_file_count": 3,
+ "verified_file_count": 2,
  "skipped_file_count": 0
 }

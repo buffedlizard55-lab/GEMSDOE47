@@ -1,0 +1,35 @@
+{
+  "question": "whole-map DTI of the emitted H60 artefact against proxy populations",
+  "note": "exact DTI via gems47.metric reductions; owner-mirror proxies, not organiser truth",
+  "S": 37654.0,
+  "rows": {
+    "lappos_t200_d3": {
+      "n_truth": 14241,
+      "dti": 0.28472
+    },
+    "lapneg_t200_d3": {
+      "n_truth": 17247,
+      "dti": 0.30265
+    },
+    "step_t150_d3": {
+      "n_truth": 18531,
+      "dti": 0.29361
+    },
+    "cross_t200_d3": {
+      "n_truth": 4588,
+      "dti": 0.16028
+    },
+    "upface_t200_d3": {
+      "n_truth": 1608,
+      "dti": 0.0723
+    },
+    "union_t200_d3": {
+      "n_truth": 35326,
+      "dti": 0.36632
+    },
+    "sgmc_offcat": {
+      "n_truth": 62122,
+      "dti": 0.08832
+    }
+  }
+}

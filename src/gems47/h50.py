@@ -18,7 +18,7 @@ correlation between the reported score and DTI computed against those population
     sgmc_offcat or iso       spearman -0.553
 
 The only population with a **positive** rank correlation is the set of *local maxima of the
-organiser-supplied 1 m lidar scarp-detection stack that lie off the catalogue*
+owner-derived 1 m lidar scarp-detection stack (USGS 3DEP 1 m DEM tiles, registry/data_manifest.json) that lie off the catalogue*
 (``Instrument L``): spearman +0.377 for the union of six scarp channels at threshold 200 /
 min-distance 3, and +0.26 ... +0.58 across ~25 other parameterisations of the same idea
 (``evidence/h50/instrument-l-ranking.json``).  Those points are real, independently measured
@@ -111,7 +111,9 @@ def acquisition_blocks(data_dir: Path) -> np.ndarray:
 
 
 def lidar_scarp_channels(data_dir: Path) -> dict[str, np.ndarray]:
-    """The 12 organiser-supplied 1 m lidar scarp channels as float32 on the grid."""
+    """The 12 lidar scarp channels (owner-derived from USGS 3DEP 1 m tiles) as float32
+    on the grid.  Corrected 2026-10-07 (IR-2026-10-07-B): earlier text said
+    "organiser-supplied", which the restore manifest contradicts."""
     path = Path(data_dir) / "external" / "lidar_scarp_features_u8.tif"
     with rasterio.open(path) as src:
         names = list(src.descriptions)

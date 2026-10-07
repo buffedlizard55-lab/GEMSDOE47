@@ -22,6 +22,8 @@ H49_SHA256 = "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b"
 H49_BASE = "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3"
 H50_TIF = "downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif"
 H50_SHA256 = "97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17"
+H60_TIF = "downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif"
+H60_SHA256 = "4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c"
 H50A_TIF = "downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif"
 H50A_SHA256 = "6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5"
 
@@ -89,9 +91,10 @@ class SiteTests(unittest.TestCase):
             self.assertIn("OK TO DOWNLOAD AND SUBMIT", text)
             self.assertIn("H50a template-format checkpoint", text)
             self.assertIn("It is not OK to submit this file", text)
-            self.assertIn("2.8 px / 280 m", text)
+            self.assertIn("2.0 px / 200 m", text)  # H60, the current primary
+            self.assertIn("VALID FALLBACK", text)   # H50, the labelled fallback
+            self.assertIn("h60 lidar-scarp d2p0 conformal90", text)
             self.assertIn("split-conformal", text)
-            self.assertIn("h50 slope-anomaly d2p8 conformal90", text)
             self.assertIn("conditional on block exchangeability", text)
             # the older research artifacts must still be labelled as not submittable
             self.assertIn("RESEARCH-ONLY", text)
@@ -99,7 +102,11 @@ class SiteTests(unittest.TestCase):
             self.assertIn("H49 historical", text)
             self.assertIn("H47-QC geothermometer screen", text)
         home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
-        self.assertIn(H50_SHA256, home)
+        self.assertIn(H60_SHA256, home)
+        # the H50 fallback bytes remain pinned on the register and H50 evidence pages
+        register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
+        self.assertIn(H50_SHA256, register)
+        self.assertIn(H60_SHA256, register)
         self.assertNotIn(H49_TIF, home, "H49 must not be offered as a download")
 
     def test_homepage_offers_h50_plus_labelled_research_downloads(self):
@@ -107,8 +114,9 @@ class SiteTests(unittest.TestCase):
         parser = _PageParser()
         parser.feed(text)
         offered = {urlparse(link).path.lstrip("./") for link in parser.tiff_links}
-        self.assertEqual(offered, {H50_TIF, H47QC_TIF})
-        for path, sha in ((H50_TIF, H50_SHA256), (H47QC_TIF, H47QC_SHA256)):
+        self.assertEqual(offered, {H60_TIF, H50_TIF, H47QC_TIF})
+        for path, sha in ((H60_TIF, H60_SHA256), (H50_TIF, H50_SHA256),
+                          (H47QC_TIF, H47QC_SHA256)):
             target = ROOT / "docs" / path
             self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
             self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), sha)
@@ -117,7 +125,9 @@ class SiteTests(unittest.TestCase):
         self.assertNotIn("unscored", lower)
         self.assertIn("not promoted", lower)          # about the older research artifacts
         self.assertIn("do not upload", lower)
-        self.assertIn("0.165881", text)               # blocked-holdout pooled DTI
+        self.assertIn("0.165881", text)               # H50 blocked-holdout pooled DTI
+        self.assertIn("0.287891", text)               # H60 blocked-holdout pooled DTI
+        self.assertIn("0.1938", text)                 # H60 independent SGMC corroboration
         self.assertIn("0.049421", text)               # owner-reported d2.8 reference
         self.assertIn("H47-QC geothermometer screen", text)
         self.assertIn("It is not OK to submit this file", text)
@@ -138,9 +148,41 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(receipt["budget"], 37654)
         self.assertEqual(receipt["screen_selected_spacing_px"], 2.8)
         self.assertAlmostEqual(receipt["conformal"]["certified_floor_dti"], 0.0957, places=4)
+
+    def test_h60_artifact_receipt_is_published_and_matches_the_bytes(self):
+        receipt_path = ROOT / "docs" / "data" / "h60-artifact.json"
+        self.assertTrue(receipt_path.is_file())
+        receipt = json.loads(receipt_path.read_text())
+        target = ROOT / "docs" / receipt["download_url"]
+        self.assertTrue(target.is_file(), f"published TIFF missing: {target}")
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), receipt["sha256_tif"])
+        self.assertEqual(receipt["sha256_tif"], H60_SHA256)
+        self.assertTrue(receipt["promoted"])
+        self.assertTrue(receipt["readback_checks"]["all_in_unit_interval"])
+        self.assertTrue(receipt["readback_checks"]["nan_intolerant_range_check"])
+        self.assertIsNone(receipt["format"]["nodata"])
+        self.assertEqual(receipt["budget"], 37654)
+        self.assertEqual(receipt["screen_selected_spacing_px"], 2.0)
+        self.assertAlmostEqual(receipt["conformal"]["certified_floor_dti"], 0.0989, places=4)
+        self.assertGreater(receipt["holdout"]["candidate_pooled_dti"],
+                           receipt["holdout"]["h50_anchor_pooled_dti"])
+        self.assertGreater(receipt["holdout"]["candidate_sgmc_pooled_dti"],
+                           receipt["holdout"]["random_sgmc_pooled_dti"])
+        # the landing page offers exactly this artifact as the primary download
+        home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        self.assertIn(H60_SHA256, home)
+        self.assertIn("h60 lidar-scarp d2p0 conformal90", home)
+        h60_page = (ROOT / "docs" / "h60.html").read_text(encoding="utf-8")
+        self.assertIn(H60_SHA256, h60_page)
+        self.assertIn("preregistered", h60_page.lower())
         self.assertGreaterEqual(receipt["conformal"]["coverage_at_least"], 0.90)
         self.assertEqual(receipt["uniqueness"]["exact_matches"], 0)
         self.assertLess(receipt["uniqueness"]["max_jaccard"], 0.5)
+        self.assertIn("h60 lidar-scarp d2p0 conformal90", receipt["submission_note_field"])
+        self.assertIn("owner-derived", h60_page)   # provenance wording corrected
+
+    def test_h50_artifact_receipt_note_field(self):
+        receipt = json.loads((ROOT / "docs" / "data" / "h50-artifact.json").read_text())
         self.assertIn("h50 slope-anomaly d2p8 conformal90", receipt["submission_note_field"])
 
     def test_h50_evidence_page_links_only_inside_the_pages_artifact(self):
