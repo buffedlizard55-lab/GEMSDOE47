@@ -34,12 +34,12 @@ from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3 import emission as E          # noqa: E402
-from gems47s3 import metric as M            # noqa: E402
-from gems47s3.detector import Bands, build_core  # noqa: E402
-from gems47s3.geomorph import orientation   # noqa: E402
-from gems47s3.grid import Grid              # noqa: E402
-from gems47s3.holdout import build_offcatalogue_folds  # noqa: E402
+from gems47s3 import emission as E
+from gems47s3 import metric as M
+from gems47s3.detector import Bands, build_core
+from gems47s3.geomorph import orientation
+from gems47s3.grid import Grid
+from gems47s3.holdout import build_offcatalogue_folds
 
 EV = ROOT / "evidence" / "sweep"
 MARGIN = 16

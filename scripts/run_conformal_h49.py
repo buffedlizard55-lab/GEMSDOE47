@@ -34,7 +34,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3.conformal import (  # noqa: E402
+from gems47s3.conformal import (
     conformal_order_statistic,
     conformal_quantile,
     dkw_epsilon,
@@ -72,9 +72,9 @@ def load_arms(path: Path) -> tuple[dict, dict]:
         out[key] = {}
         for inst, halves in per_inst.items():
             out[key][inst] = {h: sorted(v) for h, v in halves.items()}
-    for key, per_inst in pooled.items():
-        for inst, halves in per_inst.items():
-            for h, acc in halves.items():
+    for per_inst in pooled.values():
+        for halves in per_inst.values():
+            for acc in halves.values():
                 denom = 0.2 * (acc["tp"] + acc["S"] - acc["M"]) + 0.8 * acc["n_truth"]
                 acc["dti_pooled"] = (acc["tp"] / denom) if denom > 0 else 0.0
     return sweep, out, pooled
@@ -127,7 +127,7 @@ def choose(arms: dict, half_for_choice: str, alpha: float) -> tuple[tuple, dict]
         return (-s["means"][PRIMARY], -worst_norm, -fields.get("min_dist", 0.0),
                 -fields.get("flank_b", 0.0), recipe, emitter)
 
-    chosen = sorted(screened, key=key)[0]
+    chosen = min(screened, key=key)
     return chosen, dict(stats=stats, screened=screened, best_of=best_of,
                         n_screened=len(screened), n_arms=len(cands))
 

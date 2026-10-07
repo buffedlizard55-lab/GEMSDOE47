@@ -30,7 +30,6 @@ Out:  evidence/h49/conformal_certificate.json
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
 import math
 import sys
@@ -41,7 +40,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems47s3.conformal import (  # noqa: E402
+from gems47s3.conformal import (
     conformal_order_statistic,
     conformal_quantile,
     dkw_epsilon,
@@ -62,10 +61,10 @@ def arms_from(sweep: dict) -> dict[tuple, dict]:
         key = (row["recipe"], row["emitter"], row["op"])
         acc.setdefault(key, {}).setdefault(row["instrument"], {}).setdefault(
             row["half"], []).append((row["block_index"], row["dti"]))
-    for key in acc:
-        for inst in acc[key]:
-            for half in acc[key][inst]:
-                acc[key][inst][half].sort()
+    for per_inst in acc.values():
+        for rows in per_inst.values():
+            for half_rows in rows.values():
+                half_rows.sort()
     return acc
 
 
@@ -187,7 +186,7 @@ def repeated_split(arms_b: dict, candidates: list[tuple], alpha: float, n_splits
     rng = np.random.default_rng(seed)
     floors, viol, freq, chosen_mean = [], [], {}, {}
     for _ in range(n_splits):
-        ha = set(int(x) for x in rng.permutation(blocks)[: len(blocks) // 2])
+        ha = {int(x) for x in rng.permutation(blocks)[: len(blocks) // 2]}
         best, best_key, best_mean = None, None, None
         for key in candidates:
             fa = np.array([v for b, v in by_block[key].items() if b in ha], float)
