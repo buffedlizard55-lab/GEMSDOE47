@@ -1,16 +1,41 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="H50 research artifact, corrected conformal analysis and failed promotion gate."><title>H50 scientific review · GEMSDOE47</title><link rel="stylesheet" href="assets/site.css"></head><body><header class="masthead"><a href="index.html">GEMSDOE47</a><nav><a href="executive-summary.html">Summary</a> · <a href="submit.html">Submission guide</a> · <a href="sources.html">Sources</a></nav></header><main><h1>H50 review — new research TIFF; DO NOT SUBMIT</h1>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="H50 research outputs, exact local format checks, conformal limitation and closed promotion gate.">
+<title>H50 scientific review · GEMSDOE47</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header class="masthead"><a href="index.html">GEMSDOE47</a><nav><a href="executive-summary.html">Summary</a> · <a href="submit.html">Submission guide</a> · <a href="sources.html">Sources</a></nav></header>
+<main><h1>H50 review — new research TIFF; DO NOT SUBMIT</h1>
 <p><strong>7 October 2026. Research-only · NOT PROMOTED · DO NOT UPLOAD · no slot authorized.</strong></p>
-<p><a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif">Download the newly generated research GeoTIFF</a> ·
+<h2>Download status — clear decision</h2>
+<p><strong>DO NOT SUBMIT EITHER FILE.</strong> The H50a science/promotion gate is closed: the validation data are
+not fresh, the selection/calibration blocks were previously inspected, the nominal 90% proxy floor
+is 0.0000, and there is no private-label or organizer-acceptance evidence. A clean local format
+check is <strong>not</strong> an approval to use a competition slot.</p>
+<p><strong>Template-format checkpoint (the download that matches the mirrored sample's NaN convention):</strong>
+<a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif">Download GeoTIFF</a> ·
+<a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.zip">Single-TIFF ZIP</a> ·
+<a href="data/h50-template-nanoutside.json">format receipt</a></p>
+<ul>
+<li>SHA-256 <code>6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5</code>; 387,724 bytes; 37,612 unit dots.</li>
+<li>One float32 band, 3292×3730, EPSG:32611, 100 m, exact template transform; NoData is NaN.</li>
+<li>The strict template-mask read-back passes locally: 5,167,373 finite in-footprint values in [0,1],
+  exactly 7,111,787 raw NaNs outside, no numeric sentinel, no invalid in-footprint cell, and one TIFF
+  in its ZIP. It matches the <strong>mirrored</strong> template mask; that mirror is not organizer authentication.</li>
+<li>A raw all-cells NaN-intolerant range expression still returns false because NaN is a null marker.
+  This is documented rather than hidden. The original rejected bytes/parser receipt were not supplied,
+  so neither NaNs nor sentinels can be called the historical rejection cause.</li>
+</ul>
+<p><strong>Finite-mask diagnostic (not the mirrored sample's NaN/no-data encoding):</strong>
+<a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif">Download GeoTIFF</a> ·
 <a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.zip">Single-TIFF ZIP</a> ·
-<a href="data/h50-submission.json">Exact-byte receipt</a></p>
+<a href="data/h50-submission.json">receipt</a></p>
+<p>It has the <strong>same 37,612 prediction pixels</strong> as the template-format checkpoint but stores raw finite
+[0,1] samples with a self-contained GDAL null mask. Its SHA-256 is
+<code>c9a0e7aa5618c0733fa94882b778c2eb744df4633a07d050598a6a346065f4f5</code>; it is retained only to
+exercise a NaN-intolerant range reader. The outputs are model-inferred H50a dots, not a copied
+historical prediction mask; the bounded 31-file local/restored audit found zero exact masks and a
+maximum Jaccard of 0.213897. This is not a global uniqueness proof.</p>
 <p>Name: <code>GEMSDOE47-H50a-4096e1f9d19b</code></p>
-<p>Note: <code>H50a corridor; s=1.5px/150m; nominal 90% proxy floor=0.0000; coverage unverified; finite+mask; UNSCORED; NOT PROMOTED; DO NOT UPLOAD</code></p>
-<p>SHA-256: <code>c9a0e7aa5618c0733fa94882b778c2eb744df4633a07d050598a6a346065f4f5</code>. 151,416 bytes; 37,612 unit dots.
-One float32 band, 3292×3730, EPSG:32611, 100 m, exact template transform.
-All raw samples finite in [0,1]; internal mask marks 7,111,787 outside cells invalid/null.
-<strong>15/15 local contract checks passed; organizer acceptance is unknown.</strong>
-The original rejected file and parser receipt were not provided; neither NaN handling nor
-sentinel leakage is established as the cause of that historical error.</p>
+<p>Note: <code>H50a corridor; s=1.5px/150m; template NaN outside; nominal 90% proxy floor=0.0000; coverage unverified; UNSCORED; NOT PROMOTED; DO NOT UPLOAD</code></p>
 <h2>What was tested</h2>
 <p>The feature data were restored autonomously: 26 manifest entries with byte-size and SHA-256
 checks (core rasters, external mirrors, historical reference rasters and metadata).
@@ -116,4 +141,5 @@ unavailable/unpublished sibling outputs or establish geological discoveries.</p>
 <a href="https://gdr.openei.org/submissions/1391">GDR compilation</a>,
 <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN</a>,
 <a href="https://www.stat.berkeley.edu/~ryantibs/papers/conformal.pdf">Lei et al. manuscript</a>.
-These are source links, not claims of fresh downloads from blocked hosts.</p></main><footer>Maximize P(Win): preserve the slot. Own the Outcome: retain negative results and corrections.</footer></body></html>
+These are source links, not claims of fresh downloads from blocked hosts.</p></main>
+</body></html>

@@ -6,26 +6,33 @@
 
 ## Latest session — H50a, 7 October 2026
 
-**[Download the new H50a research TIFF](docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif)** ·
-[Executive review, ZIP, name and note](docs/h50.html).
+**[Download H50a template-format GeoTIFF](docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif)** ·
+[one-TIFF ZIP](docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.zip) ·
+[format receipt](docs/data/h50-template-nanoutside.json) · [executive review](docs/h50.html).
 **RESEARCH ONLY · NOT PROMOTED · DO NOT UPLOAD · no slot authorized.**
-37,612 new unit dots, 15/15 local format checks, finite [0,1] plus internal
-outside-null mask. 31 listed comparisons, no exact matches, max Jaccard
-0.213897; not a global uniqueness proof. Organizer acceptance is unknown.
 
-Selected spacing **1.5 px / 150 m**, nominal **90%** public-proxy lower statistic **0.0000**.
-Same previously used H49 blocks; no fresh-validation or private-score guarantee. The draft's
-calibration-filtered .03184 claim and different scatter-greedy layout clearance were withdrawn
-in final review. The new hypotheses did not establish an eligible improvement. No slot was used.
+This new model-inferred H50a 37,612-dot output is **not a copied prediction mask**: the bounded
+31-file local/restored audit found zero exact masks (maximum Jaccard 0.213897; not a global proof).
+Its template-format encoding is one float32 band on the 3292×3730 EPSG:32611 grid, with finite
+in-footprint values in [0,1] and raw NaN / NaN NoData exactly outside the mirrored sample-template
+mask. The strict local template-mask check passes; organizer acceptance is still unknown because
+these are hash-pinned owner mirrors rather than authenticated portal inputs. A paired finite-mask
+range diagnostic is retained, but it does not use the mirrored template's NaN/no-data encoding.
+
+**It is not OK to submit either H50a file.** Selected spacing **1.5 px / 150 m** has a nominal
+**90%** public-proxy lower statistic of **0.0000**. The blocks were previously inspected; there is
+no fresh-validation, private-score or organizer-acceptance guarantee. The draft's calibration-filtered
+.03184 claim and different scatter-greedy layout clearance were withdrawn in final review. The
+hypothesis did not establish an eligible improvement. No slot was used.
 
 Current user target is **>0.3774**, not the older >0.3195 goal below. Read the entire standing
 brief each session. Split conformal must not select a winner using calibration outcomes unless
 a valid simultaneous-selection procedure is specified; keep confidence, target and assumptions
 next to the spacing. Full results and corrections: [H50 review](docs/h50.md).
 
-## New GeoTIFF — one-click download first
+## Historical H47-C1 GeoTIFF — research-only
 
-**[Download the new H47-C1 single-band GeoTIFF](docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif)** ·
+**[Download the historical H47-C1 single-band GeoTIFF](docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif)** ·
 [Single-TIFF ZIP](docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.zip) ·
 [Executive summary and official submission sequence](docs/executive-summary.html) ·
 [GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)

@@ -20,6 +20,8 @@ H47QC_SHA256 = "3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2
 H49_TIF = "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
 H49_SHA256 = "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b"
 H49_BASE = "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3"
+H50_TEMPLATE_TIF = "downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif"
+H50_TEMPLATE_SHA256 = "6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5"
 
 
 class _PageParser(HTMLParser):
@@ -75,27 +77,29 @@ class SiteTests(unittest.TestCase):
                 self.assertTrue(target.is_relative_to((ROOT / "docs").resolve()), href)
                 self.assertTrue(target.is_file(), f"{page}: {href}")
 
-    def test_current_home_and_summary_keep_c1_primary_and_gate_closed(self):
+    def test_home_and_summary_lead_with_h50_format_checkpoint_but_keep_gate_closed(self):
         for name in ("index.html", "executive-summary.html"):
             text = (ROOT / "docs" / name).read_text(encoding="utf-8")
-            self.assertLess(text.index("↓ Download GeoTIFF"), text.index("<h1>"), name)
+            self.assertLess(text.index(H50_TEMPLATE_TIF.split("/")[-1]), text.index("<h1>"), name)
             self.assertIn(C1_TIF.split("/")[-1], text)
             self.assertIn("2.8 px / 280 m", text)
             self.assertIn("assumption-conditional", text)
             self.assertIn("NOT PROMOTED", text)
             self.assertIn("DO NOT UPLOAD", text)
             self.assertIn("H49 historical", text)
+            self.assertIn("It is not OK to submit this file", text)
         home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         self.assertIn(C1_SHA256, home)
-        self.assertNotIn(H49_TIF, home, "H49 must not replace the current C1 download")
+        self.assertIn(H50_TEMPLATE_TIF, home)
+        self.assertNotIn(H49_TIF, home, "H49 must not replace the current research downloads")
 
-    def test_homepage_offers_only_current_c1_and_labelled_qc_downloads(self):
+    def test_homepage_offers_only_closed_gate_research_downloads(self):
         text = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         parser = _PageParser()
         parser.feed(text)
         offered = {urlparse(link).path.lstrip("./") for link in parser.tiff_links}
-        self.assertEqual(offered, {C1_TIF, H47QC_TIF, "downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif"})
-        for path, sha in ((C1_TIF, C1_SHA256), (H47QC_TIF, H47QC_SHA256)):
+        self.assertEqual(offered, {C1_TIF, H47QC_TIF, H50_TEMPLATE_TIF})
+        for path, sha in ((C1_TIF, C1_SHA256), (H47QC_TIF, H47QC_SHA256), (H50_TEMPLATE_TIF, H50_TEMPLATE_SHA256)):
             target = ROOT / "docs" / path
             self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
             self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), sha)
@@ -107,6 +111,8 @@ class SiteTests(unittest.TestCase):
         self.assertIn("0.177872", text)
         self.assertIn("0.180216", text)
         self.assertIn("H47-QC geothermometer screen", text)
+        self.assertIn("It is not OK to submit this file", text)
+        self.assertIn("strict local template-mask check passes", text)
 
     def test_h49_is_explicitly_research_only_in_site_register_and_receipts(self):
         register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")

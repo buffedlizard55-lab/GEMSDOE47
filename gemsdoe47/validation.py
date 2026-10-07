@@ -38,7 +38,7 @@ def _same_grid(left: rasterio.io.DatasetReader, right: rasterio.io.DatasetReader
 
 
 def _inside_from_features(features: rasterio.io.DatasetReader, window: Window) -> np.ndarray:
-    """A pixel is in the footprint if any official feature band is finite/valid."""
+    """A pixel is in the footprint if any reference feature band is finite/valid."""
     bands = features.read(window=window, masked=True).astype(np.float64)
     values = np.asarray(bands.filled(np.nan), dtype=np.float64)
     valid = np.isfinite(values) & ~np.ma.getmaskarray(bands)
@@ -46,6 +46,7 @@ def _inside_from_features(features: rasterio.io.DatasetReader, window: Window) -
 
 
 def _inside_from_mask(mask_ds: rasterio.io.DatasetReader, window: Window) -> np.ndarray:
+    """Return the explicit binary-mask footprint in a raster window."""
     values = mask_ds.read(1, window=window, masked=True)
     data = np.asarray(values.filled(0))
     valid = np.isfinite(data) & ~np.ma.getmaskarray(values)
@@ -58,22 +59,31 @@ def validate_submission(
     *,
     features_path: str | Path | None = None,
     footprint_mask_path: str | Path | None = None,
+    template_footprint: bool = False,
 ) -> dict[str, Any]:
-    """Run a strict local NaN-outside profile; raise ValueError on any failure.
+    """Run a strict local NaN-outside profile; raise ``ValueError`` on failure.
 
-    Exactly one footprint source must be supplied. For ``features_path``, a
-    pixel counts as inside if any reference feature band is finite and unmasked.
-    A binary ``footprint_mask_path`` uses nonzero valid values for inside.
-    Pixels outside the footprint must be encoded as NaN, not a numeric nodata
-    sentinel, and the raster must carry a NaN nodata tag. These are local policy
-    checks stricter than the published null-or-NaN wording; this is not a portal
-    oracle. Range checks are made on float32 values read back from disk.
+    Supply exactly one footprint source:
+
+    * ``features_path``: a cell is in-bounds when any unmasked feature is finite;
+    * ``footprint_mask_path``: a nonzero, valid cell is in-bounds; or
+    * ``template_footprint=True``: use the supplied sample template's own GDAL
+      validity mask. This mode verifies an exact sample-template encoding and is
+      the appropriate check when feature validity and sample footprint are known
+      to differ.
+
+    The final mode is not an assertion that the locally mirrored template is
+    organizer-authenticated. Pixels outside the selected footprint must be raw
+    NaN with a NaN nodata tag; numeric sentinels and finite outside values are
+    rejected. Range checks are made on float32 values read back from disk.
     """
-    if (features_path is None) == (footprint_mask_path is None):
-        raise ValueError("provide exactly one of features_path or footprint_mask_path")
+    source_count = int(features_path is not None) + int(footprint_mask_path is not None) + int(template_footprint)
+    if source_count != 1:
+        raise ValueError("provide exactly one of features_path, footprint_mask_path, or template_footprint")
+
     submission_path = Path(submission_path)
     template_path = Path(template_path)
-    reference_path = Path(features_path or footprint_mask_path or "")
+    reference_path = Path(features_path or footprint_mask_path or template_path)
     for path in (submission_path, template_path, reference_path):
         if not path.is_file():
             raise FileNotFoundError(path)
@@ -100,7 +110,9 @@ def validate_submission(
         if result.nodata is None or not math.isnan(float(result.nodata)):
             raise ValueError("submission nodata tag must be NaN to avoid numeric sentinel leakage")
 
-        with rasterio.open(reference_path) as reference:
+        reference = None
+        if not template_footprint:
+            reference = rasterio.open(reference_path)
             if not _same_grid(template, reference):
                 raise ValueError("footprint/features grid does not match the supplied template")
             if features_path is not None and reference.count < 1:
@@ -108,10 +120,13 @@ def validate_submission(
             if footprint_mask_path is not None and reference.count != 1:
                 raise ValueError("footprint mask must contain exactly one band")
 
+        try:
             for _, window in result.block_windows(1):
                 values = result.read(1, window=window)
                 result_mask = result.read_masks(1, window=window) > 0
-                if features_path is not None:
+                if template_footprint:
+                    inside = template.read_masks(1, window=window) > 0
+                elif features_path is not None:
                     inside = _inside_from_features(reference, window)
                 else:
                     inside = _inside_from_mask(reference, window)
@@ -135,6 +150,9 @@ def validate_submission(
                 # NaN is the requested null value; infinities and numeric
                 # sentinels outside the footprint are intentionally rejected.
                 counts["non_nan_outside_pixels"] += int(np.count_nonzero(~np.isnan(values[outside])))
+        finally:
+            if reference is not None:
+                reference.close()
 
         metadata = {
             "width": int(result.width),
@@ -159,6 +177,10 @@ def validate_submission(
     if failures:
         raise ValueError("\n".join(f"- {failure}" for failure in failures))
 
+    if template_footprint:
+        footprint_source = f"template_internal_mask:{template_path}"
+    else:
+        footprint_source = str(reference_path)
     return {
         "status": "LOCAL_PASS",
         "validation_scope": "strict local NaN-outside profile; not a portal oracle",
@@ -166,7 +188,7 @@ def validate_submission(
         "submission": str(submission_path),
         "sha256": sha256_file(submission_path),
         "template": str(template_path),
-        "footprint_source": str(reference_path),
+        "footprint_source": footprint_source,
         **metadata,
         "nodata": "NaN",
         **counts,

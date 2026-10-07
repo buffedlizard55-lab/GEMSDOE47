@@ -1,0 +1,35 @@
+{
+  "above_one_pixels": 0,
+  "bands": 1,
+  "below_zero_pixels": 0,
+  "crs": "EPSG:32611",
+  "dtype": "float32",
+  "footprint_source": "template_internal_mask:.cache/gems_data/sample_submission.tif",
+  "height": 3730,
+  "invalid_inside_pixels": 0,
+  "max_in_footprint": 1.0,
+  "min_in_footprint": 0.0,
+  "nodata": "NaN",
+  "non_nan_outside_pixels": 0,
+  "organizer_acceptance_established": false,
+  "outside_pixels": 7111787,
+  "range": [
+    0.0,
+    1.0
+  ],
+  "sha256": "6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5",
+  "status": "LOCAL_PASS",
+  "submission": "docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif",
+  "template": ".cache/gems_data/sample_submission.tif",
+  "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+  ],
+  "valid_pixels": 5167373,
+  "validation_scope": "strict local NaN-outside profile; not a portal oracle",
+  "width": 3292
+}
