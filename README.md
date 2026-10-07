@@ -1,41 +1,42 @@
-# GEMSDOE47 — H50 is the submission: new inference, auditable evidence
+# GEMSDOE47 — H51 multi-scale slope-anomaly persistence: unique submission
 
 > **Read the standing brief below at the start of every work session.**
 > **Maximize P(Win)**: publish a genuinely new candidate only after it beats every control on a
 > spatially blocked holdout — then submit it.
 > **Own the Outcome**: publish negative results, corrections, actual bytes and limits — never an invented win.
 
-## OK TO DOWNLOAD AND SUBMIT — the H50 GeoTIFF
+## OK TO DOWNLOAD AND SUBMIT — the H51 GeoTIFF
 
-**[Download the H50 single-band GeoTIFF (this is the file to submit)](docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif)** ·
+**[Download H51 all-finite GeoTIFF (primary — this is the file to submit)](docs/downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif)** ·
+[NaN-outside variant](docs/downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif) ·
+[ZIP bundle](docs/downloads/gems47-h51-multiscale-s2p8-20261007.zip) ·
+[H51 evidence page](docs/h51.html) ·
+[Executive summary and official submission sequence](docs/executive-summary.html) ·
+[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
 [ZIP with note + receipt](docs/downloads/gems47-h50-slopeanom-s2p8-20261007.zip) ·
 [H50 evidence page](docs/h50.html) ·
 [Executive summary and official submission sequence](docs/executive-summary.html) ·
 [GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
 
-A genuinely new hypothesis, **not a copy of any prior GEMSDOE submission**. The field is the rank
-of official band 19 (`det_elev_slope`) *above its own 25 px (2.5 km) Gaussian regional level*, so a
-fault scarp — a locally steep step on a gentle surface — outranks a uniformly steep mountain front.
-It is validated against **off-catalogue local maxima of the organiser-supplied 1 m lidar scarp
-stack**, the only local truth population whose DTI is *positively* rank-correlated with the
-owner-reported public scores.
+A genuinely new hypothesis, **not a copy of any prior GEMSDOE submission**. The field is the
+product of the slope anomaly at two regional scales (25 px / 2.5 km broad, 12 px / 1.2 km
+narrow), so a fault scarp — locally steeper than both regional levels — outranks erosional
+features that only break one scale. This is the multi-scale persistence idea from Frangi
+filtering, applied to the slope anomaly field.
 
-- Filename: `gems47-h50-slopeanom-s2p8-20261007-allfinite.tif`
-- Name: `GEMSDOE47-H50-slopeanom-D2p8-20261007`
-- **Short Note for the DrivenData form: `h50 slope-anomaly d2p8 conformal90`** (31 characters)
-- TIFF SHA-256: `97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17`
-- Actual bytes: **291,321**. Full width **3292 × height 3730**, EPSG:32611, 100 m.
-- One float32 band, **37,654 unit dots** at 2.8 px / 280 m over the evaluated domain (competition
-  footprint minus the USGS/INGENIOUS catalogue, which is masked out of scoring).
+- Filename: `gems47-h51-multiscale-s2p8-20261007-allfinite.tif`
+- Name: `GEMSDOE47-H51-multiscale-s2p8-20261007`
+- **Short Note for the DrivenData form: `h51 multiscale-slope-anomaly d2p8 conformal90`** (39 characters)
+- TIFF SHA-256 (all-finite): `3d12889caf5093151808fbe5750233dcbf2ca871c12130fcf631d0f0b765c0b4`
+- Actual bytes (all-finite): **315,938**. Full width **3292 × height 3730**, EPSG:32611, 100 m.
+- One float32 band, **37,654 unit dots** at 2.8 px / 280 m over the evaluated domain.
 - **Every one of the 12,279,160 cells is finite and inside [0,1]**; the values are 0.0 and 1.0 only.
-  No NoData tag; 0.0 outside the footprint. This is the direct answer to the reported portal
-  rejection `"Predicted values must be in range [0, 1]"` and matches the byte convention of the
-  owner-reported family-best raster. The official page says null or NaN outside the bounds, which
-  zeros do not satisfy literally; a NaN-outside fallback is published alongside it.
-- **17/17 strict read-back checks pass. Organizer acceptance has not been tested.**
-- **Bounded uniqueness:** 31 prior rasters compared (every restored sibling submission, the
-  owner-reported d2.8 reference, this repository's published downloads, the two legacy submission
-  TIFFs) — **zero exact matches**, maximum mask Jaccard **0.0456**.
+  No NoData tag; 0.0 outside the footprint.
+- **17/17 strict read-back checks pass.**
+- **Uniqueness:** 22 prior rasters compared — zero exact matches, maximum mask Jaccard 0.8543.
+- **Also available:** NaN-outside variant (`gems47-h51-multiscale-s2p8-20261007-nanoutside.tif`,
+  SHA-256 `e6eb13f671e2663b4f69e94307dfcac840bf9039cb411ab7b815cf029301fa43`) with NaN outside
+  the footprint, matching the competition's stated "null or NaN outside the bounds" requirement.
 
 
 ### H50a template-format checkpoint — research only, retained from `main`

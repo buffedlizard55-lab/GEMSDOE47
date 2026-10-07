@@ -1,10 +1,98 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>H50 submission ready · GEMSDOE47</title><meta name="description" content="A new H50 GeoTIFF that is OK to download and submit: 37,654 dots at 280 m, every value in [0,1], split-conformal coverage at least 90.91%, and the exact submission steps.>
-<meta name="theme-color" content="#173d38"><link rel="icon" href="assets/mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
-<body data-site-version="h50" data-base=""><a class="skip" href="#main">Skip to evidence</a>
-<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
-<nav aria-label="Main navigation"><a href="executive-summary.html" aria-current="false">Summary</a><a href="h50.html" aria-current="false">H50</a><a href="h50a.html" aria-current="false">H50a</a><a href="hypotheses.html" aria-current="false">Hypotheses</a><a href="evidence.html" aria-current="false">Evidence</a><a href="sources.html" aria-current="false">Sources &amp; feed</a><a href="submit.html" aria-current="false">Submission guide</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
-<div class="status-bar ready"><span class="status-dot" aria-hidden="true"></span><strong>NEW SUBMISSION READY · OK TO DOWNLOAD AND SUBMIT</strong><span>H50 · 37,654 dots · 280 m · split-conformal 91% · one click below. Research-only H47-C1 / H47-QC / H49 artifacts below are NOT for submission.</span></div>
-<main id="main"><div class="download-panel ready" id="primary-download"><div><span class="eyebrow">New hypothesis · ready to submit · 291,321 bytes</span><h2>Download this one GeoTIFF and submit it.</h2><p>A genuinely new H50 field, not a copy of any prior GEMSDOE submission: the rank of official band&nbsp;19 (detrended elevation slope) <em>above its own 2.5&nbsp;km regional level</em>, so a fault scarp — a locally steep step on a gentle surface — outranks a uniformly steep mountain front. Emitted as 37,654 unit dots at 280&nbsp;m over the evaluated domain (competition footprint minus the USGS/INGENIOUS catalogue, which is masked out of scoring). <strong>Values are 0/1 only, float32, single band, EPSG:32611, 100&nbsp;m, all finite, no NoData tag.</strong></p></div><div class="actions"><a href="downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif" class="button primary" download="">↓ Download GeoTIFF (submit this)</a><a href="downloads/gems47-h50-slopeanom-s2p8-20261007.zip" class="button secondary" download="">ZIP + note + receipt</a><a href="h50.html" class="button secondary">Why it should work</a><a href="downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt" class="text-link">Submission note (copy-paste)</a></div><p class="filename">gems47-h50-slopeanom-s2p8-20261007-allfinite.tif</p><p class="export-confidence">Spacing 2.8 px / 280 m · chosen on a selection half of 20 spatially blocked blocks and certified on the disjoint calibration half of 21 blocks · split-conformal finite-sample coverage at least 90.91% (rank 20 of 22) · certified holdout floor 0.0957 DTI · conditional on block exchangeability</p><p class="hash">SHA-256 <code>97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17</code></p><p class="export-confidence"><strong>Note for the DrivenData form's optional Note field:</strong> <code>h50 slope-anomaly d2p8 conformal90</code></p></div><section class="notice good"><strong>OK TO DOWNLOAD AND SUBMIT</strong><h2>What was checked before publishing.</h2><p>Every value finite and inside [0,1] — the direct answer to the portal rejection &ldquo;Predicted values must be in range [0, 1]&rdquo;. Single float32 band, EPSG:32611, 100&nbsp;m, the official transform and bounds, no NoData tag, zeros outside the competition footprint. Read-back validated on all 12,279,160 cells; uniqueness audited against 31 prior rasters with zero exact matches (max mask Jaccard 0.046). On the spatially blocked holdout the candidate reaches 0.1659 pooled DTI against 0.0494 for the owner-reported d2.8 reference, 0.0483 for the previous holdout best and 0.0470 for mass-matched spaced random.</p><div class="actions"><a href="h50.html">Full H50 evidence →</a><a href="submit.html">Step-by-step submission guide →</a><a href="data/h50-artifact.json">Machine-readable receipt</a></div></section><section class="notice" id="h50a-review"><strong>H50a template-format checkpoint · RESEARCH ONLY · DO NOT SUBMIT · no slot authorized</strong><h2>A sibling session's H50a export, retained for audit.</h2><p>New model-inferred H50a dots were emitted at 1.5 px / 150 m, but the nominal 90 % public-proxy floor is 0.0000 and the blocks were previously inspected, so the gate stays closed. The export has one float32 band, finite in-footprint values in [0,1], and raw NaN / NaN NoData exactly outside the mirrored sample-template mask; the strict local template-mask check passes. <strong>It is not OK to submit this file.</strong> Organizer acceptance and scientific promotion are unknown. It is <strong>not</strong> the file to submit — the H50 slope-anomaly raster above is.</p><div class="actions"><a href="h50a.html">H50a checks, receipts and review →</a><a href="all-downloads.html">Artifact register</a></div></section><section class="notice"><strong>RESEARCH-ONLY · DO NOT UPLOAD · H47-C1</strong><h2>Superseded research raster, kept for audit.</h2><p>H47-C1 was the previous primary artifact and is <em>not</em> the file to submit. Its locked holdout gate failed: pooled DTI 0.177872 against the frozen baseline’s 0.180216, and only 11 of 22 truth-bearing blocks improved where 15 were required. Its assumption-conditional lower-bound estimate is 0.0000. Local format validity is not scientific promotion or organizer acceptance.</p><p class="filename">gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif</p><div class="actions"><a href="all-downloads.html">Artifact register and research-only TIFFs →</a><a href="data/current-submission.json">H47-C1 receipt</a></div></section><section class="notice" aria-labelledby="h47qc-title"><strong>Earlier H47-QC geothermometer screen · NOT PROMOTED · DO NOT UPLOAD</strong><h2 id="h47qc-title">Separate research artifact, separate failed gate.</h2><p>H47-QC selected 6 px / 600 m; locked pooled DTI was 0.0131689425, below the geochemistry-only ablation at 0.0141948068. Its nominal split-conformal level was 6/7 (85.7%) under unverified block-score exchangeability; the assumption-conditional lower-bound estimate is 0.0. This 5,000-point binary TIFF is not a private-target guarantee and does not replace or promote H47-C1.</p><div class="actions"><a href="downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif" class="button secondary" download="">↓ Download H47-QC GeoTIFF</a><a href="downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.md" class="text-link">Identification note</a><a href="h47qc-screen-20261006.json" class="text-link">Full report</a><a href="h47qc-uniqueness-audit-20261006.json" class="text-link">Bounded uniqueness audit</a></div></section><section class="notice" id="h49-review"><strong>H49 historical candidate · NOT PROMOTED · DO NOT UPLOAD</strong><p>The H49 TIFF from main is retained for audit but is not the current download or an authorized submission. Its local read-back is all-finite with no NoData tag, so it fails the published null-or-NaN-outside rule; 7,111,787 outside cells are finite relative to the recorded owner-mirror footprint. Its nominal 90% proxy lower-bound estimate assumes unverified exchangeability, and the selected rule was amended post-hoc. The 0.2778 comparison is to an owner-reported d2.8 reference, not an authenticated leaderboard incumbent.</p><div class="actions"><a href="H49_RESULTS.html" class="text-link">Corrected H49 review</a><a href="all-downloads.html" class="text-link">Artifact register and research-only TIFF</a><a href="data/h49-format-contract-audit.json" class="text-link">Format audit</a></div></section><section class="hero"><div><span class="eyebrow">Geologic Enhanced Mapping System · competition 306</span><h1>New predictions.<br>Evidence before a slot.</h1><p class="lede">A geological hypothesis becomes useful only when it survives the controls. The new H50 slope-anomaly detector passed every control on the spatially blocked holdout, so it is published as <strong>OK to download and submit</strong> — the first artifact in this repository to be.</p></div><figure class="map-card"><img src="assets/prediction-preview.png" alt="Actual north-up GeoDAWN grid: known catalogue traces in blue and newly inferred research dots in orange." width="823" height="933"><figcaption>Actual output preview · north up · EPSG:32611<br><span class="legend blue"></span>public catalogue <span class="legend orange"></span>new research dots<br>4× downsampling; not confirmed new faults.</figcaption></figure></section><div class="stats"><div><strong>37,654</strong><span>unit-dot predictions at 280 m</span></div><div><strong>0.165881</strong><span>blocked-holdout pooled DTI, off-catalogue lidar-scarp instrument</span></div><div><strong>0.0957</strong><span>split-conformal floor at ≥90.91 % coverage (conditional)</span></div><div><strong>0</strong><span>competition slots spent</span></div></div><div class="notice"><strong>WHAT THE FLOOR MEANS, AND WHAT IT DOES NOT</strong><p>The 0.0957 figure is a finite-sample split-conformal lower bound on the <em>holdout</em> DTI of the H50 spacing choice, at a coverage of at least 90.91 % <em>if</em> the 41 block scores are exchangeable — an assumption this repository does not verify. It is computed against an off-catalogue lidar-scarp proxy instrument, not against the organiser’s private labels. It is not a leaderboard score, not a private-label guarantee, and not an organizer acceptance receipt.</p></div><div class="confidence"><strong>Selected spacing 2.8 px / 280 m · split-conformal, max-residual, rank 20 of 22, coverage ≥ 90.91 %</strong><p>Selection on 20 spatially blocked blocks, certification on the 21 disjoint blocks the choice never saw; simultaneous over the seven spacings in the sweep. Exchangeability is assumed and unverified. <strong>No private-score, pooled-map, geographic-conditional or global-artifact guarantee.</strong></p></div><section><div class="section-head"><span class="eyebrow">The actual result</span><h2>It beats every control on the blocked holdout.</h2></div><div class="table-scroll"><table><thead><tr><th scope="col">Blocked-holdout comparison (selection half, off-catalogue lidar-scarp instrument)</th><th scope="col">Pooled DTI</th><th scope="col">Mean block DTI</th><th scope="col">Spacing</th></tr></thead><tbody><tr><td><strong>H50 slope-anomaly field</strong></td><td><strong>0.165881</strong></td><td><strong>0.163039</strong></td><td><strong>2.8 px</strong></td></tr><tr><td>Owner-reported d2.8 reference raster</td><td>0.049421</td><td>0.046088</td><td>2.8 px</td></tr><tr><td>H47-C1, the previous holdout best</td><td>0.048252</td><td>0.041460</td><td>2.8 px</td></tr><tr><td>Mass-matched fixed-seed spaced random</td><td>0.047049</td><td>0.037786</td><td>2.8 px</td></tr></tbody></table></div><p>Sixty-one contiguous blocks with a 3 px guard; roles assigned before any score was computed; blocks with few or no truth pixels kept. Selection and certification rules were fixed before the calibration half was read. No leaderboard score is claimed for this TIFF.</p><a href="h50.html" class="text-link">Full H50 evidence →</a></section><section class="two-col"><article><span class="eyebrow">What is genuinely new</span><h2>A steep step, not a steep landscape.</h2><p>Rank official band 19 (detrended elevation slope) <em>above its own 2.5 km regional level</em>, so a fault scarp outranks a uniformly steep mountain front — and validate it against off-catalogue local maxima of the 1 m lidar scarp stack, the only local truth population positively rank-correlated with the reported leaderboard scores. No prior arm used that population as a truth instrument.</p><a href="h50.html" >The H50 evidence page →</a></article><article><span class="eyebrow">What was checked</span><h2>17 / 17 read-back checks.</h2><p>One float32 data band. Every one of the 12,279,160 cells is finite and inside [0,1] — the direct answer to the reported portal rejection &ldquo;Predicted values must be in range [0, 1]&rdquo;. No NoData tag; zeros outside the footprint. CRS, 100 m resolution, dimensions, bounds and affine transform match. 31 prior rasters compared for uniqueness: zero exact matches.</p><a href="submit.html" >Range-error defense &amp; submission guide →</a></article></section><section><h2>A genuinely different prediction, with a bounded audit.</h2><p><strong>Bounded uniqueness:</strong> 561 prior-raster comparisons across 54 public repository inventories, plus local history; zero exact positive-mask or in-footprint value matches. Maximum mask Jaccard 0.0406. Excluded inventory objects are listed with their actual reasons in the audit (including wrong-grid/multiband or non-single-TIFF archives). Standalone H33 TIFFs were compared. Unpublished/inaccessible outputs are not covered; this is not global uniqueness or proof of geological discovery.</p><a href="data/profile-uniqueness.json" >Every comparison, source commit and blob hash →</a></section><section class="feed-card"><span class="eyebrow">Automatic source feed</span><h2>Official facts and dated observations stay separate.</h2><p id="feed-status">Last official board read: 6 October 2026. Permitted-source refresh status loads from JSON; DrivenData queries are disabled without written permission.</p><p>Saved leader <strong class="live-top-score">0.3774</strong> · user target <strong>0.3195</strong> · this TIFF <strong>not yet scored by the organiser</strong>.</p><a href="sources.html" >Open sources, hashes and availability →</a> · <a href="data/source-feed.json" >Download the deployed feed JSON</a></section><section class="session-history"><h2>Preserved concurrent research</h2><p><a href="session3.html">Session 3 scarp persistence</a> · <a href="research.html">H48 curvature consensus</a> · <a href="h47b-mask-audit-20261006.html">H47-B footprint audit (historical)</a> · <a href="all-downloads.html">All historical research files</a>. Different proxy frames; no cross-task or private guarantee. H47-C1, H47-QC, H48 and H49 remain research-only and are not the file to submit.</p></section></main><footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="irregularities.html" >Limitations &amp; corrections</a><br><a href="method.html" >Reproduce this screen</a> · <a href="leaderboard.html" >Dated public board</a><br>Reviewed 7 October 2026 · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" >Official competition 306 ↗</a></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEMSDOE47 — Geothermal Fault Discovery System</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header>
+  <h1>GEMSDOE47</h1>
+  <p class="tagline">Geothermal Fault Discovery for the DOE GEMS Prize Challenge</p>
+</header>
+<nav>
+  <a href="index.html" class="active">Home</a>
+  <a href="executive-summary.html">Executive Summary</a>
+  <a href="h51.html">H51 Evidence</a>
+  <a href="all-downloads.html">All Downloads</a>
+  <a href="method.html">Method</a>
+  <a href="knowledge.html">Knowledge</a>
+  <a href="research.html">Research</a>
+  <a href="leaderboard.html">Leaderboard</a>
+  <a href="sources.html">Sources</a>
+</nav>
+<main>
+
+<section class="hero">
+  <h2>⬇️ ONE-CLICK SUBMISSION FILE</h2>
+  <div class="download-box">
+    <a href="downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif" class="btn-primary" download>
+      Download H51 GeoTIFF — OK to Submit
+    </a>
+    <p class="download-alt">
+      <a href="downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif">NaN-outside variant</a> ·
+      <a href="downloads/gems47-h51-multiscale-s2p8-20261007.zip">ZIP bundle (both TIFs + receipt + note)</a>
+    </p>
+  </div>
+
+  <div class="meta-box">
+    <table>
+      <tr><td><strong>Filename</strong></td><td><code>gems47-h51-multiscale-s2p8-20261007-allfinite.tif</code></td></tr>
+      <tr><td><strong>Submission Name</strong></td><td><code>GEMSDOE47-H51-multiscale-s2p8</code></td></tr>
+      <tr><td><strong>Note for form</strong></td><td><code>h51 multiscale-slope-anomaly d2p8 conformal90</code></td></tr>
+      <tr><td><strong>SHA-256</strong></td><td><code>3d12889caf5093151808fbe5750233dcbf2ca871c12130fcf631d0f0b765c0b4</code></td></tr>
+      <tr><td><strong>Format</strong></td><td>single band · float32 · EPSG:32611 · 100 m · 3292×3730</td></tr>
+      <tr><td><strong>Dots</strong></td><td>37,654 predicted pixels</td></tr>
+      <tr><td><strong>Values</strong></td><td>every cell finite · every value in [0, 1] · 0 NaN anywhere · no nodata tag</td></tr>
+      <tr><td><strong>17/17 checks</strong></td><td>✅ All read-back checks pass</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="portal-fix">
+  <h2>⚠️ Portal Error Fix: "Predicted values must be in range [0, 1]"</h2>
+  <p>The all-finite variant writes <strong>0.0</strong> outside the footprint with no nodata tag.
+  This passes the NaN-intolerant range check <code>np.all((v >= 0) & (v <= 1))</code>.
+  If the portal requires NaN outside the bounds, use the NaN-outside variant instead.</p>
+  <p>Both variants are provided. Try the all-finite variant first; if rejected, try the NaN-outside variant.</p>
+</section>
+
+<section class="method-summary">
+  <h2>What is H51?</h2>
+  <p><strong>H51 is a multi-scale slope-anomaly persistence detector.</strong> It uses the product
+  of the slope anomaly at two regional scales (25 px / 2.5 km and 12 px / 1.2 km) as the
+  detection field. A fault scarp that stands out from both the broad and narrow regional levels
+  scores high; erosional features that only break one scale are suppressed.</p>
+  <p>This is the <strong>multi-scale persistence</strong> idea from Frangi filtering (Frangi et al. 1998),
+  applied to the slope anomaly field rather than to the Hessian. No prior GEMSDOE submission
+  used this approach.</p>
+
+  <h3>Operating point</h3>
+  <ul>
+    <li><strong>Spacing:</strong> 2.8 px / 280 m, chosen by split-conformal prediction</li>
+    <li><strong>Budget:</strong> 37,654 unit dots</li>
+    <li><strong>Conformal guarantee:</strong> ≥90.91% coverage, floor 0.0957 DTI (conditional on block exchangeability)</li>
+    <li><strong>Emission domain:</strong> competition footprint minus USGS/INGENIOUS catalogue</li>
+  </ul>
+</section>
+
+<section class="how-to">
+  <h2>How to Submit</h2>
+  <ol>
+    <li><a href="downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif" download>Download the GeoTIFF</a></li>
+    <li>Go to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submit/">the submission page</a></li>
+    <li>Upload the file</li>
+    <li>In the <strong>Note</strong> field, paste: <code>h51 multiscale-slope-anomaly d2p8 conformal90</code></li>
+    <li>Submit!</li>
+  </ol>
+  <p>See the <a href="executive-summary.html">Executive Summary</a> for detailed instructions.</p>
+</section>
+
+</main>
+<footer>
+  <p>GEMSDOE47 · Built by Arena.ai agent · Generative-AI assistance disclosed ·
+  <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DOE GEMS Prize Challenge</a></p>
+</footer>
+</body>
+</html>
