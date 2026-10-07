@@ -51,8 +51,13 @@ validation instrument is the off-catalogue 1 m lidar scarp-peak population, a pr
 the slope quantity with the field's input band; these are proxy numbers, not private-score
 estimates.
 
+## The H50a template-format checkpoint is research only
+
+A sibling session exported `gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif` (SHA-256 `6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5`). Its nominal 90 % public-proxy floor is 0.0000 and its blocks were previously inspected, so its gate is closed. It has one float32 band, finite in-footprint values in [0,1], and raw NaN / NaN NoData exactly outside the mirrored sample-template mask; the strict local template-mask check passes. **Do not upload it** — the H50 slope-anomaly raster above is the submittable file. Full checks and receipts: [h50a.html](h50a.html).
+
 ## Why the earlier files are not submittable
 
+* **H50a** nominal 90 % public-proxy floor 0.0000 with previously inspected blocks; format checks pass, promotion gate closed.
 * **H47-C1** pooled public-catalogue DTI 0.177872 versus the locked baseline's 0.180216; it wins
   11/22 truth-bearing test blocks where 15 were required; its assumption-conditional
   lower-bound estimate is 0.0000.

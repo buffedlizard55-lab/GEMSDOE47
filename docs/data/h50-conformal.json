@@ -1,0 +1,52 @@
+{
+  "chosen": {
+    "arm": "H50a_corridor",
+    "emitter": "disk",
+    "spacing_px": 1.5,
+    "flank_b": 3.0,
+    "selection_mean": 0.10787434885646766,
+    "calibration_mean": 0.10101503276078017
+  },
+  "conformal": {
+    "n": 19,
+    "k": 2,
+    "floor": 0.0,
+    "nominal_level": 0.9,
+    "rank_coverage": 0.9
+  },
+  "calibration_scores": [
+    0.0,
+    0.0,
+    0.0,
+    0.04718526630143163,
+    0.06327439920046814,
+    0.06413078490446185,
+    0.08147719747597096,
+    0.08790839156104854,
+    0.10039625657103551,
+    0.10143341371231228,
+    0.10675054733363791,
+    0.12458131417999053,
+    0.12466791516450713,
+    0.13553566434309824,
+    0.15165381020667174,
+    0.1724596145657848,
+    0.17461822049873557,
+    0.18153739822329404,
+    0.20167542821237416
+  ],
+  "status": "EXPLORATORY_NOT_CERTIFIED",
+  "slot_authorized": false,
+  "formal_coverage_established": false,
+  "selection_rule": "Maximise selection-half mean only, then inspect calibration once.",
+  "limitations": [
+    "Same 39 public SGMC proxy blocks and seed as H49; not fresh untouched validation.",
+    "Block exchangeability and relevance to private faults are unverified.",
+    "Global emission is not covered by block-level calibration.",
+    "Some large-spacing arms emit below quota; sweep is budget-capped, not exactly mass-matched."
+  ],
+  "withdrawn_draft": {
+    "lower_bound": 0.03183577869822368,
+    "reason": "Draft filtered candidates using calibration floors after inspecting results. That selects on calibration; the claimed 90% guarantee is withdrawn. The different scatter-greedy export was never validated by this sweep."
+  }
+}

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="H50 research outputs, exact local format checks, conformal limitation and closed promotion gate.">
+<title>H50a scientific review (research only) · GEMSDOE47</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><header class="masthead"><a href="index.html">GEMSDOE47</a><nav><a href="executive-summary.html">Summary</a> · <a href="submit.html">Submission guide</a> · <a href="sources.html">Sources</a></nav></header>
+<main>
+<p style="border:1px solid #ffb703;padding:10px 12px;border-radius:8px;background:#1c2330"><strong>H50a is RESEARCH ONLY. It is not OK to submit this file.</strong> The submittable artifact is the H50 slope-anomaly raster — see <a href="h50.html">the H50 evidence page</a>. This page is retained for audit of the H50a template-format checkpoint merged in from <code>main</code>.</p><h1>H50a review — new research TIFF; DO NOT SUBMIT</h1>
+<p><strong>7 October 2026. Research-only · NOT PROMOTED · DO NOT UPLOAD · no slot authorized.</strong></p>
+<h2>Download status — clear decision</h2>
+<p><strong>DO NOT SUBMIT EITHER FILE.</strong> The H50a science/promotion gate is closed: the validation data are
+not fresh, the selection/calibration blocks were previously inspected, the nominal 90% proxy floor
+is 0.0000, and there is no private-label or organizer-acceptance evidence. A clean local format
+check is <strong>not</strong> an approval to use a competition slot.</p>
+<p><strong>Template-format checkpoint (the download that matches the mirrored sample's NaN convention):</strong>
+<a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif">Download GeoTIFF</a> ·
+<a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.zip">Single-TIFF ZIP</a> ·
+<a href="data/h50-template-nanoutside.json">format receipt</a></p>
+<ul>
+<li>SHA-256 <code>6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5</code>; 387,724 bytes; 37,612 unit dots.</li>
+<li>One float32 band, 3292×3730, EPSG:32611, 100 m, exact template transform; NoData is NaN.</li>
+<li>The strict template-mask read-back passes locally: 5,167,373 finite in-footprint values in [0,1],
+  exactly 7,111,787 raw NaNs outside, no numeric sentinel, no invalid in-footprint cell, and one TIFF
+  in its ZIP. It matches the <strong>mirrored</strong> template mask; that mirror is not organizer authentication.</li>
+<li>A raw all-cells NaN-intolerant range expression still returns false because NaN is a null marker.
+  This is documented rather than hidden. The original rejected bytes/parser receipt were not supplied,
+  so neither NaNs nor sentinels can be called the historical rejection cause.</li>
+</ul>
+<p><strong>Finite-mask diagnostic (not the mirrored sample's NaN/no-data encoding):</strong>
+<a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif">Download GeoTIFF</a> ·
+<a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.zip">Single-TIFF ZIP</a> ·
+<a href="data/h50-submission.json">receipt</a></p>
+<p>It has the <strong>same 37,612 prediction pixels</strong> as the template-format checkpoint but stores raw finite
+[0,1] samples with a self-contained GDAL null mask. Its SHA-256 is
+<code>c9a0e7aa5618c0733fa94882b778c2eb744df4633a07d050598a6a346065f4f5</code>; it is retained only to
+exercise a NaN-intolerant range reader. The outputs are model-inferred H50a dots, not a copied
+historical prediction mask; the bounded 31-file local/restored audit found zero exact masks and a
+maximum Jaccard of 0.213897. This is not a global uniqueness proof.</p>
+<p>Name: <code>GEMSDOE47-H50a-4096e1f9d19b</code></p>
+<p>Note: <code>H50a corridor; s=1.5px/150m; template NaN outside; nominal 90% proxy floor=0.0000; coverage unverified; UNSCORED; NOT PROMOTED; DO NOT UPLOAD</code></p>
+<h2>What was tested</h2>
+<p>The feature data were restored autonomously: 26 manifest entries with byte-size and SHA-256
+checks (core rasters, external mirrors, historical reference rasters and metadata).
+Mirror identity does not authenticate official portal provenance. Prior predictions are used
+only for comparison, not to construct H50a. New inference uses the R7 terrain recipe plus a
+continuous reservoir-temperature corridor prior from mirrored GDR well/spring columns.</p>
+<p>Five candidate ideas were drafted before scoring, but some overlap older hypotheses. The
+corrected <a href="research/h50-hypotheses-preregistered.md">hypothesis and protocol audit</a> explains
+which refinements were implemented and which were not new. The initial draft was not committed
+before running; it is not an immutable preregistration.</p>
+<p>4,290 sweep rows; 39 SGMC proxy blocks; 20 selection / 19 calibration; five spacings and two
+flank buffers, with sharp/blurred fields and random controls. These are the <strong>same previously
+inspected H49 blocks</strong>, not fresh holdouts. The helper omits empty/low-truth blocks. SGMC
+contains non-target structures; correspondence to the hidden scoring population is unverified.</p>
+<table>
+<thead>
+<tr>
+<th>Original selection-only choice</th>
+<th style="text-align: right;">Selection mean DTI</th>
+<th style="text-align: right;">Calibration mean DTI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H50a corridor, disk, 1.5 px, 3 px buffer</td>
+<td style="text-align: right;">0.107874</td>
+<td style="text-align: right;">0.101015</td>
+</tr>
+<tr>
+<td>R7 control, disk, 2.8 px, 3 px buffer</td>
+<td style="text-align: right;">0.103312</td>
+<td style="text-align: right;">0.100899</td>
+</tr>
+<tr>
+<td>Random, disk, 1.5 px, 3 px buffer</td>
+<td style="text-align: right;">0.05686</td>
+<td style="text-align: right;">0.04831</td>
+</tr>
+</tbody>
+</table>
+<p>The modest observed gain does not authorize a slot: the positive-floor and coded 3×random
+checks fail. Quotas are caps, not exact matched counts for all settings. No untouched paired
+holdout superiority over the current best is established. Global emission uses a global quota,
+not each block's quota; this export therefore has no transferable block-level certificate.</p>
+<h2>Conformal: what the history can actually support</h2>
+<p>Original selection uses <strong>selection scores only</strong>, then evaluates the calibration values for
+that fixed choice. At alpha=.10, n=19, k=floor(.10×20)=2; the second-smallest DTI is <strong>0.0000</strong>.
+For a fixed rule and exchangeable blocks, the order-statistic calculation has nominal 90%
+marginal coverage. Geological exchangeability is unverified and the data were previously used;
+<strong>no formal private-score, map-wide or fresh-holdout guarantee is established</strong>.</p>
+<p>The draft's later filtering by calibration floors selected R7 at 2.8 px with .03184. That is
+selection on calibration, contrary to the original rule. The claimed certificate is withdrawn.
+A spacing/threshold sweep on the same adaptive holdout is not a collection of independent
+future test problems. Randomly splitting those choices does not fix this dependency.</p>
+<p><a href="data/h50-conformal.json">Corrected calculation</a> · <a href="data/h50-spacing-sweep.csv">Full sweep CSV</a> ·
+<a href="data/h50-validation.json">Validation report</a>.</p>
+<h2>Why 0.2778, and can we beat 0.3774?</h2>
+<p>The supplied score/file association is owner-reported, not organizer-authenticated. The
+GEMSDOE32 page inspected this session explicitly labels H33-2-B2 unscored. It describes flank
+pruning, not proof that scatter-greedy earned the score. The draft incorrectly conflated those
+methods and treated modeled Monte Carlo gains as leaderboard evidence; those claims are withdrawn.</p>
+<p>The metric identity is <code>D=T/[.2(T+F)+.8K]</code>. Removing redundant prediction mass can improve DTI
+if the saved false-positive cost outweighs the lost weighted truth coverage. At fixed truth,
+the exact improvement criterion is <code>deltaT*(1-.2D) - .2D*deltaF &gt; 0</code>. Pixels excluded from scoring
+cannot cause a gain merely by being deleted. Nearby evaluated pixels require paired measurement.
+This explains a plausible mechanism for sparse-dot improvements, not the cause of the reported
+0.2778. There is no demonstrated universal score ceiling.</p>
+<p>At fixed F and K, moving .2778 to .3774 needs about <strong>39% more weighted true credit</strong>:
+<code>[.3774/(1-.2*.3774)]/[.2778/(1-.2*.2778)]</code>. This is conditional algebra, not a forecast.
+A better independent fault detector could beat .3774; this run does not demonstrate one.
+See <a href="why-02778.html">corrected attribution analysis</a> and the
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">official metric</a>.</p>
+<h2>Bounded uniqueness</h2>
+<p>31 same-grid comparisons; zero exact positive-mask matches; maximum Jaccard
+0.213897. Each compared path and SHA-256 is in the receipt. This is <strong>not</strong> the older
+561-comparison C1 audit, which cannot be reused for H50. It does not prove uniqueness across
+unavailable/unpublished sibling outputs or establish geological discoveries.</p>
+<h2>Three-pass review and corrections</h2>
+<ol>
+<li><strong>Implementation:</strong> restored data, drafted hypotheses, ran sweep and generated diagnostic outputs.</li>
+<li><strong>Technical review:</strong> found stale-set and allowed-mask defects in coverage greedy; replaced it
+   with a complete allowed-candidate heap, float64 gains, and brute-force regression tests. Greedy
+   coverage does not impose spacing. The corrected H50a export uses NMS, not this routine. Fixed an
+   existing raster test whose sample pixels were outside the template footprint.</li>
+<li><strong>Scientific re-review:</strong> withdrew calibration-filtered certification, purported submission
+   clearance, fabricated causal leaderboard attribution, copied uniqueness scope and changed-emitter
+   claims. Removed unpublished scatter-greedy/zero-outside diagnostic exports. The actual new H50a
+   TIFF uses the strict internal-mask contract; slot gate remains closed. Calibration sample sizes
+   too small for a nontrivial bound now yield zero, not an undercoverage order statistic.</li>
+</ol>
+<h2>Next session</h2>
+<ul>
+<li>Keep the slot closed. Obtain independently annotated target-like evaluation data or an honestly
+  new validation design; repartitioning old test results is not a new holdout.</li>
+<li>Verify high-resolution official DEM tile availability, footprint, license and masks before using it.</li>
+<li>Audit temperature sampling bias and quantization before assigning geological meaning to H50 terms.</li>
+<li>Compare exact same emission pipeline and matched mass against frozen controls; calibrate without
+  looking at calibration outcomes to choose a winner. Retain empty/difficult regions.</li>
+<li>Audit exact bytes and permitted source licenses before any promotion. Require an organizer receipt
+  to authenticate future score-to-file associations. No account credentials are requested here.</li>
+</ul>
+<p>Official/primary review links: <a href="https://github.com/drivendataorg/gems-prize-reference-solution">GEMS reference solution</a>,
+<a href="https://gdr.openei.org/submissions/1391">GDR compilation</a>,
+<a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN</a>,
+<a href="https://www.stat.berkeley.edu/~ryantibs/papers/conformal.pdf">Lei et al. manuscript</a>.
+These are source links, not claims of fresh downloads from blocked hosts.</p></main>
+</body></html>

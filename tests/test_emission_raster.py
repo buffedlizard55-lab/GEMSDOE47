@@ -141,15 +141,14 @@ def test_oriented_blur_preserves_mass_better_than_isotropic_along_a_line():
 def test_write_validate_roundtrip_nan_outside(tmp_path):
     from gems47s3.spec import HEIGHT, WIDTH
     v = np.zeros((HEIGHT, WIDTH), np.float32)
+    # place the test block INSIDE the survey footprint (the top-left grid corner is outside it;
+    # a fixed corner patch used to be silently written as outside-null and reported 0 positives)
     from gems47s3.grid import Grid
     fp = Grid().footprint
-    # place the patch on a 10x10 window that is entirely inside the footprint: the
-    # competition footprint has a diagonal NW corner, so rows 100:110 / cols 100:110
-    # is outside it and the assertion below would silently test nothing.
-    from scipy import ndimage as _ndi
-    interior = _ndi.uniform_filter(fp.astype(np.float32), 10) == 1.0
-    ys, xs = np.nonzero(interior)
-    y0, x0 = int(ys[0]), int(xs[0])
+    ys, xs = np.nonzero(fp)
+    y0 = int(np.median(ys)) - 5
+    x0 = int(np.median(xs)) - 5
+    assert fp[y0:y0 + 10, x0:x0 + 10].all(), "test block must be fully in-footprint"
     v[y0:y0 + 10, x0:x0 + 10] = 1.0
     p = tmp_path / "t.tif"
     w = write_submission(v, p, mode="nan", footprint=fp)

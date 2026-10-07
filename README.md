@@ -37,6 +37,17 @@ owner-reported public scores.
   owner-reported d2.8 reference, this repository's published downloads, the two legacy submission
   TIFFs) — **zero exact matches**, maximum mask Jaccard **0.0456**.
 
+
+### H50a template-format checkpoint — research only, retained from `main`
+
+A sibling session exported `docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif`
+(SHA-256 `6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5`) plus a finite-mask
+diagnostic variant. It has one float32 band, finite in-footprint values in [0,1], and raw NaN /
+NaN NoData exactly outside the mirrored sample-template mask; the strict local template-mask check
+passes. Its nominal 90 % public-proxy floor is **0.0000** and its blocks were previously
+inspected, so its promotion gate is closed. **It is not the file to submit.** Full checks,
+receipts and the spacing sweep: [h50a.html](docs/h50a.html) and `evidence/h50/` on `main`.
+
 ### Operating point, certified by split conformal prediction
 
 | Item | Value |
@@ -73,7 +84,7 @@ and no private label was read.
 (SHA-256 `e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0`). Its locked holdout gate
 failed: pooled public-catalogue DTI 0.177872 against the frozen baseline's 0.180216, 11/22
 truth-bearing blocks where 15 were required, assumption-conditional lower-bound estimate 0.0000.
-**H47-QC, H48, H49, H47-B, H47-GSA and H47-MAXCOV are likewise research-only or superseded.**
+**H50a, H47-QC, H48, H49, H47-B, H47-GSA and H47-MAXCOV are likewise research-only or superseded.**
 Full register with hashes and verdicts: [all-downloads.html](docs/all-downloads.html).
 
 ### Cross-session research status and claim boundaries
@@ -463,7 +474,8 @@ Its local strict format pass uses the explicit mirrored sample-template mask. Th
 * Site pages: `docs/index.html`, `docs/executive-summary.html`, `docs/h50.html`,
   `docs/all-downloads.html`, `docs/HOW_TO_SUBMIT.md` / `.html`, `docs/submit.html`,
   `docs/portal-checklist.html`.
-* Test suite: 288 passed, 1 skipped, 7 subtests passed.
+* H50a sibling artifacts from `main` are preserved and registered as research-only.
+* Test suite: 288 passed, 1 skipped, 7 subtests passed (before the `main` merge).
 * Generative-AI assistance (Arena.ai coding agent) is disclosed here and in the official narrative.
 
 **Remaining work and limitations for the next session**

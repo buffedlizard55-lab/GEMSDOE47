@@ -1,3 +1,13 @@
+# Latest handoff: H50a review, 7 October 2026
+
+Read [H50 results and corrections](h50.md) first, then the standing README. New H50a research
+TIFF exists, but no slot is authorized. Calibration-filtered certification was withdrawn.
+Actual selection: 1.5 px, nominal 90% proxy statistic zero. Same old H49 blocks, not fresh truth.
+Keep all pre-existing C1 artifacts and evidence unchanged. Next work: independent target-like
+validation, exact export-pipeline controls, and verified official high-resolution DEM coverage.
+
+---
+
 # Next session — current C1 state, not a setup TODO
 
 **Read the entire current README standing brief first.** Reviewed 2026-10-06 UTC.

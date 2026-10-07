@@ -1,0 +1,1 @@
+Finite-mask diagnostic. H50a corridor finite-mask diagnostic; s=1.5px/150m; nominal 90% proxy floor=0.0000; coverage unverified; UNSCORED; NOT PROMOTED; DO NOT UPLOAD

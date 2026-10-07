@@ -22,6 +22,8 @@ H49_SHA256 = "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b"
 H49_BASE = "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3"
 H50_TIF = "downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif"
 H50_SHA256 = "97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17"
+H50A_TIF = "downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif"
+H50A_SHA256 = "6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5"
 
 
 class _PageParser(HTMLParser):
@@ -85,6 +87,8 @@ class SiteTests(unittest.TestCase):
             self.assertLess(text.index("↓ Download GeoTIFF (submit this)"), text.index("<h1>"), name)
             self.assertIn(H50_TIF.split("/")[-1], text)
             self.assertIn("OK TO DOWNLOAD AND SUBMIT", text)
+            self.assertIn("H50a template-format checkpoint", text)
+            self.assertIn("It is not OK to submit this file", text)
             self.assertIn("2.8 px / 280 m", text)
             self.assertIn("split-conformal", text)
             self.assertIn("h50 slope-anomaly d2p8 conformal90", text)
@@ -116,6 +120,8 @@ class SiteTests(unittest.TestCase):
         self.assertIn("0.165881", text)               # blocked-holdout pooled DTI
         self.assertIn("0.049421", text)               # owner-reported d2.8 reference
         self.assertIn("H47-QC geothermometer screen", text)
+        self.assertIn("It is not OK to submit this file", text)
+        self.assertIn("strict local template-mask check passes", text)
 
     def test_h50_artifact_receipt_is_published_and_matches_the_bytes(self):
         receipt_path = ROOT / "docs" / "data" / "h50-artifact.json"
@@ -146,6 +152,21 @@ class SiteTests(unittest.TestCase):
                      "h50-field-scan.json", "h50-budget-profile.json"):
             self.assertTrue((ROOT / "docs" / "data" / name).is_file(), name)
             self.assertIn(name, page)
+
+    def test_h50a_sibling_artifact_is_registered_as_research_only(self):
+        """The H50a export merged in from main stays labelled research-only."""
+        register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
+        self.assertIn(H50A_TIF.split("/")[-1], register)
+        self.assertIn(H50A_SHA256, register)
+        self.assertIn("DO NOT UPLOAD", register)
+        page = (ROOT / "docs" / "h50a.html").read_text(encoding="utf-8")
+        self.assertIn("research only", page.lower())
+        self.assertIn("It is not OK to submit this file", page)
+        self.assertIn("h50.html", page)
+        home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        self.assertIn(H50_TIF.split("/")[-1], home)
+        self.assertNotIn(H50A_TIF.split("/")[-1], home,
+                         "H50a must not be offered as a download on the home page")
 
     def test_h49_is_explicitly_research_only_in_site_register_and_receipts(self):
         register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
