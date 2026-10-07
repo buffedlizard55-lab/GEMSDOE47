@@ -94,7 +94,7 @@ class SiteTests(unittest.TestCase):
         parser = _PageParser()
         parser.feed(text)
         offered = {urlparse(link).path.lstrip("./") for link in parser.tiff_links}
-        self.assertEqual(offered, {C1_TIF, H47QC_TIF})
+        self.assertEqual(offered, {C1_TIF, H47QC_TIF, "downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif"})
         for path, sha in ((C1_TIF, C1_SHA256), (H47QC_TIF, H47QC_SHA256)):
             target = ROOT / "docs" / path
             self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")

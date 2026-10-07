@@ -4,6 +4,25 @@
 > **Maximize P(Win)**: preserve a weekly slot until a genuinely new candidate beats the frozen spatial control.
 > **Own the Outcome**: publish negative results, corrections, actual bytes and limits — never an invented win.
 
+## Latest session — H50a, 7 October 2026
+
+**[Download the new H50a research TIFF](docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif)** ·
+[Executive review, ZIP, name and note](docs/h50.html).
+**RESEARCH ONLY · NOT PROMOTED · DO NOT UPLOAD · no slot authorized.**
+37,612 new unit dots, 15/15 local format checks, finite [0,1] plus internal
+outside-null mask. 31 listed comparisons, no exact matches, max Jaccard
+0.213897; not a global uniqueness proof. Organizer acceptance is unknown.
+
+Selected spacing **1.5 px / 150 m**, nominal **90%** public-proxy lower statistic **0.0000**.
+Same previously used H49 blocks; no fresh-validation or private-score guarantee. The draft's
+calibration-filtered .03184 claim and different scatter-greedy layout clearance were withdrawn
+in final review. The new hypotheses did not establish an eligible improvement. No slot was used.
+
+Current user target is **>0.3774**, not the older >0.3195 goal below. Read the entire standing
+brief each session. Split conformal must not select a winner using calibration outcomes unless
+a valid simultaneous-selection procedure is specified; keep confidence, target and assumptions
+next to the spacing. Full results and corrections: [H50 review](docs/h50.md).
+
 ## New GeoTIFF — one-click download first
 
 **[Download the new H47-C1 single-band GeoTIFF](docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif)** ·
