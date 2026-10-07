@@ -1,7 +1,13 @@
-# Next session — current C1 state, not a setup TODO
+# Next session — current H49 state, not a setup TODO
 
-**Read the entire current README standing brief first.** Reviewed 2026-10-06 UTC.
-Core values: Maximize P(Win); Own the Outcome. No slot is authorized.
+**Read the entire current README standing brief first.** Reviewed 2026-10-07 UTC.
+Core values: Maximize P(Win); Own the Outcome. No slot has been spent.
+
+> **Superseded on 2026-10-07 by the H49 round: this file's C1 sections below are history.**
+> Current state: `docs/H49_RESULTS.md` (artifact, certificate, paired tests) and README sections 0-2.
+> `docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` is the certified artifact;
+> 90 % split-conformal floor 0.03184 (Instrument B), 0.01828 (PM0200); observed selection mean
+> 0.10329 vs 0.07108 for the frozen 0.2778 artifact; no organizer score exists.
 
 ## Completed
 
