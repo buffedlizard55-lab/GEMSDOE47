@@ -221,14 +221,23 @@ new TIFF/ZIP bytes. Restored-grid tests are run locally; they are explicitly mar
 
 ## What to do next
 
-1. Keep the current slot closed. Do not rename or re-label this negative run as promoted.
-2. Use actual official-download coverage receipts to assess external-data feasibility; obtain the official
-   1 m tile CSV/coverage before calling a high-resolution detector viable. Process bounded tile windows,
-   not an unbounded hundreds-of-GB mosaic in Git.
-3. Preregister a new competing-explanation detector and an honestly fresh validation design. Known C1
-   test scores cannot become independent tuning data and a second untouched test.
-4. Require same-mass pooled and fold-level wins against comparable controls, a supported floor and
-   source/license audit. Only then prepare a new slot-eligible artifact and retain its organizer receipt.
+1. **Spend the slot or improve the arm?** The H49 operating point is the first artifact here that has
+   passed a blocked-holdout gate (90 % floor 0.03184 on Instrument B), but Instrument B is a public
+   proxy, so an organizer upload is still the only way to learn the truth. No upload has been made.
+2. An upload requires a DrivenData account: sign in, open competition 306, Submissions, upload
+   `docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif`, paste the name and the 146-char
+   note from [the submission guide](docs/executive-summary.html), and **keep the organizer receipt**.
+3. Never re-label an earlier screen as promoted: H47-C1 (0.177872 < 0.180216), H47-QC and H47-B stay
+   research-only and keep their own receipts.
+4. Next research step should target the two open gaps rather than a new transform family: (a) an
+   instrument that does not reward non-fault SGMC contacts (the known optimism in Instrument B), and
+   (b) a same-mass pooled/fold-level win over the shipped arm that survives the paired test, before
+   any new artifact is allowed to displace it. Run `scripts/analyze_h49.py --md docs/H49_EVIDENCE.md`
+   for the per-arm tables this decision needs.
+5. Known limits, unchanged: 1 m lidar tiles are still not obtained (quantized 100 m descriptors are not
+   raw lidar), band 6 `tc` / band 15 depth metadata remain disputed, exchangeability of geological
+   blocks is assumed and unverified, and the phrase "0.3195 current leaderboard top" is the user's
+   original target — the saved official observation is 0.3774 at rank 1.
 
 [Current next-session handoff](docs/next-session.md) · [Reusable knowledge](docs/knowledge.html) ·
 [Historical pre-C1 README (explicitly superseded)](docs/research/readme-preC1-20261006.md)
