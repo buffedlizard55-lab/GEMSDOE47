@@ -1,1 +1,1 @@
-Signed-polarity scarp field; 37,612 dots, 2.8px/280m spacing, 300m off known-fault flanks; spacing certified by split conformal, 90% floor 0.0318.
+H49 polarity-scarp field; 37,612 dots, 2.8px spacing. Nominal 90% Instrument-B split-conformal floor 0.0318; post-hoc rule provenance and exchangeability caveats apply.

@@ -11,10 +11,15 @@ claims that must be checkable without the 500 MB rasters:
 """
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import numpy as np
+import pytest
 from scipy import ndimage as ndi
 
 from gems47s3 import emission as E
+from gems47s3.conformal import conformal_quantile
 from gems47s3.geomorph import orientation, polarity_step, rank_scale
 
 
@@ -144,3 +149,65 @@ def test_oriented_nms_is_deterministic() -> None:
     a = E.nms_oriented(field, support, 2.8, 4.0, theta)
     b = E.nms_oriented(field, support, 2.8, 4.0, theta)
     assert np.array_equal(a, b)
+
+
+@pytest.mark.needs_data
+def test_published_h49_tiff_has_the_exact_null_footprint_mask():
+    """The downloadable H49 TIFF must satisfy the strict read-back contract, not just value bounds."""
+    from gems47 import contract as C
+    from gems47 import grid as G
+
+    root = Path(__file__).resolve().parents[1]
+    metadata = json.loads((root / "docs" / "data" / "current-artifact.json").read_text())
+    artifact = root / "docs" / "downloads" / metadata["filename"]
+    result = C.validate(artifact, G.load_template())
+    assert result["format_valid"], result["failed_checks"]
+    assert result["stats"]["positive_pixels"] == metadata["format_validation"]["stats"][
+        "positive_cells_in_footprint"
+    ]
+    assert metadata["status"] == "RESEARCH_ONLY_SLOT_GATE_CLOSED"
+    assert metadata["slot_authorized"] is False
+    assert metadata["slot_gate"]["authorized"] is False
+    assert metadata["organizer_score"] is None
+    assert metadata["conformal_result_status"] == (
+        "NOMINAL_FIXED_ARM_DIAGNOSTIC_NOT_FULL_ADAPTIVE_PIPELINE_GUARANTEE"
+    )
+    assert "conformal_certified_floor_primary_instrument" not in metadata
+    public = metadata["public_uniqueness"]
+    assert public["bounded_unique"] is True
+    assert public["global_unique_proven"] is False
+    audit_copy = root / "docs" / public["report"]
+    audit = json.loads(audit_copy.read_text())
+    assert audit["candidate_sha256"] == result["sha256"]
+    assert audit["exact_matches"] == 0
+    assert audit["comparisons"] == public["comparisons"]
+    for arm_result in metadata["paired_vs_incumbent"].values():
+        for half_result in arm_result.values():
+            assert half_result["paired_difference_split_conformal_lower_bound"] < 0
+
+
+def test_h49b_polarity_contrast_lower_bound_uses_candidate_minus_reference_direction():
+    """The H49-B reported contrast is R7 polarity minus the R2 topographic reference."""
+    root = Path(__file__).resolve().parents[1]
+    sweep = json.loads((root / "evidence" / "sweep" / "sweep_h49b.json").read_text())
+    arms: dict[tuple[str, str], dict[int, float]] = {}
+    for row in sweep["rows"]:
+        if (row["instrument"] != "B_sgmc_offcat" or row["emitter"] != "disk"
+                or row["op"] != "s2.8_d7.37_b3"
+                or row["recipe"] not in ("R2_scarp9_topo", "R7_scarp9_polarity")):
+            continue
+        arms.setdefault((row["recipe"], row["half"]), {})[int(row["block_index"])] = float(row["dti"])
+
+    expected = {
+        "selection": (0.00642308816364304, -0.00941204134820045),
+        "calibration": (0.0024829962966223126, -0.01620891452098952),
+    }
+    for half, (mean_expected, lower_expected) in expected.items():
+        candidate = arms[("R7_scarp9_polarity", half)]
+        reference = arms[("R2_scarp9_topo", half)]
+        common = sorted(candidate.keys() & reference.keys())
+        differences = np.asarray([candidate[i] - reference[i] for i in common])
+        assert np.isclose(differences.mean(), mean_expected, atol=1e-12)
+        lower = conformal_quantile(differences, 0.10, side="lower")
+        assert np.isclose(lower, lower_expected, atol=1e-12)
+        assert lower < 0.0, "the observed mean does not clear the paired-difference gate"

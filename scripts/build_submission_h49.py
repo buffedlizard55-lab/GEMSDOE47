@@ -11,10 +11,11 @@ Pipeline
 2. Rebuild that field on the FULL grid with the FULL given catalogue visible.
 3. Emit at the certified spacing with the certified emitter (isotropic ``nms_disk`` or the
    strike-aligned ``nms_oriented``), pruned to the certified density budget.
-4. Write a single-band float32 GeoTIFF, EPSG:32611, 100 m, 3730 x 3292, EVERY cell finite and in
-   [0, 1], NO nodata tag, and re-open the written bytes to gate every published requirement.
-5. Prove uniqueness against every reference artifact and against every previously published
-   GEMSDOE download in this repository by Jaccard/containment and by sha256.
+4. Write a single-band float32 GeoTIFF, EPSG:32611, 100 m, 3730 x 3292, with legal raw values,
+   no nodata tag and a self-contained internal mask matching the official footprint; re-open the
+   written bytes to gate every format check.
+5. Compare against local/restored rasters and the pinned public-repository audit. These bounded
+   screens can establish no match within their scope, never global uniqueness or score attribution.
 
 Run:  python3 scripts/build_submission_h49.py [--name NAME] [--note NOTE] [--dry-run]
 Out:  submission/<name>.tif, docs/downloads/<name>.tif, evidence/submission/bundle_h49.json,
@@ -85,17 +86,27 @@ def jaccard(a: np.ndarray, b: np.ndarray) -> float:
     return inter / union if union else 1.0
 
 
-def prior_rasters() -> list[Path]:
-    """Every GeoTIFF this repository has ever shipped or restored: the uniqueness population."""
+def prior_rasters(candidate_name: str | None = None) -> list[Path]:
+    """Local historical rasters, including restored references; exclude only this output's old copy."""
     out = []
-    for pat in ("data/reference/*.tif", "docs/downloads/*.tif", "docs/downloads/superseded/*.tif",
-                "submission/*.tif", "data/reference/**/*.tif"):
+    for pat in (
+        "data/reference/*.tif",
+        ".cache/gems_data/scored/*.tif",
+        ".cache/gems_data/reference/*.tif",
+        "docs/downloads/*.tif",
+        "docs/downloads/superseded/*.tif",
+        "submission/*.tif",
+        "data/reference/**/*.tif",
+    ):
         out.extend(sorted(ROOT.glob(pat)))
     seen, uniq = set(), []
-    for p in out:
-        if p.resolve() not in seen:
-            seen.add(p.resolve())
-            uniq.append(p)
+    output_filename = f"{candidate_name}.tif" if candidate_name else None
+    for path in out:
+        if output_filename and path.name == output_filename and path.parent in {SUB, DL}:
+            continue
+        if path.resolve() not in seen:
+            seen.add(path.resolve())
+            uniq.append(path)
     return uniq
 
 
@@ -108,6 +119,7 @@ def main() -> int:
     ap.add_argument("--note", default="")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
+    name = re.sub(r"[^A-Za-z0-9._-]", "-", args.name)
     t0 = time.time()
     for d in (SUB, DL, EVS):
         d.mkdir(parents=True, exist_ok=True)
@@ -123,17 +135,24 @@ def main() -> int:
     emitter = chosen["emitter"]
     rec_name = chosen["recipe"]
     if "preregistered_selection" in sel:
-        print(f"[frozen] preregistered-rule arm was {sel['preregistered_selection']['recipe']}/"
-              f"{sel['preregistered_selection']['emitter']}/{sel['preregistered_selection']['op']} "
-              f"(certified floor {sel['certificate_of_the_preregistered_arm']['primary']['certified_floor']:.5f} "
-              "on Instrument B); see the certificate for why the shipped arm differs")
-    print(f"[frozen] recipe={rec_name} emitter={emitter} spacing={min_dist} px "
+        print(f"[rule-note] addendum-described floor-rule arm: "
+              f"{sel['preregistered_selection']['recipe']}/{sel['preregistered_selection']['emitter']}/"
+              f"{sel['preregistered_selection']['op']} (nominal fixed-arm floor "
+              f"{sel['certificate_of_the_preregistered_arm']['primary']['certified_floor']:.5f} "
+              "on Instrument B; prospective timing is not independently verifiable)")
+    print(f"[research-selection] recipe={rec_name} emitter={emitter} spacing={min_dist} px "
           f"density={density}/1000 flank_b={flank_b} px")
 
     g = Grid(DATA)
-    valid = (np.load(DATA / "surfaces" / "valid.npy")
-             if (DATA / "surfaces" / "valid.npy").is_file()
-             else np.load(ROOT / ".cache" / "h49" / "valid.npy"))
+    valid_candidates = (DATA / "surfaces" / "valid.npy",
+                        ROOT / "data" / "surfaces" / "valid.npy",
+                        ROOT / ".cache" / "h49" / "valid.npy")
+    valid_path = next((path for path in valid_candidates if path.is_file()), None)
+    valid = np.load(valid_path) if valid_path is not None else g.all_bands_finite()
+    if valid_path is None:
+        print("[grid] valid.npy cache absent; derived all-19-bands-finite mask from restored data")
+    else:
+        print(f"[grid] valid.npy cache: {valid_path.relative_to(ROOT)}")
     sw = _load_sweep_module()
     recipe = next(r for r in sw.recipes(quick=False) if r.name == rec_name)
     bands = Bands(DATA / "training_features.tif")
@@ -169,7 +188,7 @@ def main() -> int:
 
     # ---- uniqueness: every prior raster in the repository, and the on-disk downloads directory
     uniq = []
-    for rp in prior_rasters():
+    for rp in prior_rasters(name):
         try:
             with rasterio.open(rp) as ds:
                 other = ds.read(1)
@@ -196,13 +215,13 @@ def main() -> int:
     print(f"[unique] {len(compared)} prior rasters compared; max Jaccard {max_j:.6f} "
           f"({worst.get('file')}); max containment {max_c:.6f}")
 
-    name = re.sub(r"[^A-Za-z0-9._-]", "-", args.name)
     out_paths = [SUB / f"{name}.tif", DL / f"{name}.tif"]
     receipts = []
     if not args.dry_run:
         for op in out_paths:
-            w = write_submission(values, op, mode="zeros", footprint=np.ones(values.shape, bool))
+            w = write_submission(values, op, mode="zeros", footprint=g.footprint)
             rc = validate_submission(op, footprint=g.footprint, catalogue=g.catalogue)
+            rc.path = op.relative_to(ROOT).as_posix()
             receipts.append(rc)
             receipt_json(rc, EVS / f"checks-h49-{name}.json")
             print(f"[write] {op.relative_to(ROOT)}  {w['bytes']} bytes  "
@@ -215,9 +234,9 @@ def main() -> int:
     floor = cert["certified_floor"]
     note = args.note
     if not note:
-        note = (f"Signed-polarity scarp field; {n_emitted:,} dots, {min_dist:g}px/{min_dist * 100:.0f}m "
-                f"spacing, {flank_b * 100:.0f}m off known-fault flanks; spacing certified by split "
-                f"conformal, {cert['confidence_pct']:.0f}% floor {floor:.4f}.")
+        note = (f"H49 polarity-scarp field; {n_emitted:,} dots, {min_dist:g}px spacing. Nominal "
+                f"{cert['confidence_pct']:.0f}% Instrument-B split-conformal floor {floor:.4f}; "
+                "post-hoc rule provenance and exchangeability caveats apply.")
     assert len(note) <= 200, f"Note must be <= 200 characters, got {len(note)}"
     rc = receipts[0] if receipts else None
 
@@ -256,10 +275,11 @@ def main() -> int:
             repeated_split_of_the_shipped_rule=sel["repeated_split_robustness"],
             evidence=sel["sweeps"]["b"]["path"], selection_file=str(
                 Path(args.selection).relative_to(ROOT)),
-            claim=("a fresh 8x8 spatial holdout block of the same instrument scores DTI >= the "
-                   "quoted floor with probability at least confidence_pct, conditional on the "
-                   "shipped arm; blocks are assumed exchangeable, an assumption the file audits "
-                   "but cannot prove"),
+            claim=("nominal one-sided split-conformal order-statistic diagnostic for a fresh 8x8 "
+                   "Instrument-B block, conditional on a rule fixed independently of calibration "
+                   "outcomes and on block exchangeability; the shipped mean-rule arm was an "
+                   "after-results amendment, so this is not a guarantee for the complete adaptive "
+                   "selection procedure or for private labels"),
         ),
         format_receipt=rc.to_dict() if rc else None,
         uniqueness=dict(n_prior_rasters_compared=len(compared),

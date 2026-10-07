@@ -98,6 +98,7 @@ def _compare_local_prior_artifacts(
     candidate_mask: np.ndarray,
     footprint: np.ndarray,
     budget: int,
+    candidate_sha256: str,
 ) -> dict[str, Any]:
     data_dir = ROOT / ".cache" / "gems_data"
     candidate_paths = {
@@ -131,12 +132,21 @@ def _compare_local_prior_artifacts(
                 ),
             })
     rows: list[dict[str, Any]] = []
+    same_candidate_copies: list[dict[str, str]] = []
     for path in sorted(candidate_paths):
         if path.resolve() == candidate_realpath:
             continue
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if digest == candidate_sha256:
+            same_candidate_copies.append({
+                "path": str(path.relative_to(ROOT)),
+                "sha256": digest,
+                "reason": "byte-identical copy of the candidate; not an independent prior artifact",
+            })
+            continue
         row: dict[str, Any] = {
             "path": str(path.relative_to(ROOT)),
-            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            "sha256": digest,
         }
         try:
             with rasterio.open(path) as ds:
@@ -166,9 +176,11 @@ def _compare_local_prior_artifacts(
     return {
         "scope": (
             "prior TIFFs present in docs/downloads and the restored .cache/gems_data/scored and "
-            "reference directories at audit time; the paired same-mask all-finite diagnostic encoding "
-            "is excluded when auditing the NaN-outside primary; not a global or complete inventory"
+            "reference directories at audit time; byte-identical copies of the candidate are excluded; "
+            "the paired same-mask all-finite diagnostic encoding is excluded when auditing the "
+            "NaN-outside primary; not a global or complete inventory"
         ),
+        "same_candidate_copies_excluded": same_candidate_copies,
         "excluded_related_variants": excluded_related_variants,
         "artifacts_attempted": len(rows),
         "exact_grid_comparisons": len(comparable),
@@ -229,7 +241,7 @@ def run(candidate_path: Path, output_path: Path) -> dict[str, Any]:
     budget = int(candidate_positive.sum())
     candidate_mask = candidate_positive & footprint
     local_prior_artifact_comparison = _compare_local_prior_artifacts(
-        candidate_path, candidate_grid, candidate_mask, footprint, budget
+        candidate_path, candidate_grid, candidate_mask, footprint, budget, candidate_sha256
     )
     expected_grid = candidate_grid
     blob_records = [row for row in inventory["files"]
@@ -308,7 +320,7 @@ def run(candidate_path: Path, output_path: Path) -> dict[str, Any]:
 
     audit = {
         "schema_version": 1,
-        "title": "H47-B single-scale d=5 local and visible-artifact uniqueness audit",
+        "title": f"{candidate_path.stem} local and visible-artifact uniqueness audit",
         "candidate": {
             "path": str(candidate_path.relative_to(ROOT)),
             "sha256": candidate_sha256,

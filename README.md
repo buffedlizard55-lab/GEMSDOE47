@@ -1,4 +1,4 @@
-# GEMSDOE47 — a certified artifact, and the honest limits of its evidence
+# GEMSDOE47 — a research TIFF, with the promotion gate closed
 
 > **Re-read the standing brief (immediately below) at the start of every work session.**
 > **Maximize P(Win)**: never spend a weekly slot on an idea that has not beaten the holdout.
@@ -84,8 +84,14 @@ because every decision in this repository is answerable to it.
    assumption-conditional result a distribution-free guarantee for private labels or a leaderboard
    score. Do not reuse the retired `0.34837` claim.
 4. **Valid output.** Read back the exact output bytes. Enforce a single-band GeoTIFF, official
-   grid/CRS/transform, allowed nodata footprint, finite in-footprint values in [0, 1], and an audit
-   receipt. A format pass does not establish scientific validity or organizer acceptance.
+grid/CRS/transform, allowed nodata footprint, finite in-footprint values in [0, 1], and an audit
+receipt. A format pass does not establish scientific validity or organizer acceptance.
+
+### Active follow-up brief — re-read every session
+
+Review this repository and continue toward a **valid, genuinely distinct, easy-to-download TIFF**; do not use an earlier submission as the deliverable. Assess the H33 score explanation and newer H49 evidence honestly. Retain 3–5 ranked geological hypotheses with their layers, targeted physical signature, why each may reveal uncatalogued faults, novelty versus prior work, expected effect and implementation cost. Verify free official data access before depending on new data. Use spatially blocked holdout validation and split conformal on the spacing/DTI sweep; state the confidence beside the selected spacing, the exchangeability unit, target and assumptions. Do not claim an unconditional guarantee or infer a leaderboard score. Do not spend a weekly submission slot on a candidate that has not beaten the spatial-holdout best under a defensible, prospective rule. Preserve the obvious top-level website download, executive submission steps, research/source records, and a three-pass review (implement/verify; review/fix; re-check against the brief). Keep **Maximize P(Win)** and **Own the Outcome** central. Put this full available brief in `README.md` and re-read it at the start of each work session. Verify claims against trusted sources, link them, flag irregularities, and report remaining work and limitations. Reconcile the stale working branch with current `main`, then create and merge a PR. Do not claim organizer score or acceptance without a receipt.
+
+**Active evidence corrections and gate rules:** a public mask relationship is not an organizer score receipt; a nominal fixed-arm conformal floor is not a guarantee for an adaptive pipeline; re-splits that reuse blocks are diagnostics, not new samples; file-format validity, scientific validity, uniqueness scope and organizer acceptance are separate; a negative paired-improvement lower bound keeps the slot gate closed.
 
 ---
 
@@ -103,55 +109,43 @@ assertion. The saved official observation is 0.3774 at rank 1.
 
 ---
 
-## 1. Current artifact — one-click download first
+## 1. Current research artifact — one-click download first
 
-*(Sections 0–2 are the live state. Everything after them is preserved history and receipts: read it before
-changing a number, but do not treat it as current.)*
+*(Sections 0–2 are the current decision and artifact state. Later sections preserve history; recheck dates and receipts before treating them as current.)*
 
-**[Download `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif`](docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif)** ·
+**[⬇ Download `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif`](docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif)** ·
 [single-TIFF ZIP](docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.zip) ·
-[notebook-style evidence page](docs/H49_RESULTS.html) ·
-[executive summary and exact submission sequence](docs/executive-summary.html) ·
+[current format / gate receipt](docs/data/current-artifact.json) ·
+[pinned public-inventory audit](docs/data/pinned-public-inventory-uniqueness.json) ·
+[H49 results and limitations](docs/H49_RESULTS.html) ·
+[executive summary and exact future upload steps](docs/executive-summary.html) ·
 [GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
 
-**Gate PASSED on the blocked holdout · UNSCORED · no leaderboard score is claimed and no slot has been spent.**
+> **RESEARCH ONLY · PROMOTION GATE CLOSED · UNSCORED.** The file is available for review and download, but it did **not** beat the incumbent under the predeclared paired-improvement criterion. Do **not** spend a weekly submission slot on it. No organizer upload, score, or acceptance receipt exists.
 
-- Filename: `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` · 316,629 bytes · 37,612 unit dots.
-- TIFF SHA-256: `a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b` (byte-identical in
-  `submission/` and `docs/downloads/`; the ZIP holds exactly that one member).
-- Full grid 3292 × 3730, EPSG:32611, 100 m, one float32 band, every one of the 12,279,160 cells finite
-  and in [0,1], no `nodata` tag, values exactly {0, 1}. 15/15 read-back checks pass.
-- Field: `R7_scarp9_polarity` (five terms incl. the signed `polarity` step) · emitter: isotropic disk NMS ·
-  operating point 2.8 px / 280 m, 7.37 dots per 1,000 scored pixels, 300 m off known-fault flanks.
-- **Split conformal (Lei, G'Sell, Rinaldo, Tibshirani & Wasserman, JASA 2018), quoted beside the spacing:**
-  90 % guaranteed floor **0.03184** mean block DTI for a fresh 8×8 block on Instrument B (SGMC faults
-  > 300 m from the given catalogue; 19 calibration blocks, order statistic k = 18), 0.01828 corroborating
-  on PM0200, LOO worst floor 0.01793, and 400 independent re-splits audited (floor p05 0.01793, mean
-  violation 0.0807 against a nominal 0.10).
-- Observed on the same blocks: selection-half mean block DTI **0.10329** vs **0.07108** for the frozen
-  0.2778 artifact and **0.05750** for a mass-matched random mask.
-- Bounded uniqueness: compared with 16 prior artifacts — max Jaccard 0.2926, max containment 0.4527,
-  both against our own `gemsdoe47-scarp9-persistence-s2.8-d7.37-b2` (same family, different field and
-  operating point). Not global uniqueness, not proof of discovery.
+- Filename / submission name: `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` / `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3` · **409,124 bytes** · **37,612** positive unit dots.
+- TIFF SHA-256: `f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060`; byte-identical at `submission/` and `docs/downloads/`. The **255,252-byte ZIP** contains exactly that one TIFF.
+- Read-back format status: one float32 band, 3292 × 3730, EPSG:32611, 100 m and exact affine transform; the internal mask equals the official 5,167,373-cell footprint and masked reads are null exactly outside. All 12,279,160 raw cells are finite in [0,1], no nodata tag or sidecar, 37,612 positives. **All 19 gating checks pass**; the separate informational whole-grid range-guarantee flag is also true. This validates these bytes' format only.
+- Field / operating point: `R7_scarp9_polarity` · isotropic disk emitter · spacing **2.8 px / 280 m** · **7.37** dots per 1,000 scored pixels · 300 m catalogue-flank buffer. Portal note (168/200 characters): “H49 polarity-scarp field; 37,612 dots, 2.8px spacing. Nominal 90% Instrument-B split-conformal floor 0.0318; post-hoc rule provenance and exchangeability caveats apply.”
+- Split-conformal statement beside the spacing: nominal **90% fixed-arm** lower statistic **0.03184** on Instrument B; calibration unit = one 8×8 spatial block, n = 19, order statistic k = 18. The public target is block DTI on USGS SGMC traces >300 m from the given catalogue. Validity assumes exchangeable blocks and an arm fixed independently of calibration outcomes. SGMC includes non-fault contacts, geological-block exchangeability is unverified, and this rule was amended after results; therefore this is a **conditional diagnostic, not a guarantee for the full adaptive procedure, paired improvement, private labels, or leaderboard score**. PM0200 corroborating nominal floor: 0.01828.
+- Bounded uniqueness: the pinned inventory covers **54 visible public repositories**, with **555 comparable inventory blobs plus 10 local-history rasters** (565 comparisons), **zero exact mask/value matches**, and maximum Jaccard **0.292575** against the prior GEMSDOE47 H49 raster; local maximum containment is 0.452701. Three inventory entries were not directly comparable (two were not single-band exact-grid rasters; one ZIP did not contain a single TIFF); zero repository inventories failed. **Not global uniqueness**: inaccessible, unpublished, and non-inventoried work is out of scope.
 
-## 2. What was learned, including what failed
+## 2. What the H33 and H49 evidence does—and does not—say
 
-| Round | Headline result | Status |
-|---|---|---|
-| H49-A strike-aligned emission | loses to the isotropic disk on the paired block tests (oriented4 − disk: −0.0186 selection, −0.0076 calibration) | refuted, published |
-| H49-B signed-polarity field | changes which arm ships under the mean rule | shipped as part of the artifact |
-| Preregistered floor rule | its full-data pick (`R2_scarp9_topo / oriented4 / s3.6_d14_b2`) survives only 2.5 % of 400 re-splits; the mean-rule amendment is measured, not asserted | amended and documented |
-| H47-C1 profile detector | pooled DTI 0.177872 < baseline 0.180216; 11/22 blocks improve (15 required); floor 0.0 | research-only, not promoted |
-| H47-QC geothermometer | pooled DTI 0.0131689 < geochemistry-only ablation 0.0141948 | research-only, not promoted |
+### H33 score attribution
 
-Earlier screens keep their own receipts and downloads and are labelled research-only; the H49 file above
-is the only artifact whose operating point passed the blocked-holdout gate. The rows above are measured
-on local public-proxy instruments, which are *not* the organizer's hidden labels — see
-[the limitations](docs/irregularities.html) and [H49 results](docs/H49_RESULTS.md). **0.3195 (user target) and
-0.3774 (saved #1) remain unpassed**, and no organizer score exists for any artifact here.
+The H33 zero-outside mask (37,654 positive pixels) is a strict subset of the 40,199-positive H27 parent: 2,545 parent-only pixels, all within 2 pixels of the given catalogue. The exact mask relation is verified against pinned files. The score attribution is not: the public board's 0.2778 row is not mapped by an organizer receipt to the H33 TIFF hash, and the pinned H33 owner README calls the file **UNSCORED** while describing 0.2747 as a projection. The earlier 0.2708 label is likewise not tied to the exact parent bytes.
 
----
+At a hypothetical DTI of 0.2778, the metric's marginal-credit bar is 0.2 × 0.2778 = 0.05556. That algebra is exact; it does not reveal the hidden-fault credit of the removed pixels. Catalogue pixels are excluded, but there is no automatic buffer that makes nearby dots penalty-free. Reduced off-target mass is a plausible mechanism, not a demonstrated causal explanation for an authenticated H33 score. See [`knowledge/05`](knowledge/05_why_02778_and_can_we_beat_it.md) and [`docs/RESULTS.md`](docs/RESULTS.html).
 
+### H49 public-proxy evidence and closed gate
+
+- H49-A (strike-aligned emitter minus disk) has mean paired DTI differences **−0.01856** on selection and **−0.00761** on calibration; it does not support the oriented emitter.
+- H49-B (R7 polarity field minus R2 topographic field) has positive sample means, **+0.006423** and **+0.002483**, but its 90% split-conformal lower bounds are **−0.00941** and **−0.01621**. These proxy results do not establish a robust geological improvement.
+- Against the H33-labelled reference, the shipped arm's paired mean differences are +0.03221 (selection) and +0.03890 (calibration), but its corresponding 90% paired-difference lower bounds are **−0.03342** and **−0.01050**. The saved floor-rule arm also has negative paired lower bounds. A positive sample mean or an absolute DTI floor is not proof of improvement over the incumbent.
+- The 400 re-partitions reuse the same 39 spatial blocks; they are sensitivity diagnostics, not new independent samples. The final mean-maximizing rule is a post-results amendment whose prospective timing is not independently auditable from Git history. **The promotion gate remains closed; do not upload this TIFF.**
+
+Full per-arm values and assumptions are in [`docs/H49_RESULTS.html`](docs/H49_RESULTS.html), machine-readable evidence in `evidence/h49/`, and the ranked forward queue in [`docs/RESEARCH_HYPOTHESES.md`](docs/RESEARCH_HYPOTHESES.html). Earlier H47-C1 and H47-QC remain research-only negative screens, not replacements for this candidate.
 
 ## Preregistration, correction and review
 
@@ -182,18 +176,24 @@ python3 -m venv .venv
 .venv/bin/pip install -r requirements-dev.txt -r requirements-research-lock.txt
 .venv/bin/python scripts/restore_data.py --group all
 PYTHONPATH=src .venv/bin/python scripts/verify_grid.py
-PYTHONPATH=src .venv/bin/python scripts/run_profile_experiment.py
-PYTHONPATH=src .venv/bin/python scripts/build_profile_submission.py
-.venv/bin/python scripts/audit_prior_artifacts.py --candidate docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif
-.venv/bin/python scripts/publish_research_site.py
-PYTHONPATH=src .venv/bin/python -m pytest tests -q
+.venv/bin/python scripts/build_surfaces.py
+.venv/bin/python scripts/run_sweep_h49.py
+.venv/bin/python scripts/run_sweep_h49b.py
+.venv/bin/python scripts/certify_h49.py
+.venv/bin/python scripts/build_submission_h49.py
+.venv/bin/python scripts/audit_prior_artifacts.py --candidate docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif
+.venv/bin/python scripts/publish_h49.py
+.venv/bin/python scripts/report_h49.py
+.venv/bin/python scripts/update_site_h49.py
+.venv/bin/python -m pytest tests -q
 .venv/bin/python -m ruff check .
 ```
 
 **23/23 files / ~507 MB restored and verified** by digest **and byte size**. Large arrays, model weights,
 raw archives and caches stay ignored. Reproducible pins establish mirror identity, not authenticated
-DrivenData provenance. Source recipes and exact numerical/parser versions are saved. The fixed screen
-runs in about four minutes on 2 CPU cores; scratch feature/model arrays are under 1 GB per content key.
+DrivenData provenance. Source recipes and exact numerical/parser versions are saved. The older H47-C1
+fixed screen ran in about four minutes on 2 CPU cores; do not treat that runtime as a measurement of
+H49. Scratch feature/model arrays are under 1 GB per content key.
 
 CI collects **all non-data pytest tests**, including physical mechanisms, block label isolation,
 finite conformal ranks, exact selected-choice regression, source-policy/failure handling and actual
@@ -221,23 +221,11 @@ new TIFF/ZIP bytes. Restored-grid tests are run locally; they are explicitly mar
 
 ## What to do next
 
-1. **Spend the slot or improve the arm?** The H49 operating point is the first artifact here that has
-   passed a blocked-holdout gate (90 % floor 0.03184 on Instrument B), but Instrument B is a public
-   proxy, so an organizer upload is still the only way to learn the truth. No upload has been made.
-2. An upload requires a DrivenData account: sign in, open competition 306, Submissions, upload
-   `docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif`, paste the name and the 146-char
-   note from [the submission guide](docs/executive-summary.html), and **keep the organizer receipt**.
-3. Never re-label an earlier screen as promoted: H47-C1 (0.177872 < 0.180216), H47-QC and H47-B stay
-   research-only and keep their own receipts.
-4. Next research step should target the two open gaps rather than a new transform family: (a) an
-   instrument that does not reward non-fault SGMC contacts (the known optimism in Instrument B), and
-   (b) a same-mass pooled/fold-level win over the shipped arm that survives the paired test, before
-   any new artifact is allowed to displace it. Run `scripts/analyze_h49.py --md docs/H49_EVIDENCE.md`
-   for the per-arm tables this decision needs.
-5. Known limits, unchanged: 1 m lidar tiles are still not obtained (quantized 100 m descriptors are not
-   raw lidar), band 6 `tc` / band 15 depth metadata remain disputed, exchangeability of geological
-   blocks is assumed and unverified, and the phrase "0.3195 current leaderboard top" is the user's
-   original target — the saved official observation is 0.3774 at rank 1.
+1. **Keep the slot closed.** H49 has a format-valid TIFF and a positive descriptive proxy mean, but its 90% paired-difference split-conformal lower bounds versus the H33-labelled incumbent are negative. The post-results selection rule is not prospectively auditable. Do not submit the current file.
+2. Use a genuinely new spatially blocked evaluation or otherwise defensible independent holdout. Before scoring, preregister the physical hypothesis, arms, selection rule, split, matched-mass/shifted controls, paired-improvement criterion, confidence level and stopping rules. Do not count 400 re-partitions of the same 39 blocks as new samples.
+3. Continue from the four ranked, conditional hypotheses in [`docs/RESEARCH_HYPOTHESES.md`](docs/RESEARCH_HYPOTHESES.html): H49-E basement-depth/gravity edges, H49-C basin asymmetry, H49-D relay ramps, and H50 LiDAR only after the official files, coverage and bytes are actually obtainable. H50 is not fetchable in this sandbox and is not a current dependency.
+4. Only if a candidate beats the incumbent on the preregistered spatial holdout, controls pass, the exact TIFF validates, and bounded uniqueness is checked should a slot be reconsidered. Upload then requires an authorized DrivenData account and retention of the organizer receipt; none exists now. Use [`docs/executive-summary.html`](docs/executive-summary.html) for the future step sequence, not as permission to upload H49.
+5. Limits: the 1 m LiDAR inputs remain unobtained; band 6 `tc` / band 15 depth metadata remain disputed; geological-block exchangeability is assumed and unverified; SGMC includes non-fault contacts; the official target data are private. The phrase “0.3195 current leaderboard top” is the user's original target, not a current-board assertion; the saved official observation is 0.3774 at rank 1.
 
 [Current next-session handoff](docs/next-session.md) · [Reusable knowledge](docs/knowledge.html) ·
 [Historical pre-C1 README (explicitly superseded)](docs/research/readme-preC1-20261006.md)

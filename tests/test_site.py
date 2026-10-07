@@ -5,7 +5,7 @@ from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT_TIF = "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
-ARTIFACT_SHA256 = "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b"
+ARTIFACT_SHA256 = "f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060"
 PRIOR_TIF = "downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
 PRIOR_SHA256 = "e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0"
 H47QC_TIF = "downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif"
@@ -100,7 +100,7 @@ class SiteTests(unittest.TestCase):
             self.assertTrue(parser.title_text, page.name)
             self.assertEqual(parser.descriptions, 1, page.name)
 
-    def test_homepage_offers_the_certified_artifact_and_labels_prior_screens(self):
+    def test_homepage_offers_the_research_only_artifact_and_labels_prior_screens(self):
         text = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         parser = _PageParser()
         parser.feed(text)
@@ -111,7 +111,7 @@ class SiteTests(unittest.TestCase):
         self.assertGreater(target.stat().st_size, 100_000)
         import hashlib
         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), ARTIFACT_SHA256)
-        # the certified artifact is offered before either superseded screen
+        # the current research artifact is offered before either historical screen
         self.assertLess(text.index(ARTIFACT_TIF), text.index(PRIOR_TIF))
         self.assertLess(text.index(ARTIFACT_TIF), text.index(H47QC_TIF))
         for path, sha in ((ROOT / "docs" / PRIOR_TIF, PRIOR_SHA256),
@@ -124,8 +124,12 @@ class SiteTests(unittest.TestCase):
         self.assertIn("do not upload", lower)
         self.assertIn("no slot spent", lower)
         self.assertIn(ARTIFACT_SHA256, text)
-        self.assertIn("0.10329", text, "certified selection mean is visible")
-        self.assertIn("0.03184", text, "certified floor is visible")
+        self.assertIn("data/pinned-public-inventory-uniqueness.json", text)
+        self.assertIn("not globally unique", lower)
+        self.assertIn("0.10329", text, "descriptive selection-half proxy mean is visible")
+        self.assertIn("0.03184", text, "nominal fixed-arm floor is visible")
+        self.assertIn("promotion gate closed", lower)
+        self.assertIn("negative", lower, "the paired-improvement limitation is visible")
         self.assertIn("90%", text, "the conformal confidence level is visible")
         # the superseded screens keep their own, correctly-labelled numbers
         self.assertIn("0.177872", text, "prior screen pooled score is visible")
@@ -139,7 +143,7 @@ class SiteTests(unittest.TestCase):
                      ROOT / "docs" / "portal-checklist.html"):
             text = path.read_text(encoding="utf-8").lower()
             self.assertIn("split-conformal", text, path.name)
-            self.assertIn("90 %", text, path.name)
+            self.assertIn("90%", text, path.name)
             self.assertIn("unscored", text, path.name)
             self.assertIn("three-scoring-submissions-per-week", text, path.name)
             self.assertIn("no score claimed", text, path.name)

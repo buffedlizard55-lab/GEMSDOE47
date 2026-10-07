@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ranked H49 follow-up hypotheses — GEMSDOE47</title>
+<meta name="description" content="Four ranked geological follow-up hypotheses, their layers and physical signatures, novelty, qualitative effect and cost, official data-access status, and holdout/conformal promotion gates.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">RESEARCH RECORD</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-07 13:12 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — submission</a>
+    <a href="HOW_TO_SUBMIT.html">How to submit — future candidate</a>
+    <a href="RESULTS.html">Results and score-attribution correction</a>
+    <a href="H49_RESULTS.html">H49 results</a>
+    <a class="on" href="RESEARCH_HYPOTHESES.html">Ranked H49 follow-up hypotheses</a>
+    <a href="why-02778.html">Why 0.2778</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base and sources</a>
+    <a href="REMAINING_WORK.html">Remaining work and limitations</a>
+    <a href="COMPLIANCE.html">Compliance and review</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="ranked-geological-hypothesis-queue-evidence-novelty-data-and-cost">Ranked geological hypothesis queue — evidence, novelty, data and cost</h1>
+<blockquote>
+<p><strong>Status: research queue only. No hypothesis here is authorized for a competition submission slot.</strong> The H49-B addendum and sweep evidence first appear in the same Git commit, so prospective timing cannot be independently audited. The H49-B label below means a documented hypothesis, not a verified preregistration. A public-proxy mean is not an organizer score.</p>
+</blockquote>
+<h2 id="scope-and-ranking-rule">Scope and ranking rule</h2>
+<p>The four future candidates below use the supplied feature stack wherever possible. They target mapped-fault gaps through different physical signatures, not through an unqualified claim that a public proxy equals the hidden labels. Rank is an <strong>ordinal expected gain-per-engineering-cost judgment</strong> based on novelty, data availability, and confounder risk. There is no defensible numeric ΔDTI forecast before spatial holdout testing, so none is invented. A candidate advances only if a preregistered rule beats the current spatial-holdout best, with matched-mass controls and a positive 90% paired-difference lower criterion; ties, unstable folds, or a zero/unsupported lower floor keep the gate closed.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Rank</th>
+<th>Hypothesis</th>
+<th>Data / physical signature</th>
+<th>Why it could expose uncatalogued faults</th>
+<th>Novelty vs prior work</th>
+<th>Expected effect / implementation cost</th>
+<th>Data access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>1</strong></td>
+<td><strong>H49-E — basement-edge ridge aligned to surface structure</strong></td>
+<td><code>depth_to_base_surf</code> (band 15), <code>iso_grav_anom_hg</code> (band 18), and <code>det_elev_slope</code> (band 19). Extract oriented horizontal-gradient ridges in basement-depth / gravity fields; require a spatially coherent orientation consistent with any local surface step, but do not require a surface scarp.</td>
+<td>A buried basin fault may offset basement beneath alluvial cover, leaving no crisp topographic scarp while generating a subsurface-density/depth edge. Such a feature may be absent from a surface-mapped trace catalogue.</td>
+<td>Existing recipes use band 15 mainly as a smooth regional veto; the old stack has not promoted an oriented basement-depth edge as a positive locator. This is distinct from H49-B's local signed step.</td>
+<td><strong>Low-to-moderate potential; medium cost.</strong> Main risk: the band-15 meaning is disputed and interpolation streaks may masquerade as edges. Must test with equal-mass random and shifted controls.</td>
+<td>Uses existing hash-restored official feature-stack layers; no new external file required. Provenance is the GDR/INGENIOUS record in <code>knowledge/03</code> and <code>knowledge/04</code>.</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>2</strong></td>
+<td><strong>H49-C — long-wavelength half-graben asymmetry</strong></td>
+<td><code>det_elev</code> (band 12), <code>iso_grav_anom</code> (band 13), with <code>geod_2ndinv</code> (band 9) only as a broad regional context. At a candidate line, compare paired means on opposite sides 1.5–3 km away; test a persistent one-sided basin/footwall contrast rather than local gradient magnitude.</td>
+<td>Erosion can soften a fault scarp, but a normal-fault basin may preserve asymmetric footwall relief or a one-sided gravity contrast at a longer wavelength. The signature can persist where the mapped line itself is incomplete.</td>
+<td>Prior scarp and H49-B fields use local cross-strike steps; regional gates use broad scalar ranks. This tests a signed, side-to-side basin geometry around a candidate structure, not a pixelwise edge.</td>
+<td><strong>Low-to-moderate potential; medium-high cost.</strong> High confounding from non-tectonic basin shape, drainage, and regional lithology. Require negative controls on matched non-fault basin edges.</td>
+<td>Existing feature-stack layers only; no new external data.</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>3</strong></td>
+<td><strong>H49-D — relay-ramp / stepover connector</strong></td>
+<td>Existing scarp-step/polarity field from <code>det_elev_slope</code>/<code>det_elev</code>; optionally <code>tmi_vg</code> as independent structural corroboration. Segment the field into along-strike ridge pieces, then search for en-echelon pairs with overlap and a 1–4 km lateral step; score the connecting ramp, not the already mapped segments.</td>
+<td>Short transfer or relay faults may connect larger mapped faults yet be omitted as separate traces at compilation scale. A ramp can be a structural pathway and can expose a fault segment not represented in the catalogue.</td>
+<td>Prior tip-growth work extends individual trace ends; this tests paired segment geometry and the gap between them. It is not simply another lineament-strength filter.</td>
+<td><strong>Moderate upside, high variance; high cost.</strong> Skeletonization, segment pairing and false-link controls are substantial. Candidate rules and distances must be frozen before evaluation.</td>
+<td>Uses existing feature-stack fields and catalogue only for the declared masking/control roles; no new external data.</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>4</strong></td>
+<td><strong>H50 — 1 m LiDAR scarp refinement</strong> <em>(blocked here)</em></td>
+<td>Public 1 m DEM / LiDAR point data from USGS 3DEP and GeoDAWN EarthMRI; detect low-throw, laterally persistent scarps with a scale-appropriate detrended-elevation slope/step filter and map at the competition grid only after validation.</td>
+<td>Small-throw faults and subtle scarps can be smoothed out of the current 100 m stack and omitted from small-scale compilations; high-resolution terrain may expose those missing traces.</td>
+<td>This is a resolution upgrade and remeasurement of scarp morphology, not a new transform on the existing 100 m cells. It differs from H49-E/C/D in requiring source elevation data absent from the present feature stack.</td>
+<td><strong>Potentially high upside, high cost and high coverage risk.</strong> Expected effect is unknown until coverage and label overlap are tested; no score is forecast.</td>
+<td>The official source is free/official in the USGS 3DEP / GeoDAWN EarthMRI product records (<a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP</a>, <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a>, <a href="https://data.openei.org/search?q=Nevada">OEDI Nevada search</a>). The source exists, but these hosts are not fetchable in the current sandbox (<code>knowledge/04</code>: <code>EXISTS</code>, <strong>not <code>FETCHABLE-HERE</code></strong>). This is not a viable dependency until the exact files, footprint coverage, license and bytes are verified in the next environment.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="evaluated-h49-hypotheses-reported-separately-from-the-future-queue">Evaluated H49 hypotheses (reported separately from the future queue)</h2>
+<h3 id="h49-b-signed-polarity-scarp-coherence-promising-proxy-mean-not-validated">H49-B — signed-polarity scarp coherence: promising proxy mean, not validated</h3>
+<ul>
+<li><strong>Layers:</strong> <code>det_elev</code> and <code>det_elev_slope</code>; signed across-strike relief at more than one width, with along-strike persistence.</li>
+<li><strong>Targeted signature:</strong> a consistent up/down polarity along a fault scarp; symmetric terrace, fan or stream edges should be less likely to retain the same sign over the length of a structural trace.</li>
+<li><strong>Why uncatalogued:</strong> subtle or eroded normal-fault scarps can be absent from the catalogue, while their relief polarity may remain. This is a physical hypothesis, not proof that the feature actually corresponds to a new fault.</li>
+<li><strong>Novelty:</strong> prior fields were predominantly unsigned gradient/curvature responses; H49-B adds sign consistency. Its result is distinct from H49-A's sampling geometry.</li>
+<li><strong>Observed H49-B comparison:</strong> at matched spacing/density, R7 polarity field minus the R2 topographic comparison field has mean DTI differences of +0.00642 on the 20-block selection half and +0.00248 on the 19-block calibration half. The R7 field wins 11/20 and 10/19 block pairs. Computed in the R7-minus-R2 direction, the 90% split-conformal lower bounds for a fresh paired block are <strong>−0.00941</strong> on selection and <strong>−0.01621</strong> on calibration. Both remain below zero, so the positive sample means do not establish improvement. These are public Instrument-B proxy results; SGMC includes lithologic contacts and other non-fault traces. This does <strong>not</strong> establish a robust geological improvement or a private score.</li>
+<li><strong>Cost/access:</strong> already implemented with existing layers. The experimental selection procedure was amended after seeing results; its full adaptive validity is not established. Keep slot gate closed.</li>
+</ul>
+<h3 id="h49-a-strike-aligned-sampling-geometry-useful-negative-result-not-counted-as-a-geology-discovery">H49-A — strike-aligned sampling geometry: useful negative result, not counted as a geology discovery</h3>
+<p>The oriented emitter was intended to move matched prediction mass along, rather than across, a lineament. At the tested operating point, oriented-minus-disk mean DTI was −0.01856 on selection and −0.00761 on calibration; it kept fewer blocks than disk (4/20 and 8/19 candidate wins). This does not support a promotion. It is an emission-method control, not a separate geological discovery.</p>
+<h2 id="validation-plan-before-any-future-submission-slot">Validation plan before any future submission slot</h2>
+<ol>
+<li>Restore/verify the exact official-grid features and record source hash, license and access status. Do not depend on an external layer until official free access and actual bytes are verified.</li>
+<li>State a single physical hypothesis and freeze its transform, candidate rule, mass budget, controls, split, metric and promotion thresholds <strong>before scoring</strong>. Keep the incumbent and a mass-matched randomized/shifted control in the same run.</li>
+<li>Use spatially contiguous holdout blocks and the entire official footprint contract; do not split neighboring pixels or reuse the same 39 H49 blocks as “new” validation. Record the exchangeability unit (spatial block), target population, sample count, confidence level and order statistic. Block exchangeability remains an assumption, not a proven geological fact.</li>
+<li>Compare paired block DTI to the spatial-holdout best. Report selection and calibration separately, the mean and distribution of paired differences, and a one-sided 90% split-conformal lower statistic. A positive absolute DTI floor is <strong>not</strong> proof of improvement over the incumbent.</li>
+<li>Only if the preregistered candidate beats the holdout best on the agreed criterion, controls pass, the exact TIFF/ZIP validates, and the bounded public-inventory uniqueness audit has no exact match may the candidate be reconsidered for a slot. Organizer acceptance and score remain unknown until an official receipt exists.</li>
+</ol>
+<h2 id="sources-and-data-records">Sources and data records</h2>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official competition target and metric</a> — target, evaluation kernel and output specification.</li>
+<li><a href="https://www.usgs.gov/3d-elevation-program">Official USGS 3DEP</a> and <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN EarthMRI release</a> — free-source records for H50; access here is blocked, so H50 is not depended upon.</li>
+<li><a href="https://gisweb.unr.edu/nbmg/rest/services/Geology/Faults/MapServer">NBMG faults service</a> — scale and positional limits of public mapping, to be verified before using as a causal explanation.</li>
+<li>Existing layer provenance and acquisition limitations: <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/03_geothermal_fault_discovery_research.md">knowledge/03</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/04_free_public_data_sources.md">knowledge/04</a>, and <a href="why-02778.html">the H33 score-attribution correction</a>.</li>
+<li>H49 sweep, certificate and paired results: <a href="H49_RESULTS.md"><code>H49_RESULTS.md</code></a>; this report is a research queue, not a score receipt or slot authorization.</li>
+</ul>
+</article>
+</div>
+</body>
+</html>

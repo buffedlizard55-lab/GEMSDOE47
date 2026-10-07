@@ -1,25 +1,25 @@
 {
  "schema_version": 1,
- "generated_utc": "2026-10-07T03:29:11Z",
+ "generated_utc": "2026-10-07T06:18:10Z",
  "file": "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
- "bytes": 316629,
- "sha256": "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b",
+ "bytes": 409124,
+ "sha256": "f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060",
  "submission_name": "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3",
- "portal_note": "Signed-polarity scarp field; 37,612 dots, 2.8px/280m spacing, 300m off known-fault flanks; spacing certified by split conformal, 90% floor 0.0318.",
- "portal_note_characters": 146,
+ "portal_note": "H49 polarity-scarp field; 37,612 dots, 2.8px spacing. Nominal 90% Instrument-B split-conformal floor 0.0318; post-hoc rule provenance and exchangeability caveats apply.",
+ "portal_note_characters": 168,
  "zip": {
   "file": "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.zip",
-  "bytes": 210996,
-  "sha256": "312bb0b6470459993b862b8ebafbf5eeb4f920a15ad8b2ce202bd9f9d4e4ceb4",
+  "bytes": 255252,
+  "sha256": "56f949dc0ca02375bbfd5e6182442affd89c01f7139601cab6839674a499e5bb",
   "members": [
    "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
   ],
   "single_geotiff_verified": true
  },
  "format_receipt": {
-  "path": "/home/user/GEMSDOE47/submission/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
-  "sha256": "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b",
-  "bytes": 316629,
+  "path": "docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+  "sha256": "f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060",
+  "bytes": 409124,
   "driver": "GTiff",
   "count": 1,
   "dtype": "float32",
@@ -42,11 +42,16 @@
    "dimensions_3730x3292": true,
    "crs_epsg_32611": true,
    "transform_exact": true,
+   "footprint_shape_matches_raster": true,
+   "mask_matches_footprint": true,
+   "masked_read_null_exactly_outside": true,
+   "self_contained_single_file": true,
    "in_footprint_all_finite": true,
    "in_footprint_zero_nan": true,
    "in_footprint_zero_inf": true,
    "in_footprint_zero_sentinel": true,
    "in_footprint_range_0_1": true,
+   "outside_samples_finite_or_nan_in_range": true,
    "every_cell_finite_or_nan_outside": true,
    "nodata_tag_not_out_of_range": true,
    "validator_range_0_1_guaranteed": true,
@@ -57,6 +62,8 @@
    "full_grid_cells": 12279160,
    "finite_cells": 12279160,
    "footprint_cells": 5167373,
+   "validity_mask_cells": 5167373,
+   "invalid_mask_cells": 7111787,
    "finite_in_footprint": 5167373,
    "min_in_footprint": 0.0,
    "max_in_footprint": 1.0,
@@ -141,10 +148,10 @@
   },
   "evidence": "/home/user/GEMSDOE47/evidence/sweep/sweep_h49b.json",
   "selection_file": "evidence/h49/conformal_certificate.json",
-  "claim": "a fresh 8x8 spatial holdout block of the same instrument scores DTI >= the quoted floor with probability at least confidence_pct, conditional on the shipped arm; blocks are assumed exchangeable, an assumption the file audits but cannot prove"
+  "claim": "nominal one-sided split-conformal order-statistic diagnostic for a fresh 8x8 Instrument-B block, conditional on a rule fixed independently of calibration outcomes and on block exchangeability; the shipped mean-rule arm was an after-results amendment, so this is not a guarantee for the complete adaptive selection procedure or for private labels"
  },
  "uniqueness": {
-  "n_prior_rasters_compared": 16,
+  "n_prior_rasters_compared": 17,
   "max_jaccard_vs_prior": 0.292575,
   "max_containment_vs_prior": 0.452701,
   "worst_jaccard_file": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
@@ -154,6 +161,14 @@
    "containment": 0.9
   },
   "per_prior": [
+   {
+    "file": ".cache/gems_data/reference/h33-2-b2-zeros.tif",
+    "other_positive_px": 37654,
+    "intersection": 542,
+    "jaccard": 0.007253,
+    "containment_of_other_in_ours": 0.014394,
+    "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9"
+   },
    {
     "file": "docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif",
     "other_positive_px": 37654,
