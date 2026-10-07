@@ -284,6 +284,112 @@ def nms_disk(field: np.ndarray, support: np.ndarray, min_dist: float) -> np.ndar
     return out
 
 
+_STRIKE_DIRS = ((1, 0), (0, 1), (1, 1), (1, -1))
+
+
+def strike_classes(theta: np.ndarray) -> np.ndarray:
+    """Quantise a strike direction to one of four classes, in the ``geomorph.orientation`` frame.
+
+    ``geomorph.orientation`` returns theta = 0.5*atan2(2*Jxy, Jxx - Jyy) computed with the row
+    derivative as y and the column derivative as x.  Measured on synthetic straight ridges in
+    ``tests/test_h49.py``: a north-south trace gives theta = 0, east-west pi/2, the y = x diagonal
+    -pi/4 and the y = -x diagonal +pi/4.  So the trace direction is ``(cos theta, -sin theta)`` in
+    (row, column) offsets, and the class weights below are exactly ``oriented_blur``'s.
+    """
+    cos2 = np.cos(2.0 * theta)
+    sin2 = np.sin(2.0 * theta)
+    w = np.stack([np.maximum(cos2, 0.0),         # (dy, dx) = (1, 0)  north-south
+                  np.maximum(-cos2, 0.0),        # (0, 1)            east-west
+                  np.maximum(-sin2, 0.0),        # (1, 1)            y = x diagonal
+                  np.maximum(sin2, 0.0)])        # (1, -1)           y = -x diagonal
+    return np.argmax(w, axis=0).astype(np.int8)
+
+
+def ellipse_footprint(along: float, across: float, dy: int, dx: int) -> np.ndarray:
+    """Boolean ellipse with semi-axes ``along`` (along (dy, dx)) and ``across`` (perpendicular),
+    in true pixel units, used as an ``ndimage`` footprint."""
+    r = int(np.ceil(max(along, across)))
+    yy, xx = np.mgrid[-r:r + 1, -r:r + 1]
+    nrm = float(np.hypot(dy, dx))
+    uy, ux = dy / nrm, dx / nrm
+    s = yy * uy + xx * ux
+    t = -yy * ux + xx * uy
+    return (s / max(along, 1e-6)) ** 2 + (t / max(across, 1e-6)) ** 2 <= 1.0 + 1e-9
+
+
+def _footprint_nms(f: np.ndarray, m: np.ndarray, fp: np.ndarray) -> np.ndarray:
+    """Pixels of ``m`` that are the maximum of their own ``fp``-neighbourhood, ties by raster index.
+
+    Same construction as ``nms_disk``: the maximum filter certifies the spacing, and the index
+    tie-break is what makes it exact when two equal values share one footprint.
+    """
+    fm = np.where(m, f, np.float32(-np.inf))
+    mx = ndi.maximum_filter(fm, footprint=fp, mode="constant", cval=-np.inf)
+    out = m & (fm >= mx)
+    tied = out & (mx == fm)
+    if int(tied.sum()) > 1:
+        big = np.int64(f.size) + 1
+        idx = np.arange(f.size, dtype=np.int64).reshape(f.shape)
+        keyed = np.where(tied, idx, big)
+        first = ndi.minimum_filter(keyed, footprint=fp, mode="constant", cval=big)
+        out = out & (idx == first)
+    return out
+
+
+def nms_oriented(field: np.ndarray, support: np.ndarray, along: float, across: float,
+                 theta: np.ndarray) -> np.ndarray:
+    """Field-ordered thinning with an ELLIPTICAL, strike-aligned exclusion zone (H49-A).
+
+    A pixel survives iff it is the maximum of its own ellipse of semi-axis ``along`` along the local
+    strike and ``across`` across it.  Two survivors can therefore never lie inside each other's
+    ellipse, so the spacing is enforced exactly (with a raster-index tie-break for equal values).
+
+    Why the axis assignment matters: the exclusion is a DISK for ``along == across`` (the incumbent
+    rule) and an ellipse elongated ACROSS the trace when ``across > along``.  A 1-D trace does not
+    need cross-strike sampling: the metric pays for the single best cover of a truth pixel, so a
+    second or third pixel sampled across the same ridge adds cost (0.2 per unit) and no credit.  Its
+    budget is better spent further along the trace, where the next dot can be the best cover of a
+    DIFFERENT truth pixel.  This is the emission analogue of ``oriented_blur`` -- that reshapes the
+    field, this reshapes the sampling geometry -- and every incumbent emitter in this repository and
+    in the score history (``nms_disk``, ``poisson_disk``, GEMSDOE10 ``dot_nms``, GEMSDOE32
+    ``dot_thin``) is isotropic.
+
+    Approximation, stated: each pixel is tested against the ellipse of ITS OWN orientation class, so
+    a neighbouring pixel of a different class (45 degrees away) is not counted as a blocker inside
+    the footprint.  Four classes therefore under-sample the corners; the effect is measured in
+    ``tests/test_h49.py`` as the difference between the oriented and isotropic survivor counts.
+    """
+    f = np.where(support, np.asarray(field, np.float32), np.float32(-np.inf))
+    cls = strike_classes(theta)
+    out = np.zeros(f.shape, bool)
+    for k, (dy, dx) in enumerate(_STRIKE_DIRS):
+        m = support & (cls == k)
+        if not m.any():
+            continue
+        out |= _footprint_nms(f, m, ellipse_footprint(along, across, dy, dx))
+    return out
+
+
+def emit_oriented(field: np.ndarray, mask: np.ndarray, along: float, across: float,
+                  theta: np.ndarray, budget: int | None = None,
+                  d_catalogue: np.ndarray | None = None, flank_b: float = 0.0) -> dict:
+    """H49-A operating point: strike-aligned thinning, then the same budget/flank rules as ``emit``."""
+    f = np.asarray(field, np.float32)
+    out = nms_oriented(f, mask, along, across, theta)
+    n_thinned = int(out.sum())
+    if budget is not None and n_thinned > int(budget):
+        out = topk_mask(np.where(out, f, -np.inf), int(budget), out)
+    n_before = int(out.sum())
+    if d_catalogue is not None:
+        out = flank_prune(out, d_catalogue, flank_b)
+    return dict(mask=out, shaped=f, support=mask, n_support=int(mask.sum()),
+                n_thinned=n_thinned, n_before_flank=n_before, n_after_flank=int(out.sum()),
+                min_dist=float(along), along=float(along), across=float(across),
+                support_q=1.0, flank_b=float(flank_b),
+                budget=(int(budget) if budget is not None else None),
+                blur="none", engine="oriented")
+
+
 def flank_prune(emitted: np.ndarray, d_catalogue: np.ndarray, b: float) -> np.ndarray:
     """Delete emitted pixels within ``b`` pixels of the given catalogue."""
     if b <= 0:

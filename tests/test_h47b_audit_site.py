@@ -18,12 +18,14 @@ class H47BAuditSiteTests(unittest.TestCase):
         summary = (ROOT / "docs" / "executive-summary.html").read_text(encoding="utf-8")
         audit = (ROOT / "docs" / "h47b-mask-audit-20261006.html").read_text(encoding="utf-8")
         downloads = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
-        current_tiff = "gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif"
+        current_tiff = "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
 
         for current_page in (home, summary):
             self.assertIn(current_tiff, current_page)
-            self.assertIn("No slot authorized", current_page)
+            self.assertIn("no slot spent", current_page)
             self.assertIn("h47b-mask-audit-20261006.html", current_page)
+            # this earlier audit artifact is deliberately not offered from the landing pages
+            self.assertNotIn(ARTIFACT, current_page)
         self.assertIn(ARTIFACT, audit)
         self.assertIn(ARTIFACT_SHA256, audit)
         self.assertIn(ARTIFACT, downloads)

@@ -12,7 +12,7 @@
   <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
   <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
      306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
-     Generated 2026-10-06 20:13 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+     Generated 2026-10-07 03:33 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
   <nav>
     <a href="index.html">Home</a>
     <a href="executive-summary.html">Executive summary &amp; how to submit</a>
@@ -34,6 +34,7 @@
     <a href="session3.html">Session 3 — submission</a>
     <a class="on" href="HOW_TO_SUBMIT.html">How to submit (s3)</a>
     <a href="RESULTS.html">Results (s3)</a>
+    <a href="H49_RESULTS.html">H49 results</a>
     <a href="why-02778.html">Why 0.2778</a>
     <a href="hypotheses-s3.html">Hypotheses H47</a>
     <a href="research.html">Research base (s3)</a>
@@ -44,10 +45,11 @@
 <div class="wrap">
 <article>
 <h1 id="how-to-submit-executive-summary">HOW TO SUBMIT — executive summary</h1>
-<p><em>Generated 2026-10-06 20:13 UTC by <code>scripts/build_site.py</code>.</em></p>
+<p><em>Generated 2026-10-07 03:26 UTC by <code>scripts/update_site_h49.py</code> from
+<code>evidence/submission/bundle_h49.json</code> and <code>evidence/h49/conformal_certificate.json</code>.</em></p>
 <h2 id="1-download-the-file">1. Download the file</h2>
-<p><strong><a href="downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif"><code>docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</code></a></strong> — one click:</p>
-<p><a href="downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif" download class="btn btn-primary" style="font-size:1.3em;padding:14px 28px;display:inline-block">⬇️ Download <code>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</code></a></p>
+<p><strong><a href="downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"><code>docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif</code></a></strong> — one click:</p>
+<p><a href="downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif" download class="btn btn-primary" style="font-size:1.3em;padding:14px 28px;display:inline-block">⬇️ Download <code>gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif</code></a></p>
 <table>
 <thead>
 <tr>
@@ -58,11 +60,11 @@
 <tbody>
 <tr>
 <td>SHA-256</td>
-<td><code>f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291</code></td>
+<td><code>a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b</code></td>
 </tr>
 <tr>
 <td>Size</td>
-<td>316,497 bytes</td>
+<td>316,629 bytes</td>
 </tr>
 <tr>
 <td>Bands / dtype</td>
@@ -86,7 +88,7 @@
 </tr>
 <tr>
 <td>Cell values</td>
-<td>every one of the 12,279,160 cells is finite and in [0,1]; min exactly 0.0, max exactly 1.0</td>
+<td 0_="0," 1="1">every one of the 12,279,160 cells is finite and in [0,1]; values are exactly</td>
 </tr>
 <tr>
 <td>Positive pixels</td>
@@ -95,61 +97,84 @@
 </tbody>
 </table>
 <h3 id="verify-it-yourself-before-uploading">Verify it yourself before uploading</h3>
-<pre><code class="language-bash">pip install --break-system-packages rasterio numpy
+<pre><code class="language-bash">python3 -m pip install rasterio numpy
 python3 - &lt;&lt;'PY'
 import rasterio, numpy as np
-with rasterio.open('downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif') as ds:
+with rasterio.open('downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif') as ds:
     a = ds.read(1)
     print(ds.crs, ds.width, ds.height, ds.nodata, tuple(ds.transform)[:6])
     print(a.dtype, np.isfinite(a).all(), a.min(), a.max(), (a &gt; 0).sum())
 PY
 </code></pre>
-<p>Expected: <code>EPSG:32611 3292 3730 None (100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</code> then <code>float32 True 0.0 1.0 37612</code>.</p>
-<p>The same fifteen checks, run fail-closed against the written bytes, are in <code>evidence/submission/checks-*-gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.json</code>.</p>
+<p>Expected: <code>EPSG:32611 3292 3730 None (100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</code> then
+<code>float32 True 0.0 1.0 37612</code>.</p>
+<p>The same 15 checks, run fail-closed against the written bytes, are in
+<code>evidence/submission/checks-h49-gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.json</code>.</p>
 <h2 id="2-upload-it">2. Upload it</h2>
 <ol>
-<li>Sign in at <a href="https://www.drivendata.org/">https://www.drivendata.org/</a> and open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">competition 306 — The Geologic Enhanced Mapping System (GEMS) Prize Challenge</a>.</li>
+<li>Sign in at <a href="https://www.drivendata.org/">https://www.drivendata.org/</a> and open
+   <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">competition 306 — The Geologic Enhanced Mapping System (GEMS) Prize Challenge</a>.</li>
 <li>Click <strong>Submissions</strong> in the competition navigation.</li>
 <li>Choose the file you just downloaded.</li>
 <li>In <strong>Submission name</strong>, paste:</li>
 </ol>
-<p><code>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2</code></p>
+<p><code>gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3</code></p>
 <ol start="5">
-<li>In <strong>Note (optional)</strong> (152/200 characters), paste:</li>
+<li>In <strong>Note (optional)</strong> (146/200 characters), paste:</li>
 </ol>
-<p><code>Across-strike slope step persisted 1.9km; binary dots, 280m spacing, 200m off known-fault flanks; 37.6k px; spacing fixed by split conformal, 90% floor.</code></p>
-<ol start="6">
-<li>Submit. The portal validates the raster server-side before scoring.</li>
-</ol>
-<h3 id="rules-that-affect-how-you-spend-the-slot">Rules that affect how you spend the slot</h3>
-<ul>
-<li><strong>Three submissions per rolling 7-day window</strong>; <strong>one final selection per entity</strong> is scored at the close of the Initial Prize Round. Verify on the competition's Rules page before submitting — this is the family's recorded reading, not a quotation.</li>
-<li>The <strong>same submission</strong> is scored twice: against a private expert-labelled test set (Initial Round, $50 k + top 5 × $10 k) and again against an expanded label set built from expert review of <strong>all</strong> submissions (Final Round, $100/70/40/25/15 k). Only the top five advance. (<a href="https://www.thinkgeoenergy.com/us-doe-announces-prize-challenge-for-discovery-of-hidden-geothermal-systems/">independent report</a>)</li>
-<li>Submissions close <strong>3 December 2026</strong>.</li>
-<li>Generative-AI use is allowed but <strong>must be disclosed</strong>. This repository discloses it: the code, the analysis and these documents were produced with an AI coding agent; every number is reproducible by a committed script from the official rasters.</li>
-</ul>
-<h2 id="3-what-was-chosen-and-with-what-guarantee">3. What was chosen, and with what guarantee</h2>
-<p><strong>Operating point <code>R2_scarp9_topo</code> / <code>s2.8_d7.37_b2</code></strong></p>
-<ul>
-<li>minimum dot spacing <strong>2.8 px (280 m)</strong></li>
-<li>emitted density <strong>7.37 px per 1000 scored px</strong></li>
-<li>catalogue flank buffer <strong>2.0 px (200 m)</strong></li>
-</ul>
-<p><strong>Split conformal guarantee (Lei et al., <em>JASA</em> 2018, <a href="https://doi.org/10.1080/01621459.2017.1322365">DOI</a>):</strong> with 12 calibration blocks, a fresh spatial block's DTI is at least <strong>0.04477</strong> with probability ≥ <strong>90.00 %</strong>.</p>
-<p>Quoted floor basis: <strong>repeated_split_p05</strong>. On the single pre-registered split the floor is 0.04477; over 400 independent random splits of the same blocks the 5th percentile is 0.01343, and that is the number quoted, because one split of 25 heterogeneous geological blocks is one draw from a high-variance distribution. The mean violation rate over those splits is 0.0873 against a nominal alpha of 0.1, so the theorem is empirically calibrated.</p>
-<p>The selection half (13 blocks, never used to choose) realised a mean DTI of <strong>0.06064</strong>.</p>
-<p>The operating point was chosen by maximising the <strong>conformal floor</strong>, not the calibration mean, and then by a max-min robustness criterion across five holdout instruments — because ranking by the mean selects the noisiest high mean, which is the failure mode the brief names.</p>
-<p><strong>This floor is a floor on the holdout instrument, not a forecast of the public leaderboard score.</strong> See <a href="RESULTS.html#what-the-holdout-can-and-cannot-say">RESULTS</a>.</p>
-<h2 id="4-why-the-format-is-what-it-is">4. Why the format is what it is</h2>
-<p>The portal rejection <code>"Predicted values must be in range [0, 1]"</code> has two distinct mechanisms, and both are closed:</p>
-<ol>
-<li><strong>a value outside [0,1].</strong> The official <code>training_features.tif</code> stores its 7,113,320 out-of-footprint cells as the float32 sentinel <code>-3.4028234663852886e38</code>. Any pipeline that carries a band value through unmasked, or normalises by a minimum that is the sentinel, writes that value out.</li>
-<li><strong>a <code>nodata</code> tag whose value is outside [0,1]</strong> — <code>nan</code>, or the sentinel. A validator can read the tag itself as a predicted value.</li>
-</ol>
-<p>The shipped raster therefore writes <strong>every one of the 12,279,160 cells as a finite float32 in [0,1] with no nodata tag at all</strong>. Outside the footprint the confidence is <code>0.0</code>, which is a legal value in [0,1] and cannot trip a range check. This is the configuration shared by all six reference artifacts that never drew a format complaint (three further artifacts do carry <code>nodata=nan</code> and 7,111,787 NaN cells and were still scored, so NaN is <em>accepted</em> — it is simply one validator change away from mechanism 2, and there is nothing to gain from the risk).</p>
-<p><code>src/gems47s3/raster.py::validate_submission</code> re-opens the written bytes — it never trusts the in-memory array that was written — and gates fifteen checks fail-closed.</p>
-<h3 id="why-the-values-are-binary-and-not-a-probability-map">Why the values are binary and not a probability map</h3>
-<p>For a pixel of value <code>v</code> whose best-cover kernel weight is <code>w</code>, adding it changes <code>TP_w</code> by <code>v·w</code> and the denominator by <code>α·v = 0.2·v</code>. <strong><code>v</code> cancels out of the sign</strong>, so <code>dDTI &gt; 0 ⟺ w &gt; 0.2·DTI</code> regardless of <code>v</code>. Down-weighting a pixel that clears the bar only shrinks its gain; up-weighting one that misses only enlarges the penalty. A <code>{0,1}</code> mask is the optimum of the entire soft family. Tested in <code>tests/test_metric_s3.py::test_binary_is_optimal_over_soft_scaling</code>, and consistent with practice: <strong>all eleven scored reference artifacts are exactly <code>{0.0, 1.0}</code>.</strong></p>
+<p><code>Signed-polarity scarp field; 37,612 dots, 2.8px/280m spacing, 300m off known-fault flanks; spacing certified by split conformal, 90% floor 0.0318.</code></p>
+<h2 id="3-what-the-number-in-that-note-means-and-what-it-does-not">3. What the number in that note means — and what it does not</h2>
+<p>The note reports the <strong>split-conformal guarantee of the operating point</strong>, which is the number a
+Phase 2 reviewer can check against the evidence in this repository:</p>
+<table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Value</th>
+<th>Where it comes from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spacing / operating point</td>
+<td>2.8 px (280 m), 7.37 per 1,000 scored px, 300 m catalogue-flank buffer</td>
+<td><code>evidence/h49/conformal_certificate.json</code></td>
+</tr>
+<tr>
+<td>Confidence level</td>
+<td>90 % (α = 0.1)</td>
+<td>one-sided split conformal, Lei et al. JASA 2018</td>
+</tr>
+<tr>
+<td><strong>Guaranteed minimum holdout DTI</strong></td>
+<td><strong>0.03184</strong> per 8×8 spatial block</td>
+<td>Instrument B (SGMC faults &gt; 300 m from the given catalogue), 19 calibration blocks, order statistic k = 18</td>
+</tr>
+<tr>
+<td>Same quantity, corroborating instrument</td>
+<td>0.01828</td>
+<td>Instrument A (PM0200, catalogue-derived)</td>
+</tr>
+<tr>
+<td>Leave-one-out worst floor</td>
+<td>0.01793</td>
+<td>recomputed with each calibration block removed</td>
+</tr>
+<tr>
+<td>Floors at other levels</td>
+<td>0.05 → 0.01793, 0.10 → 0.03184, 0.20 → 0.05783, 0.25 → 0.05824, 0.30 → 0.07383</td>
+<td>α grid</td>
+</tr>
+<tr>
+<td>Procedure audit</td>
+<td>400 independent re-splits; floor p05 0.01793; mean violation rate 0.081 vs nominal α = 0.1</td>
+<td>whole select-then-certify procedure re-run</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not claimed:</strong> no leaderboard score, no private-label guarantee, no claim that the certificate's
+exchangeability unit (a spatial block) is geologically exchangeable in fact. The metric the
+organiser scores is not this instrument.</p>
 </article>
 </div>
 </body>

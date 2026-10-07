@@ -106,6 +106,43 @@ def signed_scarp_step(z: np.ndarray, halfwidth: int) -> np.ndarray:
     return best_signed
 
 
+def polarity_step(z: np.ndarray, halfwidth: int = 9) -> np.ndarray:
+    """Signed multi-scale scarp-polarity coherence (H49-B).
+
+    ``signed_scarp_step`` keeps the sign of the dominant-orientation across-strike step, but it has
+    two weaknesses as a detector: a single half-width is scale-specific, and a sign that flips along
+    the trace is not penalised.  This transform keeps a response only where the sign AGREES between
+    a short (half the width) and a long half-width, then requires the agreeing response to persist
+    over ~1.5 km along strike -- the physical invariant of a normal fault, whose up-thrown side stays
+    the same over tens of kilometres.  Stream banks, terrace edges, fan margins and lithologic
+    contacts are symmetric (opposite signs at the same location for the two strikes that sample
+    them), or flip sign along their length, so they are rejected.
+
+    Everything else in ``gems47s3`` (``scarp_step``, ``curvature``, ``openness``, ``line_response``,
+    ``lrm``) is UNSIGNED, which is exactly the class of confounder this transform removes.
+    """
+    ri = max(2, int(np.ceil(halfwidth)))
+    s_small = signed_scarp_step(z, max(2, ri // 2))
+    s_big = signed_scarp_step(z, ri)
+    agree = (np.sign(s_small) * np.sign(s_big)) > 0.0
+    mag = np.minimum(np.abs(s_small), np.abs(s_big)).astype(np.float32)
+    base = np.where(agree, mag, np.float32(0.0)).astype(np.float32)
+    L = 2 * ri + 1                                   # ~1.5 km at the default width
+    best = np.zeros(z.shape, np.float32)
+    for sy, sx in STRIKES:
+        if (sy, sx) == (0, 1):
+            p = ndi.uniform_filter1d(base, L, axis=1, mode="nearest")
+        elif (sy, sx) == (1, 0):
+            p = ndi.uniform_filter1d(base, L, axis=0, mode="nearest")
+        else:
+            acc = np.zeros(z.shape, np.float32)
+            for t in range(-(L // 2), L // 2 + 1):
+                acc += ndi.shift(base, (t * sy, t * sx), order=0, mode="nearest")
+            p = acc / float(L)
+        np.maximum(best, p.astype(np.float32), out=best)
+    return best
+
+
 def openness(z: np.ndarray, radius: int) -> np.ndarray:
     """Positive topographic openness (Yokoyama, Shirasawa & Pike 2002), 8-direction angular.
 
@@ -226,9 +263,10 @@ def inv_raw(z: np.ndarray, _radius: float = 0.0) -> np.ndarray:
 
 
 TRANSFORMS = dict(
-    line=line_response, curv=curvature, scarp=scarp_step, openness=openness, tpi=tpi,
-    lrm=lrm, aniso=linearity, aspect_var=aspect_dispersion, slope_var=slope_variability,
-    detrend=detrend, regional=regional, inv_regional=inv_regional, raw=raw, inv_raw=inv_raw,
+    line=line_response, curv=curvature, scarp=scarp_step, polarity=polarity_step,
+    openness=openness, tpi=tpi, lrm=lrm, aniso=linearity, aspect_var=aspect_dispersion,
+    slope_var=slope_variability, detrend=detrend, regional=regional, inv_regional=inv_regional,
+    raw=raw, inv_raw=inv_raw,
 )
 
 

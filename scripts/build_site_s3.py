@@ -42,6 +42,10 @@ PAGES = [
      "Every session-3 measurement with the script that reproduces it: band scale diagnostics, the "
      "two holdout instruments, the transform search, derived-surface skill, the inversion of the "
      "organiser's published scores, and the sweep with its conformal selection."),
+    ("H49_RESULTS.md", "H49 results",
+     "The H49 round in full: the signed-polarity scarp field and the preregistered arm, the "
+     "spacing/density sweep on both instruments, the split-conformal floor quoted next to the "
+     "chosen spacing, the paired block tests, and every arm that lost."),
     ("why-02778.md", "Why 0.2778",
      "Why GEMSDOE32 h33-2-b2 scored 0.2778, derived from the metric's own algebra and the "
      "organiser's eleven published scores, and whether it can be beaten."),
@@ -61,7 +65,7 @@ PAGES = [
 
 # Main's nav, reproduced verbatim so the two bodies of work read as one site.
 MAIN_NAV = [
-    ("index.html", "Home"),
+    ("index.html", "Home"),   # every other href below stays inside docs/ so that Pages can serve it
     ("executive-summary.html", "Executive summary &amp; how to submit"),
     ("hypotheses.html", "The five hypotheses"),
     ("method.html", "LATI method"),
@@ -75,7 +79,7 @@ MAIN_NAV = [
     ("validation-protocol.md", "Validation protocol"),
     ("review-log.md", "Review log"),
     ("next-session.md", "Next session"),
-    ("../README.md", "README / brief"),
+    ("https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md", "README / brief"),
 ]
 
 TEMPLATE = """<!DOCTYPE html>
