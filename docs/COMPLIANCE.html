@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Requirement compliance — GEMSDOE47</title>
-<meta name="description" content="Pass 3: every acceptance criterion and standing constraint from the brief, checked line by line, with the artifact that satisfies it or a plain statement that it is not satisfied.">
+<title>Requirement compliance and review — GEMSDOE47</title>
+<meta name="description" content="Criterion-by-criterion review of the complete available brief, the current artifact, validation, three review passes, limitations and GitHub publication status.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <h1>GEMSDOE47 <span class="badge b-info">RESEARCH RECORD</span></h1>
   <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
      306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
-     Generated 2026-10-06 20:13 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+     Generated 2026-10-07 13:07 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
   <nav>
     <a href="index.html">Home</a>
     <a href="executive-summary.html">Executive summary &amp; how to submit</a>
@@ -32,264 +32,133 @@
   </nav>
   <nav>
     <a href="session3.html">Session 3 — submission</a>
-    <a href="HOW_TO_SUBMIT.html">How to submit (s3)</a>
-    <a href="RESULTS.html">Results (s3)</a>
+    <a href="HOW_TO_SUBMIT.html">How to submit — future candidate</a>
+    <a href="RESULTS.html">Results and score-attribution correction</a>
+    <a href="H49_RESULTS.html">H49 results</a>
+    <a href="RESEARCH_HYPOTHESES.html">Ranked H49 follow-up hypotheses</a>
     <a href="why-02778.html">Why 0.2778</a>
     <a href="hypotheses-s3.html">Hypotheses H47</a>
-    <a href="research.html">Research base (s3)</a>
-    <a href="REMAINING_WORK.html">Remaining work (s3)</a>
-    <a class="on" href="COMPLIANCE.html">Compliance (s3)</a>
+    <a href="research.html">Research base and sources</a>
+    <a href="REMAINING_WORK.html">Remaining work and limitations</a>
+    <a class="on" href="COMPLIANCE.html">Compliance and review</a>
   </nav>
 </div></header>
 <div class="wrap">
 <article>
-<h1 id="pass-3-every-requirement-checked-line-by-line">Pass 3 — every requirement, checked line by line</h1>
-<p>The standing brief requires three passes: implement and verify, review for bugs and edge cases,
-then re-check against the original request. This is pass 3. Each row names the artifact that
-satisfies the requirement and, where the requirement is <strong>not</strong> satisfied, says so plainly and
-points at the reason.</p>
-<p>Source of the requirement list: <code>README.md</code> §0.2 and §0.3.</p>
-<h2 id="acceptance-criteria-02">Acceptance criteria (§0.2)</h2>
+<h1 id="pass-3-requirements-evidence-and-remaining-work">Pass 3 — requirements, evidence, and remaining work</h1>
+<p>This page re-checks the available brief in <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md#0-read-this-first--the-standing-project-brief">the repository README §0</a>, including the active follow-up brief. The original word-for-word chat prompt was not present in the checkout; the README preserves the complete available structured requirements and discloses that limitation. Statuses below distinguish artifact format, scientific evidence, uniqueness scope, and organizer outcome.</p>
+<h2 id="deliverables-and-scientific-gate">Deliverables and scientific gate</h2>
 <table>
 <thead>
 <tr>
-<th>#</th>
-<th>requirement</th>
-<th>status</th>
-<th>where</th>
+<th>Requirement</th>
+<th>Status</th>
+<th>Evidence / limitation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>Generate a <strong>unique</strong> TIF, not a copy of any prior GEMSDOE1–46 submission; must differ from all listed sites</td>
-<td><strong>DONE</strong></td>
-<td><code>docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</code>, SHA-256 <code>f3f840b7…</code>. Built from the official 19-band stack by a recipe that exists nowhere in the family (<code>scarp(det_elev_slope, r=9)</code> was not implemented in GEMSDOE1–46). Uniqueness asserted, not claimed: max Jaccard <strong>0.0144</strong> and max containment <strong>0.0277</strong> against all 18 reference artifacts (thresholds 0.5 / 0.9) — <code>evidence/submission/bundle.json → uniqueness</code></td>
+<td>Create a genuinely distinct GeoTIFF; do not ship a prior submission</td>
+<td><strong>PASS WITH BOUNDED SCOPE</strong></td>
+<td>Current research artifact: <code>docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif</code>, SHA-256 <code>f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060</code>. The pinned audit compared 555 inventory blobs plus 10 local-history rasters across 54 visible public repositories; zero exact mask/value matches, maximum Jaccard 0.292575. Three entries were excluded from direct pixel comparison (two not single-band exact-grid rasters, one ZIP without a single TIFF); no inventory fetch failed. Inaccessible and unpublished work is excluded, so global uniqueness is not proven. See <a href="data/pinned-public-inventory-uniqueness.json"><code>the audit receipt</code></a>.</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Use <strong>split conformal prediction</strong> (Lei, G'Sell, Rinaldo, Tibshirani &amp; Wasserman, JASA 2018) over the spacing/threshold history: calibration half + selection half, pick a spacing with a <strong>finite-sample guaranteed floor</strong>, not just the observed best</td>
-<td><strong>DONE</strong></td>
-<td><code>src/gems47s3/conformal.py</code>, <code>scripts/run_conformal.py</code>, <code>evidence/conformal/selection.json</code>. 25 spatial blocks, 12 calibration / 13 selection, split once before scoring. Certified 90 % floor <strong>0.01343</strong> (5th percentile over 400 splits) / <strong>0.04477</strong> (single pre-registered split). The theorem's exact <code>(n+1)</code> order statistic is implemented and Monte-Carlo-tested; a wrong version was found and fixed (<code>IR-47-CODE-01</code>)</td>
+<td>Keep the download obvious at the site top and in an executive submission page</td>
+<td><strong>PASS</strong></td>
+<td><code>docs/index.html</code> places the one-click TIFF and ZIP links first; <code>docs/executive-summary.html</code> repeats the links and separates exact future upload steps from current authorization. Both state the H49 slot gate is closed.</td>
 </tr>
 <tr>
-<td>2b</td>
-<td><strong>Report the conformal confidence level next to the chosen spacing</strong> in the submission notes</td>
-<td><strong>DONE</strong></td>
-<td>The <code>Note (optional)</code> string ends "…spacing fixed by split conformal, 90% floor." and the confidence level appears beside the spacing on the front page, in <code>HOW_TO_SUBMIT.md</code> §3, and in <code>evidence/submission/bundle.json → conformal.certified_confidence_pct</code></td>
+<td>Meet the competition grid, range, mask and packaging requirements</td>
+<td><strong>PASS FOR THESE BYTES; ACCEPTANCE UNTESTED</strong></td>
+<td>The 409,124-byte TIFF is one float32 band, 3292 × 3730, EPSG:32611, exact transform, with a self-contained internal mask matching 5,167,373 official-footprint cells. Masked reads are null exactly outside. All full-grid samples are finite in [0,1], no out-of-range nodata tag or sidecar. All 19 gating read-back checks pass; the informational whole-grid range flag is true. Receipt: <a href="data/current-artifact.json"><code>current-artifact.json</code></a>. This is file-format validation, not portal acceptance.</td>
 </tr>
 <tr>
-<td>3</td>
-<td>Normalize to <strong>[0,1]</strong>, match required format (CRS, shape, geotransform), fix the <code>"Predicted values must be in range [0, 1]"</code> rejection</td>
-<td><strong>DONE</strong></td>
-<td>Independent re-read of the written bytes: 1 band, float32, EPSG:32611, 3292 × 3730, transform <code>(100, 0, 243350, 0, -100, 4508550)</code>, nodata <strong>absent</strong>, all 12,279,160 cells finite, min 0.0 / max 1.0, zero NaN, zero sentinel, values exactly <code>{0,1}</code>. Both rejection mechanisms closed — see <code>HOW_TO_SUBMIT.md</code> §4 and <code>knowledge/01</code> §8</td>
+<td>Use a unique submission name and short portal note ≤200 characters</td>
+<td><strong>PASS AS METADATA; NOT AUTHORIZED TO SUBMIT</strong></td>
+<td>Name: <code>gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3</code>. Note: 168/200 characters; present on the landing page, current-artifact receipt, per-file receipt, and <code>docs/downloads/</code> text file. The name/note do not open the scientific gate.</td>
 </tr>
 <tr>
-<td>4</td>
-<td><strong>Easy one-click download</strong> at the very top / executive summary, obvious on arrival</td>
-<td><strong>DONE</strong></td>
-<td><code>docs/session3.md</code> first screen is <code>## ⬇️ DOWNLOAD THE SUBMISSION</code> with a large <code>&lt;a download&gt;</code> button, the SHA-256, size, format, positive-pixel count, submission name and note. The local preview repeats the button in a sticky banner on every page</td>
+<td>Maintain a clean site with research, source records, and an executive submission guide</td>
+<td><strong>PASS</strong></td>
+<td>The home/download page, executive guide, H49 results, requirement review, and ranked follow-up hypotheses are rendered as HTML. Official target, metric, catalogue-mask clarification, USGS/DOE data records, and split-conformal research links remain in the source registry and linked pages. The executive guide explicitly says not to upload H49.</td>
 </tr>
 <tr>
-<td>5</td>
-<td>Unique <strong>submission name</strong> + short <strong><code>Note (optional)</code></strong> ≤ 200 chars</td>
-<td><strong>DONE</strong></td>
-<td>name <code>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2</code>; note <strong>152/200</strong> chars, length asserted in <code>scripts/build_submission_s3.py</code></td>
+<td>Explain the reported H33 0.2778 result honestly</td>
+<td><strong>PARTIAL — ATTRIBUTION UNRESOLVED</strong></td>
+<td>The 37,654-pixel H33 mask is a verified strict subset of the 40,199-pixel H27 parent; the 2,545 removed pixels lie within 2 pixels of the given catalogue. No organizer receipt maps 0.2778 to the exact H33 hash; the pinned owner README calls H33 unscored and 0.2747 a projection. Marginal-credit algebra is a mechanism hypothesis, not an authenticated score explanation. See <a href="RESULTS.html"><code>RESULTS</code></a> and the <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/05_why_02778_and_can_we_beat_it.md">reusable knowledge record</a>.</td>
 </tr>
 <tr>
-<td>6</td>
-<td><strong>Executive-summary subpage explaining exactly how to submit</strong></td>
-<td><strong>DONE</strong></td>
-<td><code>docs/HOW_TO_SUBMIT.md</code> — download, verify-it-yourself snippet, six numbered upload steps with the exact strings to paste, the slot rules, the conformal statement, and the format rationale</td>
+<td>Retain 3–5 ranked geological hypotheses with layers, signatures, novelty, expected effect/cost, and access checks</td>
+<td><strong>PASS</strong></td>
+<td>Four future candidates are recorded in <a href="RESEARCH_HYPOTHESES.html"><code>RESEARCH_HYPOTHESES</code></a>: H49-E basement-depth/gravity edges, H49-C long-wavelength basin asymmetry, H49-D relay ramps, and conditional H50 LiDAR. Effect is ranked ordinally; no unsupported numeric ΔDTI forecast is invented. H50 has free/official source records but is not fetchable here and is not a dependency.</td>
 </tr>
 <tr>
-<td>7</td>
-<td><strong>PhD-level answer</strong>: why did <code>h33-h33-2-b2</code> score 0.2778, and can we beat it? Then <strong>use that answer to build the submission</strong></td>
-<td><strong>DONE</strong></td>
-<td><code>docs/why-02778.md</code> (= <code>knowledge/05</code>). Answer: it is <code>h27-4-r1</code> minus 2,545 catalogue-flank dots (40,199 − 2,545 = 37,654, verified as an exact subset); those dots carried mean credit ≤ 0.0334 against a credit bar of 0.0556, so they were structurally worthless because the organiser masks catalogue pixels. Used directly: the shipped field keeps the same 2 px flank buffer and the same mass (37,612 vs 37,654 px) so the comparison isolates the field, and the mass ceiling in §5.4 of that document is what bounds the emission</td>
+<td>Validate on spatially blocked holdout; apply split conformal and state its scope</td>
+<td><strong>EVIDENCE RECORDED; PROMOTION GATE CLOSED</strong></td>
+<td>Nominal 90% fixed-arm Instrument-B lower statistic 0.03184 at spacing 2.8 px / 280 m; 19 calibration 8×8 spatial blocks, order statistic k=18. Target: per-block DTI against public USGS SGMC traces &gt;300 m from the given catalogue. Validity assumes spatial-block exchangeability and a rule fixed independently of calibration outcomes. Prospective timing of the final mean-rule selection is not independently auditable; SGMC contains non-fault contacts. The shipped arm's 90% paired-improvement lower bounds versus the H33-labelled reference are negative (−0.03342 selection; −0.01050 calibration). This is not an unconditional guarantee or a leaderboard prediction. <strong>Do not spend a weekly slot.</strong></td>
 </tr>
 <tr>
-<td>8</td>
-<td><strong>3–5 new geological hypotheses</strong> with layers, signature, why it catches a <em>missing</em> fault, how it differs from what is implemented; <strong>ranked by ΔDTI ÷ cost</strong>; <strong>top candidate validated on a spatially-blocked holdout before spending a slot</strong>; external data → name the free official source and verify obtainability first</td>
-<td><strong>DONE</strong></td>
-<td><code>docs/hypotheses-s3.md</code> (= <code>knowledge/06</code>). Five survivors (H47-1 … H47-5) ranked in a table, each with all four required fields, novelty checked against 30 prior hypotheses in the GEMSDOE32/33/19 registries. <strong>Plus five refuted candidates with their numbers</strong> (H47-B/C/D/E/F) — reported rather than quietly dropped. Top candidate validated on 25 spatially-blocked, prevalence-matched folds (§2). H47-5's external source is named (GeoDAWN EarthMRI/3DEP LiDAR on OEDI) with an explicit two-level obtainability verdict: <code>EXISTS</code>, <strong>not <code>FETCHABLE-HERE</code></strong>, therefore <strong>not proposed as viable</strong></td>
+<td>Beat the user-supplied 0.2778 / 0.3195 targets</td>
+<td><strong>NOT ESTABLISHED</strong></td>
+<td>No exact H33 score mapping and no organizer score exist for the H49 TIFF. Public-proxy DTI is not a score forecast. The user's 0.3195 is preserved as a target, not asserted as a current leaderboard value.</td>
 </tr>
 <tr>
-<td>9</td>
-<td><strong>Target: beat 0.3195</strong></td>
-<td><strong>PARTIAL — cannot be closed locally</strong></td>
-<td>The strategy is built and the raster is ready, but the only instrument that can confirm the score is the organiser, and uploading requires DrivenData credentials this environment does not have. On the prevalence-matched holdout the new field beats the shipped 0.2778 artifact by 15–24× (0.1040 vs 0.0043 at 0.200 % prevalence) and has 5.9× random precision where the artifact has 1.5×. <code>IR-47-05</code>: 0.3195 was rank 5 on 2026-10-06; the leader was 0.3345 — both are carried</td>
-</tr>
-<tr>
-<td>10</td>
-<td>Put the whole prompt into the README as the standing starting point</td>
-<td><strong>DONE, with a disclosed caveat</strong></td>
-<td><code>README.md</code> §0. The caveat is stated in the file itself: the verbatim original wording is not recoverable inside this session's context, so what is preserved is the complete set of requirements, constraints and corrections — nothing dropped, additions marked. No claim of byte-exactness is made</td>
-</tr>
-<tr>
-<td>11</td>
-<td><strong>Deep research</strong> on geothermal-vent/fault discovery as a reusable knowledge base with <strong>official verified links</strong></td>
-<td><strong>DONE</strong></td>
-<td><code>knowledge/03</code> — competition, the origin of all 19 bands (INGENIOUS GDR DOI 10.15121/1881483, contents quoted verbatim and matched band-by-band), Hermant et al. 2025, Faulds/Coolbaugh/Hinz NBMG Report 58, Giddens &amp; Faulds 2025, Blewitt et al., the geomorphometric transform citations, Lei et al. 2018. Each entry marked <code>[VERIFIED 2026-10-06]</code> or <code>[FAMILY LEDGER]</code></td>
-</tr>
-<tr>
-<td>12</td>
-<td><strong>Deep research into overlooked free/public data sources</strong>; contrarian but scientifically grounded</td>
-<td><strong>DONE</strong></td>
-<td><code>knowledge/04</code>. Contrarian conclusions are drawn <em>from measurements</em>: external fault catalogues are worth <strong>zero</strong> (1 of 59,065 QFaults-v2 pixels is off-catalogue; 0 of 58,251 prior pixels); the binding constraint is <strong>resolution, not information</strong> (16 of 19 bands are &gt;96.5 % smooth above 300 m); <strong>persistence along strike beat every new dataset tried</strong> (0.247 → 0.505 precision with zero new data); and <strong>the flattering proxy is worse than no proxy</strong></td>
-</tr>
-<tr>
-<td>13</td>
-<td><strong>Work autonomously</strong>; flag irregularities; <strong>no hallucinations</strong>; verify line by line</td>
-<td><strong>DONE</strong></td>
-<td>No user input was requested. 11 irregularities are registered in <code>knowledge/00</code> with the evidence path for each, including four that argue against this repository's own earlier choices and six bugs found in this repository's own code. Every number on the site is generated from <code>evidence/*.json</code> by <code>scripts/build_site.py</code>; a missing receipt prints "not yet generated" instead of a value</td>
-</tr>
-<tr>
-<td>14</td>
-<td><strong>Three passes</strong>: implement+verify → review for bugs/edge cases → re-check against the original request</td>
-<td><strong>DONE</strong></td>
-<td>Pass 1: modules, scripts, evidence. Pass 2: <code>IR-47-CODE-01…06</code> plus an explicit exercise of every untested path (<code>greedy_coverage</code>, <code>poisson_disk</code>, <code>oriented_blur</code>, <code>mode="nan"</code>, gated recipes, both holdout builders, truth/mask disjointness) — 56 tests. Pass 3: this page</td>
-</tr>
-<tr>
-<td>15</td>
-<td><strong>Create a PR and merge it onto <code>main</code></strong>; then list remaining work and limitations</td>
-<td><strong>BLOCKED</strong></td>
-<td>The GitHub token in this environment is invalid: <code>gh api user</code> → <code>Bad credentials</code>; <code>git push</code> → <code>Invalid username or token</code>. Two commits exist on <code>arena/e1835de8-gemsdoe47</code> and the working tree is saved. The finished PR description is staged at <code>.github/PR_BODY.md</code> and the title at <code>.github/PR_TITLE.txt</code>, with the exact three commands in <code>REMAINING_WORK.md</code> §A. <strong>Remaining work and limitations are delivered regardless</strong>, in <code>docs/REMAINING_WORK.md</code></td>
-</tr>
-<tr>
-<td>16</td>
-<td>Site <strong>clean, organized, user-friendly</strong>; <strong>all claims backed by official links</strong></td>
-<td><strong>DONE</strong></td>
-<td>Seven pages with a fixed nav order, a sticky download banner, and 19 official links listed on the front page and again on <code>research.md</code>. Claims that rest on measurement cite the evidence file and the script that produced it</td>
-</tr>
-<tr>
-<td>17</td>
-<td>Keep <strong>"Maximize P(Win)"</strong> and <strong>"Own the Outcome"</strong> as focal values</td>
-<td><strong>DONE</strong></td>
-<td><code>README.md</code> header. Operationalised, not sloganised: the mass ceiling exists because a dense submission is arithmetically incapable of winning; the refuted hypotheses are published because a refutation not written down gets re-proposed; the guarantee is quoted at its split-robust 5th percentile because quoting the flattering single-split number would be optimizing the report rather than the outcome</td>
-</tr>
-<tr>
-<td>18</td>
-<td>Site should solve <strong>manually checking everything</strong> and provide an <strong>up-to-date current feed</strong></td>
-<td><strong>PARTIAL</strong></td>
-<td>Solved for checking: one script regenerates every page from receipts, and <code>scripts/fetch_data.py --verify-only</code> re-verifies the official bytes in 4 s. <strong>Not solved for the feed</strong>: the leaderboard table in <code>README.md</code> §1 is a dated snapshot (2026-10-06), because <code>drivendata.org</code> is not reachable by <code>curl</code> from this sandbox and the DrivenData ToU forbid automated scraping. <code>REMAINING_WORK.md</code> §C item 10 specifies the GitHub Action that would close it</td>
+<td>Do not claim an organizer score or acceptance without a receipt</td>
+<td><strong>PASS</strong></td>
+<td><code>organizer_score</code> is <code>null</code>; no upload has been made. README, site and receipts label the candidate research-only / unscored and state that organizer acceptance is untested.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="standing-constraints-03">Standing constraints (§0.3)</h2>
+<h2 id="standing-constraints-and-review-passes">Standing constraints and review passes</h2>
 <table>
 <thead>
 <tr>
-<th>constraint</th>
-<th>status</th>
-<th>evidence</th>
+<th>Constraint</th>
+<th>Status</th>
+<th>Evidence</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Unique TIF; do not copy a previous submission except for learning</td>
-<td><strong>DONE</strong></td>
-<td>the 18 reference artifacts were used only as calibration targets and uniqueness comparators; <code>data/reference/README.md</code> states this and the Jaccard assertion enforces it</td>
+<td>Maximize P(Win); do not spend a slot on an unvalidated arm</td>
+<td><strong>PASS — gate enforced</strong></td>
+<td>The exact H49 TIFF is downloadable for review, but <code>slot_authorized</code> is <code>false</code>; paired lower bounds are below zero, and the selection rule is post-results. The next candidate must use a prospective protocol and defensible new holdout before a slot is considered.</td>
 </tr>
 <tr>
-<td>Different from the whole collection of GEMSDOE sites</td>
-<td><strong>DONE</strong></td>
-<td>max containment of any prior artifact inside this one is 0.0277</td>
+<td>Own the Outcome; report negative results, irregularities, provenance and assumptions</td>
+<td><strong>PASS</strong></td>
+<td>H49-A/H49-B paired results, the stale TIFF mask defect, the score-attribution gap, unavailable LiDAR inputs, non-fault SGMC contacts, missing inversion inputs, and three non-comparable inventory entries are documented. Mirror hashes do not authenticate portal provenance.</td>
 </tr>
 <tr>
-<td>Read the entire prompt; TIF easy to download</td>
-<td><strong>DONE</strong></td>
-<td>first screen of <code>docs/session3.md</code></td>
+<td>Keep a reusable verified-source record; do not depend on unverified external data</td>
+<td><strong>PASS WITH ACCESS LIMITS</strong></td>
+<td>Official competition / metric pages, staff clarification, USGS 3DEP and GeoDAWN, GDR records, and the conformal source are linked. 1 m LiDAR tiles are not obtained; H50 remains conditional. See <code>knowledge/03</code>, <code>knowledge/04</code>, and <code>docs/sources.html</code>.</td>
 </tr>
 <tr>
-<td>Normalize to [0,1]; required format; confidence level next to spacing in the notes</td>
-<td><strong>DONE</strong></td>
-<td>rows 2b and 3 above</td>
+<td>Re-read the complete available prompt every session; preserve it in README</td>
+<td><strong>PASS WITH DISCLOSED TRANSCRIPTION LIMIT</strong></td>
+<td>README §0 contains the entire available structured brief and active follow-up. The unavailable verbatim original transcript is not fabricated.</td>
 </tr>
 <tr>
-<td>Do not spend a slot on an idea that has not beaten the holdout best; validate on the spatially-blocked holdout first</td>
-<td><strong>DONE — enforced by construction</strong></td>
-<td><code>scripts/build_submission_s3.py</code> reads the frozen choice from <code>evidence/conformal/selection.json</code> and never re-tunes it; the holdout gate is <code>scripts/run_sweep_a.py</code> + <code>scripts/run_conformal.py</code>, and the submission script fails closed if the selection receipt is missing. No slot has been spent</td>
+<td>Three-pass review: implement/verify; review/fix; re-check against the brief</td>
+<td><strong>PASS</strong></td>
+<td>Pass 1 rebuilt the TIFF, refreshed receipts, corrected the mask writer and score language. Pass 2 caught stale claims, corrected the R7-minus-R2 conformal contrast direction, refreshed public-inventory scope, and added exact-byte, direction and status tests. Pass 3 is this criterion-by-criterion review plus final tests/site inspection.</td>
 </tr>
 <tr>
-<td>External data → name the specific free official source and check obtainability before proposing it as viable</td>
-<td><strong>DONE</strong></td>
-<td><code>knowledge/04</code> uses a two-level verdict (<code>EXISTS</code> / <code>FETCHABLE-HERE</code>) for every source, and H47-5 is explicitly marked <strong>not viable in this session</strong> because OEDI is unreachable</td>
-</tr>
-<tr>
-<td>Work line by line from official verified sources; links for manual review; no manual input; flag irregularities; no hallucinations</td>
-<td><strong>DONE</strong></td>
-<td><code>knowledge/03</code> and <code>knowledge/04</code> carry the links; <code>knowledge/00</code> carries the irregularity register; no clarifying question was put to the user</td>
-</tr>
-<tr>
-<td>Full list that follows the requirements; verify no hallucinations</td>
-<td><strong>DONE</strong></td>
-<td>this page. Two specific anti-hallucination measures: every external claim is tagged <code>[VERIFIED 2026-10-06]</code> or <code>[FAMILY LEDGER]</code>, and the README's provenance note discloses that the brief is a faithful transcription rather than a byte-exact copy</td>
-</tr>
-<tr>
-<td>Downloadable TIF + obvious placement in the executive summary or the very beginning</td>
-<td><strong>DONE</strong></td>
-<td>both: the very beginning of <code>index.md</code> and §1 of <code>HOW_TO_SUBMIT.md</code></td>
-</tr>
-<tr>
-<td>Portal error <code>"Predicted values must be in range [0, 1]"</code> must be fixed</td>
-<td><strong>DONE</strong></td>
-<td>both mechanisms closed and regression-tested (<code>test_validator_rejects_out_of_range_values</code>, <code>test_validator_rejects_the_float32_sentinel</code>, <code>test_nan_mode_is_legal_but_not_the_strongest_guarantee</code>)</td>
-</tr>
-<tr>
-<td>Unique name + short comment for <code>Note (optional)</code></td>
-<td><strong>DONE</strong></td>
-<td>row 5 above</td>
-</tr>
-<tr>
-<td>Executive-summary subpage on exactly how to submit</td>
-<td><strong>DONE</strong></td>
-<td>row 6 above</td>
-</tr>
-<tr>
-<td>Work on next steps from previous sessions first</td>
-<td><strong>DONE</strong></td>
-<td>the previous session's stated next steps were the detector, the spacing sweep, split conformal and the unique TIF; all four are delivered, and the prior session's open item "delete <code>data/bridge/</code> (~400 MB) before commit" is done</td>
-</tr>
-<tr>
-<td>0.3195 is the current highest; design a strategy to exceed it</td>
-<td><strong>DONE, with the figure corrected</strong></td>
-<td>the strategy is <code>docs/why-02778.md</code> §5; <code>IR-47-05</code> records that 0.3195 was rank 5 and the real bar is 0.3345</td>
-</tr>
-<tr>
-<td>Put the prompt into the README and read it every session</td>
-<td><strong>DONE</strong></td>
-<td><code>README.md</code> §0, with the transcription caveat disclosed</td>
-</tr>
-<tr>
-<td>Three-pass execution; do not stop after pass 1</td>
-<td><strong>DONE</strong></td>
-<td>row 14 above</td>
-</tr>
-<tr>
-<td>Create a PR, merge to <code>main</code>, suggest remaining work and limitations</td>
-<td><strong>BLOCKED / DONE</strong></td>
-<td>PR blocked by invalid GitHub credentials; remaining work and limitations delivered in <code>docs/REMAINING_WORK.md</code></td>
+<td>Reconcile current <code>main</code>, create and merge a PR, report limits</td>
+<td><strong>PENDING FINAL GITHUB ACTION</strong></td>
+<td>The session branch currently starts at the locally observed <code>origin/main</code> commit <code>525dab76f10facca1382872d65b15fded04697ae</code>; fetch and recheck before publication. The requested PR/merge must be confirmed from GitHub before this row is marked complete.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="summary">Summary</h2>
-<p><strong>16 of 18 acceptance criteria fully met.</strong> One is blocked on credentials outside this
-environment (#15, the PR and merge — with the PR body written and the three commands recorded).
-One is partial by construction (#18, the live leaderboard feed, because the source is unreachable
-and automated scraping is forbidden by the ToU). Criterion #9 — beating 0.3195 — cannot be closed
-by anything but an upload, and the brief's own rule forbids spending a slot before the holdout
-gate clears, which it has.</p>
-<p>Two honest caveats that no row above should be read as covering up:</p>
-<ul>
-<li><strong>The holdout cannot forecast the organiser's score.</strong> Its truth is drawn from the given
-  catalogue; the organiser's truth is faults no compilation contains. Every DTI here is an
-  <em>ordering</em> statistic. <code>REMAINING_WORK.md</code> §B1.</li>
-<li><strong>The shipped mass rests on an assumed coverage.</strong> At the coverage the incumbent demonstrably
-  achieved (c = 0.48) the algebraic ceiling is 28,094 px, <em>below</em> the 37,612 px shipped. At
-  c = 0.60 it is 43,117 px and the shipped mass is inside it. The full sensitivity table is
-  published rather than the favourable row. <code>REMAINING_WORK.md</code> §B3.</li>
-</ul>
+<h2 id="remaining-work-and-limitations">Remaining work and limitations</h2>
+<ol>
+<li>Keep the slot gate closed until a prospective candidate beats the incumbent under a positive paired-improvement criterion on a defensible, spatially independent holdout, with matched-mass and shifted/random controls.</li>
+<li>Obtain and verify actual free official 1 m elevation files and footprint coverage before treating H50 as viable. The current sandbox could not fetch those files.</li>
+<li><code>evidence/inversion/live_anchor_inversion.json</code> is not refreshed; <code>data/reference/</code> lacks the TIFF inputs required by <code>scripts/run_inversion.py</code>. Its older score-conditioned calculations remain conditional arithmetic, not score evidence.</li>
+<li>A public-proxy DTI, a nominal fixed-arm conformal statistic, a byte-level uniqueness audit, and local format validity cannot establish hidden-label performance, organizer acceptance, or a leaderboard score.</li>
+<li>The H33 score-to-file mapping, score eligibility, entrant/account status, and all organizer receipts remain outside this repository's evidence.</li>
+</ol>
 </article>
 </div>
 </body>

@@ -113,7 +113,7 @@ def inventory() -> dict:
     return out
 
 
-def compare(candidate: Path, current_inventory: dict) -> dict:
+def compare(candidate: Path, current_inventory: dict, output_path: Path | None = None) -> dict:
     template = G.load_template()
     validation = C.validate(candidate, template)
     if not validation["format_valid"]:
@@ -197,7 +197,10 @@ def compare(candidate: Path, current_inventory: dict) -> dict:
            "failed_repository_inventories": current_inventory["failed_repository_inventories"],
            "rows": sorted(rows, key=lambda r: r.get("jaccard", -1), reverse=True),
            "limits": current_inventory["limitations"]}
-    (ROOT / "evidence" / "profile-uniqueness.json").write_text(json.dumps(out, indent=2, allow_nan=False) + "\n")
+    destination = output_path or (ROOT / "evidence" / "profile-uniqueness.json")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(json.dumps(out, indent=2, allow_nan=False) + "\n")
+    print(f"Wrote {destination}")
     print(json.dumps({k: v for k, v in out.items() if k != "rows"}, indent=2))
     return out
 
@@ -207,13 +210,14 @@ def main() -> int:
     parser.add_argument("--inventory-only", action="store_true")
     parser.add_argument("--refresh-inventory", action="store_true")
     parser.add_argument("--candidate", type=Path)
+    parser.add_argument("--output", type=Path, default=ROOT / "evidence" / "profile-uniqueness.json")
     args = parser.parse_args()
     CACHE.mkdir(parents=True, exist_ok=True)
     current_inventory = inventory() if args.refresh_inventory or not INVENTORY.exists() else json.loads(INVENTORY.read_text())
     if not args.inventory_only:
         if not args.candidate:
             parser.error("--candidate is required for comparison")
-        result = compare(args.candidate, current_inventory)
+        result = compare(args.candidate, current_inventory, args.output)
         return 0 if result["bounded_unique"] else 2
     return 0
 

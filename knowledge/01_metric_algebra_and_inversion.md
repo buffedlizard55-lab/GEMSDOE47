@@ -1,8 +1,6 @@
-# Knowledge base 01 — the metric's algebra, and what the organiser's own scores imply
+# Knowledge base 01 — exact DTI algebra and conditional score-label inversion
 
-Everything here is derived from the published metric and the eleven published scores. Reproduce
-with `python3 scripts/run_inversion.py` → `evidence/inversion/live_anchor_inversion.json`, and
-`python3 -m pytest tests/test_metric_s3.py -q`.
+The metric algebra below is derived from the official formula and regression-tested. **Every score-to-file attribution in the historical inversion is owner-reported and unverified against an organizer receipt.** In particular, the H33 0.2778 label is not authenticated to its exact TIFF; see `knowledge/05_why_02778_and_can_we_beat_it.md` for the correction. Calculations in `evidence/inversion/live_anchor_inversion.json` that consume those labels are conditional sensitivity analyses, not observed scores or recovered hidden truth. Reproduce the algebra checks with `python3 -m pytest tests/test_metric_s3.py -q`; the old inversion script is not a score-authentication tool.
 
 Source of truth: https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric
 
@@ -110,126 +108,36 @@ positive contribution; up-weighting one that does not only enlarges the penalty.
 than its own thresholding.
 
 This is tested numerically in `tests/test_metric_s3.py::test_binary_is_optimal_over_soft_scaling` and
-matches practice: **all eleven scored reference artifacts are exactly `{0.0, 1.0}`** (verified by
-reading every file — see `data/reference/README.md`).
+matches the locally restored historical reference files: **all eleven artifacts in the prior
+corpus are exactly `{0.0, 1.0}`** (verified by reading every file — see `data/reference/README.md`).
+This is a file-format observation, not authentication that the organizer scored those exact bytes.
 
 ---
 
-## 5. What the eleven published scores imply about the hidden truth
+## 5. What the old score-conditioned calculations can say
 
-`S_active` = positive pixels inside the footprint and off the given catalogue (the only pixels that
-can be scored).
+An earlier inversion used eleven owner-reported score labels alongside locally restored TIFFs. The formulas below are valid **only if** each reported label belongs to the exact raster bytes being measured. That mapping has not been proven by organizer receipts, and the pinned H33 owner record calls H33 unscored with 0.2747 projected. Therefore:
 
-| artifact | S_active | public DTI | model-free \|G\| floor | dots ≤2 px of catalogue |
-|---|---|---|---|---|
-| `h33-2-b2` flank prune | 37,654 | **0.2778** | 2,897 | **0** |
-| `h27-4-r1` solo d2.8 | 40,199 | 0.2708 | 2,986 | 2,545 |
-| `h33d` tip / step-over | 41,865 | 0.2632 | 2,991 | 3,894 |
-| `h19-5` dotted d2.8 | 44,090 | 0.2600 | 3,098 | 6,436 |
-| `d2.8` poisson off-catalogue | 44,090 | 0.2600 | 3,098 | 6,436 |
-| `h19-5` dotted d1.5 | 60,069 | 0.2477 | 3,956 | 8,769 |
-| topo gap-closure on d1.5 | 61,328 | 0.2449 | 3,978 | 8,875 |
-| `h19-5` solid | 121,131 | 0.1922 | **5,764 ← binding** | 17,326 |
-| `h30` arrangement-matched habitat | 91,533 | 0.1352 | 2,862 | 8,296 |
-| `h34` scatter q50 arr-matched | 37,654 | 0.0778 | 635 | 0 |
-| `h35-06` candidate | 39,530 | 0.0418 | 345 | 5,365 |
+- Do not report the old `|G| ≥ 5,764` or `5,764 ≤ |G| ≤ 15,179` values as measured bounds on hidden truth.
+- Do not interpret `dScore`, `nested_removal_analysis`, or inferred `T` values in `evidence/inversion/live_anchor_inversion.json` as measured effects.
+- They may be retained as **what-if arithmetic** under the recorded assumptions, not as evidence that pruning raised a score.
 
-**Lower bound.** Since `T ≤ |G|` and `M ≥ 0`,
-`DTI ≤ T/(0.2·S) ≤ |G|/(0.2·S_active)` rearranges to
+The H33/H27 mask relation itself remains verified: H33 has 37,654 positives and is a strict subset of a 40,199-positive H27 parent; the 2,545 parent-only pixels all lie within 2 px of catalogue labels (1,201 at 1 px, 1,344 at 2 px). This is a statement about masks, not hidden truth. A different GEMSDOE27 all-increments TIFF has 41,507 positives and is not the parent. See the pinned sources and caveats in `knowledge/05_why_02778_and_can_we_beat_it.md`.
 
-```
-|G|  ≥  0.2 · DTI · S_active / (1 − DTI)
-```
+## 6. Same-mass comparisons are not score receipts
 
-Binding from the solid artifact: **|G| ≥ 5,764 px**.
+The H33 and H34 reference masks both contain 37,654 positive pixels, and their public owner materials carry different numeric labels (0.2778 and 0.0778). Without exact upload receipts, the labels cannot establish a three-point causal comparison, much less prove that coherent lineament placement explains a 3.6× organizer-score difference. The masks can still be compared on a public proxy, but that is a distinct experiment with its own truth-source limitations.
 
-**Upper bound.** The nested pair `h27-4-r1` ⊃ `h33-2-b2` gives, under `M ≈ T`,
-`ΔT = 85 − 0.0056·|G|`, and the deleted dots' mean credit must be ≥ 0 for the deletion to have
-*lost* nothing... the observed gain requires mean credit per deleted dot below the bar, which caps
-`|G| ≤ 15,179`. Monotonicity `T_solid ≥ T_d1.5 ≥ T_d2.8` gives the weaker |G| ≤ 37,838 and
-|G| ≤ 69,694.
+## 7. Marginal-credit arithmetic is a hypothesis generator, not hidden-label evidence
 
-```
-5,764  ≤  |G|  ≤  15,179 px           0.112 % ≤ prevalence ≤ 0.294 %
-```
+The credit-bar derivation in §3 is exact for an added unit of prediction mass under the metric. At a hypothetical DTI of 0.2778 it gives a break-even new kernel credit of 0.05556. It does **not** identify the true kernel credit of any removed H33 pixel. The official mask excludes catalogue pixels themselves, not an automatic 200 m neighborhood; a nearby off-catalogue prediction can still cover a hidden fault, while a non-matching prediction remains penalized. No hidden labels are available here to resolve those cases.
 
-against a given-catalogue prevalence of 1.1803 %. **The hidden truth is four to ten times sparser
-than the catalogue.** This is the single number that most constrains holdout design, and it is why
-`src/gems47s3/holdout.py` prevalence-matches its folds to exactly this bracket.
+The old perfect-field density table and `T`/`|G|` inversion are idealized what-if calculations. They are not a leaderboard forecast, validated geological discovery, or reason to spend a weekly slot. Current H49 public-proxy results and its closed slot gate are reported in `docs/H49_RESULTS.md`.
 
 ---
 
-## 6. The natural experiment that identifies placement, not mass
+## 8. Required output format and current internal-mask contract
 
-`h33-2-b2` and `h34-scatter-q50` have **identical mass (37,654 px)** and an **identical
-catalogue-flank property (0 dots within 2 px)**, and score **0.2778 vs 0.0778 — 3.6× apart**.
+The official format page specifies a single-band float32 GeoTIFF on EPSG:32611, 100 m grid, width 3292 × height 3730, bounds and transform matching the supplied grid, values in [0,1], and null/NaN outside the footprint. See the [official page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/).
 
-Under `M ≈ T`: `T₁ = 2,092 + 0.2222·|G|`, `T₂ = 586 + 0.0622·|G|`. At |G| = 8,000 that is
-`T₁ = 3,870` (48 % coverage) against `T₂ = 1,084` (14 %).
-
-**Coherent lineament placement beats scattered placement by ~3.6× at identical cost.** This also
-falsifies the "hidden truth is a ~1.85 px scatter shell around the catalogue surface" model that
-GEMSDOE32 used to build its live-anchored truth: a scatter shell would have rewarded
-`h34-scatter-q50`, and it did not.
-
----
-
-## 7. Where 0.2778 loses its score
-
-At `S = 37,654`, `T ≈ 3,870`, `M ≤ T`, `|G| = 8,000`:
-
-```
-false-positive tax    0.2·(S − M)  ≈  6,757
-earned credit         T            ≈  3,870
-missed-fault penalty  0.8·(|G|−T)  ≈  3,304
-                      DTI = 3,870 / 13,931 = 0.2778
-```
-
-**The tax exceeds the credit.** At most ~10 % of emitted dots hit truth at weight 1 (~26 % at mean
-weight 0.4). The unachievable-but-instructive counterfactual — keep the same hits, drop every miss
-(`S → 9,675`, `M = T = 3,870`, `|G| = 8,000`) — gives DTI ≈ **0.464**, far above the 0.3345
-leader. The opportunity is entirely in **precision of placement**.
-
-For completeness, the density trade-off under a *perfect* field (dots exactly on the trace, spacing
-`s` along it, mean kernel weight over the covered truth pixels):
-
-```
-s = 2   →  DTI ≈ 0.862
-s = 2.8 →  DTI ≈ 0.804
-s = 3   →  DTI ≈ 0.714
-s = 4   →  DTI ≈ 0.714
-s = 6   →  DTI ≈ 0.556
-```
-
-So **for a perfect field denser is better**, and sparsity only pays through miss-removal. That is
-why the sweep in `scripts/run_sweep_a.py` explores density in *both* directions from the incumbent's
-7.37 px per 1000, and why the operating point is chosen by a guaranteed floor rather than by the
-observed best.
-
----
-
-## 8. Required output format, and the rejection that had to be fixed
-
-From the official page and from reading every scored reference artifact:
-
-* single band, `float32`, EPSG:32611, 100 m, **3730 rows × 3292 cols**, transform
-  `(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)`;
-* values in **[0, 1]**;
-* outside the footprint: "null or nan" per the page.
-
-The portal error the brief asks to fix — `"Predicted values must be in range [0, 1]"` — has two
-distinct mechanisms, and `src/gems47s3/raster.py` closes both:
-
-1. **a value outside [0,1].** The official `training_features.tif` uses the float32 sentinel
-   `-3.4028234663852886e38` for its 7,113,320 out-of-footprint cells. Any pipeline that carries a
-   band value through unmasked, or normalises by a min that is the sentinel, writes it out.
-2. **a `nodata` tag whose value is outside [0,1]** — `nan` or the sentinel. A validator can read the
-   tag itself as a "predicted value".
-
-Measured across the eleven scored artifacts: three carry `nodata=nan` and 7,111,787 NaN cells and
-were still scored, one carries `nodata=0.0`, and the rest carry **no nodata tag at all** with every
-cell finite. The shipped GEMSDOE47 raster uses the configuration shared by all six artifacts that
-never drew a format complaint: **every one of the 12,279,160 cells finite and in [0,1], no nodata
-tag, min exactly 0.0, max exactly 1.0.** `validate_submission` re-opens the written bytes — it never
-trusts the in-memory array — and gates fifteen checks fail-closed, emitting a `checks-*.json`
-receipt.
+The current H49 writer uses a self-contained internal TIFF mask that exactly matches the supplied official footprint; masked reads are null exactly outside. The rebuilt `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` (SHA-256 `f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060`) has one float32 band, the exact 3292 × 3730 EPSG:32611 grid/transform, and an internal mask equal to all 5,167,373 footprint cells. Raw samples are finite and in [0,1] across the entire grid (outside samples are zero), with no nodata tag, no sidecar and no second band. Read-back of the exact bytes passes all 19 gating checks plus the separate informational whole-grid-range flag; the earlier H49 copy failed the strict mask contract. This format pass does **not** establish scientific promotion, uniqueness outside the declared bounded audit scope, or organizer acceptance.

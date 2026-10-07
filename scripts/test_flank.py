@@ -1,24 +1,21 @@
 #!/usr/bin/env python3
-"""Decisive test of the H47 flank hypothesis, plus the independent SGMC frame.
+"""Historical H47 flank diagnostics on catalogue and public SGMC proxies.
 
-Q1  Does the catalogue-flank layer add explanatory power to LATI *beyond* the
-    incumbent's own field?  Fit q on {control_prox_d2.8} alone and on
-    {control_prox_d2.8, dcat_band_0_1.5, dcat_band_1.5_3, sgmc_offcat_prox} and
-    compare SSR with leave-one-observation-out CV.  If the flank layers only
-    proxy "near the good field", they add nothing and H47 dies here.
+This legacy script is not an independent evaluation of private labels. SGMC is a
+public geologic-map compilation that includes non-fault contacts and may omit
+faults; its off-catalogue traces are a proxy population only. It does not establish
+what the organizer scores. The reported H33 0.2778 value is a filename/board
+association without an organizer receipt mapping that value to exact TIFF bytes.
 
-Q2  Independent, official, real-truth frame.  USGS SGMC geologic-map faults that
-    are NOT within 300 m of the competition's given catalogue are, by the
-    organiser's own definition ("'new fault' means 'any fault pixel not already
-    captured by USGS/INGENIOUS'", thread 11536), *members of the target
-    population*.  Score the incumbent and every H47 arm against them with the
-    official metric.  This is the only local frame whose truth is a real fault
-    population that is off-catalogue.
+Q1 fits catalogue-flank layers with and without the earlier field using the
+historical leave-one-observation-out setup. This is an exploratory diagnostic,
+not a prospective promotion test.
 
-Q3  Spatially blocked holdout on the given catalogue (4 quadrants), reported for
-    continuity with the sibling repositories, with the contamination caveat that
-    GEMSDOE42 already logged: its truth IS the catalogue, so it rewards the
-    opposite skill.
+Q2 compares historical masks against the SGMC off-catalogue proxy using the
+published metric. It is not “real truth” for the private target.
+
+Q3 reports four spatial quadrants of the given-catalogue mask. This rewards
+catalogue similarity and cannot validate discovery of uncatalogued faults.
 
     python3 scripts/test_flank.py
 """
@@ -129,8 +126,8 @@ def main() -> int:
     dcat = FEAT.dist_px(t.catalogue, 80.0)
     truth_s = (sgmc & t.evaluated & (dcat > M.RANGE_PX))
     K_S = int(truth_s.sum())
-    print(f"\n[Q2] SGMC off-catalogue frame: {K_S:,} truth pixels "
-          f"(USGS SGMC faults >300 m from the given catalogue, inside the footprint)")
+    print(f"\n[Q2] SGMC off-catalogue proxy: {K_S:,} trace pixels "
+          f"(SGMC traces >300 m from the given catalogue, inside the footprint; contacts may occur)")
     ev = t.evaluated
 
     def score_dots(dots, truth):
@@ -139,13 +136,13 @@ def main() -> int:
 
     arms = {}
     d28 = np.zeros(shape, bool); d28.ravel()[[o.dot_flat for o in obs if o.id == "d2.8"][0]] = True
-    arms["incumbent_d2.8 (live 0.2600)"] = d28
+    arms["historical d2.8 field (score mapping unverified)"] = d28
     h33 = ROOT.parent / "refs" / "GEMSDOE32" / "docs" / "downloads" / \
         "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif"
     if h33.exists():
         with rasterio.open(h33) as s:
             v = s.read(1)
-        arms["h33-2-b2 (reported 0.2778)"] = np.nan_to_num(v) > 0
+        arms["H33-labelled reference (score mapping unverified)"] = np.nan_to_num(v) > 0
     # flank arm: dots inside the 1-3 px catalogue halo, ranked by an SGMC/ridge composite
     halo = (dcat > 0) & (dcat <= M.RANGE_PX) & ev
     arms["flank_halo_only (all %d px)" % int(halo.sum())] = halo
@@ -161,9 +158,10 @@ def main() -> int:
         print(f"   {label:<38} dots={r['n_dots']:>7,} T={r['TP_w']:>9.1f} F={r['FP_w']:>10.1f} "
               f"recall={r['weighted_recall']:.4f} credit/dot={r['credit_per_unit_mass']:.4f} "
               f"DTI={r['DTI']:.4f}")
-    out["Q2_sgmc_offcatalogue_frame"] = dict(K=K_S, definition="USGS SGMC fault pixels "
-        ">300 m from the competition catalogue, inside the sample_submission footprint, "
-        "excluding masked catalogue pixels", arms=q2)
+    out["Q2_sgmc_offcatalogue_frame"] = dict(K=K_S, definition="USGS SGMC trace pixels "
+        ">300 m from the given catalogue and inside the supplied footprint. SGMC includes "
+        "non-fault contacts and is only a public proxy; this is not the hidden competition target.",
+        arms=q2)
 
     # ---------------- Q3: blocked catalogue holdout -------------------------
     H, W = shape

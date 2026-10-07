@@ -6,168 +6,31 @@ nav_order: 7
 
 # Remaining work and limitations
 
-Written as the brief requires: after the PR, list what is left and what this cannot do.
-Nothing here is a hedge — each item is a specific, actionable gap with the reason it is open.
+> **Current decision: H49 is a downloadable research artifact, not an authorized competition submission.** It did not clear the paired spatial-holdout improvement gate. Maximize P(Win): preserve the weekly slot until a prospectively specified candidate beats the current holdout best. Own the Outcome: keep the exact bytes, caveats, failures and source records reviewable.
 
----
+## Current H49 state
 
-## A. Blocking: the submission has not been uploaded
+The file `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` is 409,124 bytes, SHA-256 `f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060`, with 37,612 positive pixels. It is a one-band float32 GeoTIFF on the 3292 × 3730 EPSG:32611, 100 m official grid. Its self-contained internal mask matches the 5,167,373-cell footprint, and masked reads are null exactly outside. All 19 gating format/read-back checks pass; the whole-grid raw `[0,1]` check is reported separately as an informational flag. This is format validation for these bytes, not scientific validation or organizer acceptance.
 
-**The GitHub token in this environment is invalid** (`gh api user` → `Bad credentials`;
-`git push` → `Invalid username or token`). The two commits exist on the local branch
-`arena/e1835de8-gemsdoe47` and the working tree is saved, but they could not be pushed, the pull
-request could not be opened, and it could not be merged onto `main`.
+The pinned visible-public-inventory audit covered 54 repositories and 565 comparisons (555 inventory blobs plus 10 local-history rasters), with zero exact mask/value matches and maximum Jaccard 0.292575. Three inventory entries were excluded from direct pixel comparison, and no repository inventory fetch failed. The audit is bounded: inaccessible, unpublished, deleted, later-published and otherwise non-inventoried files are outside its scope. Do not claim global uniqueness.
 
-**To finish:** reconnect GitHub in Arena, then
+The nominal fixed-arm split-conformal order statistic is 0.03184 at 90% for spacing 2.8 px / 280 m. Its unit is one 8×8 spatial block; `n=19`, `k=18`; the target is block DTI on public USGS SGMC traces more than 300 m from the given catalogue. Validity assumes exchangeable blocks and a rule fixed independently of calibration outcomes. SGMC includes non-fault contacts, geological-block exchangeability is unverified, and the shipped mean-maximizing rule was amended after results. This is not a guarantee for the full adaptive procedure, private labels, paired improvement or leaderboard score.
 
-```bash
-git push -u origin arena/e1835de8-gemsdoe47
-gh pr create --base main --head arena/e1835de8-gemsdoe47 \
-             --title "$(cat .github/PR_TITLE.txt)" --body-file .github/PR_BODY.md
-gh pr merge --merge --delete-branch
-```
+The H49 mean-rule arm has a positive descriptive public-proxy mean but its 90% split-conformal lower bounds on paired improvement over the H33-labelled reference are negative for both selection and calibration halves. The saved floor-rule arm also fails the paired-improvement criterion. **Do not upload H49 or spend a weekly slot on it.** No competition upload, organizer score receipt or acceptance receipt exists.
 
-`.github/PR_BODY.md` is the finished pull-request description. GitHub Pages then needs to be pointed
-at `docs/` on `main` (repository → Settings → Pages → source: *Deploy from a branch*, folder
-`/docs`); the site will be at `https://buffedlizard55-lab.github.io/GEMSDOE47/`.
+## Remaining work, in priority order
 
-**And the actual submission still has to be uploaded by a human**, because the DrivenData
-submission form is login-gated and this environment holds no DrivenData credentials. The file,
-its SHA-256, the submission name and the ≤200-character note are all on the front page of the
-site; the click-by-click steps are in [HOW_TO_SUBMIT](HOW_TO_SUBMIT.md).
+1. **Complete the requested GitHub review and merge.** Fetch current `main`, reconcile this session branch without leaving it, run checks on the reconciled tree, create a PR, inspect CI and merge only if all required checks pass. Record the actual PR/merge result; do not infer it from local Git state.
+2. **Find a genuinely stronger candidate.** Write a prospective protocol before scoring. Use a fresh spatially blocked holdout not reused from the 39 H49 blocks, matched-mass and shifted/random controls, and a positive paired-improvement lower-bound criterion. Keep the slot gate closed on ties, unstable folds, failed controls or an unsupported/negative lower bound.
+3. **Verify higher-resolution data before depending on it.** The ranked queue proposes a conditional USGS 3DEP / GeoDAWN H50 LiDAR idea, but exact 1 m files, license, bytes and footprint coverage are not verified in this sandbox. Do not treat H50 as viable until an official free source is actually obtained and checked.
+4. **Resolve H33 score attribution if an organizer receipt becomes available.** The H33/H27 mask relationship is verified from pinned files, but no receipt maps 0.2778 to the H33 hash; its pinned owner README says unscored and calls 0.2747 a projection. Reduced off-target mass is a plausible mechanism, not an established causal explanation.
+5. **Refresh the old inversion only if its exact reference TIFFs are restored.** `scripts/run_inversion.py` cannot produce a new JSON because `data/reference/` lacks required inputs. Existing score-conditioned values remain conditional owner-label arithmetic, not organizer observations.
+6. **Retain the research record and re-run checks after any artifact change.** The exact TIFF hash, format receipt, conformal certificate, public audit, source references, ranked hypotheses and review checklist are linked from `README.md` and the Pages site. Any byte change requires rebuilding the receipt and both audits.
 
----
+## Non-claims and scope boundaries
 
-## B. Limitations of the result
-
-### B1. The holdout cannot forecast the organiser's score — and that is not fixable locally
-
-Every DTI in `evidence/sweep/sweep_a.json` is scored against **held-out components of the given
-catalogue**. The organiser scores against faults that are *not* in the given catalogue, chosen by
-an expert panel for geothermal relevance, from sources it will not disclose
-(DrivenData thread 11527). So:
-
-* the holdout is a valid **ordering** instrument (it ranks fields and operating points);
-* it is **not** a level instrument (0.088 on `PM0200` does not mean 0.088 on the leaderboard);
-* it is structurally invalid for arms that prune near the catalogue (`IR-47-PROXY-02`) — the
-  shipped 0.2778 artifact scores 0.004 on it, below random, because its dots were deleted from
-  exactly where the fold truth sits.
-
-The conformal floor is a floor **on this instrument** and is labelled that way everywhere it
-appears. No claim is made that 0.0134 is a floor on the public DTI.
-
-### B2. The conformal guarantee is conditional on exchangeability, which geology violates
-
-The theorem is exact *given* exchangeable units. The units here are spatial blocks, and the Basin
-and Range is not i.i.d.: blocks differ in strain regime, basin-fill depth, exposure and mapping
-history. Evidence that this bites:
-
-* On the single pre-registered split the selection half violated the 90 % floor in **23 %** of
-  blocks, against a nominal 10 %.
-* Over 400 independent random splits of the same blocks the mean violation rate is **8.7 %**,
-  i.e. correctly calibrated.
-
-So the mis-coverage on the shipped split is **split luck**, not a failure of the theorem — but it
-is a direct measurement of how much block heterogeneity there is. The number quoted on the site is
-therefore the 5th percentile of the floor distribution over splits (0.01343) rather than the
-single-split value (0.04477). A reviewer who wants the stronger number should read it as
-conditional on one draw.
-
-At α = 0.05 the bound is **vacuous** (needs n ≥ 19 usable calibration blocks; 12 are available).
-No 95 % statement is made anywhere in this repository.
-
-### B3. The emitted mass rests on an assumed coverage
-
-The algebraic ceiling `S_max = G·(c/target − 0.8)/0.2` is model-free in `G` and `target` but
-**assumes a coverage `c = T/|G|`**. At c = 0.60 and |G| = 8,000 the ceiling is 43,117 px and the
-shipped 37,612 px sits under it. At the coverage the incumbent *demonstrably* achieved (c = 0.48)
-the ceiling is 28,094 px — **below what was shipped**. If the new field's coverage is no better
-than the incumbent's, the shipped mass is past the ceiling for the stated target.
-
-This is the single largest open risk and it is quantified, not hidden: the full sensitivity table
-is on the front page and in `evidence/conformal/selection.json → mass_ceiling`. A sparser variant
-(`density 4.0` per 1000 → ≈20,400 px) is inside the ceiling at every coverage and every |G| in the
-bracket, and costs about 15 % of holdout mean DTI. It is one flag away:
-
-```bash
-python3 scripts/build_submission_s3.py --name gemsdoe47-scarp9-sparse \
-    --note "..." # then edit the density in the frozen selection, or re-run run_conformal.py
-```
-
-### B4. Five of the ten drafted hypotheses were refuted, and one of the survivors is unproven
-
-`knowledge/06` records H47-B (magnetic braid number), H47-C (drainage-azimuth asymmetry), H47-D
-as formulated (strain-partitioning Laplacian), H47-E (signed basement step) and H47-F
-(corroboration count) as **refuted by measurement**, with numbers. H47-A (catalogue-vacancy
-residual) survives as a weak-but-plausible gate; recipe `R5_scarp9_vacancy` tests it and it did
-**not** win the sweep, so it is not in the shipped field. It remains untested at other gate powers
-and scales.
-
-### B5. No external data could be obtained, so the highest-leverage idea is untested
-
-`knowledge/04` §1.1: the **GeoDAWN EarthMRI / 3DEP LiDAR** on the Open Energy Data Initiative is
-the single highest-leverage acquisition available — H47-1 is the strongest signal in the shipped
-stack *at 100 m on a detrended slope*, and Giddens & Faulds (2025) mapped the same structures from
-1 m LiDAR across ~499,178 km². `data.openei.org` is unreachable from this sandbox and
-`1m_DEM_links.csv` is login-gated, so it is recorded as **not viable here** rather than proposed
-as if it were.
-
-Also unobtainable: the 10 m 3DEP DEM, USGS SGMC bytes, NBMG Map 167 bytes, the GDR submissions
-1391 and 1349. The six `derived_*` rasters in `data/reference/` are copies from earlier family
-repositories; `/tmp` is not persisted, so if they are lost they must be re-derived from the named
-public sources.
-
-### B6. Band `tc` is ambiguous and is excluded on measurement
-
-The raster metadata says *"Tilt angle **or** total curvature"*; the competition data page
-describes a top-of-crustal magnetic source depth estimate. Different quantities, different units,
-different signs (`IR-47-01`). Measured tie-aware AUC against the catalogue: **0.4476 — inverted**.
-Excluded from every recipe. If the organiser clarifies which quantity it is, H47-B deserves a
-re-test, because a true tilt-angle product *is* an edge detector and might behave differently.
-
-### B7. Compute envelope
-
-No GPU, ~3 GB RAM, 2 CPUs. A U-Net or FaultSEG run — the approach in the organisers' own reference
-solution, and the one Hermant et al. show beats classical methods on PR-AUC (0.595 vs 0.449) — is
-not possible here. The shipped field is entirely classical geomorphometry. That is a real ceiling
-on what this repository can reach, and it is why the reference solution's architecture is cited
-rather than reproduced.
-
----
-
-## C. Remaining work, in priority order
-
-| # | task | why it is next | cost |
-|---|---|---|---|
-| 1 | **Upload the TIF** and record the returned public DTI | it is the only instrument that can forecast the real score; everything else is ordering | 1 submission slot |
-| 2 | Reconnect GitHub, push, open the PR from `.github/PR_BODY.md`, merge to `main`, enable Pages on `/docs` | the brief requires a merged PR and a live site | minutes |
-| 3 | **Re-run the selector with the returned public DTI as a new anchor** | one real score collapses the \|G\|-and-coverage ambiguity in B3 far more than any local instrument can | `scripts/run_inversion.py` + `run_conformal.py`, ~10 min |
-| 4 | Ship the sparse variant (density 4.0 → ≈20,400 px) as the *second* slot if the first under-performs | it is inside the algebraic ceiling at every coverage and every \|G\| in the bracket (B3) | one flag |
-| 5 | Increase blocks to 8×8 so a 95 % bound stops being vacuous (B2) | n ≥ 19 usable calibration blocks | one sweep, ~50 min |
-| 6 | Obtain GeoDAWN EarthMRI LiDAR and re-run the transform search at 1 m/10 m (B5) | largest single expected gain; H47-1 is already the best 100 m signal | network access + ~1 day |
-| 7 | Re-test H47-A at other gate powers/scales, and H47-C on a real flow-accumulation DEM | both are plausible and unrefuted-at-other-settings (B4) | ~1 h |
-| 8 | Add a *negative*-control field (shuffled ranks) to every sweep run | makes the lift numbers self-auditing instead of relying on a stored random baseline | ~20 lines |
-| 9 | Ask the organiser to disambiguate band `tc` (B6) on the forum | cheap, and it either restores or permanently retires a whole band family | one post |
-| 10 | Wire `scripts/build_site.py` into a GitHub Action so the site regenerates on every push | the brief asks the site to solve "manually checking everything"; a scheduled action would also refresh the leaderboard table | ~30 lines of YAML |
-
----
-
-## D. What was verified, and how
-
-So that "verify line by line" is a checkable claim rather than an assertion:
-
-| claim | how it is checked | where |
-|---|---|---|
-| the three official rasters are the official bytes | SHA-256 + byte count against pins recorded from the official download | `scripts/fetch_data.py --verify-only`, `evidence/data_restoration.json` |
-| the grid is the required grid | width/height/CRS/transform/band count asserted on every read | `src/gems47s3/grid.py::Grid._assert_grid` |
-| the metric implementation is the published metric | brute-force O(\|G\|·\|P\|) transcription compared against the fast path; the published worked example reproduced to the printed 0.60 | `tests/test_metric_s3.py` |
-| the algebraic identities hold | proved by test, including `FN_w = \|G\| − TP_w`, `T ≥ M`, and the credit bar | `tests/test_metric_s3.py` |
-| binary beats soft | the `v`-cancellation argument tested numerically at five values of `v` | `tests/test_metric_s3.py::test_binary_is_optimal_over_soft_scaling` |
-| the conformal quantile is the theorem's quantile | Monte-Carlo coverage at three α over 4,000 draws, plus an explicit regression test for the `k = ceil((n+1)α)` error that was found and fixed | `tests/test_conformal.py` |
-| the emitter honours its spacing | pairwise distance of every emitted pair asserted at four spacings, for both the NMS and the Poisson-disk rule | `tests/test_emission_raster.py` |
-| the scarp filter samples across strike, not along it | a step in each of the two orientations must be detected by its own normal | `tests/test_emission_raster.py::test_scarp_step_samples_across_strike_not_along_it` |
-| the shipped raster is legal | re-opened from disk, 15 checks, fail-closed, receipt written | `src/gems47s3/raster.py::validate_submission`, `evidence/submission/checks-*.json` |
-| the submission is unique | Jaccard and containment against all 18 reference artifacts, plus SHA-256 | `evidence/submission/bundle.json → uniqueness` |
-| every number on the site is generated | the site is built by reading `evidence/*.json`; a missing receipt prints an explicit "not yet generated" line instead of a value | `scripts/build_site.py` |
-
-**53 tests pass.** `python3 -m pytest tests/ -q`.
+- The public SGMC/PM0200 proxy is not the hidden competition target; SGMC contains non-fault contacts. No public-proxy DTI is a leaderboard forecast.
+- A nominal fixed-arm split-conformal statistic is conditional on exchangeability and prospective rule fixation. Re-partitions reusing the same blocks are sensitivity diagnostics, not independent validation samples.
+- A file-format pass does not establish scientific improvement, bounded uniqueness outside the recorded inventory, portal acceptance or an organizer score.
+- The H33 filename-to-score mapping and all competition upload/score receipts remain unresolved in this repository.
+- `README.md` preserves the complete available structured brief and discloses that the original verbatim chat transcript was not present in the checkout; unavailable wording has not been reconstructed.

@@ -9,11 +9,11 @@ script therefore reports, for every surface:
   * distinct_values
   * auc -- tie-aware Mann-Whitney AUC against the catalogue dilated by 1 px (Instrument A
     skill: does it find MAPPED faults?)
-  * auc_offcat -- the same against USGS SGMC faults that lie > 300 m from the given catalogue
-    (Instrument B skill: does it find REAL faults the catalogue lacks?  This is the
-    population the organiser actually scores.)
-  * precision_at_40k -- the fraction of the top 40,000 pixels that are within 3 px of an
-    off-catalogue real fault, i.e. the quantity the metric actually pays for.
+  * auc_offcat -- the same against USGS SGMC mapped traces > 300 m from the given catalogue
+    (Instrument B: a public off-catalogue proxy; SGMC includes non-fault contacts and is not the
+    organizer's hidden target).
+  * precision_at_40k -- the fraction of the top 40,000 pixels within 3 px of an off-catalogue
+    SGMC trace. This is a proxy diagnostic, not measured hidden-label credit or a leaderboard metric.
 
 Run:  python3 scripts/diagnose_surfaces.py
 Out:  evidence/surface_skill.json

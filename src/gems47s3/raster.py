@@ -9,15 +9,17 @@ Two distinct mechanisms produce that message and both are handled here:
      validator can read the tag as a "predicted value".
 
 The writer therefore offers two modes, and the validator re-opens the file from disk
-(it never trusts the in-memory array that was written):
+(it never trusts the in-memory array that was written). Both modes store the official
+footprint in a self-contained internal TIFF mask: masked reads return null outside,
+without a sidecar or out-of-range nodata tag.
 
-  mode="zeros"  every one of the 12,279,160 cells is finite and in [0, 1]; nodata tag is
-                ABSENT.  This is the safest file the specification allows: outside the
-                footprint the confidence is 0.0, which is a legal value in [0, 1] and
-                cannot trip a range check.
-  mode="nan"    cells outside the footprint are NaN, as the official example_submission.tif
-                does ("data outside the bounds is null or nan").  Legal, and byte-identical
-                inside the footprint, but one validator change away from mechanism 2.
+  mode="zeros"  every raw cell is finite and in [0, 1]; nodata tag is ABSENT. Outside
+                the footprint the raw sample is 0.0 and is marked invalid by the internal
+                mask, satisfying both range-safe and null-footprint readers.
+  mode="nan"    raw cells outside the footprint are NaN, as the official
+                example_submission.tif does ("data outside the bounds is null or nan").
+                The internal mask also marks them invalid; the range guarantee is only
+                for the footprint, not for raw masked-out samples.
 """
 from __future__ import annotations
 
@@ -44,6 +46,9 @@ def write_submission(values: np.ndarray, path: Path, mode: str = "zeros",
         raise ValueError(f"expected {(HEIGHT, WIDTH)}, got {a.shape}")
     if footprint is None:
         footprint = np.isfinite(a)
+    footprint = np.asarray(footprint, dtype=bool)
+    if footprint.shape != a.shape:
+        raise ValueError(f"footprint shape {footprint.shape} differs from raster shape {a.shape}")
     inside = a[footprint]
     if inside.size == 0:
         raise ValueError("empty footprint")
@@ -53,7 +58,7 @@ def write_submission(values: np.ndarray, path: Path, mode: str = "zeros",
         raise ValueError(f"value outside [0,1] inside the footprint: [{inside.min()}, {inside.max()}]")
 
     out = np.zeros((HEIGHT, WIDTH), np.float32)
-    out[footprint] = np.clip(a[footprint], 0.0, 1.0).astype(np.float32)
+    out[footprint] = a[footprint].astype(np.float32)
     if mode == "nan":
         out = out.astype(np.float32)
         out[~footprint] = np.float32("nan")
@@ -67,11 +72,13 @@ def write_submission(values: np.ndarray, path: Path, mode: str = "zeros",
                    tiled=False, BIGTIFF="NO")
     # Deliberately NO nodata tag: any sentinel we could write (NaN, -3.4e38) is itself
     # outside [0, 1] and is a second route to the portal's range rejection.
-    with rasterio.open(path, "w", **profile) as ds:
+    with rasterio.Env(GDAL_TIFF_INTERNAL_MASK=True), rasterio.open(path, "w", **profile) as ds:
         ds.write(out, 1)
+        ds.write_mask(footprint.astype(np.uint8) * 255)
         ds.set_band_description(1, "predicted confidence of an unmapped fault in [0,1]")
     return dict(path=str(path), mode=mode, bytes=path.stat().st_size,
-                sha256=_sha256(path), positive_pixels=int((out > 0).sum()))
+                sha256=_sha256(path), positive_pixels=int((out > 0).sum()),
+                valid_mask_pixels=int(footprint.sum()))
 
 
 def _sha256(path: Path) -> str:
@@ -138,6 +145,9 @@ def validate_submission(path: Path, footprint: np.ndarray | None = None,
     r = FormatReceipt(path=str(path))
     with rasterio.open(path) as ds:
         a = ds.read(1)
+        validity_mask = ds.read_masks(1) > 0
+        masked_read_mask = np.ma.getmaskarray(ds.read(1, masked=True))
+        self_contained_file = len(ds.files) == 1 and Path(ds.files[0]).resolve() == path.resolve()
         r.sha256 = _sha256(path)
         r.bytes = path.stat().st_size
         r.driver = ds.driver
@@ -150,17 +160,24 @@ def validate_submission(path: Path, footprint: np.ndarray | None = None,
         r.nodata = ds.nodata
 
     finite = np.isfinite(a)
+    fp_shape_matches = footprint is None or np.shape(footprint) == a.shape
     fp = finite if footprint is None else np.asarray(footprint, bool)
+    if not fp_shape_matches:
+        fp = np.zeros(a.shape, dtype=bool)
     inside = a[fp]
+    outside = a[~fp]
     finite_in = np.isfinite(inside)
     in_range = finite_in & (inside >= 0.0) & (inside <= 1.0)
     nodata_is_nan = (r.nodata is not None) and isinstance(r.nodata, float) and np.isnan(r.nodata)
     nodata_bad = (r.nodata is not None) and not nodata_is_nan and not (0.0 <= float(r.nodata) <= 1.0)
 
+    outside_allowed = np.isnan(outside) | (np.isfinite(outside) & (outside >= 0.0) & (outside <= 1.0))
     r.stats = dict(
         full_grid_cells=int(a.size),
         finite_cells=int(finite.sum()),
         footprint_cells=int(fp.sum()),
+        validity_mask_cells=int(validity_mask.sum()),
+        invalid_mask_cells=int((~validity_mask).sum()),
         finite_in_footprint=int(finite_in.sum()),
         min_in_footprint=float(inside[finite_in].min()) if finite_in.any() else None,
         max_in_footprint=float(inside[finite_in].max()) if finite_in.any() else None,
@@ -180,11 +197,16 @@ def validate_submission(path: Path, footprint: np.ndarray | None = None,
         dimensions_3730x3292=(r.width == WIDTH and r.height == HEIGHT),
         crs_epsg_32611=r.crs_epsg == EPSG,
         transform_exact=r.transform == (100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0),
+        footprint_shape_matches_raster=fp_shape_matches,
+        mask_matches_footprint=bool(np.array_equal(validity_mask, fp)),
+        masked_read_null_exactly_outside=bool(np.array_equal(masked_read_mask, ~fp)),
+        self_contained_single_file=self_contained_file,
         in_footprint_all_finite=bool(finite_in.all()),
         in_footprint_zero_nan=int((~finite_in).sum()) == 0,
         in_footprint_zero_inf=bool(np.isinf(inside[finite_in]).sum() == 0) if finite_in.any() else False,
         in_footprint_zero_sentinel=bool((inside[finite_in] > -1e38).all()) if finite_in.any() else False,
         in_footprint_range_0_1=bool(in_range.all()),
+        outside_samples_finite_or_nan_in_range=bool(outside_allowed.all()),
         every_cell_finite_or_nan_outside=bool(finite[~fp].all() or np.isnan(a[~fp]).all()),
         nodata_tag_not_out_of_range=not nodata_bad,
         validator_range_0_1_guaranteed=bool(finite.all() and (a.min() >= 0.0) and (a.max() <= 1.0)),

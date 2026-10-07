@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H49 results — GEMSDOE47</title>
+<meta name="description" content="The H49 round in full: blocked public-proxy sweeps, nominal fixed-arm split-conformal diagnostics, paired-improvement results, the closed promotion gate, exact TIFF validation, bounded uniqueness scope, and limitations.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">RESEARCH RECORD</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-07 13:07 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — submission</a>
+    <a href="HOW_TO_SUBMIT.html">How to submit — future candidate</a>
+    <a href="RESULTS.html">Results and score-attribution correction</a>
+    <a class="on" href="H49_RESULTS.html">H49 results</a>
+    <a href="RESEARCH_HYPOTHESES.html">Ranked H49 follow-up hypotheses</a>
+    <a href="why-02778.html">Why 0.2778</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base and sources</a>
+    <a href="REMAINING_WORK.html">Remaining work and limitations</a>
+    <a href="COMPLIANCE.html">Compliance and review</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="h49-round-blocked-sweep-results-review-findings-and-limits">H49 round — blocked-sweep results, review findings, and limits</h1>
+<p><em>Generated 2026-10-07 13:07 UTC by <code>scripts/report_h49.py</code> from the evidence files. Every figure below is read out of a committed JSON receipt; nothing here is typed by hand.</em></p>
+<h2 id="the-two-instruments">The two instruments</h2>
+<ul>
+<li><strong>Instrument A</strong> (<code>evidence/sweep/sweep_h49.json</code>): 39 usable 8×8 spatial blocks, 15,555 scored rows, five prevalence-matched instruments built from the <em>given</em> catalogue (PM0200, PM0112, PM0294, A1, A2). Truth = whole catalogue components held out of the visible catalogue. It measures <em>ordering against mapped faults</em> and is optimistic for any topographic field.</li>
+<li><strong>Instrument B</strong> (<code>evidence/sweep/sweep_h49b.json</code>): 39 usable 8×8 blocks, 4,719 scored rows, truth = USGS SGMC traces more than 3 px (300 m) from the given catalogue, whole components, prevalence-matched to <code>p0200</code>. The given catalogue is masked in full, consistent with the public scoring clarification, but SGMC includes lithologic contacts and other non-fault traces. Treat Instrument B as a public proxy, not the organizer's hidden target population.</li>
+</ul>
+<p>Both sweeps use one seeded 50/50 split: 20 selection blocks and 19 calibration blocks (with instrument-specific usable-block counts). The halves are disjoint for a fixed arm. However, the workflow later chose between the floor and mean rules after reviewing the full sweep/re-split results, so the calibration half is not an auditable untouched holdout for the final adaptive rule.</p>
+<h2 id="selected-operating-point-research-only-slot-gate-closed">Selected operating point — research-only; slot gate closed</h2>
+<p>The artifact remains downloadable for review, but <strong>do not spend a submission slot</strong>. The published selection procedure is not prospectively auditable from the repository, and the paired 90 % conformal lower bound on improvement over the incumbent is negative.</p>
+<p><code>R7_scarp9_polarity</code> · <code>disk</code> · spacing <strong>2.8 px (280 m)</strong> · density <strong>7.37 per 1,000 scored px</strong> · catalogue-flank buffer <strong>3 px (300 m)</strong></p>
+<ul>
+<li>shipped rule: maximise the selection-half mean DTI on Instrument B (amendment; see the module docstring)</li>
+<li>saved floor-rule arm (<code>docs/research/h49b-instrument-b-preregistration.md</code>) selected <code>R2_scarp9_topo</code> / <code>oriented4</code> / <code>s3.6_d14_b2</code>; its nominal fixed-arm Instrument-B floor is 0.05519. The addendum says it was written before the sweep, but Git history cannot independently verify that: the addendum, sweep evidence and certificate first appear together in commit <code>409c407</code> (2026-10-07 03:35 UTC); the sweep file records generation at 03:17 UTC. This is not proof the draft was late, only that prospective timing is not auditable from this repository.</li>
+<li>amendment: The mean-rule stability summary comes from 400 Monte Carlo re-partitions of the same 39 spatial blocks; observations are reused, so these are not 400 independent validation samples. The floor-rule ranking is sensitive to the few lower-tail order statistics among about 20 selection blocks. This documents why the rule was amended, not prospective evidence: the calibration results were already visible in the full analysis, so neither fixed-arm certificate proves validity for the adaptive workflow.</li>
+</ul>
+<h2 id="nominal-split-conformal-diagnostic-assumptions-and-scope">Nominal split-conformal diagnostic — assumptions and scope</h2>
+<p>For a rule fixed independently of calibration outcomes, the Instrument-B order statistic is 0.03184 at nominal 90 % (α = 0.1, n = 19 calibration blocks, order statistic k = 18). This is conditional on exchangeable spatial blocks and a fixed rule. Since the mean-rule change was made after the sweep, and the same 39 blocks informed that change, do <strong>not</strong> interpret this as a prospective guarantee for the complete adaptive procedure, for a geographic subregion, or for the organizer's private labels.</p>
+<table>
+<thead>
+<tr>
+<th>quantity</th>
+<th style="text-align: right;">Instrument B (SGMC off-catalogue, primary)</th>
+<th style="text-align: right;">Instrument A (PM0200, corroborating)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nominal fixed-arm floor (α = 0.1)</td>
+<td style="text-align: right;"><strong>0.03184</strong></td>
+<td style="text-align: right;">0.01828</td>
+</tr>
+<tr>
+<td>floor at α = 0.05 (95 %)</td>
+<td style="text-align: right;">0.01793</td>
+<td style="text-align: right;">vacuous</td>
+</tr>
+<tr>
+<td>floor at α = 0.20 (80 %)</td>
+<td style="text-align: right;">0.05783</td>
+<td style="text-align: right;">0.03595</td>
+</tr>
+<tr>
+<td>floor at α = 0.25 (75 %)</td>
+<td style="text-align: right;">0.05824</td>
+<td style="text-align: right;">0.03893</td>
+</tr>
+<tr>
+<td>floor at α = 0.30 (70 %)</td>
+<td style="text-align: right;">0.07383</td>
+<td style="text-align: right;">0.04854</td>
+</tr>
+<tr>
+<td>calibration-half mean</td>
+<td style="text-align: right;">0.10090 (min 0.01793)</td>
+<td style="text-align: right;">0.08607</td>
+</tr>
+<tr>
+<td>selection-half mean</td>
+<td style="text-align: right;">0.10329 (min 0.00708)</td>
+<td style="text-align: right;">0.07553</td>
+</tr>
+<tr>
+<td>leave-one-out worst floor</td>
+<td style="text-align: right;">0.01793</td>
+<td style="text-align: right;">0.01828</td>
+</tr>
+<tr>
+<td>DKW mean floor (mean over blocks, not a single block)</td>
+<td style="text-align: right;">0.04098</td>
+<td style="text-align: right;">0.03801</td>
+</tr>
+<tr>
+<td>blocks below the floor: calibration / selection (19 / 20)</td>
+<td style="text-align: right;">1 / 1</td>
+<td style="text-align: right;">0 / 1</td>
+</tr>
+<tr>
+<td>empirical violation rate: calibration / selection</td>
+<td style="text-align: right;">0.0526 / 0.0500</td>
+<td style="text-align: right;">0.0000 / 0.0526</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Repeated-partition stability diagnostic</strong> (400 Monte Carlo re-partitions of the same 39 blocks; block observations are reused, so these are not independent validation samples): floor p05 0.01793, median 0.03847, mean 0.04391; mean violation rate on the other half 0.0807 vs nominal α = 0.1. This summarizes sensitivity/stability only; it does not create new holdout evidence or restore prospective validity to the rule amendment.</p>
+<p>Across those reused-block re-partitions, the mean rule selects: <code>R7_scarp9_polarity/disk/s2.8_d7.37_b3</code> 221× (55 %), <code>R7_scarp9_polarity/disk/s2.8_d14_b3</code> 84× (21 %), <code>R2_scarp9_topo/oriented4/s2.8_d14_b3</code> 52× (13 %), <code>R2_scarp9_topo/disk/s2.8_d14_b3</code> 32× (8 %). The saved floor rule selects R2_scarp9_topo/disk/s2.8_d14_b3 129×, R7_scarp9_polarity/disk/s2.8_d14_b3 127×, R2_scarp9_topo/oriented4/s3.6_d14_b3 105×. These frequencies are conditional on this same set of 39 blocks and are not evidence from new geology.</p>
+<h3 id="paired-differences-versus-the-incumbent">Paired differences versus the incumbent</h3>
+<p>Positive means the candidate beats the H33 reference mask on that same block. The Student-t lower bound is assumption-dependent; the split-conformal lower bound is an order statistic for a fresh exchangeable block, conditional on a fixed arm. Both candidate arms have a negative conformal lower bound, so a positive per-block improvement is not established at 90 %, even though the sample mean is positive.</p>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th>half</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mean ΔDTI</th>
+<th style="text-align: right;">candidate / incumbent wins</th>
+<th style="text-align: right;">paired-mean one-sided 90% t LCB</th>
+<th style="text-align: right;">paired-difference 90% conformal lower bound</th>
+<th style="text-align: right;">sign-test p (greater)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shipped arm</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">+0.03221</td>
+<td style="text-align: right;">13 / 7</td>
+<td style="text-align: right;">+0.01671</td>
+<td style="text-align: right;">-0.03342</td>
+<td style="text-align: right;">0.1316</td>
+</tr>
+<tr>
+<td>shipped arm</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">+0.03890</td>
+<td style="text-align: right;">15 / 4</td>
+<td style="text-align: right;">+0.02138</td>
+<td style="text-align: right;">-0.01050</td>
+<td style="text-align: right;">0.0096</td>
+</tr>
+<tr>
+<td>rule described as preregistered</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">+0.01896</td>
+<td style="text-align: right;">12 / 8</td>
+<td style="text-align: right;">+0.00379</td>
+<td style="text-align: right;">-0.05947</td>
+<td style="text-align: right;">0.2517</td>
+</tr>
+<tr>
+<td>rule described as preregistered</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">+0.02657</td>
+<td style="text-align: right;">14 / 5</td>
+<td style="text-align: right;">+0.00862</td>
+<td style="text-align: right;">-0.02479</td>
+<td style="text-align: right;">0.0318</td>
+</tr>
+</tbody>
+</table>
+<h2 id="descriptive-screen-checks-not-slot-authorization">Descriptive screen checks — not slot authorization</h2>
+<table>
+<thead>
+<tr>
+<th>gate</th>
+<th>value</th>
+<th>pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>positive nominal fixed-arm Instrument-B floor</td>
+<td>0.03184</td>
+<td><strong>True</strong></td>
+</tr>
+<tr>
+<td>credible at α (k ≤ n)</td>
+<td>k = 18, n = 19</td>
+<td><strong>True</strong></td>
+</tr>
+<tr>
+<td>beats the fixed-seed random control on the B selection mean</td>
+<td>0.10329 vs 0.05750</td>
+<td><strong>True</strong></td>
+</tr>
+<tr>
+<td>descriptive B selection-half mean vs the 0.2778-labelled H33 reference</td>
+<td>0.10329 vs 0.07108</td>
+<td><strong>True</strong> (post-selection comparison)</td>
+</tr>
+<tr>
+<td>shipped arm is the isotropic emitter itself</td>
+<td>True</td>
+<td>—</td>
+</tr>
+<tr>
+<td>independently auditable preregistration + positive 90% paired-improvement floor</td>
+<td>not satisfied</td>
+<td><strong>False — do not spend a slot</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-written-artifact">The written artifact</h2>
+<ul>
+<li><code>gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif</code> — 17 local/archive raster comparisons, maximum positive-mask Jaccard 0.292575 (<code>docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</code>), maximum containment 0.452701, local exact-match flag <code>is_unique = True</code>. This bounded local check is not a global uniqueness proof.</li>
+<li>Pinned public inventory: 54 commit-pinned public repositories; 555 comparable inventory blobs plus 10 local-history rasters (565 comparisons total); 0 exact mask/value matches; maximum Jaccard 0.292575 (GEMSDOE47/docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif); 3 entries excluded from direct comparison (2 not single band exact grid, 1 not single tiff zip); 0 repository inventories failed. The inventory is scoped to visible public owner repositories, not global; <code>global_unique_proven = False</code>. Full machine-readable receipt: <code>evidence/h49/pinned-public-inventory-uniqueness.json</code>. Website copy: <code>docs/data/pinned-public-inventory-uniqueness.json</code>.</li>
+<li>37,612 unit dots = 7.370 per 1,000 scored px = 0.7279 % of the footprint; engine <code>nms_disk (field-ordered isotropic NMS)</code></li>
+<li>exact published TIFF: 409,124 bytes, SHA-256 <code>f2cec409ce3bec5a2805f1fab9a12ab7f72394f8be79cc365134ce43708c6060</code>; one float32 band, 3292 × 3730, EPSG:32611, no nodata tag; internal mask matches the 5,167,373-cell official footprint and masked reads are null outside.</li>
+<li>format/read-back: 19/19 gating checks pass (<code>all_checks_passed = True</code>); informational whole-grid range flag is True; raw full-grid cells are finite in [0,1], with 37,612 positives. Binary values True; portal note 168/200 chars.</li>
+<li>The largest local overlap is 0.2926 Jaccard and 0.4527 containment. It is a different mask, but still shares the same broad persistence/density detector lineage; the polarity-scored field and larger catalogue buffer are incremental changes, not an independent detector family. See the pinned public-inventory audit for a bounded exact-grid check.</li>
+</ul>
+<h2 id="the-density-question-this-round-actually-settled">The density question this round actually settled</h2>
+<p>Within these particular public proxies, the mapped-fault instrument tends to reward more emitted mass while the SGMC proxy has an interior peak. This is a descriptive sweep result, not evidence that the SGMC peak matches the organizer's hidden target or that the selected point is optimal on the leaderboard.</p>
+<p><strong>Instrument B (SGMC off-catalogue)</strong> — recipe <code>R7_scarp9_polarity</code>, <code>disk</code>, 2.8 px, 300 m flank</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">density / 1,000 scored px</th>
+<th style="text-align: right;">mean block DTI</th>
+<th style="text-align: right;">pooled DTI</th>
+<th style="text-align: right;">recall of the truth</th>
+<th style="text-align: right;">emitted px (per block, mean)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.04705</td>
+<td style="text-align: right;">0.04774</td>
+<td style="text-align: right;">0.0464</td>
+<td style="text-align: right;">261</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.07595</td>
+<td style="text-align: right;">0.07898</td>
+<td style="text-align: right;">0.0905</td>
+<td style="text-align: right;">523</td>
+</tr>
+<tr>
+<td style="text-align: right;">7.37</td>
+<td style="text-align: right;">0.10213</td>
+<td style="text-align: right;">0.10552</td>
+<td style="text-align: right;">0.1515</td>
+<td style="text-align: right;">963</td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.09930</td>
+<td style="text-align: right;">0.09757</td>
+<td style="text-align: right;">0.1947</td>
+<td style="text-align: right;">1828</td>
+</tr>
+<tr>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.08995</td>
+<td style="text-align: right;">0.08814</td>
+<td style="text-align: right;">0.1983</td>
+<td style="text-align: right;">2225</td>
+</tr>
+<tr>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.08995</td>
+<td style="text-align: right;">0.08814</td>
+<td style="text-align: right;">0.1983</td>
+<td style="text-align: right;">2225</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Instrument A (PM0200)</strong> — recipe <code>R7_scarp9_polarity</code>, <code>disk</code>, 2.8 px, 300 m flank</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">density / 1,000 scored px</th>
+<th style="text-align: right;">mean block DTI</th>
+<th style="text-align: right;">pooled DTI</th>
+<th style="text-align: right;">recall of the truth</th>
+<th style="text-align: right;">emitted px (per block, mean)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.06990</td>
+<td style="text-align: right;">0.06647</td>
+<td style="text-align: right;">0.0777</td>
+<td style="text-align: right;">549</td>
+</tr>
+<tr>
+<td style="text-align: right;">7.37</td>
+<td style="text-align: right;">0.08066</td>
+<td style="text-align: right;">0.07598</td>
+<td style="text-align: right;">0.1123</td>
+<td style="text-align: right;">1012</td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.07798</td>
+<td style="text-align: right;">0.07499</td>
+<td style="text-align: right;">0.1559</td>
+<td style="text-align: right;">1921</td>
+</tr>
+</tbody>
+</table>
+<h2 id="paired-block-comparisons-descriptive-results-no-private-label-score">Paired block comparisons (descriptive results; no private-label score)</h2>
+<table>
+<thead>
+<tr>
+<th>comparison</th>
+<th>half</th>
+<th style="text-align: right;">n blocks</th>
+<th style="text-align: right;">mean difference</th>
+<th style="text-align: right;">a better</th>
+<th style="text-align: right;">b better</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>oriented_vs_disk_on_b — R7_scarp9_polarity/oriented4/s2.8_d7.37_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">-0.01856</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr>
+<td>oriented_vs_disk_on_b — R7_scarp9_polarity/oriented4/s2.8_d7.37_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.00761</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td>field_swap_on_b — R2_scarp9_topo/disk/s2.8_d7.37_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">-0.00642</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td>field_swap_on_b — R2_scarp9_topo/disk/s2.8_d7.37_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.00248</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td>shipped_vs_lower_density_on_b — R7_scarp9_polarity/disk/s2.8_d4_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">-0.02658</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr>
+<td>shipped_vs_lower_density_on_b — R7_scarp9_polarity/disk/s2.8_d4_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.02576</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td>shipped_vs_lower_density_on_a — R7_scarp9_polarity/disk/s2.8_d4_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>selection</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.01562</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr>
+<td>shipped_vs_lower_density_on_a — R7_scarp9_polarity/disk/s2.8_d4_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>calibration</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">-0.00563</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr>
+<td>shipped_vs_higher_density_on_b — R7_scarp9_polarity/disk/s2.8_d14_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">-0.00300</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr>
+<td>shipped_vs_higher_density_on_b — R7_scarp9_polarity/disk/s2.8_d14_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.00265</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td>shipped_vs_higher_density_on_a — R7_scarp9_polarity/disk/s2.8_d14_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>selection</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">+0.00196</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr>
+<td>shipped_vs_higher_density_on_a — R7_scarp9_polarity/disk/s2.8_d14_b3 minus R7_scarp9_polarity/disk/s2.8_d7.37_b3</td>
+<td>calibration</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">-0.00758</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+</tr>
+</tbody>
+</table>
+<p>The strike-aligned emitter does not show a robust gain over the disk emitter on these blocks. The candidate polarity field has a higher selection-half mean than the alternative field in this sweep, but its paired lower bound does not establish a fresh-block improvement; moreover, Instrument B is a mixed geological-contact proxy. These results do not establish that the polarity feature detects uncatalogued faults. The published mask uses the disk emitter with the R7 polarity-scored field, but its mean-rule choice was made after seeing the full analysis and remains research-only.</p>
+<h2 id="what-this-round-does-not-claim">What this round does <em>not</em> claim</h2>
+<ul>
+<li>No organizer/leaderboard score is authenticated for this TIFF. The only score-like values here are block-level DTI measurements on public proxies.</li>
+<li>Instrument B is SGMC-derived; lithologic contacts and other non-fault traces may act as false positives. It is not the private target map.</li>
+<li>Spatial-block exchangeability is an assumption, not established fact. The 400 re-splits reuse the same 39 blocks and are sensitivity diagnostics only.</li>
+<li>Git history cannot establish that the B rule was fixed before sweep results; the shipped mean rule is a post-results amendment. No full-procedure or unconditional conformal guarantee is claimed.</li>
+<li>A positive sample mean/t lower bound is not a positive 90% conformal lower bound on paired improvement for a new block. Neither candidate arm passed that promotion criterion.</li>
+<li>The H49-A strike-aligned emitter and H49-B polarity transform are descriptive hypotheses, not validated geological discoveries. See <code>docs/RESEARCH_HYPOTHESES.md</code>.</li>
+</ul>
+</article>
+</div>
+</body>
+</html>

@@ -139,18 +139,25 @@ def test_oriented_blur_preserves_mass_better_than_isotropic_along_a_line():
 # --------------------------------------------------------------------- format gates
 @pytest.mark.needs_data
 def test_write_validate_roundtrip_all_finite(tmp_path):
-    from gems47s3.spec import HEIGHT, WIDTH
-    v = np.zeros((HEIGHT, WIDTH), np.float32)
-    v[100:110, 100:110] = 1.0
-    p = tmp_path / "t.tif"
-    w = write_submission(v, p, mode="zeros", footprint=np.ones(v.shape, bool))
-    assert w["positive_pixels"] == 100
     from gems47s3.grid import Grid
-    r = validate_submission(p, footprint=Grid().footprint)
+    from gems47s3.spec import HEIGHT, WIDTH
+
+    footprint = Grid().footprint
+    v = np.zeros((HEIGHT, WIDTH), np.float32)
+    ys, xs = np.nonzero(footprint)
+    y, x = int(np.median(ys)), int(np.median(xs))
+    v[y:y + 10, x:x + 10] = 1.0
+    p = tmp_path / "t.tif"
+    w = write_submission(v, p, mode="zeros", footprint=footprint)
+    assert w["positive_pixels"] == 100
+    r = validate_submission(p, footprint=footprint)
     assert r.ok, {k: x for k, x in r.checks.items() if not x}
     assert r.nodata is None, "no nodata tag: any sentinel is itself outside [0,1]"
     assert r.stats["nan_in_footprint"] == 0
     assert r.checks["footprint_matches_template"] is True
+    assert r.checks["mask_matches_footprint"] is True
+    assert r.checks["masked_read_null_exactly_outside"] is True
+    assert r.checks["self_contained_single_file"] is True
 
 
 def test_validator_rejects_out_of_range_values(tmp_path):

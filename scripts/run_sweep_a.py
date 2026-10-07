@@ -1,23 +1,19 @@
 #!/usr/bin/env python3
-"""The spacing / budget / flank-buffer sweep, scored on the Instrument-A holdout.
+"""Legacy H47 Instrument-A sweep on spatial blocks of the given-catalogue mask.
 
-Instrument A holds out WHOLE 8-connected components of the given catalogue inside contiguous
-spatial blocks, masks the rest of the catalogue exactly as the organiser does, and scores the
-exact DTI on what is left.  It is run three ways:
+Instrument A holds out whole 8-connected catalogue components inside contiguous spatial blocks,
+then reports DTI against that known catalogue. It is a catalogue-similarity diagnostic, not a
+validation set for discovery of uncatalogued faults or the organizer's hidden target. It is split
+into isolated components, flanking components and all components to expose how flank deletion can
+change scores on this proxy; it does not establish the corresponding effect on hidden truth.
 
-    A1  held-out truth = ISOLATED components (alone in their 300 m dilation)
-    A2  held-out truth = FLANKING components (sharing a 300 m dilation with another trace)
-    AA  held-out truth = all components in the block
+The H27/H33 masks are nested in the pinned files, but the labels 0.2708 and 0.2778 are not mapped
+to those exact bytes by organizer receipts. The old calculation in ``evidence/inversion/`` is
+conditional owner-label arithmetic, not an observed causal effect or a measured organizer score.
 
-A1 and A2 are reported separately on purpose.  The flank-buffer decision - delete predictions
-within b of the given catalogue, worth +0.0070 DTI on the organiser's own nested pair
-(0.2708 -> 0.2778, evidence/inversion/) - cannot be settled by a single number, because it
-helps on A1 (those traces are not near the catalogue, so nothing is lost) and destroys A2
-(those traces ARE near the catalogue, so pruning deletes the truth).  The selector therefore
-optimises a max-min over the two, which is a robustness criterion rather than a bet on which
-population dominates.
-
-The unit of exchangeability for the conformal guarantee is the BLOCK.
+Any split-conformal statistic computed from the blocks is nominal and conditional on exchangeability
+of the spatial-block scores and a prospectively fixed selection rule. Neither assumption is proved
+by this script; its four-way/legacy screen is not a guarantee for private labels or a leaderboard.
 
 Run:  python3 scripts/run_sweep_a.py [--quick]
 Out:  evidence/sweep/sweep_a.json
