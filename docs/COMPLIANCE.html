@@ -1,19 +1,132 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Corrected requirements audit · GEMSDOE47</title><meta name="description" content="Corrected, evidence-scoped requirements audit. No artifact is approved for upload.">
-<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
-<body data-site-version="review" data-base=""><a class="skip" href="#main">Skip to audit</a>
-<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
-<nav aria-label="Main navigation"><a href="index.html">Home</a><a href="evidence.html">Evidence</a><a href="irregularities.html">Limitations</a><a href="sources.html">Sources</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
-<div class="status-bar ready"><span class="status-dot" aria-hidden="true"></span><strong>H50 · OK TO DOWNLOAD AND SUBMIT</strong><span>The H47/H48/H49 artifacts described on this page are research-only and are not the file to upload.</span></div>
-<main id="main"><section class="page-heading"><span class="eyebrow">Corrected requirements audit · 6 October 2026</span><h1>Evidence first.<br>No invented acceptance.</h1><p class="lede">This page replaces an earlier compliance report that overclaimed score attribution, causality, quota, and submission readiness.</p></section>
-<section class="notice"><strong>NO TIFF IS APPROVED FOR SUBMISSION</strong><p>H47-C1 failed its predeclared gate: pooled public-catalogue DTI 0.177872 versus the 0.180216 ordinary-terrain baseline; 11/22 truth-bearing blocks improve, below the required 15; nominal 90% marginal proxy lower-bound estimate 0.0000 under unverified exchangeability. The H49 TIFF inherited from main is retained for research but fails the published null-or-NaN-outside rule. Its nominal 90% proxy estimate assumes unverified exchangeability, its operating rule was amended post-hoc, and its 0.2778 comparator is only an owner-reported d2.8 reference. Neither is a private-score result or slot authorization.</p></section>
-<section><h2>Format and attribution boundaries</h2><ul>
-<li>Published format requirements: EPSG:32611, 100 m, matching bounds, one float32 layer, values [0,1], and null or NaN outside. H47-C1 has finite raw values plus an internal validity mask for outside pixels; its 15/15 local read-back checks do not establish portal acceptance.</li>
-<li>Unmasked zero-outside all-finite H49, H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and older Session-3 variants fail the explicit outside-nodata check. H49 read-back is all-finite, has no NaNs or NoData tag, and has 7,111,787 outside cells finite relative to its original owner-mirror footprint receipt. Separate NaN-outside variants follow owner-supplied mirror conventions only; portal acceptance is unverified. No research variant is approved.</li>
-<li>The H33-2-B2 TIFF's association with participant DTI 0.2778 is unverified. H33-dependent results are hypothetical/conditional. Use “owner-reported d2.8 reference,” not “incumbent,” for that raster and its comparisons.</li>
-<li>H47-SAF changes sign only between tested assumptions 0.2200 and 0.2400; this is a bracket, not an exact break-even. No causal gain from deleting masked pixels is claimed.</li>
-<li>Keep ρ=F/K distinct from f=F/T. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting. Three λ-scaling score observations are not a verified upload/slot count; no diagnostic cost is invented or called free.</li>
-</ul><p>Read the complete <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README and standing user brief</a>, <a href="review-log.md">three-pass review log</a>, and <a href="irregularities.html">irregularity register</a>.</p></section>
-<section><h2>Manual-review links</h2><p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official format requirements</a> · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Competition home</a> · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Public participant leaderboard</a>.</p><p>This review did not restore data, rerun H47-B, upload a file, use a slot, or run a λ-probe.</p></section></main>
-<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="irregularities.html">Limitations</a> · <a href="sources.html">Sources</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README</a></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Corrected requirements audit — GEMSDOE47</title>
+<meta name="description" content="Pass 3: every acceptance criterion and standing constraint from the brief, checked line by line, with the artifact that satisfies it or a plain statement that it is not satisfied.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-07 22:20 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — historical research</a>
+    <a href="HOW_TO_SUBMIT.html">H50 local review and guarded submission checklist</a>
+    <a href="RESULTS.html">Historical results (s3)</a>
+    <a href="H49_RESULTS.html">H49 results</a>
+    <a href="why-02778.html">What the reported 0.2778 does and does not establish</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a class="on" href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="corrected-requirements-and-review-status-7-october-2026">Corrected requirements and review status — 7 October 2026</h1>
+<blockquote>
+<p><strong>No artifact is organizer-accepted or authorized for a competition slot.</strong> H50 is the last locally promoted public-proxy candidate; H51 is newer but research-only without a fresh H51-specific holdout. Local promotion, a passing proxy gate, and a locally valid GeoTIFF are separate from organizer acceptance and portal eligibility. No upload or slot use is recorded.</p>
+</blockquote>
+<p>This review also corrects older claims that treated an owner-reported score/file association as authenticated, claimed a causal gain from deleting masked pixels, described an H48 artifact as submission-ready, or stated an unverified per-week upload limit. Those claims and instructions are withdrawn.</p>
+<h2 id="current-decision">Current decision</h2>
+<p>H50's documented public-proxy gate passed at 2.8 px / 280 m. The max-residual one-sided split-conformal calculation uses 20 selection blocks and 21 disjoint calibration blocks, rank 20 of 22, nominal confidence 90%, and a <strong>0.095701 DTI conditional lower floor</strong>. Block-score exchangeability is unverified; no unconditional nonzero guarantee for the competition target is claimed. The blocked public-proxy pooled DTI is 0.1658806 for H50, 0.0494209 for the owner-reported d2.8 reference, 0.0482523 for H47-C1, and 0.0470493 for mass-matched random. The owner-mirrored lidar instrument shares slope information with H50's input. These are local proxy values, not private-label or leaderboard scores.</p>
+<p>H50's primary NaN-outside TIFF passes local serialized read-back against the mirrored footprint (5,167,373 finite footprint cells; 7,111,787 NaNs outside). The local check does not establish organizer acceptance. The separate all-finite H50 variant writes zeros outside and does not literally satisfy published null/NaN-outside wording. H51's NaN-outside encoding also passes local read-back, but H51 has not been evaluated on a fresh frozen spatial holdout; the H50 conformal result does not transfer to H51.</p>
+<p>H49 remains archived research-only. Its exact TIFF fails the outside-null/NaN requirement. Its former observed-range-scaled DKW mean floors (0.040976, Instrument B; 0.038014, PM0200) are retracted; corrected fixed-support <code>[0,1]</code> DKW arithmetic floors are zero, with iid sampling unverified. Its nominal 90% paired lower prediction statistics versus the H33-labelled reference are negative (−0.03342 selection; −0.01050 calibration), not mean confidence bounds or leaderboard results. The participant-score/file mapping is unverified and the selection rule was amended after results. See the <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">root README and standing brief</a>, <a href="data/current-artifact.json">current H50 status receipt</a>, <a href="h50.html">H50 evidence</a>, <a href="h51.html">H51 research page</a>, <a href="H49_RESULTS.md">corrected H49 report</a>, and <a href="data/h49-format-contract-audit.json">H49 format audit</a>.</p>
+<h2 id="requirement-audit">Requirement audit</h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Status</th>
+<th>Evidence / boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unique prediction, not a copied prior raster</td>
+<td><strong>Bounded local audit only</strong></td>
+<td>H50 has zero exact positive-mask matches among 31 compared local prior rasters; maximum mask Jaccard 0.045623. This is not global uniqueness or proof of geological novelty. H51's bounded comparison has maximum Jaccard 0.854329 and does not establish novelty or promotion.</td>
+</tr>
+<tr>
+<td>Spatially blocked promotion before any slot</td>
+<td><strong>H50 local gate passed; no slot authorized</strong></td>
+<td>H50's documented public-proxy gate exceeds the listed controls and has a positive conditional calculation. The proxy is slope-correlated and block exchangeability is unverified; this is not a private-label or leaderboard result. H51 has no fresh H51-specific holdout. H47-C1, H47-QC and H49 remain research-only/failed or unpromoted.</td>
+</tr>
+<tr>
+<td>Calibrated spacing and confidence level</td>
+<td><strong>Reported with explicit assumptions</strong></td>
+<td>H50 selects 2.8 px / 280 m on 20 blocks and calculates a 90% nominal, rank-20/22 lower floor of 0.095701 DTI on 21 disjoint calibration blocks, conditional on unverified block-score exchangeability. This does not imply nonzero private-target coverage. H51 has no applicable H51 certificate.</td>
+</tr>
+<tr>
+<td>GeoTIFF format and prior range-error diagnosis</td>
+<td><strong>Local checks only; organizer acceptance unknown</strong></td>
+<td>Published instructions specify EPSG:32611, 100 m, matching bounds, one float32 layer, values in [0,1], and null/NaN outside. H50's NaN-outside variant locally reads back with the expected grid/footprint; its all-finite variant has zeros outside. H51's NaN-outside variant has local format evidence only. Historical rejected bytes and parser receipt remain unavailable, so the old range error's cause is unresolved.</td>
+</tr>
+<tr>
+<td>H49 all-finite TIFF</td>
+<td><strong>Fails outside-null/NaN check; research-only</strong></td>
+<td>Exact TIFF read-back has 12,279,160 finite cells, no NaNs and no NoData tag; relative to its recorded 5,167,373-cell owner-mirror footprint, 7,111,787 outside cells remain finite. The original builder's finiteness check was insufficient. Corrected DKW and paired results are documented in H49 results and its archived receipt.</td>
+</tr>
+<tr>
+<td>H33-2-B2 and reported DTI 0.2778</td>
+<td><strong>Attribution unverified</strong></td>
+<td>No organizer receipt maps the 0.2778 row to a TIFF. The owner page marks that submission unscored. H33-dependent fits/comparisons are hypothetical or owner-reported context, not authenticated results. Call the d2.8 raster the <strong>owner-reported d2.8 reference</strong>, not an incumbent.</td>
+</tr>
+<tr>
+<td>H47-SAF sensitivity</td>
+<td><strong>Coarse bracket only</strong></td>
+<td>The sign changes between tested assumed DTIs 0.2200 and 0.2400. No exact break-even or causal verdict is established.</td>
+</tr>
+<tr>
+<td>Metric and masking claims</td>
+<td><strong>Corrected</strong></td>
+<td><code>ρ=F/K</code> and <code>f=F/T</code> have different denominators. Deleting predictions exactly on masked pixels cannot by itself improve DTI; no causal gain from deleting masked pixels is inferred.</td>
+</tr>
+<tr>
+<td>Submission quota / diagnostic cost</td>
+<td><strong>Unknown from checked public official pages</strong></td>
+<td>Pages checked 2026-10-06 do not establish current per-user quota or slot accounting. Three historical λ-scaling score observations do not establish a count of uploads or slots. No diagnostic cost is invented or called free.</td>
+</tr>
+<tr>
+<td>User brief and three-pass review</td>
+<td><strong>Preserved; checks in progress</strong></td>
+<td>The full available user brief remains in <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md#0-read-this-first--the-standing-project-brief">README §0</a>. Implementation, bug/assumption, and final-requirements review is recorded in the session handoff; this turn's tests and site checks must be reported from actual results.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="manual-review-links">Manual-review links</h2>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official submission-format page</a></li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition home</a></li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Public leaderboard</a></li>
+<li><a href="sources.html">Sources and dated observations</a></li>
+<li><a href="irregularities.html">Irregularities and evidence limits</a></li>
+<li><a href="next-session.md">Next-session handoff</a></li>
+</ul>
+<h2 id="not-done-or-authorized">Not done or authorized</h2>
+<p>This review has not used the competition portal, uploaded a file, or used a slot. Data-dependent tests and any checks run in this turn must be reported from their actual test results, not inferred from an older restore receipt. Local validation does not prove organizer acceptance or scientific performance. No credentials are requested or stored here.</p>
+</article>
+</div>
+</body>
+</html>

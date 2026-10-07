@@ -1,28 +1,400 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>H49 review — research only · GEMSDOE47</title>
-<meta name="description" content="Corrected H49 public-proxy results, format failure, provenance limits and closed submission gate.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H49 results — GEMSDOE47</title>
+<meta name="description" content="The H49 round in full: the signed-polarity scarp field and the preregistered arm, the spacing/density sweep on both instruments, the split-conformal floor quoted next to the chosen spacing, the paired block tests, and every arm that lost.">
 <link rel="stylesheet" href="assets/site.css">
-<script src="assets/site.js" defer></script>
 </head>
-<body data-site-version="review" data-base="">
-<a class="skip" href="#main">Skip to H49 review</a>
-<header class="masthead">
-  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
-  <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="executive-summary.html">Executive summary</a><a href="RESULTS.html">Results</a><a href="all-downloads.html">Artifact register</a></nav>
-  <a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a>
-</header>
-<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>H49 · RESEARCH ONLY</strong><span>Format requirement failed · no slot authorized · do not upload.</span></div>
-<main id="main">
-<section class="page-heading"><span class="eyebrow">Corrected H49 review · 7 October 2026</span><h1>Keep the evidence.<br>Close the gate.</h1><p class="lede">H49 research assets from main are preserved, but the earlier “certified” and submission-ready claims are withdrawn. This artifact is not the current primary download and is not eligible for a competition slot.</p></section>
-<section class="notice"><h2>Published format requirement: FAIL</h2><p>The exact TIFF read-back contains 12,279,160 finite cells, zero NaNs, no NoData tag, and a valid GDAL mask on every cell. The original build receipt records a 5,167,373-cell owner-mirror footprint; relative to that mask, 7,111,787 outside cells remain finite. The official format page requires values outside the data bounds to be null or NaN. The historical all-finite check did not test this condition.</p><p><a href="data/h49-format-contract-audit.json">Read the exact-byte format audit</a> · <a href="all-downloads.html">Artifact register (H49 row labeled do not upload)</a></p></section>
-<section><h2>Proxy results, not a private-score guarantee</h2><p>The reported operating point is <code>R7_scarp9_polarity</code>, isotropic disk emitter, 2.8 px / 280 m spacing, density 7.37 per 1,000 scored pixels, and a 3 px / 300 m catalogue-flank buffer. The split-conformal arithmetic reports a <strong>nominal 90% lower-bound estimate of 0.03184</strong> using 19 calibration blocks and order statistic <code>k=18</code>. It is conditional on block-score exchangeability, which is unverified; the input is public SGMC proxy data, not the hidden competition target.</p><p>The final operating rule was amended after repeated-split results were examined. The 400 re-splits reuse the same 39 blocks and are not an independent validation set. Formal coverage for the post-hoc amended selection process is not established. Do not call 0.03184 a certified, guaranteed, private-target, global, or map-wide performance floor.</p></section>
-<section><h2>Correct comparator attribution</h2><p>The 0.2778 comparator is an <strong>owner-reported d2.8 reference raster</strong>. The relationship between that raster and the participant-reported score is unverified. It is not an authenticated leaderboard incumbent. H49's local comparison with its proxy score is not a leaderboard comparison and does not show that H49 beats the established spatially blocked holdout best.</p></section>
-<section><h2>Preserved details and limits</h2><ul><li>Exact TIFF SHA-256: <code>a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b</code>; 316,629 bytes; 37,612 unit dots.</li><li>The original bounded novelty check covered 16 repository rasters (maximum Jaccard 0.292575); it does not prove global uniqueness.</li><li>Instrument A is a public-catalogue holdout proxy; Instrument B is a public SGMC off-catalogue proxy and may include lithologic contacts. Neither is shown to represent private scoring labels.</li><li>H49-A and H49-B paired results are retained, including negative results; they do not establish either hypothesis.</li><li>Inputs are owner-supplied mirror bytes, not organizer-authenticated source data.</li></ul><p>No upload, slot use, source-data restore, H47-B rerun, or H49 experiment rerun was performed during this review.</p><p><a href="H49_RESULTS.md">Full corrected numeric report, tables and paired comparisons (Markdown)</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/data/reference/README.md">Owner-mirror provenance ↗</a></p></section>
-</main>
-<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official format requirements ↗</a><br><a href="all-downloads.html">Artifact register</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">Project README ↗</a></div></footer>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-07 22:20 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — historical research</a>
+    <a href="HOW_TO_SUBMIT.html">H50 local review and guarded submission checklist</a>
+    <a href="RESULTS.html">Historical results (s3)</a>
+    <a class="on" href="H49_RESULTS.html">H49 results</a>
+    <a href="why-02778.html">What the reported 0.2778 does and does not establish</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="h49-round-exploratory-public-proxy-research-not-a-submission-certificate">H49 round — exploratory public-proxy research (not a submission certificate)</h1>
+<blockquote>
+<p><strong>RESEARCH ONLY · NOT SLOT-AUTHORIZED · DO NOT UPLOAD.</strong> The exact TIFF is preserved for auditability, but its local read-back has 12,279,160/12,279,160 finite cells, no NaNs, no NoData tag, and a valid GDAL mask on every cell. The original build receipt records a 5,167,373-cell footprint, leaving 7,111,787 outside cells finite rather than null/NaN. It fails the published outside-null/NaN requirement. See the <a href="data/h49-format-contract-audit.json">deployed format-audit copy</a> and the <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h49/format-contract-audit.json">canonical evidence copy</a>.</p>
+</blockquote>
+<p>The prior optional portal-note draft is withdrawn. <strong>Do not copy it into a portal.</strong> No submission slot was authorized or used. This report preserves the research measurements but corrects the prior promotion, attribution, and format claims.</p>
+<h2 id="provenance-and-scope">Provenance and scope</h2>
+<p>The H49 inputs are hash-pinned <strong>owner-supplied mirror</strong> bytes, not organizer-authenticated inputs. Instrument A uses held-out components of the supplied public catalogue; Instrument B uses USGS SGMC traces more than 300 m from that catalogue. Both are public proxy instruments, not the competition's private truth or a verified sample of its scoring population. SGMC also includes pre-Quaternary and lithologic contacts, which can favor topographic detectors.</p>
+<p>The 0.2778 comparator is an <strong>owner-reported d2.8 reference raster</strong>. The association between that raster and a participant-reported score is unverified; it is not an authenticated leaderboard incumbent. All H49 comparisons with it are local proxy measurements only.</p>
+<h2 id="the-two-proxy-instruments">The two proxy instruments</h2>
+<ul>
+<li><strong>Instrument A</strong> (<code>evidence/sweep/sweep_h49.json</code>): 39 usable 8×8 spatial blocks, 15,555 scored rows, and five prevalence-matched instruments built from the supplied catalogue (PM0200, PM0112, PM0294, A1, A2). It measures ordering against mapped catalogue components and is optimistic for topographic fields.</li>
+<li><strong>Instrument B</strong> (<code>evidence/sweep/sweep_h49b.json</code>): 39 usable 8×8 blocks, 4,719 scored rows; truth is whole USGS SGMC components more than 3 px (300 m) from the supplied catalogue, prevalence-matched to <code>p0200</code>. Masking the given catalogue reproduces a geometric mask used in the challenge; it does <strong>not</strong> make SGMC a proxy proven representative of hidden scoring labels.</li>
+</ul>
+<p>The reported split allocated 20 blocks to selection and 19 to calibration. The split-conformal calculation below is <strong>conditional on block-score exchangeability</strong>, which is unverified geologically. It is a proxy estimate, not a guarantee for private labels, a full map, or a leaderboard score.</p>
+<h2 id="selected-operating-point-and-post-hoc-amendment">Selected operating point and post-hoc amendment</h2>
+<p><code>R7_scarp9_polarity</code> · <code>disk</code> · spacing <strong>2.8 px (280 m)</strong> · density <strong>7.37 per 1,000 scored pixels</strong> · catalogue-flank buffer <strong>3 px (300 m)</strong>.</p>
+<p>The H49-B addendum preregistered maximizing a nominal 90% floor on the selection half. The later reported operating point instead maximizes the selection-half mean on Instrument B, after an audit of 400 repeated splits was examined. That is a <strong>post-hoc rule amendment</strong>. Reusing these same 39 blocks for the repeated-split analysis does not create an independent validation set; formal coverage for the post-hoc amended selection process is not established. The preregistered choice (<code>R2_scarp9_topo</code> / <code>oriented4</code> / <code>s3.6_d14_b2</code>) had a separate calculated Instrument-B lower-bound estimate of 0.05519, also conditional on the same assumptions.</p>
+<h2 id="nominal-split-conformal-calculation-assumption-conditional-only">Nominal split-conformal calculation — assumption-conditional only</h2>
+<p>The reported calculation is <strong>nominal 90%</strong> (<code>α = 0.10</code>, <code>n = 19</code> calibration blocks, order statistic <code>k = 18</code>). Its Instrument-B lower-bound estimate is <strong>0.03184</strong>; Instrument A's corresponding estimate is 0.01828. These numbers describe the calculation on this public proxy split only. Because exchangeability is unverified and the operating rule was amended after inspecting repeated-split results, do <strong>not</strong> call either number a certified, guaranteed, private-target, or map-wide performance floor.</p>
+<table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th style="text-align: right;">Instrument B (SGMC off-catalogue proxy)</th>
+<th style="text-align: right;">Instrument A (PM0200 catalogue proxy)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Assumption-conditional lower-bound estimate, nominal 90%</td>
+<td style="text-align: right;"><strong>0.03184</strong></td>
+<td style="text-align: right;">0.01828</td>
+</tr>
+<tr>
+<td>Estimate at nominal 95% (<code>α = 0.05</code>)</td>
+<td style="text-align: right;">0.01793</td>
+<td style="text-align: right;">vacuous</td>
+</tr>
+<tr>
+<td>Estimate at nominal 80% (<code>α = 0.20</code>)</td>
+<td style="text-align: right;">0.05783</td>
+<td style="text-align: right;">0.03595</td>
+</tr>
+<tr>
+<td>Estimate at nominal 75% (<code>α = 0.25</code>)</td>
+<td style="text-align: right;">0.05824</td>
+<td style="text-align: right;">0.03893</td>
+</tr>
+<tr>
+<td>Estimate at nominal 70% (<code>α = 0.30</code>)</td>
+<td style="text-align: right;">0.07383</td>
+<td style="text-align: right;">0.04854</td>
+</tr>
+<tr>
+<td>Calibration-half mean (minimum)</td>
+<td style="text-align: right;">0.10090 (0.01793)</td>
+<td style="text-align: right;">0.08607</td>
+</tr>
+<tr>
+<td>Selection-half mean (minimum)</td>
+<td style="text-align: right;">0.10329 (0.00708)</td>
+<td style="text-align: right;">0.07553</td>
+</tr>
+<tr>
+<td>Leave-one-out worst estimate</td>
+<td style="text-align: right;">0.01793</td>
+<td style="text-align: right;">0.01828</td>
+</tr>
+<tr>
+<td>DKW mean lower bound using fixed DTI support [0,1]</td>
+<td style="text-align: right;"><strong>0.00000</strong></td>
+<td style="text-align: right;"><strong>0.00000</strong></td>
+</tr>
+<tr>
+<td>Calibration / selection blocks below the calculated estimate</td>
+<td style="text-align: right;">1 / 1 of 19 / 20</td>
+<td style="text-align: right;">0 / 1</td>
+</tr>
+<tr>
+<td>Empirical violation rate, calibration / selection</td>
+<td style="text-align: right;">0.0526 / 0.0500</td>
+<td style="text-align: right;">0.0000 / 0.0526</td>
+</tr>
+</tbody>
+</table>
+<p><strong>DKW correction:</strong> the mean-bound support is the metric's known <code>[0,1]</code> range. The former formula multiplied the DKW radius by the observed calibration min-to-max range, which is not a valid population-support bound. The previously reported 0.04098 (Instrument B) and 0.03801 (PM0200) values are retracted; using the full support and clipping at zero gives 0.00000 for both, establishing no positive mean lower bound. DKW also requires iid calibration draws, which is not verified for these heterogeneous spatial blocks; the post-results arm amendment independently prevents a full-procedure claim. This mean calculation is distinct from the one-block split-conformal order statistic above.</p>
+<p>The reported repeated-split audit used 400 of 400 requested re-splits of the same blocks (selection included): lower-bound estimate p05 0.01793, median 0.03847, mean 0.04391; mean violation rate on the non-calibration half 0.0807 versus nominal <code>α = 0.10</code>, median 0.0526. <strong>43.5%</strong> of those re-splits had a violation rate above nominal alpha. These are descriptive stability diagnostics, not new independent samples or a validation of the amended rule.</p>
+<h2 id="local-proxy-comparisons-not-promotion-gates">Local proxy comparisons — not promotion gates</h2>
+<p>The archived calculations show a selection-half mean of 0.10329 for the selected point versus 0.05750 for a fixed-seed random proxy control. Against the <strong>owner-reported d2.8 reference raster</strong>, the corresponding local proxy mean is 0.07108. Neither comparison is a leaderboard comparison, an authenticated-incumbent comparison, or evidence that H49 beats the established spatially blocked holdout best.</p>
+<p>A paired blockwise calculation of H49-minus-reference DTI also fails to show a positive lower bound. The nominal 90% split-conformal lower prediction statistics for one future paired block are <strong>−0.03342 on the 20-block selection half</strong> and <strong>−0.01050 on the 19-block calibration half</strong>. The selection half was used to choose the H49 arm, so its value is descriptive; the calibration result is conditional on a fixed arm and exchangeable blocks, assumptions that do not repair the post-results amendment. The reference is labelled H33 in the local evidence, but its participant-score/file association remains unverified. These are not confidence bounds on a mean, leaderboard scores, or evidence of positive improvement.</p>
+<table>
+<thead>
+<tr>
+<th>Historical calculation</th>
+<th style="text-align: right;">Value</th>
+<th>Correct interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nominal 90% fixed-arm split-conformal lower statistic (H49 self-score)</td>
+<td style="text-align: right;">0.03184</td>
+<td>Proxy calculation; conditional on unverified exchangeability and subject to the post-hoc amendment; not an improvement bound versus the reference</td>
+</tr>
+<tr>
+<td>Fixed-seed random proxy selection-half mean</td>
+<td style="text-align: right;">0.05750</td>
+<td>Local public-proxy control only</td>
+</tr>
+<tr>
+<td>Owner-reported d2.8 reference proxy selection-half mean</td>
+<td style="text-align: right;">0.07108</td>
+<td>Comparator identity/score mapping unverified; not a leaderboard incumbent</td>
+</tr>
+<tr>
+<td>Selected H49 proxy selection-half mean</td>
+<td style="text-align: right;">0.10329</td>
+<td>Public proxy result; not private/global performance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="preserved-artifact-and-bounded-novelty-check">Preserved artifact and bounded novelty check</h2>
+<ul>
+<li>File: <a href="downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"><code>gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif</code></a>, retained as research evidence only.</li>
+<li>SHA-256: <code>a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b</code>; 316,629 bytes.</li>
+<li>Local grid read-back: one float32 band, 3292 × 3730, EPSG:32611, 100 m; 37,612 positive unit dots. These properties do not cure the outside-null/NaN failure above.</li>
+<li>The earlier comparison covered 16 repository rasters: maximum Jaccard 0.292575 and maximum containment 0.452701. This is a <strong>bounded local comparison</strong>, not proof of global uniqueness or scientific novelty.</li>
+<li>The previous <code>all_checks_passed</code> builder receipt is retained as historical evidence. Its finiteness check did not establish that outside-footprint cells were null or NaN. The corrected read-back and scope are recorded in <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h49/format-contract-audit.json"><code>format-contract-audit.json</code></a>.</li>
+</ul>
+<h3 id="density-sweep-retained-from-the-original-report">Density sweep retained from the original report</h3>
+<p>These are reported block-sweep summaries, not performance forecasts. Instrument B remains a public SGMC proxy with the provenance and domain limitations described above.</p>
+<p><strong>Instrument B</strong> — <code>R7_scarp9_polarity</code>, <code>disk</code>, 2.8 px, 300 m flank:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Density / 1,000 scored px</th>
+<th style="text-align: right;">Mean block DTI</th>
+<th style="text-align: right;">Pooled DTI</th>
+<th style="text-align: right;">Truth recall</th>
+<th style="text-align: right;">Emitted px per block (mean)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.04705</td>
+<td style="text-align: right;">0.04774</td>
+<td style="text-align: right;">0.0464</td>
+<td style="text-align: right;">261</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.07595</td>
+<td style="text-align: right;">0.07898</td>
+<td style="text-align: right;">0.0905</td>
+<td style="text-align: right;">523</td>
+</tr>
+<tr>
+<td style="text-align: right;">7.37</td>
+<td style="text-align: right;">0.10213</td>
+<td style="text-align: right;">0.10552</td>
+<td style="text-align: right;">0.1515</td>
+<td style="text-align: right;">963</td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.09930</td>
+<td style="text-align: right;">0.09757</td>
+<td style="text-align: right;">0.1947</td>
+<td style="text-align: right;">1828</td>
+</tr>
+<tr>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.08995</td>
+<td style="text-align: right;">0.08814</td>
+<td style="text-align: right;">0.1983</td>
+<td style="text-align: right;">2225</td>
+</tr>
+<tr>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.08995</td>
+<td style="text-align: right;">0.08814</td>
+<td style="text-align: right;">0.1983</td>
+<td style="text-align: right;">2225</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Instrument A</strong> — <code>R7_scarp9_polarity</code>, <code>disk</code>, 2.8 px, 300 m flank:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Density / 1,000 scored px</th>
+<th style="text-align: right;">Mean block DTI</th>
+<th style="text-align: right;">Pooled DTI</th>
+<th style="text-align: right;">Truth recall</th>
+<th style="text-align: right;">Emitted px per block (mean)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.06990</td>
+<td style="text-align: right;">0.06647</td>
+<td style="text-align: right;">0.0777</td>
+<td style="text-align: right;">549</td>
+</tr>
+<tr>
+<td style="text-align: right;">7.37</td>
+<td style="text-align: right;">0.08066</td>
+<td style="text-align: right;">0.07598</td>
+<td style="text-align: right;">0.1123</td>
+<td style="text-align: right;">1012</td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.07798</td>
+<td style="text-align: right;">0.07499</td>
+<td style="text-align: right;">0.1559</td>
+<td style="text-align: right;">1921</td>
+</tr>
+</tbody>
+</table>
+<h2 id="paired-block-comparisons-of-h49-a-and-h49-b">Paired block comparisons of H49-A and H49-B</h2>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>Half</th>
+<th style="text-align: right;">Blocks</th>
+<th style="text-align: right;">Mean difference</th>
+<th style="text-align: right;">A better</th>
+<th style="text-align: right;">B better</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>oriented vs disk, Instrument B</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">-0.01856</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr>
+<td>oriented vs disk, Instrument B</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.00761</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td>field swap, Instrument B</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">-0.00642</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td>field swap, Instrument B</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.00248</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td>lower vs selected density, Instrument B</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">-0.02658</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr>
+<td>lower vs selected density, Instrument B</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.02576</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td>lower vs selected density, Instrument A</td>
+<td>selection</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.01562</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr>
+<td>lower vs selected density, Instrument A</td>
+<td>calibration</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">-0.00563</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr>
+<td>higher vs selected density, Instrument B</td>
+<td>selection</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">-0.00300</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr>
+<td>higher vs selected density, Instrument B</td>
+<td>calibration</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">-0.00265</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td>higher vs selected density, Instrument A</td>
+<td>selection</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">+0.00196</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr>
+<td>higher vs selected density, Instrument A</td>
+<td>calibration</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">-0.00758</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+</tr>
+</tbody>
+</table>
+<p>The reported paired differences do not establish H49-A (strike-aligned emitter) or H49-B (signed-polarity transform); effects vary across comparisons and halves. Their calculated results are retained, including negative results.</p>
+<h2 id="what-h49-does-not-establish">What H49 does not establish</h2>
+<ul>
+<li>No competition leaderboard score was measured, predicted, or implied.</li>
+<li>No evidence establishes that either public proxy follows the hidden-label sampling process, nor that spatial blocks are geologically exchangeable.</li>
+<li>No H49 result is comparable as a private score to the earlier H47-C1 holdout; the evaluation targets and instruments differ.</li>
+<li>The H49 artifact has <strong>not</strong> beaten the established spatially blocked holdout best under a common, preregistered promotion test.</li>
+<li>No H49 artifact is submission-eligible or slot-authorized. Do not upload or use a competition slot.</li>
+</ul>
+<h2 id="review-links">Review links</h2>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Published organizer format instructions</a></li>
+<li><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/data/reference/README.md">Owner-mirror and comparator provenance</a></li>
+<li><a href="all-downloads.html">Complete artifact register</a></li>
+<li><a href="index.html">Current research-only landing page</a></li>
+<li><a href="research/retired/H49_RESULTS-main-original-20261007.md">Archived original H49 report, before corrections</a></li>
+</ul>
+</article>
+</div>
 </body>
 </html>

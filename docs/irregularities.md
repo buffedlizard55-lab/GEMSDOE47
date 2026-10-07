@@ -1,6 +1,6 @@
 # Irregularities, evidence limits, and open blockers
 
-**Updated:** 2026-10-07. Historical source checks retain their recorded dates; this page adds the H49 format and attribution review. “Resolved” means the documentation or local code issue was corrected; it does not authenticate external data or close a scientific gate. This ledger began with H47-B; the current H47-QC result and updated source/score caveats are summarized in [`README.md`](../README.md), [`docs/irregularities.html`](irregularities.html), and [`docs/h47qc-screen-20261006.json`](h47qc-screen-20261006.json).
+**Updated:** 2026-10-07. Historical source checks retain their recorded dates; this page adds the H49 format and attribution review. “Resolved” means the documentation or local code issue was corrected; it does not authenticate external data or close a scientific gate. This ledger began with H47-B; the current H47-QC result and updated source/score caveats are summarized in [`README.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md), [`docs/irregularities.html`](irregularities.html), and [`docs/h47qc-screen-20261006.json`](h47qc-screen-20261006.json).
 
 | ID | Severity / status | Finding | Evidence and consequence |
 |---|---|---|---|

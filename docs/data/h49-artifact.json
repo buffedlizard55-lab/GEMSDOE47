@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "status": "RESEARCH_ONLY_FORMAT_REQUIREMENT_FAIL",
+  "slot_authorized": false,
+  "hypothesis_ids": [
+    "H49-B (signed polarity coherence)",
+    "H49 round-2 emission control"
+  ],
+  "filename": "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+  "download_relative_to_docs": "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+  "generated_utc": "2026-10-07T03:29:11Z",
+  "zip": {
+    "file": "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.zip",
+    "bytes": 210996,
+    "sha256": "312bb0b6470459993b862b8ebafbf5eeb4f920a15ad8b2ce202bd9f9d4e4ceb4",
+    "members": [
+      "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
+    ],
+    "single_geotiff_verified": true
+  },
+  "operating_point": {
+    "min_spacing_px": 2.8,
+    "min_spacing_m": 280.0,
+    "emitted_density_per_1000_scored": 7.37,
+    "catalogue_flank_buffer_px": 3.0,
+    "catalogue_flank_buffer_m": 300.0,
+    "budget": 37612,
+    "n_scored_domain": 5103406,
+    "emitted_px": 37612,
+    "thinned_px": 85196,
+    "emitted_pct_of_footprint": 0.72787,
+    "engine": "nms_disk (field-ordered isotropic NMS)"
+  },
+  "chosen_spacing_px": 2.8,
+  "chosen_spacing_m": 280.0,
+  "conformal_primary_instrument": "B_sgmc_offcat",
+  "conformal_n_calibration_blocks": 19,
+  "conformal_order_statistic_k": 18,
+  "conformal_floors_by_alpha": {
+    "alpha=0.05": 0.01792858632893002,
+    "alpha=0.10": 0.03183577869822368,
+    "alpha=0.20": 0.057831106865825155,
+    "alpha=0.25": 0.05823628475914242,
+    "alpha=0.30": 0.07382900286950957
+  },
+  "conformal_corroborating_instrument": "PM0200",
+  "conformal_corroborating_floor": 0.018284546414574002,
+  "conformal_leave_one_out_worst_floor": 0.01792858632893002,
+  "conformal_repeated_split": {
+    "n_requested": 400,
+    "n_effective": 400,
+    "instrument": "B_sgmc_offcat",
+    "alpha": 0.1,
+    "selection_rule": "mean",
+    "floor_p05": 0.01792858632893002,
+    "floor_p25": 0.03183577869822368,
+    "floor_median": 0.038467456899675824,
+    "floor_mean": 0.04391297529559175,
+    "mean_violation_rate": 0.0806578947368421,
+    "median_violation_rate": 0.05263157894736842,
+    "share_of_splits_with_violation_above_alpha": 0.435,
+    "selection_frequency": {
+      "R7_scarp9_polarity/disk/s2.8_d7.37_b3": 221,
+      "R7_scarp9_polarity/disk/s2.8_d14_b3": 84,
+      "R2_scarp9_topo/oriented4/s2.8_d14_b3": 52,
+      "R2_scarp9_topo/disk/s2.8_d14_b3": 32,
+      "R2_scarp9_topo/disk/s2.8_d7.37_b3": 7,
+      "R7_scarp9_polarity/oriented4/s2.8_d14_b3": 2,
+      "R2_scarp9_topo/oriented4/s3.6_d14_b3": 2
+    },
+    "selection_frequency_share": {
+      "R7_scarp9_polarity/disk/s2.8_d7.37_b3": 0.5525,
+      "R7_scarp9_polarity/disk/s2.8_d14_b3": 0.21,
+      "R2_scarp9_topo/oriented4/s2.8_d14_b3": 0.13,
+      "R2_scarp9_topo/disk/s2.8_d14_b3": 0.08,
+      "R2_scarp9_topo/disk/s2.8_d7.37_b3": 0.0175,
+      "R7_scarp9_polarity/oriented4/s2.8_d14_b3": 0.005,
+      "R2_scarp9_topo/oriented4/s3.6_d14_b3": 0.005
+    }
+  },
+  "selection": {
+    "shipped": {
+      "recipe": "R7_scarp9_polarity",
+      "emitter": "disk",
+      "op": "s2.8_d7.37_b3",
+      "params": {
+        "min_dist": 2.8,
+        "density_per_1000": 7.37,
+        "flank_b": 3.0
+      },
+      "rule": "maximise the selection-half mean DTI on Instrument B (amendment; see the module docstring)"
+    },
+    "preregistered": {
+      "recipe": "R2_scarp9_topo",
+      "emitter": "oriented4",
+      "op": "s3.6_d14_b2",
+      "params": {
+        "min_dist": 3.6,
+        "density_per_1000": 14.0,
+        "flank_b": 2.0
+      },
+      "rule": "maximise the selection-half 90 % floor on Instrument B"
+    },
+    "amendment": "The mean rule is the stable one, and that is measured rather than asserted: under 400 independent 50/50 re-splits the mean rule picks the same arm in a majority of splits, while the frozen floor rule's own pick survives in a small minority and its most frequent pick is a different arm each time -- a maximum of order statistics over ~20 blocks is decided by which single block lands where.  Both audits and both certificates are in this file."
+  },
+  "organizer_score": null,
+  "what_this_does_not_establish": [
+    "no leaderboard score is measured, predicted or implied",
+    "Instrument B is a public proxy built from SGMC, which also contains non-fault contacts",
+    "the certificate is conditional on the shipped arm and assumes block exchangeability",
+    "the previous artifact in this repository (gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif) was never scored by the organiser either"
+  ],
+  "data_authentication": "SHA-256 pinned repository mirrors, not authenticated DrivenData downloads",
+  "artifact_role": "Archived H49 research-only artifact; docs/data/current-artifact.json now points to locally promoted H50; H51 remains a separate research-only variant without fresh holdout validation.",
+  "current_artifact_pointer": "docs/data/current-artifact.json now points to H50; H49 is not current.",
+  "submission_eligible": false,
+  "current_primary_artifact": false,
+  "not_for_upload": true,
+  "historical_candidate_name": "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3",
+  "withdrawn_portal_note": "Signed-polarity scarp field; 37,612 dots, 2.8px/280m spacing, 300m off known-fault flanks; spacing certified by split conformal, 90% floor 0.0318.",
+  "historical_builder_format_receipt": {
+    "path": "/home/user/GEMSDOE47/submission/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+    "sha256": "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b",
+    "bytes": 316629,
+    "driver": "GTiff",
+    "count": 1,
+    "dtype": "float32",
+    "width": 3292,
+    "height": 3730,
+    "crs": "EPSG:32611",
+    "crs_epsg": 32611,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": "None",
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_exact": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_zero_nan": true,
+      "in_footprint_zero_inf": true,
+      "in_footprint_zero_sentinel": true,
+      "in_footprint_range_0_1": true,
+      "every_cell_finite_or_nan_outside": true,
+      "nodata_tag_not_out_of_range": true,
+      "validator_range_0_1_guaranteed": true,
+      "positive_pixels_present": true,
+      "footprint_matches_template": true
+    },
+    "stats": {
+      "full_grid_cells": 12279160,
+      "finite_cells": 12279160,
+      "footprint_cells": 5167373,
+      "finite_in_footprint": 5167373,
+      "min_in_footprint": 0.0,
+      "max_in_footprint": 1.0,
+      "cells_outside_0_1_in_footprint": 0,
+      "nan_in_footprint": 0,
+      "positive_cells": 37612,
+      "positive_cells_in_footprint": 37612,
+      "distinct_values": 2,
+      "positive_pixels_on_catalogue": 0
+    },
+    "all_checks_passed": true,
+    "informational_checks": [
+      "validator_range_0_1_guaranteed"
+    ],
+    "strongest_range_guarantee": true
+  },
+  "format_review": {
+    "status": "FAIL",
+    "outside_null_or_nan": false,
+    "reason": "The read-back has no NaN, no nodata tag, and a valid GDAL mask on all 12,279,160 cells. Relative to the recorded 5,167,373-cell mirrored footprint, 7,111,787 cells are outside but remain finite/valid. This does not meet the published null-or-NaN-outside requirement.",
+    "submission_eligible": false,
+    "slot_authorized": false,
+    "organizer_acceptance_established": false,
+    "sha256": "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b",
+    "readback": {
+      "driver": "GTiff",
+      "bands": 1,
+      "dtype": "float32",
+      "width": 3292,
+      "height": 3730,
+      "crs": "EPSG:32611",
+      "nodata_tag": null,
+      "grid_cells": 12279160,
+      "finite_cells": 12279160,
+      "nan_cells": 0,
+      "nonfinite_cells": 0,
+      "gdal_valid_mask_cells": 12279160,
+      "distinct_finite_values": [
+        0.0,
+        1.0
+      ],
+      "positive_cells": 37612
+    },
+    "footprint_basis": {
+      "footprint_cells": 5167373,
+      "outside_cells": 7111787,
+      "basis": "footprint count recorded in the original H49 build receipt against an owner-supplied mirrored sample_submission.tif; the mask was not re-restored or independently re-derived during this review.",
+      "mirror_authenticated_by_organizer": false
+    },
+    "audit_file": "evidence/h49/format-contract-audit.json"
+  },
+  "conformal_nominal_confidence_pct": 90.0,
+  "conformal_assumption_conditional_lower_bound_estimate_primary_instrument": 0.03183577869822368,
+  "conformal_interpretation": "Nominal split-conformal calculation on public proxy blocks only, conditional on block-score exchangeability. Exchangeability is unverified; the shipped selection rule was amended after reviewing re-split results; formal coverage for the post-hoc amended selection process is not established. Not a private/global score floor.",
+  "historical_proxy_comparison_metrics_not_promotion_gates": {
+    "positive_proxy_lower_bound_calculation": true,
+    "beats_fixed_seed_random_proxy_mean": true,
+    "random_proxy_selection_mean": 0.05749882633681783,
+    "beats_owner_reported_d2p8_reference_proxy_mean": true,
+    "owner_reported_d2p8_reference_proxy_mean": 0.07108456408391302,
+    "comparator_is_authenticated_leaderboard_incumbent": false,
+    "promotion_gate_passed": false,
+    "paired_reference_selection_lower_prediction_statistic": -0.03341784824329318,
+    "paired_reference_calibration_lower_prediction_statistic": -0.010502738294021138,
+    "positive_paired_improvement_bound": false
+  },
+  "bounded_local_novelty_screen": {
+    "rasters_compared": 16,
+    "max_jaccard": 0.292575,
+    "max_containment": 0.452701,
+    "worst_jaccard_file": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+    "thresholds": {
+      "jaccard": 0.5,
+      "containment": 0.9
+    },
+    "global_uniqueness_proven": false,
+    "promotion_gate_passed": false
+  },
+  "review_note": "Retained for auditability only. This artifact fails the published null-or-NaN-outside requirement and is not eligible or authorized for a slot. The DKW observed-range-scaled mean floors have been retracted; corrected [0,1]-support arithmetic floors are zero and iid sampling is unverified. Paired nominal 90% lower prediction statistics versus the H33-labelled reference are negative (selection -0.03342; calibration -0.01050); this is not evidence of positive improvement or leaderboard performance.",
+  "reviewed_utc_date": "2026-10-07",
+  "conformal_dkw_mean_lower_bound_primary": 0.0,
+  "conformal_dkw_mean_lower_bound_corroborating": 0.0,
+  "conformal_dkw_observed_range_values_retracted": {
+    "B_sgmc_offcat": 0.040976151820056164,
+    "PM0200": 0.038013872344490246
+  },
+  "conformal_dkw_support": [
+    0.0,
+    1.0
+  ],
+  "conformal_dkw_support_predeclared": true,
+  "conformal_dkw_iid_sampling_verified": false,
+  "conformal_dkw_full_adaptive_procedure_valid": false,
+  "paired_h33_labelled_reference_comparison": {
+    "reference_key": "REF_incumbent_0.2778/as-shipped/as-shipped",
+    "reference_identity": "H33-labelled owner-supplied d2.8 reference; participant score/file association unverified",
+    "instrument": "B_sgmc_offcat",
+    "delta": "selected H49 arm DTI minus H33-labelled reference DTI on the same spatial block",
+    "nominal_confidence_pct": 90.0,
+    "selection": {
+      "n_paired_blocks": 20,
+      "order_statistic_k": 19,
+      "alpha": 0.1,
+      "nominal_confidence_pct": 90.0,
+      "mean_difference": 0.032206377517332,
+      "lower_prediction_statistic": -0.03341784824329318,
+      "target": "one future paired block's H49-minus-reference DTI difference",
+      "selection_half_used_to_choose_arm": true
+    },
+    "calibration": {
+      "n_paired_blocks": 19,
+      "order_statistic_k": 18,
+      "alpha": 0.1,
+      "nominal_confidence_pct": 90.0,
+      "mean_difference": 0.03889880668685157,
+      "lower_prediction_statistic": -0.010502738294021138,
+      "target": "one future paired block's H49-minus-reference DTI difference",
+      "selection_half_used_to_choose_arm": false
+    },
+    "positive_improvement_gate_passed": false,
+    "interpretation": "These are one-future-paired-block lower prediction statistics, not confidence bounds on a mean. The selection-half statistic is descriptive because that half chose the arm. The calibration-half statistic is conditional on exchangeable blocks and a prospectively fixed selection rule; the post-results amendment prevents a full-procedure claim."
+  },
+  "paired_h33_reference_positive_improvement_gate_passed": false,
+  "archived_as": "docs/data/h49-artifact.json",
+  "archived_utc_date": "2026-10-07"
+}

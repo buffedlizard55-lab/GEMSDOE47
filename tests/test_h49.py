@@ -11,7 +11,11 @@ claims that must be checkable without the 500 MB rasters:
 """
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import numpy as np
+import pytest
 from scipy import ndimage as ndi
 
 from gems47s3 import emission as E
@@ -46,6 +50,37 @@ def _wide_ridge_field(shape=(200, 200), column=100, halfwidth=3, noise=0.02, see
                              ).astype(np.float32) * np.ones((shape[0], 1), np.float32), 1.0)
     z = z + noise * rng.random(shape).astype(np.float32)
     return rank_scale(z)
+
+
+def test_h49_certificate_retracts_dkw_range_scaling_and_reports_negative_paired_bounds() -> None:
+    root = Path(__file__).resolve().parents[1]
+    certificate = json.loads((root / "evidence/h49/conformal_certificate.json").read_text())
+    primary = certificate["certificate"]["primary"]
+    corroborating = certificate["certificate"]["corroborating"]
+
+    assert primary["dkw_mean_floor"] == 0.0
+    assert corroborating["dkw_mean_floor"] == 0.0
+    assert primary["dkw_mean_floor_observed_range_scaled_retracted"] == pytest.approx(
+        0.040976151820056164
+    )
+    assert corroborating["dkw_mean_floor_observed_range_scaled_retracted"] == pytest.approx(
+        0.038013872344490246
+    )
+    assert primary["dkw_support"] == [0.0, 1.0]
+    assert primary["dkw_iid_sampling_verified"] is False
+
+    paired = certificate["paired_vs_h33_labelled_reference"]
+    assert paired["nominal_confidence_pct"] == 90.0
+    assert paired["lower_prediction_statistics"]["selection"][
+        "lower_prediction_statistic"
+    ] == pytest.approx(-0.03341784824329318)
+    assert paired["lower_prediction_statistics"]["calibration"][
+        "lower_prediction_statistic"
+    ] == pytest.approx(-0.010502738294021138)
+    assert paired["positive_improvement_gate_passed"] is False
+    assert certificate["interpretation"][
+        "formal_coverage_for_post_hoc_amended_process_established"
+    ] is False
 
 
 def test_oriented_nms_enforces_the_ellipse_and_thins_a_wide_ridge() -> None:

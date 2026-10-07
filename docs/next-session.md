@@ -1,14 +1,15 @@
-# Latest handoff: H50a review, 7 October 2026
+# Latest handoff: H50/H51 status reconciliation, 7 October 2026
 
-Read [H50 results and corrections](h50.md) first, then the standing README. New H50a research
-TIFF exists, but no slot is authorized. Calibration-filtered certification was withdrawn.
-Actual selection: 1.5 px, nominal 90% proxy statistic zero. Same old H49 blocks, not fresh truth.
-Keep all pre-existing C1 artifacts and evidence unchanged. Next work: independent target-like
-validation, exact export-pipeline controls, and verified official high-resolution DEM coverage.
+Read the [full README and standing brief](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md) first. H50 is the last locally promoted
+public-proxy candidate, not organizer-accepted or slot-authorized. The NaN-outside H50 TIFF passes
+local serialized read-back; the conditional blocked-proxy result and its limitations are documented
+in [H50 evidence](h50.html). H51 is newer but research-only without a fresh H51-specific holdout.
+H49's corrected DKW retractions and negative paired prediction statistics remain in force. No upload
+or competition-slot use is recorded. This handoff supersedes earlier H50 upload-ready language below.
 
 ---
 
-# Next session — current C1 state, not a setup TODO
+## Historical handoff — C1 status at that time (superseded by the current H50/H51 section below)
 
 **Read the entire current README standing brief first.** Reviewed 2026-10-06 UTC.
 Core values: Maximize P(Win); Own the Outcome. No slot is authorized.
@@ -83,32 +84,22 @@ GDB. No vector trained C1. Sources, hashes and runner attestation are in the dep
 
 ---
 
-## 2026-10-07 · H50 shipped as the submittable artifact
+## 2026-10-07 · H50/H51 status reconciliation — current handoff
 
-**State.** H50 is published and is the file to submit. `docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif`
-(SHA-256 `97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17`), 37,654 dots at
-2.8 px / 280 m, split-conformal certified floor 0.0957 DTI at ≥90.91 % coverage (conditional on
-block exchangeability). Blocked-holdout pooled DTI 0.165881 vs 0.049421 (owner-reported d2.8
-reference), 0.048252 (H47-C1) and 0.047049 (mass-matched spaced random).
+**Current status.** H50 is the last locally promoted candidate after its documented spatially blocked public-proxy gate. It is **not organizer-accepted**, no leaderboard score or private-label result is established, and no upload or slot authorization is recorded. The primary review TIFF is `docs/downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif` (SHA-256 `2e32d8ed384692bc44ff768ca5d3814ed48d7b627ba3c818743ee13ab3538d5b`, 341,280 bytes). Its serialized read-back matches the owner-mirrored grid/footprint: NaN NoData/outside, 5,167,373 finite footprint cells, 7,111,787 outside NaNs, 37,654 positive dots. H50's separate all-finite variant writes zeros outside and is only a diagnostic; it does not literally match the published null/NaN-outside wording.
 
-**What is new methodologically.** Instrument L — the off-catalogue local maxima of the
-organiser-supplied 1 m lidar scarp stack — is the only local truth population whose DTI is
-positively rank-correlated with the owner-reported public scores. Every fault-catalogue proxy is
-negatively correlated because those pixels are masked out of evaluation.
-`evidence/h50/instrument-ranking.json` has the full table with permutation references.
+**H50 local evidence.** At **2.8 px / 280 m**, the nominal 90% split-conformal calculation has rank 20/22 and a **0.095701 DTI conditional lower floor** (20 selection blocks, 21 disjoint calibration blocks). Exchangeability is not verified, so no nonzero guarantee is claimed for the competition target. The blocked public-proxy pooled DTI is 0.1658806 versus 0.0494209 for the owner-reported d2.8 reference, 0.0482523 for H47-C1, and 0.0470493 for mass-matched random. The lidar instrument shares slope information with H50's input and the arrays are hash-pinned owner mirrors. These are not leaderboard results. The 0.2778 H33-labelled score/file mapping is unverified; the owner's page marks that submission unscored.
 
-**What is new physically.** Rank official band 19 above its own 25 px regional level. Every
-multiplicative corroboration with a magnetic, gravity, geodetic, curvature or ruggedness term
-made the field *worse* against the off-catalogue scarps — the family's AND-gate discards exactly
-the steep scarps the 1 m lidar finds.
+Bounded novelty audit: 31 local prior rasters compared, zero exact matches, maximum mask Jaccard 0.045623. This is not proof of global uniqueness. Local format compliance and local scientific promotion are distinct from organizer acceptance and slot authorization.
 
-**Top priority for the next session.** A structurally independent second instrument, because
-Instrument L shares the slope quantity with the field's input band and is therefore optimistic.
-Candidates: a 1 m lidar channel family the field does not read, or a manually compiled regional
-fault map. Do not spend a submission slot on any change that has not beaten 0.165881 on the
-blocked holdout under the preregistered rule.
+**H51 is newer but research-only.** H51 is the multi-scale persistence variant. It has no fresh H51-specific frozen spatial holdout. The 90.91% / 0.095701 figure in its prior receipt is inherited from H50's single-scale screen and does not validate H51. The NaN-outside H51 encoding passed local format read-back, but that is format evidence only; do not transfer H50's conformal result or use a slot without a new preregistered H51 holdout.
 
-**Do not re-try.** Hard-vote cross-instrument edge coincidence (0.0267–0.0326), the step contrast
-ratio (0.10–0.13), strike-aligned anisotropic emission (0.265–0.279 vs 0.2917), soft continuous
-values (0.262), a 300 m catalogue flank buffer (0.2848), and pre-smoothing the slope before
-ranking (monotone loss).
+**H49 correction remains in force.** The exact H49 TIFF fails outside-null/NaN validation. Observed-range-scaled DKW mean floors 0.040976 (Instrument B) and 0.038014 (PM0200) were retracted; corrected fixed-support [0,1] DKW arithmetic floors are zero and iid sampling is unverified. Its nominal 90% paired lower prediction statistics against the H33-labelled reference are −0.03342 (selection) and −0.01050 (calibration), not mean confidence bounds or leaderboard results. Comparator identity is unverified and the shipped selection rule was amended after results. H49 remains archived research-only.
+
+**Next ordered work.**
+1. Finish the status/docs review, run focused and full tests plus link/site checks, review all diffs, and create/merge a PR only if checks and access permit.
+2. Keep all competition-slot authorization closed unless the authenticated portal, eligibility, current format instructions and quota/slot rules are verified and separately authorize H50. Retain an organizer receipt only if one is actually issued.
+3. Keep H51 research-only until a fresh, preregistered, spatially blocked H51-specific holdout beats mass-matched controls under the frozen gate.
+4. For any next H50-family experiment, seek a structurally independent second instrument because the current lidar proxy shares slope information with the candidate input. Do not tune on the already-used H50 holdout and present it as untouched validation.
+
+The former section in this handoff called H50 “the submittable artifact,” described the lidar stack as organizer-supplied, and implied that the H33/0.2778 mapping was validated. Those claims are superseded by this correction and the limitations in [README](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md), [H50 evidence](h50.html), [H51 research page](h51.html), [current status receipt](data/current-artifact.json), and [remaining-work review](REMAINING_WORK.md).

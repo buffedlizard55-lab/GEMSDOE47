@@ -18,14 +18,15 @@ class H47BAuditSiteTests(unittest.TestCase):
         summary = (ROOT / "docs" / "executive-summary.html").read_text(encoding="utf-8")
         audit = (ROOT / "docs" / "h47b-mask-audit-20261006.html").read_text(encoding="utf-8")
         downloads = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
-        # H47-B is a research-only arm: it stays registered with its exact bytes, and the
-        # two pages the user reads keep pointing at its audit, but the submittable artifact
-        # is now H50 rather than H47-C1.
+        # H47-B remains archived as a secondary research artifact in the register and its
+        # dedicated audit. Current landing pages now represent H50 accurately: locally
+        # promoted, but not organizer-accepted or slot-authorized.
         for current_page in (home, summary):
             self.assertIn("h50.html", current_page)
-            self.assertIn("OK TO DOWNLOAD AND SUBMIT", current_page)
-            self.assertIn("h47b-mask-audit-20261006.html", current_page)
-            self.assertIn("RESEARCH-ONLY", current_page)
+            self.assertIn("locally promoted", current_page.lower())
+            self.assertIn("not organizer-accepted", current_page.lower())
+            self.assertNotIn("OK TO DOWNLOAD AND SUBMIT", current_page)
+        self.assertIn("h47b-mask-audit-20261006.html", downloads)
         self.assertIn(ARTIFACT, audit)
         self.assertIn(ARTIFACT_SHA256, audit)
         self.assertIn(ARTIFACT, downloads)

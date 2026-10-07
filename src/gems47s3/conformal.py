@@ -1,151 +1,152 @@
-"""Split-conformal calculations for an emission operating point.
-
-Any finite-sample coverage statement from this module is conditional on the chosen exchangeability unit actually being exchangeable; the module cannot establish that scientific assumption.
+"""Split-conformal operating-point selection with disjoint selection and calibration blocks.
 
 Reference
 ---------
 J. Lei, M. G'Sell, A. Rinaldo, R. J. Tibshirani and L. Wasserman,
 "Distribution-Free Predictive Inference for Regression",
 Journal of the American Statistical Association 113(523):1094-1111, 2018.
-https://doi.org/10.1080/01621459.2017.1322365   (publisher, DOI verified)
+https://doi.org/10.1080/01621459.2017.1322365
 Preprint: https://arxiv.org/abs/1604.04173
 
-The theorem used here (their split-conformal coverage result, specialised to a one-sided
-prediction interval).  Let (X_1,Y_1),...,(X_n,Y_n) be exchangeable, and let a score function
-s(X,Y) be fitted on a proper subset.  With
+Safe selection protocol
+-----------------------
+1. Freeze the candidate grid and ranking rule before examining calibration scores.
+2. Use the disjoint selection blocks to choose a candidate (this implementation ranks by mean DTI).
+3. Only after the choice is fixed, use that candidate's calibration-block DTIs to compute a
+   one-sided split-conformal lower prediction bound for ONE future exchangeable block.
 
-    q_hat = the  ceil((n+1)(1-alpha)) / n  -th smallest value of {s(X_i,Y_i)}_{i=1}^n
+For n calibration scores, the lower bound is the ``k``-th largest calibration DTI, where
+``k = ceil((n + 1) * (1 - alpha))``. The finite-sample statement is conditional on exchangeability
+of calibration and future block scores and on candidate selection being independent of calibration
+outcomes. Spatial/geological exchangeability is an assumption; this module cannot establish it.
+The result is not a guarantee for a block mean, pooled map DTI, a geographic subregion, private
+labels, or a leaderboard score.
 
-(the k-th order statistic, k = ceil((n+1)(1-alpha)), clipped to n), then for a new point
-(X,Y) exchangeable with the calibration points,
-
-    P( s(X,Y) <= q_hat ) >= 1 - alpha                                          (GUARANTEE)
-
-exactly, for every n, with no distributional, parametric or smoothness assumption beyond
-exchangeability.  The bound is finite-sample: it holds at n = 8 as well as at n = 8,000.
-
-How a nominal block-level lower-bound calculation is used
------------------------------------------------------------
-The proposed unit of exchangeability is a **spatial block** of the holdout, not a configuration.
-That choice makes the assumption explicit; it does not prove that the blocks are exchangeable, representative, or drawn from the private scoring population:
-
-  1. The holdout is partitioned into B spatial blocks.  Blocks are split at random into a
-     CALIBRATION half (size n) and a SELECTION half (size m).
-  2. A sweep of operating points (spacing x budget x flank buffer x blur) is scored on the
-     calibration blocks only.  The selection rule picks the operating point that maximises
-     the mean calibration-block DTI.  It never sees a selection-block score.
-  3. For the chosen operating point, the calibration-block DTIs are exchangeable with the
-     selection-block DTIs of the same operating point (same rule, blocks drawn from the same
-     spatial population, and the rule was fitted without the selection blocks).  Applying the
-     theorem with s(X,Y) = -DTI gives a nominal one-sided (1-alpha) LOWER bound, conditional on exchangeability:
-
-         DTI_selection >= -q_hat   with probability >= 1 - alpha
-         q_hat = the  ceil((n+1)alpha) / n  -th smallest of { -DTI_calibration,i }
-
-     i.e. the floor is the  ceil((n+1)alpha) -th SMALLEST calibration-block DTI.
-  4. The selection blocks are then scored once, to report whether the realised value cleared
-     the calculated lower-bound estimate. This comparison does not prove exchangeability or
-     validate a post-hoc change to the selection rule.
-
-Two conditional quantities may be reported, because they answer different reviewer questions:
-
-  * ``floor_within_rule``  -- the conformal lower-bound estimate above: under exchangeability,
-    a fresh block from the same population is covered at nominal level 1-alpha.
-  * ``floor_mean_of_selected`` -- a lower-bound estimate on the MEAN DTI over blocks, from the
-    Dvoretzky-Kiefer-Wolfowitz / Massart inequality applied to the calibration-block
-    empirical CDF (also distribution-free, also finite-sample):
-        P( sup_x |F_n(x) - F(x)| > eps ) <= 2 exp(-2 n eps^2)
-    so eps = sqrt(log(2/alpha) / (2n)) and the mean is bounded below by
-    mean(calibration DTIs) - eps - (max-min)/sqrt(n) style corrections; we report the simple
-    and defensible form  mean - sqrt(log(2/alpha)/(2n)) * spread.
-
-Honesty note carried into every report: exchangeability of spatial blocks is an ASSUMPTION.
-Geology is not i.i.d.; blocks differ in Basin-and-Range versus Walker Lane character.  The
-guarantee is therefore conditional on that assumption, and this module also reports a
-block-level spread and a leave-one-block-out worst case so a reviewer can see how much the
-assumption is doing.
+Do not select the candidate by maximizing a conformal floor computed on the same calibration data
+unless a valid simultaneous/multiple-selection construction is used. Repeated random partitions of
+the same blocks are sensitivity diagnostics, not new independent calibration samples.
 """
 from __future__ import annotations
 
 import math
 from dataclasses import dataclass
 from dataclasses import field as dc_field
+from fractions import Fraction
+from typing import Any
 
 import numpy as np
 
 
-def conformal_quantile(scores: np.ndarray, alpha: float, side: str = "lower") -> float:
-    """The split-conformal quantile with the exact finite-sample (n+1) correction.
+def _alpha_fraction(alpha: float) -> Fraction:
+    if isinstance(alpha, (bool, np.bool_)):
+        raise TypeError("alpha must be numeric, not bool")
+    try:
+        value = float(alpha)
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ValueError("alpha must be finite and strictly between 0 and 1") from exc
+    if not math.isfinite(value) or not 0.0 < value < 1.0:
+        raise ValueError("alpha must be finite and strictly between 0 and 1")
+    # Decimal-string arithmetic avoids ceil errors at exact finite-sample ranks.
+    return Fraction(str(alpha))
 
-    Lei et al. (2018) define, for calibration scores s_1..s_n and a new exchangeable score
-    s_new,
 
-        q_hat = the k-th smallest of {s_i},  k = ceil((n+1)(1 - alpha)),   q_hat = +inf if k > n
-
-    and prove  P(s_new <= q_hat) >= 1 - alpha  exactly, for every n, with no distributional
-    assumption beyond exchangeability.
-
-    ``side="upper"`` returns that q_hat directly: an upper bound on the score.
-
-    ``side="lower"`` returns a lower bound on the QUANTITY Y being guaranteed (here, DTI).
-    A lower bound on Y is an upper bound on the score s = -Y, so with the same k the bound is
-    -q_hat(s) = the k-th LARGEST Y, i.e. the (n - k)-th element of Y sorted ascending.  If
-    k > n the bound does not exist and -inf is returned (the guarantee is vacuous at that n
-    and alpha; e.g. a 95 % lower bound needs n >= 19).
-
-    An earlier version of this function used k = ceil((n+1)*alpha) and took the k-th SMALLEST
-    value for the lower side.  That returns a strictly larger number than the theorem supports
-    and therefore OVER-STATES the guarantee; it was caught by
-    tests/test_conformal.py::test_empirical_coverage_meets_the_guarantee and fixed here.
-    """
-    s = np.sort(np.asarray(scores, dtype=np.float64).ravel())
-    n = s.size
-    if not (0.0 < alpha < 1.0):
-        raise ValueError("alpha must be in (0,1)")
-    if n == 0:
-        return -math.inf if side == "lower" else math.inf
-    k = int(math.ceil((n + 1) * (1.0 - alpha)))
-    if k > n:
-        return -math.inf if side == "lower" else math.inf
-    if side == "lower":
-        return float(s[n - k])          # the k-th largest
-    return float(s[k - 1])              # the k-th smallest
+def _validated_dti(values: Any, name: str, *, allow_empty: bool = False) -> np.ndarray:
+    arr = np.asarray(values, dtype=np.float64).reshape(-1)
+    if not allow_empty and arr.size == 0:
+        raise ValueError(f"{name} must contain at least one block score")
+    if not np.isfinite(arr).all() or ((arr < 0.0) | (arr > 1.0)).any():
+        raise ValueError(f"{name} must contain finite DTI scores in [0,1]")
+    return arr
 
 
 def conformal_order_statistic(n: int, alpha: float) -> int:
-    """k = ceil((n+1)(1-alpha)); the bound is vacuous when k > n."""
-    return int(math.ceil((n + 1) * (1.0 - alpha)))
+    """Return ``ceil((n+1)(1-alpha))`` using exact decimal-rational arithmetic."""
+    if isinstance(n, (bool, np.bool_)) or int(n) != n or n < 0:
+        raise ValueError("n must be a non-negative integer")
+    level = _alpha_fraction(alpha)
+    numerator = (int(n) + 1) * (level.denominator - level.numerator)
+    return (numerator + level.denominator - 1) // level.denominator
+
+
+def conformal_quantile(scores: np.ndarray, alpha: float, side: str = "lower") -> float:
+    """Compute an exact finite-sample one-sided conformal order statistic.
+
+    ``side="upper"`` returns the ``k``-th smallest score, an upper bound on an exchangeable
+    future score. ``side="lower"`` treats the supplied values as the quantity being bounded
+    (here, DTI) and returns the ``k``-th largest value. If ``k > n``, the requested bound is
+    vacuous and returns +infinity (upper) or -infinity (lower).
+    """
+    if side not in {"lower", "upper"}:
+        raise ValueError("side must be 'lower' or 'upper'")
+    values = np.asarray(scores, dtype=np.float64).reshape(-1)
+    if not np.isfinite(values).all():
+        raise ValueError("conformal scores must be finite")
+    n = values.size
+    k = conformal_order_statistic(n, alpha)
+    if n == 0 or k > n:
+        return -math.inf if side == "lower" else math.inf
+    ordered = np.sort(values)
+    if side == "lower":
+        return float(ordered[n - k])
+    return float(ordered[k - 1])
 
 
 def min_blocks_for_alpha(alpha: float) -> int:
-    """Smallest calibration size n for which a 1-alpha lower bound exists at all.
-
-    k = ceil((n+1)(1-alpha)) <= n  <=>  1 <= alpha*(n+1)  <=>  n >= 1/alpha - 1.
-    So a 90 % guarantee needs n >= 9 blocks, 95 % needs n >= 19, 75 % needs n >= 3.  This is
-    the finite-sample price of the theorem and it is reported next to every floor rather than
-    hidden: if the sweep only produces 8 usable blocks, no 90 % statement can be made.
-    """
-    if not (0.0 < alpha < 1.0):
-        raise ValueError("alpha must be in (0,1)")
-    return max(1, int(math.ceil(1.0 / alpha - 1.0)))
+    """Smallest calibration size for a finite ``1-alpha`` one-sided bound."""
+    level = _alpha_fraction(alpha)
+    return max(1, (level.denominator + level.numerator - 1) // level.numerator - 1)
 
 
 def dkw_epsilon(n: int, alpha: float) -> float:
-    """Massart's finite-sample bound: P(sup|F_n-F| > eps) <= 2exp(-2 n eps^2)."""
-    if n <= 0:
+    """Massart's two-sided DKW radius for n iid draws at failure probability ``alpha``."""
+    _alpha_fraction(alpha)
+    if isinstance(n, (bool, np.bool_)) or int(n) != n or n < 0:
+        raise ValueError("n must be a non-negative integer")
+    if n == 0:
         return math.inf
-    return math.sqrt(math.log(2.0 / alpha) / (2.0 * n))
+    return math.sqrt(math.log(2.0 / float(alpha)) / (2.0 * int(n)))
+
+
+def dkw_mean_lower_bound(
+    scores: Any,
+    alpha: float,
+    *,
+    support: tuple[float, float] = (0.0, 1.0),
+) -> float:
+    """A DKW lower bound on the mean of a fixed score population.
+
+    Under iid sampling from a fixed score population, if scores lie in a *predeclared* interval
+    [a,b], the CDF sup-norm bound implies an absolute mean error at most ``(b-a) * epsilon``.
+    The interval must be known from the metric contract; using the observed sample range is not
+    valid because it can understate the true population range. DTI is bounded by [0,1], so that
+    support is the default. The result is clipped at the known lower endpoint, which is itself a
+    valid deterministic lower bound. DKW's iid sampling assumption is stronger than conformal
+    exchangeability and is not established for heterogeneous spatial blocks here.
+    """
+    values = _validated_dti(scores, "scores")
+    if len(support) != 2:
+        raise ValueError("support must be a (lower, upper) pair")
+    lower, upper = (float(support[0]), float(support[1]))
+    if not math.isfinite(lower) or not math.isfinite(upper) or lower >= upper:
+        raise ValueError("support must be finite and strictly increasing")
+    if ((values < lower) | (values > upper)).any():
+        raise ValueError("scores fall outside the declared support")
+    eps = dkw_epsilon(values.size, alpha)
+    return max(lower, float(values.mean()) - (upper - lower) * eps)
 
 
 @dataclass
 class SweepPoint:
-    """One operating point of the emission sweep and its per-block holdout DTIs."""
+    """One fixed operating point and its DTI scores on disjoint spatial-block roles."""
+
     name: str
     params: dict
-    calib_dtis: list[float] = dc_field(default_factory=list)   # blocks in the calibration half
-    select_dtis: list[float] = dc_field(default_factory=list)  # blocks in the selection half
+    calib_dtis: list[float] = dc_field(default_factory=list)
+    select_dtis: list[float] = dc_field(default_factory=list)
     offcat_enrichment: float | None = None
     emitted: int = 0
+    calibration_block_ids: list[int] = dc_field(default_factory=list)
+    selection_block_ids: list[int] = dc_field(default_factory=list)
 
     @property
     def calib_mean(self) -> float:
@@ -158,107 +159,176 @@ class SweepPoint:
 
 @dataclass
 class ConformalSelection:
-    """The frozen choice plus everything a Phase 2 reviewer needs to check it."""
+    """Chosen operating point and the scope/assumptions a reviewer must see."""
+
     chosen: str
     params: dict
     alpha: float
     n_calibration_blocks: int
     n_selection_blocks: int
-    certified_floor: float                 # (1-alpha) lower bound on a fresh block's DTI
-    certified_confidence: float            # 1 - alpha, as a percentage for the notes
+    certified_floor: float
     calibration_mean: float
     calibration_min: float
     calibration_max: float
     calibration_dtis: list[float]
     selection_mean: float
     selection_dtis: list[float]
-    cleared_floor: bool
+    selection_half_min_above_floor: bool | None
     dkw_epsilon: float
     mean_floor_dkw: float
     leave_one_out_worst_floor: float
     vacuous: bool
-    exchangeability_note: str
-    min_blocks_required_for_alpha: int = 0
-    all_floors_vacuous: bool = False
+    calibration_block_ids: list[int]
+    selection_block_ids: list[int]
     runner_up: list[dict] = dc_field(default_factory=list)
 
+    @property
+    def certified_confidence(self) -> float:
+        return 1.0 - self.alpha
+
     def to_dict(self) -> dict:
+        finite_floor = self.certified_floor if math.isfinite(self.certified_floor) else None
+        finite_loo = (self.leave_one_out_worst_floor
+                      if math.isfinite(self.leave_one_out_worst_floor) else None)
         return dict(
-            chosen=self.chosen, params=self.params, alpha=self.alpha,
+            chosen=self.chosen,
+            params=self.params,
+            alpha=self.alpha,
+            certified_confidence_pct=round(100.0 * self.certified_confidence, 3),
             n_calibration_blocks=self.n_calibration_blocks,
             n_selection_blocks=self.n_selection_blocks,
-            certified_floor=self.certified_floor,
-            certified_confidence_pct=round(100.0 * self.certified_confidence, 3),
+            calibration_block_ids=self.calibration_block_ids,
+            selection_block_ids=self.selection_block_ids,
+            block_roles_disjoint=True,
+            selected_by="selection-half mean DTI; calibration scores do not choose the candidate",
+            certified_floor=finite_floor,
+            vacuous=self.vacuous,
             calibration_mean=self.calibration_mean,
             calibration_min=self.calibration_min,
             calibration_max=self.calibration_max,
             calibration_dtis=self.calibration_dtis,
             selection_mean=self.selection_mean,
             selection_dtis=self.selection_dtis,
-            cleared_floor=self.cleared_floor,
-            dkw_epsilon_mean=self.dkw_epsilon,
+            selection_half_min_above_floor=self.selection_half_min_above_floor,
+            selection_half_min_check_is_descriptive=True,
+            dkw_epsilon=self.dkw_epsilon,
             mean_floor_dkw=self.mean_floor_dkw,
-            leave_one_out_worst_floor=self.leave_one_out_worst_floor,
-            vacuous=self.vacuous,
-            min_blocks_required_for_alpha=self.min_blocks_required_for_alpha,
-            all_floors_vacuous=self.all_floors_vacuous,
-            exchangeability_note=self.exchangeability_note,
+            dkw_support=[0.0, 1.0],
+            dkw_support_was_predeclared=True,
+            dkw_mean_floor_scope=(
+                "calibration-population mean for the selected point under iid calibration sampling, "
+                "selection-only choice, and a fixed candidate grid; not a one-block floor"
+            ),
+            dkw_mean_floor_valid_under_declared_assumptions=True,
+            dkw_iid_sampling_verified=False,
+            leave_one_out_worst_floor=finite_loo,
+            candidate_grid_must_be_fixed_independently_of_calibration=True,
+            exchangeability_verified=False,
+            private_or_leaderboard_floor_certified=False,
+            coverage_scope=(
+                "one future exchangeable block's DTI for the selected operating point; not a block "
+                "mean, pooled map DTI, geographic-conditional score, private label, or leaderboard score"
+            ),
+            exchangeability_note=(
+                "Finite-sample coverage is conditional on exchangeability of calibration and future "
+                "spatial blocks and on the candidate grid/selection rule being fixed independently "
+                "of calibration outcomes. Geological exchangeability and prospective protocol "
+                "fixation are assumptions, not verified by this calculation."
+            ),
             runner_up=self.runner_up,
         )
 
 
-def select(sweep: list[SweepPoint], alpha: float = 0.10,
-           tie_break: str = "floor") -> ConformalSelection:
-    """Freeze an operating point using ONLY calibration-block scores, then audit on selection.
+def _validated_block_ids(ids: list[int], n: int, name: str) -> list[int]:
+    if len(ids) != n:
+        raise ValueError(f"{name} must contain one ID per DTI score")
+    if any(isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer))
+           for value in ids):
+        raise ValueError(f"{name} must contain integer block IDs")
+    normalized = [int(value) for value in ids]
+    if len(set(normalized)) != len(normalized):
+        raise ValueError(f"{name} must not contain duplicate block IDs")
+    return normalized
 
-    Ranking key: the conformal floor (``tie_break="floor"``) rather than the calibration mean.
-    Ranking by the mean is the "we tried a few and this one was best" failure mode the brief
-    names: it selects the noisiest high mean.  Ranking by the floor selects the operating
-    point whose WORST calibration block is best, which is the quantity the guarantee is about.
+
+def select(sweep: list[SweepPoint], alpha: float = 0.10) -> ConformalSelection:
+    """Choose on the selection half, then certify using only disjoint calibration scores.
+
+    The candidate list and this selection rule must be fixed independently of calibration outcomes.
+    This implementation maximizes selection-half mean DTI (then uses larger spacing and name as
+    deterministic tie breaks) and computes a lower prediction bound only for the chosen candidate.
+    It deliberately does not rank candidates by floors computed on the same calibration sample.
     """
-    usable = [s for s in sweep if s.calib_dtis]
-    if not usable:
-        raise ValueError("no sweep point has calibration scores")
-    n = min(len(s.calib_dtis) for s in usable)
-    for s in usable:
-        s._floor = conformal_quantile(np.array(s.calib_dtis), alpha, side="lower")  # type: ignore[attr-defined]
-        s._vacuous = not math.isfinite(s._floor)                  # type: ignore[attr-defined]
-    if tie_break == "floor":
-        # A vacuous floor (-inf) cannot be ranked, so non-vacuous points always win; among
-        # vacuous ones the mean is the only available key and the result is flagged.
-        usable.sort(key=lambda s: (s._vacuous, -s._floor, -s.calib_mean))  # type: ignore[attr-defined]
-    else:
-        usable.sort(key=lambda s: -s.calib_mean)
-    best = usable[0]
-    floor = float(best._floor)                  # type: ignore[attr-defined]
-    cal = np.asarray(best.calib_dtis, float)
-    n = cal.size
-    eps = dkw_epsilon(n, alpha)
-    spread = float(cal.max() - cal.min()) if n > 1 else 0.0
-    loo = []
-    for i in range(n):
-        loo.append(conformal_quantile(np.delete(cal, i), alpha, side="lower"))
-    sel = np.asarray(best.select_dtis, float) if best.select_dtis else np.array([])
-    sel_mean = float(sel.mean()) if sel.size else float("nan")
+    _alpha_fraction(alpha)
+    if not sweep:
+        raise ValueError("sweep must contain at least one operating point")
+    names = [point.name for point in sweep]
+    if any(not name for name in names) or len(set(names)) != len(names):
+        raise ValueError("operating-point names must be nonempty and unique")
+
+    validated = []
+    expected_calibration_ids: list[int] | None = None
+    expected_selection_ids: list[int] | None = None
+    for point in sweep:
+        calibration = _validated_dti(point.calib_dtis, f"{point.name} calibration scores")
+        selection = _validated_dti(point.select_dtis, f"{point.name} selection scores")
+        calibration_ids = _validated_block_ids(
+            point.calibration_block_ids, calibration.size, f"{point.name} calibration_block_ids"
+        )
+        selection_ids = _validated_block_ids(
+            point.selection_block_ids, selection.size, f"{point.name} selection_block_ids"
+        )
+        if set(calibration_ids) & set(selection_ids):
+            raise ValueError(f"{point.name} calibration and selection block IDs overlap")
+        if expected_calibration_ids is None:
+            expected_calibration_ids = calibration_ids
+            expected_selection_ids = selection_ids
+        elif calibration_ids != expected_calibration_ids or selection_ids != expected_selection_ids:
+            raise ValueError("all operating points must use identical ordered block-role IDs")
+        spacing = point.params.get("min_dist", point.params.get("spacing_px", 0.0))
+        try:
+            spacing = float(spacing)
+        except (TypeError, ValueError, OverflowError) as exc:
+            raise ValueError(f"{point.name} spacing tie-break must be numeric") from exc
+        if not math.isfinite(spacing):
+            raise ValueError(f"{point.name} spacing tie-break must be finite")
+        validated.append((point, calibration, selection, spacing))
+
+    # This ranking never reads calibration scores. Larger spacing is only a deterministic tie break.
+    validated.sort(key=lambda row: (-float(row[2].mean()), -row[3], row[0].name))
+    best, calibration, selection, _ = validated[0]
+    floor = conformal_quantile(calibration, alpha, side="lower")
+    eps = dkw_epsilon(calibration.size, alpha)
+    mean_floor = dkw_mean_lower_bound(calibration, alpha, support=(0.0, 1.0))
+    loo_floors = [
+        conformal_quantile(np.delete(calibration, i), alpha, side="lower")
+        for i in range(calibration.size)
+    ]
+    runner_up = [
+        dict(name=point.name, selection_mean=float(values.mean()), emitted=point.emitted)
+        for point, _, values, _ in validated[1:6]
+    ]
     return ConformalSelection(
-        chosen=best.name, params=best.params, alpha=alpha,
-        n_calibration_blocks=int(n), n_selection_blocks=int(sel.size),
-        certified_floor=floor, certified_confidence=1.0 - alpha,
-        calibration_mean=float(cal.mean()), calibration_min=float(cal.min()),
-        calibration_max=float(cal.max()), calibration_dtis=[float(x) for x in cal],
-        selection_mean=sel_mean, selection_dtis=[float(x) for x in sel],
-        cleared_floor=bool(sel.size and float(sel.min()) >= floor),
+        chosen=best.name,
+        params=best.params,
+        alpha=float(alpha),
+        n_calibration_blocks=int(calibration.size),
+        n_selection_blocks=int(selection.size),
+        certified_floor=floor,
+        calibration_mean=float(calibration.mean()),
+        calibration_min=float(calibration.min()),
+        calibration_max=float(calibration.max()),
+        calibration_dtis=[float(value) for value in calibration],
+        selection_mean=float(selection.mean()),
+        selection_dtis=[float(value) for value in selection],
+        selection_half_min_above_floor=(
+            bool(selection.min() >= floor) if math.isfinite(floor) else None
+        ),
         dkw_epsilon=eps,
-        mean_floor_dkw=float(cal.mean() - eps * spread),
-        leave_one_out_worst_floor=float(min(loo)) if loo else float("-inf"),
+        mean_floor_dkw=mean_floor,
+        leave_one_out_worst_floor=float(min(loo_floors)),
         vacuous=not math.isfinite(floor),
-        min_blocks_required_for_alpha=min_blocks_for_alpha(alpha),
-        all_floors_vacuous=bool(all(getattr(x, "_vacuous", True) for x in usable)),
-        exchangeability_note=(
-            "The guarantee P(fresh block DTI >= floor) >= 1-alpha is exact under exchangeability "
-            "of holdout blocks. Geological blocks are NOT i.i.d.; the reported leave-one-out worst "
-            "floor and the DKW mean floor show how much of the claim rests on that assumption."),
-        runner_up=[dict(name=s.name, floor=float(s._floor),  # type: ignore[attr-defined]
-                        vacuous=bool(getattr(s, "_vacuous", True)),
-                        calib_mean=s.calib_mean, emitted=s.emitted) for s in usable[1:6]],
+        calibration_block_ids=list(expected_calibration_ids or []),
+        selection_block_ids=list(expected_selection_ids or []),
+        runner_up=runner_up,
     )

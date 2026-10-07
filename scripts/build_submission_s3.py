@@ -1,34 +1,13 @@
 #!/usr/bin/env python3
-"""Build the unique GEMSDOE47 submission GeoTIFF, validate it, and prove it is not a copy.
+"""RETIRED H47-C1 publisher; execution is disabled to protect reviewed artifacts.
 
-Pipeline
---------
-1. Read the frozen operating point chosen by scripts/run_conformal.py (never re-tuned here).
-2. Rebuild the detector field on the FULL grid with the FULL given catalogue visible -- the
-   holdout deliberately hid catalogue components to score honestly; the submission is allowed
-   to use all of them, exactly as a model refit on all training folds would.
-3. Emit a binary {0,1} mask at the chosen spacing, density and catalogue-flank buffer.
-4. Write a single-band float32 GeoTIFF, EPSG:32611, 100 m, 3730 x 3292, EVERY cell finite and
-   in [0,1], with NO nodata tag -- the configuration shared by all six reference artifacts the
-   organiser scored without complaint (verified in evidence/format_precedent.json).
-5. Re-open the written bytes and gate every published format requirement (fail-closed).
-6. Prove uniqueness against all 12 reference artifacts by Jaccard distance on the positive
-   pixel set and by sha256, so "not a copy of a previous submission" is a checked assertion
-   rather than a claim.
+This historical builder consumes ``scripts/run_conformal.py`` output, whose selected candidate
+and reported floor reused calibration outcomes. Its old writer also predates the current strict
+mask/footprint contract. It must not be used to create or overwrite a current download. The code
+is retained below only as an educational record; H49 is an archived research artifact with a
+closed slot gate, described in ``docs/H49_RESULTS.md``.
 
-Why the output is binary and not a soft probability
----------------------------------------------------
-For one pixel of value v whose best-cover kernel weight against truth is w, adding it changes
-TP_w by v*w and the denominator by alpha*v, so the SIGN of the change in DTI depends on w alone
-and not on v:  dDTI > 0  <=>  w > alpha*DTI/(1+alpha*DTI).  Down-weighting a pixel that clears
-the bar therefore only shrinks its positive contribution, and up-weighting one that does not
-only enlarges the penalty.  A binary mask is the optimum of the soft family.  This is proved
-numerically in tests/test_metric_s3.py::test_binary_is_optimal_over_soft_scaling and matches
-practice: all 11 scored reference artifacts are exactly {0.0, 1.0}.
-
-Run:  python3 scripts/build_submission_s3.py [--name NAME] [--note NOTE]
-Out:  submission/<name>.tif, docs/downloads/<name>.tif, evidence/submission/bundle.json,
-      evidence/submission/checks-<name>.json
+Running this entrypoint now exits before reading data, making directories, or writing files.
 """
 from __future__ import annotations
 
@@ -102,6 +81,16 @@ def load_recipe_and_op(selection_path: Path) -> tuple[Recipe, dict]:
 
 
 def main() -> int:
+    print(
+        "RETIRED: H47-C1 builder consumes a calibration-selected historical result and predates "
+        "the strict current TIFF contract. No data were read and no files were written; H49 is an "
+        "archived research artifact documented in docs/H49_RESULTS.md, not the current-artifact pointer.",
+        file=sys.stderr,
+    )
+    return 2
+
+
+def _legacy_main_not_for_execution() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--selection", default=str(ROOT / "evidence" / "conformal" / "selection.json"))
     ap.add_argument("--name", default=DEFAULT_NAME)

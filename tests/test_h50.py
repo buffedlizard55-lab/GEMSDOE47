@@ -7,6 +7,8 @@ The geometric and algebraic claims are checkable on synthetic arrays; the ones t
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -182,13 +184,12 @@ def test_credit_bar_matches_the_metric_derivation() -> None:
 
 # ---------------------------------------------------------------- the artifact
 @pytest.mark.needs_data
-def test_published_h50_artifact_meets_the_format_contract() -> None:
-    """Read the published artifact back and check every range reading the portal can apply."""
-    data = G.data_dir()
+def test_published_h50_nan_outside_artifact_meets_the_local_format_contract() -> None:
+    """Read the primary review artifact back and check the mirrored footprint contract."""
     template = G.load_template()
-    matches = sorted((ROOT / "docs" / "downloads").glob("gems47-h50-slopeanom-*allfinite.tif"))
+    matches = sorted((ROOT / "docs" / "downloads").glob("gems47-h50-slopeanom-*-nanoutside.tif"))
     if not matches:
-        pytest.skip("H50 artifact not built in this checkout")
+        pytest.skip("H50 NaN-outside artifact not built in this checkout")
     path = matches[-1]
     receipt = json.loads((ROOT / "docs" / "data" / "h50-artifact.json").read_text())
     import rasterio
@@ -197,31 +198,40 @@ def test_published_h50_artifact_meets_the_format_contract() -> None:
         assert src.count == 1 and str(src.dtypes[0]) == "float32"
         assert str(src.crs) == "EPSG:32611"
         assert list(src.transform)[:6] == list(template.transform)[:6]
-        assert src.nodata is None
-        # the exact failure the portal reported
-        assert np.all((v >= 0) & (v <= 1)), "Predicted values must be in range [0, 1]"
-        assert np.isfinite(v).all()
-        assert (v[~template.footprint] == 0).all()
+        assert src.nodata is not None and np.isnan(src.nodata)
+        assert np.isfinite(v[template.footprint]).all()
+        assert np.isnan(v[~template.footprint]).all()
+        assert np.all((v[template.footprint] >= 0) & (v[template.footprint] <= 1))
         assert (v[template.catalogue] == 0).all()
         dots = int((v > 0).sum())
     assert dots == receipt["budget"]
     import hashlib
     h = hashlib.sha256(path.read_bytes()).hexdigest()
-    assert h == receipt["sha256_tif"], "the published receipt must pin the published bytes"
+    assert h == receipt["sha256_tif"], "the published receipt must pin the primary review bytes"
 
 
 @pytest.mark.needs_data
 def test_published_h50_artifact_is_unique_among_prior_rasters() -> None:
     import rasterio
-    path = sorted((ROOT / "docs" / "downloads").glob("gems47-h50-slopeanom-*allfinite.tif"))[-1]
+    path = max((ROOT / "docs" / "downloads").glob("gems47-h50-slopeanom-*-nanoutside.tif"))
     with rasterio.open(path) as src:
         pred = np.nan_to_num(src.read(1).astype(np.float32), nan=0.0) > 0
     receipt = json.loads((ROOT / "docs" / "data" / "h50-artifact.json").read_text())
+    assert int(pred.sum()) == receipt["budget"]
     assert receipt["uniqueness"]["exact_matches"] == 0
     assert receipt["uniqueness"]["max_jaccard"] < 0.5
 
 
-def test_readback_check_names_are_all_booleans() -> None:
-    """The builder must fail closed on any non-boolean check result."""
-    script = (ROOT / "scripts" / "build_submission_h50.py").read_text()
-    assert "read-back validation failed" in script
+def test_h50_historical_publisher_and_page_rewriter_fail_closed() -> None:
+    """Retired H50 generators must not overwrite the reviewed status or primary TIFF."""
+    for script, expected in (
+        ("build_submission_h50.py", "all-finite zero-outside"),
+        ("update_site_h50.py", "submission-ready wording"),
+    ):
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / script)],
+            cwd=ROOT, text=True, capture_output=True, check=False,
+        )
+        assert result.returncode == 2, result.stdout + result.stderr
+        assert "DISABLED:" in result.stdout
+        assert expected in result.stdout

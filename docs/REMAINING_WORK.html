@@ -1,14 +1,77 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Remaining work and limitations · GEMSDOE47</title><meta name="description" content="Corrected handoff: no artifact is approved for upload; assumptions and remaining work are explicit.">
-<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
-<body data-site-version="review" data-base=""><a class="skip" href="#main">Skip to remaining work</a>
-<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
-<nav aria-label="Main navigation"><a href="index.html">Home</a><a href="evidence.html">Evidence</a><a href="irregularities.html">Limitations</a><a href="sources.html">Sources</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
-<div class="status-bar ready"><span class="status-dot" aria-hidden="true"></span><strong>H50 · OK TO DOWNLOAD AND SUBMIT</strong><span>The H47/H48/H49 artifacts described on this page are research-only and are not the file to upload.</span></div>
-<main id="main"><section class="page-heading"><span class="eyebrow">Corrected handoff · 6 October 2026</span><h1>Keep the gate closed.<br>Keep the evidence honest.</h1><p class="lede">No current artifact is approved for upload. This page replaces a stale handoff that advised uploading, assumed an exact quota, and overclaimed score attribution and causality.</p></section>
-<section><h2>Current decision</h2><p>H47-C1 failed its preregistered public-catalogue screen: pooled DTI 0.177872 versus the 0.180216 ordinary-terrain baseline; 11/22 truth-bearing blocks improve (15 required); nominal 90% marginal proxy lower-bound estimate 0.0000 under unverified exchangeability. The H49 artifact inherited from main is retained for audit but fails the published null-or-NaN-outside requirement: its exact TIFF is all-finite with no NoData tag and 7,111,787 outside cells remain finite relative to the recorded owner-mirror footprint. Its nominal 90% public-proxy estimate assumes unverified exchangeability, the operating rule was amended post-hoc, and the 0.2778 comparator is an owner-reported d2.8 reference. No common promotion gate against the established spatially blocked holdout best passed. H47-B and H47-QC are negative screens; H47-GSA/H47-MAXCOV and H48/session-3 artifacts remain research-only or superseded. No file has organizer acceptance or slot authorization.</p></section>
-<section><h2>Remaining work, only if authorized</h2><ol><li>Complete this repository review and verify CI/PR status.</li><li>Before any new submission idea, preregister a fresh spatially blocked test against a separately established holdout best, with equal-mass controls, adequate truth, and the required confidence level. C1's test results cannot be reused as an untouched test. A zero or unsupported assumption-conditional lower bound keeps the gate closed.</li><li>Keep the H33-2-B2 / participant-DTI 0.2778 association unverified; dependent fits are hypothetical. Call the raster the owner-reported d2.8 reference, not a separately established spatially blocked holdout best. H47-SAF's sign change is bracketed only between assumed DTI 0.2200 and 0.2400.</li><li>Use null or NaN outside the official bounds. H49's exact all-finite TIFF has no NaNs or NoData tag and fails the local check relative to its recorded owner-mirror footprint. Unmasked zero-outside all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and Session-3 variants also fail; separate NaN versions follow owner-supplied mirror conventions only. H47-C1 has a separate internal mask and 15/15 local checks; neither establishes portal acceptance.</li><li>Verify any current quota/slot rule in the authenticated portal. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting. Three historical λ-scaling score observations are not a count of uploads or slots; no diagnostic cost is inferred or called free.</li></ol></section>
-<section class="notice"><strong>NOT DONE OR AUTHORIZED</strong><p>No data restore, H47-B rerun, upload, competition-slot use, or λ-probe was performed for this review. Data-dependent tests remain skipped because the cache is absent.</p></section>
-<p><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">Standing brief</a> · <a href="COMPLIANCE.html">Requirements audit</a> · <a href="HOW_TO_SUBMIT.html">Submission readiness</a> · <a href="next-session.md">Next-session handoff</a></p></main>
-<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="irregularities.html">Limitations</a> · <a href="sources.html">Sources</a></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remaining work and limitations — GEMSDOE47</title>
+<meta name="description" content="Session-3 remaining work and limitations: the unuploaded submission, what the holdout cannot say, the coverage assumption behind the mass ceiling, and how every claim is checked.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-07 22:20 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — historical research</a>
+    <a href="HOW_TO_SUBMIT.html">H50 local review and guarded submission checklist</a>
+    <a href="RESULTS.html">Historical results (s3)</a>
+    <a href="H49_RESULTS.html">H49 results</a>
+    <a href="why-02778.html">What the reported 0.2778 does and does not establish</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a class="on" href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="remaining-work-and-limits-corrected-7-october-2026">Remaining work and limits — corrected 7 October 2026</h1>
+<blockquote>
+<p><strong>Current status: H50 is the last locally promoted candidate; no artifact is organizer-accepted or authorized for a competition slot.</strong> H50 has a documented spatially blocked public-proxy result and a NaN-outside TIFF that passed local serialized read-back. These do not establish private-label or leaderboard performance, portal acceptance, eligibility, or slot authorization. No upload or slot use is recorded. H51 is a later multi-scale research variant without a fresh H51-specific frozen holdout; its historical conformal number is inherited from H50 and does not apply. H49 remains archived research-only. This corrects older upload-ready wording and reconciles the README with the machine-readable current-artifact pointer.</p>
+</blockquote>
+<h2 id="immediate-decision">Immediate decision</h2>
+<p>Keep the <strong>competition-slot authorization</strong> gate closed. H50's local public-proxy gate passed: at 2.8 px / 280 m the nominal 90% split-conformal calculation has rank 20/22 and a 0.095701 DTI lower floor conditional on block-score exchangeability; the assumption is unverified, so this is not an unconditional or private-label floor. Its blocked public-proxy pooled DTI was 0.1658806 versus 0.0494209 for an owner-reported d2.8 reference, 0.0482523 for H47-C1, and 0.0470493 for mass-matched random. The instrument shares slope information with H50's input and is based on owner-mirrored data; these are not leaderboard scores. H50's NaN-outside bytes locally match the mirrored footprint, but organizer acceptance is untested. The separate all-finite H50 file has zeros outside and does not literally meet published null/NaN-outside wording. H51 remains research-only until it passes its own fresh, preregistered blocked holdout; do not transfer H50's conformal statistic. H47-C1 failed its preregistered screen: pooled public-catalogue DTI 0.177872 versus the 0.180216 ordinary-terrain baseline; only 11/22 truth-bearing blocks improved (15 required); lower-bound estimate 0.0000 under unverified exchangeability. H49's exact TIFF is all-finite with no NoData tag and fails the published outside-null/NaN requirement. Its former observed-range-scaled DKW mean floors 0.040976 (Instrument B) and 0.038014 (PM0200) are retracted; corrected fixed-[0,1]-support arithmetic is 0.00000 for both, with DKW's iid assumption unverified. H49's nominal 90% paired lower prediction statistics for H49 minus the H33-labelled reference are negative on both reported halves (selection −0.03342; calibration −0.01050); participant-score mapping is unverified. No positive paired-improvement lower bound or H49 promotion is established. H47-B and H47-QC are negative research screens. H47-GSA/H47-MAXCOV and H48/session-3 artifacts are research-only or superseded. No organizer acceptance or competition-slot authorization is established for any file.</p>
+<h2 id="remaining-work">Remaining work</h2>
+<ol>
+<li><strong>Finish the review PR and verify repository checks.</strong> The PR must be green and mergeable before it is merged; this is separate from competition eligibility.</li>
+<li><strong>If a new candidate is proposed, preregister a fresh spatially blocked test</strong> against a separately established holdout best, with equal-mass controls, adequate truth, and the specified confidence level. The current C1 test results cannot be reused as an untouched test for a tuned variant. A zero or unsupported assumption-conditional lower bound keeps the gate closed.</li>
+<li><strong>Keep attribution conditional.</strong> The participant-level 0.2778 observation is not authenticated to H33-2-B2. All H33-dependent fits and score inversions are hypothetical scenarios. The d2.8 TIFF is an <strong>owner-reported d2.8 reference</strong>, not a separately established spatially blocked holdout best. H47-SAF changes sign only between tested assumptions 0.2200 and 0.2400; there is no exact break-even.</li>
+<li><strong>Keep the format distinction explicit.</strong> Published instructions say null or NaN outside the training bounds. H50's preferred NaN-outside TIFF passes local serialized read-back against the mirrored footprint (5,167,373 finite cells inside; 7,111,787 NaNs outside); that is not organizer acceptance. H50's separate all-finite variant writes zeros outside and does not literally satisfy the wording. H51 also has a locally read-back NaN-outside encoding, but that is format evidence only and does not promote H51. The exact H49 TIFF read-back has all 12,279,160 cells finite and no NoData tag; its original receipt records 5,167,373 mirrored footprint cells, so 7,111,787 outside cells are finite and it fails that check. Unmasked zero-outside all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and Session-3 variants also fail the local outside-nodata check. H48's NaN-outside alternative follows an available owner-supplied mirror convention, not verified portal acceptance. H47-C1 instead has an internal validity mask; its local 15/15 checks are not an organizer test. The earlier rejected bytes are unavailable, so the cause remains unknown.</li>
+<li><strong>Do not treat score observations as upload receipts.</strong> Three historical λ-scaling score observations do not establish how many new files were uploaded or how many slots were used. Public official pages checked 2026-10-06 do not establish the current per-user quota or slot accounting. No diagnostic cost is inferred or described as free.</li>
+<li><strong>Preserve provenance limits.</strong> Competition arrays and comparison rasters in the local history are hash-pinned mirror/owner bytes, not authenticated organizer downloads. No hidden test labels, private score, or complete participant-to-TIFF mapping is available.</li>
+</ol>
+<h2 id="actions-explicitly-not-taken">Actions explicitly not taken</h2>
+<p>This review did not restore data, rerun H47-B, upload or prepare a portal submission, use a competition slot, or run a λ-probe. Data-dependent tests remain skipped because the cache is absent. Do not run gated pipelines or use a slot absent explicit authorization and a passed promotion gate.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">Current README and standing user brief</a></li>
+<li><a href="COMPLIANCE.md">Corrected requirements audit</a></li>
+<li><a href="HOW_TO_SUBMIT.md">Submission readiness checklist</a></li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official GeoTIFF requirements</a></li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition home and rules links</a></li>
+<li><a href="irregularities.md">Irregularities register</a></li>
+<li><a href="next-session.md">Next-session handoff</a></li>
+</ul>
+</article>
+</div>
+</body>
+</html>

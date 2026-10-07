@@ -2,7 +2,7 @@ name: Public official data feasibility
 
 on:
   push:
-    branches: [main, arena/e08adc4a-gemsdoe47]
+    branches: [main]
     paths:
       - '.github/workflows/source-probes.yml'
       - 'scripts/probe_official_data.py'
@@ -20,6 +20,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref }}
       - uses: actions/setup-python@v7
         with:
           python-version: '3.11'

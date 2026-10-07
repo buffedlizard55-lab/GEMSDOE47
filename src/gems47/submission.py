@@ -58,17 +58,16 @@ def write_submission(values: np.ndarray, path: Path | str, mode: str = "nan",
                       but the mirror is not organizer authentication. A raw
                       NaN-intolerant ``np.all((v>=0)&(v<=1))`` check fails; no
                       portal-acceptance claim is made for either mode.
-    ``mode="allfinite"``  Identical bytes to ``mode="zeros"``, but named for
-                      submission use.  Rationale: the user-reported portal
-                      rejection was ``"Predicted values must be in range [0, 1]"``,
-                      and the owner-reported family-best artifact
-                      (``reference/h33-2-b2-zeros.tif``, 0.2778) is exactly this
-                      convention -- float32, single band, all finite, nodata
-                      unset, values in [0, 1], zeros outside the footprint.  It
-                      was scored, so the portal demonstrably accepts it.  The
-                      trade-off is stated in the docstring of ``validate_submission``:
-                      the official page says null or NaN outside the bounds, and
-                      zeros do not satisfy that wording literally.
+    ``mode="allfinite"``  Identical bytes to ``mode="zeros"``. This is a
+                      diagnostic for NaN-intolerant range readers, not a
+                      recommendation for upload: it writes finite zeros outside
+                      the footprint and does not literally satisfy the published
+                      null/NaN-outside wording. The owner-reported H33-2-B2
+                      0.2778 score-to-TIFF mapping is unverified, and the owner's
+                      page marks that submission unscored; it does not establish
+                      portal acceptance of these bytes. The rejected historical
+                      upload bytes/parser receipt are unavailable, so the old
+                      range error's cause remains unknown.
     """
     path = Path(path)
     t = template or G.load_template()

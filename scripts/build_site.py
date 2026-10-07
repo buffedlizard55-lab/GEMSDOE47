@@ -6,9 +6,10 @@ every figure, table and link on every page is read out of a committed JSON recei
 ``evidence/`` at build time. If a receipt is missing the page says so explicitly instead of
 inventing a value.
 
-Run:  python3 scripts/build_site.py
-Out:  docs/session3.md, docs/HOW_TO_SUBMIT.md, docs/RESULTS.md, docs/why-02778.md,
-      docs/research.md, docs/_config.yml
+This historical generator is retired because it consumes the superseded H47-C1 selector receipt
+and overwrites reviewed Pages content. Its implementation is retained below for audit only; the
+CLI exits before reading evidence or writing files. Use the reviewed static pages and
+``scripts/build_site_s3.py`` for the owned Markdown-to-HTML rendering workflow.
 """
 from __future__ import annotations
 
@@ -803,7 +804,7 @@ def page_research() -> str:
     return "\n".join(L)
 
 
-def main() -> int:
+def _legacy_main_not_for_execution() -> int:
     DOCS.mkdir(parents=True, exist_ok=True)
     (DOCS / "downloads").mkdir(parents=True, exist_ok=True)
     ctrl = load("control/controls.json")
@@ -847,6 +848,17 @@ def main() -> int:
     (DOCS / "_config.yml").unlink(missing_ok=True)
     print(f"[site] {len(pages)} pages + config; download at docs/downloads/")
     return 0
+
+
+def main() -> int:
+    import sys
+
+    print(
+        "RETIRED: scripts/build_site.py would regenerate reviewed Pages content from the "
+        "superseded H47-C1 selector receipt. No evidence was read and no file was written.",
+        file=sys.stderr,
+    )
+    return 2
 
 
 if __name__ == "__main__":

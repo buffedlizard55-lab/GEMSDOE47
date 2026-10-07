@@ -2,7 +2,7 @@
   "schema_version": 1,
   "hypothesis_id": "H50",
   "artifact": "gems47-h50-slopeanom-s2p8-20261007",
-  "kind": "primary_submission_candidate",
+  "kind": "locally_promoted_public_proxy_candidate",
   "promoted": true,
   "generated_utc": "2026-10-07T18:04:53Z",
   "spacing_px": 2.8,
@@ -25,9 +25,9 @@
       -100.0,
       4508550.0
     ],
-    "nodata": null,
-    "outside_footprint": "0.0 (all finite)",
-    "values": "0.0 and 1.0 only"
+    "nodata": "NaN",
+    "outside_footprint": "NaN",
+    "values": "0.0 and 1.0 only on footprint"
   },
   "readback_checks": {
     "single_band": true,
@@ -36,17 +36,15 @@
     "width_matches": true,
     "height_matches": true,
     "transform_matches": true,
-    "nodata_unset": true,
-    "no_nan": true,
-    "no_inf": true,
-    "all_in_unit_interval": true,
-    "nan_intolerant_range_check": true,
-    "zero_outside_footprint": true,
+    "nodata_is_nan": true,
+    "finite_inside_footprint": true,
+    "nan_outside_footprint": true,
+    "all_in_unit_interval_inside": true,
+    "values_are_unit_on_footprint": true,
     "dot_count": true,
     "dots_on_footprint": true,
-    "dots_off_catalogue": true,
-    "values_are_unit": true,
-    "compression": "Compression.deflate"
+    "compression": "Compression.deflate",
+    "serialized_tiff_readback": true
   },
   "uniqueness": {
     "compared": 31,
@@ -61,12 +59,15 @@
     "selection_blocks": 20,
     "calibration_blocks": 21,
     "rank_1_based": 20,
-    "coverage_at_least": 0.9090909090909091,
-    "certified_floor_dti": 0.09570122924914815,
-    "assumption": "block-level exchangeability, not verified; conditional guarantee"
+    "assumption": "block-level exchangeability, not verified; conditional guarantee",
+    "conditional_lower_floor_dti": 0.09570122924914815,
+    "nominal_confidence_pct": 90.0,
+    "coverage_at_least_if_exchangeable": 0.9090909090909091,
+    "exchangeability_verified": false,
+    "guarantee_scope": "conditional one-future-block public-proxy statistic only; not private-label or leaderboard coverage"
   },
   "holdout": {
-    "instrument": "off-catalogue local maxima of the 1 m lidar scarp stack",
+    "instrument": "off-catalogue local maxima of the owner-mirrored 1 m lidar scarp stack",
     "candidate_pooled_dti": 0.16588059959214113,
     "owner_reported_d28_reference_pooled_dti": 0.04942094659452611,
     "h47c1_previous_holdout_best_pooled_dti": 0.0482522932214748,
@@ -77,10 +78,13 @@
       "beats_h47c1_previous_holdout_best": true,
       "positive_conformal_floor": true,
       "passed": true
-    }
+    },
+    "instrument_authenticated_by_organizer": false,
+    "shares_slope_information_with_candidate_input": true,
+    "leaderboard_score": null
   },
-  "sha256_tif": "97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17",
-  "bytes": 291321,
+  "sha256_tif": "2e32d8ed384692bc44ff768ca5d3814ed48d7b627ba3c818743ee13ab3538d5b",
+  "bytes": 341280,
   "files": [
     "gems47-h50-slopeanom-s2p8-20261007-allfinite.tif",
     "gems47-h50-slopeanom-s2p8-20261007.zip",
@@ -89,14 +93,17 @@
     "gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif"
   ],
   "provenance_limits": [
-    "No organiser receipt links any participant score to a TIFF; the 0.2778 figure is owner-reported and the owner page marks that submission unscored.",
+    "No organizer receipt links any participant score to a TIFF; the 0.2778 figure is owner-reported and the owner page marks that submission unscored.",
     "The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.",
-    "Instrument L shares the slope quantity with the field's input band, so the holdout numbers are an optimistic proxy, not a certified leaderboard score."
+    "The lidar instrument shares slope information with the field input, so holdout values are public-proxy results, not leaderboard or private-label guarantees.",
+    "The block-level exchangeability assumption is not verified; the 90.91% / 0.095701 DTI result is conditional.",
+    "Local NaN-outside format read-back is not organizer acceptance or upload authorization.",
+    "Uniqueness comparison covers 31 local prior rasters only; it is not proof of global uniqueness."
   ],
-  "download_url": "downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif",
+  "download_url": "downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif",
   "zip_url": "downloads/gems47-h50-slopeanom-s2p8-20261007.zip",
   "note_url": "downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt",
-  "fallback_url": "downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif",
+  "fallback_url": null,
   "submission_note_field": "h50 slope-anomaly d2p8 conformal90",
   "deployed_evidence_sha256": {
     "h50-instrument-ranking.json": "ec266c8245ebfe4a93869d4f39066b38bf10800adf787b49bd6a7b0e5c3667d9",
@@ -105,5 +112,32 @@
     "h50-screen.json": "b84ef525ebf140794a60e6485585672a982bba2eac9d5bd04d2cd8214280be91",
     "h50-budget-profile.json": "6459e71348ec1908ff467a66f8b66242dc5b429689b67d63b17da3b5919cf61c",
     "h50-spacing-history.csv": "4093ccc1b7b3fb0ac1e57949e7085540582580d874483afa0c05b8cb75532e7c"
-  }
+  },
+  "local_promotion_gate_passed": true,
+  "submission_eligible": false,
+  "slot_authorized": false,
+  "organizer_acceptance_established": false,
+  "organizer_score": null,
+  "uploaded": false,
+  "status_note": "Locally promoted after the documented spatially blocked public-proxy gate; local format checks are not organizer acceptance, a leaderboard score, or slot authorization.",
+  "primary_variant": "nan-outside",
+  "allfinite_diagnostic_variant": {
+    "filename": "gems47-h50-slopeanom-s2p8-20261007-allfinite.tif",
+    "sha256": "97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17",
+    "bytes": 291321,
+    "nodata": null,
+    "outside_footprint": "0.0 (all finite)",
+    "local_unit_range_readback_passes": true,
+    "satisfies_published_null_or_nan_outside_wording": false,
+    "preferred_for_submission_review": false
+  },
+  "allfinite_diagnostic_url": "downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif",
+  "submission_name_suggestion": "GEMSDOE47-H50-slope-anomaly-s2p8-20261007",
+  "submission_name_is_registered": false,
+  "format_contract_status": "Local serialized read-back passes for the NaN-outside variant; organizer acceptance has not been tested.",
+  "zip_contents": [
+    "gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif"
+  ],
+  "zip_sha256": "6b2081339f71a9b02553079b85f9b0cb746b342cbb0dd1013874d29d9eb4be3e",
+  "zip_bytes": 258742
 }

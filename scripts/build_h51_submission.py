@@ -21,7 +21,6 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-import shutil
 import sys
 import time
 import zipfile
@@ -33,12 +32,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-import numpy as np  # noqa: E402
-import rasterio  # noqa: E402
+import numpy as np
+import rasterio
 
-from gems47 import grid as G  # noqa: E402
-from gems47 import h51  # noqa: E402
-from gems47 import submission as SUB  # noqa: E402
+from gems47 import grid as G
+from gems47 import h51
+from gems47 import submission as SUB
 
 # --- Operating point parameters ---
 # These are chosen based on the H50 conformal validation results.

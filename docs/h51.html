@@ -4,12 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>H51 Evidence — GEMSDOE47</title>
+<meta name="description" content="H51 multi-scale research artifact; no fresh H51-specific holdout or promotion. Includes local NaN-outside format read-back and inherited H50 limitations.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <header>
   <h1>H51 Multi-Scale Slope-Anomaly Persistence</h1>
-  <p class="tagline">Evidence and validation for the primary submission candidate</p>
+  <p class="tagline">Research artifact; H51-specific holdout validation is not available</p>
 </header>
 <nav>
   <a href="index.html">Home</a>
@@ -24,15 +25,17 @@
 </nav>
 <main>
 
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>H51 · RESEARCH ONLY · NOT PROMOTED · DO NOT UPLOAD</strong><span>No fresh H51-specific blocked holdout; no slot authorized.</span></div>
+
 <section>
-  <h2>⬇️ Download</h2>
+  <h2>⬇️ Download for research review only</h2>
   <div class="download-box">
-    <a href="downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif" class="btn-primary" download>
-      Download H51 GeoTIFF — OK to Submit
+    <a href="downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif" class="btn-primary" download>
+      Download H51 NaN-outside research TIFF
     </a>
     <p class="download-alt">
-      <a href="downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif">NaN-outside variant</a> ·
-      <a href="downloads/gems47-h51-multiscale-s2p8-20261007.zip">ZIP bundle</a>
+      <a href="downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif">All-finite diagnostic variant</a> ·
+      <a href="downloads/gems47-h51-multiscale-s2p8-20261007.zip">ZIP bundle (research archive)</a>
     </p>
   </div>
 </section>
@@ -57,56 +60,50 @@
 </section>
 
 <section>
-  <h2>Operating Point — Split Conformal Certification</h2>
+  <h2>Operating point — no H51-specific certificate</h2>
   <table>
-    <tr><td><strong>Spacing</strong></td><td>2.8 px / 280 m</td></tr>
-    <tr><td><strong>Budget</strong></td><td>37,654 unit dots</td></tr>
-    <tr><td><strong>Selection blocks</strong></td><td>20 spatially blocked blocks (selection half)</td></tr>
-    <tr><td><strong>Calibration blocks</strong></td><td>21 disjoint blocks (calibration half)</td></tr>
-    <tr><td><strong>Method</strong></td><td>Max-residual one-sided split conformal (Lei et al. JASA 2018, Algorithm 2)</td></tr>
-    <tr><td><strong>Residual rank</strong></td><td>20 of 22</td></tr>
-    <tr><td><strong>Coverage</strong></td><td>≥90.91%</td></tr>
-    <tr><td><strong>Certified floor</strong></td><td>0.0957 DTI</td></tr>
+    <tr><td><strong>H51 spacing</strong></td><td>2.8 px / 280 m</td></tr>
+    <tr><td><strong>H51 budget</strong></td><td>37,654 unit dots</td></tr>
+    <tr><td><strong>Fresh H51 selection/calibration split</strong></td><td>Not performed</td></tr>
+    <tr><td><strong>H51 lower bound</strong></td><td>Not established</td></tr>
+    <tr><td><strong>Inherited H50 screen context</strong></td><td>20 selection / 21 calibration blocks; rank 20 of 22; nominal 90.91% / 0.095701 DTI</td></tr>
   </table>
-  <p><strong>Assumption:</strong> Block-level exchangeability, not verified. This is a conditional guarantee,
-  not a private-label or leaderboard guarantee.</p>
+  <p><strong>Do not transfer the H50 result to H51.</strong> The inherited number was computed for the
+  single-scale H50 field, not this multi-scale H51 prediction. It does not validate H51 or establish a
+  H51 performance floor. No private-label, leaderboard, or organizer-acceptance claim is made.</p>
 </section>
 
 <section>
-  <h2>Blocked Holdout Validation (from H50 screen)</h2>
+  <h2>H50 holdout context — not H51 validation</h2>
   <table>
     <tr><th>Field</th><th>Pooled DTI</th><th>Mean Block DTI</th></tr>
-    <tr><td><strong>H50/H51 slope-anomaly field</strong></td><td><strong>0.165881</strong></td><td><strong>0.163039</strong></td></tr>
+    <tr><td><strong>H50 single-scale slope-anomaly field only</strong></td><td><strong>0.165881</strong></td><td><strong>0.163039</strong></td></tr>
     <tr><td>Owner-reported d2.8 reference</td><td>0.049421</td><td>0.046088</td></tr>
     <tr><td>H47-C1 (previous best)</td><td>0.048252</td><td>0.041460</td></tr>
     <tr><td>Mass-matched spaced random</td><td>0.047049</td><td>0.037786</td></tr>
   </table>
-  <p>Validation instrument: off-catalogue local maxima of the organiser-supplied 1 m lidar scarp stack.
-  61 contiguous blocks with a 3 px guard. <strong>No submission slot was spent</strong> to obtain this result.</p>
+  <p>Validation instrument: off-catalogue local maxima of the owner-mirrored 1 m lidar scarp stack.
+  61 contiguous blocks with a 3 px guard. This is the <strong>H50</strong> screen only; H51 was not evaluated on
+  these blocks as a frozen H51 candidate. <strong>No submission slot was spent</strong> to obtain the H50 result.</p>
 </section>
 
 <section>
-  <h2>Format Verification</h2>
+  <h2>Format Verification — NaN-outside variant</h2>
   <table>
     <tr><th>Check</th><th>Result</th></tr>
-    <tr><td>Single band</td><td>✅</td></tr>
-    <tr><td>float32</td><td>✅</td></tr>
-    <tr><td>CRS EPSG:32611</td><td>✅</td></tr>
-    <tr><td>Width 3292</td><td>✅</td></tr>
-    <tr><td>Height 3730</td><td>✅</td></tr>
-    <tr><td>Transform matches</td><td>✅</td></tr>
-    <tr><td>No nodata tag</td><td>✅</td></tr>
-    <tr><td>No NaN</td><td>✅</td></tr>
-    <tr><td>No Inf</td><td>✅</td></tr>
-    <tr><td>All in [0, 1]</td><td>✅</td></tr>
-    <tr><td>Zero outside footprint</td><td>✅</td></tr>
-    <tr><td>37,654 dots</td><td>✅</td></tr>
-    <tr><td>Dots on footprint</td><td>✅</td></tr>
-    <tr><td>Dots off catalogue</td><td>✅</td></tr>
-    <tr><td>Values are 0.0 or 1.0 only</td><td>✅</td></tr>
-    <tr><td>NaN-intolerant range check</td><td>✅</td></tr>
+    <tr><td>Single float32 band; 3292 × 3730</td><td>✅</td></tr>
+    <tr><td>CRS EPSG:32611; 100 m transform matches</td><td>✅</td></tr>
+    <tr><td>NaN NoData tag</td><td>✅</td></tr>
+    <tr><td>Finite values on footprint</td><td>✅ — 5,167,373 cells</td></tr>
+    <tr><td>NaNs outside footprint</td><td>✅ — 7,111,787 cells</td></tr>
+    <tr><td>In-footprint values within [0, 1], binary</td><td>✅</td></tr>
+    <tr><td>37,654 positive dots, all on footprint</td><td>✅</td></tr>
     <tr><td>Compression deflate</td><td>✅</td></tr>
   </table>
+  <p>The all-finite variant's local read-back passes shape/range checks but writes finite zeros outside
+  the footprint and therefore does not meet the published null/NaN-outside wording. The NaN-outside
+  variant was separately read back locally (NaN NoData, NaNs outside, finite [0,1] values inside).
+  Neither local check establishes organizer acceptance.</p>
 </section>
 
 <section>
@@ -114,9 +111,10 @@
   <ul>
     <li>No organiser receipt links any participant score to a TIFF.</li>
     <li>The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.</li>
-    <li>The multi-scale persistence field has not been independently validated on a fresh holdout;
-    the conformal certificate is inherited from the H50 screen which used a single-scale slope anomaly.</li>
-    <li>Block-score exchangeability is assumed and unverified.</li>
+    <li>The multi-scale persistence field has not been evaluated on a fresh, frozen spatial holdout;
+    H51 has no conformal certificate. The H50 single-scale statistic is inherited context only and does
+    not apply to H51.</li>
+    <li>Block-score exchangeability for the H50 screen is assumed and unverified; it supplies no H51 guarantee.</li>
   </ul>
 </section>
 

@@ -20,8 +20,12 @@ H47QC_SHA256 = "3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2
 H49_TIF = "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
 H49_SHA256 = "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b"
 H49_BASE = "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3"
-H50_TIF = "downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif"
-H50_SHA256 = "97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17"
+H50_TIF = "downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif"
+H50_ALLFINITE_TIF = "downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif"
+H51_TIF = "downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif"
+H50_SHA256 = "2e32d8ed384692bc44ff768ca5d3814ed48d7b627ba3c818743ee13ab3538d5b"
+H50_ALLFINITE_SHA256 = "97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17"
+H51_SHA256 = "e6eb13f671e2663b4f69e94307dfcac840bf9039cb411ab7b815cf029301fa43"
 H50A_TIF = "downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif"
 H50A_SHA256 = "6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5"
 
@@ -79,49 +83,48 @@ class SiteTests(unittest.TestCase):
                 self.assertTrue(target.is_relative_to((ROOT / "docs").resolve()), href)
                 self.assertTrue(target.is_file(), f"{page}: {href}")
 
-    def test_home_and_summary_lead_with_h50_and_offer_it_for_submission(self):
-        """The two pages the user reads must make the submittable file obvious."""
+    def test_home_and_summary_lead_with_h50_review_file_and_limits(self):
+        """The homepage and executive summary make the exact H50 review bytes prominent."""
         for name in ("index.html", "executive-summary.html"):
             text = (ROOT / "docs" / name).read_text(encoding="utf-8")
-            # a one-click download above the fold, before the page's <h1>
-            self.assertLess(text.index("↓ Download GeoTIFF (submit this)"), text.index("<h1>"), name)
-            self.assertIn(H50_TIF.split("/")[-1], text)
-            self.assertIn("OK TO DOWNLOAD AND SUBMIT", text)
-            self.assertIn("H50a template-format checkpoint", text)
-            self.assertIn("It is not OK to submit this file", text)
-            self.assertIn("2.8 px / 280 m", text)
-            self.assertIn("split-conformal", text)
-            self.assertIn("h50 slope-anomaly d2p8 conformal90", text)
-            self.assertIn("conditional on block exchangeability", text)
-            # the older research artifacts must still be labelled as not submittable
-            self.assertIn("RESEARCH-ONLY", text)
-            self.assertIn("DO NOT UPLOAD", text)
-            self.assertIn("H49 historical", text)
-            self.assertIn("H47-QC geothermometer screen", text)
+            self.assertIn(H50_TIF.split("/")[-1], text, name)
+            self.assertIn("Download H50 NaN-outside GeoTIFF", text, name)
+            self.assertIn("not organizer-accepted", text.lower(), name)
+            self.assertIn("2.8 px / 280 m", text, name)
+            self.assertIn("0.095701", text, name)
+            self.assertIn("90%", text, name)
+            self.assertIn("block-score exchangeability", text.lower(), name)
+            self.assertIn("H51", text, name)
+            self.assertIn("H49", text, name)
+            self.assertIn("h50 slope-anomaly d2p8 conformal90", text, name)
+            self.assertNotIn("OK TO SUBMIT", text, name)
+            self.assertNotIn("submit this", text.lower(), name)
         home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
-        self.assertIn(H50_SHA256, home)
-        self.assertNotIn(H49_TIF, home, "H49 must not be offered as a download")
+        self.assertLess(home.index(H50_TIF.split("/")[-1]), home.index("Documented spatially blocked"))
+        summary = (ROOT / "docs" / "executive-summary.html").read_text(encoding="utf-8")
+        self.assertLess(summary.index(H50_TIF.split("/")[-1]), summary.index("H50 spacing and conditional"))
 
     def test_homepage_offers_h50_plus_labelled_research_downloads(self):
         text = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         parser = _PageParser()
         parser.feed(text)
         offered = {urlparse(link).path.lstrip("./") for link in parser.tiff_links}
-        self.assertEqual(offered, {H50_TIF, H47QC_TIF})
-        for path, sha in ((H50_TIF, H50_SHA256), (H47QC_TIF, H47QC_SHA256)):
-            target = ROOT / "docs" / path
-            self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
-            self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), sha)
+        self.assertEqual(offered, {H50_TIF})
+        target = ROOT / "docs" / H50_TIF
+        self.assertTrue(target.is_file())
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), H50_SHA256)
         lower = text.lower()
-        # the H50 artifact is NOT described as unscored/not promoted
-        self.assertNotIn("unscored", lower)
-        self.assertIn("not promoted", lower)          # about the older research artifacts
-        self.assertIn("do not upload", lower)
-        self.assertIn("0.165881", text)               # blocked-holdout pooled DTI
-        self.assertIn("0.049421", text)               # owner-reported d2.8 reference
-        self.assertIn("H47-QC geothermometer screen", text)
-        self.assertIn("It is not OK to submit this file", text)
-        self.assertIn("strict local template-mask check passes", text)
+        self.assertIn("locally promoted", lower)
+        self.assertIn("not organizer-accepted", lower)
+        self.assertIn("no upload", lower)
+        self.assertIn("no fresh h51-specific", lower)
+        self.assertIn("0.165881", text)
+        self.assertIn("0.049421", text)
+        self.assertIn("h49", lower)
+        self.assertIn("0.040976", text)
+        self.assertIn("0.038014", text)
+        self.assertIn("does not literally satisfy", lower)
+        self.assertNotIn("OK TO SUBMIT", text)
 
     def test_h50_artifact_receipt_is_published_and_matches_the_bytes(self):
         receipt_path = ROOT / "docs" / "data" / "h50-artifact.json"
@@ -132,22 +135,52 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), receipt["sha256_tif"])
         self.assertEqual(receipt["sha256_tif"], H50_SHA256)
         self.assertTrue(receipt["promoted"])
-        self.assertTrue(receipt["readback_checks"]["all_in_unit_interval"])
-        self.assertTrue(receipt["readback_checks"]["nan_intolerant_range_check"])
-        self.assertIsNone(receipt["format"]["nodata"])
+        self.assertTrue(receipt["local_promotion_gate_passed"])
+        self.assertFalse(receipt["submission_eligible"])
+        self.assertFalse(receipt["slot_authorized"])
+        self.assertFalse(receipt["organizer_acceptance_established"])
+        self.assertTrue(receipt["readback_checks"]["all_in_unit_interval_inside"])
+        self.assertTrue(receipt["readback_checks"]["nan_outside_footprint"])
+        self.assertEqual(receipt["format"]["nodata"], "NaN")
+        self.assertEqual(receipt["format"]["outside_footprint"], "NaN")
         self.assertEqual(receipt["budget"], 37654)
         self.assertEqual(receipt["screen_selected_spacing_px"], 2.8)
-        self.assertAlmostEqual(receipt["conformal"]["certified_floor_dti"], 0.0957, places=4)
-        self.assertGreaterEqual(receipt["conformal"]["coverage_at_least"], 0.90)
+        self.assertAlmostEqual(receipt["conformal"]["conditional_lower_floor_dti"], 0.095701, places=5)
+        self.assertGreaterEqual(receipt["conformal"]["coverage_at_least_if_exchangeable"], 0.90)
+        self.assertFalse(receipt["conformal"]["exchangeability_verified"])
         self.assertEqual(receipt["uniqueness"]["exact_matches"], 0)
         self.assertLess(receipt["uniqueness"]["max_jaccard"], 0.5)
         self.assertIn("h50 slope-anomaly d2p8 conformal90", receipt["submission_note_field"])
+        self.assertEqual(receipt["allfinite_diagnostic_variant"]["sha256"], H50_ALLFINITE_SHA256)
+        self.assertFalse(receipt["allfinite_diagnostic_variant"]["satisfies_published_null_or_nan_outside_wording"])
+        with rasterio.open(target) as src:
+            values = src.read(1)
+            mask = src.read_masks(1) > 0
+            self.assertEqual(src.count, 1)
+            self.assertEqual(src.dtypes[0], "float32")
+            self.assertEqual(src.shape, (3730, 3292))
+            self.assertEqual(src.crs.to_string(), "EPSG:32611")
+            self.assertTrue(np.isnan(src.nodata))
+            self.assertEqual(int(mask.sum()), 5_167_373)
+            self.assertEqual(int(np.isnan(values).sum()), 7_111_787)
+            self.assertTrue(np.isfinite(values[mask]).all())
+            self.assertTrue(np.isnan(values[~mask]).all())
+            self.assertTrue(np.isin(values[mask], [0.0, 1.0]).all())
+            self.assertEqual(int((values[mask] > 0).sum()), 37_654)
+        zip_path = ROOT / "docs" / receipt["zip_url"]
+        with __import__("zipfile").ZipFile(zip_path) as archive:
+            self.assertEqual(archive.namelist(), [target.name])
+            self.assertEqual(archive.read(target.name), target.read_bytes())
 
     def test_h50_evidence_page_links_only_inside_the_pages_artifact(self):
         page = (ROOT / "docs" / "h50.html").read_text(encoding="utf-8")
-        self.assertIn("OK TO SUBMIT", page)
+        self.assertIn("LOCALLY PROMOTED PUBLIC-PROXY CANDIDATE", page)
+        self.assertNotIn("OK TO SUBMIT", page)
+        self.assertIn(H50_TIF.split("/")[-1], page)
         self.assertIn("h50.html", page)
         self.assertNotIn("../", page)
+        self.assertIn("0.0957 DTI", page)
+        self.assertIn("conditional lower floor", page)
         for name in ("h50-instrument-ranking.json", "h50-screen.json",
                      "h50-field-scan.json", "h50-budget-profile.json"):
             self.assertTrue((ROOT / "docs" / "data" / name).is_file(), name)
@@ -161,12 +194,46 @@ class SiteTests(unittest.TestCase):
         self.assertIn("DO NOT UPLOAD", register)
         page = (ROOT / "docs" / "h50a.html").read_text(encoding="utf-8")
         self.assertIn("research only", page.lower())
-        self.assertIn("It is not OK to submit this file", page)
+        self.assertIn("do not submit this file", page.lower())
         self.assertIn("h50.html", page)
         home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         self.assertIn(H50_TIF.split("/")[-1], home)
         self.assertNotIn(H50A_TIF.split("/")[-1], home,
                          "H50a must not be offered as a download on the home page")
+
+    def test_h51_is_research_only_and_inherited_h50_conformal_result_is_not_applied(self):
+        receipt = json.loads((ROOT / "docs" / "data" / "h51-artifact.json").read_text())
+        self.assertEqual(receipt["kind"], "research_only_candidate")
+        self.assertFalse(receipt["promoted"])
+        self.assertFalse(receipt["local_promotion_gate_passed"])
+        self.assertFalse(receipt["submission_eligible"])
+        self.assertFalse(receipt["slot_authorized"])
+        self.assertFalse(receipt["organizer_acceptance_established"])
+        conformal = receipt["conformal"]
+        self.assertFalse(conformal["applies_to_h51"])
+        self.assertIsNone(conformal["coverage_at_least"])
+        self.assertIsNone(conformal["certified_floor_dti"])
+        self.assertTrue(conformal["inherited_h50_context"]["not_transferable_to_h51"])
+        target = ROOT / "docs" / H51_TIF
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), H51_SHA256)
+        with rasterio.open(target) as src:
+            values = src.read(1)
+            mask = src.read_masks(1) > 0
+            self.assertEqual(src.count, 1)
+            self.assertEqual(src.dtypes[0], "float32")
+            self.assertEqual(src.shape, (3730, 3292))
+            self.assertEqual(src.crs.to_string(), "EPSG:32611")
+            self.assertTrue(np.isnan(src.nodata))
+            self.assertEqual(int(mask.sum()), 5_167_373)
+            self.assertEqual(int(np.isnan(values).sum()), 7_111_787)
+            self.assertTrue(np.isfinite(values[mask]).all())
+            self.assertTrue(np.isnan(values[~mask]).all())
+            self.assertEqual(int((values[mask] > 0).sum()), 37_654)
+        page = (ROOT / "docs" / "h51.html").read_text(encoding="utf-8")
+        self.assertIn("RESEARCH ONLY", page)
+        self.assertIn("no H51-specific certificate", page)
+        self.assertIn("Do not transfer the H50 result to H51", page)
+        self.assertNotIn("OK to Submit", page)
 
     def test_h49_is_explicitly_research_only_in_site_register_and_receipts(self):
         register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
@@ -177,19 +244,31 @@ class SiteTests(unittest.TestCase):
             "not an authenticated leaderboard incumbent",
         ):
             self.assertIn(phrase.lower(), row.lower())
-        self.assertNotIn("current artifact", row.lower())
-        self.assertNotIn(">Portal note<", row)
-        self.assertIn("H49_RESULTS.html", row)
-        self.assertIn("h49-format-contract-audit.json", row)
+        h49row = row.split(f"{H49_BASE}.tif", 1)[1]
+        self.assertIn("Archived H49 receipt", h49row)
+        self.assertNotIn("current artifact", h49row.lower())
+        self.assertNotIn(">Portal note<", h49row)
+        self.assertIn("H49_RESULTS.html", h49row)
+        self.assertIn("h49-format-contract-audit.json", h49row)
 
         current = json.loads((ROOT / "docs" / "data" / "current-artifact.json").read_text())
-        self.assertEqual(current["status"], "RESEARCH_ONLY_FORMAT_REQUIREMENT_FAIL")
+        self.assertEqual(current["hypothesis_id"], "H50")
+        self.assertEqual(current["status"], "LOCALLY_PROMOTED_PUBLIC_PROXY_CANDIDATE_NOT_ORGANIZER_ACCEPTED")
+        self.assertTrue(current["current_primary_artifact"])
+        self.assertTrue(current["local_promotion_gate_passed"])
         self.assertFalse(current["slot_authorized"])
         self.assertFalse(current["submission_eligible"])
-        self.assertFalse(current["current_primary_artifact"])
-        self.assertFalse(current["format_review"]["outside_null_or_nan"])
-        self.assertIn("historical_builder_format_receipt", current)
-        self.assertNotIn("portal_note", current)
+        self.assertFalse(current["organizer_acceptance_established"])
+        self.assertTrue(current["format_review"]["outside_null_or_nan"])
+
+        archived = json.loads((ROOT / "docs" / "data" / "h49-artifact.json").read_text())
+        self.assertEqual(archived["status"], "RESEARCH_ONLY_FORMAT_REQUIREMENT_FAIL")
+        self.assertFalse(archived["slot_authorized"])
+        self.assertFalse(archived["submission_eligible"])
+        self.assertFalse(archived["current_primary_artifact"])
+        self.assertFalse(archived["format_review"]["outside_null_or_nan"])
+        self.assertIn("historical_builder_format_receipt", archived)
+        self.assertNotIn("portal_note", archived)
 
         receipt = json.loads((ROOT / "docs" / "downloads" / f"{H49_BASE}.json").read_text())
         self.assertFalse(receipt["slot_authorized"])
@@ -289,11 +368,16 @@ class SiteTests(unittest.TestCase):
         for name in ("executive-summary.html", "submit.html", "portal-checklist.html"):
             text = (ROOT / "docs" / name).read_text(encoding="utf-8").lower()
             self.assertIn("do not upload", text, name)
-            self.assertIn("no slot", text, name)
-            self.assertIn(H49_BASE, text, name)
+            self.assertIn("slot", text, name)
+            self.assertIn("h49", text, name)
             self.assertIn("null-or-nan-outside", text, name)
             self.assertIn("owner-reported d2.8 reference", text, name)
-
+            self.assertIn("not organizer-accepted", text, name)
+        text = (ROOT / "docs" / "submit.html").read_text(encoding="utf-8")
+        self.assertIn(H50_TIF.split("/")[-1], text)
+        self.assertIn(H50_SHA256, text)
+        self.assertIn("GEMSDOE47-H50-slope-anomaly-s2p8-20261007", text)
+        self.assertIn("h50 slope-anomaly d2p8 conformal90", text)
 
 if __name__ == "__main__":
     unittest.main()

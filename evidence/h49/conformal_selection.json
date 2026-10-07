@@ -135,11 +135,11 @@
    "A2": 0.05590411981741222
   },
   "dkw_mean_floor": {
-   "PM0200": 0.029854685131778393,
-   "PM0112": 0.01981306785449717,
-   "PM0294": 0.05920977331240121,
-   "A1": 0.014316382519152425,
-   "A2": 0.08421959349438211
+   "PM0200": 0.0,
+   "PM0112": 0.0,
+   "PM0294": 0.0,
+   "A1": 0.0,
+   "A2": 0.0
   },
   "dkw_epsilon": {
    "PM0200": 0.2884697304337142,
@@ -169,7 +169,43 @@
    "A1": 0.16666666666666666,
    "A2": 0.05
   },
-  "caveat": "The selection half was used to choose the arm, so its realised values are the maximum over ~100 arms and its violation rate is biased downward; the calibration half is disjoint from the choice, so its floor is the valid split-conformal bound. The repeated-split audit re-runs the whole selection and reports the resulting violation rate as the honest measure of the procedure, exchangeability of geological blocks being an assumption."
+  "caveat": "The code chooses on the selection half and computes the fixed-arm floor on disjoint calibration blocks. The finite-sample interpretation still requires a candidate grid and selection rule fixed independently of calibration and exchangeable future/spatial blocks; this script cannot verify those design assumptions or prospective protocol timing. Repeated splits reuse the same blocks and are sensitivity diagnostics, not independent validation samples.",
+  "dkw_mean_floor_observed_range_scaled_retracted": {
+   "PM0200": 0.029854685131778393,
+   "PM0112": 0.01981306785449717,
+   "PM0294": 0.05920977331240121,
+   "A1": 0.014316382519152425,
+   "A2": 0.08421959349438211
+  },
+  "dkw_support": {
+   "PM0200": [
+    0.0,
+    1.0
+   ],
+   "PM0112": [
+    0.0,
+    1.0
+   ],
+   "PM0294": [
+    0.0,
+    1.0
+   ],
+   "A1": [
+    0.0,
+    1.0
+   ],
+   "A2": [
+    0.0,
+    1.0
+   ]
+  },
+  "dkw_support_predeclared": true,
+  "dkw_method": "Massart DKW CDF bound with fixed metric support; not scaled by observed sample range",
+  "dkw_scope": "fixed selected-arm calibration-block mean under iid sampling, conditional on selection-only choice",
+  "dkw_iid_sampling_verified": false,
+  "dkw_candidate_choice_uses_calibration": false,
+  "dkw_prospective_protocol_fixation_verified": false,
+  "dkw_mean_floor_valid_for_full_adaptive_procedure": false
  },
  "alpha_sensitivity": {
   "alpha=0.05": {
@@ -1831,5 +1867,7 @@
   "comparator": "any legacy REF_incumbent_0.2778 key denotes an owner-reported d2.8 reference; score/file link unverified",
   "legacy_gate_scope": "The adjacent legacy gates object is a historical first-run public-catalogue proxy comparison only. Its all_gates_pass=true field is not the current scientific promotion gate, submission eligibility, or slot authorization; the current interpretation fields below are false.",
   "legacy_gate_comparator_semantics": "Any legacy REF_incumbent_0.2778 key refers only to an owner-reported d2.8 reference raster; the participant-score/file association is unverified and it is not an authenticated leaderboard incumbent."
- }
+ },
+ "review_status": "HISTORICAL_SUPERSEDED_DKW_CORRECTED",
+ "reviewed_utc_date": "2026-10-07"
 }

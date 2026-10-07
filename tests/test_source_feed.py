@@ -63,3 +63,15 @@ def test_drivendata_terms_disable_unpermitted_automatic_monitoring():
     result = F.refresh([source], {}, fetcher=forbidden)
     assert result["policy_skips"] == 1
     assert not result["drivendata_automated_monitoring_enabled"]
+
+
+def test_automation_workflows_track_the_current_ref_not_a_retired_branch():
+    workflows = [
+        ROOT / ".github" / "workflows" / "site.yml",
+        ROOT / ".github" / "workflows" / "source-probes.yml",
+    ]
+    for workflow in workflows:
+        text = workflow.read_text()
+        assert "arena/50b2a166-gemsdoe47" not in text
+        assert "branches: [main]" in text
+        assert "ref: ${{ github.ref }}" in text

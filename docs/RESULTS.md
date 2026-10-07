@@ -6,15 +6,15 @@ nav_order: 3
 
 # Results — scoped to the evidence
 
-**No result in this file is a private leaderboard score or a submission authorization.** Earlier long-form output that treated owner-reported score/file pairs as authenticated has been preserved, prominently withdrawn, in [`docs/research/retired/`](research/retired/). The current concise record below supersedes it.
+**No result in this file is a private leaderboard score or a submission authorization.** Earlier long-form output that treated owner-reported score/file pairs as authenticated has been preserved, prominently withdrawn, in [`research/retired/RESULTS-session3-original-20261006.md`](research/retired/RESULTS-session3-original-20261006.md). The current concise record below supersedes it.
 
-## H47-C1 — current primary research screen
+## H47-C1 — historical research screen (not current candidate)
 
 - Pooled public-catalogue proxy DTI: **0.177872**; selection-only ordinary-terrain/raw-band baseline: **0.180216**; fixed-seed spaced random: **0.070924**.
 - Mean block proxy DTI: 0.177038 for H47-C1 and 0.176051 for the baseline. C1 wins **11/22** truth-bearing test blocks; **15** are required by the preregistered gate.
 - Selected spacing: **2.8 px / 280 m**. Nominal **90% simultaneous marginal block** calibration assumes exchangeability, which is unverified; the clipped assumption-conditional lower-bound estimate is **0.0000**. No private/global guarantee follows.
 - The secondary SGMC-distance diagnostic loses to random: 0.073537 vs 0.083174. No leaderboard score is attributed to the TIFF.
-- Decision: **research-only, not promoted, do not upload**. See [`docs/data/current-submission.json`](data/current-submission.json), [screen page](index.html), and [README](../README.md).
+- Decision: **research-only, not promoted, do not upload**. See [`docs/data/current-submission.json`](data/current-submission.json), [screen page](index.html), and [README](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md).
 
 ## H49 — retained mainline study, format-failing and not promoted
 

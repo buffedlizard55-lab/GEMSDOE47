@@ -1,45 +1,91 @@
-# GEMSDOE47 — H51 multi-scale slope-anomaly persistence: unique submission
+# GEMSDOE47 — H50 slope-anomaly candidate; H51 research follow-up
 
 > **Read the standing brief below at the start of every work session.**
 > **Maximize P(Win)**: publish a genuinely new candidate only after it beats every control on a
 > spatially blocked holdout — then submit it.
 > **Own the Outcome**: publish negative results, corrections, actual bytes and limits — never an invented win.
 
-## OK TO DOWNLOAD AND SUBMIT — the H51 GeoTIFF
+## Current locally promoted candidate — H50 NaN-outside GeoTIFF
 
-**[Download H51 all-finite GeoTIFF (primary — this is the file to submit)](docs/downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif)** ·
-[NaN-outside variant](docs/downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif) ·
-[ZIP bundle](docs/downloads/gems47-h51-multiscale-s2p8-20261007.zip) ·
-[H51 evidence page](docs/h51.html) ·
-[Executive summary and official submission sequence](docs/executive-summary.html) ·
-[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
-[ZIP with note + receipt](docs/downloads/gems47-h50-slopeanom-s2p8-20261007.zip) ·
-[H50 evidence page](docs/h50.html) ·
-[Executive summary and official submission sequence](docs/executive-summary.html) ·
-[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE47/)
+**[Download H50 NaN-outside GeoTIFF](docs/downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif)** ·
+[Submission note](docs/downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt) ·
+[H50 evidence and bounded uniqueness audit](docs/h50.html) ·
+[All-finite diagnostic variant (not the preferred format)](docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif) ·
+[Executive summary](docs/executive-summary.html)
 
-A genuinely new hypothesis, **not a copy of any prior GEMSDOE submission**. The field is the
-product of the slope anomaly at two regional scales (25 px / 2.5 km broad, 12 px / 1.2 km
-narrow), so a fault scarp — locally steeper than both regional levels — outranks erosional
-features that only break one scale. This is the multi-scale persistence idea from Frangi
-filtering, applied to the slope anomaly field.
+> **Status:** H50 is the latest locally promoted candidate with a documented spatially blocked public-proxy
+> holdout. Its NaN-outside TIFF was read back locally and matches the mirrored footprint. This is not an
+> organizer acceptance, score, private-label guarantee, or leaderboard prediction. No upload or competition
+> slot use is recorded. Confirm current official instructions, eligibility, and quota in the authenticated
+> portal before any future upload. H51 is newer but is research-only: it has no fresh H51-specific holdout;
+> do not transfer H50's conformal result to H51. H49 is a separate research-only artifact; its corrected
+> analysis is linked below.
 
-- Filename: `gems47-h51-multiscale-s2p8-20261007-allfinite.tif`
-- Name: `GEMSDOE47-H51-multiscale-s2p8-20261007`
-- **Short Note for the DrivenData form: `h51 multiscale-slope-anomaly d2p8 conformal90`** (39 characters)
-- TIFF SHA-256 (all-finite): `3d12889caf5093151808fbe5750233dcbf2ca871c12130fcf631d0f0b765c0b4`
-- Actual bytes (all-finite): **315,938**. Full width **3292 × height 3730**, EPSG:32611, 100 m.
-- One float32 band, **37,654 unit dots** at 2.8 px / 280 m over the evaluated domain.
-- **Every one of the 12,279,160 cells is finite and inside [0,1]**; the values are 0.0 and 1.0 only.
-  No NoData tag; 0.0 outside the footprint.
-- **17/17 strict read-back checks pass.**
-- **Uniqueness:** 22 prior rasters compared — zero exact matches, maximum mask Jaccard 0.8543.
-- **Also available:** NaN-outside variant (`gems47-h51-multiscale-s2p8-20261007-nanoutside.tif`,
-  SHA-256 `e6eb13f671e2663b4f69e94307dfcac840bf9039cb411ab7b815cf029301fa43`) with NaN outside
-  the footprint, matching the competition's stated "null or NaN outside the bounds" requirement.
+- **Primary file:** `gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif`
+- **Suggested DrivenData Name:** `GEMSDOE47-H50-slope-anomaly-s2p8-20261007` (not an organizer-registered name)
+- **Short Note:** `h50 slope-anomaly d2p8 conformal90`
+- **NaN-outside SHA-256:** `2e32d8ed384692bc44ff768ca5d3814ed48d7b627ba3c818743ee13ab3538d5b` · **341,280 bytes**
+- One float32 band, **3292 × 3730**, EPSG:32611, 100 m; NaN NoData and NaNs outside the mirrored
+  **5,167,373-cell** footprint; every in-footprint value is finite and in `[0,1]` (0/1 only), with
+  **37,654 positive dots**. Local serialized-TIFF read-back matched the H50 grid and footprint.
+- The separate all-finite encoding writes zeros outside the footprint. Its local range test passes, but it
+  does not literally satisfy the published null/NaN-outside wording; use the linked NaN-outside file for
+  review. Neither encoding has organizer acceptance.
+- **Bounded novelty check:** 31 prior rasters compared; zero exact matches, maximum mask Jaccard 0.045623.
+  This finite local inventory is not proof of global uniqueness.
 
+### H50 operating point — conditional proxy result, not a leaderboard score
+
+| Item | Value |
+|---|---|
+| Spacing | **2.8 px / 280 m** |
+| Budget | 37,654 unit dots |
+| Selection / calibration | 20 selection blocks / 21 disjoint calibration blocks |
+| Split-conformal statistic | max-residual one-sided; rank 20 of 22 |
+| Nominal coverage / lower floor | **90.91% / 0.095701 DTI**, conditional on block-score exchangeability |
+| Validation target | Off-catalogue local maxima of the owner-mirrored 1 m lidar scarp stack |
+
+The spatial blocks are not proven exchangeable, the lidar instrument shares the slope quantity with the
+H50 input band, and all arrays are hash-pinned owner mirrors rather than organizer-authenticated bytes.
+These values are a public-proxy holdout result only. They are not private-label coverage, a map-wide
+floor, a leaderboard score, or organizer acceptance.
+
+| Selection-half comparison on the H50 public proxy | Pooled DTI | Mean block DTI |
+|---|---:|---:|
+| **H50 slope-anomaly field** | **0.165881** | **0.163039** |
+| Owner-reported d2.8 reference raster | 0.049421 | 0.046088 |
+| H47-C1 prior holdout result | 0.048252 | 0.041460 |
+| Mass-matched fixed-seed spaced random | 0.047049 | 0.037786 |
+
+These results do not authenticate the H33-labelled reference or establish that any participant score belongs
+to a particular TIFF. The supplied `0.2778` and the saved `0.3774` observation remain user/owner-reported
+context unless tied to a file and current official board by an organizer receipt.
+
+## H51 multi-scale persistence — newer, research-only, not validated for promotion
+
+[H51 all-finite diagnostic TIFF](docs/downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif) ·
+[H51 NaN-outside TIFF](docs/downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif) ·
+[H51 evidence page](docs/h51.html) · [H51 receipt](docs/data/h51-artifact.json)
+
+H51 multiplies broad (25 px) and narrow (12 px) slope anomalies and has a local format receipt, but its
+multi-scale prediction field has **not** been evaluated on a fresh, frozen spatial holdout. The 90.91%
+/ 0.095701 statistic in the historical H51 receipt is inherited from the H50 single-scale screen and is
+not an H51 certificate. H51 is not promoted, not upload-authorized, and not organizer-accepted; retain it
+for research only. Do not use a slot on it without a new preregistered spatially blocked validation.
+
+## H49 — archived public-proxy research only
+
+**Do not upload or spend a slot on H49.** Its exact TIFF fails the published outside-null/NaN check. The
+former observed-range-scaled DKW mean floors **0.040976** (Instrument B) and **0.038014** (PM0200) are
+retracted; corrected fixed-support `[0,1]` arithmetic is **0.00000** for both, and DKW's iid assumption is
+unverified. Its nominal 90% paired lower prediction statistics versus the H33-labelled reference are
+negative on both reported halves (**−0.03342 selection; −0.01050 calibration**). The reference's
+participant-score/file mapping is unverified and the shipped selection rule was amended after results.
+See [corrected H49 results](docs/H49_RESULTS.html), [H49 format audit](docs/data/h49-format-contract-audit.json),
+and [archived H49 receipt](docs/data/h49-artifact.json).
 
 ### H50a template-format checkpoint — research only, retained from `main`
+
 
 A sibling session exported `docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif`
 (SHA-256 `6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5`) plus a finite-mask
@@ -49,50 +95,25 @@ passes. Its nominal 90 % public-proxy floor is **0.0000** and its blocks were pr
 inspected, so its promotion gate is closed. **It is not the file to submit.** Full checks,
 receipts and the spacing sweep: [h50a.html](docs/h50a.html) and `evidence/h50/` on `main`.
 
-### Operating point, certified by split conformal prediction
-
-| Item | Value |
-|---|---|
-| Spacing | **2.8 px / 280 m** |
-| Budget | 37,654 unit dots |
-| Selection | 20 spatially blocked blocks (selection half) |
-| Certification | 21 disjoint blocks (calibration half), max-residual one-sided split conformal, Lei et al. JASA 2018 Algorithm 2 |
-| Residual rank | 20 of 22 |
-| Finite-sample coverage | **at least 90.91 %, conditional on block-score exchangeability** |
-| Certified holdout floor | **0.0957 DTI** |
-
-Selection on the selection half only; the calibration half, which the choice never saw, then
-certified it. Simultaneous over the seven spacings in the sweep. Geological exchangeability is
-**unverified**, so this is a conditional guarantee and **not** a private-label, pooled-map or
-leaderboard guarantee.
-
-### Blocked-holdout gate — it passed
-
-| Blocked-holdout comparison (selection half, off-catalogue lidar-scarp instrument) | Pooled DTI | Mean block DTI |
-|---|---:|---:|
-| **H50 slope-anomaly field** | **0.165881** | **0.163039** |
-| Owner-reported d2.8 reference raster | 0.049421 | 0.046088 |
-| H47-C1, the previous holdout best | 0.048252 | 0.041460 |
-| Mass-matched fixed-seed spaced random | 0.047049 | 0.037786 |
-
-Sixty-one contiguous blocks with a 3 px guard; roles assigned before any score was computed; blocks
-with few or no truth pixels kept. **No competition submission slot was spent** to obtain this result
-and no private label was read.
-
-## Earlier research artifacts — retained, and NOT the file to submit
+## Earlier research artifacts — retained for audit only
 
 **H47-C1 · RESEARCH ONLY · DO NOT UPLOAD.** `docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif`
 (SHA-256 `e6eea1956b8f76ffef2f4867a6e2ac0bef078c0c61c3711e44eb07e93cb089d0`). Its locked holdout gate
 failed: pooled public-catalogue DTI 0.177872 against the frozen baseline's 0.180216, 11/22
 truth-bearing blocks where 15 were required, assumption-conditional lower-bound estimate 0.0000.
-**H50a, H47-QC, H48, H49, H47-B, H47-GSA and H47-MAXCOV are likewise research-only or superseded.**
-Full register with hashes and verdicts: [all-downloads.html](docs/all-downloads.html).
+H50a, H47-QC, H48, H49, H47-B, H47-GSA, and H47-MAXCOV remain research-only or superseded.
+The corrected H49 DKW values and negative paired lower prediction statistics are summarized above and
+documented in [H49 results](docs/H49_RESULTS.html). Full register with hashes and verdicts:
+[all-downloads.html](docs/all-downloads.html).
 
 ### Cross-session research status and claim boundaries
 
-H50 is the current primary artifact and is OK to download and submit. Every earlier artifact
-(H47-C1, H47-QC, H48, H49, H47-B, H47-GSA, H47-MAXCOV) remains research-only and is retained
-for audit.
+H50 is the last locally promoted candidate with a documented blocked public-proxy holdout and a
+locally checked NaN-outside TIFF. Its promotion is not organizer acceptance or a leaderboard result.
+H51 is a later multi-scale variant, but it has no fresh H51-specific holdout; H50's conformal floor
+does not transfer to H51. H49 and the earlier artifacts listed above remain research-only. The
+H49-specific receipt is archived at [`docs/data/h49-artifact.json`](docs/data/h49-artifact.json);
+[`docs/data/current-artifact.json`](docs/data/current-artifact.json) points to H50.
 
 **Every H47-GSA and H47-MAXCOV raster remains research-only; none is promoted or authorized for upload.** The
 H47-GSA model, fits, cross-fit comparisons and conditional score inversions are exploratory. Any result that
@@ -209,9 +230,11 @@ new TIFF/ZIP bytes. Restored-grid tests are run locally; they are explicitly mar
 
 ## What to do next
 
-1. **H50 is published and is the file to submit.** Confirm eligibility, upload instructions and any
-   per-user quota in the authenticated organiser portal before uploading; public pages do not
-   establish current quota. Retain the organiser's receipt, timestamp, filename and score.
+1. **H50 is the last locally promoted candidate, not an organizer-accepted submission.** Use the
+   NaN-outside H50 TIFF if and only if a future slot is separately authorized and the live portal,
+   eligibility, and current official instructions are verified. No upload or slot use occurred in this
+   review; retain an organizer receipt only if one is actually issued. H51 is research-only pending a
+   fresh frozen holdout.
 2. **Do not rename or re-label the earlier negative runs (H47-C1, H47-QC, H48, H49) as promoted.**
    They stay research-only in the register.
 3. The H50 holdout instrument is a proxy that shares the slope quantity with the field's input band.
@@ -468,7 +491,7 @@ Its local strict format pass uses the explicit mirrored sample-template mask. Th
 ## Publication receipt
 
 * H50 screen, field scans, budget profile and instrument ranking: `evidence/h50/`.
-* Artifact builder: `scripts/build_submission_h50.py`; site updater: `scripts/update_site_h50.py`.
+* The historical H50 publisher (`scripts/build_submission_h50.py`) and site updater (`scripts/update_site_h50.py`) are disabled because they emitted an all-finite zero-outside primary and stale upload-ready claims; do not run them until a replacement is reviewed.
 * Detector: `src/gems47/h50.py`; tests: `tests/test_h50.py`.
 * Published artifact and receipts: `docs/downloads/gems47-h50-slopeanom-s2p8-20261007-*` and
   `docs/data/h50-artifact.json`.

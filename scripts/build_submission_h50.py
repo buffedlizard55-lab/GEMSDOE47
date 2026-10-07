@@ -1,23 +1,11 @@
 #!/usr/bin/env python3
-"""Build, validate, audit for uniqueness and publish the H50 submission artifact.
+"""RETIRED historical H50 publisher — intentionally disabled.
 
-The artifact is the H50 field (rank of official band 19, ``det_elev_slope``, above its
-25 px Gaussian regional level) emitted as unit dots at the split-conformal-selected 2.8 px
-spacing over the off-catalogue evaluated domain, at the credit-bar-justified budget.
-
-Format contract (the reason this file exists)
----------------------------------------------
-* single band, float32, EPSG:32611, 100 m, the official transform and bounds;
-* every value finite and inside [0, 1] -- this is the convention of the owner-reported
-  family-best raster and it is the direct answer to the reported portal rejection
-  ``"Predicted values must be in range [0, 1]"``;
-* no nodata tag; 0.0 outside the competition footprint;
-* strict read-back validation over every cell before anything is published;
-* uniqueness audit against every prior raster reachable from this checkout.
-
-Outputs (all under ``docs/downloads/``): the GeoTIFF, a ZIP containing the TIFF, the
-submission note and the receipt, a JSON receipt, and a TXT note for the DrivenData
-"Note" field.  ``docs/data/`` receives the receipts the site renders.
+This implementation previously published an all-finite zero-outside GeoTIFF as primary and
+used stale submission-ready/score-attribution language. It must not regenerate deployed files.
+The reviewed NaN-outside H50 artifact is a locally promoted public-proxy candidate only; it is
+not organizer-accepted or authorized for a competition slot. A replacement builder requires
+separate review and a regression-tested serialized read-back contract.
 """
 from __future__ import annotations
 
@@ -36,14 +24,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-import numpy as np  # noqa: E402
-import rasterio  # noqa: E402
-from scipy import ndimage as ndi  # noqa: E402
+import numpy as np
+import rasterio
+from scipy import ndimage as ndi
 
-from gems47 import grid as G  # noqa: E402
-from gems47 import h50  # noqa: E402
-from gems47 import submission as SUB  # noqa: E402
-from gems47s3.geomorph import rank_scale  # noqa: E402
+from gems47 import grid as G
+from gems47 import h50
+from gems47 import submission as SUB
+from gems47s3.geomorph import rank_scale
 
 SPACING_PX = 2.8
 BUDGET = 37_654
@@ -133,6 +121,13 @@ def readback(path: Path, template: G.Template, dots: int) -> dict:
 
 
 def main() -> int:
+    print(
+        "DISABLED: historical H50 publisher labels an all-finite zero-outside TIFF as primary "
+        "and emits stale submission-ready claims. The reviewed NaN-outside artifact is locally "
+        "promoted but not organizer-accepted or slot-authorized. Do not regenerate published "
+        "files until a separate replacement builder and read-back suite are reviewed."
+    )
+    return 2
     started = time.time()
     data = G.data_dir()
     template = G.load_template()

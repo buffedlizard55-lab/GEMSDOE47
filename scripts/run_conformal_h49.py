@@ -26,6 +26,7 @@ from gems47s3.conformal import (
     conformal_order_statistic,
     conformal_quantile,
     dkw_epsilon,
+    dkw_mean_lower_bound,
     min_blocks_for_alpha,
 )
 
@@ -236,9 +237,16 @@ def _legacy_main() -> int:
     loo = {i: float(min(conformal_quantile(np.delete(cal_arrays[i], j), args.alpha, side="lower")
                         for j in range(n_cal[i]))) for i in INSTRUMENTS}
     eps = {i: dkw_epsilon(n_cal[i], args.alpha) for i in INSTRUMENTS}
-    dkw_floor = {i: float(cal_arrays[i].mean() - eps[i] * float(cal_arrays[i].max()
-                                                              - cal_arrays[i].min()))
-                 for i in INSTRUMENTS}
+    dkw_floor = {
+        i: dkw_mean_lower_bound(cal_arrays[i], args.alpha, support=(0.0, 1.0))
+        for i in INSTRUMENTS
+    }
+    dkw_floor_observed_range_scaled_retracted = {
+        i: float(cal_arrays[i].mean() - eps[i] * float(
+            cal_arrays[i].max() - cal_arrays[i].min()
+        ))
+        for i in INSTRUMENTS
+    }
     cleared = {i: bool(sel_arrays[i].min() >= floors[i]) for i in INSTRUMENTS}
     viol_cal = {i: float((cal_arrays[i] < floors[i]).mean()) for i in INSTRUMENTS}
     viol_sel = {i: float((sel_arrays[i] < floors[i]).mean()) for i in INSTRUMENTS}
@@ -348,16 +356,25 @@ def _legacy_main() -> int:
             order_statistic_k_by_instrument=k_used,
             leave_one_out_worst_floor=loo,
             dkw_mean_floor=dkw_floor,
+            dkw_mean_floor_observed_range_scaled_retracted=dkw_floor_observed_range_scaled_retracted,
             dkw_epsilon=eps,
+            dkw_support={i: [0.0, 1.0] for i in INSTRUMENTS},
+            dkw_support_predeclared=True,
+            dkw_method="Massart DKW CDF bound with fixed metric support; not scaled by observed sample range",
+            dkw_scope="fixed selected-arm calibration-block mean under iid sampling, conditional on selection-only choice",
+            dkw_iid_sampling_verified=False,
+            dkw_candidate_choice_uses_calibration=False,
+            dkw_prospective_protocol_fixation_verified=False,
+            dkw_mean_floor_valid_for_full_adaptive_procedure=False,
             single_split_clears_floor_on_selection_half=cleared,
             empirical_violation_rate_on_calibration_half=viol_cal,
             empirical_violation_rate_on_selection_half=viol_sel,
-            caveat=("The selection half was used to choose the arm, so its realised values are the "
-                    "maximum over ~100 arms and its violation rate is biased downward; the "
-                    "calibration half is disjoint from the choice, so its floor is the valid "
-                    "split-conformal bound. The repeated-split audit re-runs the whole selection "
-                    "and reports the resulting violation rate as the honest measure of the "
-                    "procedure, exchangeability of geological blocks being an assumption."),
+            caveat=("The code chooses on the selection half and computes the fixed-arm floor on "
+                    "disjoint calibration blocks. The finite-sample interpretation still requires "
+                    "a candidate grid and selection rule fixed independently of calibration and "
+                    "exchangeable future/spatial blocks; this script cannot verify those design "
+                    "assumptions or prospective protocol timing. Repeated splits reuse the same "
+                    "blocks and are sensitivity diagnostics, not independent validation samples."),
         ),
         alpha_sensitivity=alpha_sensitivity,
         repeated_split_robustness=dict(n_requested=N_REPEATED_SPLITS, seed=SEED,

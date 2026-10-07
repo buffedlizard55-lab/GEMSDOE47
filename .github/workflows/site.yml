@@ -2,7 +2,7 @@ name: Refresh permitted public-source feed
 
 on:
   push:
-    branches: [main, arena/e08adc4a-gemsdoe47]
+    branches: [main]
     paths:
       - '.github/workflows/site.yml'
       - 'scripts/refresh_source_feed.py'
@@ -28,7 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          # On push use the exact triggering branch; scheduled runs use default main.
           ref: ${{ github.ref }}
       - uses: actions/setup-python@v7
         with:

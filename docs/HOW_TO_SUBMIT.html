@@ -2,81 +2,127 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How to Submit — GEMSDOE47</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H50 local review package and guarded submission checklist — GEMSDOE47</title>
+<meta name="description" content="H50's locally promoted public-proxy evidence, NaN-outside serialized read-back, exact suggested Name and Note, conditional conformal limits, and guarded submission steps. No organizer acceptance or competition-slot authorization is established.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<header>
-  <h1>How to Submit to the GEMS Prize Challenge</h1>
-</header>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="executive-summary.html">Executive Summary</a>
-  <a href="h51.html">H51 Evidence</a>
-  <a href="all-downloads.html">All Downloads</a>
-  <a href="HOW_TO_SUBMIT.html" class="active">How to Submit</a>
-  <a href="method.html">Method</a>
-  <a href="knowledge.html">Knowledge</a>
-</nav>
-<main>
-
-<section>
-  <h2>Quick Start</h2>
-  <ol>
-    <li><strong>Download:</strong> <a href="downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif" download>Click here to download the H51 GeoTIFF</a></li>
-    <li><strong>Go to:</strong> <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submit/">https://www.drivendata.org/competitions/306/competition-doe-gems/submit/</a></li>
-    <li><strong>Upload:</strong> Select the downloaded file</li>
-    <li><strong>Note:</strong> Paste <code>h51 multiscale-slope-anomaly d2p8 conformal90</code></li>
-    <li><strong>Submit</strong></li>
-  </ol>
-</section>
-
-<section>
-  <h2>File Details</h2>
-  <table>
-    <tr><td>Primary file</td><td><code>gems47-h51-multiscale-s2p8-20261007-allfinite.tif</code></td></tr>
-    <tr><td>Unique name</td><td><code>GEMSDOE47-H51-multiscale-s2p8</code></td></tr>
-    <tr><td>Note</td><td><code>h51 multiscale-slope-anomaly d2p8 conformal90</code></td></tr>
-    <tr><td>Format</td><td>single band, float32, EPSG:32611, 100 m, 3292×3730</td></tr>
-    <tr><td>Dots</td><td>37,654</td></tr>
-    <tr><td>Values</td><td>0.0 and 1.0 only, all in [0,1]</td></tr>
-    <tr><td>SHA-256</td><td><code>3d12889caf5093151808fbe5750233dcbf2ca871c12130fcf631d0f0b765c0b4</code></td></tr>
-  </table>
-</section>
-
-<section>
-  <h2>Troubleshooting</h2>
-  <h3>"Predicted values must be in range [0, 1]"</h3>
-  <p>This error can occur if the portal's range validator encounters NaN values that it
-  doesn't recognize as nodata. Try the NaN-outside variant:
-  <a href="downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif" download>Download NaN-outside variant</a></p>
-  <p>The NaN-outside variant writes NaN outside the competition footprint with nodata=nan.
-  The all-finite variant writes 0.0 outside the footprint with no nodata tag.</p>
-
-  <h3>File size</h3>
-  <p>The all-finite variant is ~316 KB and the NaN-outside variant is ~369 KB. Both should
-  upload quickly.</p>
-
-  <h3>Which variant to use?</h3>
-  <p>Try the all-finite variant first. If rejected, use the NaN-outside variant.
-  Both have identical predictions inside the competition footprint.</p>
-</section>
-
-<section>
-  <h2>About the Competition</h2>
-  <p>The <strong>DOE GEMS Prize Challenge</strong> (DrivenData #306) asks participants to find
-  geothermal-indicative faults in the GeoDAWN region of Nevada. The competition has two rounds:</p>
-  <ul>
-    <li><strong>Initial Round ($50,000):</strong> Scored against a private set of expert-labeled faults. Top 5 win $10K each.</li>
-    <li><strong>Final Round ($250,000):</strong> Re-scored against an expanded label set built from expert review of all submissions. Top 5 win $100K/$70K/$40K/$25K/$15K.</li>
-  </ul>
-  <p>See <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">the official competition page</a>.</p>
-</section>
-
-</main>
-<footer>
-  <p>GEMSDOE47 · Built by Arena.ai agent · Generative-AI assistance disclosed</p>
-</footer>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-07 22:20 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — historical research</a>
+    <a class="on" href="HOW_TO_SUBMIT.html">H50 local review and guarded submission checklist</a>
+    <a href="RESULTS.html">Historical results (s3)</a>
+    <a href="H49_RESULTS.html">H49 results</a>
+    <a href="why-02778.html">What the reported 0.2778 does and does not establish</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="h50-local-review-package-not-organizer-approved">H50 local review package — not organizer-approved</h1>
+<blockquote>
+<p><strong>Current local status:</strong> H50 is the last candidate that passed this repository's documented spatially blocked public-proxy promotion gate. It is <strong>not organizer-accepted</strong>, no leaderboard score is established, and no upload or competition-slot use is recorded. Local promotion and format read-back do not authorize an upload. Verify eligibility, live portal instructions, and slot/quota rules before any future submission.</p>
+</blockquote>
+<p><strong><a href="downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif">Download the H50 NaN-outside GeoTIFF for review</a></strong> ·
+<a href="downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt">Submission note</a> ·
+<a href="h50.html">H50 evidence page</a> · <a href="data/h50-artifact.json">Machine-readable status receipt</a></p>
+<ul>
+<li><strong>Primary review file:</strong> <code>gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif</code></li>
+<li><strong>SHA-256:</strong> <code>2e32d8ed384692bc44ff768ca5d3814ed48d7b627ba3c818743ee13ab3538d5b</code> · <strong>341,280 bytes</strong></li>
+<li><strong>Suggested form Name:</strong> <code>GEMSDOE47-H50-slope-anomaly-s2p8-20261007</code> (suggestion only; not organizer-registered)</li>
+<li><strong>Short Note:</strong> <code>h50 slope-anomaly d2p8 conformal90</code></li>
+</ul>
+<h2 id="local-serialized-tiff-read-back">Local serialized-TIFF read-back</h2>
+<p>The selected NaN-outside variant is one float32 GeoTIFF band on EPSG:32611, 3292 × 3730, 100 m, with transform <code>[100, 0, 243350, 0, -100, 4508550]</code>. Rasterio read-back of the serialized file found a NaN NoData tag, <strong>5,167,373</strong> finite cells inside the mirrored footprint, <strong>7,111,787</strong> NaNs outside, in-footprint values restricted to 0/1, and <strong>37,654</strong> positive dots, all inside the footprint. This is a local read-back against hash-pinned owner mirrors; it is <strong>not an organizer validation or acceptance</strong>.</p>
+<p>The separate <a href="downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif">all-finite diagnostic variant</a> has SHA-256 <code>97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17</code> (291,321 bytes), no NoData tag, and finite zeros outside the footprint. It passes a local <code>[0,1]</code> range check but does <strong>not</strong> literally satisfy the published null/NaN-outside wording. The NaN-outside variant is therefore the primary review file. Neither encoding has been submitted to or accepted by the organizer.</p>
+<p>The prior H49 exact TIFF remains archived as research-only and fails the outside-null/NaN check. H51 is newer but research-only: no fresh H51-specific frozen holdout exists, and H50's conformal calculation does not apply to H51. See <a href="h51.html">H51 status</a>.</p>
+<h2 id="h50-public-proxy-evidence-not-a-leaderboard-score">H50 public-proxy evidence (not a leaderboard score)</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chosen spacing</td>
+<td><strong>2.8 px / 280 m</strong></td>
+</tr>
+<tr>
+<td>Nominal confidence / conditional lower floor</td>
+<td><strong>90% / 0.095701 DTI</strong>, residual rank 20 of 22</td>
+</tr>
+<tr>
+<td>Selection / calibration</td>
+<td>20 selection blocks / 21 disjoint calibration blocks</td>
+</tr>
+<tr>
+<td>Candidate blocked public-proxy pooled DTI</td>
+<td><strong>0.165881</strong></td>
+</tr>
+<tr>
+<td>Owner-reported d2.8 reference pooled DTI</td>
+<td>0.049421</td>
+</tr>
+<tr>
+<td>H47-C1 comparator on that holdout</td>
+<td>0.048252</td>
+</tr>
+<tr>
+<td>Mass-matched spaced random control</td>
+<td>0.047049</td>
+</tr>
+</tbody>
+</table>
+<p>The 90.91% finite-sample coverage calculation and positive lower floor are conditional on block-score exchangeability, which is <strong>not verified</strong>. The holdout is an owner-mirrored off-catalogue 1 m lidar scarp-peak proxy that shares slope information with H50's input field. It does not establish a private-label score, a map-wide guarantee, a leaderboard score, organizer acceptance, or an upload right. The 0.2778 H33-labelled participant score/file mapping is owner-reported and unverified; the owner's page marks that submission unscored.</p>
+<h2 id="guarded-submission-sequence-only-if-a-future-upload-is-separately-authorized">Guarded submission sequence — only if a future upload is separately authorized</h2>
+<p>No portal access, account action, upload, or slot use was performed in this review. These steps are conditional instructions, not a recommendation or authorization to submit now:</p>
+<ol>
+<li>Open the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">official competition overview</a> and authenticated portal. Check the current eligibility requirements, official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">GeoTIFF instructions</a>, deadline, per-user quota, and slot-accounting rules. Public pages checked on 2026-10-06 did not establish the current per-user quota or slot accounting.</li>
+<li>Confirm that this exact candidate remains separately authorized for an available slot. Do not upload H51 or a candidate that has not passed its own fresh frozen holdout gate. If authorization is absent, stop.</li>
+<li>If authorized, download the linked <strong>NaN-outside</strong> H50 TIFF and verify the SHA-256 above before use. Do not substitute the all-finite diagnostic file unless current official instructions explicitly permit that encoding.</li>
+<li>Where the form asks for a Name, the suggested unregistered text is <code>GEMSDOE47-H50-slope-anomaly-s2p8-20261007</code>. Where it offers a Note field, use exactly <code>h50 slope-anomaly d2p8 conformal90</code>.</li>
+<li>Follow the portal's current file/ZIP workflow, submit only the authorized file, and retain the organizer's exact receipt, timestamp, filename, hash, score, and any parser response. A successful local check does not establish portal acceptance.</li>
+<li>Disclose Arena.ai generative-AI assistance in the official narrative if required by the rules. Entrant eligibility and account authorization must be confirmed by the entrant.</li>
+</ol>
+<h2 id="h50a-template-format-checkpoint-research-only">H50a template-format checkpoint — research only</h2>
+<p>A sibling session exported <code>gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif</code> (SHA-256 <code>6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5</code>). Its nominal 90% public-proxy floor is 0.0000 and its blocks were previously inspected, so its promotion gate is closed. The local template-mask check passes, but <strong>do not submit H50a</strong>. Full checks and receipts: <a href="h50a.html">h50a.html</a>.</p>
+<h2 id="why-earlier-files-remain-research-only">Why earlier files remain research-only</h2>
+<ul>
+<li><strong>H51:</strong> no fresh independent holdout; inherited H50 conformal values are not H51 evidence.</li>
+<li><strong>H49:</strong> exact TIFF fails the published outside-null/NaN check. Former observed-range-scaled DKW mean floors 0.040976 (Instrument B) and 0.038014 (PM0200) are retracted; corrected fixed-support <code>[0,1]</code> floors are zero. The nominal paired lower prediction statistics against the H33-labelled reference are negative (−0.03342 selection; −0.01050 calibration), and the score/file mapping is unverified. See <a href="H49_RESULTS.html">corrected H49 results</a>.</li>
+<li><strong>H47-C1:</strong> its locked public-catalogue holdout gate failed (pooled DTI 0.177872 versus 0.180216; 11/22 truth-bearing blocks won where 15 were required; lower-bound estimate 0.0000).</li>
+<li><strong>H47-QC:</strong> its locked pooled DTI 0.0131689425 was below its geochemistry-only ablation 0.0141948068.</li>
+<li>The <code>0.2778</code> H33-labelled figure is owner-reported, not authenticated to a TIFF or leaderboard receipt; the owner's page marks the submission unscored. It is not an authenticated incumbent.</li>
+</ul>
+<p>For hashes and statuses of all historical files, see the <a href="all-downloads.html">artifact register</a>.</p>
+</article>
+</div>
 </body>
 </html>

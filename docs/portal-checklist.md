@@ -1,16 +1,13 @@
-# Portal checklist — no current candidate is authorized for upload
+# Portal checklist — no artifact is authorized for a competition slot
 
-Use [the current submission guide](submit.html#submit-steps) or [executive summary](executive-summary.html#submit-steps).
-The current H47-C1 research TIFF passed local format checks, but local mask compatibility does not establish organizer acceptance. It is **RESEARCH ONLY / NOT PROMOTED / NO SLOT**.
+Use [the current H50 local-review guide](submit.html#submit-steps) or the [executive summary](executive-summary.html).
 
-The separate H49 candidate `gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif` inherited from main is also **NOT SLOT-AUTHORIZED** and fails the published null-or-NaN-outside requirement: its exact TIFF read-back is all-finite with no NoData tag. Its nominal 90% public-proxy lower-bound calculation assumes unverified exchangeability, the operating rule was amended post-hoc, and its 0.2778 comparator is an owner-reported d2.8 reference rather than an authenticated leaderboard incumbent. See the [corrected H49 report](H49_RESULTS.md), [format audit](data/h49-format-contract-audit.json), and [artifact register](all-downloads.html). Do not upload either current research candidate or use a slot.
+**H50 is locally promoted, not organizer-accepted.** Its NaN-outside TIFF passed local serialized read-back and its documented spatially blocked public-proxy gate passed, but no upload, organizer receipt, leaderboard score, entrant-eligibility check, or competition-slot authorization is established. H50's 90% / 0.095701 DTI result is conditional on unverified block-score exchangeability and comes from a slope-correlated owner-mirrored proxy. It does not authorize an upload.
 
-For a future approved candidate only: enroll via Compete!, certify your eligibility/read rules, verify
-predeclared holdout gate and exact hash/grid/range/null footprint, select Submit → Make new submission,
-choose the approved GeoTIFF (one-TIFF ZIP only if the authenticated form requests it), paste its actual
-unique name/note, verify any current per-user quota in the authenticated portal (public official pages
-checked 2026-10-06 do not establish it), and retain the organizer receipt. Official materials describe one
-selected file for both rounds; verify the operative rule and deadline in the portal; disclose AI assistance and preserve reproducible assets/licenses.
+**H51 is research-only.** It has no fresh H51-specific frozen spatial holdout. Its historical 90.91% / 0.095701 figure is inherited from H50 and does not apply to H51; do not transfer it or use a competition slot without a new preregistered holdout gate.
 
-Internal-mask acceptance is not portal-tested. Preserve exact rejected bytes/error if any; do not infer
-the historical range rejection's cause or spend another slot on a guess. Three historical λ-scaling score observations are not a verified count of uploads or slots; no diagnostic cost is inferred or called free. No credentials are requested here.
+**H49 remains archived research-only.** Its exact TIFF fails the published null-or-NaN-outside requirement. Former observed-range-scaled DKW mean floors 0.040976 (Instrument B) and 0.038014 (PM0200) are retracted; corrected fixed-support `[0,1]` floors are zero. Its nominal paired lower prediction statistics versus the H33-labelled reference are negative (−0.03342 selection; −0.01050 calibration), with an unverified participant-score/file mapping and post-result selection-rule amendment. See the [corrected H49 report](H49_RESULTS.html), [archived receipt](data/h49-artifact.json), [format audit](data/h49-format-contract-audit.json), and [artifact register](all-downloads.html).
+
+For any future **separately authorized** candidate: check current official rules and eligibility, validate the exact hash/grid/range/null footprint, require a fresh frozen spatial-holdout gate, and verify current quota/slot accounting in the authenticated portal. Public official pages checked 2026-10-06 did not establish the per-user quota. Follow the [guarded checklist](HOW_TO_SUBMIT.html) and retain any organizer receipt. No credentials are requested or needed for this local review.
+
+Local format compatibility is not portal-tested. Preserve exact rejected bytes/error if a future authorized upload is rejected; do not infer the historical range rejection's cause or spend another slot on a guess. Historical score observations do not establish upload counts, slot usage, or cost.

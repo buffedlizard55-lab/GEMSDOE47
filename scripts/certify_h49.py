@@ -44,6 +44,7 @@ from gems47s3.conformal import (
     conformal_order_statistic,
     conformal_quantile,
     dkw_epsilon,
+    dkw_mean_lower_bound,
     min_blocks_for_alpha,
 )
 
@@ -111,7 +112,19 @@ def half_report(per_inst: dict, instrument: str, alpha: float) -> dict:
         calibration_max=float(cal.max()),
         selection_mean=float(sel.mean()), selection_min=float(sel.min()),
         leave_one_out_worst_floor=loo,
-        dkw_mean_floor=float(cal.mean() - eps * float(cal.max() - cal.min())),
+        dkw_mean_floor=dkw_mean_lower_bound(cal, alpha, support=(0.0, 1.0)),
+        dkw_mean_floor_observed_range_scaled_retracted=float(
+            cal.mean() - eps * float(cal.max() - cal.min())
+        ),
+        dkw_support=[0.0, 1.0],
+        dkw_support_predeclared=True,
+        dkw_method="Massart DKW CDF bound with fixed metric support; not scaled by observed sample range",
+        dkw_mean_floor_status=(
+            "fixed-support arithmetic diagnostic only; DKW requires iid calibration blocks and "
+            "the selected H49 arm's post-results adaptive procedure is not certified by this bound"
+        ),
+        dkw_iid_sampling_verified=False,
+        dkw_mean_floor_valid_for_adaptive_procedure=False,
         dkw_epsilon=float(eps),
         violation_rate_on_calibration_half=float((cal < floor).mean()),
         violation_rate_on_selection_half=float((sel < floor).mean()),
@@ -144,6 +157,44 @@ def paired(arms: dict, instrument: str, key_a: tuple, key_b: tuple) -> dict:
                          blocks_where_b_better=int((d < 0).sum()),
                          a="/".join(key_a), b="/".join(key_b))
     return out
+
+
+def paired_lower_prediction(arms: dict, instrument: str, key_a: tuple, key_b: tuple,
+                            alpha: float) -> dict:
+    """Return one-sided conformal lower statistics for paired block-score differences.
+
+    These statistics target a future paired block difference, not a mean difference. They remain
+    conditional on exchangeability and a selection rule fixed independently of calibration outcomes.
+    """
+    result = {}
+    for half in ("selection", "calibration"):
+        try:
+            values_a = {block: value for block, value in arms[key_a][instrument][half]}
+            values_b = {block: value for block, value in arms[key_b][instrument][half]}
+        except KeyError:
+            result[half] = None
+            continue
+        common_blocks = sorted(set(values_a) & set(values_b))
+        if not common_blocks:
+            result[half] = None
+            continue
+        differences = np.array(
+            [values_a[block] - values_b[block] for block in common_blocks], dtype=float
+        )
+        n = int(differences.size)
+        k = conformal_order_statistic(n, alpha)
+        lower = conformal_quantile(differences, alpha, side="lower")
+        result[half] = dict(
+            n_paired_blocks=n,
+            order_statistic_k=k,
+            alpha=float(alpha),
+            nominal_confidence_pct=100.0 * (1.0 - alpha),
+            mean_difference=float(differences.mean()),
+            lower_prediction_statistic=(float(lower) if math.isfinite(lower) else None),
+            target="one future paired block's H49-minus-reference DTI difference",
+            selection_half_used_to_choose_arm=(half == "selection"),
+        )
+    return result
 
 
 def pick_floor_rule(common: list[tuple], arms_b: dict, arms_a: dict, alpha: float) -> tuple:
@@ -339,6 +390,16 @@ def main() -> int:
 
     lower_density = at_density(max(below)) if below else shipped
     higher_density = at_density(min(above)) if above else shipped
+    reference_key = ("REF_incumbent_0.2778", "as-shipped", "as-shipped")
+    paired_reference_bounds = paired_lower_prediction(
+        arms_b, "B_sgmc_offcat", shipped, reference_key, args.alpha
+    )
+    paired_selection_lower = (paired_reference_bounds.get("selection") or {}).get(
+        "lower_prediction_statistic"
+    )
+    paired_calibration_lower = (paired_reference_bounds.get("calibration") or {}).get(
+        "lower_prediction_statistic"
+    )
     gates = dict(
         isotropic_control_arm="/".join(iso), control_present=iso in arms_b,
         emitted_mass_is_matched_by_construction=True,
@@ -357,10 +418,16 @@ def main() -> int:
                                         not in arms_b else bool(cert_b["selection_mean"] > float(vals(
             arms_b[("REF_incumbent_0.2778", "as-shipped", "as-shipped")], "B_sgmc_offcat",
             "selection").mean()))),
-        incumbent_selection_mean=(None if ("REF_incumbent_0.2778", "as-shipped", "as-shipped")
-                                  not in arms_b else float(vals(
-            arms_b[("REF_incumbent_0.2778", "as-shipped", "as-shipped")], "B_sgmc_offcat",
-            "selection").mean())),
+        incumbent_selection_mean=(None if reference_key not in arms_b else float(vals(
+            arms_b[reference_key], "B_sgmc_offcat", "selection").mean())),
+        paired_reference_selection_lower_prediction_statistic=paired_selection_lower,
+        paired_reference_calibration_lower_prediction_statistic=paired_calibration_lower,
+        paired_reference_calibration_lower_bound_positive=(
+            bool(paired_calibration_lower > 0.0) if paired_calibration_lower is not None else None
+        ),
+        paired_reference_positive_improvement_gate_passed=(
+            bool(paired_calibration_lower > 0.0) if paired_calibration_lower is not None else None
+        ),
     )
 
     out = dict(
@@ -416,6 +483,21 @@ def main() -> int:
             if (higher_density in arms_b and higher_density != shipped) else None,
             shipped_vs_higher_density_on_a=paired(arms_a, "PM0200", higher_density, shipped)
             if (higher_density in arms_a and higher_density != shipped) else None,
+        ),
+        paired_vs_h33_labelled_reference=dict(
+            reference_key="/".join(reference_key),
+            reference_identity="H33-labelled owner-supplied d2.8 reference; participant score/file association unverified",
+            instrument="B_sgmc_offcat",
+            delta="selected H49 arm DTI minus H33-labelled reference DTI on the same spatial block",
+            nominal_confidence_pct=100.0 * (1.0 - args.alpha),
+            lower_prediction_statistics=paired_reference_bounds,
+            interpretation=(
+                "These are one-future-paired-block lower prediction statistics, not confidence bounds "
+                "on a mean. The selection-half statistic is descriptive because that half chose the arm. "
+                "The calibration-half statistic is conditional on exchangeable blocks and a prospectively "
+                "fixed selection rule; the post-results amendment prevents a full-procedure claim."
+            ),
+            positive_improvement_gate_passed=gates["paired_reference_positive_improvement_gate_passed"],
         ),
         arm_table=arm_table(arms_b, arms_a, common, args.alpha),
         instrument_a_pooled=instrument_a_pooled(

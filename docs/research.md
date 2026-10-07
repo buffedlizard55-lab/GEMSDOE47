@@ -4,7 +4,7 @@ layout: default
 nav_order: 6
 ---
 
-> **RESEARCH-ONLY / ATTRIBUTION LIMIT.** H33-2-B2 → participant DTI 0.2778 is unverified; H48 and other score-dependent work is hypothetical/conditional, not authenticated or conclusive. Use “owner-reported d2.8 reference”; reserve “incumbent” for a separately established spatially blocked holdout best. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting. Three λ-scaling score observations do not verify uploads/slots; no diagnostic cost is inferred or called free. See [current README](../README.md).
+> **RESEARCH-ONLY / ATTRIBUTION LIMIT.** H33-2-B2 → participant DTI 0.2778 is unverified; H48 and other score-dependent work is hypothetical/conditional, not authenticated or conclusive. Use “owner-reported d2.8 reference”; reserve “incumbent” for a separately established spatially blocked holdout best. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting. Three λ-scaling score observations do not verify uploads/slots; no diagnostic cost is inferred or called free. See [current README](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md).
 
 # Research knowledge base
 

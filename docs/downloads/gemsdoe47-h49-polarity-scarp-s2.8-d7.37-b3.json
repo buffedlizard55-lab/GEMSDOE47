@@ -44,7 +44,7 @@
   },
   "corroborating_instrument_floor": 0.018284546414574002,
   "leave_one_out_worst_floor": 0.01792858632893002,
-  "dkw_mean_floor": 0.040976151820056164,
+  "dkw_mean_floor": 0.0,
   "empirical_violation_on_calibration_half": 0.05263157894736842,
   "empirical_violation_on_selection_half": 0.05,
   "repeated_split_of_the_shipped_rule": {
@@ -85,7 +85,49 @@
   "assumption_conditional_lower_bound_estimate": 0.03183577869822368,
   "interpretation": "Nominal split-conformal calculation for a comparable public proxy block under assumed exchangeability; exchangeability is unverified. The shipped rule was amended after examining repeated-split results, so formal coverage for the post-hoc amended selection process is not established. No private/global performance floor.",
   "promotion_eligible": false,
-  "slot_authorized": false
+  "slot_authorized": false,
+  "dkw_mean_floor_observed_range_scaled_retracted": 0.040976151820056164,
+  "dkw_mean_floor_corroborating": 0.0,
+  "dkw_mean_floor_corroborating_observed_range_scaled_retracted": 0.038013872344490246,
+  "dkw_support": [
+   0.0,
+   1.0
+  ],
+  "dkw_support_predeclared": true,
+  "dkw_epsilon": 0.2807758177449906,
+  "dkw_epsilon_corroborating": 0.2884697304337142,
+  "dkw_method": "Massart DKW CDF bound with fixed metric support; not scaled by observed sample range",
+  "dkw_iid_sampling_verified": false,
+  "dkw_mean_floor_valid_for_full_adaptive_procedure": false,
+  "paired_vs_h33_labelled_reference": {
+   "reference_key": "REF_incumbent_0.2778/as-shipped/as-shipped",
+   "reference_identity": "H33-labelled owner-supplied d2.8 reference; participant score/file association unverified",
+   "instrument": "B_sgmc_offcat",
+   "delta": "selected H49 arm DTI minus H33-labelled reference DTI on the same spatial block",
+   "nominal_confidence_pct": 90.0,
+   "selection": {
+    "n_paired_blocks": 20,
+    "order_statistic_k": 19,
+    "alpha": 0.1,
+    "nominal_confidence_pct": 90.0,
+    "mean_difference": 0.032206377517332,
+    "lower_prediction_statistic": -0.03341784824329318,
+    "target": "one future paired block's H49-minus-reference DTI difference",
+    "selection_half_used_to_choose_arm": true
+   },
+   "calibration": {
+    "n_paired_blocks": 19,
+    "order_statistic_k": 18,
+    "alpha": 0.1,
+    "nominal_confidence_pct": 90.0,
+    "mean_difference": 0.03889880668685157,
+    "lower_prediction_statistic": -0.010502738294021138,
+    "target": "one future paired block's H49-minus-reference DTI difference",
+    "selection_half_used_to_choose_arm": false
+   },
+   "positive_improvement_gate_passed": false,
+   "interpretation": "These are one-future-paired-block lower prediction statistics, not confidence bounds on a mean. The selection-half statistic is descriptive because that half chose the arm. The calibration-half statistic is conditional on exchangeable blocks and a prospectively fixed selection rule; the post-results amendment prevents a full-procedure claim."
+  }
  },
  "values_are_binary": true,
  "recipe": {
@@ -256,5 +298,6 @@
   "global_uniqueness_proven": false,
   "promotion_gate_passed": false
  },
- "review_note": "The historical builder receipt did not test the published null-or-NaN-outside requirement. The exact TIFF is preserved but not eligible or authorized for a submission slot."
+ "review_note": "The historical builder receipt did not test the published null-or-NaN-outside requirement. The exact TIFF is preserved but not eligible or authorized for a submission slot. Review correction: observed-range-scaled DKW mean floors are retracted; support-fixed [0,1] arithmetic floors are zero and DKW iid sampling is unverified. Nominal 90% paired lower prediction statistics vs the H33-labelled reference are negative on both splits; score/file identity is unverified and the selection rule was amended after results.",
+ "reviewed_utc_date": "2026-10-07"
 }

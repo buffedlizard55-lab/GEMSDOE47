@@ -2,8 +2,8 @@
   "schema_version": 1,
   "hypothesis_id": "H51",
   "artifact": "gems47-h51-multiscale-s2p8-20261007",
-  "kind": "primary_submission_candidate",
-  "promoted": true,
+  "kind": "research_only_candidate",
+  "promoted": false,
   "generated_utc": "2026-10-07T21:11:31Z",
   "spacing_px": 2.8,
   "budget": 37654,
@@ -26,28 +26,13 @@
       -100.0,
       4508550.0
     ],
-    "nodata": null,
-    "outside_footprint": "0.0 (all finite)",
+    "nodata": "NaN",
+    "outside_footprint": "NaN (primary research review variant)",
     "values": "0.0 and 1.0 only"
   },
   "readback_checks": {
-    "single_band": true,
-    "dtype_float32": true,
-    "crs_epsg32611": true,
-    "width_matches": true,
-    "height_matches": true,
-    "transform_matches": true,
-    "nodata_unset": true,
-    "no_nan": true,
-    "no_inf": true,
-    "all_in_unit_interval": true,
-    "nan_intolerant_range_check": true,
-    "zero_outside_footprint": true,
-    "dot_count": true,
-    "dots_on_footprint": true,
-    "dots_off_catalogue": true,
-    "values_are_unit": true,
-    "compression": "Compression.deflate"
+    "allfinite_diagnostic_passes_local_unit_range": true,
+    "allfinite_outside_footprint": "finite zeros; not compliant with published null/NaN-outside wording"
   },
   "nan_outside_checks": {
     "single_band": true,
@@ -55,7 +40,12 @@
     "nodata_is_nan": true,
     "nan_outside_footprint": true,
     "finite_inside_footprint": true,
-    "values_in_unit_interval_inside": true
+    "values_in_unit_interval_inside": true,
+    "finite_cells_inside": 5167373,
+    "nan_cells_outside": 7111787,
+    "positive_dots": 37654,
+    "serialized_tiff_readback": true,
+    "organizer_acceptance_established": false
   },
   "uniqueness": {
     "compared": 22,
@@ -65,13 +55,24 @@
   "conformal": {
     "method": "max-residual one-sided split conformal, Lei et al. JASA 2018 Alg. 2",
     "reference": "https://doi.org/10.1080/01621459.2017.1307116",
-    "source": "H50 screen (same field geometry, similar slope-based detection)",
+    "source": "H50 screen using the single-scale slope-anomaly field; not H51 validation",
     "selection_blocks": 20,
     "calibration_blocks": 21,
     "rank_1_based": 20,
-    "coverage_at_least": 0.9091,
-    "certified_floor_dti": 0.0957,
-    "assumption": "block-level exchangeability, not verified; conditional guarantee"
+    "coverage_at_least": null,
+    "certified_floor_dti": null,
+    "assumption": "No H51-specific coverage statement; an inherited H50 calculation is not H51 validation.",
+    "applies_to_h51": false,
+    "status": "INHERITED_H50_CONTEXT_NOT_AN_H51_CERTIFICATE",
+    "inherited_h50_context": {
+      "selection_blocks": 20,
+      "calibration_blocks": 21,
+      "rank_1_based": 20,
+      "assumption": "block-level exchangeability, not verified; conditional guarantee",
+      "not_transferable_to_h51": true,
+      "conditional_lower_floor_dti": 0.0957,
+      "coverage_at_least_if_exchangeable": 0.9091
+    }
   },
   "sha256_tif_allfinite": "3d12889caf5093151808fbe5750233dcbf2ca871c12130fcf631d0f0b765c0b4",
   "sha256_tif_nan": "e6eb13f671e2663b4f69e94307dfcac840bf9039cb411ab7b815cf029301fa43",
@@ -87,6 +88,15 @@
   "provenance_limits": [
     "No organiser receipt links any participant score to a TIFF.",
     "The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.",
-    "The multi-scale persistence field has not been independently validated on a fresh holdout; the conformal certificate is inherited from the H50 screen which used a single-scale slope anomaly."
-  ]
+    "The multi-scale persistence field has not been independently validated on a fresh holdout; the conformal certificate is inherited from the H50 screen which used a single-scale slope anomaly.",
+    "H51 has not been independently validated on a fresh, frozen spatial holdout; the H50 conformal statistic is inherited context only and is not an H51 certificate."
+  ],
+  "promotion_gate_passed": false,
+  "submission_eligible": false,
+  "slot_authorized": false,
+  "organizer_acceptance_established": false,
+  "reviewed_utc_date": "2026-10-07",
+  "promotion_reason": "H51 has no fresh, frozen spatially blocked holdout; its prior 90.91% / 0.095701 statistic is inherited from the H50 single-scale screen and does not validate H51.",
+  "primary_review_variant": "nan-outside",
+  "local_promotion_gate_passed": false
 }

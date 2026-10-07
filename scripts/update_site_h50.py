@@ -1,19 +1,23 @@
 #!/usr/bin/env python3
-"""Rewrite the two pages that must make the new artifact obviously downloadable.
+"""RETIRED H50 page rewriter — intentionally disabled.
 
-Run after ``scripts/build_submission_h50.py``.  Every replacement asserts that it
-actually changed the file, so a silent miss fails the run instead of publishing a
-page that still says "do not upload".
+The historical rewriter inserts an "OK TO DOWNLOAD AND SUBMIT" banner and an all-finite
+primary file. It must not overwrite the reconciled local-candidate status pages.
 """
 from __future__ import annotations
 
 import json
-import re
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
+
+print(
+    "DISABLED: historical H50 site updater writes submission-ready wording and promotes the "
+    "all-finite zero-outside TIFF. Use the reviewed static pages; H50 is locally promoted only, "
+    "with no organizer acceptance or slot authorization."
+)
+raise SystemExit(2)
 
 receipt = json.loads((DOCS / "data" / "h50-artifact.json").read_text())
 STEM = receipt["artifact"]

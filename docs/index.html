@@ -3,18 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GEMSDOE47 — Geothermal Fault Discovery System</title>
+<title>GEMSDOE47 — H50 candidate status and evidence</title>
+<meta name="description" content="H50 is locally promoted on a spatially blocked public-proxy holdout. Review the NaN-outside GeoTIFF, local read-back, conditional conformal diagnostic, and explicit limitations; no organizer acceptance is established.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <header>
   <h1>GEMSDOE47</h1>
-  <p class="tagline">Geothermal Fault Discovery for the DOE GEMS Prize Challenge</p>
+  <p class="tagline">Geothermal Fault Discovery · DOE GEMS Prize Challenge</p>
 </header>
 <nav>
   <a href="index.html" class="active">Home</a>
   <a href="executive-summary.html">Executive Summary</a>
-  <a href="h51.html">H51 Evidence</a>
+  <a href="h50.html">H50 Evidence</a>
+  <a href="h51.html">H51 Research</a>
   <a href="all-downloads.html">All Downloads</a>
   <a href="method.html">Method</a>
   <a href="knowledge.html">Knowledge</a>
@@ -25,74 +27,79 @@
 <main>
 
 <section class="hero">
-  <h2>⬇️ ONE-CLICK SUBMISSION FILE</h2>
+  <h2>H50 · locally promoted public-proxy candidate</h2>
+  <p><strong>Not organizer-accepted.</strong> No leaderboard score, upload, or competition-slot authorization is established. H50 passed the repository's documented spatially blocked public-proxy gate; its local promotion and local format read-back are not organizer acceptance or permission to upload. No upload or competition-slot use is recorded.</p>
   <div class="download-box">
-    <a href="downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif" class="btn-primary" download>
-      Download H51 GeoTIFF — OK to Submit
+    <a href="downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif" class="btn-primary" download>
+      ↓ Download H50 NaN-outside GeoTIFF for review
     </a>
     <p class="download-alt">
-      <a href="downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif">NaN-outside variant</a> ·
-      <a href="downloads/gems47-h51-multiscale-s2p8-20261007.zip">ZIP bundle (both TIFs + receipt + note)</a>
+      <a href="downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt">Short note</a> ·
+      <a href="h50.html">H50 evidence and limits</a> ·
+      <a href="data/h50-artifact.json">H50 local receipt</a>
     </p>
   </div>
 
   <div class="meta-box">
     <table>
-      <tr><td><strong>Filename</strong></td><td><code>gems47-h51-multiscale-s2p8-20261007-allfinite.tif</code></td></tr>
-      <tr><td><strong>Submission Name</strong></td><td><code>GEMSDOE47-H51-multiscale-s2p8</code></td></tr>
-      <tr><td><strong>Note for form</strong></td><td><code>h51 multiscale-slope-anomaly d2p8 conformal90</code></td></tr>
-      <tr><td><strong>SHA-256</strong></td><td><code>3d12889caf5093151808fbe5750233dcbf2ca871c12130fcf631d0f0b765c0b4</code></td></tr>
-      <tr><td><strong>Format</strong></td><td>single band · float32 · EPSG:32611 · 100 m · 3292×3730</td></tr>
-      <tr><td><strong>Dots</strong></td><td>37,654 predicted pixels</td></tr>
-      <tr><td><strong>Values</strong></td><td>every cell finite · every value in [0, 1] · 0 NaN anywhere · no nodata tag</td></tr>
-      <tr><td><strong>17/17 checks</strong></td><td>✅ All read-back checks pass</td></tr>
+      <tr><td><strong>File</strong></td><td><code>gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif</code></td></tr>
+      <tr><td><strong>SHA-256</strong></td><td><code>2e32d8ed384692bc44ff768ca5d3814ed48d7b627ba3c818743ee13ab3538d5b</code></td></tr>
+      <tr><td><strong>Bytes</strong></td><td>341,280</td></tr>
+      <tr><td><strong>Suggested Name</strong></td><td><code>GEMSDOE47-H50-slope-anomaly-s2p8-20261007</code> <small>(not organizer-registered)</small></td></tr>
+      <tr><td><strong>Short Note</strong></td><td><code>h50 slope-anomaly d2p8 conformal90</code></td></tr>
+      <tr><td><strong>Format</strong></td><td>one float32 band · EPSG:32611 · 100 m · 3292×3730 · NaN NoData/outside</td></tr>
+      <tr><td><strong>Read-back</strong></td><td>5,167,373 finite footprint cells · 7,111,787 NaNs outside · in-footprint values in [0,1] · 37,654 positive dots</td></tr>
     </table>
   </div>
 </section>
 
+<section class="method-summary">
+  <h2>H50 operating point and conditional diagnostic</h2>
+  <ul>
+    <li><strong>Chosen spacing:</strong> 2.8 px / 280 m</li>
+    <li><strong>Nominal confidence:</strong> 90%; one-sided split-conformal residual rank 20 of 22</li>
+    <li><strong>Conditional lower floor:</strong> 0.095701 DTI only if block-score exchangeability holds</li>
+    <li><strong>Split:</strong> selection on 20 blocks; calibration on a disjoint 21 blocks</li>
+    <li><strong>Important:</strong> geological/block-score exchangeability is unverified; this is not a guaranteed private-label, map-wide, or leaderboard floor.</li>
+  </ul>
+  <p>See the <a href="h50.html">full H50 screen</a> for the sweep and calculation. The floor must not be transferred to H51.</p>
+</section>
+
+<section>
+  <h2>Documented spatially blocked public-proxy holdout</h2>
+  <p>Validation target: off-catalogue local maxima from a hash-pinned, owner-mirrored 1 m lidar scarp stack. The instrument shares slope information with the candidate input field, and the mirror is not organizer-authenticated.</p>
+  <table>
+    <tr><th>Candidate/control</th><th>Pooled DTI</th></tr>
+    <tr><td><strong>H50 slope-anomaly field</strong></td><td><strong>0.165881</strong></td></tr>
+    <tr><td>Owner-reported d2.8 reference</td><td>0.049421</td></tr>
+    <tr><td>H47-C1 comparator</td><td>0.048252</td></tr>
+    <tr><td>Mass-matched spaced-random control</td><td>0.047049</td></tr>
+  </table>
+  <p>These are public-proxy holdout values, not private-label or leaderboard results. The owner-reported 0.2778 H33 score/file mapping remains unverified; the owner's page marks that submission unscored.</p>
+</section>
+
 <section class="portal-fix">
-  <h2>⚠️ Portal Error Fix: "Predicted values must be in range [0, 1]"</h2>
-  <p>The all-finite variant writes <strong>0.0</strong> outside the footprint with no nodata tag.
-  This passes the NaN-intolerant range check <code>np.all((v >= 0) & (v <= 1))</code>.
-  If the portal requires NaN outside the bounds, use the NaN-outside variant instead.</p>
-  <p>Both variants are provided. Try the all-finite variant first; if rejected, try the NaN-outside variant.</p>
+  <h2>Format variants and submission boundary</h2>
+  <p>The linked NaN-outside variant passed local serialized read-back and follows the published null/NaN-outside wording against the mirrored footprint. The separate all-finite variant writes zeros outside and does not literally satisfy that wording; it is diagnostic, not the preferred file. Neither has organizer acceptance.</p>
+  <p>Do not upload unless a slot is separately authorized and current official instructions, eligibility, and portal quota/accounting are verified. See the <a href="HOW_TO_SUBMIT.html">guarded, conditional submission checklist</a> and the current <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">official GeoTIFF instructions</a>.</p>
 </section>
 
 <section class="method-summary">
-  <h2>What is H51?</h2>
-  <p><strong>H51 is a multi-scale slope-anomaly persistence detector.</strong> It uses the product
-  of the slope anomaly at two regional scales (25 px / 2.5 km and 12 px / 1.2 km) as the
-  detection field. A fault scarp that stands out from both the broad and narrow regional levels
-  scores high; erosional features that only break one scale are suppressed.</p>
-  <p>This is the <strong>multi-scale persistence</strong> idea from Frangi filtering (Frangi et al. 1998),
-  applied to the slope anomaly field rather than to the Hessian. No prior GEMSDOE submission
-  used this approach.</p>
-
-  <h3>Operating point</h3>
-  <ul>
-    <li><strong>Spacing:</strong> 2.8 px / 280 m, chosen by split-conformal prediction</li>
-    <li><strong>Budget:</strong> 37,654 unit dots</li>
-    <li><strong>Conformal guarantee:</strong> ≥90.91% coverage, floor 0.0957 DTI (conditional on block exchangeability)</li>
-    <li><strong>Emission domain:</strong> competition footprint minus USGS/INGENIOUS catalogue</li>
-  </ul>
+  <h2>H51 multi-scale variant — research only</h2>
+  <p>H51 is newer, but has no fresh H51-specific frozen blocked holdout. The 90.91% / 0.095701 result in its historical receipt is inherited from the H50 single-scale screen and is not an H51 certificate. H51 is not promoted, is not upload-authorized, and must remain research-only unless independently validated.</p>
+  <p><a href="h51.html">H51 evidence, format read-back, and limitations</a></p>
 </section>
 
-<section class="how-to">
-  <h2>How to Submit</h2>
-  <ol>
-    <li><a href="downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif" download>Download the GeoTIFF</a></li>
-    <li>Go to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submit/">the submission page</a></li>
-    <li>Upload the file</li>
-    <li>In the <strong>Note</strong> field, paste: <code>h51 multiscale-slope-anomaly d2p8 conformal90</code></li>
-    <li>Submit!</li>
-  </ol>
-  <p>See the <a href="executive-summary.html">Executive Summary</a> for detailed instructions.</p>
+<section>
+  <h2>H49 and earlier artifacts — historical research</h2>
+  <p>H49's observed-range-scaled DKW mean floors 0.040976 (Instrument B) and 0.038014 (PM0200) are retracted; corrected fixed-support [0,1] DKW mean floors are zero. Its paired lower prediction statistics versus the H33-labelled reference are negative on both reported halves (−0.03342 selection; −0.01050 calibration), and the exact TIFF fails the published outside-null/NaN format check. See <a href="H49_RESULTS.html">corrected H49 results</a>, its <a href="data/h49-artifact.json">archived receipt</a>, and the <a href="all-downloads.html">full artifact register</a>. H47-QC and other failed or superseded runs also remain research-only; do not use a slot on them.</p>
 </section>
 
 </main>
 <footer>
-  <p>GEMSDOE47 · Built by Arena.ai agent · Generative-AI assistance disclosed ·
-  <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DOE GEMS Prize Challenge</a></p>
+  <p><strong>Maximize P(Win):</strong> preserve the slot unless the locked holdout gate is passed.<br>
+  <strong>Own the Outcome:</strong> publish exact bytes, corrections, and limitations.</p>
+  <p>Generative-AI assistance by an Arena.ai coding agent is disclosed in the repository README and required narrative.</p>
 </footer>
 </body>
 </html>

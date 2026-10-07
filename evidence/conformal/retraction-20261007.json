@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "reviewed_utc_date": "2026-10-07",
+  "status": "RETRACTED_POST_SELECTION_SELECTOR_AND_DKW_FORMULA",
+  "historical_selection_file": "evidence/conformal/selection.json",
+  "historical_bundle_file": "evidence/submission/bundle.json",
+  "candidate": "R2_scarp9_topo|s2.8_d7.37_b2",
+  "n_calibration_blocks": 12,
+  "n_selection_blocks": 13,
+  "alpha": 0.1,
+  "nominal_confidence_pct_not_valid_after_selection": 90.0,
+  "historical_single_split_floor_retracted": 0.04476930982739195,
+  "historical_dkw_mean_floor_observed_range_scaled_retracted": 0.04552678479903236,
+  "support_fixed_dkw_calculation": {
+    "support": [
+      0.0,
+      1.0
+    ],
+    "support_predeclared_from_metric_contract": true,
+    "epsilon": 0.3533018229004057,
+    "calibration_mean": 0.09682864140536984,
+    "unclipped_lower_bound": -0.25647318149503584,
+    "clipped_lower_bound": 0.0,
+    "iid_sampling_assumption_verified": false,
+    "interpretation": "Corrected formula arithmetic only; no post-selection guarantee for this chosen arm."
+  },
+  "findings": [
+    "The selected candidate was ranked using calibration outcomes, then reported with a floor computed from the same calibration sample; the fixed-candidate split-conformal statement does not cover this post-selection procedure.",
+    "The former DKW mean floor multiplied epsilon by the observed calibration range. The support-fixed [0,1] arithmetic result is recorded in guarantee.mean_floor_dkw; DKW also requires iid sampling, which is not established for these spatial blocks.",
+    "Repeated random partitions reuse the same block observations and are sensitivity diagnostics, not independent validation samples.",
+    "This file is historical evidence only. The H47-C1 conformal runner and TIFF builder are retired and fail closed."
+  ],
+  "legacy_entrypoints": {
+    "selector": "scripts/run_conformal.py",
+    "builder": "scripts/build_submission_s3.py",
+    "status": "RETIRED_FAIL_CLOSED"
+  },
+  "study_scope": "No new research run, new holdout, TIFF generation, upload, or slot use; existing H47-C1 evidence was re-audited only."
+}

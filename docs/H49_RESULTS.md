@@ -1,6 +1,6 @@
 # H49 round — exploratory public-proxy research (not a submission certificate)
 
-> **RESEARCH ONLY · NOT SLOT-AUTHORIZED · DO NOT UPLOAD.** The exact TIFF is preserved for auditability, but its local read-back has 12,279,160/12,279,160 finite cells, no NaNs, no NoData tag, and a valid GDAL mask on every cell. The original build receipt records a 5,167,373-cell footprint, leaving 7,111,787 outside cells finite rather than null/NaN. It fails the published outside-null/NaN requirement. See the [deployed format-audit copy](data/h49-format-contract-audit.json) and the [canonical evidence copy](../evidence/h49/format-contract-audit.json).
+> **RESEARCH ONLY · NOT SLOT-AUTHORIZED · DO NOT UPLOAD.** The exact TIFF is preserved for auditability, but its local read-back has 12,279,160/12,279,160 finite cells, no NaNs, no NoData tag, and a valid GDAL mask on every cell. The original build receipt records a 5,167,373-cell footprint, leaving 7,111,787 outside cells finite rather than null/NaN. It fails the published outside-null/NaN requirement. See the [deployed format-audit copy](data/h49-format-contract-audit.json) and the [canonical evidence copy](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h49/format-contract-audit.json).
 
 The prior optional portal-note draft is withdrawn. **Do not copy it into a portal.** No submission slot was authorized or used. This report preserves the research measurements but corrects the prior promotion, attribution, and format claims.
 
@@ -37,9 +37,11 @@ The reported calculation is **nominal 90%** (`α = 0.10`, `n = 19` calibration b
 | Calibration-half mean (minimum) | 0.10090 (0.01793) | 0.08607 |
 | Selection-half mean (minimum) | 0.10329 (0.00708) | 0.07553 |
 | Leave-one-out worst estimate | 0.01793 | 0.01828 |
-| DKW mean estimate (mean over blocks, not one block) | 0.04098 | 0.03801 |
+| DKW mean lower bound using fixed DTI support [0,1] | **0.00000** | **0.00000** |
 | Calibration / selection blocks below the calculated estimate | 1 / 1 of 19 / 20 | 0 / 1 |
 | Empirical violation rate, calibration / selection | 0.0526 / 0.0500 | 0.0000 / 0.0526 |
+
+**DKW correction:** the mean-bound support is the metric's known `[0,1]` range. The former formula multiplied the DKW radius by the observed calibration min-to-max range, which is not a valid population-support bound. The previously reported 0.04098 (Instrument B) and 0.03801 (PM0200) values are retracted; using the full support and clipping at zero gives 0.00000 for both, establishing no positive mean lower bound. DKW also requires iid calibration draws, which is not verified for these heterogeneous spatial blocks; the post-results arm amendment independently prevents a full-procedure claim. This mean calculation is distinct from the one-block split-conformal order statistic above.
 
 The reported repeated-split audit used 400 of 400 requested re-splits of the same blocks (selection included): lower-bound estimate p05 0.01793, median 0.03847, mean 0.04391; mean violation rate on the non-calibration half 0.0807 versus nominal `α = 0.10`, median 0.0526. **43.5%** of those re-splits had a violation rate above nominal alpha. These are descriptive stability diagnostics, not new independent samples or a validation of the amended rule.
 
@@ -47,9 +49,11 @@ The reported repeated-split audit used 400 of 400 requested re-splits of the sam
 
 The archived calculations show a selection-half mean of 0.10329 for the selected point versus 0.05750 for a fixed-seed random proxy control. Against the **owner-reported d2.8 reference raster**, the corresponding local proxy mean is 0.07108. Neither comparison is a leaderboard comparison, an authenticated-incumbent comparison, or evidence that H49 beats the established spatially blocked holdout best.
 
+A paired blockwise calculation of H49-minus-reference DTI also fails to show a positive lower bound. The nominal 90% split-conformal lower prediction statistics for one future paired block are **−0.03342 on the 20-block selection half** and **−0.01050 on the 19-block calibration half**. The selection half was used to choose the H49 arm, so its value is descriptive; the calibration result is conditional on a fixed arm and exchangeable blocks, assumptions that do not repair the post-results amendment. The reference is labelled H33 in the local evidence, but its participant-score/file association remains unverified. These are not confidence bounds on a mean, leaderboard scores, or evidence of positive improvement.
+
 | Historical calculation | Value | Correct interpretation |
 |---|---:|---|
-| Positive nominal 90% lower-bound estimate | 0.03184 | Proxy calculation, conditional on unverified exchangeability and subject to the post-hoc amendment |
+| Nominal 90% fixed-arm split-conformal lower statistic (H49 self-score) | 0.03184 | Proxy calculation; conditional on unverified exchangeability and subject to the post-hoc amendment; not an improvement bound versus the reference |
 | Fixed-seed random proxy selection-half mean | 0.05750 | Local public-proxy control only |
 | Owner-reported d2.8 reference proxy selection-half mean | 0.07108 | Comparator identity/score mapping unverified; not a leaderboard incumbent |
 | Selected H49 proxy selection-half mean | 0.10329 | Public proxy result; not private/global performance |
@@ -60,7 +64,7 @@ The archived calculations show a selection-half mean of 0.10329 for the selected
 - SHA-256: `a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b`; 316,629 bytes.
 - Local grid read-back: one float32 band, 3292 × 3730, EPSG:32611, 100 m; 37,612 positive unit dots. These properties do not cure the outside-null/NaN failure above.
 - The earlier comparison covered 16 repository rasters: maximum Jaccard 0.292575 and maximum containment 0.452701. This is a **bounded local comparison**, not proof of global uniqueness or scientific novelty.
-- The previous `all_checks_passed` builder receipt is retained as historical evidence. Its finiteness check did not establish that outside-footprint cells were null or NaN. The corrected read-back and scope are recorded in [`format-contract-audit.json`](../evidence/h49/format-contract-audit.json).
+- The previous `all_checks_passed` builder receipt is retained as historical evidence. Its finiteness check did not establish that outside-footprint cells were null or NaN. The corrected read-back and scope are recorded in [`format-contract-audit.json`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h49/format-contract-audit.json).
 
 ### Density sweep retained from the original report
 
@@ -115,7 +119,7 @@ The reported paired differences do not establish H49-A (strike-aligned emitter) 
 ## Review links
 
 - [Published organizer format instructions](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-- [Owner-mirror and comparator provenance](../data/reference/README.md)
+- [Owner-mirror and comparator provenance](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/data/reference/README.md)
 - [Complete artifact register](all-downloads.html)
 - [Current research-only landing page](index.html)
 - [Archived original H49 report, before corrections](research/retired/H49_RESULTS-main-original-20261007.md)

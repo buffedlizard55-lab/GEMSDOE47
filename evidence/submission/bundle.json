@@ -60,18 +60,18 @@
     "engine": "nms_disk (field-ordered non-maximum suppression)"
   },
   "conformal": {
-    "certified_floor_quoted": 0.013433,
+    "certified_floor_quoted": null,
     "floor_basis": "repeated_split_p05",
     "alpha": 0.1,
     "primary_instrument": "PM0200",
-    "certified_floor": 0.04476930982739195,
-    "certified_confidence_pct": 90.0,
+    "certified_floor": null,
+    "certified_confidence_pct": null,
     "n_calibration_blocks": 12,
     "n_selection_blocks": 13,
     "selection_half_mean_dti": 0.0606408108055388,
     "cleared_floor": false,
     "leave_one_out_worst_floor": 0.04476930982739195,
-    "dkw_mean_floor": 0.04552678479903236,
+    "dkw_mean_floor": 0.0,
     "vacuous": false,
     "alpha_sensitivity": {
       "alpha=0.05": {
@@ -119,7 +119,23 @@
       "A1": 0.054054770630868235,
       "A2": 0.12011094990216055
     },
-    "exchangeability_caveat": "The guarantee P(fresh block DTI >= floor) >= 1-alpha is exact under exchangeability of holdout blocks. Geological blocks are NOT i.i.d.; the reported leave-one-out worst floor and the DKW mean floor show how much of the claim rests on that assumption."
+    "exchangeability_caveat": "The guarantee P(fresh block DTI >= floor) >= 1-alpha is exact under exchangeability of holdout blocks. Geological blocks are NOT i.i.d.; the reported leave-one-out worst floor and the DKW mean floor show how much of the claim rests on that assumption.",
+    "historical_certified_floor_reported_retracted": 0.04476930982739195,
+    "historical_certified_floor_quoted_retracted": 0.013433,
+    "certified_floor_status": "RETRACTED_POST_SELECTION_NOT_A_VALID_CERTIFICATE",
+    "candidate_choice_used_calibration_outcomes": true,
+    "post_selection_coverage_valid": false,
+    "dkw_mean_floor_observed_range_scaled_retracted": 0.04552678479903236,
+    "dkw_support": [
+      0.0,
+      1.0
+    ],
+    "dkw_support_predeclared": true,
+    "dkw_method": "Massart DKW bound using fixed [0,1] DTI support; not observed-range scaled",
+    "dkw_epsilon": 0.3533018229004057,
+    "dkw_iid_sampling_verified": false,
+    "dkw_mean_floor_status": "Corrected arithmetic only; not a post-selection guarantee and iid spatial-block sampling is unverified",
+    "historical_evidence_status": "RETRACTED; DO NOT PUBLISH OR SUBMIT"
   },
   "format_receipt": {
     "path": "/home/user/GEMSDOE47/submission/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
@@ -332,5 +348,7 @@
     ]
   },
   "values_are_binary": true,
-  "why_binary": "dDTI > 0 for a pixel of value v and best-cover weight w depends on w alone, not on v; down-weighting a pixel that clears the bar only shrinks its gain. Binary is the optimum of the soft family. See tests/test_metric_s3.py."
+  "why_binary": "dDTI > 0 for a pixel of value v and best-cover weight w depends on w alone, not on v; down-weighting a pixel that clears the bar only shrinks its gain. Binary is the optimum of the soft family. See tests/test_metric_s3.py.",
+  "review_status": "HISTORICAL_RETRACTED_DO_NOT_PUBLISH_OR_SUBMIT",
+  "note_status": "HISTORICAL_PORTAL_NOTE_CONTAINS_RETRACTED_CONFORMAL_LANGUAGE"
 }

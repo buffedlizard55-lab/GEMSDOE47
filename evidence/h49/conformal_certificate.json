@@ -1,6 +1,18 @@
 {
- "generated_utc": "2026-10-07T03:24:01Z",
- "seconds": 0.6,
+ "generated_utc": "2026-10-07T21:51:01Z",
+ "seconds": 0.9,
+ "interpretation": {
+  "record_type": "exploratory public-proxy calculation, not a submission certificate",
+  "confidence_is_nominal": true,
+  "block_score_exchangeability": "unverified assumption",
+  "target": "public SGMC and catalogue proxy blocks, not private organizer labels",
+  "selection_rule_amended_after_repeated_split_review": true,
+  "formal_coverage_for_post_hoc_amended_process_established": false,
+  "comparator": "legacy REF_incumbent_0.2778 key denotes an owner-reported d2.8 reference; score/file link unverified",
+  "promotion_gate_passed": false,
+  "submission_eligible": false,
+  "slot_authorized": false
+ },
  "method": "split conformal selection (Lei, G'Sell, Rinaldo, Tibshirani & Wasserman, JASA 2018)",
  "method_doi": "https://doi.org/10.1080/01621459.2017.1322365",
  "preregistration": "docs/research/h49b-instrument-b-preregistration.md",
@@ -45,7 +57,17 @@
    "selection_mean": 0.10329094160124501,
    "selection_min": 0.00707763465036368,
    "leave_one_out_worst_floor": 0.01792858632893002,
-   "dkw_mean_floor": 0.040976151820056164,
+   "dkw_mean_floor": 0.0,
+   "dkw_mean_floor_observed_range_scaled_retracted": 0.040976151820056164,
+   "dkw_support": [
+    0.0,
+    1.0
+   ],
+   "dkw_support_predeclared": true,
+   "dkw_method": "Massart DKW CDF bound with fixed metric support; not scaled by observed sample range",
+   "dkw_mean_floor_status": "fixed-support arithmetic diagnostic only; DKW requires iid calibration blocks and the selected H49 arm's post-results adaptive procedure is not certified by this bound",
+   "dkw_iid_sampling_verified": false,
+   "dkw_mean_floor_valid_for_adaptive_procedure": false,
    "dkw_epsilon": 0.2807758177449906,
    "violation_rate_on_calibration_half": 0.05263157894736842,
    "violation_rate_on_selection_half": 0.05,
@@ -73,7 +95,17 @@
    "selection_mean": 0.0755296765647967,
    "selection_min": 0.010481936522369499,
    "leave_one_out_worst_floor": 0.018284546414574002,
-   "dkw_mean_floor": 0.038013872344490246,
+   "dkw_mean_floor": 0.0,
+   "dkw_mean_floor_observed_range_scaled_retracted": 0.038013872344490246,
+   "dkw_support": [
+    0.0,
+    1.0
+   ],
+   "dkw_support_predeclared": true,
+   "dkw_method": "Massart DKW CDF bound with fixed metric support; not scaled by observed sample range",
+   "dkw_mean_floor_status": "fixed-support arithmetic diagnostic only; DKW requires iid calibration blocks and the selected H49 arm's post-results adaptive procedure is not certified by this bound",
+   "dkw_iid_sampling_verified": false,
+   "dkw_mean_floor_valid_for_adaptive_procedure": false,
    "dkw_epsilon": 0.2884697304337142,
    "violation_rate_on_calibration_half": 0.0,
    "violation_rate_on_selection_half": 0.05263157894736842,
@@ -103,7 +135,17 @@
    "selection_mean": 0.0900467008726468,
    "selection_min": 0.023855214897560362,
    "leave_one_out_worst_floor": 0.05390825771181355,
-   "dkw_mean_floor": 0.04820069331599768,
+   "dkw_mean_floor": 0.0,
+   "dkw_mean_floor_observed_range_scaled_retracted": 0.04820069331599768,
+   "dkw_support": [
+    0.0,
+    1.0
+   ],
+   "dkw_support_predeclared": true,
+   "dkw_method": "Massart DKW CDF bound with fixed metric support; not scaled by observed sample range",
+   "dkw_mean_floor_status": "fixed-support arithmetic diagnostic only; DKW requires iid calibration blocks and the selected H49 arm's post-results adaptive procedure is not certified by this bound",
+   "dkw_iid_sampling_verified": false,
+   "dkw_mean_floor_valid_for_adaptive_procedure": false,
    "dkw_epsilon": 0.2807758177449906,
    "violation_rate_on_calibration_half": 0.05263157894736842,
    "violation_rate_on_selection_half": 0.05,
@@ -192,7 +234,11 @@
   "beats_random_control_mean": true,
   "random_control_selection_mean": 0.05749882633681783,
   "beats_incumbent_selection_mean": true,
-  "incumbent_selection_mean": 0.07108456408391302
+  "incumbent_selection_mean": 0.07108456408391302,
+  "paired_reference_selection_lower_prediction_statistic": -0.03341784824329318,
+  "paired_reference_calibration_lower_prediction_statistic": -0.010502738294021138,
+  "paired_reference_calibration_lower_bound_positive": false,
+  "paired_reference_positive_improvement_gate_passed": false
  },
  "paired_tests": {
   "oriented_vs_disk_on_b": {
@@ -315,6 +361,37 @@
     "b": "R7_scarp9_polarity/disk/s2.8_d7.37_b3"
    }
   }
+ },
+ "paired_vs_h33_labelled_reference": {
+  "reference_key": "REF_incumbent_0.2778/as-shipped/as-shipped",
+  "reference_identity": "H33-labelled owner-supplied d2.8 reference; participant score/file association unverified",
+  "instrument": "B_sgmc_offcat",
+  "delta": "selected H49 arm DTI minus H33-labelled reference DTI on the same spatial block",
+  "nominal_confidence_pct": 90.0,
+  "lower_prediction_statistics": {
+   "selection": {
+    "n_paired_blocks": 20,
+    "order_statistic_k": 19,
+    "alpha": 0.1,
+    "nominal_confidence_pct": 90.0,
+    "mean_difference": 0.032206377517332,
+    "lower_prediction_statistic": -0.03341784824329318,
+    "target": "one future paired block's H49-minus-reference DTI difference",
+    "selection_half_used_to_choose_arm": true
+   },
+   "calibration": {
+    "n_paired_blocks": 19,
+    "order_statistic_k": 18,
+    "alpha": 0.1,
+    "nominal_confidence_pct": 90.0,
+    "mean_difference": 0.03889880668685157,
+    "lower_prediction_statistic": -0.010502738294021138,
+    "target": "one future paired block's H49-minus-reference DTI difference",
+    "selection_half_used_to_choose_arm": false
+   }
+  },
+  "interpretation": "These are one-future-paired-block lower prediction statistics, not confidence bounds on a mean. The selection-half statistic is descriptive because that half chose the arm. The calibration-half statistic is conditional on exchangeable blocks and a prospectively fixed selection rule; the post-results amendment prevents a full-procedure claim.",
+  "positive_improvement_gate_passed": false
  },
  "arm_table": [
   {
@@ -1536,17 +1613,5 @@
    "min_cat_dist_px": 3.0
   }
  },
- "exchangeability_caveat": "The floor is a split-conformal order statistic over spatial blocks, one-sided at the stated confidence, conditional on the selected arm.  Blocks are exchangeable in the sense the method requires only if a fresh block is drawn like a calibration block; geological blocks are not identical (Basin and Range vs Walker Lane), which is why the leave-one-out worst floor, the empirical violation rates and the repeated-split distribution are reported beside it.  Instrument B optimistically rewards topographic detectors because SGMC also contains non-fault contacts.",
- "interpretation": {
-  "record_type": "exploratory public-proxy calculation, not a submission certificate",
-  "confidence_is_nominal": true,
-  "block_score_exchangeability": "unverified assumption",
-  "target": "public SGMC and catalogue proxy blocks, not private organizer labels",
-  "selection_rule_amended_after_repeated_split_review": true,
-  "formal_coverage_for_post_hoc_amended_process_established": false,
-  "comparator": "legacy REF_incumbent_0.2778 key denotes an owner-reported d2.8 reference; score/file link unverified",
-  "promotion_gate_passed": false,
-  "submission_eligible": false,
-  "slot_authorized": false
- }
+ "exchangeability_caveat": "The floor is a split-conformal order statistic over spatial blocks, one-sided at the stated confidence, conditional on the selected arm.  Blocks are exchangeable in the sense the method requires only if a fresh block is drawn like a calibration block; geological blocks are not identical (Basin and Range vs Walker Lane), which is why the leave-one-out worst floor, the empirical violation rates and the repeated-split distribution are reported beside it.  Instrument B optimistically rewards topographic detectors because SGMC also contains non-fault contacts."
 }
