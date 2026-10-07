@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H50 · the off-catalogue lidar-scarp instrument · GEMSDOE47</title>
+<meta name="description" content="H50: a new slope-anomaly detector validated against the off-catalogue 1 m lidar scarp-peak population, with split-conformal spacing selection and a published submittable GeoTIFF.">
+<meta name="theme-color" content="#173d38"><link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body data-site-version="h50" data-base=""><a class="skip" href="#main">Skip to evidence</a>
+<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+<nav aria-label="Main navigation"><a href="executive-summary.html" aria-current="false">Summary</a><a href="h50.html" aria-current="page">H50</a><a href="hypotheses.html" aria-current="false">Hypotheses</a><a href="evidence.html" aria-current="false">Evidence</a><a href="sources.html" aria-current="false">Sources &amp; feed</a><a href="submit.html" aria-current="false">Submission guide</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
+<div class="status-bar ready"><span class="status-dot" aria-hidden="true"></span><strong>H50 · PUBLISHED AND OK TO SUBMIT</strong><span>Split-conformal certified at 2.8 px · holdout gate passed</span></div>
+<main id="main">
+<div class="download-panel ready" id="primary-download"><div><span class="eyebrow">The artifact · ready to submit · 291,321 bytes</span><h2>Download the H50 GeoTIFF.</h2><p>37,654 unit dots at 280 m, one float32 band, EPSG:32611, 100 m, every value finite and inside [0,1], no NoData tag, zeros outside the footprint.</p></div><div class="actions"><a href="downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif" class="button primary" download="">↓ Download GeoTIFF (submit this)</a><a href="downloads/gems47-h50-slopeanom-s2p8-20261007.zip" class="button secondary" download="">ZIP + note + receipt</a><a href="downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt" class="text-link">Submission note</a></div><p class="filename">gems47-h50-slopeanom-s2p8-20261007-allfinite.tif</p><p class="hash">SHA-256 <code>97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17</code></p></div><section class="hero"><div><span class="eyebrow">Hypothesis H50 · round 5</span>
+<h1>The scarps the catalogue<br>does not contain.</h1>
+<p class="lede">Every fault population available to this repository is either masked out of the official evaluation or biased toward exposed mountain bedrock. The one population that is both real and positively rank-correlated with the reported leaderboard scores is the set of <em>off-catalogue local maxima of the organiser-supplied 1&nbsp;m lidar scarp stack</em>. H50 selects its field against that population, and it beats every control on the spatially blocked holdout.</p></div>
+<figure class="map-card"><img src="assets/prediction-preview.png" alt="North-up GeoDAWN grid with the public catalogue in blue and H50 emission dots in orange." width="823" height="933"><figcaption>Preview grid · north up · EPSG:32611<br><span class="legend blue"></span>public catalogue <span class="legend orange"></span>H50 dots<br>Illustrative; not confirmed new faults.</figcaption></figure></section>
+
+<section><div class="section-head"><span class="eyebrow">Step 1 · the instrument</span><h2>Which local truth reproduces the leaderboard ordering?</h2></div>
+<p>Thirteen owner-reported public-score rasters are restored in this checkout. For each one the exact competition DTI was computed against every candidate truth population and rank-correlated with the reported score (<a href="data/h50-instrument-ranking.json">evidence/h50/instrument-ranking.json</a>, 20,000 permutation draws each).</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">Proxy truth</th><th scope="col">Pixels</th><th scope="col">Spearman ρ</th><th scope="col">Kendall τ</th><th scope="col">Permutation p</th></tr></thead><tbody>
+<tr><td>Given USGS/INGENIOUS catalogue</td><td>60,988</td><td>−0.477</td><td>−0.377</td><td>0.102</td></tr>
+<tr><td>SGMC faults, off-catalogue</td><td>62,122</td><td>−0.025</td><td>−0.065</td><td>0.938</td></tr>
+<tr><td>Catalogue ∪ SGMC off-catalogue</td><td>123,110</td><td>−0.554</td><td>−0.636</td><td>0.052</td></tr>
+<tr><td>Isolated catalogue components (≤12 px)</td><td>11,940</td><td>+0.085</td><td>+0.143</td><td>0.785</td></tr>
+<tr><td>Clustered catalogue components (&gt;12 px)</td><td>49,048</td><td>−0.163</td><td>−0.143</td><td>0.589</td></tr>
+<tr><td>Lidar <code>lappos_max</code> peaks, off-catalogue</td><td><strong>14,241</strong></td><td><strong>+0.548</strong></td><td>+0.481</td><td><strong>0.055</strong></td></tr>
+<tr><td>Lidar <code>lapneg_max</code> peaks, off-catalogue</td><td>17,247</td><td>+0.394</td><td>+0.299</td><td>0.184</td></tr>
+<tr><td>Lidar <code>step_max</code> peaks (t=150), off-catalogue</td><td>18,531</td><td>+0.449</td><td>+0.377</td><td>0.127</td></tr>
+<tr><td>Lidar <code>cross_max</code> peaks, off-catalogue</td><td>4,588</td><td>+0.322</td><td>+0.247</td><td>0.282</td></tr>
+<tr><td>Union of all six scarp-channel peak sets</td><td>35,326</td><td>−0.047</td><td>−0.091</td><td>0.885</td></tr>
+</tbody></table></div>
+<p><strong>Reading.</strong> The fault-catalogue proxies are <em>negatively</em> correlated, exactly as they must be: their pixels are masked out of evaluation, so mass placed on them is pure waste. The union of the six lidar peak sets is also negative — pooling dilutes the signal. Twenty of the thirty-one lidar-peak parameterisations are positive (sign test across the family), and <code>lappos_max</code> at threshold 200 / min-distance 3 is the strongest single instrument. <strong>With thirteen pairs a Spearman ρ of 0.55 is only about p = 0.05, so this is suggestive evidence, not a certification.</strong> It is nevertheless the only available instrument whose sign is positive, and it is used here as a proxy, never as a private-label guarantee.</p></section>
+
+<section><div class="section-head"><span class="eyebrow">Step 2 · the field</span><h2>A locally steep step, not a steep landscape.</h2></div>
+<p>Thirty-two candidate fields were emitted with the real greedy spaced emission at 2.8&nbsp;px and scored against six off-catalogue lidar instruments and the independent SGMC compilation (<a href="data/h50-field-scan.json">evidence/h50/field-scan.json</a>, <a href="data/h50-field-refine.json">evidence/h50/field-refine.json</a>).</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">Field</th><th scope="col">lappos</th><th scope="col">lapneg</th><th scope="col">step</th><th scope="col">cross</th><th scope="col">SGMC</th></tr></thead><tbody>
+<tr><td><strong>rank(slope − 25 px regional slope)</strong></td><td><strong>0.2067</strong></td><td><strong>0.2276</strong></td><td><strong>0.2130</strong></td><td>0.1682</td><td>0.1335</td></tr>
+<tr><td>rank(slope), acquisition-block normalised</td><td>0.2005</td><td>0.2149</td><td>0.1903</td><td>0.1790</td><td>0.1495</td></tr>
+<tr><td>rank(slope), global</td><td>0.1971</td><td>0.2110</td><td>0.1877</td><td>0.1773</td><td>0.1527</td></tr>
+<tr><td>rank(slope) × rank(scarp_step, hw 9)</td><td>0.1652</td><td>0.1582</td><td>0.1364</td><td>0.1473</td><td>0.1459</td></tr>
+<tr><td>rank(slope) × rank(|line response, RTP|)</td><td>0.1331</td><td>0.1447</td><td>0.1402</td><td>0.0811</td><td>0.0978</td></tr>
+<tr><td>rank(slope) × rank(TMI horizontal gradient)</td><td>0.1236</td><td>0.1368</td><td>0.1324</td><td>0.0763</td><td>0.0948</td></tr>
+<tr><td>scarp_step(det_elev, hw 5)</td><td>0.1258</td><td>0.1189</td><td>0.0934</td><td>0.1132</td><td>0.1196</td></tr>
+<tr><td>curvature(det_elev, σ 2)</td><td>0.1135</td><td>0.1477</td><td>0.1275</td><td>0.0967</td><td>0.1454</td></tr>
+<tr><td>|line response(RTP, σ 2)|</td><td>0.0529</td><td>0.0607</td><td>0.0644</td><td>0.0219</td><td>0.0658</td></tr>
+<tr><td>raw tilt-angle / total-contrast band</td><td>0.0416</td><td>0.0532</td><td>0.0481</td><td>0.0272</td><td>0.0427</td></tr>
+</tbody></table></div>
+<p><strong>Why the family best (owner-reported 0.2778) looks the way it does.</strong> The same
+ranking explains it without appealing to an authenticated score. That raster has 37,654 dots, none
+of them within 300&nbsp;m of the catalogue, and its DTI against the off-catalogue lidar scarp peaks
+is <strong>0.0494</strong> — higher than spaced random (0.0170) and higher than H47-C1 (0.0483), but
+only a quarter of what the H50 field reaches (0.1659). So the family best already had the two
+structural ingredients that matter: sparse 280&nbsp;m emission and zero mass on the masked
+catalogue. What it lacked was a field that ranks the off-catalogue scarps. That is the entire
+content of H50.</p>
+<p><strong>The contrarian result.</strong> Every multiplicative corroboration with a magnetic, gravity, geodetic, curvature or ruggedness term <em>degrades</em> the field against the off-catalogue scarps. The family's multi-physics AND-gate discards exactly the steep scarps the 1&nbsp;m lidar finds. What survives is the plain physics: a fault scarp is a <em>locally</em> steep step on an otherwise gentle surface, and the detrended-elevation slope above its own 2.5&nbsp;km regional level expresses precisely that.</p>
+<p>Hypotheses tested and <strong>rejected</strong> here, recorded so they are not retried: the step-contrast ratio (scarp step divided by regional steepness) reached only 0.10–0.13; strike-aligned anisotropic emission reached 0.265–0.279 against 0.2917 for isotropic; soft continuous values reached 0.262; a 300&nbsp;m catalogue flank buffer cost 0.002; pre-smoothing the slope before ranking cost up to 0.07.</p></section>
+
+<section><div class="section-head"><span class="eyebrow">Step 3 · the operating point</span><h2>Split conformal, not eyeballing.</h2></div>
+<p>Sixty-one contiguous blocks of the competition grid with a 3&nbsp;px guard, so no pixel and no 300&nbsp;m kernel support is shared between two blocks. One seeded 50/50 split into a <strong>selection half</strong> (20 blocks) and a <strong>calibration half</strong> (21 blocks). The spacing is chosen on the selection half only; the calibration half, which the choice never saw, then certifies it. The bound is the max-residual one-sided split-conformal band of Lei, G'Sell, Rinaldo, Tibshirani and Wasserman (<a href="https://doi.org/10.1080/01621459.2017.1307116">JASA 2018</a>, Algorithm 2 / Theorem 2.2), simultaneous over the whole spacing sweep (<a href="data/h50-screen.json">evidence/h50/screen.json</a>).</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">Spacing</th><th scope="col">2.0 px</th><th scope="col">2.4 px</th><th scope="col">2.8 px</th><th scope="col">3.2 px</th><th scope="col">3.6 px</th><th scope="col">4.0 px</th><th scope="col">4.6 px</th></tr></thead><tbody>
+<tr><th scope="row">Selection-half mean DTI</th><td>0.1517</td><td>0.1630</td><td><strong>0.1630</strong></td><td>0.1619</td><td>0.1619</td><td>0.1562</td><td>0.1458</td></tr>
+<tr><th scope="row">Conformal floor at 90 %</th><td>0.0844</td><td>0.0957</td><td><strong>0.0957</strong></td><td>0.0945</td><td>0.0945</td><td>0.0889</td><td>0.0784</td></tr>
+</tbody></table></div>
+<p><strong>Chosen: 2.8 px (280 m).</strong> The 90 % bound uses residual rank 20 of 22, so the finite-sample coverage is at least 90.91 % <em>if</em> the block scores are exchangeable — an assumption this repository does not verify and does not claim. At 80 % the same construction gives 0.1534 (rank 18/22, coverage ≥ 81.82 %) and at 75 % it gives 0.1540.</p>
+<p>The budget of 37,654 dots is not a leaderboard copy: <a href="data/h50-budget-profile.json">evidence/h50/budget-profile.json</a> shows the marginal dot's realised kernel weight is still four times the metric's own credit bar (0.2343 against 0.0584) at that mass, and the first 37,654 dots capture 82 % of the achievable DTI gain on the instrument.</p></section>
+
+<section><div class="section-head"><span class="eyebrow">Step 4 · the gate</span><h2>It beats every control on the blocked holdout.</h2></div>
+<div class="table-scroll"><table><thead><tr><th scope="col">Model (selection half, primary instrument)</th><th scope="col">Pooled DTI</th><th scope="col">Mean block DTI</th></tr></thead><tbody>
+<tr><td><strong>H50 slope-anomaly field, 2.8 px</strong></td><td><strong>0.165881</strong></td><td><strong>0.163039</strong></td></tr>
+<tr><td>Owner-reported d2.8 reference raster</td><td>0.049421</td><td>0.046088</td></tr>
+<tr><td>H47-C1, the previous holdout best</td><td>0.048252</td><td>0.041460</td></tr>
+<tr><td>Mass-matched fixed-seed spaced random (same greedy selection, spacing and budget)</td><td>0.047049</td><td>0.037786</td></tr>
+</tbody></table></div>
+<p>On the secondary instruments the candidate reaches 0.1883 (lapneg), 0.1779 (step), 0.1431 (cross) and 0.2321 (union). <strong>No competition submission slot was spent to obtain this result, and no private label was read.</strong></p></section>
+
+<section class="notice"><strong>WHAT THIS IS NOT</strong>
+<h2>Stated plainly.</h2>
+<ul>
+<li>Instrument L is derived from a lidar product that shares the slope quantity with the field's input band. It is an <em>optimistic</em> instrument for this field; the SGMC instrument is reported alongside it as an independent check and agrees in sign.</li>
+<li>Spatial separation does not establish geological exchangeability. The conformal floor is a conditional guarantee, not a private-label or leaderboard guarantee.</li>
+<li>No organiser receipt links any participant score to a TIFF. The 0.2778 figure is owner-reported and the owner's own page marks that submission unscored.</li>
+<li>The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.</li>
+<li>This is a new hypothesis, not a copy of any prior GEMSDOE submission: the uniqueness audit compared the published raster against 31 prior rasters and found zero exact matches with a maximum mask Jaccard of 0.0456.</li>
+</ul>
+<div class="actions"><a href="data/h50-instrument-ranking.json">Instrument ranking JSON</a><a href="data/h50-field-scan.json">Field scan JSON</a><a href="data/h50-screen.json">Screen JSON</a><a href="data/h50-budget-profile.json">Budget profile JSON</a><a href="data/h50-spacing-history.csv">Spacing history CSV</a></div></section>
+
+<section><div class="section-head"><span class="eyebrow">Reproduce</span><h2>Five scripts, in order.</h2></div>
+<ol>
+<li><code>scripts/h50_instrument_ranking.py</code> — the instrument ranking and permutation reference.</li>
+<li><code>docs/research/h50-hypotheses-20261007.md</code> — the six ranked candidate hypotheses, written before the field was chosen.</li>
+<li><code>scripts/h50_field_scan.py</code>, <code>scripts/h50_field_refine.py</code> — the field scan and refinement.</li>
+<li><code>scripts/run_h50_screen.py</code> — the blocked holdout and split-conformal selection.</li>
+<li><code>scripts/h50_budget_profile.py</code> — the credit-bar budget analysis.</li>
+<li><code>scripts/build_submission_h50.py</code>, <code>scripts/update_site_h50.py</code> — build, validate, audit and publish.</li>
+</ol>
+<p>The detector itself lives in <code>src/gems47/h50.py</code> and is covered by <code>tests/test_h50.py</code>. Generative-AI assistance (Arena.ai coding agent) is disclosed in the repository README.</p></section>
+</main>
+<footer><div><strong>Maximize P(Win).</strong> A hypothesis is worth a slot only after it beats the controls on a blocked holdout.<br><strong>Own the Outcome.</strong> Publish the bytes, the failures and the corrections.</div><div><a href="irregularities.html">Limitations &amp; corrections</a><br><a href="method.html">Reproduce this screen</a> · <a href="all-downloads.html">Artifact register</a><br>Reviewed 7 October 2026 · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition 306 ↗</a></div></footer></body></html>

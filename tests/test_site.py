@@ -20,6 +20,8 @@ H47QC_SHA256 = "3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2
 H49_TIF = "downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif"
 H49_SHA256 = "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b"
 H49_BASE = "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3"
+H50_TIF = "downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif"
+H50_SHA256 = "97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17"
 
 
 class _PageParser(HTMLParser):
@@ -75,38 +77,75 @@ class SiteTests(unittest.TestCase):
                 self.assertTrue(target.is_relative_to((ROOT / "docs").resolve()), href)
                 self.assertTrue(target.is_file(), f"{page}: {href}")
 
-    def test_current_home_and_summary_keep_c1_primary_and_gate_closed(self):
+    def test_home_and_summary_lead_with_h50_and_offer_it_for_submission(self):
+        """The two pages the user reads must make the submittable file obvious."""
         for name in ("index.html", "executive-summary.html"):
             text = (ROOT / "docs" / name).read_text(encoding="utf-8")
-            self.assertLess(text.index("↓ Download GeoTIFF"), text.index("<h1>"), name)
-            self.assertIn(C1_TIF.split("/")[-1], text)
+            # a one-click download above the fold, before the page's <h1>
+            self.assertLess(text.index("↓ Download GeoTIFF (submit this)"), text.index("<h1>"), name)
+            self.assertIn(H50_TIF.split("/")[-1], text)
+            self.assertIn("OK TO DOWNLOAD AND SUBMIT", text)
             self.assertIn("2.8 px / 280 m", text)
-            self.assertIn("assumption-conditional", text)
-            self.assertIn("NOT PROMOTED", text)
+            self.assertIn("split-conformal", text)
+            self.assertIn("h50 slope-anomaly d2p8 conformal90", text)
+            self.assertIn("conditional on block exchangeability", text)
+            # the older research artifacts must still be labelled as not submittable
+            self.assertIn("RESEARCH-ONLY", text)
             self.assertIn("DO NOT UPLOAD", text)
             self.assertIn("H49 historical", text)
+            self.assertIn("H47-QC geothermometer screen", text)
         home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
-        self.assertIn(C1_SHA256, home)
-        self.assertNotIn(H49_TIF, home, "H49 must not replace the current C1 download")
+        self.assertIn(H50_SHA256, home)
+        self.assertNotIn(H49_TIF, home, "H49 must not be offered as a download")
 
-    def test_homepage_offers_only_current_c1_and_labelled_qc_downloads(self):
+    def test_homepage_offers_h50_plus_labelled_research_downloads(self):
         text = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         parser = _PageParser()
         parser.feed(text)
         offered = {urlparse(link).path.lstrip("./") for link in parser.tiff_links}
-        self.assertEqual(offered, {C1_TIF, H47QC_TIF})
-        for path, sha in ((C1_TIF, C1_SHA256), (H47QC_TIF, H47QC_SHA256)):
+        self.assertEqual(offered, {H50_TIF, H47QC_TIF})
+        for path, sha in ((H50_TIF, H50_SHA256), (H47QC_TIF, H47QC_SHA256)):
             target = ROOT / "docs" / path
             self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
             self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), sha)
         lower = text.lower()
-        self.assertIn("unscored", lower)
-        self.assertIn("not promoted", lower)
+        # the H50 artifact is NOT described as unscored/not promoted
+        self.assertNotIn("unscored", lower)
+        self.assertIn("not promoted", lower)          # about the older research artifacts
         self.assertIn("do not upload", lower)
-        self.assertIn("no slot", lower)
-        self.assertIn("0.177872", text)
-        self.assertIn("0.180216", text)
+        self.assertIn("0.165881", text)               # blocked-holdout pooled DTI
+        self.assertIn("0.049421", text)               # owner-reported d2.8 reference
         self.assertIn("H47-QC geothermometer screen", text)
+
+    def test_h50_artifact_receipt_is_published_and_matches_the_bytes(self):
+        receipt_path = ROOT / "docs" / "data" / "h50-artifact.json"
+        self.assertTrue(receipt_path.is_file())
+        receipt = json.loads(receipt_path.read_text())
+        target = ROOT / "docs" / receipt["download_url"]
+        self.assertTrue(target.is_file(), f"published TIFF missing: {target}")
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), receipt["sha256_tif"])
+        self.assertEqual(receipt["sha256_tif"], H50_SHA256)
+        self.assertTrue(receipt["promoted"])
+        self.assertTrue(receipt["readback_checks"]["all_in_unit_interval"])
+        self.assertTrue(receipt["readback_checks"]["nan_intolerant_range_check"])
+        self.assertIsNone(receipt["format"]["nodata"])
+        self.assertEqual(receipt["budget"], 37654)
+        self.assertEqual(receipt["screen_selected_spacing_px"], 2.8)
+        self.assertAlmostEqual(receipt["conformal"]["certified_floor_dti"], 0.0957, places=4)
+        self.assertGreaterEqual(receipt["conformal"]["coverage_at_least"], 0.90)
+        self.assertEqual(receipt["uniqueness"]["exact_matches"], 0)
+        self.assertLess(receipt["uniqueness"]["max_jaccard"], 0.5)
+        self.assertIn("h50 slope-anomaly d2p8 conformal90", receipt["submission_note_field"])
+
+    def test_h50_evidence_page_links_only_inside_the_pages_artifact(self):
+        page = (ROOT / "docs" / "h50.html").read_text(encoding="utf-8")
+        self.assertIn("OK TO SUBMIT", page)
+        self.assertIn("h50.html", page)
+        self.assertNotIn("../", page)
+        for name in ("h50-instrument-ranking.json", "h50-screen.json",
+                     "h50-field-scan.json", "h50-budget-profile.json"):
+            self.assertTrue((ROOT / "docs" / "data" / name).is_file(), name)
+            self.assertIn(name, page)
 
     def test_h49_is_explicitly_research_only_in_site_register_and_receipts(self):
         register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")

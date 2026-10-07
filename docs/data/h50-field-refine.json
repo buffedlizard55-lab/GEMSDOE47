@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-07T17:34:50Z",
+  "spacing_px": 2.8,
+  "budget": 37654,
+  "metric": "exact competition DTI via gems47.metric reductions, alpha=0.2 beta=0.8",
+  "instruments": {
+    "lappos_t200_d3": 14241,
+    "lapneg_t200_d3": 17247,
+    "step_t150_d3": 18531,
+    "cross_t200_d3": 4588,
+    "upface_t200_d3": 1608,
+    "sgmc_offcat": 62122
+  },
+  "decision_rule": "pre-registered: maximise the mean DTI over the five off-catalogue lidar scarp-peak instruments; sgmc_offcat is reported but is negatively rank-correlated with the reported leaderboard scores",
+  "rows": [
+    {
+      "field": "block_rank_slope",
+      "lappos_t200_d3": 0.20054,
+      "lapneg_t200_d3": 0.2149,
+      "step_t150_d3": 0.19031,
+      "cross_t200_d3": 0.17896,
+      "upface_t200_d3": 0.07499,
+      "sgmc_offcat": 0.14955,
+      "mean_lidar": 0.17194
+    },
+    {
+      "field": "global_rank_slope",
+      "lappos_t200_d3": 0.19706,
+      "lapneg_t200_d3": 0.21097,
+      "step_t150_d3": 0.18774,
+      "cross_t200_d3": 0.17734,
+      "upface_t200_d3": 0.07358,
+      "sgmc_offcat": 0.15265,
+      "mean_lidar": 0.16934
+    },
+    {
+      "field": "anom_global_s8",
+      "lappos_t200_d3": 0.20381,
+      "lapneg_t200_d3": 0.22946,
+      "step_t150_d3": 0.22474,
+      "cross_t200_d3": 0.15691,
+      "upface_t200_d3": 0.06743,
+      "sgmc_offcat": 0.12956,
+      "mean_lidar": 0.17647
+    },
+    {
+      "field": "anom_block_s8",
+      "lappos_t200_d3": 0.19624,
+      "lapneg_t200_d3": 0.22205,
+      "step_t150_d3": 0.21865,
+      "cross_t200_d3": 0.15175,
+      "upface_t200_d3": 0.06516,
+      "sgmc_offcat": 0.12889,
+      "mean_lidar": 0.17077
+    },
+    {
+      "field": "anom_global_s12",
+      "lappos_t200_d3": 0.20482,
+      "lapneg_t200_d3": 0.22902,
+      "step_t150_d3": 0.22172,
+      "cross_t200_d3": 0.16168,
+      "upface_t200_d3": 0.0691,
+      "sgmc_offcat": 0.12969,
+      "mean_lidar": 0.17727
+    },
+    {
+      "field": "anom_block_s12",
+      "lappos_t200_d3": 0.19885,
+      "lapneg_t200_d3": 0.22105,
+      "step_t150_d3": 0.2153,
+      "cross_t200_d3": 0.15648,
+      "upface_t200_d3": 0.06651,
+      "sgmc_offcat": 0.12755,
+      "mean_lidar": 0.17164
+    },
+    {
+      "field": "anom_global_s16",
+      "lappos_t200_d3": 0.20563,
+      "lapneg_t200_d3": 0.22825,
+      "step_t150_d3": 0.21786,
+      "cross_t200_d3": 0.16371,
+      "upface_t200_d3": 0.06954,
+      "sgmc_offcat": 0.13088,
+      "mean_lidar": 0.177
+    },
+    {
+      "field": "anom_block_s16",
+      "lappos_t200_d3": 0.20041,
+      "lapneg_t200_d3": 0.2216,
+      "step_t150_d3": 0.2128,
+      "cross_t200_d3": 0.15967,
+      "upface_t200_d3": 0.067,
+      "sgmc_offcat": 0.12922,
+      "mean_lidar": 0.1723
+    },
+    {
+      "field": "anom_global_s25",
+      "lappos_t200_d3": 0.20675,
+      "lapneg_t200_d3": 0.22764,
+      "step_t150_d3": 0.21304,
+      "cross_t200_d3": 0.16816,
+      "upface_t200_d3": 0.07146,
+      "sgmc_offcat": 0.13354,
+      "mean_lidar": 0.17741
+    },
+    {
+      "field": "anom_block_s25",
+      "lappos_t200_d3": 0.20204,
+      "lapneg_t200_d3": 0.2227,
+      "step_t150_d3": 0.20875,
+      "cross_t200_d3": 0.16498,
+      "upface_t200_d3": 0.07,
+      "sgmc_offcat": 0.13205,
+      "mean_lidar": 0.17369
+    },
+    {
+      "field": "anom_global_s40",
+      "lappos_t200_d3": 0.2067,
+      "lapneg_t200_d3": 0.22748,
+      "step_t150_d3": 0.20805,
+      "cross_t200_d3": 0.1739,
+      "upface_t200_d3": 0.07457,
+      "sgmc_offcat": 0.13719,
+      "mean_lidar": 0.17814
+    },
+    {
+      "field": "anom_block_s40",
+      "lappos_t200_d3": 0.20329,
+      "lapneg_t200_d3": 0.2237,
+      "step_t150_d3": 0.20511,
+      "cross_t200_d3": 0.1713,
+      "upface_t200_d3": 0.07294,
+      "sgmc_offcat": 0.13504,
+      "mean_lidar": 0.17527
+    },
+    {
+      "field": "anom_global_s60",
+      "lappos_t200_d3": 0.20654,
+      "lapneg_t200_d3": 0.22588,
+      "step_t150_d3": 0.20472,
+      "cross_t200_d3": 0.17758,
+      "upface_t200_d3": 0.07566,
+      "sgmc_offcat": 0.14011,
+      "mean_lidar": 0.17808
+    },
+    {
+      "field": "anom_block_s60",
+      "lappos_t200_d3": 0.20472,
+      "lapneg_t200_d3": 0.22312,
+      "step_t150_d3": 0.20267,
+      "cross_t200_d3": 0.17625,
+      "upface_t200_d3": 0.07459,
+      "sgmc_offcat": 0.13845,
+      "mean_lidar": 0.17627
+    },
+    {
+      "field": "ratio_global_s25",
+      "lappos_t200_d3": 0.16144,
+      "lapneg_t200_d3": 0.19109,
+      "step_t150_d3": 0.19437,
+      "cross_t200_d3": 0.10943,
+      "upface_t200_d3": 0.04875,
+      "sgmc_offcat": 0.10148,
+      "mean_lidar": 0.14102
+    },
+    {
+      "field": "ratio_block_s25",
+      "lappos_t200_d3": 0.15332,
+      "lapneg_t200_d3": 0.18111,
+      "step_t150_d3": 0.18569,
+      "cross_t200_d3": 0.10306,
+      "upface_t200_d3": 0.04482,
+      "sgmc_offcat": 0.10185,
+      "mean_lidar": 0.1336
+    },
+    {
+      "field": "rankdiff_s25",
+      "lappos_t200_d3": 0.0757,
+      "lapneg_t200_d3": 0.10581,
+      "step_t150_d3": 0.11707,
+      "cross_t200_d3": 0.0335,
+      "upface_t200_d3": 0.01386,
+      "sgmc_offcat": 0.05969,
+      "mean_lidar": 0.06919
+    },
+    {
+      "field": "rankdiff_block_s25",
+      "lappos_t200_d3": 0.07444,
+      "lapneg_t200_d3": 0.10278,
+      "step_t150_d3": 0.11527,
+      "cross_t200_d3": 0.03378,
+      "upface_t200_d3": 0.01408,
+      "sgmc_offcat": 0.06302,
+      "mean_lidar": 0.06807
+    },
+    {
+      "field": "anom_grad_s25",
+      "lappos_t200_d3": 0.15296,
+      "lapneg_t200_d3": 0.14141,
+      "step_t150_d3": 0.10241,
+      "cross_t200_d3": 0.11673,
+      "upface_t200_d3": 0.04823,
+      "sgmc_offcat": 0.11778,
+      "mean_lidar": 0.11235
+    },
+    {
+      "field": "max_block_anom25",
+      "lappos_t200_d3": 0.20382,
+      "lapneg_t200_d3": 0.2238,
+      "step_t150_d3": 0.20468,
+      "cross_t200_d3": 0.17517,
+      "upface_t200_d3": 0.07381,
+      "sgmc_offcat": 0.14053,
+      "mean_lidar": 0.17626
+    }
+  ],
+  "elapsed_seconds": 114.77,
+  "deployed_from": "evidence/h50/field-refine.json"
+}

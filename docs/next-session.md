@@ -70,3 +70,35 @@ footprint cells (58,800 exact-catalogue); GDR traces: 82,871 (58,876 exact-catal
 cells: 244. These all_touched pixel counts are not fault counts or expert-new truth. The earlier
 USGS expansion-budget issue was fixed by reading geometry only, not the 203MB attribute table or
 GDB. No vector trained C1. Sources, hashes and runner attestation are in the deployed JSON.
+
+---
+
+## 2026-10-07 · H50 shipped as the submittable artifact
+
+**State.** H50 is published and is the file to submit. `docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif`
+(SHA-256 `97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17`), 37,654 dots at
+2.8 px / 280 m, split-conformal certified floor 0.0957 DTI at ≥90.91 % coverage (conditional on
+block exchangeability). Blocked-holdout pooled DTI 0.165881 vs 0.049421 (owner-reported d2.8
+reference), 0.048252 (H47-C1) and 0.047049 (mass-matched spaced random).
+
+**What is new methodologically.** Instrument L — the off-catalogue local maxima of the
+organiser-supplied 1 m lidar scarp stack — is the only local truth population whose DTI is
+positively rank-correlated with the owner-reported public scores. Every fault-catalogue proxy is
+negatively correlated because those pixels are masked out of evaluation.
+`evidence/h50/instrument-ranking.json` has the full table with permutation references.
+
+**What is new physically.** Rank official band 19 above its own 25 px regional level. Every
+multiplicative corroboration with a magnetic, gravity, geodetic, curvature or ruggedness term
+made the field *worse* against the off-catalogue scarps — the family's AND-gate discards exactly
+the steep scarps the 1 m lidar finds.
+
+**Top priority for the next session.** A structurally independent second instrument, because
+Instrument L shares the slope quantity with the field's input band and is therefore optimistic.
+Candidates: a 1 m lidar channel family the field does not read, or a manually compiled regional
+fault map. Do not spend a submission slot on any change that has not beaten 0.165881 on the
+blocked holdout under the preregistered rule.
+
+**Do not re-try.** Hard-vote cross-instrument edge coincidence (0.0267–0.0326), the step contrast
+ratio (0.10–0.13), strike-aligned anisotropic emission (0.265–0.279 vs 0.2917), soft continuous
+values (0.262), a 300 m catalogue flank buffer (0.2848), and pre-smoothing the slope before
+ranking (monotone loss).

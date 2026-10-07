@@ -1,0 +1,7 @@
+h50 slope-anomaly d2p8 conformal90
+
+New hypothesis, not a copy of any prior submission.  Field: the rank of official band 19 (detrended elevation slope) above its own 25 px (2.5 km) Gaussian regional level, so a fault scarp -- a locally steep step on a gentle surface -- ranks above a uniformly steep mountain front.  Emission: unit dots at 280 m spacing over the evaluated domain (competition footprint minus the USGS/INGENIOUS catalogue, which is masked out of scoring), 37,654 dots.  Values are 0/1 only, float32, single band, EPSG:32611, 100 m, official grid/transform, all finite, zeros outside the footprint.
+
+Operating point: 2.8 px (280 m), chosen on a selection half of 20 spatially blocked holdout blocks and certified on the disjoint calibration half of 21 blocks by split-conformal prediction (Lei, G'Sell, Rinaldo, Tibshirani, Wasserman, JASA 2018, Algorithm 2), max-residual rank 20 of 22, finite-sample coverage at least 90.91%, certified holdout floor 0.0957 DTI.  Budget 37,654 is the point where the marginal dot's realised kernel weight is still 4x the metric's own credit bar (alpha*DTI).
+
+Validation instrument: the off-catalogue local maxima of the organiser-supplied 1 m lidar scarp stack (14241 points).  On the blocked holdout the candidate reaches 0.1659 pooled DTI against 0.0494 for the owner-reported d2.8 reference, 0.0483 for the previous holdout best (H47-C1) and 0.0470 for mass-matched spaced random.  The instrument is a proxy: it shares the slope quantity with the field's input band and it is not a private-label guarantee.

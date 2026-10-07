@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H50",
+  "artifact": "gems47-h50-slopeanom-s2p8-20261007",
+  "kind": "primary_submission_candidate",
+  "promoted": true,
+  "generated_utc": "2026-10-07T18:04:53Z",
+  "spacing_px": 2.8,
+  "budget": 37654,
+  "regional_sigma_px": 25.0,
+  "slope_band": 19,
+  "emission_domain": "competition footprint AND NOT USGS/INGENIOUS catalogue",
+  "format": {
+    "driver": "GTiff",
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "outside_footprint": "0.0 (all finite)",
+    "values": "0.0 and 1.0 only"
+  },
+  "readback_checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "crs_epsg32611": true,
+    "width_matches": true,
+    "height_matches": true,
+    "transform_matches": true,
+    "nodata_unset": true,
+    "no_nan": true,
+    "no_inf": true,
+    "all_in_unit_interval": true,
+    "nan_intolerant_range_check": true,
+    "zero_outside_footprint": true,
+    "dot_count": true,
+    "dots_on_footprint": true,
+    "dots_off_catalogue": true,
+    "values_are_unit": true,
+    "compression": "Compression.deflate"
+  },
+  "uniqueness": {
+    "compared": 31,
+    "exact_matches": 0,
+    "max_jaccard": 0.045623
+  },
+  "screen": "evidence/h50/screen.json",
+  "screen_selected_spacing_px": 2.8,
+  "conformal": {
+    "method": "max-residual one-sided split conformal, Lei et al. JASA 2018 Alg. 2",
+    "reference": "https://doi.org/10.1080/01621459.2017.1307116",
+    "selection_blocks": 20,
+    "calibration_blocks": 21,
+    "rank_1_based": 20,
+    "coverage_at_least": 0.9090909090909091,
+    "certified_floor_dti": 0.09570122924914815,
+    "assumption": "block-level exchangeability, not verified; conditional guarantee"
+  },
+  "holdout": {
+    "instrument": "off-catalogue local maxima of the 1 m lidar scarp stack",
+    "candidate_pooled_dti": 0.16588059959214113,
+    "owner_reported_d28_reference_pooled_dti": 0.04942094659452611,
+    "h47c1_previous_holdout_best_pooled_dti": 0.0482522932214748,
+    "spaced_random_pooled_dti_mass_matched": 0.047049324254644906,
+    "gate": {
+      "beats_random_control": true,
+      "beats_owner_reported_d28_reference": true,
+      "beats_h47c1_previous_holdout_best": true,
+      "positive_conformal_floor": true,
+      "passed": true
+    }
+  },
+  "sha256_tif": "97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17",
+  "bytes": 291321,
+  "files": [
+    "gems47-h50-slopeanom-s2p8-20261007-allfinite.tif",
+    "gems47-h50-slopeanom-s2p8-20261007.zip",
+    "gems47-h50-slopeanom-s2p8-20261007-receipt.json",
+    "gems47-h50-slopeanom-s2p8-20261007-note.txt",
+    "gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif"
+  ],
+  "provenance_limits": [
+    "No organiser receipt links any participant score to a TIFF; the 0.2778 figure is owner-reported and the owner page marks that submission unscored.",
+    "The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.",
+    "Instrument L shares the slope quantity with the field's input band, so the holdout numbers are an optimistic proxy, not a certified leaderboard score."
+  ],
+  "download_url": "downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif",
+  "zip_url": "downloads/gems47-h50-slopeanom-s2p8-20261007.zip",
+  "note_url": "downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt",
+  "fallback_url": "downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif",
+  "submission_note_field": "h50 slope-anomaly d2p8 conformal90",
+  "deployed_evidence_sha256": {
+    "h50-instrument-ranking.json": "ec266c8245ebfe4a93869d4f39066b38bf10800adf787b49bd6a7b0e5c3667d9",
+    "h50-field-scan.json": "440367947cb524c0815e95e644f9d7aa98c6cd1b1694ee54531f334d08c3f98e",
+    "h50-field-refine.json": "97fb4d6c161beb86756aa566d29e48d5d4846c150d2df8b2dde4adf05d562a5a",
+    "h50-screen.json": "b84ef525ebf140794a60e6485585672a982bba2eac9d5bd04d2cd8214280be91",
+    "h50-budget-profile.json": "6459e71348ec1908ff467a66f8b66242dc5b429689b67d63b17da3b5919cf61c",
+    "h50-spacing-history.csv": "4093ccc1b7b3fb0ac1e57949e7085540582580d874483afa0c05b8cb75532e7c"
+  }
+}
