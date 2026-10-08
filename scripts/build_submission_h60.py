@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Build, validate, audit for uniqueness and publish the H60 submission artefact.
+"""RETIRED H60 builder; execution is disabled.
+
+The historical builder below promotes an all-finite, zero-outside TIFF and labels it submission-ready. The scientific gate passed locally, but the all-finite encoding fails the published outside-null/NaN wording, organizer acceptance is untested, and no portal action is authorized in this review. Preserve the original implementation for audit; do not run it.
 
 The artefact is the H60 field -- the per-cell maximum of the emission-domain ranks of
 six scarp channels of the owner-derived 1 m lidar stack (step_max, lappos_max,
@@ -28,6 +30,11 @@ submission note and the receipt, a JSON receipt, and a TXT note for the DrivenDa
 "Note" field.  ``docs/data/`` receives the receipts the site renders.
 """
 from __future__ import annotations
+
+if __name__ != "__main__":
+    raise RuntimeError("DISABLED: retired H60 builder cannot be imported or executed.")
+print("DISABLED: historical H60 builder writes zero outside the footprint and labels that encoding submission-ready. No files were read or written.")
+raise SystemExit(2)
 
 import hashlib
 import json

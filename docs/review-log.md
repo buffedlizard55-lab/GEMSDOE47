@@ -74,11 +74,13 @@ Exact final test/check/PR/merge timestamps are recorded in `data/three-pass-revi
 ## Older corrections still in force
 
 Retired annulus .34912 / .34837 private floor is withdrawn; adaptive nested history is not exchangeable
-calibration, and deleting a prior mask is not a new detector. Saved .3345 rank-1 board is superseded by dated
-.3774. H33 .2778 filename/hash association is unverified, not an organizer receipt. The three λ-scaling score
-observations do not establish a count of new uploads or used slots; no λ-probe recommendation, upload cost, or
-“free diagnostic” claim remains. Public official pages checked 2026-10-06 do not establish current per-user
-quota or slot accounting. Official materials describe one selected file for both rounds; verify current rules.
+calibration, and deleting a prior mask is not a new detector. The earlier .3345 rank-1 board is superseded by
+the dated .3774 observation; on 7 October 2026, 0.3195 was rank 7. H33 .2778 filename/hash association is
+unverified, not an organizer receipt. Three λ-scaling score observations do not establish upload or slot use;
+no λ-probe recommendation, upload cost, or “free diagnostic” claim remains. The 6 October note that quota was
+unknown is superseded: the 7 October DOE/NLR rules review states up to three scoring/feedback submissions per
+week and one final selected file for the competition's rounds. Account-specific eligibility, used/remaining
+opportunities, and selection state still require the authenticated portal.
 
 
 ### Official-source receipt update after additive reconciliation
@@ -96,3 +98,12 @@ GDB. No vector trained C1. Sources, hashes and runner attestation are in the dep
 - Kept H33-2-B2 / participant DTI 0.2778 unverified and dependent fits conditional; renamed H48 report fields to assumption-conditional lower bounds and marked outputs not slot-eligible. Updated ratio and quota/λ-observation caveats.
 - Disabled the old score-ceiling runner and legacy site/submission renderers that could reproduce withdrawn assumptions. All legacy LATI build entry points now fail closed before cache reads or writes.
 - Validation did not restore data, rerun H47-B, upload, spend a slot, or run a λ-probe. Final test/lint/PR status is reported in the current PR record, not inherited from prior counts.
+
+## Current-main documentation reconciliation — 7 October 2026
+
+- Fetched latest `main` at `c0180ed` (PR #26) and fast-forwarded the designated review branch from `ab160ae` before PR preparation. The H60–H64 round is the current repository state. Kept H47-C1's failed promotion gate explicitly closed; H60 is a separate locally promoted candidate.
+- Reopened the exact H60 TIFFs with Rasterio 1.4.4. The all-finite TIFF (`4ee074…`) has all 12,279,160 cells finite in [0,1] but writes zeros outside and does not meet the published null/NaN-outside wording. The NaN-outside TIFF (`d75ab9…`) has 5,167,373 finite valid-mask cells, 7,111,787 outside NaNs and 37,654 positive cells; it matches that wording on local read-back. Neither encoding has organizer acceptance; prior rejected bytes/parser receipt remain unavailable. Added `docs/data/h60-encoding-audit.json` and linked the more cautious status through the submission guidance.
+- Corrected current user-facing submission pages: distinguish scientific promotion from format/portal acceptance; retire the stale H47-C1/H50 current-file recommendations; mark the all-finite H60 ZIP as an audit bundle, not an upload bundle; preserve the explicit no-upload/no-slot instruction.
+- Reconciled the rules statement to the official DOE/NLR PDF: up to three scoring/feedback submissions per week and one final selected file for the rounds. The entrant's eligibility, used/remaining weekly opportunities and portal selection state remain account-specific and unverified.
+- Corrected the dated leaderboard summary: rank 1 was 0.3774 on the saved 7 October 2026 observation; 0.3195 was rank 7. Scores remain participant-level and are not mapped to TIFF hashes.
+- Post-rebase local validation: `pytest tests -q` → 297 passed, 21 skipped, 13 subtests passed; `ruff check .` clean; all 151 repository JSON files parsed. The nine Markdown site pages were rendered with `build_site_s3.py`, and local HTML-link/receipt tests passed. GitHub CI, PR, and merge outcomes remain pending.

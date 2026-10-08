@@ -1,7 +1,7 @@
 # H47-B single-scale follow-up and footprint-mask audit — 2026-10-06
 
 > **Historical research artifact only. NOT PROMOTED. Do not upload or spend a competition slot.**
-> The site’s current primary research download remains H47-C1. This H47-B follow-up is linked only as a supplemental audit; it does not replace or alter the C1 page or receipt.
+> This H47-B follow-up is a supplemental audit and does not replace or alter the C1 page or receipt. H60 is now the separate locally promoted scientific candidate; organizer acceptance is untested, and this review authorizes no portal action. H47-C1 remains not promoted with its gate closed. See [current status](current-status.html).
 
 ## Result first
 

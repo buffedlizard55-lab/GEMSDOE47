@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Build, validate, audit for uniqueness and publish the H50 submission artifact.
+"""RETIRED H50 builder; execution is disabled.
+
+The historical builder below treats finite zero-outside encoding as sufficient. That does not meet the published null/NaN-outside wording. Preserve its code for audit; do not rebuild or publish H50 as a submission.
 
 The artifact is the H50 field (rank of official band 19, ``det_elev_slope``, above its
 25 px Gaussian regional level) emitted as unit dots at the split-conformal-selected 2.8 px
@@ -21,6 +23,11 @@ submission note and the receipt, a JSON receipt, and a TXT note for the DrivenDa
 """
 from __future__ import annotations
 
+if __name__ != "__main__":
+    raise RuntimeError("DISABLED: retired H50 builder cannot be imported or executed.")
+print("DISABLED: historical H50 builder writes zero outside the footprint and labels the artifact submission-ready. No files were read or written.")
+raise SystemExit(2)
+
 import hashlib
 import json
 import os
@@ -36,14 +43,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-import numpy as np  # noqa: E402
-import rasterio  # noqa: E402
-from scipy import ndimage as ndi  # noqa: E402
+import numpy as np
+import rasterio
+from scipy import ndimage as ndi
 
-from gems47 import grid as G  # noqa: E402
-from gems47 import h50  # noqa: E402
-from gems47 import submission as SUB  # noqa: E402
-from gems47s3.geomorph import rank_scale  # noqa: E402
+from gems47 import grid as G
+from gems47 import h50
+from gems47 import submission as SUB
+from gems47s3.geomorph import rank_scale
 
 SPACING_PX = 2.8
 BUDGET = 37_654

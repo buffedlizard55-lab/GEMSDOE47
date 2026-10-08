@@ -1,8 +1,8 @@
 # Next-session handoff — written 2026-10-07 after the H60–H64 round
 
-**Read the standing brief in `README.md` first.** Status in one line: **H60 is published,
-preregistered, gate-passed and is the file to submit; H50 is the labelled fallback; no slot has
-been spent.**
+**Read the standing brief in `README.md` first.** Status in one line: **H60 passed the local
+preregistered scientific gate; organizer acceptance is untested; no portal upload or slot use is
+authorized or performed in this review. H47-C1 remains not promoted and its gate remains closed.**
 
 ## What happened this round (all committed, `evidence/h60/` + `docs/data/h60-*.json`)
 
@@ -19,12 +19,16 @@ been spent.**
 4. `scripts/run_h64_instruments.py`: far-from-catalogue peaks beat near ones (lappos ρ +0.581 vs
    +0.273); the road/claim masks *improve* the instrument-leaderboard correlation (step +0.592
    vs +0.449); `coh100` anti-correlates (−0.532). This is the mechanism evidence for the masks.
-5. `scripts/build_submission_h60.py` built and published the artifact
-   (`docs/downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif`, SHA-256
-   `4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c`, 37,654 dots, 17/17
-   read-back checks, 0 exact matches, max Jaccard 0.0217) + ZIP + note + receipt + NaN-outside
-   fallback. `scripts/update_site_h60.py` moved the site to H60 (H50 demoted to labelled
-   fallback everywhere, including the register and the executive summary).
+5. `scripts/build_submission_h60.py` built two encodings. The all-finite TIFF
+   (`gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif`, SHA-256
+   `4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c`) has 17/17 local builder
+   checks but zeros outside and does not meet the published null/NaN-outside wording. Its ZIP is
+   an audit bundle, not an upload package. The NaN-outside sibling was re-opened locally in the
+   later encoding audit (SHA-256
+   `d75ab9e282422d9592bc835c5cf719b22e6c564730de1f5fc42b57fc5bac2c01`, 351,392 bytes; 5,167,373
+   finite valid-mask cells, 7,111,787 NaNs outside; 37,654 positive dots). It matches the published
+   outside convention locally; organizer acceptance is untested. `scripts/update_site_h60.py`
+   moved the site to H60; it did not test portal acceptance.
 6. Corrections published: IR-2026-10-07-B (lidar stack is owner-derived, not organiser-supplied),
    IR-2026-10-07-C (H50 screen had 41 blocks, not 61), IR-2026-10-07-D (H61 min-1 floor deviation
    + emitted-mass aggregation bug; no score changed). `docs/h50.md` was already known empty —
@@ -32,8 +36,7 @@ been spent.**
 
 ## Priority order for the next session
 
-1. **Submit H60** if a slot is to be spent at all (eligibility/quota checks first, in the
-   authenticated portal). Note field: `h60 lidar-scarp d2p0 conformal90`. Keep the receipt.
+1. **No portal action in this review.** The user instruction is not to upload or spend a slot. If a later attempt is separately authorized, first confirm eligibility and account state in the authenticated portal; the official [DOE/NLR rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf) state up to three scoring/feedback submissions per week and one final selected file, but do not show this account's remaining opportunities. Review the NaN-outside TIFF and its exact-byte audit; do not use the all-finite diagnostic or current ZIP as the upload file. Note field for any separately authorized attempt: `h60 lidar-scarp d2p0 conformal90`. Retain the organizer receipt.
 2. **Independent-instrument program (highest scientific value, no slot needed).** The primary
    instrument derives from the same owner-built lidar stack the field reads. Candidates, all
    free/official: USGS Quaternary fault compilation (Qfaults — hash-pinned `Qfaults_GIS.zip`
@@ -61,9 +64,8 @@ been spent.**
 - `emit_trace` requires the domain to hold the budget at the spacing (true for every real block;
   starved synthetic grids in tests must be ≥300×300).
 - Module-level helpers must be defined before their callers in `h60.py` (edit-ordering trap).
-- The legacy site renderer is retired — hand-edit or use the assertion-checked
-  `scripts/update_site_h60.py` pattern; every replacement asserts it matched.
-- DrivenData queries remain prohibited (Terms); the leaderboard snapshot stays dated 2026-10-06.
+- The historical site renderers and H50/H60 page updaters are retired because they can restore stale upload recommendations or the all-finite H60 encoding. Hand-edit reviewed pages or add a new generator with explicit no-upload and format contracts; do not run the legacy entry points.
+- DrivenData queries remain disabled under the Terms boundary; the latest permitted manual public-board observation is dated 2026-10-07 and is not a live feed.
 - Every H60/H62/H63 primary-instrument number must carry the circularity warning: the primary
   instrument derives from the same owner-built lidar stack the fields read — necessary, never
   sufficient; sgmc_offcat is the independent floor.

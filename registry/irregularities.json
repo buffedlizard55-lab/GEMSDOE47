@@ -180,10 +180,10 @@
     },
     {
       "id": "IR-C1-008",
-      "severity": "WITHDRAWN",
-      "what": "Prior unlimited-final-round, fixed-quota and \u03bb-probe advice was unsupported and is withdrawn.",
+      "severity": "CORRECTED / quota boundary",
+      "what": "Earlier documentation conflated the published weekly feedback allowance with an entrant account's remaining opportunities.",
       "why_it_matters": "Current scientific/artifact/data decision depends on this boundary.",
-      "what_was_done": "Public official pages checked 2026-10-06 describe one selected file for both rounds but do not establish current per-user quota or slot accounting. Three historical \u03bb-scaling score observations do not verify uploads or slots. No diagnostic cost is inferred or called free.",
+      "what_was_done": "The DOE/NLR official rules PDF (https://docs.nlr.gov/docs/fy26osti/96647.pdf) states up to three scoring/feedback submissions per week and one final selected file for the competition's rounds. The public rules do not expose this entrant's eligibility, used/remaining weekly opportunities, or portal selection state. Historical scores are not upload receipts; no diagnostic cost is inferred.",
       "human_page": "docs/irregularities.html#ir-c1-008"
     },
     {
@@ -270,7 +270,15 @@
       "id": "IR-C1-013",
       "severity": "HIGH / format contract",
       "what": "The H49 TIFF and several historical all-finite research GeoTIFFs were described as passing local format checks despite finite zeros outside the supplied footprint.",
-      "what_was_done": "The published format page requires null or NaN outside bounds. Exact H49 TIFF read-back SHA-256 a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b has 12,279,160 finite cells, zero NaNs, no NoData tag and a valid mask on every cell; against the original 5,167,373-cell owner-mirror footprint receipt, 7,111,787 outside cells remain finite. H49 fails the published requirement; see evidence/h49/format-contract-audit.json. The earlier all-finite check was insufficient. Unmasked all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and older Session-3 variants also fail. The H48 research writer emits NaN outside for future research outputs; separate NaN-outside variants follow owner-mirror conventions only. Neither a local check nor a mirror convention establishes organizer acceptance."
+      "what_was_done": "The published format page requires null or NaN outside bounds. Exact H49 read-back has 12,279,160 finite cells, zero NaNs and no NoData tag; against its 5,167,373-cell owner-mirror footprint, 7,111,787 outside cells remain finite. H60 has the same encoding distinction: its all-finite file passes the raw [0,1] range check but writes zero outside; its NaN-outside sibling has 5,167,373 finite valid-mask cells and 7,111,787 NaNs outside, matching published wording on local read-back only. See docs/data/h49-format-contract-audit.json and docs/data/h60-encoding-audit.json. No local result establishes organizer acceptance."
+    },
+    {
+      "id": "IR-H60-001",
+      "severity": "HIGH / current limitation",
+      "what": "The H60 scientific-promotion receipt described the all-finite, zero-outside TIFF as the primary submission candidate despite the published null/NaN-outside rule.",
+      "why_it_matters": "A range-valid encoding is not necessarily compliant with the published outside-footprint requirement or accepted by the organizer.",
+      "what_was_done": "Reopened both exact TIFFs. The all-finite file is range-valid but outside-nonconforming; the NaN-outside sibling matches the published outside convention on local read-back. Neither was organizer-tested. Reclassified the all-finite TIFF/ZIP as diagnostics, linked the NaN-outside file for inspection only, and retained the no-upload/no-slot instruction.",
+      "human_page": "docs/irregularities.html#ir-h60-001"
     }
   ]
 }

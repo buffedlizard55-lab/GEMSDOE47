@@ -1,83 +1,44 @@
 ---
-title: Submission readiness and safe checklist
+title: Submission status and safe checklist
 layout: default
 nav_order: 2
 ---
 
-# Submission guide — H50 is the file to submit
+# Submission status — local promotion is not portal acceptance
 
-> **One file in this repository is approved for submission: H50.**
-> Download [`gems47-h50-slopeanom-s2p8-20261007-allfinite.tif`](downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif) (SHA-256 `97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17`, 291,321 bytes) from the
-> [top of the landing page](index.html) and upload it. The older H47-C1, H47-QC, H49,
-> H48, H47-B, H47-GSA and H47-MAXCOV files are research-only and are **not** to be
-> uploaded.
+> **No competition upload or slot use is authorized or performed in this review.** H60 passed the repository's preregistered scientific promotion gate, but organizer acceptance has not been tested. The H47-C1 gate remains closed: C1 is still research-only and not promoted. See the [current status and exact-byte audit](current-status.html).
 
-## Current artifact and local format status
+## H60: two encodings, different purposes
 
-The H50 file is [`gems47-h50-slopeanom-s2p8-20261007-allfinite.tif`](downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif), SHA-256 `97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17`, 291,321 bytes,
-37,654 dots at 2.8 px / 280 m. It has **one float32 band** on the EPSG:32611,
-100 m grid with matching dimensions, bounds and affine transform. Every value is
-finite and inside [0,1]; the values are 0.0 and 1.0 only. There is **no NoData
-tag** and every cell outside the competition footprint is 0.0, so a
-NaN-intolerant range reading `np.all((v >= 0) & (v <= 1))` returns True on all
-12,279,160 cells. That convention is the direct answer to the reported portal
-rejection `"Predicted values must be in range [0, 1]"` and matches the
-owner-reported family-best raster byte convention.
+The public [official format instructions](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) require a single-band float32 GeoTIFF on the specified EPSG:32611 / 100 m grid, valid values in [0,1], and null or NaN outside the data bounds. The H60 bytes were reopened locally on 7 October 2026; the complete hashes and observations are in [`data/h60-encoding-audit.json`](data/h60-encoding-audit.json).
 
-The published [official format instructions](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-specify null or NaN outside the data bounds. This file writes zeros there instead, which does not
-satisfy that wording literally; it is published because the owner-reported family-best artifact
-used exactly this convention and was scored. A NaN-outside fallback is published alongside it as
-[`gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif`](downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif) if the portal ever rejects the zeros
-convention. The bytes and parser receipt for the earlier rejection are unavailable, so its cause
-remains unknown and no portal-acceptance claim is made for either variant.
+| Use | File | Exact local result | Status |
+|---|---|---|---|
+| Format-convention review | [`gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif`](downloads/gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif) | SHA-256 `d75ab9e282422d9592bc835c5cf719b22e6c564730de1f5fc42b57fc5bac2c01`; 351,392 bytes; 1 float32 band; 3292 × 3730; EPSG:32611; 100 m; NaN NoData; 5,167,373 finite valid-mask cells; 7,111,787 NaNs outside; valid values 0/1; 37,654 positive cells. | Matches the published null/NaN-outside convention on local read-back. **Organizer acceptance unknown; inspection only in this review.** |
+| Range-check diagnostic | [`gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif`](downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif) | SHA-256 `4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c`; 298,994 bytes; every cell finite and in [0,1]; no NoData tag; zeros outside. | The 17 local builder checks pass, but this file does **not** satisfy the published null/NaN-outside wording. Diagnostic only; do not present it as the format-conforming upload file. |
 
-## Operating point and its guarantee
+The existing ZIP contains the all-finite diagnostic plus a note and receipt; it does **not** contain the NaN-outside variant. It is an audit bundle, not an upload bundle. The cause of the previously reported `Predicted values must be in range [0, 1]` rejection remains unknown because the rejected bytes and parser receipt are unavailable. Neither encoding has been tested by the competition portal.
 
-| Item | Value |
-| --- | --- |
-| Spacing | 2.8 px / 280 m |
-| Budget | 37,654 unit dots |
-| Selection | mean DTI on 20 spatially blocked blocks (selection half) |
-| Certification | disjoint 21 blocks (calibration half), max-residual one-sided split conformal, Lei et al. JASA 2018 Algorithm 2 |
-| Residual rank | 20 of 22 |
-| Finite-sample coverage | at least 90.91 % **conditional on block-score exchangeability** |
-| Certified holdout floor | 0.0957 DTI |
-| Note for the DrivenData form | `h50 slope-anomaly d2p8 conformal90` |
+## Local scientific result — proxy evidence only
 
-Blocked-holdout pooled DTI 0.165881 against 0.049421 for the owner-reported d2.8 reference,
-0.048252 for the previous holdout best (H47-C1) and 0.047049 for mass-matched fixed-seed spaced random. The
-validation instrument is the off-catalogue 1 m lidar scarp-peak population, a proxy that shares
-the slope quantity with the field's input band; these are proxy numbers, not private-score
-estimates.
+H60 was selected at 2.0 px / 200 m. Its preregistered 41-block screen reports pooled DTI 0.287891 on the primary owner-derived lidar-peak instrument and 0.193813 on the independent SGMC off-catalogue instrument. The primary instrument shares its owner-derived lidar stack with H60's input and is therefore circular; the SGMC result is independent corroboration. These are local public-proxy results, not hidden-label, leaderboard, or private-score results.
 
-## The H50a template-format checkpoint is research only
+The one-sided split-conformal lower bound is 0.0989005 at rank 20/22 (90.91% marginal coverage), conditional on block-score exchangeability. That assumption is unverified and the bound is not a private-score guarantee. Bounded uniqueness compared 35 prior rasters, with zero exact matches and maximum mask Jaccard 0.021707; this is not proof of global uniqueness. See the [H60 evidence page](h60.html) and [machine-readable scientific receipt](data/h60-artifact.json).
 
-A sibling session exported `gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif` (SHA-256 `6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5`). Its nominal 90 % public-proxy floor is 0.0000 and its blocks were previously inspected, so its gate is closed. It has one float32 band, finite in-footprint values in [0,1], and raw NaN / NaN NoData exactly outside the mirrored sample-template mask; the strict local template-mask check passes. **Do not upload it** — the H50 slope-anomaly raster above is the submittable file. Full checks and receipts: [h50a.html](h50a.html).
+H50 is an earlier locally promoted scientific candidate, superseded by H60 and not portal-accepted. Its all-finite zero-outside primary encoding also does not literally match the published outside-null/NaN instruction. H47-C1 remains not promoted: pooled proxy DTI 0.177872 vs. 0.180216 for its baseline, 11/22 truth-bearing blocks improved where 15 were required, and the assumption-conditional lower-bound estimate is zero.
 
-## Why the earlier files are not submittable
+## Published rules and account-specific limits
 
-* **H50a** nominal 90 % public-proxy floor 0.0000 with previously inspected blocks; format checks pass, promotion gate closed.
-* **H47-C1** pooled public-catalogue DTI 0.177872 versus the locked baseline's 0.180216; it wins
-  11/22 truth-bearing test blocks where 15 were required; its assumption-conditional
-  lower-bound estimate is 0.0000.
-* **H47-QC** selected 6 px / 600 m with locked pooled DTI 0.0131689425, below its own
-  geochemistry-only ablation at 0.0141948068.
-* **H49** is all-finite with no NoData tag, so it fails the published null-or-NaN-outside rule;
-  its nominal 90 % proxy lower bound assumes unverified exchangeability and its selection rule was
-  amended post hoc.
-* The 0.2778 figure attached to `h33-2-b2` is owner-reported and the owner's own page marks that
-  submission unscored; it is a comparator, never an authenticated incumbent.
+The [DOE/NLR official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf) states up to **three scoring/feedback submissions per week** and one final selected file for the competition's rounds. This is the rules-level allowance; it does not reveal this entrant's eligibility, submissions already made, remaining weekly feedback opportunities, or portal selection state. Those account-specific facts require the authenticated portal. Do not infer upload events or remaining opportunities from score observations.
 
-## Upload checklist
+The saved official public leaderboard observation checked 7 October 2026 has rank 1 at 0.3774; 0.3195 was rank 7, not the leader. It is a dated participant-level observation, not a live score or a TIFF/hash receipt. The reported H33-2-B2 / 0.2778 mapping remains unverified. See the [official leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) and [dated evidence](leaderboard.html).
 
-1. Confirm you are logged in to the [official competition 306 portal](https://www.drivendata.org/competitions/306/competition-doe-gems/).
-2. Download [`gems47-h50-slopeanom-s2p8-20261007-allfinite.tif`](downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif) from the top of [index.html](index.html), or the
-   [`gems47-h50-slopeanom-s2p8-20261007.zip`](downloads/gems47-h50-slopeanom-s2p8-20261007.zip) which also contains the note and the receipt.
-3. Verify the SHA-256 is `97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17` before uploading.
-4. Paste `h50 slope-anomaly d2p8 conformal90` into the optional Note field.
-5. Retain the organiser's exact receipt, timestamp, filename and score.
-6. Generative-AI assistance (Arena.ai coding agent) is disclosed in the repository README and in
-   the official narrative.
+## If a future portal attempt is separately authorized
 
-No portal access, account action, upload, or slot use was performed for this review.
+1. Confirm current eligibility, operative deadline, the account's weekly feedback state, and its final-selection state in the authenticated portal. No credentials or account access are available to this repository.
+2. Reopen and verify the exact intended TIFF against its SHA-256 and the official format page. The NaN-outside variant is the only H60 encoding here that matches the published outside-null/NaN wording locally; local checks do not guarantee portal acceptance.
+3. Use the single TIFF unless the authenticated form explicitly requests an archive. Do not use the existing all-finite ZIP as an upload package.
+4. Use the unique name `GEMSDOE47-H60-lidarscarp-s2p0-20261007` and optional Note `h60 lidar-scarp d2p0 conformal90`; do not state a proxy DTI as an organizer score.
+5. Preserve the organizer's exact receipt, timestamp, filename, returned score, and the precise submitted bytes. Disclose generative-AI assistance as required by the rules.
+
+**This checklist does not authorize an upload.** No portal login, upload, final selection, or competition slot use was performed for this review.

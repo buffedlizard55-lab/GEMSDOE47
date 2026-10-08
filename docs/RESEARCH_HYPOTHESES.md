@@ -1,6 +1,6 @@
 # Ranked geological hypothesis queue — evidence, novelty, data and cost
 
-> **Status: research queue only. No hypothesis here is authorized for a competition submission slot.** The H49-B addendum and sweep evidence first appear in the same Git commit, so prospective timing cannot be independently audited. The H49-B label below means a documented hypothesis, not a verified preregistration. A public-proxy mean is not an organizer score.
+> **Historical H49 research queue only. No hypothesis in this file is authorized for a competition slot.** H60 later passed a separate local scientific promotion gate; organizer acceptance is untested and no upload or slot use is authorized or performed in this review. H47-C1 remains not promoted with its gate closed. The H49-B addendum and sweep evidence first appear in the same Git commit, so prospective timing cannot be independently audited. The H49-B label below means a documented hypothesis, not a verified preregistration. A public-proxy mean is not an organizer score. See [current status](current-status.html) and [H60 evidence](h60.html).
 
 ## Scope and ranking rule
 

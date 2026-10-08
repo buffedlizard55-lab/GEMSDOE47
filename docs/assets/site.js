@@ -32,7 +32,7 @@ async function refreshFeed() {
     if (!response.ok) throw Error(`HTTP ${response.status}`);
     let feed = await response.json();
     try {
-      const runsResponse = await fetch('https://api.github.com/repos/buffedlizard55-lab/GEMSDOE47/actions/workflows/site.yml/runs?branch=arena%2F50b2a166-gemsdoe47&status=success&per_page=1', {cache:'no-store', headers:{Accept:'application/vnd.github+json'}});
+      const runsResponse = await fetch('https://api.github.com/repos/buffedlizard55-lab/GEMSDOE47/actions/workflows/site.yml/runs?branch=arena%2F7bb1aa70-gemsdoe47&status=success&per_page=1', {cache:'no-store', headers:{Accept:'application/vnd.github+json'}});
       if (!runsResponse.ok) throw Error('public feed run unavailable');
       const feedSha = (await runsResponse.json()).workflow_runs?.[0]?.head_sha;
       if (!feedSha || !/^[0-9a-f]{40}$/.test(feedSha)) throw Error('no completed feed publication');
@@ -63,7 +63,7 @@ async function refreshFeed() {
       return [name,state,proof];
     })));
   } catch (error) {
-    text(byId('feed-status'), 'Automatic feed unavailable in this viewer. The dated 6 October 2026 observation is retained; no fresh score is inferred. Open the deployed Pages site or its JSON receipt.');
+    text(byId('feed-status'), 'Automatic feed unavailable in this viewer. The dated 7 October 2026 observation is retained; no fresh score is inferred. Open the deployed Pages site or its JSON receipt.');
     text(byId('feed-timestamp'), `Feed request failed: ${error.message}.`);
   }
 }
