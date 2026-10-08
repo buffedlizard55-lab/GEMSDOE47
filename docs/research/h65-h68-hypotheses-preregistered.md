@@ -58,10 +58,10 @@ currently viable because raw official 1 m windows/tile-list coverage are not pre
    coverage for one future proxy block, not a private-score floor.
 7. Promotion gate (all required):
    * selected spacing is **strictly below 2.0 px**;
-   * pooled selection-half primary DTI is **strictly greater than H60's frozen 0.2878906732538241**;
-   * selection-half mean block DTI is **strictly greater than H60's frozen 0.2844223590618498**;
+   * pooled selection-half primary DTI is **strictly greater than H60's frozen 0.2878910923835811**;
+   * selection-half mean block DTI is **strictly greater than H60's frozen 0.2843788083499138**;
    * simultaneous conformal lower bound is **strictly positive**;
-   * pooled SGMC DTI is at least H60's frozen **0.1938127159974765** (non-inferiority);
+   * pooled SGMC DTI is at least H60's frozen **0.19381303648178833** (non-inferiority);
    * exact whole-map artifact has no exact match in the accessible inventory, maximum positive-support Jaccard < 0.5,
      and passes every format/read-back check.
 8. If conditions 1–5 fail, do not build or promote H65. If they pass, build exactly one all-finite [0,1] artifact
