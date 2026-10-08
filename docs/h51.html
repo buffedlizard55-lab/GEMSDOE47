@@ -4,14 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>H51 Evidence — GEMSDOE47</title>
-<meta name="description" content="H51 multi-scale slope-anomaly persistence raster: format checks, conformal certificate, and the near-duplicate-overlap measurement against the H50 emission.">
+<meta name="description" content="Historical H51 multi-scale slope-anomaly sibling: near-duplicate of H50, not current or portal-accepted; local format and overlap limitations.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <header>
   <h1>H51 Multi-Scale Slope-Anomaly Persistence</h1>
-  <p class="tagline">Evidence and validation for the primary submission candidate</p>
+  <p class="tagline">Historical sibling experiment · near-duplicate of H50 · not a current candidate</p>
 </header>
+<section class="notice"><strong>H51 · HISTORICAL · DO NOT UPLOAD</strong><p>H51 is a near-duplicate of H50 (max-mask Jaccard 0.8543; 34,696 of 37,654 dots overlap). Its local promotion is not established; its all-finite TIFF writes zeros outside and does not match the published null/NaN-outside wording. H60 is the current locally promoted scientific candidate, but organizer acceptance is untested and no upload or slot use is authorized/performed in this review. See <a href="current-status.html">current status</a> and the <a href="all-downloads.html">artifact register</a>.</p></section>
 <nav>
   <a href="index.html">Home</a>
   <a href="executive-summary.html">Executive Summary</a>
@@ -29,7 +30,7 @@
   <h2>⬇️ Download</h2>
   <div class="download-box">
     <a href="downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif" class="btn-primary" download>
-      Download H51 GeoTIFF — OK to Submit
+      Download historical H51 all-finite diagnostic — DO NOT UPLOAD
     </a>
     <p class="download-alt">
       <a href="downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif">NaN-outside variant</a> ·
@@ -82,8 +83,8 @@
     <tr><td>H47-C1 (previous best)</td><td>0.048252</td><td>0.041460</td></tr>
     <tr><td>Mass-matched spaced random</td><td>0.047049</td><td>0.037786</td></tr>
   </table>
-  <p>Validation instrument: off-catalogue local maxima of the organiser-supplied 1 m lidar scarp stack.
-  61 contiguous blocks with a 3 px guard. <strong>No submission slot was spent</strong> to obtain this result.</p>
+  <p>Validation instrument: off-catalogue local maxima of the owner-derived 1 m lidar scarp stack.
+  41 contiguous blocks (20 selection + 21 calibration) with a 3 px guard; the earlier 61-block count was erroneous. <strong>No submission slot was spent</strong> to obtain this result.</p>
 </section>
 
 <section>
@@ -99,8 +100,8 @@
     <tr><td>No nodata tag</td><td>✅</td></tr>
     <tr><td>No NaN</td><td>✅</td></tr>
     <tr><td>No Inf</td><td>✅</td></tr>
-    <tr><td>All in [0, 1]</td><td>✅</td></tr>
-    <tr><td>Zero outside footprint</td><td>✅</td></tr>
+    <tr><td>All in [0, 1] (range diagnostic)</td><td>✅</td></tr>
+    <tr><td>Zero outside footprint in all-finite variant (fails published outside-null/NaN wording)</td><td>✅</td></tr>
     <tr><td>37,654 dots</td><td>✅</td></tr>
     <tr><td>Dots on footprint</td><td>✅</td></tr>
     <tr><td>Dots off catalogue</td><td>✅</td></tr>
@@ -134,7 +135,7 @@
 slope-anomaly raster's dots (mask Jaccard 0.8543, exactly the maximum recorded in this
 artifact's own receipt). The multi-scale product re-ranks the same slope-anomaly evidence, so
 the emitted dots largely coincide with H50's. It is retained for audit and is not recommended
-while H50 exists; the current primary is <a href="h60.html">H60</a> (max Jaccard 0.0217 against
+for upload; the current locally promoted scientific candidate is <a href="h60.html">H60</a> (max Jaccard 0.0217 against
 every prior raster, including this one).</p></section>
 </main>
 <footer>

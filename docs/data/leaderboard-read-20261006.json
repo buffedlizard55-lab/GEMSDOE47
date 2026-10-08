@@ -107,5 +107,7 @@
       "participant": "SDCF9",
       "score": 0.26
     }
-  ]
+  ],
+  "historical_status": "HISTORICAL_OBSERVATION_SUPERSEDED_BY_2026-10-07_PARTIAL_READ",
+  "superseded_by": "data/leaderboard-read-20261007.json"
 }

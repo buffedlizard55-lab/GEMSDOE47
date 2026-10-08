@@ -1,13 +1,57 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Session 3 historical research · GEMSDOE47</title><meta name="description" content="Historical Session 3 scarp-persistence artifact is research-only; format and score attribution limits are explicit.">
-<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
-<body data-site-version="review" data-base=""><a class="skip" href="#main">Skip to session summary</a>
-<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
-<nav aria-label="Main navigation"><a href="index.html">Home</a><a href="evidence.html">Evidence</a><a href="analysis.html">Analysis</a><a href="irregularities.html">Limitations</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
-<div class="status-bar ready"><span class="status-dot" aria-hidden="true"></span><strong>H50 · OK TO DOWNLOAD AND SUBMIT</strong><span>The H47/H48/H49 artifacts described on this page are research-only and are not the file to upload.</span></div>
-<main id="main"><section class="page-heading"><span class="eyebrow">Session 3 artifact · corrected</span><h1>Research result.<br>Not a submission.</h1><p class="lede">The prior long-form Session 3 report is archived with a withdrawal note; its upload/promotion language and score-to-TIFF implications are superseded.</p></section>
-<section class="notice"><strong>NO SESSION 3 FILE IS APPROVED FOR UPLOAD</strong><p>The H47-C1 current primary screen is separately documented on the home page and also failed its preregistered gate. This historical artifact is not an eligible fallback.</p></section>
-<section><h2>Artifact facts</h2><p><code>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</code> · SHA-256 <code>f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291</code> · 316,497 bytes · 37,612 positive unit dots. It stores finite zeros outside the supplied footprint and has no nodata tag. Under the published null/NaN-outside requirement, it fails the local outside-nodata check. Portal acceptance is untested.</p></section>
-<section><h2>Interpretation limits</h2><p>Its controls were scored on locally constructed public-catalogue blocks. They are not private leaderboard measurements and do not establish a causal gain from deleting masked pixels. The H33-2-B2/0.2778 mapping is unverified; any cross-session score comparison is conditional. Use “owner-reported d2.8 reference” for the raster, not “incumbent.”</p><p><a href="research/retired/session3-original-20261006.md">Archived historical report with correction banner</a> · <a href="RESULTS.html">Corrected results</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README</a></p></section></main>
-<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="sources.html">Sources</a> · <a href="irregularities.html">Limitations</a></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session 3 — historical research screen — GEMSDOE47</title>
+<meta name="description" content="Session 3 of GEMSDOE47: the downloadable candidate GeoTIFF, its SHA-256, the uniqueness assertion against all 18 reference artifacts, the random and shifted controls, and the split-conformal floor quoted next to the chosen spacing.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-08 02:06 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a class="on" href="session3.html">Session 3 — submission</a>
+    <a href="HOW_TO_SUBMIT.html">How to submit (s3)</a>
+    <a href="RESULTS.html">Results (s3)</a>
+    <a href="H49_RESULTS.html">H49 results</a>
+    <a href="why-02778.html">Why 0.2778</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="session-3-artifact-historical-research-only">Session 3 artifact — historical, research-only</h1>
+<blockquote>
+<p><strong>Correction and status:</strong> The long-form Session 3 report from the prior main branch described a TIFF as a submission, assumed the H33-2-B2-to-0.2778 association, used “incumbent” for owner-reported rasters, and included unsupported quota/capacity and causal language. That report is preserved with a withdrawal notice at <a href="research/retired/session3-original-20261006.md"><code>docs/research/retired/session3-original-20261006.md</code></a>. This page replaces it; no Session 3 TIFF is approved for upload.</p>
+</blockquote>
+<p>The file <code>gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif</code> is a historical research artifact, SHA-256 <code>f3f840b7880b7540ac6260b6b791ea55b2a875646c28401b01960096dc2da291</code>, 316,497 bytes. It contains 37,612 positive unit dots and finite zeros outside with no nodata tag. Under the published requirement that values outside the bounds be null or NaN, this unmasked zero-outside encoding fails the explicit local outside-nodata check. It is not portal-tested and must not be uploaded.</p>
+<p>The local Session 3 proxy experiment compared its own emitted field with random, shifted, and rank-flipped controls on blocks derived from the public catalogue. Those measurements are not private scores, do not authenticate any historical participant-to-TIFF pairing, and do not establish a causal effect from deleting masked pixels. The apparent cross-session comparison with a 0.2778-labeled H33 raster is only a conditional geometry comparison: the participant-level 0.2778 observation has no organizer-authenticated TIFF association.</p>
+<p><strong>Decision: Session 3 is historical research-only; not promoted; no slot authorized.</strong> H60 is now a separate locally promoted scientific candidate, but organizer acceptance is untested and this review authorizes no portal action. H47-C1 remains not promoted with its gate closed. See <a href="current-status.html">current status</a>, the <a href="README.md">current README</a>, the <a href="RESULTS.md">corrected historical results</a>, and the <a href="why-02778.md">attribution note</a>.</p>
+</article>
+</div>
+</body>
+</html>

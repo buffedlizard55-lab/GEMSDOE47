@@ -23,15 +23,23 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-import numpy as np  # noqa: E402
-import rasterio  # noqa: E402
-from scipy import ndimage as ndi  # noqa: E402
+import numpy as np
+import rasterio
+from scipy import ndimage as ndi
 
-from gems47 import grid as G  # noqa: E402
-from gems47 import h50  # noqa: E402
-from gems47.metric import ALPHA, BETA, max_kernel_filter  # noqa: E402
-from gems47s3.geomorph import (curvature, detrend, line_response, lrm, rank_scale,  # noqa: E402
-                               scarp_step, slope_variability, tpi)
+from gems47 import grid as G
+from gems47 import h50
+from gems47.metric import ALPHA, BETA, max_kernel_filter
+from gems47s3.geomorph import (
+    curvature,
+    detrend,
+    line_response,
+    lrm,
+    rank_scale,
+    scarp_step,
+    slope_variability,
+    tpi,
+)
 
 SPACING_PX = 2.8
 BUDGET = 37_654

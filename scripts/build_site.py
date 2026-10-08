@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Generate the GitHub Pages site from evidence/ -- no number on the site is hand-typed.
+"""RETIRED H47-C site generator; execution is disabled.
+
+The historical generator below overwrites current Markdown guidance with H47-C1-era claims. H47-C1 remains not promoted, H60 is the separate current local scientific candidate, and this review authorizes no portal action. Do not run this generator.
 
 The standing brief asks the site to "solve the problem of manually checking everything". So
 every figure, table and link on every page is read out of a committed JSON receipt under
@@ -11,6 +13,11 @@ Out:  docs/session3.md, docs/HOW_TO_SUBMIT.md, docs/RESULTS.md, docs/why-02778.m
       docs/research.md, docs/_config.yml
 """
 from __future__ import annotations
+
+if __name__ != "__main__":
+    raise RuntimeError("DISABLED: retired H47-C site generator cannot be imported or executed; use the reviewed Markdown and build_site_s3.py only.")
+print("DISABLED: historical generator would overwrite current Markdown status with H47-C1-era guidance. No files were read or written.")
+raise SystemExit(2)
 
 import json
 import time

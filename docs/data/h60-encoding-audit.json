@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "review_date_local": "2026-10-07",
+  "hypothesis_id": "H60",
+  "review_scope": "Reopened the exact committed TIFF bytes; this is a local format/encoding audit, not a competition portal test.",
+  "tooling": {
+    "rasterio": "1.4.4",
+    "python": "3.11.2"
+  },
+  "official_format_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "official_acceptance_tested": false,
+  "historical_range_error_cause_known": false,
+  "historical_range_error_note": "The previously rejected TIFF bytes and organizer parser receipt are unavailable.",
+  "shared_prediction": {
+    "positive_cells": 37654,
+    "positive_values": [
+      1.0
+    ],
+    "other_valid_values": [
+      0.0
+    ],
+    "width": 3292,
+    "height": 3730,
+    "crs": "EPSG:32611",
+    "resolution_m": 100,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "variants": {
+    "nanoutside": {
+      "file": "downloads/gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif",
+      "sha256": "d75ab9e282422d9592bc835c5cf719b22e6c564730de1f5fc42b57fc5bac2c01",
+      "bytes": 351392,
+      "bands": 1,
+      "dtype": "float32",
+      "nodata": "NaN",
+      "valid_mask_cells": 5167373,
+      "finite_cells": 5167373,
+      "nan_cells": 7111787,
+      "finite_valid_values_in_unit_interval": true,
+      "positive_cells": 37654,
+      "outside_valid_mask_cells_are_nan": true,
+      "published_null_or_nan_outside_convention_matches_local_readback": true,
+      "organizer_acceptance_established": false,
+      "status": "format_convention_candidate_for_inspection_only"
+    },
+    "allfinite": {
+      "file": "downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif",
+      "sha256": "4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c",
+      "bytes": 298994,
+      "bands": 1,
+      "dtype": "float32",
+      "nodata": null,
+      "valid_mask_cells": 12279160,
+      "finite_cells": 12279160,
+      "nan_cells": 0,
+      "all_values_in_unit_interval": true,
+      "outside_cells_are_finite_zero": true,
+      "published_null_or_nan_outside_convention_matches_local_readback": false,
+      "local_builder_readback_checks_reported": 17,
+      "organizer_acceptance_established": false,
+      "status": "range_check_diagnostic_only_not_format_conforming_outside"
+    }
+  },
+  "archive": {
+    "file": "downloads/gems47-h60-lidarscarp-s2p0-20261007.zip",
+    "members": [
+      "gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif",
+      "gems47-h60-lidarscarp-s2p0-20261007-note.txt",
+      "gems47-h60-lidarscarp-s2p0-20261007-receipt.json"
+    ],
+    "contains_nanoutside_tiff": false,
+    "status": "audit_bundle_not_an_upload_bundle"
+  },
+  "competition_gate": {
+    "h60_scientific_promotion_gate_passed_locally": true,
+    "h47_c1_gate_remains_closed": true,
+    "slot_authorized": false,
+    "upload_performed": false
+  }
+}

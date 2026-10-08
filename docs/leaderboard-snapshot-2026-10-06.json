@@ -27,5 +27,7 @@
   },
   "score_to_artifact_mapping": null,
   "caveat": "Participant-level public scores only. The leaderboard does not identify TIFF filenames, file hashes, or organizer receipt IDs. It is not the private/final prize score. Do not infer a TIFF-to-score mapping from participant identity or filename similarity.",
-  "monitoring": "No automated polling or feed is implemented. Recheck only under the current DrivenData terms and an authorized manual workflow."
+  "monitoring": "No automated polling or feed is implemented. Recheck only under the current DrivenData terms and an authorized manual workflow.",
+  "historical_status": "HISTORICAL_OBSERVATION_SUPERSEDED_BY_2026-10-07_PARTIAL_READ",
+  "superseded_by": "data/leaderboard-read-20261007.json"
 }

@@ -1,6 +1,6 @@
 # H49 round — exploratory public-proxy research (not a submission certificate)
 
-> **RESEARCH ONLY · NOT SLOT-AUTHORIZED · DO NOT UPLOAD.** The exact TIFF is preserved for auditability, but its local read-back has 12,279,160/12,279,160 finite cells, no NaNs, no NoData tag, and a valid GDAL mask on every cell. The original build receipt records a 5,167,373-cell footprint, leaving 7,111,787 outside cells finite rather than null/NaN. It fails the published outside-null/NaN requirement. See the [deployed format-audit copy](data/h49-format-contract-audit.json) and the [canonical evidence copy](../evidence/h49/format-contract-audit.json).
+> **RESEARCH ONLY · NOT SLOT-AUTHORIZED · DO NOT UPLOAD.** The exact TIFF is preserved for auditability, but its local read-back has 12,279,160/12,279,160 finite cells, no NaNs, no NoData tag, and a valid GDAL mask on every cell. The original build receipt records a 5,167,373-cell footprint, leaving 7,111,787 outside cells finite rather than null/NaN. It fails the published outside-null/NaN requirement. See the [deployed format-contract audit](data/h49-format-contract-audit.json).
 
 The prior optional portal-note draft is withdrawn. **Do not copy it into a portal.** No submission slot was authorized or used. This report preserves the research measurements but corrects the prior promotion, attribution, and format claims.
 
@@ -60,7 +60,7 @@ The archived calculations show a selection-half mean of 0.10329 for the selected
 - SHA-256: `a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b`; 316,629 bytes.
 - Local grid read-back: one float32 band, 3292 × 3730, EPSG:32611, 100 m; 37,612 positive unit dots. These properties do not cure the outside-null/NaN failure above.
 - The earlier comparison covered 16 repository rasters: maximum Jaccard 0.292575 and maximum containment 0.452701. This is a **bounded local comparison**, not proof of global uniqueness or scientific novelty.
-- The previous `all_checks_passed` builder receipt is retained as historical evidence. Its finiteness check did not establish that outside-footprint cells were null or NaN. The corrected read-back and scope are recorded in [`format-contract-audit.json`](../evidence/h49/format-contract-audit.json).
+- The previous `all_checks_passed` builder receipt is retained as historical evidence. Its finiteness check did not establish that outside-footprint cells were null or NaN. The corrected read-back and scope are recorded in the [deployed format-contract audit](data/h49-format-contract-audit.json).
 
 ### Density sweep retained from the original report
 
@@ -115,7 +115,7 @@ The reported paired differences do not establish H49-A (strike-aligned emitter) 
 ## Review links
 
 - [Published organizer format instructions](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-- [Owner-mirror and comparator provenance](../data/reference/README.md)
+- [Owner-mirror and comparator provenance](data/reference-corpus-provenance.md)
 - [Complete artifact register](all-downloads.html)
 - [Current research-only landing page](index.html)
 - [Archived original H49 report, before corrections](research/retired/H49_RESULTS-main-original-20261007.md)

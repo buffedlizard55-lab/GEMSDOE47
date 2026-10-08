@@ -4,18 +4,18 @@ layout: default
 nav_order: 6
 ---
 
-> **RESEARCH-ONLY / ATTRIBUTION LIMIT.** H33-2-B2 → participant DTI 0.2778 is unverified; H48 and other score-dependent work is hypothetical/conditional, not authenticated or conclusive. Use “owner-reported d2.8 reference”; reserve “incumbent” for a separately established spatially blocked holdout best. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting. Three λ-scaling score observations do not verify uploads/slots; no diagnostic cost is inferred or called free. See [current README](../README.md).
+> **HISTORICAL RESEARCH INDEX / CURRENT DECISION BOUNDARY.** H60 passed the repository's local scientific promotion gate; organizer acceptance is untested and no upload or slot use is authorized or performed in this review. H47-C1 remains not promoted with its gate closed. H33-2-B2 → participant DTI 0.2778 is unverified; H48 and other score-dependent work is hypothetical/conditional, not authenticated or conclusive. Use “owner-reported d2.8 reference”; do not claim a TIFF-score mapping. The [DOE/NLR official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf) states up to three scoring/feedback submissions per week and one final selected file; account-specific eligibility, used/remaining opportunities, and final-selection state require the authenticated portal. Three historical λ-scaling score observations are not upload receipts. See [current README](README.md) and [current status](current-status.html).
 
 # Research knowledge base
 
-*Generated 2026-10-06 20:13 UTC. The full text of each file is in `knowledge/` in the repository; this page is the index plus every official link, so a reviewer can check any claim without reading the code.*
+*The underlying knowledge files were last indexed 6 October 2026; current status and rules were reconciled 7 October 2026. The full text of each file is in `knowledge/` in the repository; this page is the index plus every official link, so a reviewer can check claims without reading the code.*
 
 | file | what it settles |
 |---|---|
 | [`00_index.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/00_index.md) | Knowledge base — index |
 | [`01_metric_algebra_and_inversion.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/01_metric_algebra_and_inversion.md) | Knowledge base 01 — the metric's algebra, and what the organiser's own scores imply |
 | [`01_the_gems_target_population.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/01_the_gems_target_population.md) | The GEMS target population — what the hidden labels actually are |
-| [`02_the_metric_algebra.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/02_the_metric_algebra.md) | The DTI metric algebra — everything that follows from four published formulas |
+| [Current metric algebra and evidence boundaries](analysis.html) | The DTI metric algebra, score-attribution limits, and current review context |
 | [`02_the_two_instruments_measure_different_populations.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/02_the_two_instruments_measure_different_populations.md) | The two candidate holdout instruments measure DIFFERENT fault populations |
 | [`03_geothermal_fault_discovery_research.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/03_geothermal_fault_discovery_research.md) | Knowledge base 03 — geothermal fault discovery: the verified literature |
 | [`03_next_steps_and_the_ceiling.md`](https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/knowledge/03_next_steps_and_the_ceiling.md) | Next steps, ranked by expected value |
