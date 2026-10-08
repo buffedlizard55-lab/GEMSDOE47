@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H65",
+  "artifact": "gems47-h65-scarpconsensus-s2p0-20261008",
+  "generated_utc": "2026-10-08T03:16:49Z",
+  "spacing_px": 2.0,
+  "budget": 37654,
+  "arm_spec": {
+    "channels": [
+      "step_max",
+      "lappos_max",
+      "lapneg_max",
+      "upface_max",
+      "downface_max",
+      "cross_max"
+    ],
+    "thresholds": {
+      "step_max": 150.0,
+      "lappos_max": 200.0,
+      "lapneg_max": 200.0,
+      "upface_max": 200.0,
+      "downface_max": 200.0,
+      "cross_max": 200.0
+    }
+  },
+  "emission_domain": "h65 emission domain (1,610,706 cells)",
+  "format": {
+    "driver": "GTiff",
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "outside_footprint": "0.0 (all finite)",
+    "values": "0.0 and 1.0 only"
+  },
+  "readback_checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "crs_epsg32611": true,
+    "width_matches": true,
+    "height_matches": true,
+    "transform_matches": true,
+    "nodata_unset": true,
+    "no_nan": true,
+    "no_inf": true,
+    "all_in_unit_interval": true,
+    "nan_intolerant_range_check": true,
+    "zero_outside_footprint": true,
+    "dot_count": true,
+    "dots_on_footprint": true,
+    "dots_off_catalogue": true,
+    "values_are_unit": true,
+    "compression": "Compression.deflate"
+  },
+  "format_pass": true,
+  "uniqueness": {
+    "compared": 39,
+    "exact_matches": 0,
+    "max_jaccard": 0.511905,
+    "max_jaccard_vs_scored_priors": 0.006739
+  },
+  "uniqueness_pass": false,
+  "screen": "evidence/h65/screen.json",
+  "preregistration": "docs/research/h65-hypotheses-preregistered.md",
+  "screen_selected_spacing_px": 2.0,
+  "conformal": {
+    "method": "max-residual one-sided split conformal, Lei et al. JASA 2018 Alg. 2; operating point = argmax certified lower bound",
+    "reference": "https://doi.org/10.1080/01621459.2017.1307116",
+    "selection_blocks": 20,
+    "calibration_blocks": 21,
+    "rank_1_based": 20,
+    "coverage_at_least": 0.9090909090909091,
+    "confidence_level_pct": 90.909,
+    "certified_floor_dti": 0.09757458630440416,
+    "assumption": "block-level exchangeability, not verified; conditional guarantee"
+  },
+  "holdout": {
+    "primary_instrument": "off-catalogue local maxima of the owner-derived 1 m lidar scarp stack (lappos t200 d3)",
+    "candidate_pooled_dti": 0.2918703890383693,
+    "h50_anchor_pooled_dti": 0.16588059959214113,
+    "h60_incumbent_pooled_dti": 0.2878910923835811,
+    "round_primary_arm": "H60 (incumbent; no arm validly displaced it this round)",
+    "round_primary_pooled_dti": 0.2878910923835811,
+    "spaced_random_pooled_dti_mass_matched": 0.04628754969233249,
+    "owner_reported_d28_reference_pooled_dti": 0.04942094659452611,
+    "h47c1_pooled_dti": 0.0482522932214748,
+    "independent_instrument": "SGMC off-catalogue faults (>300 m from the catalogue)",
+    "candidate_sgmc_pooled_dti": 0.1984027587222978,
+    "h50_anchor_sgmc_pooled_dti": 0.12208253714218324,
+    "h60_incumbent_sgmc_pooled_dti": 0.19381303648178833,
+    "round_primary_sgmc_pooled_dti": 0.19381303648178833,
+    "random_sgmc_pooled_dti": 0.06976121030339512,
+    "gate": {
+      "conditions": {
+        "beats_h50_by_10pct": true,
+        "positive_conformal_floor": true,
+        "sgmc_beats_random": true,
+        "beats_random_3x_primary": true,
+        "beats_incumbent_h60": true,
+        "passed_1_to_4": true
+      },
+      "passed": true
+    }
+  },
+  "sha256_tif": "cbae340361811abb7e7f6d0a1712d9adad087562c24479cb98439d5561225a17",
+  "submission_note_field": null,
+  "bytes": 298948,
+  "files": [
+    "gems47-h65-scarpconsensus-s2p0-20261008-allfinite.tif",
+    "gems47-h65-scarpconsensus-s2p0-20261008.zip",
+    "gems47-h65-scarpconsensus-s2p0-20261008-receipt.json",
+    "gems47-h65-scarpconsensus-s2p0-20261008-note.txt",
+    "gems47-h65-scarpconsensus-s2p0-20261008-nanoutside.tif"
+  ],
+  "provenance_limits": [
+    "The lidar scarp stack is owner-derived from USGS 3DEP 1 m DEM tiles (706/716, tile list OCR-recovered from the competition PDF), not organiser-supplied.",
+    "The GeoDAWN Th/K grid is a contractor u8-rank product of the USGS GeoDAWN release (DOI 10.5066/P93LGLVQ), not physical units; not organiser-supplied.",
+    "No organiser receipt links any participant score to a TIFF; the 0.2778 figure is owner-reported and the owner page marks that submission unscored.",
+    "The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.",
+    "The primary instrument is derived from the same lidar stack the field reads, so primary-instrument numbers are optimistic; the SGMC off-catalogue gain is the independent corroboration."
+  ],
+  "kind": "research_artifact_not_ok_to_submit_uniqueness_bar",
+  "promoted_to_primary": false,
+  "supersedes": null,
+  "not_ok_to_submit_reason": "frozen condition 6 (bounded uniqueness): mask Jaccard 0.5119 >= 0.5 against a prior raster reachable from this checkout (the H60 incumbent artifact it would supersede); unique against every scored prior submission",
+  "download_url": "downloads/gems47-h65-scarpconsensus-s2p0-20261008-allfinite.tif",
+  "zip_url": "downloads/gems47-h65-scarpconsensus-s2p0-20261008.zip",
+  "note_url": "downloads/gems47-h65-scarpconsensus-s2p0-20261008-note.txt",
+  "fallback_url": "downloads/gems47-h65-scarpconsensus-s2p0-20261008-nanoutside.tif",
+  "deployed_evidence_sha256": {
+    "h65-screen.json": "ab7eb4c8ff8347b1d53bd9ca42a55fa22fef44f1444e450e0a64a1c6c8633560",
+    "h65-spacing-history.csv": "a995ec6ec770ad40d3fc106fd80409062b7a91af3d7e216aea68784b445a0114",
+    "h33-reference-analysis.json": "beeec4b48482848d248975795995cb99ad7f9e2c3ba15ba27fc25e821fd411c9"
+  }
+}

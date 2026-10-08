@@ -1,0 +1,11 @@
+h68 lidar 8-channel d2p8 conformal90
+
+New hypothesis, not a copy of any prior submission.  Field (h68): the per-cell maximum of the ranks of eight lidar scarp channels (H60's six plus slope-excess and local relief), road/claim masked.  Emission: unit dots at 2.8 px (280 m) over the arm's emission domain (1,610,706 cells), 37,654 dots.  Values are 0/1 only, float32, single band, EPSG:32611, 100 m, official grid/transform, all finite, zeros outside the footprint.
+
+Operating point: 2.8 px (280 m), selected by SPLIT CONFORMAL PREDICTION (Lei, G'Sell, Rinaldo, Tibshirani, Wasserman, JASA 2018, Algorithm 2) as the spacing with the greatest CERTIFIED lower bound on the frozen 41-block holdout: max-residual rank 20 of 22 (k = ceil((n+1) x 0.90), n = 21 calibration blocks), finite-sample coverage at least 90.91% (confidence level 90.91%), certified holdout floor 0.0993 DTI.  The selection half (20 blocks) centered the band; the disjoint calibration half certified it.  The guarantee is assumption-conditional on block-level exchangeability and covers one future exchangeable block's proxy DTI -- never the private leaderboard.
+
+Validation: pooled selection-half DTI 0.2783 on the primary off-catalogue lidar-scarp-peak instrument against 0.1659 for the H50 anchor, 0.2879 for the H60 incumbent, 0.0470 mass-matched spaced random, 0.0494 the owner-reported d2.8 reference and 0.0483 H47-C1; AND 0.2145 on the independent SGMC off-catalogue fault population against 0.0716 random, 0.1221 for H50 and 0.1938 for the H60 incumbent.
+
+This arm passed the four control conditions and is the frozen winner by the SGMC tie-break, but it does NOT beat the previous incumbent H60 (0.2879) on the primary instrument (0.2783); H60 remains the recommendation and no submission slot should be spent on this artefact while H60 stands.
+
+The primary instrument is derived from the same lidar stack the field reads, so its numbers are optimistic for this field; the SGMC gain is the independent evidence.  No private label, pooled-map or leaderboard guarantee is claimed.

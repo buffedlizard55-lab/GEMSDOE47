@@ -24,6 +24,10 @@ H50_TIF = "downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif"
 H50_SHA256 = "97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17"
 H60_TIF = "downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif"
 H60_SHA256 = "4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c"
+H68_TIF = "downloads/gems47-h68-lidar-8ch-s2p8-20261008-allfinite.tif"
+H68_SHA256 = "a0e82ce0e2f8cfa11b9759d47ec36ec259923d8137b0057a557e4701d245c50c"
+H65_TIF = "downloads/gems47-h65-scarpconsensus-s2p0-20261008-allfinite.tif"
+H65_SHA256 = "cbae340361811abb7e7f6d0a1712d9adad087562c24479cb98439d5561225a17"
 H50A_TIF = "downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif"
 H50A_SHA256 = "6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5"
 
@@ -96,6 +100,22 @@ class SiteTests(unittest.TestCase):
             self.assertIn("h60 lidar-scarp d2p0 conformal90", text)
             self.assertIn("split-conformal", text)
             self.assertIn("conditional on block exchangeability", text)
+            # the new unique H68 candidate (session 6) is offered one click down,
+            # honestly labelled as NOT the recommendation while H60 stands
+            self.assertIn(H68_TIF.split("/")[-1], text)
+            self.assertIn("h68 lidar 8-channel d2p8 conformal90", text)
+            self.assertIn("OK to download: YES", text)
+            self.assertIn("NOT THE RECOMMENDATION WHILE H60 STANDS", text)
+            self.assertIn("confidence level 90.91", text)
+            self.assertIn("0.2783", text)   # H68 primary holdout DTI
+            self.assertIn("0.2145", text)   # H68 independent SGMC holdout DTI
+            # the H65 consensus research artifact: the round's best science, blocked
+            # by the frozen uniqueness bar, clearly NOT OK to submit
+            self.assertIn(H65_TIF.split("/")[-1], text)
+            self.assertIn("NOT OK TO SUBMIT while the uniqueness bar stands", text)
+            self.assertIn("0.5119", text)   # mask Jaccard vs the H60 incumbent
+            self.assertIn("0.2919", text)   # H65 primary holdout DTI (beat H60)
+            self.assertIn("0.1984", text)   # H65 independent SGMC holdout DTI
             # the older research artifacts must still be labelled as not submittable
             self.assertIn("RESEARCH-ONLY", text)
             self.assertIn("DO NOT UPLOAD", text)
@@ -103,10 +123,14 @@ class SiteTests(unittest.TestCase):
             self.assertIn("H47-QC geothermometer screen", text)
         home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         self.assertIn(H60_SHA256, home)
+        self.assertIn(H68_SHA256, home)
+        self.assertIn(H65_SHA256, home)
         # the H50 fallback bytes remain pinned on the register and H50 evidence pages
         register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
         self.assertIn(H50_SHA256, register)
         self.assertIn(H60_SHA256, register)
+        self.assertIn(H68_SHA256, register)
+        self.assertIn(H65_SHA256, register)
         self.assertNotIn(H49_TIF, home, "H49 must not be offered as a download")
 
     def test_homepage_offers_h50_plus_labelled_research_downloads(self):
@@ -114,8 +138,9 @@ class SiteTests(unittest.TestCase):
         parser = _PageParser()
         parser.feed(text)
         offered = {urlparse(link).path.lstrip("./") for link in parser.tiff_links}
-        self.assertEqual(offered, {H60_TIF, H50_TIF, H47QC_TIF})
+        self.assertEqual(offered, {H60_TIF, H50_TIF, H68_TIF, H65_TIF, H47QC_TIF})
         for path, sha in ((H60_TIF, H60_SHA256), (H50_TIF, H50_SHA256),
+                          (H68_TIF, H68_SHA256), (H65_TIF, H65_SHA256),
                           (H47QC_TIF, H47QC_SHA256)):
             target = ROOT / "docs" / path
             self.assertTrue(target.is_file(), f"offered TIFF does not exist: {target}")
@@ -184,6 +209,111 @@ class SiteTests(unittest.TestCase):
     def test_h50_artifact_receipt_note_field(self):
         receipt = json.loads((ROOT / "docs" / "data" / "h50-artifact.json").read_text())
         self.assertIn("h50 slope-anomaly d2p8 conformal90", receipt["submission_note_field"])
+
+    def test_h68_artifact_receipt_is_published_and_matches_the_bytes(self):
+        """The session-6 unique candidate: gate-passing, honestly not the recommendation."""
+        receipt_path = ROOT / "docs" / "data" / "h68-artifact.json"
+        self.assertTrue(receipt_path.is_file())
+        receipt = json.loads(receipt_path.read_text())
+        target = ROOT / "docs" / receipt["download_url"]
+        self.assertTrue(target.is_file(), f"published TIFF missing: {target}")
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), receipt["sha256_tif"])
+        self.assertEqual(receipt["sha256_tif"], H68_SHA256)
+        # it is NOT promoted: H60 stays the primary
+        self.assertFalse(receipt["promoted_to_primary"])
+        self.assertEqual(receipt["kind"],
+                         "validated_candidate_not_recommended_while_primary_stands")
+        self.assertTrue(receipt["readback_checks"]["all_in_unit_interval"])
+        self.assertTrue(receipt["readback_checks"]["nan_intolerant_range_check"])
+        self.assertIsNone(receipt["format"]["nodata"])
+        self.assertEqual(receipt["budget"], 37654)
+        self.assertEqual(receipt["screen_selected_spacing_px"], 2.8)
+        # the conformal guarantee is reported next to the chosen spacing
+        self.assertEqual(receipt["conformal"]["rank_1_based"], 20)
+        self.assertEqual(receipt["conformal"]["calibration_blocks"], 21)
+        self.assertAlmostEqual(receipt["conformal"]["coverage_at_least"],
+                               20 / 22, places=9)
+        self.assertAlmostEqual(receipt["conformal"]["certified_floor_dti"],
+                               0.0993, places=4)
+        self.assertEqual(receipt["conformal"]["confidence_level_pct"], 90.909)
+        # holdout numbers match the frozen screen receipt
+        screen = json.loads((ROOT / "evidence" / "h65" / "screen.json").read_text())
+        self.assertEqual(receipt["holdout"]["candidate_pooled_dti"],
+                         screen["arms"]["h68"]["pooled_primary_selection"])
+        self.assertEqual(receipt["holdout"]["candidate_sgmc_pooled_dti"],
+                         screen["arms"]["h68"]["pooled_sgmc_selection"])
+        # it beat the controls but not the H60 incumbent on the primary instrument
+        self.assertGreater(receipt["holdout"]["candidate_pooled_dti"],
+                           receipt["holdout"]["h50_anchor_pooled_dti"])
+        self.assertGreater(receipt["holdout"]["candidate_sgmc_pooled_dti"],
+                           receipt["holdout"]["h60_incumbent_sgmc_pooled_dti"])
+        self.assertLess(receipt["holdout"]["candidate_pooled_dti"],
+                        receipt["holdout"]["h60_incumbent_pooled_dti"])
+        self.assertGreaterEqual(receipt["conformal"]["coverage_at_least"], 0.90)
+        self.assertTrue(receipt["uniqueness_pass"])
+        self.assertEqual(receipt["uniqueness"]["exact_matches"], 0)
+        self.assertLess(receipt["uniqueness"]["max_jaccard"], 0.5)
+        self.assertIn("h68 lidar 8-channel d2p8 conformal90",
+                      receipt["submission_note_field"])
+        self.assertEqual(receipt["hypothesis_id"], "H68")
+        # the landing page offers exactly this artifact, honestly labelled
+        home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        self.assertIn(H68_SHA256, home)
+        self.assertIn("h68 lidar 8-channel d2p8 conformal90", home)
+        self.assertIn("OK to download: YES", home)
+        self.assertIn("NOT THE RECOMMENDATION WHILE H60 STANDS", home)
+        h65_page = (ROOT / "docs" / "h65.html").read_text(encoding="utf-8")
+        self.assertIn(H68_SHA256, h65_page)
+        self.assertIn("preregistered", h65_page.lower())
+        self.assertIn("IR-2026-10-08-B", h65_page)   # tie-break tension published
+        self.assertIn("IR-2026-10-08-E", h65_page)   # uniqueness-bar block published
+        register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
+        self.assertIn("<!--h68:row-->", register)
+        self.assertIn("VALIDATED CANDIDATE", register)
+
+    def test_h65_research_artifact_is_published_and_labelled_not_ok_to_submit(self):
+        """The round's best science (beat H60 on both instruments) is blocked by the
+        frozen uniqueness bar — published with the failure disclosed, not hidden."""
+        receipt_path = ROOT / "docs" / "data" / "h65-artifact.json"
+        self.assertTrue(receipt_path.is_file())
+        receipt = json.loads(receipt_path.read_text())
+        target = ROOT / "docs" / receipt["download_url"]
+        self.assertTrue(target.is_file(), f"published TIFF missing: {target}")
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), receipt["sha256_tif"])
+        self.assertEqual(receipt["sha256_tif"], H65_SHA256)
+        self.assertEqual(receipt["hypothesis_id"], "H65")
+        self.assertEqual(receipt["kind"], "research_artifact_not_ok_to_submit_uniqueness_bar")
+        self.assertFalse(receipt["promoted_to_primary"])
+        self.assertIsNone(receipt["submission_note_field"])   # no portal note offered
+        self.assertTrue(receipt["readback_checks"]["all_in_unit_interval"])
+        self.assertIsNone(receipt["format"]["nodata"])
+        self.assertEqual(receipt["budget"], 37654)
+        self.assertEqual(receipt["screen_selected_spacing_px"], 2.0)
+        self.assertFalse(receipt["uniqueness_pass"])
+        self.assertEqual(receipt["uniqueness"]["exact_matches"], 0)
+        self.assertGreaterEqual(receipt["uniqueness"]["max_jaccard"], 0.5)
+        self.assertAlmostEqual(receipt["uniqueness"]["max_jaccard"], 0.5119, places=4)
+        self.assertEqual(receipt["conformal"]["rank_1_based"], 20)
+        self.assertEqual(receipt["conformal"]["confidence_level_pct"], 90.909)
+        # it beat the H60 incumbent on both instruments (the headline result)
+        self.assertGreater(receipt["holdout"]["candidate_pooled_dti"],
+                           receipt["holdout"]["h60_incumbent_pooled_dti"])
+        self.assertGreater(receipt["holdout"]["candidate_sgmc_pooled_dti"],
+                           receipt["holdout"]["h60_incumbent_sgmc_pooled_dti"])
+        # the landing page labels it NOT OK TO SUBMIT with the numbers
+        home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        self.assertIn(H65_SHA256, home)
+        self.assertIn("NOT OK TO SUBMIT while the uniqueness bar stands", home)
+        self.assertIn("0.5119", home)
+        self.assertIn("0.2919", home)
+        summary = (ROOT / "docs" / "executive-summary.html").read_text(encoding="utf-8")
+        self.assertIn("not OK to submit", summary)
+        register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
+        self.assertIn("<!--h65:row-->", register)
+        self.assertIn("RESEARCH ONLY", register)
+        irr = (ROOT / "docs" / "irregularities.html").read_text(encoding="utf-8")
+        self.assertIn("IR-2026-10-08-D", irr)   # the consensus-rank erratum
+        self.assertIn("IR-2026-10-08-E", irr)   # the uniqueness-bar block
 
     def test_h50_evidence_page_links_only_inside_the_pages_artifact(self):
         page = (ROOT / "docs" / "h50.html").read_text(encoding="utf-8")

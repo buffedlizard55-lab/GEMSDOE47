@@ -1,0 +1,625 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-08T02:26:10Z",
+  "question": "why did the GEMSDOE32 h33-2-b2 submission report the family-high 0.2778 \u2014 geometry, lineage and proxy DTI of the owner-reported d2.8 reference raster",
+  "attribution_caveat": "The public leaderboard is participant-level. No organiser receipt maps the 0.2778 row to this TIFF and the owner page marks the raster unscored; 0.2778 is owner-reported. Nothing here authenticates a score-to-file mapping.",
+  "raster": "reference/h33-2-b2-zeros.tif (hash-pinned owner mirror from buffedlizard55-lab/GEMSDOE32; not organiser-authenticated bytes)",
+  "geometry": {
+    "n_dots": 37654,
+    "min": 2.8284271247461903,
+    "mean": 3.7350977393055036,
+    "median": 3.0,
+    "quantiles": {
+      "p1": 2.8284,
+      "p5": 2.8284,
+      "p25": 2.8284,
+      "p50": 3.0,
+      "p75": 3.6056,
+      "p95": 7.2111,
+      "p99": 13.3417
+    },
+    "hist_1px": {
+      "0": 2,
+      "11415": 2,
+      "15857": 3,
+      "2654": 3,
+      "2929": 4,
+      "2627": 5,
+      "1297": 7,
+      "875": 10
+    },
+    "unique_values": [
+      0.0,
+      1.0
+    ],
+    "dots_total": 37654,
+    "dots_on_evaluated": 37654,
+    "dots_on_catalogue": 0,
+    "dots_outside_footprint": 0,
+    "dots_in_noise_masks": 22447,
+    "dist_to_catalogue_hist_px": {
+      "0-1": 0,
+      "1-2": 0,
+      "2-3": 1611,
+      "3-5": 3237,
+      "5-10": 6292,
+      "10-30": 12981,
+      "30+": 13533
+    },
+    "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9"
+  },
+  "proxy_dti_whole_evaluated_map": {
+    "lappos_t200_d3": {
+      "dti": 0.05546,
+      "tp": 1047.807,
+      "fp": 36453.311,
+      "fn": 13193.193,
+      "n_truth": 14241
+    },
+    "lapneg_t200_d3": {
+      "dti": 0.064712,
+      "tp": 1377.167,
+      "fp": 36042.019,
+      "fn": 15869.833,
+      "n_truth": 17247
+    },
+    "step_t150_d3": {
+      "dti": 0.074499,
+      "tp": 1661.118,
+      "fp": 35700.305,
+      "fn": 16869.882,
+      "n_truth": 18531
+    },
+    "cross_t200_d3": {
+      "dti": 0.014797,
+      "tp": 165.67,
+      "fp": 37463.244,
+      "fn": 4422.33,
+      "n_truth": 4588
+    },
+    "upface_t200_d3": {
+      "dti": 0.005571,
+      "tp": 49.109,
+      "fp": 37597.299,
+      "fn": 1558.891,
+      "n_truth": 1608
+    },
+    "union_t200_d3": {
+      "dti": 0.068763,
+      "tp": 2460.873,
+      "fp": 35172.872,
+      "fn": 32865.127,
+      "n_truth": 35326
+    },
+    "sgmc_offcat": {
+      "dti": 0.095386,
+      "tp": 5517.637,
+      "fp": 35220.774,
+      "fn": 56604.363,
+      "n_truth": 62122
+    }
+  },
+  "pruning_mechanism": {
+    "definition": "keep only the top-f dots by realised kernel weight against the named instrument; the best possible deletion order for DTI against that proxy",
+    "curves": {
+      "lappos_t200_d3": [
+        {
+          "kept_fraction": 1.0,
+          "kept_dots": 37654,
+          "dti": 0.05546,
+          "tp": 1047.807,
+          "fp": 36453.311,
+          "fn": 13193.193
+        },
+        {
+          "kept_fraction": 0.9,
+          "kept_dots": 33889,
+          "dti": 0.057762,
+          "tp": 1047.807,
+          "fp": 32688.311,
+          "fn": 13193.193
+        },
+        {
+          "kept_fraction": 0.8,
+          "kept_dots": 30123,
+          "dti": 0.060264,
+          "tp": 1047.807,
+          "fp": 28922.311,
+          "fn": 13193.193
+        },
+        {
+          "kept_fraction": 0.7,
+          "kept_dots": 26358,
+          "dti": 0.062993,
+          "tp": 1047.807,
+          "fp": 25157.311,
+          "fn": 13193.193
+        },
+        {
+          "kept_fraction": 0.6,
+          "kept_dots": 22592,
+          "dti": 0.06598,
+          "tp": 1047.807,
+          "fp": 21391.311,
+          "fn": 13193.193
+        },
+        {
+          "kept_fraction": 0.5,
+          "kept_dots": 18827,
+          "dti": 0.069264,
+          "tp": 1047.807,
+          "fp": 17626.311,
+          "fn": 13193.193
+        },
+        {
+          "kept_fraction": 0.4,
+          "kept_dots": 15062,
+          "dti": 0.072893,
+          "tp": 1047.807,
+          "fp": 13861.311,
+          "fn": 13193.193
+        },
+        {
+          "kept_fraction": 0.3,
+          "kept_dots": 11296,
+          "dti": 0.076923,
+          "tp": 1047.807,
+          "fp": 10095.311,
+          "fn": 13193.193
+        },
+        {
+          "kept_fraction": 0.2,
+          "kept_dots": 7531,
+          "dti": 0.081425,
+          "tp": 1047.807,
+          "fp": 6330.311,
+          "fn": 13193.193
+        },
+        {
+          "kept_fraction": 0.1,
+          "kept_dots": 3765,
+          "dti": 0.086487,
+          "tp": 1047.807,
+          "fp": 2564.311,
+          "fn": 13193.193
+        }
+      ],
+      "sgmc_offcat": [
+        {
+          "kept_fraction": 1.0,
+          "kept_dots": 37654,
+          "dti": 0.095386,
+          "tp": 5517.637,
+          "fp": 35220.774,
+          "fn": 56604.363
+        },
+        {
+          "kept_fraction": 0.9,
+          "kept_dots": 33889,
+          "dti": 0.096644,
+          "tp": 5517.637,
+          "fp": 31455.774,
+          "fn": 56604.363
+        },
+        {
+          "kept_fraction": 0.8,
+          "kept_dots": 30123,
+          "dti": 0.097936,
+          "tp": 5517.637,
+          "fp": 27689.774,
+          "fn": 56604.363
+        },
+        {
+          "kept_fraction": 0.7,
+          "kept_dots": 26358,
+          "dti": 0.099263,
+          "tp": 5517.637,
+          "fp": 23924.774,
+          "fn": 56604.363
+        },
+        {
+          "kept_fraction": 0.6,
+          "kept_dots": 22592,
+          "dti": 0.100626,
+          "tp": 5517.637,
+          "fp": 20158.774,
+          "fn": 56604.363
+        },
+        {
+          "kept_fraction": 0.5,
+          "kept_dots": 18827,
+          "dti": 0.102028,
+          "tp": 5517.637,
+          "fp": 16393.774,
+          "fn": 56604.363
+        },
+        {
+          "kept_fraction": 0.4,
+          "kept_dots": 15062,
+          "dti": 0.103468,
+          "tp": 5517.637,
+          "fp": 12628.774,
+          "fn": 56604.363
+        },
+        {
+          "kept_fraction": 0.3,
+          "kept_dots": 11296,
+          "dti": 0.104951,
+          "tp": 5517.637,
+          "fp": 8862.774,
+          "fn": 56604.363
+        },
+        {
+          "kept_fraction": 0.2,
+          "kept_dots": 7531,
+          "dti": 0.106476,
+          "tp": 5517.637,
+          "fp": 5097.774,
+          "fn": 56604.363
+        },
+        {
+          "kept_fraction": 0.1,
+          "kept_dots": 3765,
+          "dti": 0.106423,
+          "tp": 5435.514,
+          "fp": 1450.329,
+          "fn": 56686.486
+        }
+      ]
+    }
+  },
+  "lineage_jaccard": {
+    "compared": 38,
+    "exact_matches": 0,
+    "max_jaccard": 0.854026,
+    "reference_is_subset_of": [
+      ".cache/gems_data/scored/gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+      ".cache/gems_data/scored/gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan.tif"
+    ],
+    "rows": [
+      {
+        "path": ".cache/gems_data/scored/gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+        "dots": 44090,
+        "intersection": 37654,
+        "union": 44090,
+        "jaccard": 0.854026,
+        "reference_is_subset_of_this": true,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
+        "dots": 18524,
+        "intersection": 18524,
+        "union": 37654,
+        "jaccard": 0.491953,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-h48-mscl-conf-r1p5-44838px-20261006T201749Z-allfinite.tif",
+        "dots": 44838,
+        "intersection": 25206,
+        "union": 57286,
+        "jaccard": 0.440003,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-h48-mscl-repack-r1p5-44838px-20261006T203209Z-allfinite.tif",
+        "dots": 44838,
+        "intersection": 25206,
+        "union": 57286,
+        "jaccard": 0.440003,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+        "dots": 60069,
+        "intersection": 25517,
+        "union": 72206,
+        "jaccard": 0.353392,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+        "dots": 61328,
+        "intersection": 25517,
+        "union": 73465,
+        "jaccard": 0.347335,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan.tif",
+        "dots": 121131,
+        "intersection": 37654,
+        "union": 121131,
+        "jaccard": 0.310854,
+        "reference_is_subset_of_this": true,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems19-h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan.tif",
+        "dots": 123779,
+        "intersection": 32760,
+        "union": 128673,
+        "jaccard": 0.254599,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems16-h16-1-topo-geophys-baseline-ridges-20260930-df20f65e-nan.tif",
+        "dots": 123939,
+        "intersection": 27266,
+        "union": 134327,
+        "jaccard": 0.202982,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif",
+        "dots": 37654,
+        "intersection": 11347,
+        "union": 63961,
+        "jaccard": 0.177405,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif",
+        "dots": 37654,
+        "intersection": 11347,
+        "union": 63961,
+        "jaccard": 0.177405,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-h48-mscl-conf-r2p5-8176px-20261006T201338Z-allfinite.tif",
+        "dots": 8176,
+        "intersection": 2149,
+        "union": 43681,
+        "jaccard": 0.049198,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif",
+        "dots": 37654,
+        "intersection": 2689,
+        "union": 72619,
+        "jaccard": 0.037029,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif",
+        "dots": 37654,
+        "intersection": 2689,
+        "union": 72619,
+        "jaccard": 0.037029,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems10-h25-ctx-ridge-20260927T232947704150Z-6452ae1d00.tif",
+        "dots": 174232,
+        "intersection": 5057,
+        "union": 206829,
+        "jaccard": 0.02445,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gemsdoe-ens12-adopted-7f00890a.tif",
+        "dots": 172974,
+        "intersection": 4814,
+        "union": 205814,
+        "jaccard": 0.02339,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/8GEMSDOE_Hedge-v2_submission.tif",
+        "dots": 227507,
+        "intersection": 4814,
+        "union": 260347,
+        "jaccard": 0.018491,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+        "dots": 69281,
+        "intersection": 1898,
+        "union": 105037,
+        "jaccard": 0.01807,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif",
+        "dots": 37654,
+        "intersection": 1075,
+        "union": 74233,
+        "jaccard": 0.014481,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif",
+        "dots": 37612,
+        "intersection": 586,
+        "union": 74680,
+        "jaccard": 0.007847,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif",
+        "dots": 37612,
+        "intersection": 586,
+        "union": 74680,
+        "jaccard": 0.007847,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+        "dots": 37612,
+        "intersection": 549,
+        "union": 74717,
+        "jaccard": 0.007348,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "submission/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+        "dots": 37612,
+        "intersection": 549,
+        "union": 74717,
+        "jaccard": 0.007348,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+        "dots": 37612,
+        "intersection": 542,
+        "union": 74724,
+        "jaccard": 0.007253,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "submission/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+        "dots": 37612,
+        "intersection": 542,
+        "union": 74724,
+        "jaccard": 0.007253,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif",
+        "dots": 28124,
+        "intersection": 416,
+        "union": 65362,
+        "jaccard": 0.006365,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+        "dots": 206895,
+        "intersection": 1513,
+        "union": 243036,
+        "jaccard": 0.006225,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif",
+        "dots": 37654,
+        "intersection": 332,
+        "union": 74976,
+        "jaccard": 0.004428,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif",
+        "dots": 37654,
+        "intersection": 332,
+        "union": 74976,
+        "jaccard": 0.004428,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-allfinite.tif",
+        "dots": 18524,
+        "intersection": 172,
+        "union": 56006,
+        "jaccard": 0.003071,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif",
+        "dots": 18524,
+        "intersection": 172,
+        "union": 56006,
+        "jaccard": 0.003071,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/superseded/gems47-h47b-tmiup150-xscale-persist-n18524-research-not-submittable-20261006.tif",
+        "dots": 18524,
+        "intersection": 169,
+        "union": 56009,
+        "jaccard": 0.003017,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gemsdoe9-PLACEHOLDER-2314b599.tif",
+        "dots": 343816,
+        "intersection": 1107,
+        "union": 380363,
+        "jaccard": 0.00291,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif",
+        "dots": 37654,
+        "intersection": 95,
+        "union": 75213,
+        "jaccard": 0.001263,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif",
+        "dots": 37654,
+        "intersection": 95,
+        "union": 75213,
+        "jaccard": 0.001263,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif",
+        "dots": 37654,
+        "intersection": 77,
+        "union": 75231,
+        "jaccard": 0.001024,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif",
+        "dots": 37654,
+        "intersection": 77,
+        "union": 75231,
+        "jaccard": 0.001024,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif",
+        "dots": 5000,
+        "intersection": 30,
+        "union": 42624,
+        "jaccard": 0.000704,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      }
+    ]
+  },
+  "elapsed_seconds": 80.61
+}
