@@ -71,6 +71,39 @@ deterministic largest-remainder allocation; and the lidar-domain arms cap emissi
 small spacings (H60 placed 17,889 of the 21,198-dot selection budget at 2.0 px — it outperforms the
 anchor with 84 % of the mass).
 
+### The H65–H70 round (8 October 2026) — negative round, H60 remains the current local candidate
+
+Six challengers on the same frozen 41-block design with an extended 1.4–3.2 px sweep, preregistered at
+[docs/research/h65-hypotheses-preregistered.md](docs/research/h65-hypotheses-preregistered.md).
+**No challenger beat H60 on both instruments, so no new artifact was built; H60 remains the current
+local candidate and organizer acceptance is still untested. No competition upload or slot use is
+authorized or performed in this review.** Anchors reproduced bit-for-bit; an independent recomputation
+from the spacing history matches the receipt to 1e-12 on all eight arms.
+
+| Arm (selection half, pooled DTI) | Spacing | Primary: lidar lappos peaks | Independent: SGMC off-catalogue | Verdict |
+|---|---:|---:|---:|---|
+| **H60 incumbent (current local candidate)** | 2.0 px | **0.287891** | **0.193813** | **STANDS (no displacement)** |
+| H68 relaxed masks (150 m / 100 m) | 2.0 px | 0.294959 | 0.190904 | fails: SGMC below H60 |
+| H69 strict masks (400 m / 250 m) | 2.0 px | 0.279752 | 0.201324 | fails: primary below H60 |
+| H66 consensus-mean lidar field | 2.0 px | 0.278078 | 0.198327 | fails: primary below H60 |
+| H65 step-only lidar field | 2.0 px | 0.262316 | 0.196935 | fails: primary below H60 |
+| H62 re-audit (additive mixture) | 2.0 px | 0.245762 | 0.184971 | fails: both below H60 |
+| H50 anchor | 2.8 px | 0.165881 | 0.122083 | reproduced (design check) |
+| H67 tip-proximity field | 3.2 px | 0.034223 | 0.042014 | **refuted** — below random on both |
+| Mass-matched spaced random | matched | 0.046288 | 0.069761 | control |
+
+Mechanism notes: the emitter returns byte-identical dot sets at 1.6/1.8/2.0 px, so the 2.0 px operating
+point sits on a plateau (1.4 px strictly worse for every arm — the downward extension bracketed the
+optimum); the mask radius is a real tradeoff with H60's 250/150 m at the Pareto middle (H68 leads the
+primary, H69 leads SGMC); step-only leads the step secondary but loses the lappos primary, so H60's
+max-of-six aggregation remains the best primary-instrument field; H67's tip geometry is anti-predictive
+and its selection means rise with spacing, the classic dilution-of-a-bad-field signature. H70: downface
+peaks (+0.350 far) weakest lidar channel yet; SGMC variants show a reverse distance gradient (−0.355
+at >100 m … +0.278 near); 21 volcanic vents uninformative (+0.207, p = 0.52). Full instrument ladder:
+[knowledge/07_h50_h64_h70_instrument_ladder.md](knowledge/07_h50_h64_h70_instrument_ladder.md).
+Evidence: `evidence/h65/` — deployed copies at `docs/data/h65-*.json` (+ `.csv`); round page
+[docs/h65.html](docs/h65.html). **No slot spent or authorized.**
+
 ### H50 — prior local scientific promotion; superseded by H60 on 2026-10-07
 
 **[H50 all-finite diagnostic (not an upload file)](docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif)** ·

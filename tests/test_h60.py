@@ -217,4 +217,5 @@ def test_h60_artifact_zip_contents_match_the_published_bytes() -> None:
         assert hashlib.sha256(tif_bytes).hexdigest() == receipt["sha256_tif"]
         note = z.read(f"{receipt['artifact']}-note.txt").decode()
         assert "h60 lidar-scarp d2p0 conformal90" in note
-        assert "not a copy of any prior submission" in note
+        assert "DO NOT UPLOAD" in note
+        assert "not a portal submission note" in note.lower()

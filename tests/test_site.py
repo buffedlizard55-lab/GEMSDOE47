@@ -487,6 +487,29 @@ class SiteTests(unittest.TestCase):
                 self.assertIn("DISABLED:", result.stdout)
                 self.assertIn(message.lower(), result.stdout.lower())
 
+    def test_root_landing_page_is_a_fresh_mirror_of_docs_index(self):
+        """Pages serves main:/ so the root index.html is what visitors land on.
+
+        Regression test for IR-2026-10-08-A: the root page silently kept offering
+        stale content after the site moved on. The mirror rule: every relative
+        href/src repointed under docs/, data-base set to docs/.
+        """
+        import re
+
+        source = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+
+        def prefix(match: re.Match) -> str:
+            attr, target = match.group(1), match.group(2)
+            if re.match(r"(?:[a-z][a-z0-9+.-]*:|#|/)", target):
+                return match.group(0)
+            return f'{attr}="docs/{target}"'
+
+        expected = re.sub(r'(href|src)="([^"]+)"', prefix, source).replace(
+            'data-base=""', 'data-base="docs/"'
+        )
+        actual = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertEqual(actual, expected)
+
 
 if __name__ == "__main__":
     unittest.main()

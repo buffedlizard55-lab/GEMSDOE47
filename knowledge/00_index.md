@@ -12,6 +12,7 @@ whose output is committed under `evidence/`.
 | [04_free_public_data_sources.md](04_free_public_data_sources.md) | overlooked free/official sources with an explicit two-level obtainability verdict; **the measurement that kills the "add an external fault catalogue" research direction**; the NBMG 1:250,000 positional-error admission |
 | [05_why_02778_and_can_we_beat_it.md](05_why_02778_and_can_we_beat_it.md) | corrected limits on the unverified H33-2-B2 / participant-DTI 0.2778 association and conditional algebra |
 | [06_hypotheses_H47.md](06_hypotheses_H47.md) | the five surviving hypotheses ranked by ΔDTI ÷ cost, the validation gate, and **five refuted candidates with their numbers** |
+| [07_h50_h64_h70_instrument_ladder.md](07_h50_h64_h70_instrument_ladder.md) | the full 34-row instrument ladder across the H50/H64/H70 studies: masked step peaks (+0.592) predict the leaderboard ordering, the catalogue anti-predicts it (−0.477), the six-channel union dilutes the strong channels (−0.047), and SGMC has an opposite-sign distance gradient |
 
 ## Irregularity register
 

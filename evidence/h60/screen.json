@@ -1752,12 +1752,16 @@
   ],
   "elapsed_seconds": 291.81,
   "corrections": [
-    "emitted_mass_selection_half was initially divided by 7 although the primary-instrument filter already selects one row per emission; recomputed directly from evidence/h60/spacing-history.csv. No score changed."
+    "emitted_mass_selection_half was initially divided by 7 although the primary-instrument filter already selects one row per emission; recomputed directly from evidence/h60/spacing-history.csv. No score changed.",
+    "2026-10-08: the //7 emitted-mass aggregation bug was fixed in scripts/run_h60_screen.py itself (the published receipt already carried the corrected values); a full rerun on 2026-10-08 reproduced every score, gate verdict and the spacing history byte-for-byte. No score changed."
   ],
   "code_digests_note": "code_digests pin the files at generation time. After generation, behaviour-preserving cosmetic edits were made on 2026-10-07 (ruff lint: import sorting, unused-noqa removal, loop-variable binding in the record() closure, unused-import and docstring provenance fixes in h50.py). New digests of the changed files:",
   "code_digests_after_lint_20261007": {
     "scripts/run_h60_screen.py": "d05ec3d28396903981e9267175650310785cb881a4671b97a598b8020fb6d9f0",
     "src/gems47/h60.py": "7a42f5486cca2f52c483e7ae291e156b54a1015fa764f59dd11e2b825b5c86cf",
     "src/gems47/h50.py": "4b1feea87d443aa2293c8ed4ce124ab1f00fd238dc6c4974dffd1dee9f74809a"
+  },
+  "code_digests_after_emittedmass_fix_20261008": {
+    "scripts/run_h60_screen.py": "cb8bc35f06991cfce42876828cba94f0c18595a64d4fcda2fbac3a494e07cee3"
   }
 }
