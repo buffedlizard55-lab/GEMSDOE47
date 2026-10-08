@@ -336,6 +336,29 @@ class SiteTests(unittest.TestCase):
             self.assertIn("null-or-nan-outside", text, name)
             self.assertIn("owner-reported d2.8 reference", text, name)
 
+    def test_root_landing_page_mirrors_the_docs_homepage(self):
+        """Pages serves main:/ so the root index.html is what visitors land on.
+
+        Regression test for IR-2026-10-08-A: the root page silently kept offering
+        the research-only H47-C1 TIFF after the site moved to H60.
+        """
+        root = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn(H60_TIF.split("/")[-1], root)
+        self.assertIn("OK TO DOWNLOAD AND SUBMIT", root)
+        self.assertIn("h60 lidar-scarp d2p0 conformal90", root)
+        self.assertIn(H60_SHA256, root)
+        self.assertNotIn("H47-C1 inference", root)
+        self.assertNotIn("31 prior rasters", root)
+        parser = _PageParser()
+        parser.feed(root)
+        for href in parser.links + parser.assets:
+            url = urlparse(href)
+            if url.scheme or url.netloc or not url.path:
+                continue
+            self.assertTrue(url.path.startswith("docs/"), href)
+            target = (ROOT / unquote(url.path)).resolve()
+            self.assertTrue(target.is_file(), f"root index: {href}")
+
 
 if __name__ == "__main__":
     unittest.main()
