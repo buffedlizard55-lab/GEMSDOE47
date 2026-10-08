@@ -64,6 +64,18 @@ deterministic largest-remainder allocation; and the lidar-domain arms cap emissi
 small spacings (H60 placed 17,889 of the 21,198-dot selection budget at 2.0 px — it outperforms the
 anchor with 84 % of the mass).
 
+### H65 spacing extension (8 October 2026) — negative gate, no TIFF built
+
+Four fresh hypotheses (H65–H68) were ranked and preregistered at commit `b73bb64` before scoring.
+H65 tested H60's direct lidar-scarp field at 1.4–2.4 px on the same frozen 41-block design. Selection
+chose **2.2 px**, not the preregistered **strictly below 2.0 px** direction, so one of five prebuild
+conditions failed and no H65 artifact was built. The other proxy results were favorable — pooled primary
+DTI **0.291533** vs H60 0.287891, independent SGMC **0.205420** vs 0.193813, and a simultaneous
+split-conformal floor **0.099207** at at least **90.91%** conditional coverage — but changing the gate
+after reading those values would be post-hoc. H60 therefore remains the file to submit. Evidence:
+[H65 report](docs/h65.html), [preregistration](docs/research/h65-h68-hypotheses-preregistered.md), and
+`evidence/h65/`.
+
 ### H50 — valid fallback, superseded as primary by H60 on 2026-10-07
 
 **[Download the H50 GeoTIFF (labelled fallback)](docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif)** ·
@@ -184,7 +196,7 @@ checks are not organizer acceptance.
 Keep the metric ratios distinct. With `x=T/K`, `ρ=F/K`, `α=0.2`, and `β=0.8`,
 `x=(αρ+β)/(1/DTI−α)`. With `f=F/T`, instead use
 `x=β/[1/DTI−α(1+f)]`. `ρ` and `f` have different denominators and are not interchangeable. For example,
-`ρ=8.02` is illustrative, not a verified participant ratio; these equations do **not** show that DTI 0.3195
+`ρ=8.02` is illustrative, not a verified participant ratio; these equations do **not** show that DTI 0.3774
 is unreachable. Three historical λ-scaling score observations are not a verified count of new uploads or slots;
 no upload cost is inferred and the diagnostic is not characterized as free. See [analysis](docs/analysis.html),
 [irregularities](docs/irregularities.md), and [next-session handoff](docs/next-session.md).
@@ -334,7 +346,7 @@ session**, because every decision above is answerable to it.
 > 6. An **executive-summary subpage** explaining exactly how to submit to the contest.
 > 7. **Study why `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` (GEMSDOE32) scored the family best
 >    0.2778**, answer with PhD-level reasoning, and use that to attempt a submission scoring
->    **> 0.2778** and ultimately **> 0.3195** (current leaderboard top).
+>    **> 0.2778** and ultimately **> 0.3774** (saved 2026-10-06 leaderboard top; verify the live board manually).
 > 8. Before implementing: generate **3–5 candidate geological hypotheses not yet tried**, each naming
 >    the specific layer(s), the physical signature targeted (edge detection, curvature transform, etc.),
 >    why it should catch a fault *missing* from the USGS/INGENIOUS catalogue rather than one already in

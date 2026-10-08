@@ -184,7 +184,6 @@ def test_credit_bar_matches_the_metric_derivation() -> None:
 @pytest.mark.needs_data
 def test_published_h50_artifact_meets_the_format_contract() -> None:
     """Read the published artifact back and check every range reading the portal can apply."""
-    data = G.data_dir()
     template = G.load_template()
     matches = sorted((ROOT / "docs" / "downloads").glob("gems47-h50-slopeanom-*allfinite.tif"))
     if not matches:
@@ -212,10 +211,6 @@ def test_published_h50_artifact_meets_the_format_contract() -> None:
 
 @pytest.mark.needs_data
 def test_published_h50_artifact_is_unique_among_prior_rasters() -> None:
-    import rasterio
-    path = sorted((ROOT / "docs" / "downloads").glob("gems47-h50-slopeanom-*allfinite.tif"))[-1]
-    with rasterio.open(path) as src:
-        pred = np.nan_to_num(src.read(1).astype(np.float32), nan=0.0) > 0
     receipt = json.loads((ROOT / "docs" / "data" / "h50-artifact.json").read_text())
     assert receipt["uniqueness"]["exact_matches"] == 0
     assert receipt["uniqueness"]["max_jaccard"] < 0.5

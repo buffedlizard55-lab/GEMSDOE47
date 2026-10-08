@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "reviewed_utc": "2026-10-08T02:16:22Z",
+  "scope": "H65 screen, H60 submission designation, site consistency, tests and evidence",
+  "passes": [
+    {
+      "pass": 1,
+      "name": "implement_and_verify",
+      "findings": [
+        "Restored all 28 hash-pinned manifest inputs with ALL_VERIFIED=True.",
+        "Preregistered H65-H68 before scoring; corrected copied H60 comparator precision before scoring.",
+        "Ran the 41-block H65 sweep and preserved all 1722 block/spacing/instrument rows.",
+        "H65 failed one frozen prebuild condition; no H65 TIFF was built and no slot was used."
+      ]
+    },
+    {
+      "pass": 2,
+      "name": "bugs_assumptions_and_edge_cases",
+      "findings": [
+        "Confirmed 1.6, 1.8 and 2.0 px can produce identical lattice selections under the Euclidean greedy rule; reported rather than relabeled.",
+        "Confirmed the H65 selection chose 2.2 px and did not override the required sub-2.0 direction.",
+        "Found contradictory stale H47-C1/H50 instructions in landing, executive, submission and remaining-work pages; replaced them with one H60 designation.",
+        "Retained the all-finite-versus-null-outside format conflict as an explicit unresolved organizer boundary."
+      ]
+    },
+    {
+      "pass": 3,
+      "name": "full_requirement_recheck",
+      "findings": [
+        "H60 one-click download, checksum, unique name and Note text appear before the first H1 on the landing and executive pages.",
+        "H65 is explicitly marked failed/no TIFF/do not submit; H60 remains primary and H50 remains the only labelled fallback.",
+        "The README preserves the standing brief and now uses the saved 0.3774 leader rather than 0.3195 as the ultimate target.",
+        "Full pytest, unittest, local-link, TIFF-byte and Ruff checks pass."
+      ]
+    }
+  ],
+  "final_verification": {
+    "pytest": "320 passed, 2 skipped, 7 subtests passed",
+    "unittest": "91 passed",
+    "ruff": "all checks passed (0.16.10)",
+    "git_diff_check": "passed",
+    "h60_sha256": "4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c",
+    "h65_artifact_built": false,
+    "competition_slot_used": false
+  }
+}

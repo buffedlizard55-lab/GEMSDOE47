@@ -4,33 +4,35 @@ layout: default
 nav_order: 7
 ---
 
-# Remaining work and limits — corrected 7 October 2026
+# Remaining work and limits — reviewed 8 October 2026
 
-> **No current artifact is approved for upload.** This replaces an older handoff that incorrectly advised uploading a TIFF, assumed a fixed weekly quota, treated H33's reported 0.2778 as an authenticated raster score, and described a causal gain from flank deletion. Those instructions and conclusions are withdrawn.
+## Current decision
 
-## Immediate decision
+**H60 remains the one primary artifact that is OK to download and submit.** H50 is a labelled valid fallback.
+The preregistered H65 spacing extension failed one frozen prebuild condition because selection chose 2.2 px,
+not a spacing below 2.0 px; no H65 TIFF was built and no slot was spent. Older text saying every gate was closed
+is superseded.
 
-Keep every submission gate closed. H47-C1 is the prominent current research artifact but failed its preregistered screen: pooled public-catalogue DTI 0.177872 versus the 0.180216 ordinary-terrain baseline; only 11/22 truth-bearing blocks improved (15 required); nominal 90% marginal proxy lower-bound estimate 0.0000 under unverified exchangeability. The H49 candidate inherited from main is preserved for audit but fails the published outside-null/NaN requirement: its exact TIFF is all-finite with no NoData tag. Its nominal 90% proxy lower-bound calculation assumes unverified exchangeability, the selection rule was amended post-hoc, and its 0.2778 comparator is an owner-reported d2.8 reference, not an authenticated leaderboard incumbent. H49 did not pass a common promotion comparison against the established spatially blocked holdout best. H47-B and H47-QC are negative research screens. H47-GSA/H47-MAXCOV and H48/session-3 artifacts are research-only or superseded. None has organizer acceptance or permission to use a slot.
+## Priority order
 
-## Remaining work
+1. If the owner chooses to use a slot, confirm live eligibility/quota in the authenticated portal, submit the exact
+   H60 all-finite bytes, and retain the organizer receipt. This agent cannot authenticate or upload on the owner's behalf.
+2. Do not turn H65's attractive post-hoc 2.2 px proxy result into a candidate using the same blocks. A new claim needs
+   genuinely untouched evidence or a structurally independent instrument.
+3. Test H66's ordered crest/toe curvature pair against an independently frozen target. The prediction must beat H60,
+   not merely random, before an artifact is built.
+4. Acquire the official 1 m DEM tile list/raw windows before H67 cross-scale lidar persistence is called viable.
+5. Reconcile organizer outside-bounds semantics: all-finite zeros directly address the observed range-parser failure,
+   while the written instruction says null/NaN. Only an organizer receipt can resolve this.
 
-1. **Finish the review PR and verify repository checks.** The PR must be green and mergeable before it is merged; this is separate from competition eligibility.
-2. **If a new candidate is proposed, preregister a fresh spatially blocked test** against a separately established holdout best, with equal-mass controls, adequate truth, and the specified confidence level. The current C1 test results cannot be reused as an untouched test for a tuned variant. A zero or unsupported assumption-conditional lower bound keeps the gate closed.
-3. **Keep attribution conditional.** The participant-level 0.2778 observation is not authenticated to H33-2-B2. All H33-dependent fits and score inversions are hypothetical scenarios. The d2.8 TIFF is an **owner-reported d2.8 reference**, not a separately established spatially blocked holdout best. H47-SAF changes sign only between tested assumptions 0.2200 and 0.2400; there is no exact break-even.
-4. **Keep the format distinction explicit.** Official instructions say null or NaN outside the training bounds. The exact H49 TIFF read-back has all 12,279,160 cells finite and no NoData tag; its original receipt records 5,167,373 mirrored footprint cells, so 7,111,787 outside cells are finite and it fails that check. Unmasked zero-outside all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and Session-3 variants also fail the local outside-nodata check. Its NaN-outside alternative follows an available owner-supplied mirror convention, not verified portal acceptance. H47-C1 instead has an internal validity mask; its local 15/15 checks are not an organizer test. The earlier rejected bytes are unavailable, so the cause remains unknown.
-5. **Do not treat score observations as upload receipts.** Three historical λ-scaling score observations do not establish how many new files were uploaded or how many slots were used. Public official pages checked 2026-10-06 do not establish the current per-user quota or slot accounting. No diagnostic cost is inferred or described as free.
-6. **Preserve provenance limits.** Competition arrays and comparison rasters in the local history are hash-pinned mirror/owner bytes, not authenticated organizer downloads. No hidden test labels, private score, or complete participant-to-TIFF mapping is available.
+## Permanent limitations
 
-## Actions explicitly not taken
+- No organizer receipt authenticates the owner-reported H33 raster-to-0.2778 association.
+- Proxy validation is not private truth; the lidar primary instrument is partially circular.
+- The ≥90.91% split-conformal statement assumes block-score exchangeability, which spatial blocking does not prove.
+- Accessible-raster uniqueness audits cannot establish global uniqueness against unavailable submissions.
+- DrivenData account actions and automated scraping are not performed. Current quota, eligibility and acceptance need
+  manual confirmation in the authenticated official portal.
 
-This review did not restore data, rerun H47-B, upload or prepare a portal submission, use a competition slot, or run a λ-probe. Data-dependent tests remain skipped because the cache is absent. Do not run gated pipelines or use a slot absent explicit authorization and a passed promotion gate.
-
-## References
-
-- [Current README and standing user brief](../README.md)
-- [Corrected requirements audit](COMPLIANCE.md)
-- [Submission readiness checklist](HOW_TO_SUBMIT.md)
-- [Official GeoTIFF requirements](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-- [Official competition home and rules links](https://www.drivendata.org/competitions/306/competition-doe-gems/)
-- [Irregularities register](irregularities.md)
-- [Next-session handoff](next-session.md)
+[Submission guide](HOW_TO_SUBMIT.md) · [H65 negative result](h65.html) ·
+[Irregularities](irregularities.md) · [Official competition](https://www.drivendata.org/competitions/306/competition-doe-gems/)
