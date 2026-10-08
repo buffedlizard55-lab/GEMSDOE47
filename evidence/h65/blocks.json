@@ -1,0 +1,580 @@
+{
+  "source": "evidence/h50/blocks.json (H60 runner's asserted frozen reference)",
+  "guard_px": 3,
+  "blocks": [
+    {
+      "block_id": 0,
+      "row": 0,
+      "col": 0,
+      "bounds_rc": [
+        3,
+        463,
+        3,
+        408
+      ],
+      "evaluated_pixels": 38838,
+      "budget": 294,
+      "role": "calibration"
+    },
+    {
+      "block_id": 1,
+      "row": 0,
+      "col": 1,
+      "bounds_rc": [
+        3,
+        463,
+        414,
+        820
+      ],
+      "evaluated_pixels": 169249,
+      "budget": 1283,
+      "role": "calibration"
+    },
+    {
+      "block_id": 2,
+      "row": 0,
+      "col": 2,
+      "bounds_rc": [
+        3,
+        463,
+        826,
+        1231
+      ],
+      "evaluated_pixels": 184484,
+      "budget": 1399,
+      "role": "calibration"
+    },
+    {
+      "block_id": 3,
+      "row": 0,
+      "col": 3,
+      "bounds_rc": [
+        3,
+        463,
+        1237,
+        1643
+      ],
+      "evaluated_pixels": 185540,
+      "budget": 1407,
+      "role": "calibration"
+    },
+    {
+      "block_id": 4,
+      "row": 0,
+      "col": 4,
+      "bounds_rc": [
+        3,
+        463,
+        1649,
+        2054
+      ],
+      "evaluated_pixels": 185171,
+      "budget": 1404,
+      "role": "calibration"
+    },
+    {
+      "block_id": 5,
+      "row": 0,
+      "col": 5,
+      "bounds_rc": [
+        3,
+        463,
+        2060,
+        2466
+      ],
+      "evaluated_pixels": 184665,
+      "budget": 1400,
+      "role": "selection"
+    },
+    {
+      "block_id": 6,
+      "row": 0,
+      "col": 6,
+      "bounds_rc": [
+        3,
+        463,
+        2472,
+        2877
+      ],
+      "evaluated_pixels": 183013,
+      "budget": 1388,
+      "role": "selection"
+    },
+    {
+      "block_id": 7,
+      "row": 0,
+      "col": 7,
+      "bounds_rc": [
+        3,
+        463,
+        2883,
+        3289
+      ],
+      "evaluated_pixels": 185516,
+      "budget": 1407,
+      "role": "selection"
+    },
+    {
+      "block_id": 8,
+      "row": 1,
+      "col": 0,
+      "bounds_rc": [
+        469,
+        929,
+        3,
+        408
+      ],
+      "evaluated_pixels": 101295,
+      "budget": 768,
+      "role": "calibration"
+    },
+    {
+      "block_id": 9,
+      "row": 1,
+      "col": 1,
+      "bounds_rc": [
+        469,
+        929,
+        414,
+        820
+      ],
+      "evaluated_pixels": 184952,
+      "budget": 1402,
+      "role": "selection"
+    },
+    {
+      "block_id": 10,
+      "row": 1,
+      "col": 2,
+      "bounds_rc": [
+        469,
+        929,
+        826,
+        1231
+      ],
+      "evaluated_pixels": 184090,
+      "budget": 1396,
+      "role": "selection"
+    },
+    {
+      "block_id": 11,
+      "row": 1,
+      "col": 3,
+      "bounds_rc": [
+        469,
+        929,
+        1237,
+        1643
+      ],
+      "evaluated_pixels": 185980,
+      "budget": 1410,
+      "role": "selection"
+    },
+    {
+      "block_id": 12,
+      "row": 1,
+      "col": 4,
+      "bounds_rc": [
+        469,
+        929,
+        1649,
+        2054
+      ],
+      "evaluated_pixels": 143957,
+      "budget": 1091,
+      "role": "selection"
+    },
+    {
+      "block_id": 13,
+      "row": 1,
+      "col": 5,
+      "bounds_rc": [
+        469,
+        929,
+        2060,
+        2466
+      ],
+      "evaluated_pixels": 122498,
+      "budget": 929,
+      "role": "selection"
+    },
+    {
+      "block_id": 14,
+      "row": 1,
+      "col": 6,
+      "bounds_rc": [
+        469,
+        929,
+        2472,
+        2877
+      ],
+      "evaluated_pixels": 122266,
+      "budget": 927,
+      "role": "selection"
+    },
+    {
+      "block_id": 15,
+      "row": 1,
+      "col": 7,
+      "bounds_rc": [
+        469,
+        929,
+        2883,
+        3289
+      ],
+      "evaluated_pixels": 123189,
+      "budget": 934,
+      "role": "selection"
+    },
+    {
+      "block_id": 16,
+      "row": 2,
+      "col": 0,
+      "bounds_rc": [
+        935,
+        1395,
+        3,
+        408
+      ],
+      "evaluated_pixels": 82146,
+      "budget": 623,
+      "role": "calibration"
+    },
+    {
+      "block_id": 17,
+      "row": 2,
+      "col": 1,
+      "bounds_rc": [
+        935,
+        1395,
+        414,
+        820
+      ],
+      "evaluated_pixels": 183171,
+      "budget": 1389,
+      "role": "selection"
+    },
+    {
+      "block_id": 18,
+      "row": 2,
+      "col": 2,
+      "bounds_rc": [
+        935,
+        1395,
+        826,
+        1231
+      ],
+      "evaluated_pixels": 170159,
+      "budget": 1290,
+      "role": "selection"
+    },
+    {
+      "block_id": 19,
+      "row": 2,
+      "col": 3,
+      "bounds_rc": [
+        935,
+        1395,
+        1237,
+        1643
+      ],
+      "evaluated_pixels": 183305,
+      "budget": 1390,
+      "role": "selection"
+    },
+    {
+      "block_id": 20,
+      "row": 2,
+      "col": 4,
+      "bounds_rc": [
+        935,
+        1395,
+        1649,
+        2054
+      ],
+      "evaluated_pixels": 32970,
+      "budget": 250,
+      "role": "calibration"
+    },
+    {
+      "block_id": 24,
+      "row": 3,
+      "col": 0,
+      "bounds_rc": [
+        1401,
+        1862,
+        3,
+        408
+      ],
+      "evaluated_pixels": 8022,
+      "budget": 61,
+      "role": "selection"
+    },
+    {
+      "block_id": 25,
+      "row": 3,
+      "col": 1,
+      "bounds_rc": [
+        1401,
+        1862,
+        414,
+        820
+      ],
+      "evaluated_pixels": 122285,
+      "budget": 927,
+      "role": "calibration"
+    },
+    {
+      "block_id": 26,
+      "row": 3,
+      "col": 2,
+      "bounds_rc": [
+        1401,
+        1862,
+        826,
+        1231
+      ],
+      "evaluated_pixels": 185046,
+      "budget": 1403,
+      "role": "calibration"
+    },
+    {
+      "block_id": 27,
+      "row": 3,
+      "col": 3,
+      "bounds_rc": [
+        1401,
+        1862,
+        1237,
+        1643
+      ],
+      "evaluated_pixels": 183202,
+      "budget": 1389,
+      "role": "calibration"
+    },
+    {
+      "block_id": 28,
+      "row": 3,
+      "col": 4,
+      "bounds_rc": [
+        1401,
+        1862,
+        1649,
+        2054
+      ],
+      "evaluated_pixels": 34051,
+      "budget": 258,
+      "role": "calibration"
+    },
+    {
+      "block_id": 33,
+      "row": 4,
+      "col": 1,
+      "bounds_rc": [
+        1868,
+        2328,
+        414,
+        820
+      ],
+      "evaluated_pixels": 27,
+      "budget": 1,
+      "role": "calibration"
+    },
+    {
+      "block_id": 34,
+      "row": 4,
+      "col": 2,
+      "bounds_rc": [
+        1868,
+        2328,
+        826,
+        1231
+      ],
+      "evaluated_pixels": 111694,
+      "budget": 847,
+      "role": "calibration"
+    },
+    {
+      "block_id": 35,
+      "row": 4,
+      "col": 3,
+      "bounds_rc": [
+        1868,
+        2328,
+        1237,
+        1643
+      ],
+      "evaluated_pixels": 183870,
+      "budget": 1394,
+      "role": "selection"
+    },
+    {
+      "block_id": 36,
+      "row": 4,
+      "col": 4,
+      "bounds_rc": [
+        1868,
+        2328,
+        1649,
+        2054
+      ],
+      "evaluated_pixels": 92556,
+      "budget": 702,
+      "role": "calibration"
+    },
+    {
+      "block_id": 42,
+      "row": 5,
+      "col": 2,
+      "bounds_rc": [
+        2334,
+        2794,
+        826,
+        1231
+      ],
+      "evaluated_pixels": 29026,
+      "budget": 220,
+      "role": "calibration"
+    },
+    {
+      "block_id": 43,
+      "row": 5,
+      "col": 3,
+      "bounds_rc": [
+        2334,
+        2794,
+        1237,
+        1643
+      ],
+      "evaluated_pixels": 93916,
+      "budget": 712,
+      "role": "calibration"
+    },
+    {
+      "block_id": 44,
+      "row": 5,
+      "col": 4,
+      "bounds_rc": [
+        2334,
+        2794,
+        1649,
+        2054
+      ],
+      "evaluated_pixels": 177036,
+      "budget": 1342,
+      "role": "selection"
+    },
+    {
+      "block_id": 45,
+      "row": 5,
+      "col": 5,
+      "bounds_rc": [
+        2334,
+        2794,
+        2060,
+        2466
+      ],
+      "evaluated_pixels": 17520,
+      "budget": 133,
+      "role": "selection"
+    },
+    {
+      "block_id": 50,
+      "row": 6,
+      "col": 2,
+      "bounds_rc": [
+        2800,
+        3260,
+        826,
+        1231
+      ],
+      "evaluated_pixels": 6823,
+      "budget": 52,
+      "role": "calibration"
+    },
+    {
+      "block_id": 51,
+      "row": 6,
+      "col": 3,
+      "bounds_rc": [
+        2800,
+        3260,
+        1237,
+        1643
+      ],
+      "evaluated_pixels": 99612,
+      "budget": 755,
+      "role": "calibration"
+    },
+    {
+      "block_id": 52,
+      "row": 6,
+      "col": 4,
+      "bounds_rc": [
+        2800,
+        3260,
+        1649,
+        2054
+      ],
+      "evaluated_pixels": 183713,
+      "budget": 1393,
+      "role": "calibration"
+    },
+    {
+      "block_id": 53,
+      "row": 6,
+      "col": 5,
+      "bounds_rc": [
+        2800,
+        3260,
+        2060,
+        2466
+      ],
+      "evaluated_pixels": 81080,
+      "budget": 615,
+      "role": "selection"
+    },
+    {
+      "block_id": 59,
+      "row": 7,
+      "col": 3,
+      "bounds_rc": [
+        3266,
+        3727,
+        1237,
+        1643
+      ],
+      "evaluated_pixels": 14136,
+      "budget": 107,
+      "role": "selection"
+    },
+    {
+      "block_id": 60,
+      "row": 7,
+      "col": 4,
+      "bounds_rc": [
+        3266,
+        3727,
+        1649,
+        2054
+      ],
+      "evaluated_pixels": 157355,
+      "budget": 1193,
+      "role": "selection"
+    },
+    {
+      "block_id": 61,
+      "row": 7,
+      "col": 5,
+      "bounds_rc": [
+        3266,
+        3727,
+        2060,
+        2466
+      ],
+      "evaluated_pixels": 48783,
+      "budget": 370,
+      "role": "calibration"
+    }
+  ]
+}

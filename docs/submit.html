@@ -1,83 +1,10 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Submission status and format review — GEMSDOE47</title>
-  <meta name="description" content="H60 local promotion status, exact TIFF encoding audit, official weekly feedback rules, and no-upload boundary.">
-  <meta name="theme-color" content="#173d38">
-  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/site.css">
-  <script src="assets/site.js" defer></script>
-</head>
-<body data-site-version="h60-status" data-base="">
-<a class="skip" href="#main">Skip to evidence</a>
-<header class="masthead">
-  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
-  <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="executive-summary.html">Summary</a><a href="h60.html">H60 evidence</a><a href="sources.html">Sources &amp; feed</a><a href="submit.html" aria-current="page">Submission status</a></nav>
-  <a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a>
-</header>
-<div class="status-bar">
-  <span class="status-dot" aria-hidden="true"></span>
-  <strong>DO NOT UPLOAD · NO SLOT USE AUTHORIZED IN THIS REVIEW</strong>
-  <span>H60 passed a local scientific gate; organizer acceptance is untested.</span>
-</div>
-<main id="main">
-  <section class="page-heading">
-    <span class="eyebrow">Format is necessary, not sufficient</span>
-    <h1>Local promotion.<br>No portal acceptance.</h1>
-    <p class="lede">H60 is the current locally promoted scientific candidate. No competition upload, score request, final selection, or competition-slot use was authorized or performed in this review. H47-C1 remains research-only/not promoted; its gate remains closed.</p>
-  </section>
-  <section class="download-panel" id="primary-download">
-    <div>
-      <span class="eyebrow">H60 · NaN-outside encoding · local inspection only</span>
-      <h2>Download the file that matches the published outside convention locally.</h2>
-      <p>The single-band float32 TIFF is on the 3292 × 3730 EPSG:32611, 100 m grid. It has 5,167,373 finite values in [0,1] in the valid-data mask and NaN outside. This matches the published null-or-NaN-outside wording on local read-back, but the organizer parser has not tested it.</p>
-    </div>
-    <div class="actions">
-      <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif" class="button primary" download>↓ Download H60 NaN-outside TIFF for inspection</a>
-      <a href="data/h60-encoding-audit.json" class="button secondary">Exact-byte audit</a>
-      <a href="current-status.html" class="text-link">Current status →</a>
-    </div>
-    <p class="filename">gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif</p>
-    <p class="hash">SHA-256 <code>d75ab9e282422d9592bc835c5cf719b22e6c564730de1f5fc42b57fc5bac2c01</code> · 351,392 bytes</p>
-    <p><strong>Future-only identifier:</strong> <code>GEMSDOE47-H60-lidarscarp-s2p0-20261007</code> · <strong>Short Note:</strong> <code>h60 lidar-scarp d2p0 conformal90</code></p>
-  </section>
-  <section class="notice">
-    <strong>THE ALL-FINITE TIFF IS A DIAGNOSTIC, NOT THE FORMAT-CONFORMING VARIANT</strong>
-    <p><code>gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif</code> (SHA-256 <code>4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c</code>) has every one of 12,279,160 cells finite in [0,1], but zeros outside and no NoData tag. It fails the published null-or-NaN-outside requirement. The current ZIP contains this all-finite TIFF, note, and receipt; it is an audit bundle, not an upload bundle.</p>
-    <p>The old <code>Predicted values must be in range [0, 1]</code> rejection's cause is unknown because the rejected bytes and parser receipt are unavailable. Neither TIFF encoding has been tested or accepted by the organizer.</p>
-  </section>
-  <section>
-    <h2>H60 result — public-proxy evidence only</h2>
-    <div class="table-scroll"><table>
-      <thead><tr><th>Measure</th><th>Local result</th><th>Limit</th></tr></thead>
-      <tbody>
-        <tr><td>Primary off-catalogue lidar-peak pooled DTI</td><td>0.287891</td><td>The instrument shares the owner-derived lidar stack with the H60 input; circular and optimistic.</td></tr>
-        <tr><td>Independent SGMC off-catalogue pooled DTI</td><td>0.193813</td><td>Public-proxy result, not hidden-label or leaderboard performance.</td></tr>
-        <tr><td>Split-conformal lower floor</td><td>0.0989005 at rank 20/22; 90.91% marginal coverage</td><td>Conditional on block-score exchangeability, which is unverified. Not a private-score guarantee.</td></tr>
-        <tr><td>Bounded uniqueness</td><td>35 prior rasters; zero exact matches; maximum mask Jaccard 0.021707</td><td>Not proof of global uniqueness or geological discovery.</td></tr>
-      </tbody>
-    </table></div>
-    <p>Full results: <a href="h60.html">H60 evidence page</a> · machine-readable receipt: <a href="data/h60-artifact.json">h60-artifact.json</a> · encoding audit: <a href="data/h60-encoding-audit.json">h60-encoding-audit.json</a>.</p>
-  </section>
-  <section>
-    <h2>Official rules and portal state</h2>
-    <p>The <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">DOE/NLR official rules PDF</a> states up to <strong>three scoring/feedback submissions per week</strong> and one final selected file for the competition's rounds. This is the published rules allowance, not the entrant’s current eligibility, submissions already used, remaining weekly opportunities, or final-selection state. Check account-specific facts in the authenticated portal; this repository has no portal access.</p>
-    <p>The saved public leaderboard observation checked 7 October 2026 has rank 1 at <strong>0.3774</strong>; 0.3195 was rank 7. Participant scores are not TIFF/hash receipts. The H33-2-B2 / 0.2778 mapping remains unverified; use “owner-reported d2.8 reference,” not authenticated incumbent. <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Official leaderboard</a>.</p>
-  </section>
-  <section>
-    <h2>Future-only checklist — not current authorization</h2>
-    <ol class="steps">
-      <li>Only after separate user authorization, confirm eligibility, operative deadline, weekly feedback state, and final-selection state in the authenticated portal.</li>
-      <li>Read the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">GeoTIFF instructions</a>. Verify the exact file hash and its one-band float32 grid, in-mask value range, and null-or-NaN-outside encoding. Organizer acceptance remains unknown until the portal tests the actual bytes.</li>
-      <li>Submit one TIFF unless the authenticated form explicitly asks for an archive; do not use the current all-finite ZIP.</li>
-      <li>Use the exact name and note above only for a future, separately authorized attempt. Retain the organizer's receipt, timestamp, filename, returned score, and exact submitted bytes. Disclose generative-AI assistance as required by the official rules.</li>
-    </ol>
-    <p><strong>Do not upload or spend a competition slot as part of this PR.</strong></p>
-  </section>
-  <section class="session-history"><h2>Related research</h2><p><a href="current-status.html">Current status</a> · <a href="portal-checklist.html">Portal checklist</a> · <a href="COMPLIANCE.html">Compliance audit</a> · <a href="H49_RESULTS.html">Historical H49 correction</a>.</p></section>
-</main>
-<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures, and corrections.</div><div><a href="sources.html">Sources</a> · <a href="irregularities.html">Limitations</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE47">Repository ↗</a></div></footer>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Submission status and future checklist — GEMSDOE47</title><meta name="description" content="The H65 TIFF is research-only and not cleared to submit; a cautious, source-linked future submission checklist is provided."><link rel="stylesheet" href="assets/site.css"></head>
+<body><header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a><nav aria-label="Main navigation"><a href="index.html">Home</a><a href="executive-summary.html">Executive summary</a><a href="h65-results.html">H65 results</a><a href="current-status.html">Current status</a><a href="submit.html" aria-current="page">Submission boundary</a></nav><a class="repo-link" href="https://github.com/buffedlizard55-lab/GEMSDOE47">Repository ↗</a></header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>DO NOT UPLOAD · NO SLOT AUTHORIZED</strong><span>H65 is not promoted; no portal action occurred.</span></div>
+<main id="main"><section class="page-heading"><span class="eyebrow">Current status · 8 October 2026</span><h1>No current submission candidate.</h1><p class="lede">The H65 GeoTIFF is new and downloadable for research. It failed its preregistered spatial-holdout gate. No weekly submission slot should be spent on it.</p></section>
+<section class="download-panel"><div><span class="eyebrow">H65 · 2.8 px / 280 m</span><h2>Research-only GeoTIFF</h2><p><strong>Download for inspection; do not submit.</strong> Format checks are local only and do not establish scientific promotion or organizer acceptance.</p></div><div class="actions"><a class="button primary" download href="downloads/gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif">↓ Download for research</a><a class="button secondary" href="data/h65-research-tiff.json">Format and hash receipt</a><a class="text-link" href="h65-results.html">Why gate is closed →</a></div><p class="hash">SHA-256 <code>10834af251114a4aa0bf6138eea497db4299ab968873a0cfaab1836062dc2992</code> · 360,524 bytes</p></section>
+<section class="notice"><strong>NEVER USE THE PREPARED NAME/NOTE WITHOUT NEW AUTHORIZATION</strong><p>Future reference only: Name <code>GEMSDOE47-H65-paired-scarp-s2p8-20261008</code>; short Note <code>H65 paired scarp consensus d2p8</code>. H65 failed the positive paired lower-bound condition and underperformed corrected H50 on the independent SGMC proxy. There is no competition score.</p></section>
+<section><h2>Future-only checklist (not an instruction to submit)</h2><ol class="steps"><li><strong>Fresh validation first.</strong> Freeze a new geological hypothesis and holdout before score inspection. It must beat the current spatial-holdout best with nontrivial controls and an independently justified rule. Do not reuse these H65 blocks as fresh confirmation.</li><li><strong>Verify the live official instructions.</strong> Check the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData task/format page</a>, current competition phase and deadline. The <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">DOE/NLR rules PDF</a> states up to three feedback/scoring submissions weekly and one final selected file, but does not state this account's eligibility, used/remaining slots, or final choice.</li><li><strong>Check account-specific portal state.</strong> Only in the authenticated portal, confirm eligibility, quota and final-file selection before any user-authorized attempt. This review did not access the portal.</li><li><strong>Validate the exact file bytes.</strong> Require a single float32 band, EPSG:32611, 100 m, matching official bounds/transform, finite in-footprint predictions in [0,1], and null/NaN outside. Read the exact written file back locally. The earlier “Predicted values must be in range [0, 1]” rejection cannot be diagnosed without the rejected bytes and parser response; NaN outside can fail a naive raw-array range expression, but that does not prove the earlier cause.</li><li><strong>Upload only if separately authorized.</strong> Send one TIFF unless the portal explicitly requests an archive. Use a unique name and truthful short Note; do not describe local proxy DTI as an organizer score. Disclose generative-AI assistance as the rules require.</li><li><strong>Keep the official receipt.</strong> Save submission ID, timestamp, exact hash/name, parser result, score, and returned receipt. A participant leaderboard row is not a file-to-score receipt.</li></ol></section>
+<section><h2>Official references</h2><ul><li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem, metric and format</a></li><li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Official dynamic leaderboard</a></li><li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official DOE/NLR rules</a></li><li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Public reference solution</a></li></ul><p>All restored competition rasters are hash-pinned owner mirrors, not organizer-authenticated copies. The H65 LiDAR features are owner-derived from 3DEP data. Source links and uncertainty are documented on <a href="sources.html">Sources</a>.</p></section></main>
+<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures, and corrections.</div><div><a href="index.html">Home</a> · <a href="current-status.html">Current status</a> · <a href="h65-results.html">H65 results</a></div></footer></body></html>

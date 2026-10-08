@@ -119,108 +119,99 @@ class SiteTests(unittest.TestCase):
 
     def test_current_user_guidance_keeps_no_upload_and_acceptance_boundary(self):
         names = (
-            "index.html", "executive-summary.html", "current-status.html", "h60.html",
-            "submit.html", "portal-checklist.html", "HOW_TO_SUBMIT.html", "COMPLIANCE.html",
-            "RESULTS.html", "REMAINING_WORK.html", "all-downloads.html", "leaderboard.html",
-            "sources.html",
+            "index.html", "executive-summary.html", "current-status.html", "h65-results.html",
+            "h60.html", "submit.html", "all-downloads.html", "leaderboard.html", "sources.html",
         )
         for name in names:
             text = (ROOT / "docs" / name).read_text(encoding="utf-8").lower()
             self.assertTrue(
-                "no upload" in text or "do not upload" in text or "no portal action" in text
+                "do not submit" in text or "no upload" in text or "no portal action" in text
                 or "no competition upload" in text or "no portal upload" in text,
-                f"{name}: missing no-upload boundary",
+                f"{name}: missing no-submit boundary",
             )
             self.assertNotIn("ok to download and submit", text, name)
             self.assertNotIn("ok to submit.", text, name)
 
-        for name in ("index.html", "executive-summary.html", "current-status.html", "h60.html"):
+        for name in ("index.html", "executive-summary.html", "current-status.html", "h65-results.html", "h60.html"):
             text = (ROOT / "docs" / name).read_text(encoding="utf-8").lower()
-            self.assertIn("organizer acceptance", text, name)
-        c1 = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
-        self.assertIn("H47-C1", c1)
-        self.assertIn("GATE CLOSED", c1)
-        self.assertIn("not promoted", c1.lower())
+            self.assertTrue("organizer acceptance" in text or "organizer acceptance is untested" in text,
+                            f"{name}: organizer-acceptance boundary missing")
+        current = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("H65 failed the preregistered promotion gate", current)
+        self.assertIn("not cleared", current.lower())
 
-    def test_current_downloads_point_to_nanoutside_for_inspection(self):
+    def test_current_downloads_point_to_h65_research_only_file(self):
+        h65_name = "gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif"
+        h65_sha = "10834af251114a4aa0bf6138eea497db4299ab968873a0cfaab1836062dc2992"
         current_pages = (
-            "index.html", "executive-summary.html", "current-status.html", "h60.html",
-            "submit.html", "portal-checklist.html", "HOW_TO_SUBMIT.html",
+            "index.html", "executive-summary.html", "current-status.html", "h65-results.html", "submit.html",
         )
         for name in current_pages:
             text = (ROOT / "docs" / name).read_text(encoding="utf-8").lower()
-            self.assertIn(f"{H60_BASE}-nanoutside.tif".lower(), text, name)
-            self.assertIn("inspection", text, name)
+            self.assertIn(h65_name, text, name)
             self.assertTrue(
-                "untested" in text or "not been tested" in text or "acceptance unknown" in text,
+                "do not submit" in text or "not cleared to submit" in text or "do not use this h65 file now" in text,
                 name,
             )
-            self.assertIn(H60_NAN_SHA256, text, name)
+            self.assertIn(h65_sha, text, name)
 
         home = _PageParser()
         home.feed((ROOT / "docs" / "index.html").read_text(encoding="utf-8"))
-        self.assertEqual(home.downloadable_tiff_links, [H60_NAN])
-        self.assertNotIn(H60_ALLFINITE, home.downloadable_tiff_links)
+        self.assertEqual(home.downloadable_tiff_links, [
+            "downloads/gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif"
+        ])
 
         register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
-        row = register.split("<!--h60:row-->", 1)[1].split("</tr>", 1)[0]
-        self.assertIn(H60_NAN.split("/")[-1], row)
+        row = register.split("<!--h65:row-->", 1)[1].split("</tr>", 1)[0]
+        self.assertIn(h65_name, row)
         self.assertIn("download", row)
-        self.assertIn("All-finite range diagnostic", row)
-        self.assertIn("Audit ZIP (all-finite variant)", row)
-        self.assertIn("no competition upload", row.lower())
-        self.assertNotIn("OK TO SUBMIT", row)
+        self.assertIn("do not submit", row.lower())
+        self.assertIn("uniqueness-audit", row.lower())
 
-    def test_h60_current_status_rules_leaderboard_and_c1_gate_receipt(self):
+    def test_h65_current_status_hypothesis_conformal_and_leaderboard_receipts(self):
         current = json.loads((ROOT / "docs" / "data" / "current-artifact.json").read_text())
-        self.assertEqual(current["status"], "H60_LOCALLY_PROMOTED_ORGANIZER_ACCEPTANCE_UNTESTED")
-        self.assertTrue(current["scientific_promotion_gate_passed_locally"])
-        self.assertFalse(current["organizer_acceptance_established"])
+        self.assertEqual(current["status"], "H65_RESEARCH_ONLY_NOT_PROMOTED_DO_NOT_SUBMIT")
+        self.assertFalse(current["scientific_promotion_gate_passed"])
+        self.assertFalse(current["submission_candidate"])
+        self.assertFalse(current["format_validation"]["organizer_acceptance_established"])
         self.assertFalse(current["upload_authorized_in_this_review"])
         self.assertFalse(current["slot_authorized_in_this_review"])
         self.assertFalse(current["upload_performed_in_this_review"])
-        self.assertEqual(current["portal_submission_eligibility"], "not established")
-        self.assertEqual(current["h47_c1_gate"]["status"], "CLOSED_NOT_PROMOTED")
-        self.assertFalse(current["h47_c1_gate"]["c1_gate_reopened_by_h60"])
+        self.assertFalse(current["score_requested_in_this_review"])
+        self.assertFalse(current["portal_account_or_remaining_slots_checked"])
+        result = current["scientific_result"]
+        self.assertEqual(result["spacing_px"], 2.8)
+        self.assertEqual(result["selection_blocks"], 20)
+        self.assertEqual(result["calibration_blocks"], 21)
+        self.assertEqual(result["conformal_rank_1_based"], 20)
+        self.assertFalse(result["block_exchangeability_verified"])
+        self.assertTrue(result["validation_blocks_previously_examined"])
+        self.assertAlmostEqual(result["conditional_marginal_coverage_at_least_if_exchangeable"], 20 / 22)
+        self.assertAlmostEqual(result["sgmc_selection_pooled_dti"], 0.083472, places=6)
+        self.assertAlmostEqual(result["corrected_h50_sgmc_selection_pooled_dti"], 0.135296, places=6)
 
-        nan_variant = current["preferred_local_format_review_variant"]
-        self.assertEqual(nan_variant["sha256"], H60_NAN_SHA256)
-        self.assertEqual(nan_variant["status"], "inspection_only")
-        self.assertTrue(nan_variant["matches_published_null_or_nan_outside_wording_on_local_readback"])
-        self.assertFalse(nan_variant["organizer_acceptance_established"])
-        allfinite = current["range_check_diagnostic_variant"]
-        self.assertEqual(allfinite["sha256"], H60_ALLFINITE_SHA256)
-        self.assertFalse(allfinite["matches_published_null_or_nan_outside_wording_on_local_readback"])
-        self.assertEqual(allfinite["status"], "diagnostic_only")
+        audit = current["artifact_integrity"]["broader_inventory_audit"]
+        self.assertEqual(audit["exact_grid_attempted"], 334)
+        self.assertEqual(audit["verified"], 333)
+        self.assertEqual(audit["fetch_failure_count"], 1)
+        self.assertEqual(audit["exact_mask_matches"], 0)
+        self.assertTrue(audit["bounded_only"])
+        self.assertFalse(current["artifact_integrity"]["global_uniqueness_established"])
 
-        rules = current["official_rules"]
-        self.assertEqual(rules["published_feedback_allowance"], "up to three scoring/feedback submissions per week")
-        self.assertIn("one final selected file", rules["final_selection"])
-        self.assertFalse(rules["account_specific_eligibility_and_remaining_opportunities_known"])
-
-        board = json.loads((ROOT / "docs" / "data" / "leaderboard-read-20261007.json").read_text())
-        self.assertEqual(board["observed_date"], "2026-10-07")
+        board = json.loads((ROOT / "docs" / "data" / "leaderboard-read-20261008.json").read_text())
+        self.assertEqual(board["observed_date"], "2026-10-08")
         self.assertFalse(board["file_to_score_mapping_verified"])
         self.assertEqual([(r["rank"], r["score"]) for r in board["rows"]],
-                         [(1, 0.3774), (7, 0.3195), (13, 0.2778)])
-        self.assertIsNone(board["rows"][0]["participant"])
-        self.assertIn("not preserved", board["rows"][0]["participant_name_status"])
-
-        feed = json.loads((ROOT / "docs" / "data" / "source-feed.json").read_text())
-        self.assertFalse(feed["drivendata_automated_monitoring_enabled"])
-        self.assertEqual(feed["leaderboard"]["observed_date"], "2026-10-07")
-        self.assertEqual(feed["leaderboard"]["status"], "STALE_LAST_OBSERVATION_RETAINED")
-        self.assertEqual(feed["leaderboard"]["latest_observation_file"], "leaderboard-read-20261007.json")
-        self.assertEqual(len(feed["leaderboard"]["rows"]), 3)
-
-        historical = json.loads((ROOT / "docs" / "data" / "leaderboard-read-20261006.json").read_text())
-        self.assertEqual(historical["historical_status"], "HISTORICAL_OBSERVATION_SUPERSEDED_BY_2026-10-07_PARTIAL_READ")
-        self.assertEqual(historical["superseded_by"], "data/leaderboard-read-20261007.json")
+                         [(1, 0.3774), (2, 0.3345), (3, 0.3262), (7, 0.3195), (13, 0.2778)])
+        self.assertIn("raw html not retained", board["time_precision"].lower())
+        self.assertIn("loading", board["retrieval_method"].lower())
 
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Do not upload or spend a competition slot in this review", readme)
-        self.assertIn("up to **three scoring/feedback submissions per week**", readme)
-        self.assertIn("0.3195 was rank 7", readme)
+        self.assertIn("standing brief", readme.lower())
+        self.assertIn("0.3774", readme)
+        self.assertIn("do not upload or spend a slot", readme.lower())
+        self.assertIn("split conformal", readme.lower())
+        self.assertIn("three review passes", readme.lower())
 
     def test_h60_exact_byte_variants_match_encoding_audit_and_zip_contents(self):
         nan_path = ROOT / "docs" / H60_NAN
@@ -332,7 +323,8 @@ class SiteTests(unittest.TestCase):
         self.assertIn("prior local scientific candidate", h50.lower())
         self.assertIn("not portal-accepted", h50.lower())
         self.assertIn("does not meet the published null/NaN-outside wording", h50)
-        self.assertIn("H60 is the current local candidate", h50)
+        self.assertIn("H60’s old full-domain ranking is superseded", h50)
+        self.assertIn("corrected SGMC result is below H50", h50)
         self.assertIn("diagnostic for inspection only", h50)
         self.assertNotIn("submit this", h50.lower())
         self.assertNotIn("OK TO DOWNLOAD AND SUBMIT", h50)

@@ -18,14 +18,18 @@ class H47BAuditSiteTests(unittest.TestCase):
         summary = (ROOT / "docs" / "executive-summary.html").read_text(encoding="utf-8")
         audit = (ROOT / "docs" / "h47b-mask-audit-20261006.html").read_text(encoding="utf-8")
         downloads = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
-        # H47-B remains an exact-byte, research-only audit entry. The current pages
-        # must point to H60's local status without restoring any upload recommendation.
+        # H47-B remains a historical exact-byte, research-only audit entry. Current
+        # landing pages must point to H65's exact hash and its explicit no-submit boundary.
         for current_page in (home, summary):
             self.assertIn("current-status.html", current_page)
-            self.assertIn("gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif", current_page)
-            self.assertIn("H47-C1", current_page)
+            self.assertIn("gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif", current_page)
+            self.assertIn("10834af251114a4aa0bf6138eea497db4299ab968873a0cfaab1836062dc2992", current_page)
             self.assertNotIn("OK TO DOWNLOAD AND SUBMIT", current_page)
-            self.assertIn("NO UPLOAD", current_page.upper())
+            self.assertTrue(
+                "DO NOT SUBMIT" in current_page.upper()
+                or "NO PORTAL ACTION" in current_page.upper()
+                or "NOT CLEARED TO SUBMIT" in current_page.upper()
+            )
         self.assertIn(ARTIFACT, audit)
         self.assertIn(ARTIFACT_SHA256, audit)
         self.assertIn(ARTIFACT, downloads)

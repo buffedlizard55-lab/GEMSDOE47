@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>H65 screen results and research GeoTIFF — GEMSDOE47</title>
+  <meta name="description" content="H65 paired LiDAR scarp morphology screen, corrected full-domain DTI, split-conformal caveats, and one-click research-only GeoTIFF download.">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
+  <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="executive-summary.html">Executive summary</a><a href="h65-results.html" aria-current="page">H65 results</a><a href="research/h65-hypotheses-preregistered-20261008.md">Preregistered hypotheses</a><a href="sources.html">Sources</a><a href="submit.html">Submission status</a></nav>
+  <a class="repo-link" href="https://github.com/buffedlizard55-lab/GEMSDOE47">Repository ↗</a>
+</header>
+<div class="status-bar"><span class="status-dot" aria-hidden="true"></span><strong>RESEARCH DOWNLOAD OK · NOT OK TO SUBMIT</strong><span>H65 failed its preregistered promotion gate; no slot was used.</span></div>
+<main id="main">
+  <section class="download-panel" id="download">
+    <div><span class="eyebrow">New inference · 37,654 unit dots · 2.8 px / 280 m</span>
+      <h1>H65 paired-scarp consensus GeoTIFF</h1>
+      <p>Built from the preregistered H65 field, not copied or renamed from a prior submission. <strong>Download for research and review; do not submit this file.</strong></p>
+    </div>
+    <div class="actions">
+      <a class="button primary" download href="downloads/gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif">↓ Download the H65 GeoTIFF</a>
+      <a class="button secondary" href="data/h65-research-tiff.json">Exact-byte and format receipt</a>
+      <a class="text-link" href="data/h65-screen.json">Full blocked-screen JSON</a>
+    </div>
+    <p class="filename">gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif</p>
+    <p class="hash">SHA-256 <code>10834af251114a4aa0bf6138eea497db4299ab968873a0cfaab1836062dc2992</code> · 360,524 bytes · no exact positive-mask match in bounded scans. Local maximum Jaccard 0.181209; 333/334 visible-inventory exact-grid TIFFs verified across 55 public sibling repositories, zero exact matches, maximum cross-repository Jaccard 0.052772. One stale archive path returned 404; this is not global uniqueness. <a href="data/h65-uniqueness-audit.json">Full uniqueness audit</a>.</p>
+    <p><strong>Proposed portal name (future authorization only):</strong> <code>GEMSDOE47-H65-paired-scarp-s2p8-20261008</code><br><strong>Proposed short Note (future authorization only):</strong> <code>H65 paired scarp consensus d2p8</code></p>
+  </section>
+
+  <section class="notice">
+    <strong>H65 NOT PROMOTED · DO NOT SUBMIT OR SPEND A WEEKLY SLOT</strong>
+    <p>On the full evaluated scoring domain, H65's independent SGMC selection-half pooled DTI was 0.083472 at 2.8 px. It was only 0.000502 above corrected H60's 0.082970; the mean per-block DTI was slightly lower (0.073259 vs 0.074129), and the all-spacing-pairs paired lower prediction bound was <strong>−0.062127</strong>. Against corrected H50 at its selected 2.8 px spacing, H65 scored 0.083472 vs 0.135296 (difference −0.051824); the paired all-spacing lower bound was −0.131296. The preregistered positive paired-bound requirement failed. This screen does not establish that H65 beats the current holdout best.</p>
+    <p>The output is deliberately marked <strong>RESEARCH_ONLY_NOT_PROMOTED_DO_NOT_SUBMIT</strong>. Its availability as a download is not an upload recommendation or portal authorization.</p>
+  </section>
+
+  <section>
+    <h2>What was tested</h2>
+    <p>H65 independently ranks three owner-derived LiDAR descriptors over the fixed H60 emission domain: localized step amplitude (<code>step_max</code>), negative curvature/base concavity (<code>lapneg_max</code>), and positive curvature/crest convexity (<code>lappos_max</code>). It takes the cube root of the product of the ranks and re-ranks the consensus. The physical hypothesis is that paired step/crest/base morphology may distinguish some fault scarps from isolated channel banks or curvature extrema. Max-pooled channels do not preserve sub-cell ordering; this remains a proxy-producing hypothesis, not fault confirmation.</p>
+    <p>Emission is limited to the H60 mask: in-footprint, outside the known catalogue, valid owner-derived LiDAR, at least 250 m from owner-rasterized TIGER roads and 150 m from owner-rasterized BLM closed mining claims. The historical LiDAR-peak proxy is reported separately; the primary H65 selection target is the independent public SGMC off-catalogue trace raster (>300 m from the training catalogue). SGMC is not private truth and carries map/contact bias.</p>
+    <p>Four geological hypotheses (H65–H68), source availability, physical signatures, novelty limits, costs, and the frozen H65 protocol are in the <a href="research/h65-hypotheses-preregistered-20261008.md">pre-score preregistration</a>. No additional data were required for H65. The underlying LiDAR descriptor stack is an owner-derived mirror of USGS 3DEP inputs, not an organizer-supplied file.</p>
+  </section>
+
+  <section>
+    <h2>Corrected split-conformal results</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Model / public proxy</th><th>Selected spacing</th><th>Selection mean block DTI</th><th>Pooled selection DTI</th><th>One-sided lower prediction bound</th></tr></thead>
+      <tbody>
+        <tr><td>H65 · SGMC off-catalogue (selection target)</td><td>2.8 px / 280 m</td><td>0.073259</td><td><strong>0.083472</strong></td><td>0.007885</td></tr>
+        <tr><td>Corrected H60 · SGMC off-catalogue</td><td>2.8 px / 280 m</td><td>0.074129</td><td>0.082970</td><td>0.007877</td></tr>
+        <tr><td>H65 · same-stack lappos peaks (circular/optimistic)</td><td>2.0 px / 200 m</td><td>0.191505</td><td>0.241181</td><td>0.094807</td></tr>
+        <tr><td>Corrected H60 · same-stack lappos peaks (circular/optimistic)</td><td>2.0 px / 200 m</td><td>0.198181</td><td>0.247161</td><td>0.108864</td></tr>
+        <tr><td>Corrected H50 · SGMC off-catalogue reference</td><td>2.8 px / 280 m</td><td>selection used lappos proxy</td><td><strong>0.135296</strong></td><td>0.095701 on lappos; not an SGMC certificate</td></tr>
+      </tbody>
+    </table></div>
+    <p>The split used <strong>20 selection blocks and 21 disjoint calibration blocks</strong>. At nominal 90%, the finite-sample rank is <code>k = ceil((21+1) × 0.90) = 20</code>, so the marginal level is at least <strong>20/22 = 90.91%</strong> only if calibration block scores and a future block score are exchangeable. Spatial blocking does not prove geological exchangeability. The H65 band is exploratory because H65 reused blocks previously examined during project development; it is not a fresh confirmatory guarantee. These lower bounds target one future block's public-proxy DTI, not a pooled map, private leaderboard score, or Phase 2 outcome.</p>
+    <p>Compare per-spacing history and the 49-pair simultaneous band in <a href="data/h65-spacing-history.csv">H65 spacing history</a>, <a href="data/h65-corrected-h50-comparison.json">matched corrected-H50 comparison</a>, and <a href="data/h60-corrected-domain-screen.json">corrected H60-family screen</a>.</p>
+  </section>
+
+  <section class="notice">
+    <strong>SCORING-DOMAIN CORRECTION · OLD H60 VALUES ARE HISTORICAL</strong>
+    <p>The prior <code>scripts/run_h60_screen.py</code> used each detector's restricted emission domain as DTI's valid scoring mask. That removed proxy truth outside the detector's domain, omitting false negatives. Its pooled-summary helper also used total truth count where it should sum false-negative weight. The old H60/H62 scores and the 0.0989005 floor are not full-domain or official-metric assurance; they are preserved as historical results. The new runner explicitly separates emission eligibility from the full evaluated scoring mask and writes to <code>evidence/h60/corrected-domain/</code>.</p>
+  </section>
+
+  <section>
+    <h2>GeoTIFF format and the earlier range error</h2>
+    <p>Local read-back of this exact file confirms one band, float32, EPSG:32611, 100 m, template dimensions/transform/bounds, 37,654 binary predictions inside the evaluated LiDAR domain, finite in-footprint values in [0,1], and NaN outside the mirrored footprint. The local validator's required grid/encoding checks pass. Organizer acceptance is untested. A raw NaN-intolerant test such as <code>np.all((v &gt;= 0) &amp; (v &lt;= 1))</code> returns false when outside pixels are NaN; finite in-footprint values still lie in [0,1]. The rejected historical bytes and parser receipt are unavailable, so this behavior is a possible failure mode, <strong>not a proven cause</strong> of the earlier portal message.</p>
+    <p>The grid and footprint were read from hash-pinned owner mirrors. Organizer authentication and portal acceptance have not been established. See the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">official metric and submission-format page</a>.</p>
+  </section>
+
+  <section>
+    <h2>The reported H33-2-B2 / 0.2778 result</h2>
+    <p>No organizer receipt links the owner-mirrored GEMSDOE32 TIFF <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</code> to a score. Its owner material labels it unscored. The saved 8 October public-board snapshot is participant-level: the leader is 0.3774, and the 0.2778 row is rank 13; neither maps a TIFF/hash. Exact raster overlap or DTI algebra cannot authenticate attribution or prove why a participant score was high. The metric rewards truth proximity within a triangular 300 m support and weights false negatives more heavily than false positives (α=0.2, β=0.8); plausible mechanisms can be discussed conditionally, but no causal explanation or success against 0.3774 is claimed. Read the detailed <a href="why-02778.html">attribution and metric-algebra review</a>.</p>
+  </section>
+
+  <section>
+    <h2>Official sources and future submission steps</h2>
+    <ul>
+      <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem, metric, and format</a> (current portal instructions remain authoritative).</li>
+      <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Official leaderboard</a> (dynamic; the saved 8 October observation is not live monitoring).</li>
+      <li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">DOE/NLR official rules PDF</a>: up to three feedback/scoring submissions weekly and one final selected file; account-specific eligibility and remaining opportunities are not known here.</li>
+      <li><a href="https://www.usgs.gov/core-science-systems/ngp/3dep/about-3dep-products-services">USGS 3DEP products/services</a> (free public elevation products; no new download was required for this screen).</li>
+      <li><a href="https://www.sciencebase.gov/catalog/item/6296974dd34ec53d276bb33d">USGS slip/dilation-tendency data release</a> (metadata link checked for H68; archive bytes and footprint coverage were not acquired).</li>
+    </ul>
+    <p><strong>There is no authorized submission attempt.</strong> A future attempt would require a new frozen confirmatory holdout, proof that the candidate beats the current spatial-holdout best, separate user authorization, authenticated portal eligibility/slot checks, exact-byte inspection, and retention of the organizer's receipt. Do not upload this H65 TIFF.</p>
+  </section>
+</main>
+<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures, and corrections.</div><div><a href="current-status.html">Current status</a> · <a href="executive-summary.html">Executive summary</a> · <a href="sources.html">Sources</a></div></footer>
+</body>
+</html>

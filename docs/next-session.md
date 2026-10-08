@@ -1,76 +1,38 @@
-# Next-session handoff — written 2026-10-07 after the H60–H64 round
+# Next-session handoff — 8 October 2026
 
-**Read the standing brief in `README.md` first.** Status in one line: **H60 passed the local
-preregistered scientific gate; organizer acceptance is untested; no portal upload or slot use is
-authorized or performed in this review. H47-C1 remains not promoted and its gate remains closed.**
+**Start with `README.md` and the current artifact receipt.** Current decision: **H65 is research-only, not promoted, do not upload or spend a slot.** No portal action, score request, final selection, or slot use occurred. The user has now explicitly asked to create and merge a PR; that work is still pending until GitHub confirms it.
 
-## What happened this round (all committed, `evidence/h60/` + `docs/data/h60-*.json`)
+## Current deliverables
 
-1. The slate H60–H64 was preregistered and committed (`5ea987b`) **before** any score:
-   `docs/research/h60-hypotheses-preregistered.md`.
-2. Two external rasters were added to `registry/data_manifest.json` and hash-verified
-   (`ext_tiger_road_distance_m`, `ext_blm_closed_claim_distance_m`) for the noise masks.
-3. `scripts/run_h60_screen.py` ran the frozen 41-block screen (blocks byte-equal to
-   `evidence/h50/blocks.json`; H50 anchor reproduced bit-for-bit at 0.16588059959214113):
-   **H60 passed the gate** (primary 0.2879 vs anchor 0.1659; independent SGMC 0.1938 vs random
-   0.0698; conformal floor 0.0989 at ≥90.91 %), **H62 passed but lost the SGMC tie-break**
-   (0.2458 / 0.1850), **H61 refuted** (0.1636 — per-trace reallocation does not help),
-   **H63 refuted** (0.1567 — catalogue-adjacency gating hurts).
-4. `scripts/run_h64_instruments.py`: far-from-catalogue peaks beat near ones (lappos ρ +0.581 vs
-   +0.273); the road/claim masks *improve* the instrument-leaderboard correlation (step +0.592
-   vs +0.449); `coh100` anti-correlates (−0.532). This is the mechanism evidence for the masks.
-5. `scripts/build_submission_h60.py` built two encodings. The all-finite TIFF
-   (`gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif`, SHA-256
-   `4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c`) has 17/17 local builder
-   checks but zeros outside and does not meet the published null/NaN-outside wording. Its ZIP is
-   an audit bundle, not an upload package. The NaN-outside sibling was re-opened locally in the
-   later encoding audit (SHA-256
-   `d75ab9e282422d9592bc835c5cf719b22e6c564730de1f5fc42b57fc5bac2c01`, 351,392 bytes; 5,167,373
-   finite valid-mask cells, 7,111,787 NaNs outside; 37,654 positive dots). It matches the published
-   outside convention locally; organizer acceptance is untested. `scripts/update_site_h60.py`
-   moved the site to H60; it did not test portal acceptance.
-6. Corrections published: IR-2026-10-07-B (lidar stack is owner-derived, not organiser-supplied),
-   IR-2026-10-07-C (H50 screen had 41 blocks, not 61), IR-2026-10-07-D (H61 min-1 floor deviation
-   + emitted-mass aggregation bug; no score changed). `docs/h50.md` was already known empty —
-   the H50 evidence lives on `docs/h50.html` and `evidence/h50/`.
+- New H65 research TIFF: `docs/downloads/gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif`, 360,524 bytes, SHA-256 `10834af251114a4aa0bf6138eea497db4299ab968873a0cfaab1836062dc2992`. Local format checks pass against the owner-mirrored grid; organizer acceptance is unknown.
+- H65 selected spacing: 2.8 px / 280 m; selection/calibration 20/21; rank 20/22; nominal 90%, finite-sample marginal level at least 20/22 = 90.91% only under unverified block exchangeability. Proxy floor 0.007885. Blocks were previously examined, so H65 is exploratory.
+- Promotion fails: independent SGMC selection pooled DTI 0.083472 vs corrected H50 0.135296 (−0.051824). H65−H60 simultaneous paired lower bound −0.062127; preregistered positive-bound criterion fails. No score establishes that any candidate beats the user-reported 0.3774 leaderboard high.
+- Prepared future-only name/comment (not authorized to use): `GEMSDOE47-H65-paired-scarp-s2p8-20261008` / `H65 paired scarp consensus d2p8`.
+- Hypotheses H65–H68 were preregistered before H65 screening in `docs/research/h65-hypotheses-preregistered-20261008.md`, with layer details, physical signatures, novelty boundaries, expected value/cost, official source links and data-availability caveats.
 
-## Priority order for the next session
+## Work completed in this continuation
 
-1. **No portal action in this review.** The user instruction is not to upload or spend a slot. If a later attempt is separately authorized, first confirm eligibility and account state in the authenticated portal; the official [DOE/NLR rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf) state up to three scoring/feedback submissions per week and one final selected file, but do not show this account's remaining opportunities. Review the NaN-outside TIFF and its exact-byte audit; do not use the all-finite diagnostic or current ZIP as the upload file. Note field for any separately authorized attempt: `h60 lidar-scarp d2p0 conformal90`. Retain the organizer receipt.
-2. **Independent-instrument program (highest scientific value, no slot needed).** The primary
-   instrument derives from the same owner-built lidar stack the field reads. Candidates, all
-   free/official: USGS Quaternary fault compilation (Qfaults — hash-pinned `Qfaults_GIS.zip`
-   sha256 `447eadc5…` is already fetchable per `docs/data/official-download-probes.json` in an
-   unrestricted session), Nevada Bureau geologic map contact traces, the SGMC at finer thresholds.
-   Goal: an instrument with zero shared code path with the field.
-3. **Spacing below 2.0 px (preregister first).** H60's selection-half mean rises monotonically to
-   the sweep edge (0.2844 at 2.0). Extend the sweep to 1.4–2.4 with the conformal guarantee made
-   simultaneous over the extended set. Watch block capacity: at 1.6 px the masked domain may not
-   hold block budgets (17,889 of 21,198 already at 2.0) — record under-emission, never hide it.
-4. **Domain/mask ablation (preregister first).** The mask radii (250 m road / 150 m claim) were
-   frozen pre-score. H64 says the masks *help* the instruments, but the radius values were never
-   swept. A 3×3 radius grid is one screen.
-5. **H62 mixture re-audit.** It passed the gate and lost only the tie-break; its whole-map
-   emission is untested. If a second submission window ever justifies a second candidate, H62 at
-   its own operating point is the honest runner-up — build the artifact only under a fresh gate.
+1. Completed the broad prior-TIFF uniqueness audit: 334 exact-grid blobs attempted from a historical inventory of 55 visible sibling repositories; 333 were verified and 1 stale GEMSDOE47 archive path returned HTTP 404. There were zero exact positive-mask matches among verified rasters; maximum cross-repository positive-support Jaccard was 0.052772. Local prior-TIFF maximum was 0.181209 against H60. This is bounded evidence, not global uniqueness. Full machine receipt: `evidence/h65/uniqueness-audit.json`; audit hash is recorded in the H65 receipt/current status.
+2. Reconciled `docs/data/h65-research-tiff.json` with the current builder-source SHA. **That hash was recorded during receipt reconciliation after the TIFF was generated; the exact pre-edit builder source from generation time was not retained.** Rechecked the TIFF SHA and byte count; the TIFF itself was not rebuilt or changed.
+3. Copied screen, spacing, H50 comparison, uniqueness and corrected H60-family evidence into `docs/data/` for deployment-safe links. Updated page references to these deployed copies.
+4. Replaced/updated root and docs landing pages, H65 results, executive summary, current status, submission boundary, artifact register, H60 corrected-history page, hypotheses, leaderboard, sources and irregularity pages. Replaced stale legacy upload aliases with explicit current no-submit boundaries. H60's old restricted-emission-domain scores/floor are labelled superseded; corrected full-domain results are shown.
+5. Replaced README with this standing brief, current results/decision, exact H65 artifact contract, full task and no-slot constraints, historical H60 correction, ranked hypotheses, source caveats, reproduction guidance and three-pass protocol. `README.md` must be read before future work.
+6. Preserved the 8 October partial leaderboard observation with its limitations: raw page/timestamp not retained; subsequent unauthenticated fetch returned only “Loading...”. No participant row is treated as a TIFF-score receipt; H33-2-B2 / 0.2778 remains unverified.
+7. Updated stale site tests for the H65 no-submit state and exact current artifact. The full suite last run: **303 passed, 21 skipped, 13 subtests passed, 1 Rasterio PendingDeprecationWarning**. Ruff: **All checks passed**. Re-run once more after the final test/receipt edit before committing.
 
-## Known traps (do not rediscover)
+## Three-pass review record
 
-- `.cache/gems_data` and `.venv` are NOT persisted: `python3 scripts/restore_data.py --group all`
-  then `python3 -m venv .venv && .venv/bin/pip install -q -r requirements-dev.txt -r
-  requirements-research-lock.txt` (~20 s; system python3 lacks rasterio).
-- `greedy_spaced_pixels` raises when a restricted domain cannot hold the budget at a spacing —
-  use `h60._greedy_up_to` (binary-search cap) and report the actual emitted mass.
-- `emit_trace` requires the domain to hold the budget at the spacing (true for every real block;
-  starved synthetic grids in tests must be ≥300×300).
-- Module-level helpers must be defined before their callers in `h60.py` (edit-ordering trap).
-- The historical site renderers and H50/H60 page updaters are retired because they can restore stale upload recommendations or the all-finite H60 encoding. Hand-edit reviewed pages or add a new generator with explicit no-upload and format contracts; do not run the legacy entry points.
-- DrivenData queries remain disabled under the Terms boundary; the latest permitted manual public-board observation is dated 2026-10-07 and is not a live feed.
-- Every H60/H62/H63 primary-instrument number must carry the circularity warning: the primary
-  instrument derives from the same owner-built lidar stack the fields read — necessary, never
-  sufficient; sgmc_offcat is the independent floor.
+- **Pass 1 — implement and verify:** H65 screen/artifact, local read-back, exact SHA/format, corrected H60-family full-domain runner, machine receipts and local/broad uniqueness checks. The old H60 scoring-domain and FN aggregation errors are preserved and documented.
+- **Pass 2 — review and fix:** found/reconciled stale H60 “current candidate” copy, outdated README/site/submission aliases, broken docs-only links to root `evidence/`, and tests that still asserted H60 as current. Replaced those links with deployed `docs/data/` copies, corrected the copy and tests, and surfaced the one inventory-fetch failure rather than hiding it.
+- **Pass 3 — recheck against original request:** no-submit status is prominent beside the download; H33 attribution and 0.3774 target are explicitly uncertain/untested; split-conformal rank/coverage/floor and exchangeability/adaptivity limits are stated; 4 preregistered geological hypotheses and official source checks are linked; output is normalized and exact-byte grid/CRS/transform/range/outside encoding are checked; uniqueness is bounded and one 404 is recorded. The full test/lint/link review passed before the last small test assertion was added; rerun as above.
 
-## Test and lint state at handoff
+## Remaining next steps
 
-`python -m pytest tests -q` → 315 passed, 2 skipped (needs-data skips in a clean checkout:
-the H60 artifact tests plus the H50 artifact tests). Ruff clean on `src/`, `scripts/`, `tests/`.
+1. Run `PYTHONPATH=src .venv/bin/python -m pytest tests -q`, `.venv/bin/python -m ruff check .`, `git diff --check`, and confirm the exact TIFF and builder hashes.
+2. Review final diff/status for unintended files and stale claims. Do not add `.venv` or ignored data/cache.
+3. Commit and push **only** to `arena/e84433ec-gemsdoe47`.
+4. Create a PR from this branch to `main` with `gh`; wait for checks, fix any failures, and merge if GitHub reports it is mergeable. Report the PR/merge URL and status. Do not claim completion until confirmed.
+
+## Non-negotiable boundary
+
+No candidate is cleared for competition upload. A new hypothesis must beat the current spatial-holdout best on fresh preregistered confirmation; user authorization and authenticated account/slot/format checks are separate prerequisites. Local public-proxy DTI is not a competition score. Do not upload or spend a weekly slot in this review.

@@ -1,71 +1,112 @@
 {
-  "schema_version": 2,
-  "status": "H60_LOCALLY_PROMOTED_ORGANIZER_ACCEPTANCE_UNTESTED",
-  "hypothesis_id": "H60",
-  "artifact": "gems47-h60-lidarscarp-s2p0-20261007",
-  "scientific_promotion_gate_passed_locally": true,
-  "portal_submission_eligibility": "not established",
-  "organizer_acceptance_established": false,
+  "schema_version": 3,
+  "status": "H65_RESEARCH_ONLY_NOT_PROMOTED_DO_NOT_SUBMIT",
+  "hypothesis_id": "H65",
+  "artifact": "gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif",
+  "download_path": "downloads/gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif",
+  "scientific_promotion_gate_passed": false,
+  "submission_candidate": false,
   "upload_authorized_in_this_review": false,
   "slot_authorized_in_this_review": false,
   "upload_performed_in_this_review": false,
-  "current_status_page": "current-status.html",
-  "scientific_receipt": "h60-artifact.json",
-  "encoding_audit": "h60-encoding-audit.json",
+  "score_requested_in_this_review": false,
+  "portal_account_or_remaining_slots_checked": false,
+  "reason": "H65's preregistered paired simultaneous lower-bound criterion against H60 did not pass; H65 also underperformed corrected H50 on the independent SGMC selection proxy. Do not spend a competition slot.",
+  "current_status_page": "../current-status.html",
+  "scientific_receipt": "h65-research-tiff.json",
+  "screen_evidence": "h65-screen.json",
+  "matched_h50_comparison": "h65-corrected-h50-comparison.json",
   "scientific_result": {
-    "spacing_px": 2.0,
-    "spacing_m": 200.0,
-    "positive_cells": 37654,
+    "selected_operating_point_proxy": "SGMC public mapped-fault proxy",
+    "spacing_px": 2.8,
+    "spacing_m": 280.0,
+    "sgmc_selection_pooled_dti": 0.083472,
+    "corrected_h50_sgmc_selection_pooled_dti": 0.135296,
+    "h65_minus_h50_pooled_difference": -0.051824,
+    "h65_minus_h60_paired_simultaneous_lower_prediction_bound": -0.06212659724213554,
+    "simultaneous_lower_bound_all_49_spacing_pairs": -0.131296,
     "selection_blocks": 20,
     "calibration_blocks": 21,
+    "conformal_nominal_coverage": 0.9,
     "conformal_rank_1_based": 20,
-    "conditional_marginal_coverage_at_least": 0.9090909090909091,
-    "conditional_lower_bound_dti": 0.09890052450871256,
-    "exchangeability_verified": false,
-    "primary_proxy_pooled_dti": 0.2878910923835811,
-    "primary_proxy_circularity_warning": "The instrument is derived from the same owner-built lidar stack that H60 reads.",
-    "independent_sgmc_proxy_pooled_dti": 0.19381303648178833,
-    "private_or_leaderboard_score_claimed": false,
-    "bounded_unique_comparisons": 35,
-    "exact_matches": 0,
-    "maximum_mask_jaccard": 0.021707
+    "conditional_marginal_coverage_at_least_if_exchangeable": 0.9090909090909091,
+    "sgmc_proxy_conformal_floor": 0.007885310023730621,
+    "block_exchangeability_verified": false,
+    "validation_blocks_previously_examined": true,
+    "status": "exploratory_proxy_validation_not_leaderboard_score"
   },
-  "preferred_local_format_review_variant": {
-    "file": "downloads/gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif",
-    "sha256": "d75ab9e282422d9592bc835c5cf719b22e6c564730de1f5fc42b57fc5bac2c01",
-    "bytes": 351392,
-    "outside_encoding": "NaN with NaN NoData",
-    "matches_published_null_or_nan_outside_wording_on_local_readback": true,
+  "artifact_integrity": {
+    "sha256": "10834af251114a4aa0bf6138eea497db4299ab968873a0cfaab1836062dc2992",
+    "bytes": 360524,
+    "prediction_mask_sha256": "1a6196d036935cd7c4079963e45b93e1bf8c9b0f9ad8a52b44677c64c427cd76",
+    "bounded_prior_tiff_comparisons": 34,
+    "bounded_exact_positive_mask_matches": 0,
+    "bounded_max_positive_mask_jaccard": 0.18120931691632028,
+    "global_uniqueness_established": false,
+    "broader_prior_tiff_audit": "completed with 333 verified exact-grid comparisons and one fetch/verification failure (stale GEMSDOE47 archive path, HTTP 404); no exact positive-mask matches.",
+    "broader_inventory_audit": {
+      "path": "h65-uniqueness-audit.json",
+      "sha256": "c3e86b524f1042b6cdb0def5d7b3920af9ac5d5abe5a8b51e1e2e94b4b077958",
+      "visible_repositories": 55,
+      "exact_grid_attempted": 334,
+      "verified": 333,
+      "fetch_failure_count": 1,
+      "exact_mask_matches": 0,
+      "max_cross_repository_jaccard": 0.052771893944927324,
+      "max_local_prior_jaccard": 0.18120931691632028,
+      "bounded_only": true
+    }
+  },
+  "format_validation": {
+    "driver": "GTiff",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "resolution_m": 100,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "outside_template_encoding": "NaN with NaN NoData",
+    "valid_pixel_range": [
+      0.0,
+      1.0
+    ],
+    "valid_pixel_values": [
+      0.0,
+      1.0
+    ],
+    "required_local_checks_passed": true,
     "organizer_acceptance_established": false,
-    "status": "inspection_only"
+    "prior_range_error_cause": "unknown; rejected bytes and parser receipt unavailable"
   },
-  "range_check_diagnostic_variant": {
-    "file": "downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif",
-    "sha256": "4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c",
-    "bytes": 298994,
-    "outside_encoding": "finite zero; NoData unset",
-    "all_cells_finite_in_unit_interval": true,
-    "matches_published_null_or_nan_outside_wording_on_local_readback": false,
-    "status": "diagnostic_only"
+  "portal_metadata_for_future_attempt_only": {
+    "submission_name": "GEMSDOE47-H65-paired-scarp-s2p8-20261008",
+    "short_note": "H65 paired scarp consensus d2p8",
+    "authorized_to_use": false
   },
-  "name_for_future_separately_authorized_attempt": "GEMSDOE47-H60-lidarscarp-s2p0-20261007",
-  "short_note_for_future_separately_authorized_attempt": "h60 lidar-scarp d2p0 conformal90",
-  "official_rules": {
-    "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
-    "published_feedback_allowance": "up to three scoring/feedback submissions per week",
-    "final_selection": "one final selected file for the competition's rounds",
-    "account_specific_eligibility_and_remaining_opportunities_known": false
+  "leaderboard_comparison": {
+    "user_reported_target": 0.3774,
+    "dated_public_leaderboard_observation": "leaderboard-read-20261008.json",
+    "tiff_to_score_mapping_authenticated": false,
+    "h65_competition_score": null,
+    "candidate_beats_leaderboard_high": null,
+    "note": "No H65 upload or competition score exists. Proxy DTI is not comparable to, or evidence of beating, the public leaderboard score.",
+    "comparison_established": false
   },
-  "leaderboard_observation": {
-    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-    "checked_date": "2026-10-07",
-    "rank_1_score": 0.3774,
-    "score_0_3195_rank": 7,
-    "tiff_score_mapping_authenticated": false
-  },
-  "h47_c1_gate": {
-    "status": "CLOSED_NOT_PROMOTED",
-    "c1_gate_reopened_by_h60": false
-  },
-  "source_access_limit": "Competition data were login-gated in the unauthenticated review; restored arrays are hash-pinned mirrors, not authenticated organizer downloads."
+  "source_access_limit": "Restored competition files are owner-mirrored, hash-pinned copies, not organizer-authenticated originals. H65 inputs are owner-derived lidar features."
 }

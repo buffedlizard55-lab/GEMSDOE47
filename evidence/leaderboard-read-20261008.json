@@ -1,0 +1,19 @@
+{
+  "status": "DATED_OFFICIAL_PAGE_OBSERVATION_PARTIAL",
+  "observed_date": "2026-10-08",
+  "observed_utc": null,
+  "time_precision": "date retained; exact fetch time/raw HTML not retained",
+  "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "retrieval_method": "One-time official-board observation recorded in the 2026-10-08 research log. A later unauthenticated fetch_page request returned only 'Loading...'; current values were not independently refreshed in this continuation.",
+  "file_to_score_mapping_verified": false,
+  "rows": [
+    {"rank": 1, "participant": "xiaofanhu", "score": 0.3774},
+    {"rank": 2, "participant": "alexoktaba", "score": 0.3345},
+    {"rank": 3, "participant": "nchuzhoy", "score": 0.3262},
+    {"rank": 7, "participant": "DARD", "score": 0.3195},
+    {"rank": 13, "participant": "extradr19", "score": 0.2778}
+  ],
+  "not_preserved": "Other ranks/rows and source-page bytes were not retained in this partial observation.",
+  "caveat": "These are dated participant-level public scores, not file-score receipts. No row identifies a TIFF filename/hash or organizer upload receipt. The GEMSDOE32 H33-2-B2 TIFF-to-0.2778 association remains unverified.",
+  "monitoring": "No automated DrivenData polling or feed is implemented. The dynamic public page may show loading in unauthenticated retrieval."
+}

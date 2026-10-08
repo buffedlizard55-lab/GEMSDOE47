@@ -1,0 +1,465 @@
+{
+  "schema_version": 1,
+  "status": "H65_RESEARCH_ONLY_NOT_PROMOTED_DO_NOT_SUBMIT",
+  "hypothesis_id": "H65",
+  "artifact_name": "gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside",
+  "filename": "gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif",
+  "download_path": "docs/downloads/gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif",
+  "sha256": "10834af251114a4aa0bf6138eea497db4299ab968873a0cfaab1836062dc2992",
+  "bytes": 360524,
+  "prediction_mask_sha256": "1a6196d036935cd7c4079963e45b93e1bf8c9b0f9ad8a52b44677c64c427cd76",
+  "generated_utc": "2026-10-08T02:50:37Z",
+  "selected_spacing_px": 2.8,
+  "selected_spacing_m": 280.0,
+  "nominal_proxy_coverage": 0.9,
+  "finite_sample_coverage_at_least_if_exchangeable": 0.9090909090909091,
+  "conformal_rank_1_based": 20,
+  "conformal_floor_sgmc_proxy": 0.007885310023730621,
+  "paired_h65_minus_h60_sgmc_floor": -0.06212659724213554,
+  "promotion_gate_passed": false,
+  "slot_authorized": false,
+  "slot_used": false,
+  "unique_portal_name_if_future_authorized": "GEMSDOE47-H65-paired-scarp-s2p8-20261008",
+  "proposed_short_portal_note_if_future_authorized": "H65 paired scarp consensus d2p8",
+  "predicted_pixels": 37654,
+  "target_budget": 37654,
+  "emission_domain_pixels": 1610706,
+  "format_validation": {
+    "path": "/home/user/GEMSDOE47/docs/downloads/gemsdoe47-h65-paired-scarp-consensus-s2p8-20261008-research-only-nanoutside.tif",
+    "format": {
+      "driver": "GTiff",
+      "count": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "nodata": "NaN",
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ]
+    },
+    "stats": {
+      "n_pixels": 12279160,
+      "n_finite": 5167373,
+      "n_nan": 7111787,
+      "n_infinite": 0,
+      "n_footprint": 5167373,
+      "n_emitted": 37654,
+      "n_emitted_on_catalogue": 0,
+      "n_emitted_outside_footprint": 0,
+      "v_min": 0.0,
+      "v_max": 1.0,
+      "v_unique_count": 2,
+      "v_unique_values": [
+        0.0,
+        1.0
+      ],
+      "emitted_mass": 37654.0,
+      "band_descriptions": [
+        null
+      ]
+    },
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "crs_epsg32611": true,
+      "shape_matches_template": true,
+      "transform_matches_template": true,
+      "resolution_100m": true,
+      "bounds_match_template": true,
+      "nan_only_outside_footprint": true,
+      "no_infinite_values": true,
+      "outside_template_footprint_is_nodata": true,
+      "masked_pixels_only_outside_footprint": true,
+      "all_pixels_finite": false,
+      "finite_where_footprint": true,
+      "no_nodata_sentinel_values": true,
+      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))": false,
+      "RANGE_nan_tolerant: finite values within [0,1]": true,
+      "RANGE_emitted_values_within_[0,1]": true,
+      "RANGE_min_max_reported": true,
+      "RANGE_masked_read: finite unmasked values within [0,1]": true,
+      "RANGE_filled_then_checked": true
+    },
+    "hard_failures": [],
+    "diagnostic_failures": [
+      "all_pixels_finite",
+      "RANGE_nan_intolerant: np.all((v>=0)&(v<=1))"
+    ],
+    "passes_nan_intolerant_range_check": false,
+    "passes_nan_tolerant_range_check": true,
+    "required_local_checks_passed": true,
+    "all_checks_passed": true,
+    "recommended_for_upload": false,
+    "upload_recommendation_scope": "not established by a local validator; check the current official requirements and portal behavior"
+  },
+  "bounded_local_uniqueness": {
+    "scope": "local TIFFs reachable in docs/downloads, submission, and restored scored/reference cache; not global",
+    "compared": 34,
+    "comparable": 34,
+    "exact_matches": 0,
+    "max_jaccard": 0.18120931691632028,
+    "rows": [
+      {
+        "path": ".cache/gems_data/reference/h33-2-b2-zeros.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 548,
+        "union": 74760,
+        "jaccard": 0.0073301230604601395,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+        "comparable": true,
+        "positive_pixels": 206895,
+        "intersection": 1483,
+        "union": 243066,
+        "jaccard": 0.0061012235359943386,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/8GEMSDOE_Hedge-v2_submission.tif",
+        "comparable": true,
+        "positive_pixels": 227507,
+        "intersection": 1855,
+        "union": 263306,
+        "jaccard": 0.007045035054271456,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems10-h25-ctx-ridge-20260927T232947704150Z-6452ae1d00.tif",
+        "comparable": true,
+        "positive_pixels": 174232,
+        "intersection": 1442,
+        "union": 210444,
+        "jaccard": 0.006852179202068009,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+        "comparable": true,
+        "positive_pixels": 69281,
+        "intersection": 606,
+        "union": 106329,
+        "jaccard": 0.005699291820669808,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems16-h16-1-topo-geophys-baseline-ridges-20260930-df20f65e-nan.tif",
+        "comparable": true,
+        "positive_pixels": 123939,
+        "intersection": 1455,
+        "union": 160138,
+        "jaccard": 0.009085913399692764,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems19-h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan.tif",
+        "comparable": true,
+        "positive_pixels": 123779,
+        "intersection": 1561,
+        "union": 159872,
+        "jaccard": 0.009764061248999199,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan.tif",
+        "comparable": true,
+        "positive_pixels": 121131,
+        "intersection": 1615,
+        "union": 157170,
+        "jaccard": 0.010275497868549978,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+        "comparable": true,
+        "positive_pixels": 60069,
+        "intersection": 858,
+        "union": 96865,
+        "jaccard": 0.00885768853559077,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+        "comparable": true,
+        "positive_pixels": 44090,
+        "intersection": 641,
+        "union": 81103,
+        "jaccard": 0.007903530079035301,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+        "comparable": true,
+        "positive_pixels": 61328,
+        "intersection": 862,
+        "union": 98120,
+        "jaccard": 0.008785161027313493,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gemsdoe-ens12-adopted-7f00890a.tif",
+        "comparable": true,
+        "positive_pixels": 172974,
+        "intersection": 1855,
+        "union": 208773,
+        "jaccard": 0.008885248571414886,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": ".cache/gems_data/scored/gemsdoe9-PLACEHOLDER-2314b599.tif",
+        "comparable": true,
+        "positive_pixels": 147684,
+        "intersection": 877,
+        "union": 184461,
+        "jaccard": 0.004754392527417719,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-c1-oddstep-channel-d2p8-20261006-bdf4508769c8-finite-mask.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 384,
+        "union": 74924,
+        "jaccard": 0.005125193529443169,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-allfinite.tif",
+        "comparable": true,
+        "positive_pixels": 18524,
+        "intersection": 187,
+        "union": 55991,
+        "jaccard": 0.003339822471468629,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47b-single-scale-tmi-up150-400m-d5-n18524-research-only-not-for-submission-20261006-nanoutside.tif",
+        "comparable": true,
+        "positive_pixels": 18524,
+        "intersection": 187,
+        "union": 55991,
+        "jaccard": 0.003339822471468629,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-allfinite.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 496,
+        "union": 74812,
+        "jaccard": 0.006629952414051222,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47gsa-37654px-20261006T153105Z-0c44aea00e-nan.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 496,
+        "union": 74812,
+        "jaccard": 0.006629952414051222,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 505,
+        "union": 74803,
+        "jaccard": 0.006751066133711215,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-nan.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 505,
+        "union": 74803,
+        "jaccard": 0.006751066133711215,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif",
+        "comparable": true,
+        "positive_pixels": 5000,
+        "intersection": 17,
+        "union": 42637,
+        "jaccard": 0.0003987147313366325,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h48-mscl-apex-192-28124px-20261006T202949Z-allfinite.tif",
+        "comparable": true,
+        "positive_pixels": 28124,
+        "intersection": 420,
+        "union": 65358,
+        "jaccard": 0.006426145230882218,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 1305,
+        "union": 74003,
+        "jaccard": 0.017634420226207044,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h50-slopeanom-s2p8-20261007-nanoutside.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 1305,
+        "union": 74003,
+        "jaccard": 0.017634420226207044,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-research-finite-mask.tif",
+        "comparable": true,
+        "positive_pixels": 37612,
+        "intersection": 642,
+        "union": 74624,
+        "jaccard": 0.008603130360205833,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif",
+        "comparable": true,
+        "positive_pixels": 37612,
+        "intersection": 642,
+        "union": 74624,
+        "jaccard": 0.008603130360205833,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h51-multiscale-s2p8-20261007-allfinite.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 1294,
+        "union": 74014,
+        "jaccard": 0.017483178858053883,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 1294,
+        "union": 74014,
+        "jaccard": 0.017483178858053883,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 11553,
+        "union": 63755,
+        "jaccard": 0.18120931691632028,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif",
+        "comparable": true,
+        "positive_pixels": 37654,
+        "intersection": 11553,
+        "union": 63755,
+        "jaccard": 0.18120931691632028,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+        "comparable": true,
+        "positive_pixels": 37612,
+        "intersection": 638,
+        "union": 74628,
+        "jaccard": 0.008549070054135178,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "docs/downloads/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+        "comparable": true,
+        "positive_pixels": 37612,
+        "intersection": 627,
+        "union": 74639,
+        "jaccard": 0.00840043408941706,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "submission/gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3.tif",
+        "comparable": true,
+        "positive_pixels": 37612,
+        "intersection": 638,
+        "union": 74628,
+        "jaccard": 0.008549070054135178,
+        "exact_positive_mask_match": false
+      },
+      {
+        "path": "submission/gemsdoe47-scarp9-persistence-s2.8-d7.37-b2.tif",
+        "comparable": true,
+        "positive_pixels": 37612,
+        "intersection": 627,
+        "union": 74639,
+        "jaccard": 0.00840043408941706,
+        "exact_positive_mask_match": false
+      }
+    ]
+  },
+  "uniqueness_global_proven": false,
+  "source_report": "evidence/h65/screen.json",
+  "official_source_context": {
+    "problem_metric": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "lidar_source": "https://www.usgs.gov/core-science-systems/ngp/3dep/about-3dep-products-services",
+    "provenance": "Hash-pinned owner-derived LiDAR stack; not organizer-authenticated."
+  },
+  "range_error_note": "Finite in-footprint predictions are exactly 0/1. NaN is used outside the template footprint per the published convention; the prior rejection cause remains unknown because rejected bytes and parser receipt are unavailable.",
+  "no_leaderboard_claim": "No score was submitted or returned; this public-proxy screen cannot establish whether the file would beat 0.3774.",
+  "builder_source_sha256": "47773e4411314d3be0b341018a60e08611a16065abddc1f6baa6232955e3b741",
+  "builder_source_hash_scope": "Current builder source hash recorded during receipt reconciliation after TIFF generation; the exact pre-edit builder bytes from artifact-generation time were not retained.",
+  "artifact_integrity_rechecked_during_receipt_reconciliation": true,
+  "broader_visible_inventory_uniqueness": {
+    "audit_path": "evidence/h65/uniqueness-audit.json",
+    "audit_sha256": "c3e86b524f1042b6cdb0def5d7b3920af9ac5d5abe5a8b51e1e2e94b4b077958",
+    "inventory_snapshot_date": "2026-10-06",
+    "visible_repositories": 55,
+    "unique_blobs_in_source_inventory": 336,
+    "exact_grid_tiff_blobs_attempted": 334,
+    "exact_grid_tiffs_verified": 333,
+    "fetch_or_verification_failures": 1,
+    "failure_details": [
+      {
+        "error": "GitHub fetch failed for GEMSDOE47/docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif: gh: Not Found (HTTP 404)",
+        "git_blob_sha1": "a7b26befbbbe063560371c56da3c0aa748d0ea86",
+        "path": "docs/downloads/gems47-dcat20-annulus-flankprune-n18524-20261006.tif",
+        "repository": "GEMSDOE47"
+      }
+    ],
+    "exact_positive_mask_matches": 0,
+    "maximum_cross_repository_positive_support_jaccard": 0.052771893944927324,
+    "closest_cross_repository_tiff": "docs/downloads/gemsdoe41-h41-core-20261005T234500Z.tif",
+    "local_prior_tiffs_attempted": 32,
+    "local_prior_exact_positive_mask_matches": 0,
+    "maximum_local_prior_jaccard": 0.18120931691632028,
+    "closest_local_prior_tiff": "docs/downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif",
+    "scope_limit": "Bounded to local prior TIFFs and the 2026-10-06 visible sibling-repository inventory; private, deleted, unindexed, and later-published files are not covered. Not global uniqueness or performance evidence."
+  },
+  "organizer_acceptance_established": false
+}

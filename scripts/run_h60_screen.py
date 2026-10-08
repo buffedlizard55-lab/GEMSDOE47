@@ -16,6 +16,9 @@ Frozen design (docs/research/h60-hypotheses-preregistered.md, committed before a
 * **Conformal.**  Max-over-settings one-sided split conformal at 0.90
   (``gems47.conformal.simultaneous_lower_bounds``, Lei et al. JASA 2018 Algorithm 2),
   per arm: the selection half chooses the spacing, the calibration half certifies it.
+* **Scoring domain.**  Emission masks restrict where a detector can place predictions;
+  DTI is always evaluated over the full known-fault-excluded scoring domain in each
+  guarded block. Using an emission mask as the metric-valid mask omits false negatives.
 * **Gate.**  The preregistered six-condition promotion gate; no gate here authorises an
   upload, it only decides whether an artefact is *built* for the owner's judgement.
 
@@ -23,6 +26,7 @@ This screen spends no competition submission slot and reads no private label.
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
@@ -44,7 +48,9 @@ from gems47 import grid as G
 from gems47 import h50, h60
 from gems47.conformal import simultaneous_lower_bounds
 
-EV = ROOT / "evidence" / "h60"
+# Keep the old emission-scoped screen receipt/history intact for audit; corrected
+# runs are written separately and supersede it for full-domain ranking.
+EV = ROOT / "evidence" / "h60" / "corrected-domain"
 SPACINGS = (2.0, 2.4, 2.8, 3.2, 3.6, 4.0, 4.6)
 BUDGET = 37_654
 NROWS = NCOLS = 8
@@ -109,8 +115,11 @@ def build_blocks(mask: np.ndarray) -> list[dict]:
 
 
 def _score(p: np.ndarray, truth: np.ndarray, valid: np.ndarray) -> dict:
-    from gems47s3.metric import dti
-    r = dti(p, truth.astype(np.int8), valid=valid)
+    # Every arm emits binary {0,1} predictions. EDT gives the exact same DTI as
+    # the general soft-prediction routine while making the corrected full-domain
+    # rerun practical; tests/test_metric_s3.py cross-checks both implementations.
+    from gems47s3.metric import dti_binary
+    r = dti_binary(p, truth, valid=valid)
     return {"TP_w": r["tp"], "FP_w": r["fp"], "FN_w": r["fn"], "|G|": r["n_truth"],
             "S": r["S"], "Phi": r["M"], "DTI": r["dti"]}
 
@@ -136,6 +145,13 @@ def _emit_upto(field: np.ndarray, valid: np.ndarray, spacing_px: float,
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--overwrite", action="store_true",
+                        help="replace the corrected-domain evidence directory")
+    args = parser.parse_args()
+    if any((EV / name).exists() for name in ("screen.json", "spacing-history.csv", "blocks.json")) \
+            and not args.overwrite:
+        raise SystemExit(f"{EV} already contains corrected evidence; pass --overwrite to replace")
     started = time.time()
     data = G.data_dir()
     grids = h60.read_grid(data)
@@ -204,11 +220,18 @@ def main() -> int:
         rng = np.random.default_rng(SEED + b["block_id"])
         random_field = rng.random(mask[sy, sx].shape, dtype=np.float32)
 
-        def record(model, spacing, p, valid_crop, _b=b, _sy=sy, _sx=sx):
+        def record(model, spacing, p, emission_crop, _b=b, _sy=sy, _sx=sx):
+            # Emission eligibility controls where p may be placed. It is NOT the
+            # DTI valid mask: scoring must include every evaluated pixel in this
+            # guarded block, including proxy-truth pixels outside emission_crop,
+            # or false negatives are silently omitted.
+            score_crop = mask[_sy, _sx]
             for iname, ifull in {**instruments, "sgmc_offcat": sgmc}.items():
-                r = _score(p, ifull[_sy, _sx], valid_crop)
+                r = _score(p, ifull[_sy, _sx], score_crop)
                 rows.append(dict(role=_b["role"], block_id=_b["block_id"], model=model,
                                  spacing_px=spacing, instrument=iname,
+                                 emission_domain_pixels=int(emission_crop.sum()),
+                                 scoring_domain_pixels=int(score_crop.sum()),
                                  emitted=int(p.sum()), **r))
 
         for arm in ARMS:
@@ -268,8 +291,8 @@ def main() -> int:
             return 0.0, 0
         T = sum(r["TP_w"] for r in rs)
         F = sum(r["FP_w"] for r in rs)
-        K = sum(r["|G|"] for r in rs)
-        den = T + 0.2 * F + 0.8 * K
+        N = sum(r["FN_w"] for r in rs)
+        den = T + 0.2 * F + 0.8 * N
         return (float(T / den) if den > 0 else 0.0), len(rs)
 
     arms_out = {}
@@ -344,7 +367,7 @@ def main() -> int:
         "schema_version": 1,
         "hypothesis_ids": ["H60", "H61", "H62", "H63"],
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "status": "RESEARCH_SCREEN_NOT_A_SUBMISSION",
+        "status": "CORRECTED_FULL_DOMAIN_RESEARCH_SCREEN_NOT_A_SUBMISSION",
         "preregistration": "docs/research/h60-hypotheses-preregistered.md",
         "design": {
             "blocks": f"{NROWS}x{NCOLS} contiguous, {GUARD_PX} px guard, roles assigned "
@@ -376,10 +399,17 @@ def main() -> int:
         "code_digests": {p: digest(ROOT / p) for p in CODE_PATHS},
         "spacing_history_sha256": digest(history),
         "anchor_reproduction": {
-            "expected_h50_pooled_primary_selection": 0.16588059959214113,
-            "measured": arms_out["h50"]["pooled_primary_selection"],
-            "matches": bool(abs(arms_out["h50"]["pooled_primary_selection"]
-                                - 0.16588059959214113) < 1e-9),
+            "historical_expected_value": 0.16588059959214113,
+            "historical_value_reused_as_a_correctness_check": False,
+            "measured_correct_full_domain_h50": arms_out["h50"]["pooled_primary_selection"],
+            "reason": "The historical pooled statistic used |G| instead of FN_w and cannot be reused; corrected pooled DTI sums TP_w, FP_w, and FN_w.",
+        },
+        "scoring_domain_correction": {
+            "emission_mask_is_not_metric_valid_mask": True,
+            "score_domain": "full evaluated footprint outside known-catalogue faults in each guarded block",
+            "historical_issue": "The old evidence/h60 screen was evaluated only inside each method's emission domain, omitting false negatives outside restricted LiDAR domains.",
+            "preserved_history": "evidence/h60/screen.json and spacing-history.csv remain unchanged as historical emission-scoped results",
+            "corrected_output_directory": "evidence/h60/corrected-domain",
         },
         "limitations": [
             "The primary instrument is derived from the same owner-built lidar stack that "
