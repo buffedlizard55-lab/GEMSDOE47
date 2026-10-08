@@ -27,6 +27,12 @@ H49_SHA256 = "a5abe022b8352971dc2f27a2733f289607d4a9ac44b60335bde7c822826c2a1b"
 H49_BASE = "gemsdoe47-h49-polarity-scarp-s2.8-d7.37-b3"
 H47QC_TIF = "downloads/gems47-h47qc-geothermometer-consensus-n5000-research-only-20261006.tif"
 H47QC_SHA256 = "3866b60cf91b4f6bff2ef694153550aa97a744a3091a57ef9f83da41e16b91b2"
+H74_TIF = "downloads/gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif"
+H74_SHA256 = "a0e82ce0e2f8cfa11b9759d47ec36ec259923d8137b0057a557e4701d245c50c"
+H74_NAN = "downloads/gems47-h74-lidar-8ch-s2p8-20261008-nanoutside.tif"
+H71_TIF = "downloads/gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif"
+H71_SHA256 = "cbae340361811abb7e7f6d0a1712d9adad087562c24479cb98439d5561225a17"
+H71_NAN = "downloads/gems47-h71-scarpconsensus-s2p0-20261008-nanoutside.tif"
 H50A_TIF = "downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif"
 H50A_SHA256 = "6dfe602d35b0f0755eae9a7a8bcc2e6f81efaf291f97341d588ee818b2e07cc5"
 
@@ -159,7 +165,11 @@ class SiteTests(unittest.TestCase):
 
         home = _PageParser()
         home.feed((ROOT / "docs" / "index.html").read_text(encoding="utf-8"))
-        self.assertEqual(home.downloadable_tiff_links, [H60_NAN])
+        # the H60 NaN-outside inspection file stays first; the session-6 second
+        # slate adds the H74 candidate (both encodings) and the H71 research
+        # artifact (all-finite), each honestly labelled on the page
+        self.assertEqual(home.downloadable_tiff_links,
+                         [H60_NAN, H74_TIF, H74_NAN, H71_TIF])
         self.assertNotIn(H60_ALLFINITE, home.downloadable_tiff_links)
 
         register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
@@ -486,6 +496,144 @@ class SiteTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
                 self.assertIn("DISABLED:", result.stdout)
                 self.assertIn(message.lower(), result.stdout.lower())
+
+    def test_h74_h71_panels_are_obvious_on_home_and_summary(self):
+        """The user's brief: it must be obvious whether the generated TIF is OK to
+        download and submit. H74 = OK to download, valid submission, NOT the
+        recommendation; H71 = research artifact, NOT OK TO SUBMIT (uniqueness bar)."""
+        for name in ("index.html", "executive-summary.html"):
+            text = (ROOT / "docs" / name).read_text(encoding="utf-8")
+            self.assertIn('id="h74-download"', text, name)
+            self.assertIn('id="h71-review"', text, name)
+            self.assertIn("NOT THE RECOMMENDATION WHILE H60 STANDS", text, name)
+            self.assertIn("OK to download: YES", text, name)
+            self.assertIn("NOT OK TO SUBMIT WHILE THE UNIQUENESS BAR STANDS", text, name)
+            self.assertIn("0.5119", text, name)          # H71 mask Jaccard vs H60
+            self.assertIn("0.2919", text, name)          # H71 primary (beat H60)
+            self.assertIn("0.1984", text, name)          # H71 independent SGMC
+            self.assertIn("h74 lidar 8-channel d2p8 conformal90", text, name)
+            self.assertIn("confidence level 90.91", text, name)
+            self.assertIn("Encoding caveat", text, name)
+            self.assertIn(H74_TIF.split("/")[-1], text, name)
+            self.assertIn(H71_TIF.split("/")[-1], text, name)
+            # the standing no-upload boundary of these reviews is preserved
+            self.assertTrue("NO UPLOAD OR SLOT USE" in text or "NO PORTAL ACTION" in text,
+                            name)
+        # the root landing page mirrors the panels too
+        root = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn('id="h74-download"', root)
+        self.assertIn('id="h71-review"', root)
+        self.assertIn("docs/" + H74_TIF, root)
+
+    def test_h74_candidate_artifact_receipt_is_published_and_matches_the_bytes(self):
+        receipt = json.loads((ROOT / "docs" / "data" / "h74-artifact.json").read_text())
+        target = ROOT / "docs" / receipt["download_url"]
+        self.assertTrue(target.is_file(), f"published TIFF missing: {target}")
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(),
+                         receipt["sha256_tif"])
+        self.assertEqual(receipt["sha256_tif"], H74_SHA256)
+        self.assertEqual(receipt["hypothesis_id"], "H74")
+        self.assertFalse(receipt["promoted_to_primary"])
+        self.assertEqual(receipt["kind"],
+                         "validated_candidate_not_recommended_while_primary_stands")
+        self.assertTrue(receipt["readback_checks"]["all_in_unit_interval"])
+        self.assertTrue(receipt["readback_checks"]["nan_intolerant_range_check"])
+        self.assertIsNone(receipt["format"]["nodata"])
+        self.assertEqual(receipt["budget"], 37654)
+        self.assertEqual(receipt["screen_selected_spacing_px"], 2.8)
+        self.assertEqual(receipt["conformal"]["rank_1_based"], 20)
+        self.assertEqual(receipt["conformal"]["calibration_blocks"], 21)
+        self.assertAlmostEqual(receipt["conformal"]["coverage_at_least"], 20 / 22,
+                               places=9)
+        self.assertEqual(receipt["conformal"]["confidence_level_pct"], 90.909)
+        self.assertAlmostEqual(receipt["conformal"]["certified_floor_dti"], 0.0993,
+                               places=4)
+        self.assertTrue(receipt["uniqueness_pass"])
+        self.assertEqual(receipt["uniqueness"]["exact_matches"], 0)
+        self.assertLess(receipt["uniqueness"]["max_jaccard"], 0.5)
+        self.assertIn("h74 lidar 8-channel d2p8 conformal90",
+                      receipt["submission_note_field"])
+        # holdout numbers match the frozen screen receipt
+        screen = json.loads((ROOT / "evidence" / "h71" / "screen.json").read_text())
+        self.assertEqual(receipt["holdout"]["candidate_pooled_dti"],
+                         screen["arms"]["h74"]["pooled_primary_selection"])
+        self.assertEqual(receipt["holdout"]["candidate_sgmc_pooled_dti"],
+                         screen["arms"]["h74"]["pooled_sgmc_selection"])
+        self.assertGreater(receipt["holdout"]["candidate_pooled_dti"],
+                           receipt["holdout"]["h50_anchor_pooled_dti"])
+        self.assertGreater(receipt["holdout"]["candidate_sgmc_pooled_dti"],
+                           receipt["holdout"]["h60_incumbent_sgmc_pooled_dti"])
+        self.assertLess(receipt["holdout"]["candidate_pooled_dti"],
+                        receipt["holdout"]["h60_incumbent_pooled_dti"])
+        # the NaN-outside sibling is published alongside (same dots, NaN outside)
+        nan = ROOT / "docs" / H74_NAN
+        self.assertTrue(nan.is_file())
+        import numpy as np
+        import rasterio
+        with rasterio.open(nan) as src:
+            v = src.read(1)
+            self.assertTrue(np.isnan(src.nodata))
+            self.assertTrue(np.isnan(v).sum() > 7_000_000)
+            fin = v[np.isfinite(v)]
+            self.assertTrue(np.all((fin >= 0.0) & (fin <= 1.0)))
+            self.assertEqual(int((v > 0).sum()), 37654)
+        register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
+        self.assertIn("<!--h74:row-->", register)
+        self.assertIn("VALIDATED CANDIDATE", register)
+
+    def test_h71_research_artifact_is_published_and_labelled_not_ok_to_submit(self):
+        """The round's best science (beat H60 on both instruments) is blocked by the
+        frozen uniqueness bar — published with the failure disclosed, not hidden."""
+        receipt = json.loads((ROOT / "docs" / "data" / "h71-artifact.json").read_text())
+        target = ROOT / "docs" / receipt["download_url"]
+        self.assertTrue(target.is_file(), f"published TIFF missing: {target}")
+        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(),
+                         receipt["sha256_tif"])
+        self.assertEqual(receipt["sha256_tif"], H71_SHA256)
+        self.assertEqual(receipt["hypothesis_id"], "H71")
+        self.assertEqual(receipt["kind"],
+                         "research_artifact_not_ok_to_submit_uniqueness_bar")
+        self.assertFalse(receipt["promoted_to_primary"])
+        self.assertIsNone(receipt["submission_note_field"])   # no portal note offered
+        self.assertTrue(receipt["readback_checks"]["all_in_unit_interval"])
+        self.assertIsNone(receipt["format"]["nodata"])
+        self.assertEqual(receipt["budget"], 37654)
+        self.assertEqual(receipt["screen_selected_spacing_px"], 2.0)
+        self.assertFalse(receipt["uniqueness_pass"])
+        self.assertEqual(receipt["uniqueness"]["exact_matches"], 0)
+        self.assertGreaterEqual(receipt["uniqueness"]["max_jaccard"], 0.5)
+        self.assertAlmostEqual(receipt["uniqueness"]["max_jaccard"], 0.5119, places=4)
+        self.assertEqual(receipt["conformal"]["rank_1_based"], 20)
+        self.assertEqual(receipt["conformal"]["confidence_level_pct"], 90.909)
+        # it beat the H60 incumbent on both instruments (the headline result)
+        self.assertGreater(receipt["holdout"]["candidate_pooled_dti"],
+                           receipt["holdout"]["h60_incumbent_pooled_dti"])
+        self.assertGreater(receipt["holdout"]["candidate_sgmc_pooled_dti"],
+                           receipt["holdout"]["h60_incumbent_sgmc_pooled_dti"])
+        # unique against every scored prior submission (machine-checkable)
+        self.assertLess(receipt["uniqueness"]["max_jaccard_vs_scored_priors"], 0.05)
+        register = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
+        self.assertIn("<!--h71:row-->", register)
+        self.assertIn("RESEARCH ONLY", register)
+        self.assertIn("NOT OK TO SUBMIT WHILE THE UNIQUENESS BAR STANDS", register)
+
+    def test_second_slate_irregularities_and_evidence_page_are_published(self):
+        irr = (ROOT / "docs" / "irregularities.html").read_text(encoding="utf-8")
+        for tok in ("IR-2026-10-08-F", "IR-2026-10-08-G", "IR-2026-10-08-H",
+                    "IR-2026-10-08-I", "IR-2026-10-08-J"):
+            self.assertIn(tok, irr)
+        # the sibling round's entries are preserved (additive reconciliation)
+        for tok in ("IR-2026-10-08-A", "IR-2026-10-08-B", "IR-2026-10-08-C",
+                    "IR-2026-10-08-D", "IR-2026-10-08-E"):
+            self.assertIn(tok, irr)
+        page = (ROOT / "docs" / "h71.html").read_text(encoding="utf-8")
+        self.assertIn("second slate", page)
+        self.assertIn("PR #30", page)
+        self.assertIn(H74_SHA256, page)
+        self.assertIn(H71_SHA256, page)
+        self.assertIn("0.5119", page)
+        self.assertIn("erratum-consensus-rank-20261008.md", page)
+        self.assertNotIn("../", page)
 
     def test_root_landing_page_is_a_fresh_mirror_of_docs_index(self):
         """Pages serves main:/ so the root index.html is what visitors land on.

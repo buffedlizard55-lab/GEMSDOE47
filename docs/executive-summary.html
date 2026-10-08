@@ -19,8 +19,8 @@
 </header>
 <div class="status-bar">
   <span class="status-dot" aria-hidden="true"></span>
-  <strong>H60 LOCAL GATE PASSED · NO PORTAL ACTION</strong>
-  <span>Organizer acceptance is untested. No upload or slot use is authorized or performed in this review.</span>
+  <strong>H60 LOCAL GATE PASSED · H74 NEW UNIQUE CANDIDATE · H71 RESEARCH ARTIFACT · NO PORTAL ACTION</strong>
+  <span>Organizer acceptance is untested. No upload or slot use is authorized or performed in this review. The H71–H74 round added a gate-passing unique candidate (H74) and a research artifact (H71); see the panels below.</span>
 </div>
 <main id="main">
   <div class="download-panel" id="primary-download">
@@ -38,6 +38,24 @@
     <p class="hash">SHA-256 <code>d75ab9e282422d9592bc835c5cf719b22e6c564730de1f5fc42b57fc5bac2c01</code> · 351,392 bytes</p>
     <p><strong>Future-only Name:</strong> <code>GEMSDOE47-H60-lidarscarp-s2p0-20261007</code><br><strong>Future-only Short Note:</strong> <code>h60 lidar-scarp d2p0 conformal90</code></p>
   </div>
+  <div class="download-panel" id="h74-download">
+    <div>
+      <span class="eyebrow">H74 · NEW UNIQUE CANDIDATE · generated 2026-10-08 · both encodings · NOT THE RECOMMENDATION WHILE H60 STANDS</span>
+      <h2>New this session: the H74 eight-channel lidar field — a unique TIF, not a copy of any prior submission.</h2>
+      <p>A genuinely new field: the per-cell maximum of the ranks of <em>eight</em> scarp channels of the owner-derived 1&nbsp;m lidar stack (H60&rsquo;s six plus slope-excess <code>ex_max</code> and local relief <code>relief</code>), masked against roads and mine claims, emitted as 37,654 unit dots at 2.8&nbsp;px (280&nbsp;m) over the noise-masked off-catalogue domain. It passed the preregistered four-condition gate (beats the H50 anchor by +68&nbsp;%, certified split-conformal floor 0.0993 DTI at &ge;{COV:.2%} coverage, beats the mass-matched random control on both instruments) and the uniqueness bar (41 prior rasters, zero exact matches, maximum mask Jaccard 0.3066). <strong>It is a gate-passing valid submission — but it does not beat the H60 incumbent on the primary lidar-peak instrument (0.2783 vs 0.2879), so H60 remains the recommendation.</strong></p>
+    </div>
+    <div class="actions">
+      <a href="downloads/gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif" class="button primary" download>↓ Download the new H74 GeoTIFF (all-finite, [0,1] range defense)</a>
+      <a href="downloads/gems47-h74-lidar-8ch-s2p8-20261008-nanoutside.tif" class="button secondary" download>NaN-outside variant (null/NaN-outside wording)</a>
+      <a href="downloads/gems47-h74-lidar-8ch-s2p8-20261008.zip" class="button secondary" download>ZIP + note + receipt</a>
+      <a href="h71.html" class="button secondary">Why it should work (H71–H74 evidence)</a>
+      <a href="downloads/gems47-h74-lidar-8ch-s2p8-20261008-note.txt" class="text-link">Submission note (copy-paste)</a>
+    </div>
+    <p class="filename">gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif</p>
+    <p class="hash">SHA-256 <code>a0e82ce0e2f8cfa11b9759d47ec36ec259923d8137b0057a557e4701d245c50c</code> · 307,486 bytes · NaN-outside sibling <code>gems47-h74-lidar-8ch-s2p8-20261008-nanoutside.tif</code></p>
+    <p class="export-confidence">Spacing 2.8 px / 280 m · selected by split conformal prediction (Lei et al. JASA 2018, Algorithm 2) as the spacing with the greatest CERTIFIED lower bound · max-residual rank 20 of 22 · finite-sample coverage at least 90.91% (confidence level 90.91%) · certified holdout floor 0.0993 DTI · conditional on block exchangeability</p>
+    <p><strong>Future-only Name:</strong> <code>GEMSDOE47-H74-lidar8ch-s2p8-20261008</code> · <strong>Short Note:</strong> <code>h74 lidar 8-channel d2p8 conformal90</code></p>
+    <p><strong>OK to download: YES · gate-passing valid submission · recommended for submission: NO — H60 above remains the local candidate.</strong> Uniqueness: 41 prior rasters compared, zero exact matches, maximum mask Jaccard 0.3066 (closest prior: the H60 incumbent, expected — H74 extends H60&rsquo;s channel set). <strong>Encoding caveat:</strong> the all-finite file is the direct answer to the portal&rsquo;s &ldquo;Predicted values must be in range [0, 1]&rdquo; rejection (every value finite and inside [0,1]); the NaN-outside sibling matches the published null/NaN-outside wording locally. Neither encoding is organizer-accepted; the historical range-error cause is unknown. Submit H74 only if you accept that trade-off and the encoding question — the full comparison is on <a href="h71.html">the H71–H74 evidence page</a>.</p>
   <section class="page-heading">
     <span class="eyebrow">Executive summary · reviewed 7 October 2026</span>
     <h2>Scientific promotion is not portal acceptance.</h2>
@@ -53,11 +71,28 @@
       <li>Split-conformal lower bound: <strong>0.0989005</strong>, rank 20/22 (90.91% marginal coverage), conditional on unverified block-score exchangeability. It is not a private-score guarantee.</li>
       <li>Bounded uniqueness: 35 prior rasters, zero exact matches, maximum mask Jaccard 0.021707. This is not a global-uniqueness proof.</li>
     </ul>
+  </section>  <section>
+    <h2>What the H71–H74 round measured (session-6 second slate, 8 October 2026)</h2>
+    <ul class="checklist">
+      <li>Four new hypotheses (H71 scarp consensus, H72 far-field emission, H73 lidar+GeoDAWN Th/K alteration, H74 eight-channel lidar), preregistered before any score and screened on the same frozen 41-block holdout; the operating point is the <strong>argmax of the certified split-conformal lower bound</strong> (rank 20 of 22, coverage at least 90.91&nbsp;%, conditional on block exchangeability).</li>
+      <li><strong>H71 beat the H60 incumbent on both holdout instruments</strong> (0.2919 vs 0.2879 primary; 0.1984 vs 0.1938 SGMC) — the round&rsquo;s headline science — but is held back by the frozen uniqueness bar (mask Jaccard 0.5119 vs the H60 incumbent): a research artifact, NOT OK TO SUBMIT while the bar stands.</li>
+      <li><strong>H74 is the round&rsquo;s frozen winner</strong> (0.2783 primary; 0.2145 independent SGMC — the round&rsquo;s best) and a <strong>gate-passing unique candidate</strong> (zero exact matches, max Jaccard 0.3066): a valid submission, OK to download, but not the recommendation while H60 stands.</li>
+      <li>H72 (far-field lidar) 0.2772 primary / 0.2025 independent; H73 (lidar+Th/K alteration) 0.2069 / 0.1929 — both passed the four control conditions; neither beats H60 on both. All four arms passed the controls; none was refuted.</li>
+      <li>The 0.2778 question, measured: the owner-reported h33-2-b2 raster is the scored d2.8 emission pruned 44,090 → 37,654 dots (strict mask subset, Jaccard 0.854), 59.6&nbsp;% of its dots inside the road/claim noise masks; the 0.2600 → 0.2778 move is the DTI pruning algebra — mass discipline on an existing field, not a new signal.</li>
+    </ul>
   </section>
   <section class="notice">
     <strong>TWO TIFF ENCODINGS · NEITHER ORGANIZER-ACCEPTED</strong>
     <p>The NaN-outside file linked above has 5,167,373 finite valid-mask cells and 7,111,787 outside NaNs. The all-finite sibling has every cell in [0,1] but writes zero outside and fails the published null/NaN-outside wording; it is a range-check diagnostic. The current ZIP packages the all-finite diagnostic, note and receipt, so it is not an upload bundle. Exact hashes and local observations: <a href="data/h60-encoding-audit.json">H60 encoding audit</a>.</p>
     <p>The prior range-error cause remains unknown because the rejected TIFF bytes and parser receipt are unavailable. Local read-back does not prove organizer acceptance.</p>
+  </section>
+  <section class="notice" id="h71-review">
+    <strong>H71 · RESEARCH ARTIFACT · NOT OK TO SUBMIT WHILE THE UNIQUENESS BAR STANDS</strong>
+    <h2>The scarp-consensus field beat the H60 incumbent on both holdout instruments — and is held back by the frozen uniqueness bar.</h2>
+    <p>The H71 scarp-consensus field — the per-cell count of the six lidar scarp channels that fire above their frozen thresholds, amplitude-tie-broken — is the strongest arm of the session-6 second slate: on the frozen 41-block holdout it reaches <strong>0.2919 pooled DTI</strong> on the primary lidar-peak instrument against the H60 incumbent&rsquo;s 0.2879 (+1.4&nbsp;%) and <strong>0.1984</strong> on the independent SGMC off-catalogue population against 0.1938 (+2.4&nbsp;%) — the only arm of the round to beat the incumbent on <em>both</em>. Its operating point is certified by split conformal prediction: spacing 2 px (200 m) chosen as the argmax certified floor, rank 20 of 22, finite-sample coverage at least 90.91% (confidence level 90.91%), certified holdout floor 0.0976 DTI, conditional on block exchangeability.</p>
+    <p><strong>Why it is not the file to submit:</strong> its 37,654-dot emission at 2&nbsp;px overlaps the H60 incumbent artifact at mask Jaccard <strong>0.5119 &ge; 0.5</strong>, failing frozen condition 6 (bounded uniqueness) — this repository will not recommend spending a slot on an emission that shares most of its dots with the standing incumbent. It is <em>unique against every scored prior submission</em> (maximum mask Jaccard 0.0067 across the restored scored family rasters; 39 priors compared, zero exact matches); the overlap is exclusively with the unsubmitted H60 candidate it would supersede. The file is published for audit, not for submission: <a href="downloads/gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif" download>gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif</a> · <a href="downloads/gems47-h71-scarpconsensus-s2p0-20261008.zip">ZIP + note + receipt</a> · <a href="downloads/gems47-h71-scarpconsensus-s2p0-20261008-note.txt">research note</a> · <a href="downloads/gems47-h71-scarpconsensus-s2p0-20261008-receipt.json">receipt</a> · <a href="h71.html">H71–H74 evidence page</a>.</p>
+    <p class="filename">gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif</p>
+    <p class="hash">SHA-256 <code>cbae340361811abb7e7f6d0a1712d9adad087562c24479cb98439d5561225a17</code> · 298,948 bytes · 37,654 unit dots at 2 px · 17/17 format read-back checks pass</p>
   </section>
   <section class="notice">
     <strong>H47-C1 · NOT PROMOTED · GATE CLOSED</strong>

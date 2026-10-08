@@ -1,9 +1,38 @@
-# GEMSDOE47 — H60 local promotion, exact bytes, and evidence limits
+# GEMSDOE47 — H60 local candidate; H74 new unique candidate; H71 research artifact; evidence limits
 
 > **Read the standing brief below at the start of every work session.**
 > **Maximize P(Win)**: publish a genuinely new candidate only after it beats controls on a
 > spatially blocked holdout. **Own the Outcome**: publish negative results, corrections, actual
 > bytes, and limitations—never an invented win.
+>
+> ### Session 6 directive (2026-10-08) — read at the start of every session
+>
+> 1. **MUST generate a unique TIF submission for the competition** — never a copy of a previous
+>    submission. Done 2026-10-08: `gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif` (H74,
+>    eight-channel lidar field; both all-finite and NaN-outside encodings published),
+>    format-verified (17/17 checks), uniqueness-audited (39 priors, zero exact matches, max Jaccard
+>    0.3066; 0.0082 vs scored priors) and published as a one-click download on the landing page and
+>    the executive summary. **It must be obvious whether it is OK to download and submit** — the
+>    site says so in plain language: OK to download YES; gate-passing valid submission; recommended
+>    for submission NO, because H74 does not beat the H60 incumbent on the primary holdout instrument
+>    (see the H71–H74 round below). The H71 consensus field — the round's best science, beating H60
+>    on both holdout instruments — is also generated and published, but labelled NOT OK TO SUBMIT
+>    while the frozen uniqueness bar stands (its emission overlaps the H60 incumbent at mask Jaccard
+>    0.5119 ≥ 0.5; it is unique, max 0.0067, against every scored prior submission).
+> 2. **Pick the operating point with split conformal prediction on our own spacing sweep** — a
+>    guaranteed floor, not an observed one (Lei, G'Sell, Rinaldo, Tibshirani & Wasserman, JASA
+>    2018, Algorithm 2). Done: the spacing is the argmax of the certified lower bound; the
+>    confidence level (rank 20 of 22, coverage ≥ 90.91 %) is reported next to the chosen spacing in
+>    the submission note, the receipt and the site.
+> 3. **Validate on the spatially blocked holdout before touching a submission slot** — do not
+>    spend a slot on an idea that has not beaten the current holdout best. Done: the frozen gate
+>    keeps H60 as the local candidate; no arm displaced it under all six frozen conditions.
+> 4. **Aim above the current leaderboard top (0.3774)** through genuinely new, physically grounded
+>    hypotheses (this round: scarp consensus, far-field emission, lidar + GeoDAWN Th/K alteration,
+>    eight-channel lidar), all verified line-by-line against official sources, no hallucinations.
+> 5. Keep the **executive summary** subpage explaining exactly how to make a submission into the
+>    contest, and keep the Core Values — **Maximize P(Win)**, **Own the Outcome** — as the focal
+>    point of every decision.
 
 ## H60 — locally promoted scientific candidate; no portal acceptance
 
@@ -103,6 +132,90 @@ at >100 m … +0.278 near); 21 volcanic vents uninformative (+0.207, p = 0.52). 
 [knowledge/07_h50_h64_h70_instrument_ladder.md](knowledge/07_h50_h64_h70_instrument_ladder.md).
 Evidence: `evidence/h65/` — deployed copies at `docs/data/h65-*.json` (+ `.csv`); round page
 [docs/h65.html](docs/h65.html). **No slot spent or authorized.**
+
+### The H71–H74 round (8 October 2026, session-6 second slate) — one scientific pass blocked by the uniqueness bar, one new unique candidate
+
+**[Download the new unique H74 GeoTIFF (generated 2026-10-08; gate-passing valid submission; NOT the recommendation while H60 stands)](docs/downloads/gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif)** ·
+**[The H71 consensus research artifact (NOT OK TO SUBMIT while the uniqueness bar stands)](docs/downloads/gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif)** ·
+[H71–H74 evidence page](docs/h71.html) · [Executive summary](docs/executive-summary.html)
+
+A second session-6 slate, preregistered before any score at
+[docs/research/h71-hypotheses-preregistered.md](docs/research/h71-hypotheses-preregistered.md)
+and numbered H71–H74 after the additive reconciliation with the concurrent H65–H70 sibling round
+above (see 'Additive reconciliation of concurrent main work'): **H71** scarp-consensus (count of lidar
+channels firing at the same cell), **H72** far-field lidar (emission only >300 m from the catalogue),
+**H73** alteration-corroborated lidar (additive 50/50 rank mixture with the USGS GeoDAWN Th/K
+radiometric alteration grid — structure + fossil heat), **H74** eight-channel lidar (H60's six
+channels plus `ex_max` slope-excess and `relief`). All four were screened on the frozen 41-block
+holdout with this round's methodological change: the spacing is the **argmax of the certified
+split-conformal lower bound** (Lei et al. JASA 2018, Algorithm 2), not the observed maximum.
+
+| Arm (selection half, pooled DTI) | Spacing (argmax certified floor) | Primary: lidar lappos peaks | Independent: SGMC off-catalogue | Certified floor | Gate 1–4 | Beats H60 (both) |
+|---|---:|---:|---:|---:|---|---|
+| **H71 scarp-consensus field** | **2.0 px** | **0.291870** | **0.198403** | **0.0976** | **passed** | **YES — the only arm** |
+| H74 eight-channel lidar field | 2.8 px | 0.278337 | 0.214547 | 0.0993 | passed | no (0.2783 < 0.2879) |
+| H72 far-field lidar field | 2.0 px | 0.277174 | 0.202465 | 0.0989 | passed | no |
+| H73 alteration-corroborated field | 2.8 px | 0.206925 | 0.192903 | 0.1045 | passed | no |
+| H60 incumbent (anchor) | 2.0 px | 0.287891 | 0.193813 | 0.0989 | — | — |
+| H50 anchor | 2.8 px | 0.165881 | 0.122083 | 0.0957 | — | — |
+| Mass-matched spaced random | matched | 0.0463 | 0.0698 | — | control | — |
+| Owner-reported d2.8 reference | — | 0.0494 | 0.0899 | — | control | — |
+
+**The headline scientific result: H71 (consensus) beat the H60 incumbent on both instruments** —
+primary 0.291870 vs 0.287891 (+1.4 %) and SGMC 0.198403 vs 0.193813 (+2.4 %) — consistent across the
+secondary lidar instruments (lapneg 0.3212, step 0.3264, union 0.4071). Requiring several
+independent lidar operators to fire at the same cell beats the single-channel maximum: the mechanism
+the preregistration argued for. (An earlier screen run recorded H71 as refuted — that run measured an
+inverted consensus rank; the bug was caught by a test and fixed before publication:
+`evidence/h71/erratum-consensus-rank-20261008.md`, IR-2026-10-08-I.)
+
+**Why H71 is nonetheless NOT OK to submit:** promotion requires all six frozen conditions, and H71's
+37,654-dot emission at 2.0 px overlaps the H60 incumbent artifact at mask Jaccard **0.5119 ≥ 0.5**,
+failing condition 6 (bounded uniqueness). The bar was set to stop H51-style re-emissions (0.8543);
+H71 is a different field definition that shares 68 % of its dots with the incumbent, and it is
+**unique against every scored prior submission (max Jaccard 0.0067)**. The organiser would accept the
+file; the bar is this repository's own slot-protection discipline, and amending a frozen gate after
+the scores would be the H49 failure mode. So the bar stands: **H71 is published as a research
+artifact, clearly labelled NOT OK TO SUBMIT while the bar stands** (IR-2026-10-08-J), and **H60
+remains the local candidate**.
+
+**The new unique TIF — H74 (the frozen winner by the SGMC tie-break):**
+
+- Filename: `gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif` · Name: `GEMSDOE47-H74-lidar8ch-s2p8-20261008`
+- **Short Note for the DrivenData form: `h74 lidar 8-channel d2p8 conformal90`** (36 characters)
+- TIFF SHA-256: `a0e82ce0e2f8cfa11b9759d47ec36ec259923d8137b0057a557e4701d245c50c` · **307,486 bytes** ·
+  3292 × 3730, EPSG:32611, 100 m, one float32 band, **37,654 unit dots** at 2.8 px / 280 m.
+- **Every one of the 12,279,160 cells is finite and inside [0,1]**; values are 0.0 and 1.0 only; no
+  NoData tag; 0.0 outside the footprint. **17/17 strict read-back checks pass.** The NaN-outside
+  sibling (matching the published null/NaN-outside wording locally) is published alongside; neither
+  encoding is organizer-accepted (see the H60 encoding audit above).
+- **Operating point certified by split conformal prediction**: spacing 2.8 px chosen as the argmax
+  certified floor — max-residual rank **20 of 22** (k = ceil(22 × 0.90), n = 21 calibration blocks),
+  **finite-sample coverage at least 90.91 %** (confidence level 90.91 %), **certified holdout floor
+  0.0993 DTI**, conditional on block exchangeability. The confidence level is reported next to the
+  chosen spacing in the submission note, the receipt and the site.
+- **Uniqueness:** 39 prior rasters compared — **zero exact matches**, maximum mask Jaccard **0.3066**
+  (closest prior: the H60 incumbent, expected — H74 extends H60's channel set); 0.0082 vs scored
+  priors. A NaN-outside fallback is published alongside.
+- **Why it is not the recommendation:** H74 beats H60 on the independent SGMC population (0.2145 vs
+  0.1938, +10.7 %) and holds the round's best certified floor, but it does not beat H60 on the primary
+  lidar-peak instrument (0.2783 vs 0.2879) — the instrument whose DTI is *positively* rank-correlated
+  with the 13 owner-reported leaderboard scores, while SGMC is negatively correlated (−0.421). The
+  frozen `beats_incumbent_h60` condition therefore keeps **H60 as the local candidate**; the tie-break
+  tension is recorded as IR-2026-10-08-G, not hidden. The H74 file is a valid, gate-passing, unique
+  submission if you accept that trade-off — one click on the landing page.
+- H71 artifact: `gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif`, SHA-256
+  `cbae340361811abb7e7f6d0a1712d9adad087562c24479cb98439d5561225a17`, 298,948 bytes, 37,654 unit
+  dots at 2.0 px / 200 m, 17/17 format checks, conformal floor 0.0976 at ≥ 90.91 % coverage —
+  **research artifact, NOT OK TO SUBMIT** (uniqueness bar 0.5119 vs the H60 incumbent; unique 0.0067
+  vs every scored prior submission).
+- **The 0.2778 question, answered with measurements** (`scripts/analyze_h33_reference.py` →
+  `evidence/h33_reference_analysis.json`, `knowledge/07_h33_reference_measurements.md`): h33-2-b2 is
+  the scored d2.8 emission **pruned 44,090 → 37,654 dots** (a strict mask subset, Jaccard 0.854),
+  59.6 % of its dots inside the road/claim noise masks, and the owner-reported 0.2600 → 0.2778 move
+  is the DTI pruning algebra (TP unchanged, FP falls tenfold) — mass discipline on an existing
+  field, **not a new geological signal**. The re-pruning route is closed by our own uniqueness gate;
+  the open route is a better field, which is what this round tested.
 
 ### H50 — prior local scientific promotion; superseded by H60 on 2026-10-07
 
@@ -562,6 +675,25 @@ is preserved byte-for-byte as `src/gems47/h48_conformal.py`, with only its calle
 The relocated H47-B/annulus files stay in `docs/downloads/superseded/`; references are synchronized.
 Current C1 artifact, original code/data/history hashes and gate result do not change. New artifact
 comparisons and the whole merged suite are rechecked before PR merge.
+
+**Second collision, resolved the same way (2026-10-08).** Two concurrent session-6 slates both numbered
+their hypotheses from H65: the sibling round (H65–H70, negative, merged in PR #30) and this repository's
+second slate (originally H65–H68). The sibling's identifiers stay at H65–H70 as merged; the second slate
+was **renumbered H71–H74** during the additive reconciliation. The fields, the frozen 41-block design,
+the gate and every measured number are unchanged — the renumbered screen reproduces the original
+receipt exactly (H71 0.291870 / 0.198403 at 2.0 px; H74 0.278337 / 0.214547 at 2.8 px) — and the
+published artifact bytes are identical (H71 SHA-256 `cbae3403…`, H74 SHA-256 `a0e82ce0…` before and
+after the rename; only the filenames carry the new identifiers). Files moved with the renumbering:
+`src/gems47/h71.py`, `scripts/run_h71_screen.py`, `scripts/build_submission_h71.py`,
+`scripts/build_h71_page.py`, `scripts/update_site_h71.py`, `tests/test_h71.py`, `evidence/h71/`,
+`docs/h71.html`, `docs/research/h71-hypotheses-preregistered.md`,
+`docs/data/h71-screen.json`, `docs/data/h71-spacing-history.csv`, `docs/data/h71-artifact.json`,
+`docs/data/h74-artifact.json`, and the `gems47-h71-*` / `gems47-h74-*` downloads. The sibling's
+irregularity ids IR-2026-10-08-A…E are preserved; the second slate's entries are IR-2026-10-08-F…J.
+Both rounds are published side by side: [H65–H70 round](docs/h65.html) (negative; H60 stands) and
+[H71–H74 round](docs/h71.html) (H71 beat H60 on both instruments, held back by the uniqueness bar;
+H74 gate-passing unique candidate). No pooled/private score comparison across the two rounds' proxy
+frames is valid; neither round spent a slot.
 
 
 ### Official-source receipt update after additive reconciliation

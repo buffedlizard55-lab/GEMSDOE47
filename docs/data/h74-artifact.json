@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H74",
+  "artifact": "gems47-h74-lidar-8ch-s2p8-20261008",
+  "generated_utc": "2026-10-08T03:36:50Z",
+  "spacing_px": 2.8,
+  "budget": 37654,
+  "arm_spec": {
+    "channels": [
+      "step_max",
+      "lappos_max",
+      "lapneg_max",
+      "upface_max",
+      "downface_max",
+      "cross_max",
+      "ex_max",
+      "relief"
+    ]
+  },
+  "emission_domain": "h74 emission domain (1,610,706 cells)",
+  "format": {
+    "driver": "GTiff",
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "outside_footprint": "0.0 (all finite)",
+    "values": "0.0 and 1.0 only"
+  },
+  "readback_checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "crs_epsg32611": true,
+    "width_matches": true,
+    "height_matches": true,
+    "transform_matches": true,
+    "nodata_unset": true,
+    "no_nan": true,
+    "no_inf": true,
+    "all_in_unit_interval": true,
+    "nan_intolerant_range_check": true,
+    "zero_outside_footprint": true,
+    "dot_count": true,
+    "dots_on_footprint": true,
+    "dots_off_catalogue": true,
+    "values_are_unit": true,
+    "compression": "Compression.deflate"
+  },
+  "format_pass": true,
+  "uniqueness": {
+    "compared": 41,
+    "exact_matches": 0,
+    "max_jaccard": 0.306614,
+    "max_jaccard_vs_scored_priors": 0.008248
+  },
+  "uniqueness_pass": true,
+  "screen": "evidence/h71/screen.json",
+  "preregistration": "docs/research/h71-hypotheses-preregistered.md",
+  "screen_selected_spacing_px": 2.8,
+  "conformal": {
+    "method": "max-residual one-sided split conformal, Lei et al. JASA 2018 Alg. 2; operating point = argmax certified lower bound",
+    "reference": "https://doi.org/10.1080/01621459.2017.1307116",
+    "selection_blocks": 20,
+    "calibration_blocks": 21,
+    "rank_1_based": 20,
+    "coverage_at_least": 0.9090909090909091,
+    "confidence_level_pct": 90.909,
+    "certified_floor_dti": 0.09927399004456586,
+    "assumption": "block-level exchangeability, not verified; conditional guarantee"
+  },
+  "holdout": {
+    "primary_instrument": "off-catalogue local maxima of the owner-derived 1 m lidar scarp stack (lappos t200 d3)",
+    "candidate_pooled_dti": 0.27833654999304464,
+    "h50_anchor_pooled_dti": 0.16588059959214113,
+    "h60_incumbent_pooled_dti": 0.2878910923835811,
+    "round_primary_arm": "H60 (incumbent; no arm validly displaced it this round)",
+    "round_primary_pooled_dti": 0.2878910923835811,
+    "spaced_random_pooled_dti_mass_matched": 0.047049324254644906,
+    "owner_reported_d28_reference_pooled_dti": 0.04942094659452611,
+    "h47c1_pooled_dti": 0.0482522932214748,
+    "independent_instrument": "SGMC off-catalogue faults (>300 m from the catalogue)",
+    "candidate_sgmc_pooled_dti": 0.21454699675548247,
+    "h50_anchor_sgmc_pooled_dti": 0.12208253714218324,
+    "h60_incumbent_sgmc_pooled_dti": 0.19381303648178833,
+    "round_primary_sgmc_pooled_dti": 0.19381303648178833,
+    "random_sgmc_pooled_dti": 0.0716479039305857,
+    "gate": {
+      "conditions": {
+        "beats_h50_by_10pct": true,
+        "positive_conformal_floor": true,
+        "sgmc_beats_random": true,
+        "beats_random_3x_primary": true,
+        "beats_incumbent_h60": false,
+        "passed_1_to_4": true
+      },
+      "passed": true
+    }
+  },
+  "sha256_tif": "a0e82ce0e2f8cfa11b9759d47ec36ec259923d8137b0057a557e4701d245c50c",
+  "submission_note_field": "h74 lidar 8-channel d2p8 conformal90",
+  "bytes": 307486,
+  "files": [
+    "gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif",
+    "gems47-h74-lidar-8ch-s2p8-20261008.zip",
+    "gems47-h74-lidar-8ch-s2p8-20261008-receipt.json",
+    "gems47-h74-lidar-8ch-s2p8-20261008-note.txt",
+    "gems47-h74-lidar-8ch-s2p8-20261008-nanoutside.tif"
+  ],
+  "provenance_limits": [
+    "The lidar scarp stack is owner-derived from USGS 3DEP 1 m DEM tiles (706/716, tile list OCR-recovered from the competition PDF), not organiser-supplied.",
+    "The GeoDAWN Th/K grid is a contractor u8-rank product of the USGS GeoDAWN release (DOI 10.5066/P93LGLVQ), not physical units; not organiser-supplied.",
+    "No organiser receipt links any participant score to a TIFF; the 0.2778 figure is owner-reported and the owner page marks that submission unscored.",
+    "The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.",
+    "The primary instrument is derived from the same lidar stack the field reads, so primary-instrument numbers are optimistic; the SGMC off-catalogue gain is the independent corroboration."
+  ],
+  "kind": "validated_candidate_not_recommended_while_primary_stands",
+  "promoted_to_primary": false,
+  "supersedes": null,
+  "download_url": "downloads/gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif",
+  "zip_url": "downloads/gems47-h74-lidar-8ch-s2p8-20261008.zip",
+  "note_url": "downloads/gems47-h74-lidar-8ch-s2p8-20261008-note.txt",
+  "fallback_url": "downloads/gems47-h74-lidar-8ch-s2p8-20261008-nanoutside.tif",
+  "deployed_evidence_sha256": {
+    "h71-screen.json": "ab6d8b6a6e5ce493e3726e9df49fb3b982424621cb904df24a2676b7fd2b80e6",
+    "h71-spacing-history.csv": "49409d5833b6b6ca2f2ff228417a4b399d1f1d4aaeb4392a44a8b7d990d90415",
+    "h33-reference-analysis.json": "b67e967f770353c861a2a9f1fdc8e2379143f5c844c51e55ab7c8f5fcfdc851e"
+  }
+}

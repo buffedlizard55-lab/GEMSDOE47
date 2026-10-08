@@ -4,9 +4,31 @@ layout: default
 nav_order: 7
 ---
 
-# Remaining work and limits — 7 October 2026
+# Remaining work and limits — 8 October 2026 (both session-6 rounds)
 
 > **No competition upload or slot use is authorized or performed in this review.** H60 is the current locally promoted scientific candidate; organizer acceptance is untested. H47-C1 remains research-only, not promoted, and its gate remains closed. See [current status](current-status.html).
+
+## The H71–H74 round (session-6 second slate, 8 October 2026)
+
+A second session-6 slate (H71 scarp-consensus, H72 far-field, H73 lidar+GeoDAWN Th/K alteration,
+H74 eight-channel lidar; preregistered at `docs/research/h71-hypotheses-preregistered.md`,
+renumbered from H65–H68 during the additive reconciliation with the concurrent H65–H70 sibling
+round merged in PR #30) ran on the same frozen 41-block holdout with the conformal
+operating-point rule (argmax certified floor). **All four arms passed the four control
+conditions.** H71 beat the H60 incumbent on **both** instruments (0.2919 vs 0.2879 primary;
+0.1984 vs 0.1938 SGMC) — the round's headline science — but its emission overlaps the H60
+incumbent artifact at mask Jaccard **0.5119 ≥ 0.5**, failing frozen condition 6, so H60 remains
+the local candidate and H71 is published as a research artifact that is **NOT OK TO SUBMIT while
+the bar stands** (IR-2026-10-08-J; unique 0.0067 against every scored prior submission). H74 is
+the frozen winner by the SGMC tie-break and a **gate-passing unique candidate** (0.2783 primary;
+0.2145 SGMC; max Jaccard 0.3066): a valid submission, OK to download, not the recommendation
+(IR-2026-10-08-G records the tie-break tension). An implementation bug (an inverted consensus
+rank) was caught by a test before any artifact was built and fixed; both runs' numbers are
+preserved (`evidence/h71/erratum-consensus-rank-20261008.md`, IR-2026-10-08-I). The 0.2778
+question was answered with measurements (`evidence/h33_reference_analysis.json`): h33-2-b2 is
+the scored d2.8 emission pruned 44,090 → 37,654 dots — mass discipline on an existing field, not
+a new signal; the re-pruning route is closed by the uniqueness gate. Evidence:
+`evidence/h71/`, round page `docs/h71.html`.
 
 ## Current evidence boundary
 
