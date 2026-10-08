@@ -1,14 +1,81 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Remaining work and limitations · GEMSDOE47</title><meta name="description" content="Corrected handoff: no artifact is approved for upload; assumptions and remaining work are explicit.">
-<link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
-<body data-site-version="review" data-base=""><a class="skip" href="#main">Skip to remaining work</a>
-<header class="masthead"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">G/47</span><span>GEMSDOE47<small>Fault mapping research</small></span></a>
-<nav aria-label="Main navigation"><a href="index.html">Home</a><a href="evidence.html">Evidence</a><a href="irregularities.html">Limitations</a><a href="sources.html">Sources</a></nav><a href="https://github.com/buffedlizard55-lab/GEMSDOE47" class="repo-link">Repository ↗</a></header>
-<div class="status-bar ready"><span class="status-dot" aria-hidden="true"></span><strong>H60 · OK TO DOWNLOAD AND SUBMIT</strong><span>The H50 fallback is also valid; the H47/H48/H49 artifacts described on this page are research-only and are not the file to upload. See the landing page.</span></div>
-<main id="main"><section class="page-heading"><span class="eyebrow">Corrected handoff · 6 October 2026</span><h1>Keep the gate closed.<br>Keep the evidence honest.</h1><p class="lede">No current artifact is approved for upload. This page replaces a stale handoff that advised uploading, assumed an exact quota, and overclaimed score attribution and causality.</p></section>
-<section><h2>Current decision</h2><p>H47-C1 failed its preregistered public-catalogue screen: pooled DTI 0.177872 versus the 0.180216 ordinary-terrain baseline; 11/22 truth-bearing blocks improve (15 required); nominal 90% marginal proxy lower-bound estimate 0.0000 under unverified exchangeability. The H49 artifact inherited from main is retained for audit but fails the published null-or-NaN-outside requirement: its exact TIFF is all-finite with no NoData tag and 7,111,787 outside cells remain finite relative to the recorded owner-mirror footprint. Its nominal 90% public-proxy estimate assumes unverified exchangeability, the operating rule was amended post-hoc, and the 0.2778 comparator is an owner-reported d2.8 reference. No common promotion gate against the established spatially blocked holdout best passed. H47-B and H47-QC are negative screens; H47-GSA/H47-MAXCOV and H48/session-3 artifacts remain research-only or superseded. No file has organizer acceptance or slot authorization.</p></section>
-<section><h2>Remaining work, only if authorized</h2><ol><li>Complete this repository review and verify CI/PR status.</li><li>Before any new submission idea, preregister a fresh spatially blocked test against a separately established holdout best, with equal-mass controls, adequate truth, and the required confidence level. C1's test results cannot be reused as an untouched test. A zero or unsupported assumption-conditional lower bound keeps the gate closed.</li><li>Keep the H33-2-B2 / participant-DTI 0.2778 association unverified; dependent fits are hypothetical. Call the raster the owner-reported d2.8 reference, not a separately established spatially blocked holdout best. H47-SAF's sign change is bracketed only between assumed DTI 0.2200 and 0.2400.</li><li>Use null or NaN outside the official bounds. H49's exact all-finite TIFF has no NaNs or NoData tag and fails the local check relative to its recorded owner-mirror footprint. Unmasked zero-outside all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and Session-3 variants also fail; separate NaN versions follow owner-supplied mirror conventions only. H47-C1 has a separate internal mask and 15/15 local checks; neither establishes portal acceptance.</li><li>Verify any current quota/slot rule in the authenticated portal. Public official pages checked 2026-10-06 do not establish current per-user quota or slot accounting. Three historical λ-scaling score observations are not a count of uploads or slots; no diagnostic cost is inferred or called free.</li></ol></section>
-<section class="notice"><strong>NOT DONE OR AUTHORIZED</strong><p>No data restore, H47-B rerun, upload, competition-slot use, or λ-probe was performed for this review. Data-dependent tests remain skipped because the cache is absent.</p></section>
-<p><a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">Standing brief</a> · <a href="COMPLIANCE.html">Requirements audit</a> · <a href="HOW_TO_SUBMIT.html">Submission readiness</a> · <a href="next-session.md">Next-session handoff</a></p></main>
-<footer><div><strong>Maximize P(Win).</strong> Preserve the slot when the evidence says no.<br><strong>Own the Outcome.</strong> Publish the bytes, failures and corrections.</div><div><a href="irregularities.html">Limitations</a> · <a href="sources.html">Sources</a></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remaining work and limitations — GEMSDOE47</title>
+<meta name="description" content="Session-3 remaining work and limitations: the unuploaded submission, what the holdout cannot say, the coverage assumption behind the mass ceiling, and how every claim is checked.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>GEMSDOE47 <span class="badge b-info">SESSION 3</span></h1>
+  <p class="sub">Geologic Enhanced Mapping System (GEMS) Prize Challenge · DrivenData competition
+     306 · Nevada Great Basin · 100 m grid · metric = distance-weighted Tversky index (DTI)<br>
+     Generated 2026-10-08 02:06 UTC by <code>scripts/build_site_s3.py</code> from committed JSON receipts.</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="hypotheses.html">The five hypotheses</a>
+    <a href="method.html">LATI method</a>
+    <a href="evidence.html">Every number</a>
+    <a href="irregularities.html">Irregularities</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="sources.html">Sources</a>
+    <a href="submit.html">Submit</a>
+    <a href="portal-checklist.html">Portal checklist</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="validation-protocol.md">Validation protocol</a>
+    <a href="review-log.md">Review log</a>
+    <a href="next-session.md">Next session</a>
+    <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/README.md">README / brief</a>
+  </nav>
+  <nav>
+    <a href="session3.html">Session 3 — submission</a>
+    <a href="HOW_TO_SUBMIT.html">How to submit (s3)</a>
+    <a href="RESULTS.html">Results (s3)</a>
+    <a href="H49_RESULTS.html">H49 results</a>
+    <a href="why-02778.html">Why 0.2778</a>
+    <a href="hypotheses-s3.html">Hypotheses H47</a>
+    <a href="research.html">Research base (s3)</a>
+    <a class="on" href="REMAINING_WORK.html">Remaining work (s3)</a>
+    <a href="COMPLIANCE.html">Compliance (s3)</a>
+  </nav>
+</div></header>
+<div class="wrap">
+<article>
+<h1 id="remaining-work-and-limits-7-october-2026">Remaining work and limits — 7 October 2026</h1>
+<blockquote>
+<p><strong>No competition upload or slot use is authorized or performed in this review.</strong> H60 is the current locally promoted scientific candidate; organizer acceptance is untested. H47-C1 remains research-only, not promoted, and its gate remains closed. See <a href="current-status.html">current status</a>.</p>
+</blockquote>
+<h2 id="current-evidence-boundary">Current evidence boundary</h2>
+<p>H60 passed its preregistered 41-block local gate at 2.0 px / 200 m. Pooled proxy DTI is 0.287891 on the primary off-catalogue lidar-peak instrument and 0.193813 on independent SGMC off-catalogue faults. The primary instrument is derived from the same owner-built lidar stack as the H60 field and is circular/optimistic; the results are not private-label or leaderboard scores. The 0.0989005 split-conformal floor at rank 20/22 (90.91% nominal marginal coverage) is conditional on unverified block-score exchangeability.</p>
+<p>The all-finite H60 TIFF has finite zeros outside and does not literally satisfy the published null/NaN-outside instruction. The NaN-outside sibling matches that wording on local read-back, but portal acceptance remains untested. The historical rejected bytes and parser receipt are unavailable, so the old range-error cause remains unknown. The explicit C1 failure is unchanged: pooled proxy DTI 0.177872 vs. 0.180216 for baseline; 11/22 truth-bearing test blocks improved where 15 were required; assumption-conditional lower-bound estimate 0.0.</p>
+<h2 id="remaining-work-only-after-a-separate-authorization">Remaining work, only after a separate authorization</h2>
+<ol>
+<li><strong>Keep portal activity stopped for this review.</strong> Do not upload, spend a feedback opportunity, or make a final selection. The <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">official DOE/NLR rules PDF</a> states up to three scoring/feedback submissions per week and one final selected file for the competition's rounds. This public cap does not disclose the entrant's eligibility, used/remaining weekly opportunities, or current final-selection state; those require the authenticated portal.</li>
+<li><strong>De-circularize the strongest instrument before treating H60's primary score as transferable evidence.</strong> The primary lidar-peak instrument uses the same owner-derived lidar stack the candidate reads. A new instrument should have zero shared code path with the field; a structurally independent regional or Quaternary-fault compilation is a research priority, subject to actual coverage verification.</li>
+<li><strong>Preregister any extension before scoring.</strong> The 2.0 px spacing is at the edge of the tested range, where the selection-half mean remained highest. Any extension below 2.0 px needs a frozen spacing set, capacity-aware emission accounting, and a conformal guarantee simultaneous over the expanded set; do not reuse the existing test as a fresh test for tuned settings.</li>
+<li><strong>Measure the road/claim mask radii only under a preregistered ablation.</strong> H64 supports using the masks but does not establish that 250 m / 150 m are optimal radii.</li>
+<li><strong>Maintain the exact-byte distinction.</strong> The local format audit is <a href="data/h60-encoding-audit.json"><code>data/h60-encoding-audit.json</code></a>. The NaN-outside variant is an inspection candidate only; the all-finite zero-outside variant is a range-check diagnostic, not a locally format-conforming file under the published outside wording. A passing local check does not establish organizer acceptance.</li>
+<li><strong>Keep attribution and provenance conditional.</strong> Participant leaderboard rows do not identify TIFFs. The 0.2778 H33-2-B2 mapping remains owner-reported and unverified. The restored competition inputs are hash-pinned mirrors, not authenticated organizer downloads; no private labels or private score are available.</li>
+<li><strong>Preserve the dated board snapshot.</strong> The official public observation checked 7 October 2026 has rank 1 at 0.3774 and 0.3195 at rank 7. Do not call 0.3195 the current top; the board moves, and no score-to-file mapping is established.</li>
+</ol>
+<h2 id="actions-not-taken">Actions not taken</h2>
+<p>This documentation review did not log in to the competition portal, restore competition data, run an H60 scoring pipeline, upload a file, request a score, use a weekly feedback opportunity, make the final selection, or spend a slot. Any data-dependent test result must be reported from the actual run, not inferred from a receipt or earlier handoff.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="current-status.html">Current status and exact-byte audit</a></li>
+<li><a href="README.md">Current README and standing brief</a></li>
+<li><a href="h60.html">H60 scientific evidence</a></li>
+<li><a href="COMPLIANCE.md">Corrected requirements audit</a></li>
+<li><a href="HOW_TO_SUBMIT.md">Submission status and safe checklist</a></li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official GeoTIFF requirements</a></li>
+<li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official competition rules</a></li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Official leaderboard</a></li>
+<li><a href="sources.md">Source register</a></li>
+</ul>
+</article>
+</div>
+</body>
+</html>

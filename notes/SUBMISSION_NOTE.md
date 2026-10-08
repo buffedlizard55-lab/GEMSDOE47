@@ -1,8 +1,10 @@
-# Submission note status — 2026-10-06
+# Historical H47-B submission note — 2026-10-06
 
-> ## STOP — no portal submission is authorized
+> **ARCHIVE / NOT CURRENT FILE OR PORTAL ADVICE.** This note records the H47-B decision as of 6 October 2026. H60 later passed a separate local scientific promotion gate, but organizer acceptance is untested. H47-C1 remains not promoted and its gate remains closed. No upload or slot use is authorized or performed in the current review. See [`docs/current-status.html`](../docs/current-status.html), [`docs/HOW_TO_SUBMIT.md`](../docs/HOW_TO_SUBMIT.md), and the [H60 exact-byte audit](../docs/data/h60-encoding-audit.json).
+
+> ## Historical STOP — H47-B was not promoted
 >
-> There is no eligible submission in this repository. **Do not upload** either TIFF under `docs/downloads/`. H47-B is a research artifact that failed the preregistered holdout/control gate; the older d-cat/annulus TIFF is a delete-only subset of a published sibling mask. No submission slot is recommended.
+> Do not upload the H47-B TIFF or the older d-cat/annulus TIFF. H47-B failed its preregistered holdout/control gate; the d-cat/annulus TIFF is a delete-only subset of a published sibling mask. This historical H47-B result is not a statement that H60 failed its later, separate local gate, and it does not authorize any portal action.
 
 ## H47-B research artifact (not a portal file)
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Rewrite the pages that must make the H60 artifact obviously downloadable.
+"""RETIRED H60 page updater; execution is disabled.
+
+The historical implementation below promotes an all-finite, zero-outside H60 TIFF as upload-ready. That encoding does not match the published outside-null/NaN wording. H60 is locally scientifically promoted, but neither encoding has organizer acceptance; no portal action is authorized in this review.
 
 Run after ``scripts/build_submission_h60.py``.  Every replacement asserts that it
 actually changed the file, so a silent miss fails the run instead of publishing a
@@ -7,6 +9,11 @@ page that still points at the previous candidate.  H50 is demoted to a clearly
 labelled fallback (still valid, no longer the primary).
 """
 from __future__ import annotations
+
+if __name__ != "__main__":
+    raise RuntimeError("DISABLED: retired H60 page updater cannot be imported or executed.")
+print("DISABLED: historical H60 updater would restore upload-ready language and select the all-finite zero-outside diagnostic. No files were read or written.")
+raise SystemExit(2)
 
 import json
 import sys

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Rewrite the two pages that must make the new artifact obviously downloadable.
+"""RETIRED H50 page updater; execution is disabled.
+
+The historical implementation below can restore an all-finite, zero-outside H50 file as upload-ready. H50 is not portal-accepted and does not match the published outside-null/NaN wording. Do not run this updater.
 
 Run after ``scripts/build_submission_h50.py``.  Every replacement asserts that it
 actually changed the file, so a silent miss fails the run instead of publishing a
@@ -7,9 +9,12 @@ page that still says "do not upload".
 """
 from __future__ import annotations
 
+if __name__ != "__main__":
+    raise RuntimeError("DISABLED: retired H50 page updater cannot be imported or executed.")
+print("DISABLED: historical H50 updater would restore upload-ready language for an all-finite zero-outside TIFF. No files were read or written.")
+raise SystemExit(2)
+
 import json
-import re
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]

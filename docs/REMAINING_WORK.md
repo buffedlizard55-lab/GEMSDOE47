@@ -4,33 +4,38 @@ layout: default
 nav_order: 7
 ---
 
-# Remaining work and limits — corrected 7 October 2026
+# Remaining work and limits — 7 October 2026
 
-> **No current artifact is approved for upload.** This replaces an older handoff that incorrectly advised uploading a TIFF, assumed a fixed weekly quota, treated H33's reported 0.2778 as an authenticated raster score, and described a causal gain from flank deletion. Those instructions and conclusions are withdrawn.
+> **No competition upload or slot use is authorized or performed in this review.** H60 is the current locally promoted scientific candidate; organizer acceptance is untested. H47-C1 remains research-only, not promoted, and its gate remains closed. See [current status](current-status.html).
 
-## Immediate decision
+## Current evidence boundary
 
-Keep every submission gate closed. H47-C1 is the prominent current research artifact but failed its preregistered screen: pooled public-catalogue DTI 0.177872 versus the 0.180216 ordinary-terrain baseline; only 11/22 truth-bearing blocks improved (15 required); nominal 90% marginal proxy lower-bound estimate 0.0000 under unverified exchangeability. The H49 candidate inherited from main is preserved for audit but fails the published outside-null/NaN requirement: its exact TIFF is all-finite with no NoData tag. Its nominal 90% proxy lower-bound calculation assumes unverified exchangeability, the selection rule was amended post-hoc, and its 0.2778 comparator is an owner-reported d2.8 reference, not an authenticated leaderboard incumbent. H49 did not pass a common promotion comparison against the established spatially blocked holdout best. H47-B and H47-QC are negative research screens. H47-GSA/H47-MAXCOV and H48/session-3 artifacts are research-only or superseded. None has organizer acceptance or permission to use a slot.
+H60 passed its preregistered 41-block local gate at 2.0 px / 200 m. Pooled proxy DTI is 0.287891 on the primary off-catalogue lidar-peak instrument and 0.193813 on independent SGMC off-catalogue faults. The primary instrument is derived from the same owner-built lidar stack as the H60 field and is circular/optimistic; the results are not private-label or leaderboard scores. The 0.0989005 split-conformal floor at rank 20/22 (90.91% nominal marginal coverage) is conditional on unverified block-score exchangeability.
 
-## Remaining work
+The all-finite H60 TIFF has finite zeros outside and does not literally satisfy the published null/NaN-outside instruction. The NaN-outside sibling matches that wording on local read-back, but portal acceptance remains untested. The historical rejected bytes and parser receipt are unavailable, so the old range-error cause remains unknown. The explicit C1 failure is unchanged: pooled proxy DTI 0.177872 vs. 0.180216 for baseline; 11/22 truth-bearing test blocks improved where 15 were required; assumption-conditional lower-bound estimate 0.0.
 
-1. **Finish the review PR and verify repository checks.** The PR must be green and mergeable before it is merged; this is separate from competition eligibility.
-2. **If a new candidate is proposed, preregister a fresh spatially blocked test** against a separately established holdout best, with equal-mass controls, adequate truth, and the specified confidence level. The current C1 test results cannot be reused as an untouched test for a tuned variant. A zero or unsupported assumption-conditional lower bound keeps the gate closed.
-3. **Keep attribution conditional.** The participant-level 0.2778 observation is not authenticated to H33-2-B2. All H33-dependent fits and score inversions are hypothetical scenarios. The d2.8 TIFF is an **owner-reported d2.8 reference**, not a separately established spatially blocked holdout best. H47-SAF changes sign only between tested assumptions 0.2200 and 0.2400; there is no exact break-even.
-4. **Keep the format distinction explicit.** Official instructions say null or NaN outside the training bounds. The exact H49 TIFF read-back has all 12,279,160 cells finite and no NoData tag; its original receipt records 5,167,373 mirrored footprint cells, so 7,111,787 outside cells are finite and it fails that check. Unmasked zero-outside all-finite H47-B single-scale, H47-GSA, H47-MAXCOV, H47-QC, H48-APEX/repack, and Session-3 variants also fail the local outside-nodata check. Its NaN-outside alternative follows an available owner-supplied mirror convention, not verified portal acceptance. H47-C1 instead has an internal validity mask; its local 15/15 checks are not an organizer test. The earlier rejected bytes are unavailable, so the cause remains unknown.
-5. **Do not treat score observations as upload receipts.** Three historical λ-scaling score observations do not establish how many new files were uploaded or how many slots were used. Public official pages checked 2026-10-06 do not establish the current per-user quota or slot accounting. No diagnostic cost is inferred or described as free.
-6. **Preserve provenance limits.** Competition arrays and comparison rasters in the local history are hash-pinned mirror/owner bytes, not authenticated organizer downloads. No hidden test labels, private score, or complete participant-to-TIFF mapping is available.
+## Remaining work, only after a separate authorization
 
-## Actions explicitly not taken
+1. **Keep portal activity stopped for this review.** Do not upload, spend a feedback opportunity, or make a final selection. The [official DOE/NLR rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf) states up to three scoring/feedback submissions per week and one final selected file for the competition's rounds. This public cap does not disclose the entrant's eligibility, used/remaining weekly opportunities, or current final-selection state; those require the authenticated portal.
+2. **De-circularize the strongest instrument before treating H60's primary score as transferable evidence.** The primary lidar-peak instrument uses the same owner-derived lidar stack the candidate reads. A new instrument should have zero shared code path with the field; a structurally independent regional or Quaternary-fault compilation is a research priority, subject to actual coverage verification.
+3. **Preregister any extension before scoring.** The 2.0 px spacing is at the edge of the tested range, where the selection-half mean remained highest. Any extension below 2.0 px needs a frozen spacing set, capacity-aware emission accounting, and a conformal guarantee simultaneous over the expanded set; do not reuse the existing test as a fresh test for tuned settings.
+4. **Measure the road/claim mask radii only under a preregistered ablation.** H64 supports using the masks but does not establish that 250 m / 150 m are optimal radii.
+5. **Maintain the exact-byte distinction.** The local format audit is [`data/h60-encoding-audit.json`](data/h60-encoding-audit.json). The NaN-outside variant is an inspection candidate only; the all-finite zero-outside variant is a range-check diagnostic, not a locally format-conforming file under the published outside wording. A passing local check does not establish organizer acceptance.
+6. **Keep attribution and provenance conditional.** Participant leaderboard rows do not identify TIFFs. The 0.2778 H33-2-B2 mapping remains owner-reported and unverified. The restored competition inputs are hash-pinned mirrors, not authenticated organizer downloads; no private labels or private score are available.
+7. **Preserve the dated board snapshot.** The official public observation checked 7 October 2026 has rank 1 at 0.3774 and 0.3195 at rank 7. Do not call 0.3195 the current top; the board moves, and no score-to-file mapping is established.
 
-This review did not restore data, rerun H47-B, upload or prepare a portal submission, use a competition slot, or run a λ-probe. Data-dependent tests remain skipped because the cache is absent. Do not run gated pipelines or use a slot absent explicit authorization and a passed promotion gate.
+## Actions not taken
+
+This documentation review did not log in to the competition portal, restore competition data, run an H60 scoring pipeline, upload a file, request a score, use a weekly feedback opportunity, make the final selection, or spend a slot. Any data-dependent test result must be reported from the actual run, not inferred from a receipt or earlier handoff.
 
 ## References
 
-- [Current README and standing user brief](../README.md)
+- [Current status and exact-byte audit](current-status.html)
+- [Current README and standing brief](README.md)
+- [H60 scientific evidence](h60.html)
 - [Corrected requirements audit](COMPLIANCE.md)
-- [Submission readiness checklist](HOW_TO_SUBMIT.md)
+- [Submission status and safe checklist](HOW_TO_SUBMIT.md)
 - [Official GeoTIFF requirements](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-- [Official competition home and rules links](https://www.drivendata.org/competitions/306/competition-doe-gems/)
-- [Irregularities register](irregularities.md)
-- [Next-session handoff](next-session.md)
+- [Official competition rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
+- [Official leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
+- [Source register](sources.md)

@@ -245,7 +245,7 @@ def h50_field(data_dir: Path, mask: np.ndarray | None = None) -> dict:
     if not np.isfinite(field[mask]).all() or (field[mask] < 0).any() or (field[mask] > 1).any():
         raise ValueError("H50 field is not finite and inside [0,1] on the emission domain")
     return dict(field=field, mask=mask, slope_band=SLOPE_BAND,
-                n_blocks=int(len(np.unique(blocks))), n_ranked=int(mask.sum()))
+                n_blocks=len(np.unique(blocks)), n_ranked=int(mask.sum()))
 
 
 # ---------------------------------------------------------------------- emission
