@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "hypothesis_id": "H68",
-  "artifact": "gems47-h68-lidar-8ch-s2p8-20261008",
-  "generated_utc": "2026-10-08T03:17:00Z",
+  "hypothesis_id": "H74",
+  "artifact": "gems47-h74-lidar-8ch-s2p8-20261008",
+  "generated_utc": "2026-10-08T03:36:50Z",
   "spacing_px": 2.8,
   "budget": 37654,
   "arm_spec": {
@@ -17,7 +17,7 @@
       "relief"
     ]
   },
-  "emission_domain": "h68 emission domain (1,610,706 cells)",
+  "emission_domain": "h74 emission domain (1,610,706 cells)",
   "format": {
     "driver": "GTiff",
     "count": 1,
@@ -64,8 +64,8 @@
     "max_jaccard_vs_scored_priors": 0.008248
   },
   "uniqueness_pass": true,
-  "screen": "evidence/h65/screen.json",
-  "preregistration": "docs/research/h65-hypotheses-preregistered.md",
+  "screen": "evidence/h71/screen.json",
+  "preregistration": "docs/research/h71-hypotheses-preregistered.md",
   "screen_selected_spacing_px": 2.8,
   "conformal": {
     "method": "max-residual one-sided split conformal, Lei et al. JASA 2018 Alg. 2; operating point = argmax certified lower bound",
@@ -107,14 +107,14 @@
     }
   },
   "sha256_tif": "a0e82ce0e2f8cfa11b9759d47ec36ec259923d8137b0057a557e4701d245c50c",
-  "submission_note_field": "h68 lidar 8-channel d2p8 conformal90",
+  "submission_note_field": "h74 lidar 8-channel d2p8 conformal90",
   "bytes": 307486,
   "files": [
-    "gems47-h68-lidar-8ch-s2p8-20261008-allfinite.tif",
-    "gems47-h68-lidar-8ch-s2p8-20261008.zip",
-    "gems47-h68-lidar-8ch-s2p8-20261008-receipt.json",
-    "gems47-h68-lidar-8ch-s2p8-20261008-note.txt",
-    "gems47-h68-lidar-8ch-s2p8-20261008-nanoutside.tif"
+    "gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif",
+    "gems47-h74-lidar-8ch-s2p8-20261008.zip",
+    "gems47-h74-lidar-8ch-s2p8-20261008-receipt.json",
+    "gems47-h74-lidar-8ch-s2p8-20261008-note.txt",
+    "gems47-h74-lidar-8ch-s2p8-20261008-nanoutside.tif"
   ],
   "provenance_limits": [
     "The lidar scarp stack is owner-derived from USGS 3DEP 1 m DEM tiles (706/716, tile list OCR-recovered from the competition PDF), not organiser-supplied.",
@@ -122,17 +122,5 @@
     "No organiser receipt links any participant score to a TIFF; the 0.2778 figure is owner-reported and the owner page marks that submission unscored.",
     "The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.",
     "The primary instrument is derived from the same lidar stack the field reads, so primary-instrument numbers are optimistic; the SGMC off-catalogue gain is the independent corroboration."
-  ],
-  "kind": "validated_candidate_not_recommended_while_primary_stands",
-  "promoted_to_primary": false,
-  "supersedes": null,
-  "download_url": "downloads/gems47-h68-lidar-8ch-s2p8-20261008-allfinite.tif",
-  "zip_url": "downloads/gems47-h68-lidar-8ch-s2p8-20261008.zip",
-  "note_url": "downloads/gems47-h68-lidar-8ch-s2p8-20261008-note.txt",
-  "fallback_url": "downloads/gems47-h68-lidar-8ch-s2p8-20261008-nanoutside.tif",
-  "deployed_evidence_sha256": {
-    "h65-screen.json": "ab7eb4c8ff8347b1d53bd9ca42a55fa22fef44f1444e450e0a64a1c6c8633560",
-    "h65-spacing-history.csv": "a995ec6ec770ad40d3fc106fd80409062b7a91af3d7e216aea68784b445a0114",
-    "h33-reference-analysis.json": "beeec4b48482848d248975795995cb99ad7f9e2c3ba15ba27fc25e821fd411c9"
-  }
+  ]
 }

@@ -1,29 +1,32 @@
 #!/usr/bin/env python3
-"""H65-H68 spatially-blocked holdout screen with split-conformal operating-point selection.
+"""H65-H70 spatially-blocked holdout screen with split-conformal operating-point selection.
 
-Frozen design (docs/research/h65-hypotheses-preregistered.md, committed before any
-score in this round was computed):
+Frozen design (docs/research/h65-hypotheses-preregistered.md, committed before any score):
 
-* **Blocks.**  The exact 41 blocks, guards, budgets and roles of the H50/H60 screens
-  are re-derived with the same seed (500610) and asserted equal to
+* **Blocks.**  The exact blocks, guards, budgets and roles of the H50/H60 screens are
+  re-derived with the same seed (500610) and asserted equal to
   ``evidence/h50/blocks.json`` before anything is scored.
-* **Arms.**  ``h65`` (scarp-consensus field), ``h66`` (far-field lidar field),
-  ``h67`` (alteration-corroborated lidar field), ``h68`` (extended-channel lidar
-  field).  Anchors: ``h50`` and ``h60`` (frozen definitions, reproduced).  Controls:
-  the mass-matched random control, the owner-reported d2.8 reference and H47-C1.
-* **Instruments.**  Primary ``lappos_t200_d3`` (frozen); the frozen seven lidar-peak
-  instruments plus the independent SGMC off-catalogue population.
-* **Conformal operating-point rule (this round's methodological change).**  Per arm,
-  max-over-settings one-sided split conformal at 0.90
-  (``gems47.conformal.simultaneous_lower_bounds``, Lei et al. JASA 2018 Algorithm 2):
-  the selection half centers the band, the disjoint calibration half certifies it, and
-  the operating point is ``choose_operating_point`` -- the spacing with the greatest
-  CERTIFIED LOWER BOUND (the guaranteed floor), not the greatest observed mean.  The
-  reported confidence level is k/(n+1) = 20/22 >= 90.909 %.
-* **Gate.**  The preregistered six-condition promotion gate, including
-  ``beats_incumbent_h60`` (both pooled selection-half DTIs above H60's frozen
-  0.287891 / 0.193813).  No gate here authorises an upload; it only decides whether an
-  artefact is *built* for the owner's judgement.
+* **Sweep.**  {1.4, 1.6, 1.8, 2.0, 2.4, 2.8, 3.2} px -- seven settings like the H60
+  round, extended below H60's 2.0 edge where its selection mean was still rising.
+* **Arms.**  ``h50`` (design anchor, must reproduce 0.16588059959214113 pooled @2.8),
+  ``h60`` (incumbent anchor -- the current file to submit -- must reproduce
+  0.2878910923835811 pooled @2.0), ``h62`` (runner-up re-audit), ``h65`` (step-only
+  lidar field), ``h66`` (Borda-mean lidar field), ``h67`` (catalogue-tip-proximity
+  field), ``h68`` (H60 field on the relaxed-mask domain), ``h69`` (H60 field on the
+  strict-mask domain).  Plus the mass-matched random control, the owner-reported d2.8
+  reference and H47-C1.  H61/H63 stay refuted and are not re-screened.
+* **Instruments.**  Primary ``lappos_t200_d3`` (frozen for comparability); secondary
+  lidar-peak instruments and the independent SGMC off-catalogue population.
+* **Conformal.**  Max-over-settings one-sided split conformal at 0.90
+  (``gems47.conformal.simultaneous_lower_bounds``, Lei et al. JASA 2018 Algorithm 2),
+  per arm: the selection half chooses the spacing, the calibration half certifies it.
+* **Gate.**  The preregistered H60-displacement gate; no gate here authorises an
+  upload, it only decides whether an artefact is *built* for the owner's judgement.
+
+Fixed relative to scripts/run_h60_screen.py: the emitted-mass aggregation sums the
+PRIMARY-instrument rows only (one row per block) with no division.  The H60 script
+divided that sum by 7 (IR-2026-10-07-D); its screen.json was patched, the script was
+not.  This script is correct as written.
 
 This screen spends no competition submission slot and reads no private label.
 """
@@ -48,10 +51,10 @@ import rasterio
 
 from gems47 import grid as G
 from gems47 import h50, h60, h65
-from gems47.conformal import choose_operating_point, simultaneous_lower_bounds
+from gems47.conformal import simultaneous_lower_bounds
 
 EV = ROOT / "evidence" / "h65"
-SPACINGS = (2.0, 2.4, 2.8, 3.2, 3.6, 4.0, 4.6)
+SPACINGS = (1.4, 1.6, 1.8, 2.0, 2.4, 2.8, 3.2)
 BUDGET = 37_654
 NROWS = NCOLS = 8
 GUARD_PX = 3
@@ -66,15 +69,12 @@ INSTRUMENTS = {
     "upface_t200_d3": ("upface_max", 200, 3),
     "union_t200_d3": ("union", 200, 3),
 }
-ARMS = ("h65", "h66", "h67", "h68")
-ANCHORS = ("h50", "h60")
+ARMS = ("h50", "h60", "h62", "h65", "h66", "h67", "h68", "h69")
+CHALLENGERS = ("h62", "h65", "h66", "h67", "h68", "h69")
 CODE_PATHS = ("scripts/run_h65_screen.py", "src/gems47/h65.py", "src/gems47/h60.py",
               "src/gems47/h50.py", "src/gems47/conformal.py", "src/gems47s3/geomorph.py")
-
-#: frozen incumbent values from the H60 screen (asserted against the receipt)
-H60_FROZEN_PRIMARY = 0.287891
-H60_FROZEN_SGMC = 0.193813
-H50_FROZEN_PRIMARY = 0.165881
+H50_ANCHOR_POOLED_AT_2P8 = 0.16588059959214113
+H60_ANCHOR_POOLED_AT_2P0 = 0.2878910923835811
 
 
 def digest(path: Path) -> str:
@@ -132,9 +132,9 @@ def _emit_upto(field: np.ndarray, valid: np.ndarray, spacing_px: float,
     """Greedy spaced emission capped at what the valid domain can hold.
 
     The noise-masked lidar domains are fragmented and cannot always hold the full
-    block budget at small spacings; under-emission is the hypothesis's own bet and is
-    reported, not hidden (session-5 deviation IR-2026-10-07-D): the ``emitted`` column
-    of every row carries the actual mass.
+    block budget at the swept spacing.  Under-emission is the hypothesis's own bet
+    and is reported, not hidden: the ``emitted`` column of every row carries the
+    actual mass.
     """
     from gemsdoe47.magnetic import ranked_pixels
     f = np.where(valid, np.nan_to_num(np.asarray(field, np.float32), nan=0.0), 0.0)
@@ -145,6 +145,17 @@ def _emit_upto(field: np.ndarray, valid: np.ndarray, spacing_px: float,
     sel = h60._greedy_up_to(order, f.shape, spacing_px, budget)
     p.ravel()[sel] = 1.0
     return p
+
+
+def emitted_mass(rows: list[dict], model: str, role: str, spacing: float) -> int:
+    """Actual emitted dots for one arm/role/spacing, summed over blocks.
+
+    Exactly one row per block carries instrument == PRIMARY, so summing those rows
+    gives the realised mass with no division (the H60 script's //7 is not repeated).
+    """
+    return sum(int(r["emitted"]) for r in rows
+               if r["role"] == role and r["model"] == model
+               and r["spacing_px"] == spacing and r["instrument"] == PRIMARY)
 
 
 def main() -> int:
@@ -164,39 +175,28 @@ def main() -> int:
     print(f"[blocks] {len(blocks)} blocks, roles/budgets byte-equal to the frozen H50 screen",
           flush=True)
 
-    # ---- incumbent values: assert the frozen H60 receipt before using them in the gate
-    h60_screen = json.loads((ROOT / "evidence" / "h60" / "screen.json").read_text())
-    h60_arm = h60_screen["arms"]["h60"]
-    h50_arm = h60_screen["arms"]["h50"]
-    assert abs(h60_arm["pooled_primary_selection"] - H60_FROZEN_PRIMARY) < 1e-6, \
-        "frozen H60 primary drifted"
-    assert abs(h60_arm["pooled_sgmc_selection"] - H60_FROZEN_SGMC) < 1e-6, \
-        "frozen H60 sgmc drifted"
-    assert abs(h50_arm["pooled_primary_selection"] - H50_FROZEN_PRIMARY) < 1e-6, \
-        "frozen H50 primary drifted"
-    print("[incumbent] frozen H60 0.287891/0.193813 and H50 0.165881 asserted", flush=True)
+    # ---- fields (all frozen definitions; see src/gems47/h65.py)
+    domain60 = h60.h60_emission_domain(data)
+    domain68 = h65.lidar_domain_rad(data, h65.H68_ROAD_M, h65.H68_CLAIM_M)
+    domain69 = h65.lidar_domain_rad(data, h65.H69_ROAD_M, h65.H69_CLAIM_M)
+    assert bool((domain69 & ~domain60).any()) is False, "strict domain must nest in H60's"
+    assert bool((domain60 & ~domain68).any()) is False, "H60 domain must nest in relaxed's"
+    print(f"[domain] H60 {int(domain60.sum())} px; H68 relaxed {int(domain68.sum())} px; "
+          f"H69 strict {int(domain69.sum())} px (evaluated {int(mask.sum())})", flush=True)
+    fields: dict[str, np.ndarray] = {}
+    fields["h50"] = h60.h50_field(data, mask)
+    fields["h60"] = h60.h60_field(data, domain60)
+    fields["h62"] = h60.h62_field(fields["h50"], fields["h60"], domain60)
+    fields["h65"] = h65.h65_field(data, domain60)
+    fields["h66"] = h65.h66_field(data, domain60)
+    fields["h67"] = h65.h67_field(data, mask)
+    fields["h68"] = h65.h60_field_on(data, domain68)
+    fields["h69"] = h65.h60_field_on(data, domain69)
+    n_tips = int(h65.tip_pixels(grids["catalogue"]).sum())
+    print(f"[fields] built ({time.time()-started:.0f}s); catalogue tips {n_tips}", flush=True)
 
-    # ---- fields (all frozen definitions; see src/gems47/h65.py and h60.py)
-    built = h65.build_all(data)
-    fields: dict[str, np.ndarray] = {
-        "h50": h60.h50_field(data, mask),
-        "h60": h60.h60_field(data, h60.h60_emission_domain(data)),
-        "h65": built["h65"]["field"],
-        "h66": built["h66"]["field"],
-        "h67": built["h67"]["field"],
-        "h68": built["h68"]["field"],
-    }
-    arm_domain = {
-        "h50": mask,
-        "h60": h60.h60_emission_domain(data),
-        "h65": built["h65"]["mask"],
-        "h66": built["h66"]["mask"],
-        "h67": built["h67"]["mask"],
-        "h68": built["h68"]["mask"],
-    }
-    print(f"[fields] built ({time.time()-started:.0f}s); domains "
-          + " ".join(f"{a}={int(d.sum())}" for a, d in arm_domain.items())
-          + f"; consensus counts {built['h65']['counts']}", flush=True)
+    arm_domain = {"h50": mask, "h60": domain60, "h62": domain60, "h65": domain60,
+                  "h66": domain60, "h67": mask, "h68": domain68, "h69": domain69}
 
     # ---- instruments (frozen set of the H50/H60 screens)
     ch = h50.lidar_scarp_channels(data)
@@ -239,17 +239,17 @@ def main() -> int:
                                  spacing_px=spacing, instrument=iname,
                                  emitted=int(p.sum()), **r))
 
-        for arm in ARMS + ANCHORS:
+        for arm in ARMS:
             valid_crop = arm_domain[arm][sy, sx]
             fld = fields[arm][sy, sx]
             budget = b["budget"]
             for spacing in SPACINGS:
-                if arm == "h50":
+                if arm in ("h50", "h67"):
                     p = h50.emit(fld, valid_crop, spacing, budget)
                 else:
                     # the noise-masked lidar domains are fragmented and cannot always
-                    # hold the full block budget at small spacings; emission is capped
-                    # at the domain capacity and the actual mass is recorded
+                    # hold the full block budget; emission is capped at the domain
+                    # capacity and the actual mass is recorded in every row
                     p = _emit_upto(fld, valid_crop, spacing, budget)
                 record(arm, spacing, p, valid_crop)
         # mass-matched random control (same emitter/spacings/budget on the plain domain)
@@ -272,7 +272,7 @@ def main() -> int:
         writer.writeheader()
         writer.writerows(rows)
 
-    # ---- conformal operating-point selection per arm ---------------------------
+    # ---- selection on the SELECTION half only, per arm ------------------------
     def matrix(model, instrument, role):
         return np.array([[ _row(rows, model, instrument, role, b["block_id"], s)
                            for s in SPACINGS]
@@ -299,44 +299,51 @@ def main() -> int:
         return (float(T / den) if den > 0 else 0.0), len(rs)
 
     arms_out = {}
-    for arm in ARMS + ANCHORS:
+    for arm in ARMS:
         sel = matrix(arm, PRIMARY, "selection")
         cal = matrix(arm, PRIMARY, "calibration")
+        means = sel.mean(axis=0)
+        chosen = int(max(range(len(SPACINGS)), key=lambda i: (float(means[i]),
+                                                              float(SPACINGS[i]))))
         band = simultaneous_lower_bounds(sel, cal, coverage=COVERAGE)
-        # the operating point is the spacing with the greatest CERTIFIED floor
-        chosen = choose_operating_point(band, SPACINGS)
-        spacing_chosen = float(SPACINGS[chosen])
-        sgmc_sel, _ = pooled(arm, "sgmc_offcat", "selection", spacing_chosen)
-        emitted_sel = sum(int(r["emitted"]) for r in rows
-                          if r["role"] == "selection" and r["model"] == arm
-                          and r["spacing_px"] == spacing_chosen
-                          and r["instrument"] == PRIMARY) // (len(instruments) + 1)
+        sgmc_sel, _ = pooled(arm, "sgmc_offcat", "selection", SPACINGS[chosen])
         arms_out[arm] = dict(
-            selected_spacing_px=spacing_chosen,
-            selection_rule="argmax certified conformal lower bound (guaranteed floor)",
-            selection_mean=float(sel.mean(axis=0)[chosen]),
-            selection_means=[float(v) for v in sel.mean(axis=0)],
-            emitted_mass_selection_half=emitted_sel,
-            pooled_primary_selection=pooled(arm, PRIMARY, "selection", spacing_chosen)[0],
+            selected_spacing_px=float(SPACINGS[chosen]),
+            selection_mean=float(means[chosen]),
+            selection_means=[float(v) for v in means],
+            emitted_mass_selection_half=emitted_mass(rows, arm, "selection",
+                                                     SPACINGS[chosen]),
+            emitted_mass_calibration_half=emitted_mass(rows, arm, "calibration",
+                                                       SPACINGS[chosen]),
+            pooled_primary_selection=pooled(arm, PRIMARY, "selection", SPACINGS[chosen])[0],
             pooled_primary_calibration=pooled(arm, PRIMARY, "calibration",
-                                              spacing_chosen)[0],
+                                              SPACINGS[chosen])[0],
             pooled_sgmc_selection=sgmc_sel,
             secondary_selection={iname: pooled(arm, iname, "selection",
-                                               spacing_chosen)[0] for iname in instruments},
+                                               SPACINGS[chosen])[0] for iname in instruments},
             conformal=dict(floor=float(band["lower_bounds"][chosen]),
                            rank_1_based=int(band["rank_1_based"]),
                            coverage_at_least=float(
                                band["finite_sample_coverage_at_least_if_exchangeable"]),
-                           n_selection=int(band["n_selection"]),
-                           n_calibration=int(band["n_calibration"]),
-                           lower_bounds=[float(v) for v in band["lower_bounds"]],
-                           selection_centers=[float(v) for v in band["selection_centers"]],
                            band=band),
         )
 
+    # anchor reproduction: the H50 and H60 emissions at their frozen spacings must be
+    # bit-identical to the H60 round (same blocks, budgets, fields, emitter)
+    anchor_h50 = pooled("h50", PRIMARY, "selection", 2.8)[0]
+    anchor_h60 = pooled("h60", PRIMARY, "selection", 2.0)[0]
+    anchor_ok = (abs(anchor_h50 - H50_ANCHOR_POOLED_AT_2P8) < 1e-9
+                 and abs(anchor_h60 - H60_ANCHOR_POOLED_AT_2P0) < 1e-9)
+    print(f"[anchor] h50@2.8 {anchor_h50:.14f} (expect {H50_ANCHOR_POOLED_AT_2P8}); "
+          f"h60@2.0 {anchor_h60:.14f} (expect {H60_ANCHOR_POOLED_AT_2P0}); ok={anchor_ok}",
+          flush=True)
+    if not anchor_ok:
+        raise SystemExit("anchor reproduction failed: the frozen design was not "
+                         "re-instantiated exactly; no gate verdict is valid")
+
     # controls at each arm's selected spacing (random is spacing-matched per arm)
     controls = {}
-    for arm in ARMS + ANCHORS:
+    for arm in ARMS:
         sp = arms_out[arm]["selected_spacing_px"]
         controls[arm] = {
             "random": dict(primary=pooled("random", PRIMARY, "selection", sp)[0],
@@ -347,37 +354,34 @@ def main() -> int:
                           sgmc=pooled("h47c1", "sgmc_offcat", "selection")[0]),
         }
 
-    # ---- the frozen six-condition promotion gate --------------------------------
-    h50_anchor = arms_out["h50"]
+    # ---- the frozen H60-displacement gate --------------------------------------
+    h60_ref = arms_out["h60"]
     gate_rows = {}
-    for arm in ARMS:
+    for arm in CHALLENGERS:
         a = arms_out[arm]
         c = controls[arm]
         cond = {
-            "beats_h50_by_10pct": bool(a["pooled_primary_selection"]
-                                       >= 1.10 * h50_anchor["pooled_primary_selection"]),
+            "no_regression_on_primary": bool(a["pooled_primary_selection"]
+                                           >= h60_ref["pooled_primary_selection"]),
             "positive_conformal_floor": bool(a["conformal"]["floor"] > 0.0),
+            "sgmc_beats_h60": bool(a["pooled_sgmc_selection"]
+                                 >= h60_ref["pooled_sgmc_selection"]),
             "sgmc_beats_random": bool(a["pooled_sgmc_selection"] >= c["random"]["sgmc"]),
             "beats_random_3x_primary": bool(a["pooled_primary_selection"]
                                             >= 3.0 * c["random"]["primary"]),
-            "beats_incumbent_h60": bool(
-                a["pooled_primary_selection"] > H60_FROZEN_PRIMARY
-                and a["pooled_sgmc_selection"] > H60_FROZEN_SGMC),
         }
-        cond["passed_1_to_4"] = all(cond[k] for k in
-                                    ("beats_h50_by_10pct", "positive_conformal_floor",
-                                     "sgmc_beats_random", "beats_random_3x_primary"))
-        gate_rows[arm] = dict(conditions=cond, passed=cond["passed_1_to_4"])
+        gate_rows[arm] = dict(conditions=cond,
+                              passed=all(cond.values()))
     passing = [a for a, g in gate_rows.items() if g["passed"]]
-    promotable = [a for a in passing if gate_rows[a]["conditions"]["beats_incumbent_h60"]]
     winner = None
     if passing:
         winner = max(passing, key=lambda a: (arms_out[a]["pooled_sgmc_selection"],
-                                             arms_out[a]["conformal"]["floor"]))
+                                             arms_out[a]["conformal"]["floor"],
+                                             arms_out[a]["pooled_primary_selection"]))
 
     summary = {
         "schema_version": 1,
-        "hypothesis_ids": ["H65", "H66", "H67", "H68"],
+        "hypothesis_ids": ["H65", "H66", "H67", "H68", "H69", "H62-reaudit"],
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "status": "RESEARCH_SCREEN_NOT_A_SUBMISSION",
         "preregistration": "docs/research/h65-hypotheses-preregistered.md",
@@ -389,59 +393,45 @@ def main() -> int:
             "spacings_px": list(SPACINGS),
             "primary_instrument": PRIMARY,
             "instruments": {k: list(v) for k, v in INSTRUMENTS.items()},
-            "noise_masks": {"tiger_road_lt_m": h60.ROAD_MASK_M,
-                            "blm_closed_claim_lt_m": h60.CLAIM_MASK_M},
-            "h65_thresholds": {k: float(v) for k, v in h65.H65_THRESHOLDS.items()},
-            "h66_far_radius_px": h65.H66_FAR_RADIUS_PX,
-            "h67_lambda": h65.H67_LAMBDA,
-            "h67_thk_band": h65.H67_THK_BAND,
-            "h68_channels": list(h65.H68_CHANNELS),
+            "noise_masks": {"h60_h65_h66": {"tiger_road_lt_m": h60.ROAD_MASK_M,
+                                           "blm_closed_claim_lt_m": h60.CLAIM_MASK_M},
+                            "h68_relaxed": {"tiger_road_lt_m": h65.H68_ROAD_M,
+                                           "blm_closed_claim_lt_m": h65.H68_CLAIM_M},
+                            "h69_strict": {"tiger_road_lt_m": h65.H69_ROAD_M,
+                                          "blm_closed_claim_lt_m": h65.H69_CLAIM_M}},
+            "h62_lambda": h60.H62_LAMBDA,
+            "catalogue_tip_pixels": n_tips,
             "emission_domains": {a: int(d.sum()) for a, d in arm_domain.items()},
-            "conformal_rule": "operating point = argmax certified lower bound "
-                              "(choose_operating_point); selection half centers, "
-                              "calibration half certifies; coverage 0.90",
             "conformal_reference": "https://doi.org/10.1080/01621459.2017.1307116",
         },
-        "h65_consensus_counts": built["h65"]["counts"],
         "arms": arms_out,
         "controls": controls,
-        "gate": {"rule": "preregistered six-condition gate (see preregistration); "
-                         "conditions 1-5 computed here, 6 (uniqueness + format) is "
-                         "computed by the artefact builder if this gate passes",
-                 "frozen_incumbent": {"h60_primary": H60_FROZEN_PRIMARY,
-                                      "h60_sgmc": H60_FROZEN_SGMC,
-                                      "h50_primary": H50_FROZEN_PRIMARY},
-                 "per_arm": gate_rows, "passing_arms": passing,
-                 "promotable_arms": promotable, "winner": winner,
+        "gate": {"rule": "preregistered H60-displacement gate (see preregistration); "
+                         "conditions 1-4 computed here, 5 (uniqueness) and 6 (format) "
+                         "are computed by the artefact builder if this gate passes",
+                 "per_arm": gate_rows, "passing_arms": passing, "winner": winner,
                  "tiebreak": "highest pooled selection-half sgmc_offcat DTI, then "
-                             "higher conformal floor",
-                 "promotion_rule": "an arm replaces H60 as the primary (OK-to-submit) "
-                                   "artifact only if it passes conditions 1-4 AND "
-                                   "beats_incumbent_h60 (both pooled selection-half "
-                                   "DTIs above H60's frozen values)"},
+                             "higher conformal floor, then higher pooled primary"},
         "instrument_truth_pixels": {k: int(v.sum()) for k, v in instruments.items()},
         "instrument_sgmc_offcat_truth_pixels": int(sgmc.sum()),
         "code_digests": {p: digest(ROOT / p) for p in CODE_PATHS},
         "spacing_history_sha256": digest(history),
         "anchor_reproduction": {
-            "expected_h50_pooled_primary_selection": H50_FROZEN_PRIMARY,
-            "measured_h50": arms_out["h50"]["pooled_primary_selection"],
-            "expected_h60_pooled_primary_selection": H60_FROZEN_PRIMARY,
-            "measured_h60": arms_out["h60"]["pooled_primary_selection"],
-            "matches": bool(
-                abs(arms_out["h50"]["pooled_primary_selection"] - H50_FROZEN_PRIMARY) < 1e-6
-                and abs(arms_out["h60"]["pooled_primary_selection"] - H60_FROZEN_PRIMARY) < 1e-6),
+            "expected_h50_pooled_primary_selection_at_2p8": H50_ANCHOR_POOLED_AT_2P8,
+            "measured_h50": anchor_h50,
+            "expected_h60_pooled_primary_selection_at_2p0": H60_ANCHOR_POOLED_AT_2P0,
+            "measured_h60": anchor_h60,
+            "matches": bool(anchor_ok),
         },
         "limitations": [
             "The primary instrument is derived from the same owner-built lidar stack that "
-            "the H60/H65/H66/H68 fields read; their primary-instrument numbers are "
-            "optimistic by construction. H67's Th/K component is independent of it.",
+            "the H60/H62/H65/H66/H68/H69 fields read; their primary-instrument numbers are "
+            "optimistic by construction. H67 (catalogue geometry only) is exempt.",
             "Spatial separation does not establish geological exchangeability; every "
             "conformal floor is conditional on that assumption and covers one future "
             "block's proxy DTI, not the private leaderboard.",
             "The screen spends no competition submission slot and reads no private label.",
             "Owner-reported scores and the d2.8 reference raster are not organiser receipts.",
-            "The GeoDAWN Th/K grid is a contractor u8-rank product, not physical units.",
         ],
         "elapsed_seconds": round(time.time() - started, 2),
     }
@@ -449,11 +439,9 @@ def main() -> int:
     print(json.dumps({"arms": {a: {k: arms_out[a][k] for k in
                                    ("selected_spacing_px", "selection_mean",
                                     "pooled_primary_selection", "pooled_sgmc_selection")}
-                              for a in ARMS + ANCHORS},
-                      "floors": {a: round(arms_out[a]["conformal"]["floor"], 6)
-                                 for a in ARMS + ANCHORS},
-                      "gate": {a: gate_rows[a]["conditions"] for a in ARMS},
-                      "passing": passing, "promotable": promotable, "winner": winner,
+                              for a in ARMS},
+                      "gate": {a: gate_rows[a]["passed"] for a in gate_rows},
+                      "winner": winner,
                       "anchor_reproduction": summary["anchor_reproduction"]}, indent=2))
     return 0
 

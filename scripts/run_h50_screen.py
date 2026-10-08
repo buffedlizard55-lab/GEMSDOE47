@@ -40,14 +40,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-import numpy as np  # noqa: E402
-import rasterio  # noqa: E402
-from scipy import ndimage as ndi  # noqa: E402
+import numpy as np
+import rasterio
+from scipy import ndimage as ndi
 
-from gems47 import grid as G  # noqa: E402
-from gems47 import h50  # noqa: E402
-from gems47.conformal import simultaneous_lower_bounds  # noqa: E402
-from gems47s3.geomorph import rank_scale  # noqa: E402
+from gems47 import grid as G
+from gems47 import h50
+from gems47.conformal import simultaneous_lower_bounds
+from gems47s3.geomorph import rank_scale
 
 SPACINGS = (2.0, 2.4, 2.8, 3.2, 3.6, 4.0, 4.6)
 BUDGET = 37_654
@@ -105,7 +105,7 @@ def build_blocks(mask: np.ndarray) -> list[dict]:
     if not blocks or total <= 0:
         raise ValueError("no evaluated pixels")
     for b in blocks:
-        b["budget"] = max(1, int(round(BUDGET * b["evaluated_pixels"] / total)))
+        b["budget"] = max(1, round(BUDGET * b["evaluated_pixels"] / total))
     permutation = np.random.default_rng(SEED).permutation(len(blocks))
     half = len(blocks) // 2
     for i in permutation[:half]:

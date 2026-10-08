@@ -663,43 +663,18 @@
     }
   ],
   "leaderboard": {
-    "status": "STALE_LAST_OBSERVATION_RETAINED",
-    "observed_date": "2026-10-06",
+    "observed_date": "2026-10-07",
     "observed_utc": null,
     "time_precision": "date only; no precise fetch timestamp retained",
     "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-    "retrieval_method": "fetch_page, read table directly",
+    "retrieval_method": "manual official-page observation; only these rank/score rows retained; not automated",
     "file_to_score_mapping_verified": false,
     "rows": [
       {
         "rank": 1,
-        "participant": "xiaofanhu",
-        "score": 0.3774
-      },
-      {
-        "rank": 2,
-        "participant": "alexoktaba",
-        "score": 0.3345
-      },
-      {
-        "rank": 3,
-        "participant": "nchuzhoy",
-        "score": 0.3262
-      },
-      {
-        "rank": 4,
-        "participant": "kinghorton42",
-        "score": 0.3222
-      },
-      {
-        "rank": 5,
-        "participant": "joeyfezster",
-        "score": 0.322
-      },
-      {
-        "rank": 6,
-        "participant": "Batik Shirt Brothers",
-        "score": 0.3218
+        "participant": null,
+        "score": 0.3774,
+        "participant_name_status": "not preserved in the 7 October session observation"
       },
       {
         "rank": 7,
@@ -707,73 +682,16 @@
         "score": 0.3195
       },
       {
-        "rank": 8,
-        "participant": "ndavis7",
-        "score": 0.2888
-      },
-      {
-        "rank": 9,
-        "participant": "mzoorob",
-        "score": 0.2884
-      },
-      {
-        "rank": 10,
-        "participant": "GrigorSargsyan",
-        "score": 0.2876
-      },
-      {
-        "rank": 11,
-        "participant": "HardcoreTechGod",
-        "score": 0.2854
-      },
-      {
-        "rank": 12,
-        "participant": "op01",
-        "score": 0.2792
-      },
-      {
         "rank": 13,
         "participant": "extradr19",
         "score": 0.2778
-      },
-      {
-        "rank": 14,
-        "participant": "wbg1",
-        "score": 0.275
-      },
-      {
-        "rank": 15,
-        "participant": "smashi34",
-        "score": 0.271
-      },
-      {
-        "rank": 16,
-        "participant": "smrtdoog5",
-        "score": 0.2708
-      },
-      {
-        "rank": 17,
-        "participant": "jgaines",
-        "score": 0.2638
-      },
-      {
-        "rank": 18,
-        "participant": "ad3002",
-        "score": 0.2634
-      },
-      {
-        "rank": 19,
-        "participant": "No Fault of Our Own",
-        "score": 0.2628
-      },
-      {
-        "rank": 20,
-        "participant": "SDCF9",
-        "score": 0.26
       }
     ],
-    "latest_attempt_utc": "2026-10-06T21:46:06Z",
-    "latest_policy_check_utc": "2026-10-06T21:49:26Z"
+    "caveat": "Participant-level public scores only. No row identifies a TIFF filename, file hash, or organizer receipt; no private/final score is claimed.",
+    "monitoring": "No automated DrivenData polling or feed is implemented.",
+    "status": "STALE_LAST_OBSERVATION_RETAINED",
+    "superseded_observation_file": "leaderboard-read-20261006.json",
+    "latest_observation_file": "leaderboard-read-20261007.json"
   },
   "drivendata_automated_monitoring_enabled": false,
   "permission_boundary": "DrivenData Terms prohibit robots/spiders; no written permission recorded. Saved dated board is not automatically refreshed.",

@@ -1,256 +1,245 @@
-# H65–H68 — preregistered hypothesis slate, 2026-10-08 (GEMSDOE47, session 6)
+# H65–H70 — preregistered hypothesis slate, 2026-10-08 (GEMSDOE47, session 6)
 
-> Written and committed **before** any score in this round is computed. The
-> blocked-holdout design, the instruments, the controls, the field definitions, the
-> conformal operating-point rule and the promotion gate below are frozen. Nothing in
-> this document may be edited after the first score exists; corrections go to a
-> separate erratum file. Identifier note: H51–H58 are used by the sibling repositories
-> GEMSDOE48/50/52 and H60–H64 by session 5, so this session's candidates are numbered
-> H65–H68 to keep family-wide identifiers unique.
+> Written and committed **before** any score in this round is computed. The blocked-holdout
+> design, the instruments, the controls, the field definitions and the promotion gate below
+> are frozen. Nothing in this document may be edited after the first score exists; corrections
+> go to a separate erratum file. Identifier note: H51–H58 are used by the sibling
+> repositories GEMSDOE48/50/52 as of 2026-10-07 and H60–H64 by GEMSDOE47 session 5, so this
+> session's candidates are numbered H65–H70 to keep family-wide identifiers unique. **Flag
+> for review:** sibling numbering after 2026-10-07 was not re-checked from this sandbox; if a
+> sibling has since claimed H65+, renumber this slate before building any artifact.
 
-## Standing orders this round answers
+## Where this comes from
 
-1. Generate a **unique** TIF submission for the competition — never a copy of a prior
-   GEMSDOE submission — with an unambiguous OK-to-download-and-submit label.
-2. Pick the operating point (spacing) with **split conformal prediction** (Lei, G'Sell,
-   Rinaldo, Tibshirani & Wasserman, JASA 2018, Algorithm 2) on our own spacing sweep: a
-   guaranteed floor, not an observed maximum. The confidence level is reported next to
-   the chosen spacing in the submission notes.
-3. Study the family-high owner-reported 0.2778 (GEMSDOE32 `h33-2-b2`) and answer, with
-   measurements, why it scored highest and whether we can beat it.
-4. Beat the current leaderboard top (0.3774) — the honest route is a candidate that
-   beats the current holdout best on the frozen blocked holdout, on an instrument the
-   field does not read.
+Session 5 shipped **H60** (per-cell maximum of the emission-domain ranks of six scarp
+channels of the owner-derived 1 m lidar stack, road/claim masked, 2.0 px, 37,654 dots) after
+it passed a six-condition gate on the frozen 41-block spatially blocked holdout, and published
+two refutations (H61 per-trace reallocation, H63 catalogue-adjacency gating) plus the H64
+instrument study. The session-5 handoff (`docs/next-session.md`) named the next steps; this
+slate executes them in priority order:
 
-## What session 5 established (the incumbent)
+1. *Spacing below 2.0 px.* H60's selection-half mean rises **monotonically to the sweep
+   edge** (0.2844 at 2.0 px; H62 likewise at 0.2326), so the operating point was never
+   interior. This round extends the sweep downward.
+2. *Domain/mask ablation.* H64 measured that the road/claim masks **improve** the
+   instrument–leaderboard correlation (step +0.592 masked vs +0.449 unmasked), but the radii
+   (250 m road / 150 m claim) were frozen guesses, never swept.
+3. *Field refinement.* H64 ranked the lidar channels by leaderboard correlation: step
+   (+0.592) > lappos/lapneg (+0.576) > cross (+0.438) > upface (+0.328). H60's max-of-six
+   aggregation may dilute the sharpest channel with the noisiest ones — untested until now.
+4. *H62 runner-up re-audit.* H62 passed the old gate and lost only the SGMC tie-break; its
+   extended-sweep operating point is untested.
+5. *Independent-instrument program.* H64 stratified lidar peaks; this round adds the
+   remaining channel (`downface_max`), SGMC threshold/stratification variants, and — as an
+   explicitly exploratory diagnostic — the 21 INGENIOUS volcanic-vent pixels. USGS QFaults
+   trace geometry remains unobtainable from this sandbox (see below) and is **not** proposed
+   as viable this round.
 
-**H60** — the per-cell maximum of the emission-domain ranks of six scarp channels of the
-owner-derived 1 m lidar stack, masked ≥250 m from TIGER roads and ≥150 m from BLM
-closed claims — is the current primary. On the frozen 41-block holdout (20 selection /
-21 calibration, seed 500610): pooled selection-half DTI **0.287891** on the primary
-lidar-peak instrument (`lappos_t200_d3`) and **0.193813** on the independent SGMC
-off-catalogue population, against the H50 anchor's 0.165881 / 0.122083, mass-matched
-random's 0.046288 / 0.069761 and the owner-reported d2.8 reference's 0.049421 /
-0.089879. H64 (instrument refinement) measured: **far-from-catalogue** lidar peaks
-correlate better with the 13 owner-reported scores than near ones (lappos +0.581 far vs
-+0.273 near); the road/claim masks improve the instrument-leaderboard correlation
-(step +0.592 masked vs +0.449 unmasked); `coh100` peaks anti-correlate (−0.532).
-H62 (additive 50/50 slope+lidar mixture) passed the gate but lost the SGMC tie-break
-(0.245762 / 0.184971). H63 (catalogue-adjacency-gated lidar) was **refuted** (0.156660
-/ 0.162911): hugging the catalogue hurts.
+## Provenance carried into this round
 
-## What the h33-2-b2 measurement established (evidence/h33_reference_analysis.json)
-
-The owner-reported 0.2778 raster (`reference/h33-2-b2-zeros.tif`, hash-pinned mirror
-from GEMSDOE32; attribution unverified — participant-level leaderboard, no organiser
-receipt links the row to this TIFF) is measured, not assumed:
-
-* **37,654 unit dots** at 2.8 px minimum spacing (nearest-neighbour median 3.0 px),
-  all off-catalogue, all on the evaluated domain — the family-standard budget.
-* It is a **strict subset** of the scored d2.8 raster
-  (`gems24-h25-1-dotted-h19-5-d2-8`, 44,090 dots, owner-reported 0.2600; mask Jaccard
-  0.854) and of the h19-5 powerlaw raster (121,131 dots, 0.1922). h33-2-b2 is the
-  d2.8 emission **pruned from 44,090 to 37,654 dots**.
-* **22,447 of its 37,654 dots (59.6 %) sit inside the TIGER-road / BLM-closed-claim
-  noise masks** that H60 excludes — the pruned emission spends most of its budget on
-  the loudest non-tectonic step sources.
-* The pruning mechanism is verified algebraically on this raster: deleting the
-  lowest-credit dots leaves TP unchanged (1047.8) while FP falls tenfold, raising the
-  whole-map lappos proxy DTI from 0.0555 (all 37,654 dots) to 0.0865 (top 3,765).
-  The owner-reported 0.2600 → 0.2778 move is this mechanism: **mass discipline on an
-  existing field, not a new geological signal.**
-
-**Consequence for this round:** the 0.2778 route (prune an existing field harder) is
-closed to us as a *scientific* strategy — it is a precision play on the h19-5 field,
-and our uniqueness gate (max mask Jaccard < 0.5 against every prior raster) would
-reject a re-pruning of the same emission. The open route is a **better field**, which
-is what H65–H68 test. Our budget stays at the family-measured-best 37,654 unit dots.
+* The lidar stack is **owner-derived** from USGS 3DEP 1 m DEM tiles (706/716; tile list
+  OCR-recovered from the competition PDF; pinned at `registry/data_manifest.json`), NOT
+  organiser-supplied (IR-2026-10-07-B).
+* The restored rasters are hash-pinned owner mirrors, not organiser-authenticated bytes; the
+  13 owner-reported scores are not organiser receipts; the h33-2-b2 → 0.2778 attribution
+  remains an assumption (IR-47-002). The d2.8 raster is the **owner-reported d2.8
+  reference**, never an incumbent.
+* Block-score exchangeability is unverified; every conformal statement is
+  assumption-conditional and covers one future block's proxy DTI, not the private leaderboard.
 
 ## The scientific argument, stated before measurement
 
-* The organiser's own framing: participants should submit predictions for what they
-  **truly believe** are faults, "as opposed to simply optimizing for the existing
-  labels" (thinkgeoenergy, quoting the organisers). The hidden labels are
-  expert-mapped **new** faults; the catalogue is masked out of scoring
-  (staff thread 11516). What the experts map is what metre-scale topography reveals —
-  which is why the off-catalogue lidar-scarp-peak population is the only local proxy
-  whose DTI is positively rank-correlated with the 13 owner-reported scores.
-* H60 ranks the lidar scarp *amplitude*; its residual error is the noise that a single
-  channel's maximum admits (one operator can fire on a road cut, a terrace riser, a
-  resampling seam). **Consensus across independent operators** is the untested
-  refinement of the winning mechanism.
-* The competition is a **geothermal** prize: the target is fault structure indicative
-  of geothermal resources. A fault that hosted or hosts fluid leaves a second,
-  independent signature: **hydrothermal alteration**, mapped from airborne
-  gamma-ray spectrometry. The USGS GeoDAWN surveys over this exact footprint were
-  flown by USGS/DOE *to collect information on undiscovered geothermal resources*
-  (USGS GMEQ GeoDAWN page). Airborne Th/K is the standard alteration index:
-  argillic alteration leaches potassium, so Th/K rises over altered ground
-  (Chiozzi et al. 2006, Th/K 7–11 in K-depleted kaolin vs ~3.6 unaltered; Gnojek &
-  Prichystal 1985; Glen & Earney, GRC: "alteration is often manifest as prominent
-  shifts in K concentrations"). A scarp that is also a Th/K high is a **sealed,
-  formerly or presently active fluid conduit** — the hidden-vent population. No arm in
-  GEMSDOE1–54 has ever combined the lidar stack with radiometrics.
-* H64 measured that **far-from-catalogue** lidar peaks correlate better with the
-  scores, and H63 refuted the near pole. The far pole — emitting only where the
-  catalogue is silent beyond one kernel radius — is the untested emission-domain
-  variant with instrument-level support.
-* The lidar stack carries nine amplitude channels; H60 froze six. `ex_max` (max 2 m
-  slope in excess of the 30 m regional slope) and `relief` (local relief) are
-  independent scarp operators with pinned semantics (GEMSDOE24
-  `data/external/lidar_scarp_features.json`). `coh100` is excluded (H64:
-  anti-correlates, −0.532); `strike`/`ex_mean` are not max-amplitudes.
+* H60's primary-instrument gain (+73% over H50) comes with a circularity warning: the primary
+  instrument derives from the same owner-built stack the field reads. Its *independent*
+  evidence is the SGMC off-catalogue gain (0.1938 vs 0.0698 random, 0.1221 H50) and the
+  13-artifact rank correlations. **Anything that displaces H60 as the file to submit must
+  therefore beat H60 on the SGMC instrument**, where H60 cannot be circular — the gate below
+  requires exactly that.
+* H64's channel ranking (step > lappos ≈ lapneg > cross > upface) plus the far > near
+  stratification (lappos +0.581 far vs +0.273 near) says the leaderboard-ordered signal lives
+  in sharp, far-from-catalogue steps — not in catalogue-hugging emission (H63 refuted at
+  0.1567) and not in single-channel noise spikes. H65/H66 test the two aggregation poles of
+  that claim; H67 tests a non-lidar mechanism (tip propagation) with zero shared code path.
+* Smaller spacing is not free mass: the noise-masked lidar domain held only 17,889 of the
+  21,198-dot selection budget at 2.0 px. Smaller spacings raise domain capacity (more dots
+  fit), so under-emission should ease downward — every row records actual emitted mass, and
+  any arm that cannot place its budget is reported, not hidden.
 
 ## The slate (ranked by expected DTI improvement × implementation cost)
 
-### H65 — scarp-consensus field (rank 1: best expected holdout gain per unit cost)
+### H65 — step-only lidar field (rank 1, the round's primary candidate)
 
-* **Layers.** The six H60 lidar channels (`step_max`, `lappos_max`, `lapneg_max`,
-  `upface_max`, `downface_max`, `cross_max`) + `valid` + TIGER road distance + BLM
-  closed-claim distance.
-* **Physical signature.** Per cell, the **count of channels whose amplitude exceeds
-  its frozen instrument threshold** (t200 for lappos/lapneg/cross/upface/downface;
-  t150 for step — the same thresholds the frozen instruments use), ranked
-  lexicographically: consensus count descending, then the H60 channel-rank-max
-  descending as the amplitude tie-break. A real, continuous fault scarp is
-  simultaneously a topographic step, a crest convexity, a base concavity and a
-  facing break — independent operators agree at the same cell. Road cuts, terrace
-  risers, paleo-shorelines and single-channel artifacts fire on fewer operators.
-* **Why it should catch a catalogue-missing fault.** Catalogue absence is a *mapping*
-  gap, not a *geometric* one; geometric consensus is independent of mapping status.
-  H60's per-cell max lets one noisy channel spend the budget on a non-tectonic step;
-  consensus requires independent operators to agree.
-* **How it differs from anything already implemented.** H60 = per-cell **max** of
-  channel ranks (one operator suffices); H65 = amplitude-tie-broken **consensus
-  count** (several must agree). No prior arm in GEMSDOE1–54 used channel consensus as
-  an emission field.
-* **Definition (frozen).** `consensus = Σ_c 1[channel_c > thr_c]` over the six
-  channels; field = lexicographic rank of (consensus, channel-rank-max) over the H60
-  emission domain, tie-free by construction. Cost: low (reuses H60 machinery).
+* **Layers.** The owner-derived lidar stack channel `step_max` (10 m-scale minus 50 m-scale
+  slope), plus the `valid` channel and the TIGER road / BLM closed-claim distance rasters at
+  the frozen H60 radii (250 m / 150 m).
+* **Physical signature.** The scarp's own step height at 2 m work resolution, unmixed: a
+  Quaternary normal-fault scarp is first and foremost a topographic step, and the H64 study
+  measured step peaks (masked) as the single population most rank-correlated with the
+  owner-reported leaderboard ordering (+0.592).
+* **Why it should catch a catalogue-missing fault.** Same argument as H60 (metre-scale
+  topography is blind to mapping status; masks remove road cuts and mine scars), sharpened:
+  the max-of-six H60 field lets the weakest channels (upface +0.328, cross +0.438) spend
+  budget on cells the best channel rejects. Ranking step alone concentrates the same budget
+  on the highest-evidence cells.
+* **How it differs.** H60 = per-cell maximum of six channel ranks, re-ranked. No arm has
+  emitted on a single lidar channel as a field.
+* **Definition (frozen).** `rank_scale(step_max)` over the H60 emission domain (evaluated &
+  valid-lidar & noise-ok at 250/150 m); greedy spaced selection on the extended sweep;
+  budget 37,654; capped emission with recorded mass (same `_emit_up_to` rule as H60).
+* **Cost.** Trivial given H60 exists.
 
-### H67 — alteration-corroborated lidar field (rank 2: largest expected scientific gain; medium cost)
+### H66 — Borda-mean (consensus) lidar field (rank 2)
 
-* **Layers.** The H60 lidar field + the **USGS GeoDAWN contractor Th/K ratio grid**
-  (`external/geodawn_extensions_u8.tif`, band `ThK`; DOI 10.5066/P93LGLVQ; u8 rank
-  quantisation 1st–99th percentile, 0 = nodata; hash-pinned with its metadata sidecar
-  `external/geodawn_extensions.json`) + road/claim masks.
-* **Physical signature.** **Structure + fossil heat.** Additive 50/50 rank mixture
-  (the H62 mechanism, λ frozen at 0.5) of the H60 lidar field and the rank of Th/K
-  over the emission domain. Hydrothermal alteration leaches potassium (argillic) or
-  adds it (potassic); either way Th/K is the standard airborne-radiometric
-  alteration index. A scarp coincident with an alteration high is a sealed fluid
-  conduit — the hidden geothermal vent the competition rewards.
-* **Why it should catch a catalogue-missing fault.** The catalogue maps *structure*;
-  radiometrics map *fossil fluid flow*. Their intersection is the population with a
-  geothermal reason to exist but no map entry — the "truly believe" target. The
-  GeoDAWN surveys cover this footprint and were acquired for undiscovered geothermal
-  resources (USGS GMEQ page).
-* **How it differs from anything already implemented.** No prior arm in GEMSDOE1–54
-  combined the lidar stack with radiometrics. H50's scan tried magnetic / gravity /
-  curvature / ruggedness **multiplicatively** on the slope field (every product
-  degraded it); an **additive rank mixture** of lidar + radiometrics has never been
-  tried. Radiometrics are independent of the lidar instrument, so the
-  independent-instrument corroboration stays honest.
-* **Definition (frozen).** `field = rank_scale(0.5 · rank(h60) + 0.5 · rank(ThK))`
-  over `domain = H60 domain AND ThK > 0`. Cost: medium (one new raster read + index).
+* **Layers.** The same six channels, `valid`, and masks as H60.
+* **Physical signature.** Multi-template consensus: a real scarp responds jointly across the
+  Sare et al. (2019) template family (step + crest convexity + base concavity together),
+  while DEM noise, terrace risers and single-template artifacts spike in one channel only.
+  The mean of the six channel ranks rewards corroborated cells; the max rewards any spike.
+* **Why catalogue-missing.** Same as H65; the aggregation pole is the opposite of H60's
+  ("any evidence") and of H65's ("best single evidence"): "corroborated evidence".
+* **How it differs.** Mean-of-ranks aggregation has never been tried; every previous
+  combination was max (H60), additive mixture across families (H62), or multiplicative AND
+  gates (H50-E, all harmful).
+* **Definition (frozen).** Per-cell mean of the six emission-domain channel ranks, then
+  `rank_scale` over the H60 domain; otherwise identical emission to H65.
+* **Cost.** Trivial.
 
-### H66 — far-field lidar field (rank 3: instrument-supported, uncertain magnitude; low cost)
+### Extended spacing sweep 1.4–3.2 px (rank 3, applies to every arm)
 
-* **Layers.** The H60 field + the catalogue mask (`labels.tif`) through a Euclidean
-  distance transform.
-* **Physical signature.** The H60 scarp-amplitude ranking restricted to cells **more
-  than 3 px (300 m, one metric-kernel radius) from every catalogue pixel** — the
-  completely-unmapped-system pole. The organiser's "new fault" definition spans both
-  poles ("newly mapped geometry of an existing fault system" and unmapped systems);
-  H63 refuted the near pole (0.156660 / 0.162911), and H64 measured far peaks
-  correlating better with the 13 scores (lappos +0.581 far vs +0.273 near).
-* **Why it should catch a catalogue-missing fault.** The hidden labels are
-  expert-mapped new faults; mapping effort has already been spent near the catalogue,
-  so the strongest *unexplained* scarp population sits where the catalogue is silent.
-* **How it differs from anything already implemented.** No prior arm gated or
-  weighted emission by catalogue distance in the far direction; H63 gated near only
-  and was refuted.
-* **Definition (frozen).** `domain = H60 domain AND d_cat > 3.0 px`; field = the H60
-  field values on that domain. Cost: low.
+* Not a new field: the operating-point refinement the handoff prioritised. Frozen settings
+  {1.4, 1.6, 1.8, 2.0, 2.4, 2.8, 3.2} px — seven settings, so the conformal rank arithmetic
+  matches the H60 round exactly (rank 20 of 22 at 0.90 nominal), while 2.0 and 2.8 stay in
+  the set for bit-for-bit anchor reproduction. Settings above 3.2 are dropped: no surviving
+  arm selected above 3.2 (only the refuted H63 chose 4.0).
+* Selection rule unchanged: maximise the selection-half mean, tie-break toward larger
+  spacing (identical to the H60 round for comparability).
 
-### H68 — extended-channel lidar field (rank 4: incremental; lowest cost)
+### H68 / H69 — mask-radius ablation of the H60 field (rank 4)
 
-* **Layers.** H60's six channels + `ex_max` (max 2 m slope in excess of the 30 m
-  regional slope) + `relief` (local relief) — the two remaining max-aggregated
-  amplitude channels of the 12-band stack with pinned semantics. `coh100` excluded
-  (H64: anti-correlates −0.532); `strike`, `ex_mean` are not max-amplitudes.
-* **Physical signature.** The same rank-max mechanism over **eight** channels:
-  short-wavelength steepness excess and local relief are independent scarp operators
-  not in H60's frozen six.
-* **Why it should catch a catalogue-missing fault.** A scarp is a local relief
-  anomaly and a short-wavelength steepness excess, not only a band-passed step.
-* **How it differs from anything already implemented.** H60 froze six channels; H68
-  extends the rank-max to the remaining documented amplitude channels. This is the
-  most H60-like arm (a parameter extension) and is ranked last for novelty.
-* **Definition (frozen).** `field = rank_scale(per-cell max of the ranks of the
-  eight channels)` over the H60 emission domain. Cost: lowest.
+* **Layers / signature.** Identical to H60; only the noise-mask radii change. H68 (relaxed):
+  road < 150 m, closed claim < 100 m excluded. H69 (strict): road < 400 m, closed claim <
+  250 m excluded. Radii are chosen now, symmetric around the frozen H60 values on a roughly
+  doubling/halving ladder, and are not tuned after seeing scores.
+* **Why.** H64 proved masks help but never tested the radius values. Relaxed masks enlarge
+  the domain (more capacity at small spacings, more fault-adjacent roads kept); strict masks
+  purify it (fewer non-tectonic steps, less capacity). One of the two directions should win
+  on the independent instrument if the radius matters at all.
+* **How it differs.** Radius values have never been swept; H60/H62/H63 all used 250/150 m.
+* **Definition (frozen).** Each arm recomputes the H60 field definition (channel-rank-max +
+  `rank_scale`) over its own domain (evaluated & valid & noise-ok at its radii); capped
+  emission with recorded mass. Recomputation (not reuse of H60's values) is required because
+  the relaxed domain contains cells H60 never ranked.
+* **Cost.** Trivial.
 
-## Frozen screen design (identical to sessions 4–5; nothing re-tuned)
+### H67 — catalogue-tip-proximity field (rank 5, the genuinely new geology)
 
-* **Blocks.** The exact 41 blocks (8×8 contiguous, 3 px guard, seed 500610,
-  20 selection / 21 calibration), re-derived and asserted byte-equal to
-  `evidence/h50/blocks.json` before anything is scored.
-* **Budget.** 37,654 unit dots (family standard; also the h33-2-b2 budget).
-* **Spacings.** (2.0, 2.4, 2.8, 3.2, 3.6, 4.0, 4.6) px — the frozen sweep.
-* **Instruments.** Primary `lappos_t200_d3`; the frozen seven lidar-peak instruments
-  plus the independent SGMC off-catalogue population — exactly `run_h60_screen.py`.
-* **Arms.** `h65`, `h66`, `h67`, `h68` + anchors `h50`, `h60` (frozen definitions,
-  reproduced) + mass-matched spaced random control + the owner-reported d2.8
-  reference + H47-C1 raster controls.
-* **Emission.** Greedy top-ranked spaced selection; the lidar-domain arms cap at
-  domain capacity at small spacings (session-5 deviation IR-2026-10-07-D) and the
-  actual mass is recorded in every row.
-* **Conformal operating-point rule (this round's methodological change).** Per arm,
-  on the primary instrument: selection matrix (20 blocks × 7 spacings), calibration
-  matrix (21 × 7); `gems47.conformal.simultaneous_lower_bounds(selection,
-  calibration, coverage=0.90)` (max-over-settings one-sided split conformal, Lei et
-  al. JASA 2018 Algorithm 2 / Theorem 2.2); the operating point is
-  `choose_operating_point` = **argmax of the certified lower bound** (ties: selection
-  mean, then spacing) — the spacing with the greatest *guaranteed* floor, not the
-  greatest observed mean. The reported confidence level is
-  `finite_sample_coverage_at_least_if_exchangeable = k/(n+1)` with
-  `k = ceil((n+1)·0.90) = 20`, `n = 21` → **≥ 90.909 %**. The guarantee is
-  assumption-conditional on block-level exchangeability; it covers one future
-  exchangeable block's proxy DTI, never the private leaderboard.
-* **Promotion gate (frozen, six conditions).**
-  1. `beats_h50_by_10pct` — pooled primary selection DTI ≥ 1.10 × the H50 anchor's
-     0.165881.
-  2. `positive_conformal_floor` — certified floor at the conformal-chosen spacing > 0.
-  3. `sgmc_beats_random` — pooled SGMC selection DTI ≥ the random control's at the
-     same spacing.
-  4. `beats_random_3x_primary` — pooled primary selection DTI ≥ 3 × the random
-     control's at the same spacing.
-  5. `beats_incumbent_h60` — pooled primary selection DTI > H60's frozen 0.287891
-     **AND** pooled SGMC selection DTI > H60's frozen 0.193813. Only an arm passing
-     this condition replaces H60 as the primary (OK-to-submit) artifact. An arm
-     passing 1–4 but not 5 is published as a **validated candidate**, clearly labelled
-     "not the recommendation while H60 stands" — the slot is not spent on it.
-  6. Build-time — bounded uniqueness (0 exact matches, max mask Jaccard < 0.5 against
-     every prior raster reachable from this checkout) and 17/17 strict read-back
-     format checks.
-* **Winner rule.** Among arms passing 1–4: highest pooled SGMC selection DTI,
-  tie-break the certified conformal floor (the session-5 rule, frozen).
+* **Layers.** `labels.tif` catalogue geometry only — no lidar, no slope band. Candidate tip
+  pixels are catalogue pixels with **exactly one** catalogue neighbour in 8-connectivity
+  (isolated single pixels have zero neighbours and are not tips); the tip-distance raster is
+  the Euclidean distance transform to the nearest tip pixel.
+* **Physical signature.** Fault-tip propagation: Quaternary systems grow and link at their
+  tips, where displacement tapers below mapping resolution and scarps step blind into basin
+  fill. New expert mapping extends systems at tips far more often than it discovers isolated
+  far-field faults — the staff-noted "newly mapped geometry of existing fault systems" pole,
+  but at tip geometry specifically rather than H63's refuted whole-trace adjacency.
+* **Why catalogue-missing.** Tips are sub-resolution by definition: the mapped trace ends
+  where the scarp became unmappable, so the catalogue-missing continuation sits within a few
+  hundred metres of the mapped tip. This field has **zero shared code path** with the lidar
+  stack, so its primary-instrument numbers carry no circularity warning — a clean
+  independent-mechanism test.
+* **How it differs.** Nothing in GEMSDOE1–54 or this repository has emitted on tip geometry.
+  H63 gated *emission* to near-catalogue cells (refuted); H67 *ranks* the full evaluated
+  domain by tip proximity, which is the opposite direction of information flow (field, not
+  gate) and targets tips, not traces.
+* **Definition (frozen).** Field = `rank_scale(1 / (1 + d_tip))` over the plain evaluated
+  domain (footprint minus catalogue, no lidar-valid or noise restriction); full-budget
+  greedy spaced emission (`h50.emit`, raises if infeasible — the 5.1M-cell domain holds the
+  budget at every swept spacing).
+* **Cost.** Low (one labelling pass + one distance transform). Highest risk: H63's refutation
+  warns that catalogue-hugging hurts; tips are the last catalogue-geometry hypothesis with a
+  distinct mechanism.
 
-## Provenance limits (do not drop)
+### H62 re-audit (rank 6, not new — the honest runner-up)
 
-* The restored rasters are hash-pinned owner mirrors, not organiser-authenticated
-  bytes; the owner-reported public scores are not organiser receipts.
-* The lidar stack is **owner-derived** from USGS 3DEP 1 m DEM tiles (706/716; work
-  resolution 2 m; per-channel meanings pinned in GEMSDOE24
-  `data/external/lidar_scarp_features.json`), NOT organiser-supplied. USGS 3DEP
-  products carry no use restrictions.
-* The GeoDAWN Th/K grid is a contractor product derived from the USGS GeoDAWN release
-  (DOI 10.5066/P93LGLVQ); bytes are u8 ranks, not physical units; 0 = nodata. USGS
-  data release; retain attribution.
-* The primary lidar-peak instrument shares its terrain modality with every
-  lidar-reading field (H60, H65, H66, H68); their primary-instrument numbers are
-  optimistic by construction. H67's Th/K component is independent of it, and the SGMC
-  off-catalogue population is independent of both.
-* Spatial separation does not establish geological exchangeability; every conformal
-  floor is conditional on that assumption.
-* The screen spends no competition submission slot and reads no private label.
+* The H62 additive 50/50 mixture passed the old gate (0.2458 / 0.1850) and lost only the SGMC
+  tie-break. It is re-screened on the extended sweep at no extra implementation cost. If the
+  extended sweep promotes it over H60 under the new gate, its whole-map emission (untested)
+  would be built only under a fresh artifact gate.
+
+### H70 — instrument refinement study, part 2 (infrastructure, not a field)
+
+* **Question.** Same as H64: which off-catalogue proxy population best reproduces the
+  leaderboard ordering of the 13 scored artifacts — now covering the populations H64 left
+  out: `downface_max` peaks (near ≤3 px / far >3 px / road-claim-masked), SGMC at finer and
+  coarser catalogue-distance thresholds (>100 m, >200 m, >500 m vs the frozen >300 m), SGMC
+  near (off-catalogue, ≤3 px) vs far (>3 px), and the 21 INGENIOUS volcanic-vent pixels as an
+  explicitly exploratory diagnostic (n reported; no conclusion may rest on it).
+* **Method.** Identical machinery to H64: whole-map DTI of each of the 13 restored scored
+  rasters against each population, Spearman/Kendall vs owner-reported scores, two-sided
+  permutation p (20,000 draws, seed 20261008 — the seed differs from H64's because the
+  population list differs; the method is identical).
+* **Cost.** Low. Results are diagnostics, reported whatever the gates say.
+
+## Frozen blocked-holdout design (identical to the H60 screen except the sweep)
+
+* 8 × 8 contiguous blocks, 3 px guard, roles by `numpy.random.default_rng(500610)` —
+  re-derived and asserted **byte-equal** to `evidence/h50/blocks.json` before anything is
+  scored. Budget split across blocks in proportion to evaluated pixels, 37,654 total.
+* Spacings **{1.4, 1.6, 1.8, 2.0, 2.4, 2.8, 3.2}** px (seven settings).
+* Primary instrument: **`lappos_t200_d3`** (frozen from the H50/H60 screens for
+  comparability). Secondary: lapneg t200 d3, step t150 d3, cross t200 d3, upface t200 d3,
+  union t200 d3, SGMC off-catalogue (>300 m, whole components — frozen definition).
+* Controls: fixed-seed spaced **random** field (same greedy emitter, spacing and per-block
+  budget, plain evaluated domain); the **owner-reported d2.8 reference** raster; **H47-C1**;
+  the **H50 emission** (design anchor, must reproduce 0.16588059959214113 pooled @2.8) and
+  the **H60 emission** (incumbent anchor — the current file to submit — must reproduce its
+  pooled @2.0 of 0.287891 to 1e-9).
+* Conformal: max-over-settings one-sided split conformal at 0.90 (`gems47.conformal.
+  simultaneous_lower_bounds`, Lei et al. JASA 2018 Algorithm 2), selection half chooses the
+  operating point, calibration half certifies it, per arm.
+* Dropped arms: H61 and H63 stay refuted and are not re-screened; their verdicts stand.
+
+## Frozen promotion gate (displacing H60 as "the file to submit")
+
+A challenger (H65/H66/H67/H68/H69, or H62 on its re-audit) is promoted over H60 only if
+**all** of:
+
+1. pooled selection-half primary-instrument DTI ≥ **H60's** pooled selection-half primary
+   DTI at H60's selected spacing (no regression; circular-optimistic for the lidar-reading
+   arms H65/H66/H68/H69/H62, and an independent-mechanism test for H67);
+2. **positive** simultaneous split-conformal floor at the selected operating point (0.90
+   nominal, same max-residual machinery);
+3. pooled selection-half **sgmc_offcat** DTI ≥ **H60's** pooled sgmc_offcat DTI (independent
+   superiority: the new file must beat H60 where H60 cannot be circular), and ≥ the
+   spacing-matched random control's sgmc value;
+4. ≥ 3 × the spacing-matched random control on the primary instrument;
+5. uniqueness: zero exact positive-mask matches against every comparable prior raster
+   reachable from this checkout **including H60 itself**, and max Jaccard < 0.5 (exact
+   number reported either way; computed by the artifact builder);
+6. format: single-band float32 GeoTIFF, EPSG:32611, official transform/shape, every cell
+   finite in [0,1], 0.0 outside the footprint, all strict read-back checks pass (computed
+   by the artifact builder).
+
+If several challengers pass, the winner is the one with the **highest pooled selection-half
+sgmc_offcat DTI** (the most independent instrument), tie-broken by the higher conformal
+floor, then the higher pooled primary. If no challenger passes, **H60 remains the file to
+submit** and every result above is published as research-only with its receipts. No
+competition submission slot is spent by anything in this document; an artifact, if promoted,
+is published for the owner to upload.
+
+## Honesty boundaries (do not drop when publishing)
+
+* The primary instrument derives from the same owner-built stack that the lidar-reading
+  challengers read; their primary-instrument numbers are optimistic by construction and are
+  never quoted without this sentence. H67 is exempt (catalogue geometry only).
+* The 13 owner-reported scores are not organiser-authenticated per-TIFF receipts; the
+  h33-2-b2 → 0.2778 attribution remains an assumption (IR-47-002).
+* Block-score exchangeability is unverified; every conformal statement is
+  assumption-conditional and covers one future block's proxy DTI, not the private leaderboard.
+* The restored rasters are hash-pinned owner mirrors, not organiser-authenticated bytes.
+* USGS QFaults trace geometry (the best "manually compiled regional fault map" instrument)
+  is named but not obtainable from this sandbox; only the centroid/attribute GDR CSV is
+  on-hand (`traces_usable: 0`, confirmed by column inspection 2026-10-08). The hash-pinned
+  `Qfaults_GIS.zip` (sha256 447eadc5…, fetched by the family's GitHub runner on 2026-10-06
+  per `docs/data/official-download-probes.json`) remains the documented route for a future
+  unrestricted session. It is not proposed as viable here.

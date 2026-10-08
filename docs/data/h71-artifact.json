@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "hypothesis_id": "H65",
-  "artifact": "gems47-h65-scarpconsensus-s2p0-20261008",
-  "generated_utc": "2026-10-08T03:16:49Z",
+  "hypothesis_id": "H71",
+  "artifact": "gems47-h71-scarpconsensus-s2p0-20261008",
+  "generated_utc": "2026-10-08T03:36:39Z",
   "spacing_px": 2.0,
   "budget": 37654,
   "arm_spec": {
@@ -23,7 +23,7 @@
       "cross_max": 200.0
     }
   },
-  "emission_domain": "h65 emission domain (1,610,706 cells)",
+  "emission_domain": "h71 emission domain (1,610,706 cells)",
   "format": {
     "driver": "GTiff",
     "count": 1,
@@ -70,8 +70,8 @@
     "max_jaccard_vs_scored_priors": 0.006739
   },
   "uniqueness_pass": false,
-  "screen": "evidence/h65/screen.json",
-  "preregistration": "docs/research/h65-hypotheses-preregistered.md",
+  "screen": "evidence/h71/screen.json",
+  "preregistration": "docs/research/h71-hypotheses-preregistered.md",
   "screen_selected_spacing_px": 2.0,
   "conformal": {
     "method": "max-residual one-sided split conformal, Lei et al. JASA 2018 Alg. 2; operating point = argmax certified lower bound",
@@ -116,11 +116,11 @@
   "submission_note_field": null,
   "bytes": 298948,
   "files": [
-    "gems47-h65-scarpconsensus-s2p0-20261008-allfinite.tif",
-    "gems47-h65-scarpconsensus-s2p0-20261008.zip",
-    "gems47-h65-scarpconsensus-s2p0-20261008-receipt.json",
-    "gems47-h65-scarpconsensus-s2p0-20261008-note.txt",
-    "gems47-h65-scarpconsensus-s2p0-20261008-nanoutside.tif"
+    "gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif",
+    "gems47-h71-scarpconsensus-s2p0-20261008.zip",
+    "gems47-h71-scarpconsensus-s2p0-20261008-receipt.json",
+    "gems47-h71-scarpconsensus-s2p0-20261008-note.txt",
+    "gems47-h71-scarpconsensus-s2p0-20261008-nanoutside.tif"
   ],
   "provenance_limits": [
     "The lidar scarp stack is owner-derived from USGS 3DEP 1 m DEM tiles (706/716, tile list OCR-recovered from the competition PDF), not organiser-supplied.",
@@ -133,13 +133,13 @@
   "promoted_to_primary": false,
   "supersedes": null,
   "not_ok_to_submit_reason": "frozen condition 6 (bounded uniqueness): mask Jaccard 0.5119 >= 0.5 against a prior raster reachable from this checkout (the H60 incumbent artifact it would supersede); unique against every scored prior submission",
-  "download_url": "downloads/gems47-h65-scarpconsensus-s2p0-20261008-allfinite.tif",
-  "zip_url": "downloads/gems47-h65-scarpconsensus-s2p0-20261008.zip",
-  "note_url": "downloads/gems47-h65-scarpconsensus-s2p0-20261008-note.txt",
-  "fallback_url": "downloads/gems47-h65-scarpconsensus-s2p0-20261008-nanoutside.tif",
+  "download_url": "downloads/gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif",
+  "zip_url": "downloads/gems47-h71-scarpconsensus-s2p0-20261008.zip",
+  "note_url": "downloads/gems47-h71-scarpconsensus-s2p0-20261008-note.txt",
+  "fallback_url": "downloads/gems47-h71-scarpconsensus-s2p0-20261008-nanoutside.tif",
   "deployed_evidence_sha256": {
-    "h65-screen.json": "ab7eb4c8ff8347b1d53bd9ca42a55fa22fef44f1444e450e0a64a1c6c8633560",
-    "h65-spacing-history.csv": "a995ec6ec770ad40d3fc106fd80409062b7a91af3d7e216aea68784b445a0114",
-    "h33-reference-analysis.json": "beeec4b48482848d248975795995cb99ad7f9e2c3ba15ba27fc25e821fd411c9"
+    "h71-screen.json": "ab6d8b6a6e5ce493e3726e9df49fb3b982424621cb904df24a2676b7fd2b80e6",
+    "h71-spacing-history.csv": "49409d5833b6b6ca2f2ff228417a4b399d1f1d4aaeb4392a44a8b7d990d90415",
+    "h33-reference-analysis.json": "b67e967f770353c861a2a9f1fdc8e2379143f5c844c51e55ab7c8f5fcfdc851e"
   }
 }

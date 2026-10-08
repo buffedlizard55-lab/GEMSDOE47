@@ -1,6 +1,8 @@
-# Current hypothesis ledger
+# Historical H47-C hypothesis ledger
 
-The five current candidates, ranked **before implementation**, are in
+> This is the immutable H47-C research slate, not the current candidate list. H47-C1's gate remains closed and it is not promoted. H60 passed a separate local scientific gate; organizer acceptance is untested and no upload or slot use is authorized or performed in this review. See [current status](current-status.html) and [H60 evidence](h60.html).
+
+The five H47-C candidates, ranked **before implementation**, are in
 [immutable H47-C preregistration](research/h47c-hypotheses-preregistered.md) and the
 [readable table](hypotheses.html): C1 odd-step versus channel; C2 displaced cross-geophysical change points;
 C3 lithologic/radiometric-contact rejection; C4 drainage/paleodischarge displacement; C5 raw 1 m oriented

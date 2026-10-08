@@ -98,7 +98,7 @@ def build_blocks(mask: np.ndarray) -> list[dict]:
     if not blocks or total <= 0:
         raise ValueError("no evaluated pixels")
     for b in blocks:
-        b["budget"] = max(1, int(round(BUDGET * b["evaluated_pixels"] / total)))
+        b["budget"] = max(1, round(BUDGET * b["evaluated_pixels"] / total))
     permutation = np.random.default_rng(SEED).permutation(len(blocks))
     half = len(blocks) // 2
     for i in permutation[:half]:
@@ -281,10 +281,14 @@ def main() -> int:
                                                               float(SPACINGS[i]))))
         band = simultaneous_lower_bounds(sel, cal, coverage=COVERAGE)
         sgmc_sel, _ = pooled(arm, "sgmc_offcat", "selection", SPACINGS[chosen])
+        # The primary-instrument filter already selects one row per block, so the sum
+        # is the realised mass with no division (IR-2026-10-07-D: the committed script
+        # divided by 7; the published receipt was recomputed without the division and
+        # scores never depended on this field).
         emitted_sel = sum(int(r["emitted"]) for r in rows
                           if r["role"] == "selection" and r["model"] == arm
                           and r["spacing_px"] == SPACINGS[chosen]
-                          and r["instrument"] == PRIMARY) // (len(instruments) + 1)
+                          and r["instrument"] == PRIMARY)
         arms_out[arm] = dict(
             selected_spacing_px=float(SPACINGS[chosen]),
             selection_mean=float(means[chosen]),

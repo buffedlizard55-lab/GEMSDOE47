@@ -2,7 +2,7 @@
   "schema_version": 1,
   "hypothesis_id": "H60",
   "artifact": "gems47-h60-lidarscarp-s2p0-20261007",
-  "kind": "primary_submission_candidate",
+  "kind": "historical_local_scientific_promotion_receipt",
   "promoted": true,
   "generated_utc": "2026-10-07T21:14:30Z",
   "spacing_px": 2.0,
@@ -111,5 +111,33 @@
     "No organiser receipt links any participant score to a TIFF; the 0.2778 figure is owner-reported and the owner page marks that submission unscored.",
     "The restored data are hash-pinned owner mirrors, not organizer-authenticated bytes.",
     "The primary instrument is derived from the same lidar stack the field reads, so primary-instrument numbers are optimistic; the SGMC off-catalogue gain is the independent corroboration."
-  ]
+  ],
+  "kind_at_generation": "primary_submission_candidate",
+  "promotion_scope": "local_scientific_gate_only",
+  "organizer_acceptance_established": false,
+  "portal_submission_eligibility": "not established",
+  "upload_authorized_in_this_review": false,
+  "upload_performed_in_this_review": false,
+  "slot_authorized_in_this_review": false,
+  "slot_use_performed_in_this_review": false,
+  "current_review_2026_10_07": {
+    "reviewed_date": "2026-10-07",
+    "historical_kind_at_generation": "primary_submission_candidate",
+    "current_interpretation": "Historical H60 scientific-promotion receipt. The all-finite TIFF passes its raw [0,1] range checks and local scientific gate, but writes zero outside and does not satisfy the published null/NaN-outside wording.",
+    "promotion_scope": "local_scientific_gate_only",
+    "current_primary_format_variant": {
+      "file": "gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif",
+      "sha256": "d75ab9e282422d9592bc835c5cf719b22e6c564730de1f5fc42b57fc5bac2c01",
+      "bytes": 351392,
+      "status": "matches_published_outside_convention_on_local_readback; inspection_only"
+    },
+    "organizer_acceptance_established": false,
+    "portal_submission_eligibility": "not established",
+    "upload_authorized_in_this_review": false,
+    "upload_performed_in_this_review": false,
+    "slot_authorized_in_this_review": false,
+    "slot_use_performed_in_this_review": false,
+    "current_status_receipt": "../data/current-artifact.json",
+    "current_encoding_audit": "../data/h60-encoding-audit.json"
+  }
 }

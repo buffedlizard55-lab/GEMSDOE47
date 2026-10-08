@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
-"""Build the Pages research UI from the actual screen/export/audit receipts.
+"""RETIRED research-site publisher; execution is disabled.
+
+The historical renderer below publishes H47-C1 as the primary download and regenerates portal-upload guidance. C1 is not promoted, H60 is current only as a local scientific candidate, and no upload/slot use is authorized. Do not run this renderer.
 
 No hand-entered prediction scores, no leaderboard-to-TIFF assertions, no slot
 promotion. Data receipts are copied INSIDE docs/data because Pages publishes docs
 only. The top download is exactly the newly inferred, strictly validated TIFF.
 """
 from __future__ import annotations
+
+if __name__ != "__main__":
+    raise RuntimeError("DISABLED: retired research-site publisher cannot be imported or executed; use reviewed pages only.")
+print("DISABLED: historical renderer would overwrite the current H60 status with H47-C1 pages and stale upload instructions. No files were read or written.")
+raise SystemExit(2)
 
 import csv
 import hashlib

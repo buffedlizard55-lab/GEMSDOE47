@@ -11,9 +11,9 @@
 <header><div class="wrap">
   <p class="eyebrow">GEMSDOE47 · artifact register</p>
   <h1>Every artifact, every hash, every status</h1>
-  <p class="lede">The landing page leads with <strong>H60, which is OK to download and submit</strong>, and separately labels the earlier H47-C1, H47-QC, H50a, H48 and H49 research rasters as not for submission. The inherited H49 artifact is listed below as research-only: it fails the published null/NaN-outside requirement and is not slot-authorized. <strong>Two files have passed their gates: the H60 lidar scarp-crest raster (primary recommendation) and the H50 slope-anomaly raster (valid fallback).</strong> This register lists every GeoTIFF currently published under <code>downloads/</code>, including superseded files, with exact hashes and status.</p>
+  <p class="lede"><strong>H60 passed a local scientific promotion gate; that is not organizer acceptance or portal authorization.</strong> The NaN-outside H60 TIFF is linked for local inspection because its exact-byte read-back matches the published outside-null/NaN wording. Its all-finite sibling and the existing ZIP are diagnostics, not upload packages. H50 is a prior locally promoted scientific candidate whose all-finite zero-outside bytes do not meet that wording. No upload, score request, final selection, or slot use was authorized or performed in this review. This register lists each published TIFF with exact hashes, encoding and status.</p>
   <nav><a href="index.html">Home</a> <a href="executive-summary.html">Executive summary</a>
-  <a href="h50.html">H50 (submit this)</a>
+  <a href="current-status.html">Current status (no upload)</a> <a href="h60.html">H60 evidence</a>
   <a href="h50a.html">H50a (research only)</a>
   <a href="h48.json">H48 receipt (JSON)</a> <a href="h47b-mask-audit-20261006.html">H47-B mask audit</a> <a href="https://github.com/buffedlizard55-lab/GEMSDOE47/blob/main/evidence/h48_apex_build.json">Full build receipt</a></nav>
 </div></header>
@@ -25,31 +25,31 @@
     <a href="downloads/gems47-h51-multiscale-s2p8-20261007.zip">ZIP bundle</a> ·
     <a href="downloads/gems47-h51-multiscale-s2p8-20261007-nanoutside.tif">NaN-outside variant</a> ·
     <a href="h51.html">Evidence page</a></td>
-    <td><strong>H51 multi-scale slope-anomaly persistence · SIBLING CANDIDATE · NOT RECOMMENDED WHILE H50 EXISTS</strong></td>
+    <td><strong>H51 multi-scale slope-anomaly persistence · SIBLING CANDIDATE · NEAR-DUPLICATE OF H50; NOT CURRENT</strong></td>
     <td>37,654</td>
-    <td>float32 binary, values 0/1 only; all-finite and NaN-outside variants</td>
+    <td>float32 binary; all-finite version writes zeros outside (fails published outside-null/NaN wording); separate NaN-outside sibling untested by organizer</td>
     <td>315,938 B</td>
     <td><code>3d12889caf5093151808fbe5750233dcbf2ca871c12130fcf631d0f0b765c0b4</code></td>
-    <td><strong>NEAR-DUPLICATE OF H50.</strong> Its own receipt records max mask Jaccard 0.8543; measured directly, 34,696 of 37,654 dots are the H50 raster's dots. Format checks pass (17/17) and the conformal certificate matches the H50 design, but submitting it while H50 exists would spend a slot on substantially the same prediction. Retained for audit.</td>
+    <td><strong>NEAR-DUPLICATE OF H50.</strong> Its own receipt records max mask Jaccard 0.8543; measured directly, 34,696 of 37,654 dots are the H50 raster's dots. Its original range-focused checks do not validate the published null/NaN-outside rule; the all-finite variant writes zeros outside. It is a near-duplicate and retained for audit only; no upload or slot use is authorized here.</td>
   </tr>
-  <!--h65:row-->  <tr>
-    <td><a href="downloads/gems47-h65-scarpconsensus-s2p0-20261008-allfinite.tif" download>gems47-h65-scarpconsensus-s2p0-20261008-allfinite.tif</a><br>
-    <a href="downloads/gems47-h65-scarpconsensus-s2p0-20261008.zip">ZIP with note + receipt</a> ·
-    <a href="downloads/gems47-h65-scarpconsensus-s2p0-20261008-note.txt">Research note</a> ·
-    <a href="downloads/gems47-h65-scarpconsensus-s2p0-20261008-receipt.json">Receipt</a> ·
+  <!--h71:row-->  <tr>
+    <td><a href="downloads/gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif" download>gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif</a><br>
+    <a href="downloads/gems47-h71-scarpconsensus-s2p0-20261008.zip">ZIP with note + receipt</a> ·
+    <a href="downloads/gems47-h71-scarpconsensus-s2p0-20261008-note.txt">Research note</a> ·
+    <a href="downloads/gems47-h71-scarpconsensus-s2p0-20261008-receipt.json">Receipt</a> ·
     <a href="h65.html">Evidence page</a></td>
-    <td><strong>RESEARCH ARTIFACT · NOT OK TO SUBMIT WHILE THE UNIQUENESS BAR STANDS</strong><br>H65 scarp-consensus field, road/claim masked, split-conformal 2 px (confidence 90.91%, floor 0.0976); BEAT the H60 incumbent on both instruments (0.2919 vs 0.2879 primary; 0.1984 vs 0.1938 SGMC) but the emission overlaps the H60 artifact at mask Jaccard 0.5119 &ge; 0.5, failing frozen condition 6; unique against every scored prior submission (max 0.0067)</td>
+    <td><strong>RESEARCH ARTIFACT · NOT OK TO SUBMIT WHILE THE UNIQUENESS BAR STANDS</strong><br>H71 scarp-consensus field, road/claim masked, split-conformal 2 px (confidence 90.91%, floor 0.0976); BEAT the H60 incumbent on both instruments (0.2919 vs 0.2879 primary; 0.1984 vs 0.1938 SGMC) but the emission overlaps the H60 artifact at mask Jaccard 0.5119 &ge; 0.5, failing frozen condition 6; unique against every scored prior submission (max 0.0067)</td>
     <td>37,654</td>
     <td>float32 {0,1}, EPSG:32611, all-finite</td>
     <td>298,948</td>
     <td><code>cbae340361811abb7e7f6d0a1712d9adad087562c24479cb98439d5561225a17</code></td>
     <td>RESEARCH ONLY</td>
   </tr>
-  <!--h68:row-->  <tr>
-    <td><a href="downloads/gems47-h68-lidar-8ch-s2p8-20261008-allfinite.tif" download>gems47-h68-lidar-8ch-s2p8-20261008-allfinite.tif</a><br>
-    <a href="downloads/gems47-h68-lidar-8ch-s2p8-20261008.zip">ZIP with note + receipt</a> ·
-    <a href="downloads/gems47-h68-lidar-8ch-s2p8-20261008-note.txt">Submission note (copy-paste)</a> ·
-    <a href="downloads/gems47-h68-lidar-8ch-s2p8-20261008-receipt.json">Receipt</a> ·
+  <!--h74:row-->  <tr>
+    <td><a href="downloads/gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif" download>gems47-h74-lidar-8ch-s2p8-20261008-allfinite.tif</a><br>
+    <a href="downloads/gems47-h74-lidar-8ch-s2p8-20261008.zip">ZIP with note + receipt</a> ·
+    <a href="downloads/gems47-h74-lidar-8ch-s2p8-20261008-note.txt">Submission note (copy-paste)</a> ·
+    <a href="downloads/gems47-h74-lidar-8ch-s2p8-20261008-receipt.json">Receipt</a> ·
     <a href="h65.html">Evidence page</a></td>
     <td><strong>NEW UNIQUE CANDIDATE · OK TO DOWNLOAD · VALID SUBMISSION · NOT THE RECOMMENDATION WHILE H60 STANDS</strong><br>H68 eight-channel lidar field, road/claim masked, split-conformal 2.8 px (confidence 90.91%, floor 0.0993), passed the preregistered four-condition gate and the uniqueness bar; does not beat H60 on the primary instrument (0.2783 vs 0.2879)</td>
     <td>37,654</td>
@@ -59,30 +59,32 @@
     <td>VALIDATED CANDIDATE</td>
   </tr>
   <!--h60:row-->  <tr>
-    <td><a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif" download>gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif</a><br>
-    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007.zip">ZIP with note + receipt</a> ·
-    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-note.txt">Submission note (copy-paste)</a> ·
-    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-receipt.json">Receipt</a> ·
+    <td><a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif" download>gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif</a><br>
+    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif">All-finite range diagnostic</a> ·
+    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007.zip">Audit ZIP (all-finite variant)</a> ·
+    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-note.txt">Short note</a> ·
+    <a href="downloads/gems47-h60-lidarscarp-s2p0-20261007-receipt.json">Historical science receipt with current-review addendum</a> ·
+    <a href="data/h60-encoding-audit.json">Encoding audit</a> ·
     <a href="h60.html">Evidence page</a></td>
-    <td><strong>PRIMARY · OK TO DOWNLOAD AND SUBMIT</strong><br>H60 lidar scarp-crest field, road/claim masked, split-conformal 2.0 px, passed preregistered gate (primary + independent instruments)</td>
+    <td><strong>PRIMARY LOCAL SCIENTIFIC CANDIDATE · ORGANIZER ACCEPTANCE UNTESTED</strong><br>H60 passed its preregistered local gate; no competition upload or slot use is authorized or performed in this review.</td>
     <td>37,654</td>
-    <td>float32 {0,1}, EPSG:32611, all-finite</td>
-    <td>298,994</td>
-    <td><code>4ee074230a305fce6768012fc33380bf196c89170e70050a77cf4a44d74ef14c</code></td>
-    <td>PROMOTED</td>
+    <td>Float32; 3,730 rows × 3,292 columns; NaN NoData; 5,167,373 finite valid-mask cells; 7,111,787 NaNs outside</td>
+    <td>351,392</td>
+    <td><code>d75ab9e282422d9592bc835c5cf719b22e6c564730de1f5fc42b57fc5bac2c01</code></td>
+    <td>LOCAL PROMOTION PASSED · PORTAL UNTESTED</td>
   </tr>
   <!--h50:row-->  <tr>
     <td><a href="downloads/gems47-h50-slopeanom-s2p8-20261007-allfinite.tif" download>gems47-h50-slopeanom-s2p8-20261007-allfinite.tif</a><br>
     <a href="downloads/gems47-h50-slopeanom-s2p8-20261007.zip">ZIP with note + receipt</a> ·
-    <a href="downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt">Submission note (copy-paste)</a> ·
+    <a href="downloads/gems47-h50-slopeanom-s2p8-20261007-note.txt">Historical note (not portal guidance)</a> ·
     <a href="downloads/gems47-h50-slopeanom-s2p8-20261007-receipt.json">Receipt</a> ·
     <a href="h50.html">H50 evidence page</a></td>
-    <td><strong>H50 slope-anomaly detector · VALID FALLBACK · OK TO DOWNLOAD AND SUBMIT</strong> (superseded as primary by H60 on 2026-10-07)</td>
+    <td><strong>H50 slope-anomaly detector · PRIOR LOCAL SCIENTIFIC CANDIDATE · NOT PORTAL-ACCEPTED</strong> (superseded by H60 on 2026-10-07)</td>
     <td>37,654</td>
     <td>float32 binary, values 0/1 only; all cells finite, NoData unset; every value inside [0,1]; zeros outside the competition footprint</td>
     <td>291,321 B</td>
     <td><code>97e3c3816cd6b458d01e34d7022f871935bb57710e3982a11d9edaec13e91a17</code></td>
-    <td><strong>OK TO SUBMIT.</strong> Not a copy of any prior GEMSDOE artifact (31 prior rasters compared, zero exact matches, max mask Jaccard 0.0456). Spacing 2.8 px / 280 m chosen on a selection half of 20 spatially blocked blocks and certified on the disjoint calibration half of 21 blocks: split-conformal residual rank 20 of 22, finite-sample coverage at least 90.91 % <em>conditional on block-score exchangeability</em>, certified holdout floor 0.0957 DTI. Blocked-holdout pooled DTI 0.165881 against 0.049421 for the owner-reported d2.8 reference, 0.048252 for H47-C1 and 0.047049 for mass-matched spaced random. The validation instrument (off-catalogue 1 m lidar scarp peaks) is a proxy that shares the slope quantity with the field's input band; this is not a private-label or leaderboard guarantee. Owner-reported scores are not organiser receipts.</td>
+    <td><strong>PRIOR LOCAL SCIENTIFIC GATE PASSED; NOT A CURRENT UPLOAD RECOMMENDATION.</strong> Not a copy of any inspected prior artifact (bounded uniqueness only). Spacing 2.8 px / 280 m; 20 selection + 21 calibration blocks; split-conformal rank 20/22 and lower floor 0.0957 DTI, conditional on unverified block-score exchangeability. Pooled proxy DTI 0.165881. Exact all-finite bytes have zeros outside the mirrored footprint and fail the published null/NaN-outside wording; organizer acceptance is untested. Retained as historical science and format evidence, not portal advice.</td>
   </tr>
   <tr>
     <td><a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.tif" download>gems47-h50a-corridor…template-nanoutside.tif</a><br><a href="downloads/gems47-h50a-corridor-s1p5-b3-20261007-4096e1f9d19b-template-nanoutside.zip">Single-TIFF ZIP</a> · <a href="data/h50-template-nanoutside.json">Exact local receipt</a></td>
@@ -179,7 +181,7 @@ outside and 3,061 sample/label cells invalid in features. Official mask semantic
 all-finite companion is only an encoding diagnostic. In a bounded scan, NaN variants failed a NaN-intolerant
 range check and all-finite variants passed. The original rejected TIFF is unavailable, so this does not
 diagnose the cause of that specific rejection. Local format checks do not establish organizer acceptance.</p>
-<p class="small"><b>Only the H50 slope-anomaly raster is recommended for a scored slot.</b> Every other row is research-only; the promotion gate and the reason each arm failed it are on the <a href="index.html">homepage</a> and the <a href="executive-summary.html">executive summary</a>.</p>
+<p class="small"><b>No TIFF in this register is authorized for a scored slot in this review.</b> H60 passed only the local scientific gate; organizer acceptance is untested. The all-finite H60 and H50 variants are outside-nonconforming diagnostics. See the <a href="current-status.html">current status</a> and <a href="executive-summary.html">executive summary</a>.</p>
 </main>
 </body>
 </html>

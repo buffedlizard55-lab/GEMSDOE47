@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Build, validate, audit for uniqueness and publish the H65-round artifacts.
+"""Build, validate, audit for uniqueness and publish the H71-round artifacts.
 
-Two artifacts are built from the frozen screen receipt (`evidence/h65/screen.json`):
+Two artifacts are built from the frozen screen receipt (`evidence/h71/screen.json`):
 
 * **The primary** — the winner among the arms passing the frozen promotion condition
   `beats_incumbent_h60` (above H60's frozen 0.287891 primary AND 0.193813 SGMC pooled
-  selection-half DTI).  This round that is **H65**, the scarp-consensus field, which
+  selection-half DTI).  This round that is **H71**, the scarp-consensus field, which
   beat the incumbent on both instruments; it replaces H60 as the repository's
   OK-to-download-and-submit artifact.  Emitted at its **split-conformal-selected**
   spacing (argmax certified lower bound).
 * **The validated candidate** — the frozen winner by the session-5 tie-break (highest
   pooled SGMC selection DTI, then conformal floor) when it is not the primary.  This
-  round that is **H68**, the eight-channel field: it passed the four control
+  round that is **H74**, the eight-channel field: it passed the four control
   conditions and holds the best independent-instrument DTI of the round, but it does
   not beat the primary on the primary instrument, so it is published as a clearly
   labelled validated candidate, not the recommendation.
@@ -53,27 +53,27 @@ import numpy as np
 import rasterio
 
 from gems47 import grid as G
-from gems47 import h50, h65
+from gems47 import h50, h71
 from gems47 import submission as SUB
 
 BUDGET = 37_654
 STAMP = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
 DATE = STAMP[:8]
 
-ARM_SLUG = {"h65": "scarpconsensus", "h66": "farfield-lidar",
-            "h67": "lidar-thk-alteration", "h68": "lidar-8ch"}
-ARM_PORTAL_NOTE = {"h65": "h65 scarp-consensus", "h66": "h66 far-field lidar",
-                   "h67": "h67 lidar+ThK alteration", "h68": "h68 lidar 8-channel"}
+ARM_SLUG = {"h71": "scarpconsensus", "h72": "farfield-lidar",
+            "h73": "lidar-thk-alteration", "h74": "lidar-8ch"}
+ARM_PORTAL_NOTE = {"h71": "h71 scarp-consensus", "h72": "h72 far-field lidar",
+                   "h73": "h73 lidar+ThK alteration", "h74": "h74 lidar 8-channel"}
 ARM_BLURB = {
-    "h65": "the amplitude-tie-broken consensus count of the six lidar scarp channels "
+    "h71": "the amplitude-tie-broken consensus count of the six lidar scarp channels "
            "(how many independent operators fire at the same cell, then the H60 "
            "channel-rank-max as tie-break), road/claim masked",
-    "h66": "the H60 lidar scarp-crest field restricted to cells more than 300 m from "
+    "h72": "the H60 lidar scarp-crest field restricted to cells more than 300 m from "
            "every catalogue pixel (the unmapped-system pole), road/claim masked",
-    "h67": "an additive 50/50 rank mixture of the H60 lidar scarp-crest field and the "
+    "h73": "an additive 50/50 rank mixture of the H60 lidar scarp-crest field and the "
            "rank of the USGS GeoDAWN Th/K radiometric alteration grid (structure + "
            "fossil heat), road/claim masked",
-    "h68": "the per-cell maximum of the ranks of eight lidar scarp channels (H60's six "
+    "h74": "the per-cell maximum of the ranks of eight lidar scarp channels (H60's six "
            "plus slope-excess and local relief), road/claim masked",
 }
 
@@ -100,20 +100,20 @@ def save_json(path: Path, values) -> None:
 
 def build_arm(arm: str, data: Path):
     """Return (field, mask, spec) for the frozen arm definition."""
-    if arm == "h65":
-        d = h65.h65_consensus(data)
-        return d["field"], d["mask"], dict(channels=list(h65.H65_THRESHOLDS),
-                                           thresholds=h65.H65_THRESHOLDS)
-    if arm == "h66":
-        d = h65.h66_field(data)
-        return d["field"], d["mask"], dict(far_radius_px=h65.H66_FAR_RADIUS_PX)
-    if arm == "h67":
-        d = h65.h67_field(data)
-        return d["field"], d["mask"], dict(lambda_=h65.H67_LAMBDA,
-                                           thk_band=h65.H67_THK_BAND)
-    if arm == "h68":
-        d = h65.h68_field(data)
-        return d["field"], d["mask"], dict(channels=list(h65.H68_CHANNELS))
+    if arm == "h71":
+        d = h71.h71_consensus(data)
+        return d["field"], d["mask"], dict(channels=list(h71.H71_THRESHOLDS),
+                                           thresholds=h71.H71_THRESHOLDS)
+    if arm == "h72":
+        d = h71.h72_field(data)
+        return d["field"], d["mask"], dict(far_radius_px=h71.H72_FAR_RADIUS_PX)
+    if arm == "h73":
+        d = h71.h73_field(data)
+        return d["field"], d["mask"], dict(lambda_=h71.H73_LAMBDA,
+                                           thk_band=h71.H73_THK_BAND)
+    if arm == "h74":
+        d = h71.h74_field(data)
+        return d["field"], d["mask"], dict(channels=list(h71.H74_CHANNELS))
     raise ValueError(f"unknown arm {arm!r}")
 
 
@@ -312,8 +312,8 @@ def build_artifact(arm: str, screen: dict, data: Path,
         "uniqueness": {k: audit[k] for k in ("compared", "exact_matches", "max_jaccard",
                                              "max_jaccard_vs_scored_priors")},
         "uniqueness_pass": uniqueness_pass,
-        "screen": "evidence/h65/screen.json",
-        "preregistration": "docs/research/h65-hypotheses-preregistered.md",
+        "screen": "evidence/h71/screen.json",
+        "preregistration": "docs/research/h71-hypotheses-preregistered.md",
         "screen_selected_spacing_px": arm_rec["selected_spacing_px"],
         "conformal": {
             "method": "max-residual one-sided split conformal, Lei et al. JASA 2018 Alg. 2; "
@@ -388,7 +388,7 @@ def build_artifact(arm: str, screen: dict, data: Path,
 
 def main() -> int:
     started = time.time()
-    screen = json.loads((ROOT / "evidence" / "h65" / "screen.json").read_text())
+    screen = json.loads((ROOT / "evidence" / "h71" / "screen.json").read_text())
     gate = screen["gate"]
     data = G.data_dir()
     template = G.load_template()
@@ -459,18 +459,18 @@ def main() -> int:
 
     # deploy the evidence receipts the site renders
     deployed = {}
-    payload = json.loads((ROOT / "evidence" / "h65" / "screen.json").read_text())
-    payload["deployed_from"] = "evidence/h65/screen.json"
-    save_json(ROOT / "docs" / "data" / "h65-screen.json", payload)
-    deployed["h65-screen.json"] = sha256(ROOT / "docs" / "data" / "h65-screen.json")
-    shutil.copyfile(ROOT / "evidence" / "h65" / "spacing-history.csv",
-                    ROOT / "docs" / "data" / "h65-spacing-history.csv")
-    deployed["h65-spacing-history.csv"] = sha256(ROOT / "docs" / "data" / "h65-spacing-history.csv")
+    payload = json.loads((ROOT / "evidence" / "h71" / "screen.json").read_text())
+    payload["deployed_from"] = "evidence/h71/screen.json"
+    save_json(ROOT / "docs" / "data" / "h71-screen.json", payload)
+    deployed["h71-screen.json"] = sha256(ROOT / "docs" / "data" / "h71-screen.json")
+    shutil.copyfile(ROOT / "evidence" / "h71" / "spacing-history.csv",
+                    ROOT / "docs" / "data" / "h71-spacing-history.csv")
+    deployed["h71-spacing-history.csv"] = sha256(ROOT / "docs" / "data" / "h71-spacing-history.csv")
     shutil.copyfile(ROOT / "evidence" / "h33_reference_analysis.json",
                     ROOT / "docs" / "data" / "h33-reference-analysis.json")
     deployed["h33-reference-analysis.json"] = sha256(
         ROOT / "docs" / "data" / "h33-reference-analysis.json")
-    for name in ("h65", "h68"):
+    for name in ("h71", "h74"):
         p = ROOT / "docs" / "data" / f"{name}-artifact.json"
         if p.is_file():
             d = json.loads(p.read_text())

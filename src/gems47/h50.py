@@ -6,22 +6,26 @@ Every fault-population proxy available in this repository (the given USGS/INGENI
 catalogue, the SGMC compilation, the GDR QFaults traces) is either *masked out of the
 official evaluation* or *biased toward exposed mountain bedrock*.  Measured on the 13
 owner-reported public-score artifacts that are restored in this checkout, the rank
-correlation between the reported score and DTI computed against those populations is
-**negative** for every one of them:
+correlation between the reported score and DTI computed against the catalogue-family
+populations is at zero or negative (``evidence/h50/instrument-ranking.json``):
 
-    catalogue                spearman -0.490      (these pixels are masked out)
-    sgmc_offcat              spearman -0.421
-    sgmc_all                 spearman -0.421
-    iso_catalogue            spearman -0.272
-    flank_catalogue          spearman -0.424
-    cat + sgmc_offcat        spearman -0.534
-    sgmc_offcat or iso       spearman -0.553
+    catalogue                spearman -0.477      (these pixels are masked out)
+    sgmc_offcat              spearman -0.025
+    iso_catalogue            spearman +0.085      (weak; the one non-negative row)
+    flank_catalogue          spearman -0.163
+    cat + sgmc_offcat        spearman -0.554
 
-The only population with a **positive** rank correlation is the set of *local maxima of the
+(Corrected 2026-10-08, IR-2026-10-08-E: an earlier draft of this table carried
+superseded magnitudes, a ``sgmc_all`` row and a ``sgmc_offcat or iso`` row that match no
+committed evidence file.  The values above are read directly from the committed ranking.)
+
+The populations with a **positive** rank correlation are the *local maxima of the
 owner-derived 1 m lidar scarp-detection stack (USGS 3DEP 1 m DEM tiles, registry/data_manifest.json) that lie off the catalogue*
-(``Instrument L``): spearman +0.377 for the union of six scarp channels at threshold 200 /
-min-distance 3, and +0.26 ... +0.58 across ~25 other parameterisations of the same idea
-(``evidence/h50/instrument-l-ranking.json``).  Those points are real, independently measured
+(``Instrument L``): per-channel peaks reach spearman +0.576 (lappos t200 d5), +0.548
+(lappos t200 d3), +0.532 (cross t150 d3) and +0.504 (lapneg t150 d3), while the union of
+all six scarp channels at threshold 200 / min-distance 3 is itself uncorrelated (-0.047:
+the weak channels dilute the strong ones, which is the H65/H66 question).  Those points
+are real, independently measured
 scarps that the catalogue does not contain, so a 100 m-scale field that predicts them is
 detecting unmapped fault scarps rather than reproducing the masked catalogue.
 
@@ -241,7 +245,7 @@ def h50_field(data_dir: Path, mask: np.ndarray | None = None) -> dict:
     if not np.isfinite(field[mask]).all() or (field[mask] < 0).any() or (field[mask] > 1).any():
         raise ValueError("H50 field is not finite and inside [0,1] on the emission domain")
     return dict(field=field, mask=mask, slope_band=SLOPE_BAND,
-                n_blocks=int(len(np.unique(blocks))), n_ranked=int(mask.sum()))
+                n_blocks=len(np.unique(blocks)), n_ranked=int(mask.sum()))
 
 
 # ---------------------------------------------------------------------- emission

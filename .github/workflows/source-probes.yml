@@ -2,7 +2,7 @@ name: Public official data feasibility
 
 on:
   push:
-    branches: [main, arena/e08adc4a-gemsdoe47]
+    branches: [main, arena/7bb1aa70-gemsdoe47]
     paths:
       - '.github/workflows/source-probes.yml'
       - 'scripts/probe_official_data.py'

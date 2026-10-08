@@ -1,0 +1,30 @@
+{
+  "status": "DATED_OFFICIAL_PAGE_OBSERVATION",
+  "observed_date": "2026-10-07",
+  "observed_utc": null,
+  "time_precision": "date only; no precise fetch timestamp retained",
+  "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "retrieval_method": "manual official-page observation; only these rank/score rows retained; not automated",
+  "file_to_score_mapping_verified": false,
+  "rows": [
+    {
+      "rank": 1,
+      "participant": null,
+      "score": 0.3774,
+      "participant_name_status": "not preserved in the 7 October session observation"
+    },
+    {
+      "rank": 7,
+      "participant": "DARD",
+      "score": 0.3195
+    },
+    {
+      "rank": 13,
+      "participant": "extradr19",
+      "score": 0.2778
+    }
+  ],
+  "supersedes": "The 6 October saved observation is retained as history; this 7 October partial record is the latest observation in the review.",
+  "caveat": "Participant-level public scores only. No row identifies a TIFF filename, file hash, or organizer receipt; no private/final score is claimed.",
+  "monitoring": "No automated DrivenData polling or feed is implemented."
+}

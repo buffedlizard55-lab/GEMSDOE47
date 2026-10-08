@@ -4,110 +4,60 @@ layout: default
 nav_order: 7
 ---
 
-# Remaining work and limits — corrected 8 October 2026 (session 6, H65–H68)
+# Remaining work and limits — 8 October 2026 (both session-6 rounds)
 
-> **H60 is the repository's recommendation: OK to download and submit.** H68 is a new unique
-> validated candidate (a valid submission, not the recommendation). H65 is the round's best science
-> and is published as a research artifact that is **NOT OK to submit while the frozen uniqueness
-> bar stands**. No competition submission slot has been spent by this repository, and no organiser
-> acceptance is claimed for any file. The older handoff that advised uploading without a passed
-> gate, assumed a fixed weekly quota, treated H33's reported 0.2778 as an authenticated raster
-> score, and described a causal gain from flank deletion is withdrawn; the 0.2778 attribution
-> remains unverified (participant-level leaderboard, no organiser receipt).
+> **No competition upload or slot use is authorized or performed in this review.** H60 is the current locally promoted scientific candidate; organizer acceptance is untested. H47-C1 remains research-only, not promoted, and its gate remains closed. See [current status](current-status.html).
 
-## Immediate decision
+## The H71–H74 round (session-6 second slate, 8 October 2026)
 
-**H60 remains the file to submit** (`docs/downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif`,
-note `h60 lidar-scarp d2p0 conformal90`): it passed all six frozen conditions in its round
-(primary 0.2879 vs the H50 anchor's 0.1659; independent SGMC 0.1938 vs random 0.0698; certified
-split-conformal floor 0.0989 at ≥ 90.91 % coverage; uniqueness max Jaccard 0.0217; 17/17 format
-checks). This round no arm displaced it under all six conditions:
+A second session-6 slate (H71 scarp-consensus, H72 far-field, H73 lidar+GeoDAWN Th/K alteration,
+H74 eight-channel lidar; preregistered at `docs/research/h71-hypotheses-preregistered.md`,
+renumbered from H65–H68 during the additive reconciliation with the concurrent H65–H70 sibling
+round merged in PR #30) ran on the same frozen 41-block holdout with the conformal
+operating-point rule (argmax certified floor). **All four arms passed the four control
+conditions.** H71 beat the H60 incumbent on **both** instruments (0.2919 vs 0.2879 primary;
+0.1984 vs 0.1938 SGMC) — the round's headline science — but its emission overlaps the H60
+incumbent artifact at mask Jaccard **0.5119 ≥ 0.5**, failing frozen condition 6, so H60 remains
+the local candidate and H71 is published as a research artifact that is **NOT OK TO SUBMIT while
+the bar stands** (IR-2026-10-08-J; unique 0.0067 against every scored prior submission). H74 is
+the frozen winner by the SGMC tie-break and a **gate-passing unique candidate** (0.2783 primary;
+0.2145 SGMC; max Jaccard 0.3066): a valid submission, OK to download, not the recommendation
+(IR-2026-10-08-G records the tie-break tension). An implementation bug (an inverted consensus
+rank) was caught by a test before any artifact was built and fixed; both runs' numbers are
+preserved (`evidence/h71/erratum-consensus-rank-20261008.md`, IR-2026-10-08-I). The 0.2778
+question was answered with measurements (`evidence/h33_reference_analysis.json`): h33-2-b2 is
+the scored d2.8 emission pruned 44,090 → 37,654 dots — mass discipline on an existing field, not
+a new signal; the re-pruning route is closed by the uniqueness gate. Evidence:
+`evidence/h71/`, round page `docs/h71.html`.
 
-* **H65 (scarp consensus) beat H60 on both holdout instruments** (0.2919 vs 0.2879 primary;
-  0.1984 vs 0.1938 SGMC) — the strongest scientific result of the round — but its emission
-  overlaps the H60 artifact at mask Jaccard **0.5119 ≥ 0.5**, failing frozen condition 6
-  (bounded uniqueness). Published as a research artifact, NOT OK TO SUBMIT while the bar stands
-  (IR-2026-10-08-E). It is unique against every scored prior submission (max 0.0067).
-* **H68 (eight-channel lidar) is the new unique TIF** — the frozen winner by the SGMC tie-break,
-  passing control conditions 1–4 and the uniqueness bar (max Jaccard 0.3066): a valid submission,
-  but it does not beat H60 on the primary instrument (0.2783 vs 0.2879), so it is not the
-  recommendation (IR-2026-10-08-B records the tie-break tension).
+## Current evidence boundary
 
-## Remaining work
+H60 passed its preregistered 41-block local gate at 2.0 px / 200 m. Pooled proxy DTI is 0.287891 on the primary off-catalogue lidar-peak instrument and 0.193813 on independent SGMC off-catalogue faults. The primary instrument is derived from the same owner-built lidar stack as the H60 field and is circular/optimistic; the results are not private-label or leaderboard scores. The 0.0989005 split-conformal floor at rank 20/22 (90.91% nominal marginal coverage) is conditional on unverified block-score exchangeability.
 
-1. **Owner decision on the slot.** Submit H60 (recommendation), or H68 (valid alternative), or
-   record an explicit owner decision to submit H65 despite the self-imposed uniqueness bar. Any
-   upload needs the eligibility/quota checks in the authenticated portal first, the receipt
-   saved, and the exact bytes preserved if rejected.
-2. **Uniqueness-bar-compliant H65 variant.** The 0.5119 overlap comes from emitting the same
-   budget at the same spacing over the same domain with correlated fields. A preregistered
-   variant (different budget, domain restriction, or hybrid tie-break) could clear the bar;
-   preregister and re-screen before building anything.
-3. **Independent-instrument program.** The primary instrument shares the lidar modality with
-   every lidar-reading field. H67's Th/K component is independent of it. The GeoDAWN Th/K and
-   U/K grids are already restored and hash-pinned (USGS GeoDAWN release, DOI
-   10.5066/P93LGLVQ); USGS MRData ASTER alteration is named but not fetchable from this
-   sandbox; QFaults/NBMG M167 are already inside the training labels (closed).
-4. **Spacing below 2.0 px (preregister first).** H65's selection-half mean is still rising at
-   the sweep edge; extend the sweep with the conformal guarantee simultaneous over the extended
-   set; record under-emission at small spacings.
-5. **Mask-radius ablation (preregister first).** The 250 m road / 150 m claim radii were frozen
-   pre-score and never swept; a 3×3 radius grid is one screen.
-6. **H67 λ sweep or Th/K ablation.** The alteration arm kept the round's best certified floor
-   (0.1045) but diluted the primary instrument; isolate whether the radiometric component
-   carries signal.
+The all-finite H60 TIFF has finite zeros outside and does not literally satisfy the published null/NaN-outside instruction. The NaN-outside sibling matches that wording on local read-back, but portal acceptance remains untested. The historical rejected bytes and parser receipt are unavailable, so the old range-error cause remains unknown. The explicit C1 failure is unchanged: pooled proxy DTI 0.177872 vs. 0.180216 for baseline; 11/22 truth-bearing test blocks improved where 15 were required; assumption-conditional lower-bound estimate 0.0.
 
-## Limitations that do not go away
+## Remaining work, only after a separate authorization
 
-* **Attribution.** The participant-level 0.2778 observation is not authenticated to H33-2-B2;
-  the owner page marks that raster unscored. Measured this round
-  (`evidence/h33_reference_analysis.json`): h33-2-b2 is the scored d2.8 emission pruned
-  44,090 → 37,654 dots (strict mask subset, Jaccard 0.854), 59.6 % of its dots inside the
-  road/claim noise masks, and the 0.2600 → 0.2778 move is the DTI pruning algebra — mass
-  discipline on an existing field, not a new geological signal. The re-pruning route is closed
-  by the uniqueness gate; the open route is a better field.
-* **Circularity.** The primary instrument derives from the same owner-built lidar stack the
-  lidar-reading fields (H60, H65, H66, H68) read; their primary-instrument numbers are optimistic
-  by construction. The SGMC off-catalogue population is independent of the lidar fields but is
-  biased toward mountain bedrock and its DTI is negatively rank-correlated (−0.421) with the 13
-  owner-reported scores, while the primary instrument is positively correlated (+0.548).
-* **Conformal semantics.** Every floor is a finite-sample, max-over-settings, one-sided split
-  conformal bound (Lei et al. JASA 2018, Algorithm 2) at rank 20 of 22 — coverage at least
-  90.91 % — conditional on block-level exchangeability, which spatial separation does not
-  establish. It covers one future exchangeable block's proxy DTI, never the private leaderboard,
-  and is never a distribution-free guarantee for private labels.
-* **H65's margins are small** (+1.4 % primary, +2.4 % SGMC over H60) but consistent in direction
-  on both instruments; they are selection-half measurements on a proxy, not a leaderboard
-  prediction. H60 has not been scored by the organiser; no score exists for any file in this
-  repository.
-* **Provenance.** Competition arrays and comparison rasters are hash-pinned mirror/owner bytes,
-  not authenticated organizer downloads. The lidar stack is owner-derived from USGS 3DEP 1 m DEM
-  tiles (706/716; not organiser-supplied). The GeoDAWN grids are contractor u8-rank products of
-  the USGS GeoDAWN release, not physical units. Restore pins prove mirror consistency, not
-  organizer authentication.
-* **Quota.** Public official pages do not establish the current per-user quota or slot
-  accounting; no diagnostic cost is inferred or described as free.
-* **Format distinction.** Official instructions say null or NaN outside the training bounds.
-  H49's exact TIFF is all-finite with no NoData tag and fails that check; the H60/H65/H68
-  artifacts are all-finite with zeros outside the footprint and no NoData tag (the portal
-  previously rejected "Predicted values must be in range [0, 1]"; the all-finite {0,1} encoding
-  answers it directly, and NaN-outside fallbacks are published alongside). Organizer acceptance
-  of any encoding has not been tested.
+1. **Keep portal activity stopped for this review.** Do not upload, spend a feedback opportunity, or make a final selection. The [official DOE/NLR rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf) states up to three scoring/feedback submissions per week and one final selected file for the competition's rounds. This public cap does not disclose the entrant's eligibility, used/remaining weekly opportunities, or current final-selection state; those require the authenticated portal.
+2. **De-circularize the strongest instrument before treating H60's primary score as transferable evidence.** The primary lidar-peak instrument uses the same owner-derived lidar stack the candidate reads. A new instrument should have zero shared code path with the field; a structurally independent regional or Quaternary-fault compilation is a research priority, subject to actual coverage verification.
+3. **Preregister any extension before scoring.** The 2.0 px spacing is at the edge of the tested range, where the selection-half mean remained highest. Any extension below 2.0 px needs a frozen spacing set, capacity-aware emission accounting, and a conformal guarantee simultaneous over the expanded set; do not reuse the existing test as a fresh test for tuned settings.
+4. **Measure the road/claim mask radii only under a preregistered ablation.** H64 supports using the masks but does not establish that 250 m / 150 m are optimal radii.
+5. **Maintain the exact-byte distinction.** The local format audit is [`data/h60-encoding-audit.json`](data/h60-encoding-audit.json). The NaN-outside variant is an inspection candidate only; the all-finite zero-outside variant is a range-check diagnostic, not a locally format-conforming file under the published outside wording. A passing local check does not establish organizer acceptance.
+6. **Keep attribution and provenance conditional.** Participant leaderboard rows do not identify TIFFs. The 0.2778 H33-2-B2 mapping remains owner-reported and unverified. The restored competition inputs are hash-pinned mirrors, not authenticated organizer downloads; no private labels or private score are available.
+7. **Preserve the dated board snapshot.** The official public observation checked 7 October 2026 has rank 1 at 0.3774 and 0.3195 at rank 7. Do not call 0.3195 the current top; the board moves, and no score-to-file mapping is established.
 
-## Actions explicitly not taken
+## Actions not taken
 
-This round did not upload or prepare a portal submission, use a competition slot, query
-DrivenData (Terms), or read any private label. The screens and builds are local and
-reproducible; the artifacts are published for the owner's judgement.
+This documentation review did not log in to the competition portal, restore competition data, run an H60 scoring pipeline, upload a file, request a score, use a weekly feedback opportunity, make the final selection, or spend a slot. Any data-dependent test result must be reported from the actual run, not inferred from a receipt or earlier handoff.
 
 ## References
 
-- [Current README and standing user brief](../README.md)
-- [Session-6 handoff](next-session.md)
-- [H65–H68 evidence page](h65.html)
-- [H60 evidence page](h60.html)
+- [Current status and exact-byte audit](current-status.html)
+- [Current README and standing brief](README.md)
+- [H60 scientific evidence](h60.html)
 - [Corrected requirements audit](COMPLIANCE.md)
-- [Submission readiness checklist](HOW_TO_SUBMIT.md)
+- [Submission status and safe checklist](HOW_TO_SUBMIT.md)
 - [Official GeoTIFF requirements](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-- [Official competition home and rules links](https://www.drivendata.org/competitions/306/competition-doe-gems/)
-- [Irregularities register](irregularities.md)
+- [Official competition rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
+- [Official leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
+- [Source register](sources.md)

@@ -1,57 +1,45 @@
-"""H65-H68 -- session-6 hypothesis slate: scarp consensus, far-field, alteration
-corroboration, and the extended-channel lidar field.
+"""H65-H70 -- step-only / consensus lidar fields, the tip-proximity field, mask
+ablation, and the H70 instrument study.
 
 Preregistration
 ---------------
 ``docs/research/h65-hypotheses-preregistered.md`` (committed before any score in this
 round was computed) freezes the fields, the blocked-holdout design, the instruments,
-the controls, the conformal operating-point rule and the promotion gate.  This module
-implements the frozen definitions and nothing else; every deviation is recorded in the
-screen receipt.
+the controls and the promotion gate.  This module implements the frozen definitions
+and nothing else; every deviation is recorded in the screen receipt.
 
-The slate (ranked by expected DTI improvement x implementation cost in the
-preregistration)
-------------------------------------------------------------------------------------------
-* **H65 scarp-consensus field.**  Per cell, the count of the six H60 lidar channels
-  whose amplitude exceeds its frozen instrument threshold, ranked lexicographically
-  (count descending, then the H60 channel-rank-max descending as the amplitude
-  tie-break).  H60's per-cell MAX lets one noisy operator spend the budget; consensus
-  requires independent operators to agree at the same cell.
-* **H66 far-field lidar field.**  The H60 field restricted to cells more than 3 px
-  (one metric-kernel radius) from every catalogue pixel -- the unmapped-system pole
-  that H63's refuted near-gate was the opposite of, and that H64 measured correlating
-  better with the 13 owner-reported scores (lappos +0.581 far vs +0.273 near).
-* **H67 alteration-corroborated lidar field.**  Additive 50/50 rank mixture (the H62
-  mechanism, lambda frozen at 0.5) of the H60 lidar field and the rank of the USGS
-  GeoDAWN contractor Th/K ratio grid.  Hydrothermal alteration leaches (argillic) or
-  adds (potassic) potassium, so Th/K is the standard airborne-radiometric alteration
-  index; a scarp coincident with an alteration high is a sealed fluid conduit -- the
-  hidden geothermal vent the competition rewards.  GeoDAWN was flown by USGS/DOE for
-  undiscovered geothermal resources over this footprint.
-* **H68 extended-channel lidar field.**  The H60 rank-max mechanism over eight
-  amplitude channels: H60's six plus ``ex_max`` (max 2 m slope in excess of the 30 m
-  regional slope) and ``relief`` (local relief).  ``coh100`` is excluded (H64 measured
-  it anti-correlating, -0.532); ``strike``/``ex_mean`` are not max-amplitudes.
+What is scientifically new
+--------------------------
+1.  **H65** emits on the rank of the single ``step_max`` channel of the owner-derived
+    1 m lidar scarp stack.  H64 measured masked step peaks as the population most
+    rank-correlated with the owner-reported leaderboard ordering (+0.592); H60's
+    max-of-six may dilute that channel with the noisiest ones (upface +0.328).
+2.  **H66** emits on the per-cell *mean* of the six channel ranks (Borda consensus),
+    re-ranked: the "corroborated evidence" pole opposite to H60's "any evidence" max.
+3.  **H67** emits on catalogue-tip proximity -- rank of ``1/(1+d_tip)`` over the plain
+    evaluated domain.  Fault systems grow at their tips; tips have zero shared code
+    path with the lidar stack, so this arm carries no circularity warning.
+4.  **H68/H69** recompute the H60 field definition over relaxed (road 150 m / claim
+    100 m) and strict (road 400 m / claim 250 m) noise-mask domains.  H64 proved the
+    masks help but the radii were never swept.
+5.  **H70** extends the H64 instrument study to ``downface_max`` peaks, SGMC
+    threshold/stratification variants, and the 21 INGENIOUS volcanic-vent pixels
+    (exploratory diagnostic only).
 
 Provenance limits (do not drop)
 -------------------------------
-* The lidar stack is **owner-derived** from USGS 3DEP 1 m DEM tiles (706/716; work
-  resolution 2 m; per-channel meanings pinned in GEMSDOE24
-  ``data/external/lidar_scarp_features.json``), NOT organiser-supplied.  USGS 3DEP
-  products carry no use restrictions.
-* The GeoDAWN Th/K grid is a contractor product of the USGS GeoDAWN release
-  (DOI 10.5066/P93LGLVQ); bytes are u8 ranks over the 1st-99th percentiles, not
-  physical units; 0 = nodata.  USGS data release; retain attribution.
+* The lidar stack is **owner-derived** from USGS 3DEP 1 m DEM tiles, NOT
+  organiser-supplied.  The primary lidar-peak instrument is therefore optimistic for
+  the lidar-reading challengers (H65/H66/H68/H69); the preregistered gate carries an
+  independent-instrument superiority condition on the SGMC off-catalogue population.
+* H67 reads catalogue geometry only and is exempt from the circularity warning.
 * The restored rasters are hash-pinned owner mirrors, not organiser-authenticated
   bytes, and the owner-reported public scores are not organiser receipts.
-* The primary lidar-peak instrument shares its terrain modality with every
-  lidar-reading field (H60, H65, H66, H68); their primary-instrument numbers are
-  optimistic by construction.  H67's Th/K component and the SGMC off-catalogue
-  population are independent of it.
 """
 
 from __future__ import annotations
 
+import csv
 from pathlib import Path
 
 import numpy as np
@@ -62,186 +50,136 @@ from gems47s3.geomorph import rank_scale
 
 from . import h50, h60
 
-#: the eight amplitude channels of H68 (H60's frozen six + ex_max + relief)
-H68_CHANNELS = h60.H60_CHANNELS + ("ex_max", "relief")
-
-#: per-channel consensus thresholds (frozen): the instrument thresholds of the H50/H60
-#: screens -- t200 for the band-passed channels, t150 for step_max
-H65_THRESHOLDS = {"step_max": 150.0, "lappos_max": 200.0, "lapneg_max": 200.0,
-                  "upface_max": 200.0, "downface_max": 200.0, "cross_max": 200.0}
-
-#: H66 far-field radius: cells farther than this (px) from every catalogue pixel.
-#: 3 px = 300 m = the metric's own kernel support (RADIUS_PX); the same near/far split
-#: the H64 instrument refinement used.
-H66_FAR_RADIUS_PX = 3.0
-
-#: H67 mixture weight (additive; frozen at 1/2, the H62 mechanism)
-H67_LAMBDA = 0.5
-
-#: band name of the Th/K ratio grid inside external/geodawn_extensions_u8.tif
-H67_THK_BAND = "ThK"
+#: H68 relaxed noise-mask radii (metres), frozen in the preregistration
+H68_ROAD_M = 150.0
+H68_CLAIM_M = 100.0
+#: H69 strict noise-mask radii (metres), frozen in the preregistration
+H69_ROAD_M = 400.0
+H69_CLAIM_M = 250.0
 
 
-# --------------------------------------------------------------------- io
-def read_grid(data_dir: Path) -> dict:
-    """Footprint / catalogue / evaluated masks (same contract as ``h50.read_grid``)."""
-    return h50.read_grid(data_dir)
+# --------------------------------------------------------------------- masks
+def noise_ok_rad(data_dir: Path, road_m: float, claim_m: float) -> np.ndarray:
+    """True where the cell is >= road_m from a TIGER road and >= claim_m from a
+    BLM closed mining claim (NaN distance = outside footprint -> False)."""
+    with rasterio.open(Path(data_dir) / "external" / "audit_sources"
+                       / "tiger_road_distance_m.tif") as src:
+        road = src.read(1)
+    with rasterio.open(Path(data_dir) / "external" / "audit_sources"
+                       / "blm_closed_claim_distance_m.tif") as src:
+        claim = src.read(1)
+    ok = (np.nan_to_num(road, nan=-1.0) >= float(road_m)) & \
+         (np.nan_to_num(claim, nan=-1.0) >= float(claim_m))
+    return ok
 
 
-def thk_ratio(data_dir: Path) -> np.ndarray:
-    """The USGS GeoDAWN contractor Th/K ratio grid as float32 (0 = nodata).
-
-    Band order and quantisation are pinned by ``external/geodawn_extensions.json``
-    (u8 ranks over each source channel's finite in-footprint 1st..99th percentiles;
-    bytes are ranks, not physical units).  The rank transform used downstream is
-    monotone in the u8 code, so ranking the code is ranking the ratio.
-    """
-    path = Path(data_dir) / "external" / "geodawn_extensions_u8.tif"
-    with rasterio.open(path) as src:
-        names = list(src.descriptions)
-        if H67_THK_BAND not in names:
-            raise ValueError(f"geodawn extensions stack lacks band {H67_THK_BAND!r}")
-        return src.read(names.index(H67_THK_BAND) + 1).astype(np.float32)
-
-
-# ------------------------------------------------------------------ domains
-def h60_domain(data_dir: Path) -> np.ndarray:
-    """The H60 emission domain (evaluated & valid-lidar & road/claim noise-ok)."""
-    return h60.h60_emission_domain(data_dir)
-
-
-def h66_domain(data_dir: Path, base: np.ndarray | None = None) -> np.ndarray:
-    """H66 emission domain: the H60 domain AND farther than 3 px from the catalogue."""
-    grids = read_grid(data_dir)
-    dcat = ndi.distance_transform_edt(~grids["catalogue"])
-    base = h60_domain(data_dir) if base is None else base
-    return base & (dcat > H66_FAR_RADIUS_PX)
-
-
-def h67_domain(data_dir: Path, base: np.ndarray | None = None) -> np.ndarray:
-    """H67 emission domain: the H60 domain AND valid (non-nodata) Th/K."""
-    base = h60_domain(data_dir) if base is None else base
-    return base & (thk_ratio(data_dir) > 0)
-
-
-# ------------------------------------------------------------------ fields
-def _lexicographic_rank(keys_desc: tuple[np.ndarray, ...], mask: np.ndarray) -> np.ndarray:
-    """Tie-free rank in (0,1] over ``mask``; ``keys_desc`` are descending-sort keys,
-    the FIRST key primary.  The highest-priority cell receives the LARGEST value (1.0),
-    so a greedy top-ranked emitter picks it first.  Returns 0 outside ``mask``."""
-    out = np.zeros(mask.shape, np.float32)
-    ys, xs = np.nonzero(mask)
-    if ys.size == 0:
-        return out
-    # np.lexsort uses the LAST key as primary, so reverse the key order to make the
-    # first key primary; -k sorts each key descending.  order[0] is then the
-    # highest-priority cell, which must receive the LARGEST rank value.
-    order = np.lexsort(tuple(-k[ys, xs] for k in reversed(keys_desc)))
-    r = (np.arange(1, ys.size + 1, dtype=np.float64) / float(ys.size)).astype(np.float32)
-    out[ys[order], xs[order]] = r[::-1]
-    return out
-
-
-def h65_consensus(data_dir: Path, mask: np.ndarray | None = None) -> dict:
-    """H65: amplitude-tie-broken consensus count of the six scarp channels.
-
-    ``consensus[y, x] = number of channels c with channel_c[y, x] > threshold_c``;
-    the field is the lexicographic rank of (consensus desc, H60 channel-rank-max
-    desc) over the emission domain.  No label, catalogue geometry, prior prediction
-    or score enters this function.
-    """
-    data_dir = Path(data_dir)
+def lidar_domain_rad(data_dir: Path, road_m: float, claim_m: float) -> np.ndarray:
+    """Emission domain for a mask arm: evaluated & valid-lidar & noise-ok(radii)."""
+    grids = h50.read_grid(data_dir)
     ch = h50.lidar_scarp_channels(data_dir)
     valid = ch["valid"] > 0
-    if mask is None:
-        mask = h60_domain(data_dir)
-    mask = mask & valid
-    consensus = np.zeros(mask.shape, np.int32)
-    for name, thr in H65_THRESHOLDS.items():
-        if name not in ch:
-            raise ValueError(f"lidar scarp stack lacks channel {name!r}")
-        consensus += (ch[name] > float(thr)).astype(np.int32)
-    amp = h60.channel_rank_max(data_dir, mask)
-    field = _lexicographic_rank((consensus.astype(np.float64), amp.astype(np.float64)), mask)
-    if not np.isfinite(field[mask]).all() or (field[mask] <= 0).any() or (field[mask] > 1).any():
-        raise ValueError("H65 field is not finite and inside (0,1] on the emission domain")
-    return dict(field=field, mask=mask,
-                counts={int(k): int(v) for k, v in zip(*np.unique(consensus[mask],
-                                                                   return_counts=True))},
-                n_channels=len(H65_THRESHOLDS))
+    del ch
+    return grids["evaluated"] & valid & noise_ok_rad(data_dir, road_m, claim_m)
 
 
-def h66_field(data_dir: Path, mask: np.ndarray | None = None) -> dict:
-    """H66: the H60 field restricted to the far-from-catalogue domain.
-
-    Same field values as H60; only the emission domain differs (cells farther than
-    ``H66_FAR_RADIUS_PX`` from every catalogue pixel).  The catalogue is a *given*
-    training input (``existing_faults.tif``); the scoring domain masks it out of
-    evaluation, and nothing here reads any hidden label.
-    """
-    data_dir = Path(data_dir)
-    if mask is None:
-        mask = h66_domain(data_dir)
-    base = h60.h60_field(data_dir, h60_domain(data_dir))
-    field = np.where(mask, base, 0.0).astype(np.float32)
-    if not np.isfinite(field[mask]).all() or (field[mask] <= 0).any() or (field[mask] > 1).any():
-        raise ValueError("H66 field is not finite and inside (0,1] on the emission domain")
-    return dict(field=field, mask=mask)
-
-
-def h67_field(data_dir: Path, mask: np.ndarray | None = None) -> dict:
-    """H67: additive 50/50 rank mixture of the H60 lidar field and the Th/K rank.
-
-    Structure (lidar scarp amplitude) + fossil heat (radiometric alteration).  The
-    mixture weight is frozen at 0.5 (the H62 mechanism).  No label, catalogue
-    geometry, prior prediction or score enters this function.
-    """
-    data_dir = Path(data_dir)
-    if mask is None:
-        mask = h67_domain(data_dir)
-    h60f = h60.h60_field(data_dir, h60_domain(data_dir))
-    thk = thk_ratio(data_dir)
-    mix = (H67_LAMBDA * h60f
-           + (1.0 - H67_LAMBDA) * rank_scale(np.where(mask, thk, np.nan)).astype(np.float32))
-    field = rank_scale(np.where(mask, mix, np.nan))
-    field = np.where(mask & np.isfinite(field), field, 0.0).astype(np.float32)
-    if not np.isfinite(field[mask]).all() or (field[mask] <= 0).any() or (field[mask] > 1).any():
-        raise ValueError("H67 field is not finite and inside (0,1] on the emission domain")
-    return dict(field=field, mask=mask, lambda_=H67_LAMBDA, thk_band=H67_THK_BAND)
-
-
-def h68_field(data_dir: Path, mask: np.ndarray | None = None) -> dict:
-    """H68: rank-max over the eight amplitude channels (H60's six + ex_max + relief)."""
-    data_dir = Path(data_dir)
+# -------------------------------------------------------------------- fields
+def h65_field(data_dir: Path, mask: np.ndarray) -> np.ndarray:
+    """H65: rank_scale of the step_max channel alone over the emission domain."""
     ch = h50.lidar_scarp_channels(data_dir)
-    valid = ch["valid"] > 0
-    if mask is None:
-        mask = h60_domain(data_dir)
-    mask = mask & valid
-    acc = np.zeros(mask.shape, np.float32)
-    for name in H68_CHANNELS:
-        if name not in ch:
-            raise ValueError(f"lidar scarp stack lacks channel {name!r}")
-        r = rank_scale(np.where(mask, ch[name], np.nan)).astype(np.float32)
-        np.maximum(acc, r, out=acc)
+    step = np.asarray(ch["step_max"], np.float32)
+    del ch
+    field = rank_scale(np.where(mask, step, np.nan))
+    return np.where(mask & np.isfinite(field), field, 0.0).astype(np.float32)
+
+
+def h66_field(data_dir: Path, mask: np.ndarray) -> np.ndarray:
+    """H66: rank_scale of the per-cell mean of the six channel ranks."""
+    ch = h50.lidar_scarp_channels(data_dir)
+    acc = np.zeros(mask.shape, np.float64)
+    for name in h60.H60_CHANNELS:
+        acc += rank_scale(np.where(mask, ch[name], np.nan)).astype(np.float64)
+    del ch
+    acc /= float(len(h60.H60_CHANNELS))
     field = rank_scale(np.where(mask, acc, np.nan))
-    field = np.where(mask & np.isfinite(field), field, 0.0).astype(np.float32)
-    if not np.isfinite(field[mask]).all() or (field[mask] <= 0).any() or (field[mask] > 1).any():
-        raise ValueError("H68 field is not finite and inside (0,1] on the emission domain")
-    return dict(field=field, mask=mask, channels=list(H68_CHANNELS))
+    return np.where(mask & np.isfinite(field), field, 0.0).astype(np.float32)
 
 
-def build_all(data_dir: Path) -> dict:
-    """Build every arm's field + domain once (the screen crops per block)."""
-    data_dir = Path(data_dir)
-    base = h60_domain(data_dir)
-    dom66 = h66_domain(data_dir, base)
-    dom67 = h67_domain(data_dir, base)
-    return {
-        "h65": h65_consensus(data_dir, base),
-        "h66": h66_field(data_dir, dom66),
-        "h67": h67_field(data_dir, dom67),
-        "h68": h68_field(data_dir, base),
-        "domains": {"h60": int(base.sum()), "h66": int(dom66.sum()),
-                    "h67": int(dom67.sum())},
-    }
+def h60_field_on(data_dir: Path, mask: np.ndarray) -> np.ndarray:
+    """The H60 field definition recomputed over an arbitrary emission domain.
+
+    Identical to ``h60.h60_field`` (channel-rank maximum, re-ranked); the mask
+    argument is the arm's own domain.  Recomputation -- not reuse of H60's values --
+    is required for H68 because the relaxed domain contains cells H60 never ranked.
+    """
+    return h60.h60_field(data_dir, mask)
+
+
+def tip_pixels(catalogue: np.ndarray) -> np.ndarray:
+    """Catalogue pixels with exactly one catalogue neighbour in 8-connectivity.
+
+    Isolated single-pixel components have zero neighbours and are not tips, by the
+    frozen definition.
+    """
+    cat = np.asarray(catalogue, bool)
+    nbr = ndi.convolve(cat.astype(np.int8), np.ones((3, 3), np.int8),
+                       mode="constant", cval=0) - cat.astype(np.int8)
+    return cat & (nbr == 1)
+
+
+def tip_distance(data_dir: Path) -> np.ndarray:
+    """Euclidean distance (px) to the nearest catalogue-tip pixel."""
+    with rasterio.open(Path(data_dir) / "labels.tif") as src:
+        catalogue = src.read(1) == 1
+    return ndi.distance_transform_edt(~tip_pixels(catalogue))
+
+
+def h67_field(data_dir: Path, mask: np.ndarray) -> np.ndarray:
+    """H67: rank_scale of 1/(1+d_tip) over the emission domain (tip proximity)."""
+    d = tip_distance(data_dir).astype(np.float64)
+    prox = 1.0 / (1.0 + d)
+    field = rank_scale(np.where(mask, prox, np.nan))
+    return np.where(mask & np.isfinite(field), field, 0.0).astype(np.float32)
+
+
+# ------------------------------------------------------- H70 instrument pops
+def instrument_sgmc_threshold(data_dir: Path, dist_px: float) -> np.ndarray:
+    """SGMC fault pixels off the catalogue and farther than dist_px from it."""
+    with rasterio.open(Path(data_dir) / "external"
+                       / "derived_sgmc_faults_100m_u8.tif") as src:
+        sgmc = src.read(1) > 0
+    with rasterio.open(Path(data_dir) / "labels.tif") as src:
+        catalogue = src.read(1) == 1
+    with rasterio.open(Path(data_dir) / "sample_submission.tif") as src:
+        footprint = np.isfinite(src.read(1))
+    dc = ndi.distance_transform_edt(~catalogue)
+    return sgmc & footprint & ~catalogue & (dc > float(dist_px))
+
+
+def instrument_sgmc_near(data_dir: Path, near_px: float = 3.0) -> np.ndarray:
+    """SGMC fault pixels off the catalogue but within near_px of it."""
+    with rasterio.open(Path(data_dir) / "external"
+                       / "derived_sgmc_faults_100m_u8.tif") as src:
+        sgmc = src.read(1) > 0
+    with rasterio.open(Path(data_dir) / "labels.tif") as src:
+        catalogue = src.read(1) == 1
+    with rasterio.open(Path(data_dir) / "sample_submission.tif") as src:
+        footprint = np.isfinite(src.read(1))
+    dc = ndi.distance_transform_edt(~catalogue)
+    return sgmc & footprint & ~catalogue & (dc <= float(near_px))
+
+
+def volcanic_vent_pixels(data_dir: Path, nrows: int, ncols: int) -> np.ndarray:
+    """Boolean mask of the INGENIOUS volcanic-vent pixels (exploratory, n = 21).
+
+    Rows/cols come from the pinned ``ext_gdr_volcanic_vents_in_footprint`` CSV;
+    out-of-grid entries raise rather than silently dropping vents.
+    """
+    path = Path(data_dir) / "external" / "gdr_volcanic_vents_in_footprint.csv"
+    mask = np.zeros((nrows, ncols), bool)
+    with path.open(newline="") as fh:
+        for row in csv.DictReader(fh):
+            r, c = int(float(row["row"])), int(float(row["col"]))
+            if not (0 <= r < nrows and 0 <= c < ncols):
+                raise ValueError(f"vent pixel out of grid: row={r} col={c}")
+            mask[r, c] = True
+    return mask

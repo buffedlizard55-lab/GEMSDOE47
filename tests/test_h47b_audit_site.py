@@ -18,18 +18,20 @@ class H47BAuditSiteTests(unittest.TestCase):
         summary = (ROOT / "docs" / "executive-summary.html").read_text(encoding="utf-8")
         audit = (ROOT / "docs" / "h47b-mask-audit-20261006.html").read_text(encoding="utf-8")
         downloads = (ROOT / "docs" / "all-downloads.html").read_text(encoding="utf-8")
-        # H47-B is a research-only arm: it stays registered with its exact bytes, and the
-        # two pages the user reads keep pointing at its audit, but the submittable artifact
-        # is now H50 rather than H47-C1.
+        # H47-B remains an exact-byte, research-only audit entry. The current pages
+        # must point to H60's local status without restoring any upload recommendation.
         for current_page in (home, summary):
-            self.assertIn("h50.html", current_page)
-            self.assertIn("OK TO DOWNLOAD AND SUBMIT", current_page)
-            self.assertIn("h47b-mask-audit-20261006.html", current_page)
-            self.assertIn("RESEARCH-ONLY", current_page)
+            self.assertIn("current-status.html", current_page)
+            self.assertIn("gems47-h60-lidarscarp-s2p0-20261007-nanoutside.tif", current_page)
+            self.assertIn("H47-C1", current_page)
+            self.assertNotIn("OK TO DOWNLOAD AND SUBMIT", current_page)
+            self.assertIn("NO UPLOAD", current_page.upper())
         self.assertIn(ARTIFACT, audit)
         self.assertIn(ARTIFACT_SHA256, audit)
         self.assertIn(ARTIFACT, downloads)
         self.assertIn(ARTIFACT_SHA256, downloads)
+        self.assertIn("h47b-mask-audit-20261006.html", downloads)
+        self.assertIn("RESEARCH ONLY", downloads.upper())
         self.assertIn("NOT PROMOTED", audit)
         self.assertIn("portal error's cause remains unknown", audit)
         self.assertIn("0.02563947", audit)

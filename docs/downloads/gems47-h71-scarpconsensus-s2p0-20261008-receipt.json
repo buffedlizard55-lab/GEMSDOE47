@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "hypothesis_id": "H65",
-  "artifact": "gems47-h65-scarpconsensus-s2p0-20261008",
-  "generated_utc": "2026-10-08T03:16:49Z",
+  "hypothesis_id": "H71",
+  "artifact": "gems47-h71-scarpconsensus-s2p0-20261008",
+  "generated_utc": "2026-10-08T03:36:39Z",
   "spacing_px": 2.0,
   "budget": 37654,
   "arm_spec": {
@@ -23,7 +23,7 @@
       "cross_max": 200.0
     }
   },
-  "emission_domain": "h65 emission domain (1,610,706 cells)",
+  "emission_domain": "h71 emission domain (1,610,706 cells)",
   "format": {
     "driver": "GTiff",
     "count": 1,
@@ -70,8 +70,8 @@
     "max_jaccard_vs_scored_priors": 0.006739
   },
   "uniqueness_pass": false,
-  "screen": "evidence/h65/screen.json",
-  "preregistration": "docs/research/h65-hypotheses-preregistered.md",
+  "screen": "evidence/h71/screen.json",
+  "preregistration": "docs/research/h71-hypotheses-preregistered.md",
   "screen_selected_spacing_px": 2.0,
   "conformal": {
     "method": "max-residual one-sided split conformal, Lei et al. JASA 2018 Alg. 2; operating point = argmax certified lower bound",
@@ -113,14 +113,14 @@
     }
   },
   "sha256_tif": "cbae340361811abb7e7f6d0a1712d9adad087562c24479cb98439d5561225a17",
-  "submission_note_field": "h65 scarp-consensus d2p0 conformal90",
+  "submission_note_field": "h71 scarp-consensus d2p0 conformal90",
   "bytes": 298948,
   "files": [
-    "gems47-h65-scarpconsensus-s2p0-20261008-allfinite.tif",
-    "gems47-h65-scarpconsensus-s2p0-20261008.zip",
-    "gems47-h65-scarpconsensus-s2p0-20261008-receipt.json",
-    "gems47-h65-scarpconsensus-s2p0-20261008-note.txt",
-    "gems47-h65-scarpconsensus-s2p0-20261008-nanoutside.tif"
+    "gems47-h71-scarpconsensus-s2p0-20261008-allfinite.tif",
+    "gems47-h71-scarpconsensus-s2p0-20261008.zip",
+    "gems47-h71-scarpconsensus-s2p0-20261008-receipt.json",
+    "gems47-h71-scarpconsensus-s2p0-20261008-note.txt",
+    "gems47-h71-scarpconsensus-s2p0-20261008-nanoutside.tif"
   ],
   "provenance_limits": [
     "The lidar scarp stack is owner-derived from USGS 3DEP 1 m DEM tiles (706/716, tile list OCR-recovered from the competition PDF), not organiser-supplied.",
