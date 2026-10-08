@@ -123,7 +123,7 @@ def pruning_curve(dots: np.ndarray, truth: np.ndarray, valid: np.ndarray,
     direct = dti(cand.astype(np.float32), g.astype(np.int8), valid=valid)
     out = []
     for f in fractions:
-        keep = int(round(f * n))
+        keep = round(f * n)
         sel = np.zeros(cand.shape, bool)
         sel[ys[order[:keep]], xs[order[:keep]]] = True
         r = dti(sel.astype(np.float32), g.astype(np.int8), valid=valid)
@@ -204,7 +204,7 @@ def main() -> int:
             try:
                 with rasterio.open(q) as src:
                     a = np.nan_to_num(src.read(1).astype(np.float32), nan=0.0) > 0
-            except Exception as exc:  # noqa: BLE001 - audit must survive a bad file
+            except Exception as exc:  # audit must survive a bad file
                 rows.append(dict(path=str(q.relative_to(ROOT)), error=repr(exc)))
                 continue
             inter = int((a & dots).sum())

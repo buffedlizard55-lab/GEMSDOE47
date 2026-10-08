@@ -127,15 +127,18 @@ def h67_domain(data_dir: Path, base: np.ndarray | None = None) -> np.ndarray:
 # ------------------------------------------------------------------ fields
 def _lexicographic_rank(keys_desc: tuple[np.ndarray, ...], mask: np.ndarray) -> np.ndarray:
     """Tie-free rank in (0,1] over ``mask``; ``keys_desc`` are descending-sort keys,
-    the FIRST key primary.  Returns 0 outside ``mask``."""
+    the FIRST key primary.  The highest-priority cell receives the LARGEST value (1.0),
+    so a greedy top-ranked emitter picks it first.  Returns 0 outside ``mask``."""
     out = np.zeros(mask.shape, np.float32)
     ys, xs = np.nonzero(mask)
     if ys.size == 0:
         return out
-    # np.lexsort uses the LAST key as primary, so reverse the key order
+    # np.lexsort uses the LAST key as primary, so reverse the key order to make the
+    # first key primary; -k sorts each key descending.  order[0] is then the
+    # highest-priority cell, which must receive the LARGEST rank value.
     order = np.lexsort(tuple(-k[ys, xs] for k in reversed(keys_desc)))
     r = (np.arange(1, ys.size + 1, dtype=np.float64) / float(ys.size)).astype(np.float32)
-    out[ys[order], xs[order]] = r
+    out[ys[order], xs[order]] = r[::-1]
     return out
 
 

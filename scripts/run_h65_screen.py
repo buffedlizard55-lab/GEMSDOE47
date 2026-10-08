@@ -110,7 +110,7 @@ def build_blocks(mask: np.ndarray) -> list[dict]:
     if not blocks or total <= 0:
         raise ValueError("no evaluated pixels")
     for b in blocks:
-        b["budget"] = max(1, int(round(BUDGET * b["evaluated_pixels"] / total)))
+        b["budget"] = max(1, round(BUDGET * b["evaluated_pixels"] / total))
     permutation = np.random.default_rng(SEED).permutation(len(blocks))
     half = len(blocks) // 2
     for i in permutation[:half]:
@@ -349,7 +349,6 @@ def main() -> int:
 
     # ---- the frozen six-condition promotion gate --------------------------------
     h50_anchor = arms_out["h50"]
-    h60_incumbent = arms_out["h60"]
     gate_rows = {}
     for arm in ARMS:
         a = arms_out[arm]
