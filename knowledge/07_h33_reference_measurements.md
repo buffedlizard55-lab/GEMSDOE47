@@ -25,8 +25,9 @@ hash-pinned mirror bytes, not from any webpage claim.
 
 ## Lineage: it is a pruning of a scored sibling raster
 
-Mask Jaccard against every prior raster reachable from this checkout (38 compared,
-0 exact matches):
+Mask Jaccard against every prior raster reachable from this checkout (42 compared,
+0 exact matches — the count grows as this repository publishes artifacts; the four
+session-6 rasters are among them):
 
 * `gems24-h25-1-dotted-h19-5-d2-8-...-nan.tif` (44,090 dots, owner-reported
   **0.2600**): Jaccard **0.854026**, and the reference is a **strict subset** of it

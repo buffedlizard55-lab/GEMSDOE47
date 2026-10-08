@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-10-08T02:26:10Z",
+  "generated_utc": "2026-10-08T03:23:30Z",
   "question": "why did the GEMSDOE32 h33-2-b2 submission report the family-high 0.2778 \u2014 geometry, lineage and proxy DTI of the owner-reported d2.8 reference raster",
   "attribution_caveat": "The public leaderboard is participant-level. No organiser receipt maps the 0.2778 row to this TIFF and the owner page marks the raster unscored; 0.2778 is owner-reported. Nothing here authenticates a score-to-file mapping.",
   "raster": "reference/h33-2-b2-zeros.tif (hash-pinned owner mirror from buffedlizard55-lab/GEMSDOE32; not organiser-authenticated bytes)",
@@ -269,7 +269,7 @@
     }
   },
   "lineage_jaccard": {
-    "compared": 38,
+    "compared": 42,
     "exact_matches": 0,
     "max_jaccard": 0.854026,
     "reference_is_subset_of": [
@@ -521,6 +521,24 @@
         "exact_match": false
       },
       {
+        "path": "docs/downloads/gems47-h68-lidar-8ch-s2p8-20261008-allfinite.tif",
+        "dots": 37654,
+        "intersection": 427,
+        "union": 74881,
+        "jaccard": 0.005702,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h68-lidar-8ch-s2p8-20261008-nanoutside.tif",
+        "dots": 37654,
+        "intersection": 427,
+        "union": 74881,
+        "jaccard": 0.005702,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
         "path": "docs/downloads/gems47-h60-lidarscarp-s2p0-20261007-allfinite.tif",
         "dots": 37654,
         "intersection": 332,
@@ -535,6 +553,24 @@
         "intersection": 332,
         "union": 74976,
         "jaccard": 0.004428,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h65-scarpconsensus-s2p0-20261008-allfinite.tif",
+        "dots": 37654,
+        "intersection": 311,
+        "union": 74997,
+        "jaccard": 0.004147,
+        "reference_is_subset_of_this": false,
+        "exact_match": false
+      },
+      {
+        "path": "docs/downloads/gems47-h65-scarpconsensus-s2p0-20261008-nanoutside.tif",
+        "dots": 37654,
+        "intersection": 311,
+        "union": 74997,
+        "jaccard": 0.004147,
         "reference_is_subset_of_this": false,
         "exact_match": false
       },
@@ -621,5 +657,5 @@
       }
     ]
   },
-  "elapsed_seconds": 80.61
+  "elapsed_seconds": 74.1
 }
